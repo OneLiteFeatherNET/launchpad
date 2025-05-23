@@ -1,0 +1,10 @@
+@tailwind utilities;
+
+@theme {
+    /* Sekundärfarben aus dem Brand Guide */
+    --color-secondary-pink: #EC008B;
+    --color-secondary-orange: #F7931D;
+    --color-secondary-purple: #91268F;
+    --color-secondary-blue: #2A388F;
+    --color-secondary-cyan: #27A9E1;
+}

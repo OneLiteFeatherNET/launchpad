@@ -15,5 +15,11 @@ export default defineNuxtConfig({
         { code: 'de', iso: 'de-DE', name: 'Deutsch' },
         { code: 'en', iso: 'en-US', name: 'English' }
     ]
+  },
+  tailwindcss: {
+    cssPath: [`~/css/tailwind.css`, { injectPosition: "first" }],
+    config: {},
+    viewer: true,
+    exposeConfig: false,
   }
 })
