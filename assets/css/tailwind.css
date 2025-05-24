@@ -1,3 +1,5 @@
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
 @theme {
@@ -7,4 +9,15 @@
     --color-secondary-purple: #91268F;
     --color-secondary-blue: #2A388F;
     --color-secondary-cyan: #27A9E1;
+}
+
+@theme {
+    --gradient-from: var(--color-secondary-pink);
+    --gradient-via:  var(--color-secondary-purple);
+    --gradient-to:   var(--color-secondary-cyan);
+}
+@theme dark {
+    --gradient-from: var(--color-secondary-cyan);
+    --gradient-via:  var(--color-secondary-blue);
+    --gradient-to:   var(--color-secondary-pink);
 }

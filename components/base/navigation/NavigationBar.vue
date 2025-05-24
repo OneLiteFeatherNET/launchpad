@@ -2,26 +2,19 @@
 import { useI18n, useRoute, ref } from '#imports';
 import type {Locale} from "@intlify/core-base";
 
-// i18n für Übersetzungen
 const { locale, locales } = useI18n();
 
-// Navigation-Links
 const navItems = [
-  { title: 'Home', path: '/' },
-  { title: 'Blog', path: '/blog' },
-  { title: 'Über uns', path: '/about' },
-  { title: 'Kontakt', path: '/contact' }
+  { titleKey: 'navigation.home', path: '/' },
 ];
 
-// Aktuelle Route für Navigation-Highlighting
 const route = useRoute();
 
-// Sprachauswahl-Handler
-const changeLocale = (newLocale: Locale) => {
-  locale.value = newLocale;
+const changeLocale = (newLocale: Event) => {
+  const target = newLocale.target as HTMLSelectElement;
+  locale.value = target.value as Locale;
 };
 
-// Mobile Menü Status
 const mobileMenuOpen = ref(false);
 </script>
 
@@ -29,14 +22,11 @@ const mobileMenuOpen = ref(false);
   <header class="bg-white dark:bg-gray-900 sticky top-0 z-10 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
-        <!-- Logo/Brand -->
         <div class="flex items-center">
           <NuxtLink to="/" class="flex-shrink-0 flex items-center">
-            <span class="text-xl font-medium text-gray-900 dark:text-white">Brand</span>
+            <span class="text-xl font-medium dark:text-white ">OneLiteFeather</span>
           </NuxtLink>
         </div>
-
-        <!-- Desktop-Navigation -->
         <nav class="hidden md:flex items-center space-x-1">
           <NuxtLink
               v-for="item in navItems"
@@ -45,13 +35,11 @@ const mobileMenuOpen = ref(false);
               class="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-2 text-sm font-medium rounded-full transition-colors"
               :class="{ 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400': route.path === item.path }"
           >
-            {{ item.title }}
+            {{ $t(item.titleKey) }}
           </NuxtLink>
-
-          <!-- Sprachauswahl -->
           <select
               :value="locale"
-              @change="changeLocale($event.target.value)"
+              @change="changeLocale"
               class="ml-4 bg-gray-100 dark:bg-gray-800 border-0 rounded-full py-1.5 px-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option v-for="loc in locales" :key="loc.code" :value="loc.code">
@@ -59,8 +47,6 @@ const mobileMenuOpen = ref(false);
             </option>
           </select>
         </nav>
-
-        <!-- Mobile-Menü-Button -->
         <div class="md:hidden flex items-center">
           <button
               @click="mobileMenuOpen = !mobileMenuOpen"
@@ -74,8 +60,6 @@ const mobileMenuOpen = ref(false);
         </div>
       </div>
     </div>
-
-    <!-- Mobile-Menü -->
     <div class="md:hidden" v-show="mobileMenuOpen">
       <div class="pt-2 pb-4 space-y-1 px-4">
         <NuxtLink
@@ -86,14 +70,12 @@ const mobileMenuOpen = ref(false);
             :class="{ 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400': route.path === item.path }"
             @click="mobileMenuOpen = false"
         >
-          {{ item.title }}
+          {{ $t(item.titleKey) }}
         </NuxtLink>
-
-        <!-- Mobile Sprachauswahl -->
         <div class="py-2">
           <select
               :value="locale"
-              @change="changeLocale($event.target.value)"
+              @change="changeLocale"
               class="w-full bg-gray-100 dark:bg-gray-800 border-0 rounded-lg py-2 px-3 text-base focus:ring-2 focus:ring-blue-500 outline-none"
           >
             <option v-for="loc in locales" :key="loc.code" :value="loc.code">
@@ -107,5 +89,4 @@ const mobileMenuOpen = ref(false);
 </template>
 
 <style scoped>
-
 </style>

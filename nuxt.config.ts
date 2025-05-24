@@ -12,9 +12,10 @@ export default defineNuxtConfig({
     strategy: 'prefix_and_default',
     defaultLocale: 'de',
     locales: [
-        { code: 'de', iso: 'de-DE', name: 'Deutsch' },
-        { code: 'en', iso: 'en-US', name: 'English' }
-    ]
+        { code: 'de', iso: 'de-DE', name: 'Deutsch', file: 'de.json' },
+        { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' }
+    ],
+    baseUrl: 'https://blog.onelitefeather.net'
   },
   tailwindcss: {
     cssPath: [`~/css/tailwind.css`, { injectPosition: "first" }],
