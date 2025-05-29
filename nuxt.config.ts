@@ -9,13 +9,18 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss'
   ],
   i18n: {
-    strategy: 'prefix_and_default',
+    strategy: 'prefix',
     defaultLocale: 'de',
     locales: [
         { code: 'de', iso: 'de-DE', name: 'Deutsch', file: 'de.json' },
         { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' }
     ],
-    baseUrl: 'https://blog.onelitefeather.net'
+    baseUrl: 'https://blog.onelitefeather.net',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root' // recommended
+    }
   },
   tailwindcss: {
     cssPath: [`~/css/tailwind.css`, { injectPosition: "first" }],
