@@ -15,8 +15,8 @@ const route = useRoute();
       v-if="!props.mobile"
       :key="props.path"
       :to="props.path"
-      class="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-2 text-sm font-medium rounded-full transition-colors"
-      :class="{ 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400': route.path === props.path }"
+      class="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-2 text-sm font-medium rounded-full transition-colors shadow-sm"
+      :class="{ 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm': route.path === props.path }"
   >
   {{ $t(props.textKey) }}
   </NuxtLink>
@@ -24,8 +24,8 @@ const route = useRoute();
       v-if="props.mobile"
       :key="props.path"
       :to="props.path"
-      class="block px-3 py-2 text-base font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-      :class="{ 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400': route.path === props.path }"
+      class="block px-3 py-2 text-base font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 shadow-sm"
+      :class="{ 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm': route.path === props.path }"
       @click="emit('click-mobile')"
   >
     {{ $t(props.textKey) }}

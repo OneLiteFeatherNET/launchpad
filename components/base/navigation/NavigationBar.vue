@@ -17,7 +17,7 @@ const mobileMenuOpen = ref(false);
       <div class="flex justify-between h-16">
         <div class="flex items-center">
           <NuxtLink to="/" class="flex-shrink-0 flex items-center">
-            <span class="text-xl font-medium dark:text-white ">OneLiteFeather</span>
+            <span class="text-xl font-medium dark:text-white ">OneLiteFeather Blog</span>
           </NuxtLink>
         </div>
         <nav class="hidden md:flex items-center space-x-1">
