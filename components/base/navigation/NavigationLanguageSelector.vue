@@ -5,18 +5,13 @@ const { locale, locales } = useI18n();
 const props = defineProps<{
   mobile?: boolean;
 }>();
-const changeLocale = (newLocale: Event) => {
-  const target = newLocale.target as HTMLSelectElement;
-  locale.value = <"en" | "de">target.value;
-};
 
 const isOpen = ref(false);
 
-// Schließe das Dropdown-Menü, wenn außerhalb geklickt wird
 const dropdown = ref(null);
-/*onClickOutside(dropdown, () => {
+onClickOutside(dropdown, () => {
   isOpen.value = false;
-});*/
+});
 </script>
 
 <template>
@@ -45,7 +40,6 @@ const dropdown = ref(null);
       </svg>
     </button>
 
-    <!-- Dropdown Menu (für beide Versionen) -->
     <div
         v-show="isOpen"
         class="absolute z-30 mt-2 overflow-hidden origin-top-right bg-white  dark:text-white dark:bg-gray-800 rounded-xl shadow-lg transition-all transform"
