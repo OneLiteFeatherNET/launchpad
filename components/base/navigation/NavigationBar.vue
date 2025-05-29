@@ -1,19 +1,12 @@
 <script setup lang="ts">
-import { useI18n, useRoute, ref } from '#imports';
-import type {Locale} from "@intlify/core-base";
-
-const { locale, locales } = useI18n();
+import { ref } from '#imports';
+import NavigationSimpleButton from "~/components/base/navigation/NavigationSimpleButton.vue";
+import NavigationLanguageSelector from "~/components/base/navigation/NavigationLanguageSelector.vue";
+const localePath = useLocalePath()
 
 const navItems = [
-  { titleKey: 'navigation.home', path: '/' },
+  { textKey: 'navigation.home', path: localePath('/') },
 ];
-
-const route = useRoute();
-
-const changeLocale = (newLocale: Event) => {
-  const target = newLocale.target as HTMLSelectElement;
-  locale.value = target.value as Locale;
-};
 
 const mobileMenuOpen = ref(false);
 </script>
@@ -28,24 +21,12 @@ const mobileMenuOpen = ref(false);
           </NuxtLink>
         </div>
         <nav class="hidden md:flex items-center space-x-1">
-          <NuxtLink
+          <NavigationSimpleButton
               v-for="item in navItems"
+              :text-key="item.textKey"
               :key="item.path"
-              :to="item.path"
-              class="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-2 text-sm font-medium rounded-full transition-colors"
-              :class="{ 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400': route.path === item.path }"
-          >
-            {{ $t(item.titleKey) }}
-          </NuxtLink>
-          <select
-              :value="locale"
-              @change="changeLocale"
-              class="ml-4 bg-gray-100 dark:bg-gray-800 border-0 rounded-full py-1.5 px-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-          >
-            <option v-for="loc in locales" :key="loc.code" :value="loc.code">
-              {{ loc.name }}
-            </option>
-          </select>
+              :path="item.path" />
+          <NavigationLanguageSelector />
         </nav>
         <div class="md:hidden flex items-center">
           <button
@@ -62,26 +43,15 @@ const mobileMenuOpen = ref(false);
     </div>
     <div class="md:hidden" v-show="mobileMenuOpen">
       <div class="pt-2 pb-4 space-y-1 px-4">
-        <NuxtLink
+        <NavigationSimpleButton
             v-for="item in navItems"
+            :text-key="item.textKey"
             :key="item.path"
-            :to="item.path"
-            class="block px-3 py-2 text-base font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-            :class="{ 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400': route.path === item.path }"
-            @click="mobileMenuOpen = false"
-        >
-          {{ $t(item.titleKey) }}
-        </NuxtLink>
+            :path="item.path"
+            :mobile="true"
+            @clickMobile="mobileMenuOpen = false"/>
         <div class="py-2">
-          <select
-              :value="locale"
-              @change="changeLocale"
-              class="w-full bg-gray-100 dark:bg-gray-800 border-0 rounded-lg py-2 px-3 text-base focus:ring-2 focus:ring-blue-500 outline-none"
-          >
-            <option v-for="loc in locales" :key="loc.code" :value="loc.code">
-              {{ loc.name }}
-            </option>
-          </select>
+          <NavigationLanguageSelector :mobile="true" />
         </div>
       </div>
     </div>
