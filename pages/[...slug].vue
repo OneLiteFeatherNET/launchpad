@@ -10,7 +10,7 @@ definePageMeta({
 const pathParts = route.path.split('/');
 const { data: article} = await useAsyncData(route.path, () => {
   // @ts-ignore
-  return queryCollection('blog_'+locale?.value ?? 'de').where("slug", "=", pathParts.at(2)).first();
+  return queryCollection('blog_'+locale?.value || 'blog_de').where("slug", "=", pathParts.at(2)).first();
 });
 useSeoMeta(article.value?.seo || {
 })

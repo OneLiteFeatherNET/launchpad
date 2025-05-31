@@ -9,12 +9,12 @@ definePageMeta({
 });
 const { data: top1Article} = await useAsyncData('top1', () => {
   // @ts-ignore
-  return queryCollection('blog_'+locale?.value ?? 'de').order('pubDate', 'DESC').first();
+  return queryCollection('blog_'+locale?.value || 'blog_de').order('pubDate', 'DESC').first();
 });
 
 const {data: allPostsData} = await useAsyncData('all-posts', () => {
   // @ts-ignore
-  return queryCollection('blog_'+locale?.value ?? 'de').order('pubDate', 'DESC').all();
+  return queryCollection('blog_'+locale?.value || 'blog_de').order('pubDate', 'DESC').all();
 });
 const allPosts = allPostsData.value?.slice(1); // Remove the first item as it is already displayed in Top1
 useHead({
