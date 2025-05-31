@@ -1040,7 +1040,6 @@ packages:
   '@resvg/resvg-js-android-arm-eabi@2.6.2':
     resolution: {integrity: sha512-FrJibrAk6v29eabIPgcTUMPXiEz8ssrAk7TXxsiZzww9UTQ1Z5KAbFJs+Z0Ez+VZTYgnE5IQJqBcoSiMebtPHA==}
     engines: {node: '>= 10'}
-    cpu: [arm]
     os: [android]
 
   '@resvg/resvg-js-android-arm64@2.6.2':
