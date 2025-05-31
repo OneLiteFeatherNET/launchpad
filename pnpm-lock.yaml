@@ -32,18 +32,6 @@ importers:
       '@nuxtjs/tailwindcss':
         specifier: 6.14.0
         version: 6.14.0(magicast@0.3.5)
-      '@resvg/resvg-js':
-        specifier: ^2.6.2
-        version: 2.6.2
-      '@resvg/resvg-js-android-arm-eabi':
-        specifier: ^2.6.2
-        version: 2.6.2
-      '@resvg/resvg-js-android-arm64':
-        specifier: ^2.6.2
-        version: 2.6.2
-      '@resvg/resvg-js-win32-ia32-msvc':
-        specifier: ^2.6.2
-        version: 2.6.2
       '@tailwindcss/postcss':
         specifier: ^4.1.7
         version: 4.1.7
@@ -1048,11 +1036,13 @@ packages:
   '@resvg/resvg-js-android-arm-eabi@2.6.2':
     resolution: {integrity: sha512-FrJibrAk6v29eabIPgcTUMPXiEz8ssrAk7TXxsiZzww9UTQ1Z5KAbFJs+Z0Ez+VZTYgnE5IQJqBcoSiMebtPHA==}
     engines: {node: '>= 10'}
+    cpu: [arm]
     os: [android]
 
   '@resvg/resvg-js-android-arm64@2.6.2':
     resolution: {integrity: sha512-VcOKezEhm2VqzXpcIJoITuvUS/fcjIw5NA/w3tjzWyzmvoCdd+QXIqy3FBGulWdClvp4g+IfUemigrkLThSjAQ==}
     engines: {node: '>= 10'}
+    cpu: [arm64]
     os: [android]
 
   '@resvg/resvg-js-darwin-arm64@2.6.2':
@@ -1106,6 +1096,7 @@ packages:
   '@resvg/resvg-js-win32-ia32-msvc@2.6.2':
     resolution: {integrity: sha512-har4aPAlvjnLcil40AC77YDIk6loMawuJwFINEM7n0pZviwMkMvjb2W5ZirsNOZY4aDbo5tLx0wNMREp5Brk+w==}
     engines: {node: '>= 10'}
+    cpu: [ia32]
     os: [win32]
 
   '@resvg/resvg-js-win32-x64-msvc@2.6.2':
@@ -7289,9 +7280,11 @@ snapshots:
 
   '@poppinss/exception@1.2.1': {}
 
-  '@resvg/resvg-js-android-arm-eabi@2.6.2': {}
+  '@resvg/resvg-js-android-arm-eabi@2.6.2':
+    optional: true
 
-  '@resvg/resvg-js-android-arm64@2.6.2': {}
+  '@resvg/resvg-js-android-arm64@2.6.2':
+    optional: true
 
   '@resvg/resvg-js-darwin-arm64@2.6.2':
     optional: true
@@ -7317,7 +7310,8 @@ snapshots:
   '@resvg/resvg-js-win32-arm64-msvc@2.6.2':
     optional: true
 
-  '@resvg/resvg-js-win32-ia32-msvc@2.6.2': {}
+  '@resvg/resvg-js-win32-ia32-msvc@2.6.2':
+    optional: true
 
   '@resvg/resvg-js-win32-x64-msvc@2.6.2':
     optional: true
