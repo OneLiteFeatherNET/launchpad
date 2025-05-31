@@ -104,7 +104,7 @@ export default defineNuxtConfig({
   $production: {
     image: {
       cloudflare: {
-        baseUrl: 'https://blog.onelitefeather.net',
+        baseUrl: 'https://blog.onelitefeather.network',
       }
     }
   },
