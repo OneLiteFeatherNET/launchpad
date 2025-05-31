@@ -2,10 +2,12 @@
 import { ref } from '#imports';
 import NavigationSimpleButton from "~/components/base/navigation/NavigationSimpleButton.vue";
 import NavigationLanguageSelector from "~/components/base/navigation/NavigationLanguageSelector.vue";
+const locale = useCookieLocale();
 const localePath = useLocalePath()
 
+
 const navItems = [
-  { textKey: 'navigation.overview', path: localePath('/') },
+  { textKey: 'navigation.overview', path: localePath('index', locale?.value as Locale) },
 ];
 
 const mobileMenuOpen = ref(false);
@@ -16,15 +18,21 @@ const mobileMenuOpen = ref(false);
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
-          <NuxtLink to="/" class="flex-shrink-0 flex items-center">
-            <span class="text-xl font-medium dark:text-white ">OneLiteFeather Blog</span>
-          </NuxtLink>
+          <NuxtLinkLocale to="/" class="flex-shrink-0 flex items-center">
+            <NuxtImg src="logo.svg"
+                     alt="OneLiteFeather Logo"
+                     width="60"
+                     height="60"
+                     class="h-15 w-15 rounded-full"
+                     format="webp">
+            </NuxtImg>
+            <span class="text-xl font-medium dark:text-white ">OneLiteFeather</span>
+          </NuxtLinkLocale>
         </div>
         <nav class="hidden md:flex items-center space-x-1">
           <NavigationSimpleButton
               v-for="item in navItems"
               :text-key="item.textKey"
-              :key="item.path"
               :path="item.path" />
           <NavigationLanguageSelector />
         </nav>
@@ -46,7 +54,6 @@ const mobileMenuOpen = ref(false);
         <NavigationSimpleButton
             v-for="item in navItems"
             :text-key="item.textKey"
-            :key="item.path"
             :path="item.path"
             :mobile="true"
             @clickMobile="mobileMenuOpen = false"/>

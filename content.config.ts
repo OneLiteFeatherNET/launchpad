@@ -1,8 +1,10 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
+import { asSchemaOrgCollection } from 'nuxt-schema-org/content'
+
 
 export default defineContentConfig({
     collections: {
-        blog_de: defineCollection({
+        blog_de: defineCollection( asSchemaOrgCollection({
             type: 'page',
             source: 'blog/de/**/*.md',
             schema: z.object({
@@ -18,8 +20,8 @@ export default defineContentConfig({
                     children: z.any(),
                 }),
             })
-        }),
-        blog_en: defineCollection({
+        })),
+        blog_en: defineCollection( asSchemaOrgCollection({
             type: 'page',
             source: 'blog/en/*.md',
             schema: z.object({
@@ -35,6 +37,6 @@ export default defineContentConfig({
                     children: z.any(),
                 }),
             })
-        })
+        }))
     }
 })

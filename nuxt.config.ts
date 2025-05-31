@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineOrganization } from 'nuxt-schema-org/schema'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: {
@@ -8,6 +10,30 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
+  schemaOrg: {
+    identity: defineOrganization({
+      // Basic Information
+      name: 'OneLiteFeather Network',
+      alternateName: 'OneLiteFeather.net',
+      description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers. ',
+      url: 'https://onelitefeather.net',
+      logo: '/logo.svg',
+
+      // Contact Information, if applicable
+      email: 'contact@onelitefeather.net',
+
+      // Business Details, if applicable
+      foundingDate: '2019-09-01',
+      numberOfEmployees: {
+        '@type': 'QuantitativeValue',
+        'minValue': 1,
+        'maxValue': 25
+      },
+      sameAs: [
+        'https://github.com/OneLiteFeatherNET'
+      ]
+    })
+  },
   modules: [
     '@nuxt/content',
     '@nuxt/eslint',
@@ -16,7 +42,10 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/seo',
     '@nuxt/image',
-    '@nuxthq/studio'
+    '@nuxthq/studio',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
+    'nuxt-schema-org'
   ],
   i18n: {
     strategy: 'prefix',
@@ -25,7 +54,6 @@ export default defineNuxtConfig({
         { code: 'de', iso: 'de-DE', name: 'Deutsch', file: 'de.json' },
         { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' }
     ],
-    baseUrl: 'https://blog.onelitefeather.net',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
@@ -53,5 +81,8 @@ export default defineNuxtConfig({
       '2xl': 1536
     },
     dir: 'public/images',
+  },
+  site: {
+    name: 'OneLiteFeather',
   }
 })

@@ -3,7 +3,13 @@ title: 'DevBlog #1'
 description: 'Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. '
 pubDate: 'Oct 21 2023'
 headerImage: 'blog/dev-blog-1.webp'
-slug: 'dev-blog-1'
+schemaOrg:
+  - type: "BlogPosting"
+    headline: "Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. "
+    author:
+      type: "Person"
+      name: "Phillipp Glanz"
+    datePublished: "2023-10-21T00:00:00+00:00"
 ---
 Hallo alle zusammen,
 mein Name ist Phillipp. Ich bin einer der zwei Entwicklungsleiter und betreue hier im Team die Technologien sowie die Server Architektur. 
