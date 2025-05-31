@@ -42,7 +42,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/seo',
     '@nuxt/image',
-    '@nuxthq/studio',
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
     'nuxt-schema-org'
