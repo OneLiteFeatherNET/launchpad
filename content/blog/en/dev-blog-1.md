@@ -2,7 +2,7 @@
 title: 'DevBlog #1'
 description: 'Today I would like to present you the active used technologies from our team and which advantages these offer to us...'
 pubDate: 'Oct 21 2023'
-headerImage: '/blog/dev-blog-1.webp'
+headerImage: 'images/blog/dev-blog-1.webp'
 language: 'en'
 slug: 'dev-blog-1-what-we-using'
 ---

@@ -2,7 +2,7 @@
 title: 'Everything You Need to Know About Ethanol'
 description: 'Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.'
 pubDate: 'Jul 23 2024'
-headerImage: '/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
+headerImage: 'images/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
 slug: 'everything-you-need-to-know-about-ethanol'
 language: 'en'
 ---

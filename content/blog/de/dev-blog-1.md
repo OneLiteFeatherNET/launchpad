@@ -2,7 +2,7 @@
 title: 'DevBlog #1'
 description: 'Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. '
 pubDate: 'Oct 21 2023'
-headerImage: 'blog/dev-blog-1.webp'
+headerImage: 'images/blog/dev-blog-1.webp'
 schemaOrg:
   - type: "BlogPosting"
     headline: "Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. "

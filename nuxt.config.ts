@@ -80,7 +80,7 @@ export default defineNuxtConfig({
       xxl: 1536,
       '2xl': 1536
     },
-    dir: 'public/images',
+    dir: 'public',
   },
   site: {
     name: 'OneLiteFeather',
@@ -102,8 +102,10 @@ export default defineNuxtConfig({
     }
   },
   $production: {
-    appConfig: {
-
+    image: {
+      cloudflare: {
+        baseUrl: 'https://blog.onelitefeather.net',
+      }
     }
   },
   ogImage: {

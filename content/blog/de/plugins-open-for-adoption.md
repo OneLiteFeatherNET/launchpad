@@ -2,7 +2,7 @@
 title: 'Wer möchte "Plugins" adoptieren ?'
 description: 'Adoption von Plugins hilft uns und der Minecraft Community weiterhin sinnvolle Plugins/Software zu warten, dabei helfen wir als Organisation den Maintainer die Richtigen Personen oder Resourcen zu finden.'
 pubDate: 'Feb 5 2025'
-headerImage: '/blog/plugin-adoptation.webp'
+headerImage: 'images/blog/plugin-adoptation.webp'
 slug: 'wer-moechte-plugins-adoptieren'
 ---
 # Wer möchte "Plugins" adoptieren?
