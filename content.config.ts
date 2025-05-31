@@ -10,6 +10,7 @@ export default defineContentConfig({
             schema: z.object({
                 title: z.string(),
                 description: z.string(),
+                slug: z.string(),
                 // Transform string to Date object
                 pubDate: z.coerce.date(),
                 updatedDate: z.coerce.date().optional(),
@@ -27,6 +28,7 @@ export default defineContentConfig({
             schema: z.object({
                 title: z.string(),
                 description: z.string(),
+                slug: z.string(),
                 // Transform string to Date object
                 pubDate: z.coerce.date(),
                 updatedDate: z.coerce.date().optional(),
