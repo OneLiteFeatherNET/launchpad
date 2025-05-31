@@ -35,6 +35,9 @@ importers:
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
+      '@resvg/resvg-js-android-arm64':
+        specifier: ^2.6.2
+        version: 2.6.2
       '@resvg/resvg-js-win32-ia32-msvc':
         specifier: ^2.6.2
         version: 2.6.2
@@ -1094,7 +1097,6 @@ packages:
   '@resvg/resvg-js-win32-ia32-msvc@2.6.2':
     resolution: {integrity: sha512-har4aPAlvjnLcil40AC77YDIk6loMawuJwFINEM7n0pZviwMkMvjb2W5ZirsNOZY4aDbo5tLx0wNMREp5Brk+w==}
     engines: {node: '>= 10'}
-    cpu: [ia32]
     os: [win32]
 
   '@resvg/resvg-js-win32-x64-msvc@2.6.2':
@@ -7281,8 +7283,7 @@ snapshots:
   '@resvg/resvg-js-android-arm-eabi@2.6.2':
     optional: true
 
-  '@resvg/resvg-js-android-arm64@2.6.2':
-    optional: true
+  '@resvg/resvg-js-android-arm64@2.6.2': {}
 
   '@resvg/resvg-js-darwin-arm64@2.6.2':
     optional: true
