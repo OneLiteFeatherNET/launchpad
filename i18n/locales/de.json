@@ -10,6 +10,14 @@
     "overview": {
       "title": "Übersicht",
       "description": "Finde intressante Blogbeiträge von OneLiteFeather.net rund um Entwicklung, Community und mehr."
+    },
+    "privacy": {
+      "title": "Datenschutz",
+      "description": "Hier findest du unsere Datenschutzrichtlinien."
+    },
+    "imprint": {
+      "title": "Impressum",
+      "description": "Hier findest du unser Impressum."
     }
   }
 }
