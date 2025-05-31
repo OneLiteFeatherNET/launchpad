@@ -10,6 +10,14 @@
     "overview": {
       "title": "Overview",
       "description": "Find interesting blog posts from OneLiteFeather.net about development, community and more."
-    }
+    },
+    "privacy": {
+      "title": "Privacy",
+      "description": "Here you can find our privacy policy."
+    },
+    "imprint": {
+      "title": "Imprint",
+      "description": "Here you can find our imprint."
+    },
   }
 }
