@@ -2,7 +2,7 @@
 title: 'DevBlog #1'
 description: 'Today I would like to present you the active used technologies from our team and which advantages these offer to us...'
 pubDate: 'Oct 21 2023'
-heroImage: '/blog/dev-blog-1.webp'
+headerImage: '/blog/dev-blog-1.webp'
 language: 'en'
 slug: 'dev-blog-1-what-we-using'
 ---
@@ -10,6 +10,7 @@ This blog entry was translated, there is also a german version of it!
 
 Hello all together,
 my name is Phillipp. I am one of two lead developer and look after technologies and server architecture here in this team.
+<!--more-->
 
 Today I would like to present you the active used technologies from our team and which advantages these offer to us.
 

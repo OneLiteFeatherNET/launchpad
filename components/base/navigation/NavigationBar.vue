@@ -5,7 +5,7 @@ import NavigationLanguageSelector from "~/components/base/navigation/NavigationL
 const localePath = useLocalePath()
 
 const navItems = [
-  { textKey: 'navigation.home', path: localePath('/') },
+  { textKey: 'navigation.overview', path: localePath('/') },
 ];
 
 const mobileMenuOpen = ref(false);

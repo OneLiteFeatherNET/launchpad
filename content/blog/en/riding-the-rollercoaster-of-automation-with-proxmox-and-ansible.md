@@ -2,12 +2,11 @@
 title: 'Riding the Rollercoaster of Automation with Proxmox and Ansible'
 description: 'In the boundless expanse of the digital world, our team, OneLiteFeather, has discovered a quaint yet vibrant playground where we realize our creative and technical visions. At the heart of this expedition are Proxmox and Ansible, two tools that not only have our backs but also open doors to uncharted territories'
 pubDate: 'Oct 15 2023'
-heroImage: '/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible.webp'
-language: 'en'
+headerImage: '/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible.webp'
 slug: 'riding-the-rollercoaster-of-automation-with-proxmox-and-ansible'
 ---
 In the boundless expanse of the digital world, our team, OneLiteFeather, has discovered a quaint yet vibrant playground where we realize our creative and technical visions. At the heart of this expedition are Proxmox and Ansible, two tools that not only have our backs but also open doors to uncharted territories.
-
+<!--more-->
 Imagine Proxmox as a generous piece of fertile land where we can build and design to our heart's content. Here, we erect virtual machines (VMs) – our little digital homes, each with a special purpose. One of these homes hosts our beloved Minecraft network, while others take on crucial tasks: collecting valuable data, powering our website, monitoring our systems, and so much more. There’s a home for our logs (Logging VM), another stores frequently used data (Cache VM), and then there are homes for our website (Web Service VM), our network security (OpnSense VM), our system monitoring (Monitoring VM with CheckMK), our databases (Database VM), and our network identities (Domain Controller).
 
 Ansible is our loyal companion on this journey. It’s like a skillful builder, aiding us in efficiently constructing and managing our digital homes. With Ansible, we can focus on the bigger picture while it handles the recurring chores. Yet, learning Ansible paired with Proxmox was like a ride on an emotional rollercoaster. A moment of euphoria, followed by a steep learning curve that twisted our stomachs faster than a loop-the-loop. But with every twist and turn, we gained momentum and mastered the curves, until we finally enjoyed the ride and appreciated the view from the top.

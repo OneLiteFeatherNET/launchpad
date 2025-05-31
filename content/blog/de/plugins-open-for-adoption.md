@@ -11,6 +11,7 @@ slug: 'wer-moechte-plugins-adoptieren'
 Durch die Erfahrung durch Jenkins möchten wir Plugins vorstellen die zur Adoption freigegeben sind. Dabei möchten wir als OneLiteFeather die Maintainer/Contributoren dazu unterstützen Sicherheit/Tools und mehr zu organisieren. 
 
 Eine Adoption von einem Plugin bringt mit sich, das diese Person Maintainer von diesem Plugin wird. Dabei werden auch pflichten vorausgesetzt, zum Beispiel regelmäßiger Betreuung des Plugin/Software, aktive Kommunikation und sonstige aufwände.
+<!--more-->
 
 ### Warum machen wir das und warum auf einmal?
 Es ist einfach so, das auch wir als Team uns nicht 16 Teilen können oder noch mehr. Dabei sehen wir ein Trend beim Aussterben von Plugins die Nützlich sind oder mehr zur Kommerzialisierung die in Close-Source entsteht. 

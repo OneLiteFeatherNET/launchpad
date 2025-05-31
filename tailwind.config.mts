@@ -1,8 +1,8 @@
-import type { Config } from 'tailwindcss'
-import colors from 'tailwindcss/colors'
+import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
-export default <Partial<Config>>{
-    darkMode: 'class',                    // <— hier
+export default {
+    darkMode: 'class',
     content: ['./components/**/*.vue', './pages/**/*.vue'],
     theme: {
         extend: {
@@ -17,6 +17,9 @@ export default <Partial<Config>>{
                 'text-gradient':
                     'linear-gradient(to right, var(--gradient-from), var(--gradient-via), var(--gradient-to))',
             },
+            borderRadius: {
+                'xxl': '0.75rem',
+            }
         }
     }
-}
+} satisfies Config;

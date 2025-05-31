@@ -2,7 +2,7 @@
 title: 'DevBlog #1'
 description: 'Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. '
 pubDate: 'Oct 21 2023'
-heroImage: '/blog/dev-blog-1.webp'
+headerImage: 'blog/dev-blog-1.webp'
 slug: 'dev-blog-1'
 ---
 Hallo alle zusammen,
@@ -11,6 +11,7 @@ mein Name ist Phillipp. Ich bin einer der zwei Entwicklungsleiter und betreue hi
 Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. 
 
 Wir teilen die Liste unten in mehrere Teile auf, um den Fokuspunkt und die Qualität für euch zu erhalten
+<!--more-->
 
 Als Erstes gebe ich euch eine kleine Auflistung, welche Technologien wir verwenden.
 Technologien (Services): 
