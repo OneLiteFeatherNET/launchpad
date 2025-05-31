@@ -2,13 +2,13 @@
 title: 'Everything You Need to Know About Ethanol'
 description: 'Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.'
 pubDate: 'Jul 23 2024'
-heroImage: '/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
+headerImage: '/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
 slug: 'everything-you-need-to-know-about-ethanol'
 language: 'en'
 ---
 
 Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.
-
+<!--more-->
 Ethanol started quite differently from Fractureiser, as an inconspicuous “troll plugin” for Minecraft servers, specifically for Paper and Spigot servers. The similarities to Fractureiser are the elements that can be recognized as malicious or untypical for a “harmless trolling action.” Thus, it is a form of malware, specifically a **backdoor**.
 
 ### How Ethanol Gets on Your Server

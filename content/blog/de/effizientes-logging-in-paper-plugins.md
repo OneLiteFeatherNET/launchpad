@@ -3,13 +3,13 @@ title: "Effizientes Logging in Paper-Plugins mit SLF4J und log4j2"
 description: "Lerne, wie du mit SLF4J und log4j2 Marker verwendest, um Logs thematisch zu gruppieren und die Auswertung zu erleichtern."
 pubDate: 2024-09-29
 slug: "effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki"
-heroImage: '/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki.jpg'
+headerImage: '/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki.jpg'
 ---
 
 ## Effizientes Logging in Paper-Plugins mit SLF4J und `log4j2`
 
 Wenn man ein Minecraft-Plugin für PaperMC entwickelt, kann es schnell unübersichtlich werden, den Überblick über die Logs zu behalten. Besonders bei großen Projekten oder Multi-Modul-Architekturen stoßen herkömmliche Log-Nachrichten an ihre Grenzen. Umso wichtiger ist es, eine klare Struktur in die Log-Dateien zu bringen, die relevante Informationen einfach filterbar macht.
-
+<!--more-->
 In diesem Blog-Beitrag zeigen wir dir, wie du mit SLF4J und `log4j2` gezielt Marker verwendest, um deine Logs thematisch zu gruppieren. Durch diese Technik kannst du Log-Nachrichten mit spezifischen Labels wie `DATABASE`, `NETWORK` oder `GAME` versehen. Das ist besonders hilfreich, wenn du in deiner Paper-Umgebung unterschiedliche Module verwendest, etwa für Datenbankzugriffe, Netzwerkanfragen oder Spiel-Events. Mit einer durchdachten Log-Strukturierung wird die Analyse von Logs zur Fehlersuche einfacher...
 
 ### Was sind Marker und warum sie verwenden?

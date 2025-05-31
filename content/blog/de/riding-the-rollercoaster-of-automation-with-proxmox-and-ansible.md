@@ -2,11 +2,11 @@
 title: 'Mit Proxmox und Ansible in eine Achterbahn der Automatisierung'
 description: 'In der unendlichen Weite der digitalen Welt hat unser Team, OneLiteFeather, eine kleine aber feine Spielwiese gefunden, auf der wir unsere kreativen und technischen Visionen verwirklichen. Im Zentrum dieser Entdeckungsreise stehen Proxmox und Ansible, zwei Werkzeuge, die uns nicht nur den Rücken freihalten, sondern auch die Türen zu unerforschten Gebieten öffnen.'
 pubDate: 'Oct 15 2023'
-heroImage: '/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible.webp'
+headerImage: '/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible.webp'
 slug: 'mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
 ---
 In der unendlichen Weite der digitalen Welt hat unser Team, OneLiteFeather, eine kleine aber feine Spielwiese gefunden, auf der wir unsere kreativen und technischen Visionen verwirklichen. Im Zentrum dieser Entdeckungsreise stehen Proxmox und Ansible, zwei Werkzeuge, die uns nicht nur den Rücken freihalten, sondern auch die Türen zu unerforschten Gebieten öffnen.
-
+<!--more-->
 Stell dir Proxmox als ein großzügiges Stück fruchtbaren Landes vor, auf dem wir nach Herzenslust bauen und gestalten können. Hier errichten wir virtuelle Maschinen (VMs) – unsere kleinen digitalen Häuser, jedes mit einem besonderen Zweck. Eines dieser Häuser beherbergt unser geliebtes Minecraft-Netzwerk, während andere wichtige Aufgaben übernehmen: das Sammeln wertvoller Daten, das Bereitstellen unserer Webseite, das Überwachen unserer Systeme und vieles mehr. Es gibt ein Haus für unsere Logs (Logging VM), ein anderes speichert häufig genutzte Daten (Cache VM), und dann gibt es noch Häuser für unsere Webseite (Web Service VM), unsere Netzwerksicherheit (OpnSense VM), unser Systemmonitoring (Monitoring VM mit CheckMK), unsere Datenbanken (Database VM) und unsere Netzwerkidentitäten (Domain Controller).
 
 Ansible ist unser treuer Gefährte auf dieser Reise. Es ist wie ein geschickter Baumeister, der uns hilft, unsere digitalen Häuser effizient zu errichten und zu verwalten. Mit Ansible können wir uns auf das Große Ganze konzentrieren, während es die wiederkehrenden Aufgaben erledigt. Doch das Erlernen von Ansible gepaart mit Proxmox war wie eine Fahrt in einer Gefühlsachterbahn. Ein Moment der Euphorie, gefolgt von einer steilen Lernkurve, die uns schneller den Magen umdrehte als eine Loopingbahn. Doch mit jeder Drehung und Wendung gewannen wir an Geschwindigkeit und meisterten die Kurven, bis wir schließlich die Fahrt genossen und die Aussicht von oben schätzten.

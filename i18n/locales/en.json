@@ -1,9 +1,15 @@
 {
   "navigation": {
-    "home": "Home"
+    "overview": "overview"
   },
   "layouts": {
-    "title": "Titel"
+    "title": "Title"
   },
-  "TDB": "To be done"
+  "TDB": "To Do",
+  "blog": {
+    "overview": {
+      "title": "Overview",
+      "description": "Find interesting blog posts from OneLiteFeather.net about development, community and more."
+    }
+  }
 }
