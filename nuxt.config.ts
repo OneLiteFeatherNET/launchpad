@@ -44,7 +44,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
-    'nuxt-schema-org'
+    'nuxt-schema-org',
+    'nuxt-og-image'
   ],
   i18n: {
     strategy: 'prefix',

@@ -22,10 +22,13 @@
     "@resvg/resvg-js-android-arm-eabi": "^2.6.2",
     "@resvg/resvg-js-android-arm64": "^2.6.2",
     "@resvg/resvg-js-win32-ia32-msvc": "^2.6.2",
+    "@unhead/vue": "^2.0.5",
     "@vueuse/nuxt": "13.3.0",
     "eslint": "^9.0.0",
     "nuxt": "^3.17.4",
+    "nuxt-og-image": "5.1.4",
     "nuxt-schema-org": "5.0.5",
+    "unstorage": "^1.15.0",
     "vue": "^3.5.14",
     "vue-router": "^4.5.1"
   },
