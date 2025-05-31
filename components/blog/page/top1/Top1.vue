@@ -6,7 +6,7 @@ const {blogArticle} = defineProps<{
 </script>
 
 <template>
-  <article class="bg-white dark:bg-gray-800 rounded-xxl shadow-md overflow-hidden" @click="navigateTo">
+  <article class="bg-white dark:bg-gray-800 rounded-xxl shadow-md overflow-hidden xl:mx-80">
     <NuxtImg v-if="blogArticle.headerImage"
              :src="blogArticle.headerImage"
              :alt="blogArticle.headerImageAlt"

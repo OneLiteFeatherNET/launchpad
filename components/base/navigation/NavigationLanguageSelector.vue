@@ -42,14 +42,14 @@ onClickOutside(dropdown, () => {
 
     <div
         v-show="isOpen"
-        class="absolute z-30 mt-4 overflow-hidden origin-top-right bg-white  dark:text-white dark:bg-gray-800 rounded-xl shadow-xxl transition-all transform"
+        class="absolute z-30 mt-2 overflow-hidden origin-top-right bg-white  dark:text-white dark:bg-gray-800 rounded-xl shadow-xxl transition-all transform"
         :class="props.mobile ? 'left-0 right-0' : 'right-0 w-48'"
     >
       <div class="py-1">
         <NuxtLink
             v-for="loc in locales"
             :key="loc.code"
-            class="w-full text-left px-4 py-2.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white block"
+            class="w-full text-left px-4 py-2.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 block"
             :class="{'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm block': locale === loc.code}"
             :to="switchLocalePath(loc.code)"
             @click="isOpen = false"

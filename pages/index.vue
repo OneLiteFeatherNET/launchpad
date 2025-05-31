@@ -26,21 +26,28 @@ useHead({
     }
   ]
 })
+const img = useImage()
+const previewSocial = img('logo.svg', {
+  width: 1200,
+  height: 630,
+  format: 'webp',
+  quality: 80,
+});
 useSeoMeta({
   description: t('blog.overview.description'),
   ogDescription: t('blog.overview.description'),
-  ogImage: 'images/logo.svg',
+  ogImage: previewSocial,
   twitterTitle: t('blog.overview.title'),
   twitterDescription: t('blog.overview.description'),
-  twitterImage: 'images/logo.svg'
+  twitterImage: previewSocial
 })
 useSchemaOrg({
   '@context': 'https://schema.org',
   '@type': 'Blog',
   name: t('blog.overview.title'),
   description: t('blog.overview.description'),
-  url: '',
-  image: 'https://example.com/images/logo.svg', // Replace with your blog image URL
+  url: previewSocial,
+  image: previewSocial, // Replace with your blog image URL
 })
 </script>
 
@@ -50,7 +57,7 @@ useSchemaOrg({
         v-if="top1Article"
         :blogArticle="top1Article"
     />
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
       <ArticleCard
           v-for="article in allPosts"
           :blogArticle="article" />
