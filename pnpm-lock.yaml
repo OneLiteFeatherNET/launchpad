@@ -35,6 +35,9 @@ importers:
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
+      '@resvg/resvg-js-android-arm-eabi':
+        specifier: ^2.6.2
+        version: 2.6.2
       '@resvg/resvg-js-android-arm64':
         specifier: ^2.6.2
         version: 2.6.2
@@ -1043,7 +1046,6 @@ packages:
   '@resvg/resvg-js-android-arm64@2.6.2':
     resolution: {integrity: sha512-VcOKezEhm2VqzXpcIJoITuvUS/fcjIw5NA/w3tjzWyzmvoCdd+QXIqy3FBGulWdClvp4g+IfUemigrkLThSjAQ==}
     engines: {node: '>= 10'}
-    cpu: [arm64]
     os: [android]
 
   '@resvg/resvg-js-darwin-arm64@2.6.2':
@@ -7280,8 +7282,7 @@ snapshots:
 
   '@poppinss/exception@1.2.1': {}
 
-  '@resvg/resvg-js-android-arm-eabi@2.6.2':
-    optional: true
+  '@resvg/resvg-js-android-arm-eabi@2.6.2': {}
 
   '@resvg/resvg-js-android-arm64@2.6.2': {}
 
