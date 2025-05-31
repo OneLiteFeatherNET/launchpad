@@ -19,7 +19,7 @@ const mobileMenuOpen = ref(false);
       <div class="flex justify-between h-16">
         <div class="flex items-center">
           <NuxtLinkLocale to="/" class="flex-shrink-0 flex items-center">
-            <NuxtImg src="logo.svg"
+            <NuxtImg src="images/logo.svg"
                      alt="OneLiteFeather Logo"
                      width="60"
                      height="60"

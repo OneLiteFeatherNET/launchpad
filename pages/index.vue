@@ -27,7 +27,7 @@ useHead({
   ]
 })
 const img = useImage()
-const previewSocial = img('logo.svg', {
+const previewSocial = img('images/logo.svg', {
   width: 1200,
   height: 630,
   format: 'webp',
