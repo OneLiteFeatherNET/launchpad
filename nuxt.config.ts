@@ -105,5 +105,12 @@ export default defineNuxtConfig({
     appConfig: {
 
     }
+  },
+  ogImage: {
+    compatibility: {
+      runtime: {
+        resvg: "wasm"
+      }
+    }
   }
 })
