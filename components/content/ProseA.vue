@@ -5,7 +5,7 @@
       class="text-blue-600 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
   >
     <slot />
-  </NuxtLink><br>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">
