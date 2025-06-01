@@ -17,14 +17,14 @@ const title = computed(() => t(route.meta?.title ?? 'TDB'));
     <template v-for="meta in head.meta" :key="meta.hid">
       <Meta :id="meta.hid" :property="meta.property" :content="meta.content" />
     </template>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16761048144"></script>
-    <script>
+    <component is="script" async src="https://www.googletagmanager.com/gtag/js?id=AW-16761048144"></component>
+    <component is="script">
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'AW-16761048144');
-    </script>
+    </component>
   </Head>
   <Body class="h-full dark:bg-gray-900">
     <NavigationBar />
