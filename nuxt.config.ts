@@ -151,6 +151,8 @@ export default defineNuxtConfig({
     runtimeConfig: {
       public: {
         siteUrl: 'https://blog.onelitefeather.net',
+        posthogPublicKey: 'phc_t9nBlYL9LcDj4LDKZfQ97m5nbvFDTugkdQqAAspfdI',
+        posthogHost: 'https://eu.i.posthog.com'
       }
     },
     site: {

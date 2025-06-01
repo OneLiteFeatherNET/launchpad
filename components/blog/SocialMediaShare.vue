@@ -23,8 +23,11 @@ const props = defineProps({
 // Function to track share events (for future PostHog integration)
 const trackShareEvent = (platform: string) => {
   // This function will be used for PostHog tracking in the future
-  // For now, it's just a placeholder
-  console.log(`Shared on ${platform}`);
+  posthog.capture('social_share', {
+    platform: platform,
+    url: props.url,
+    title: props.title
+  });
 };
 
 // Function to add tracking parameter for large pages
