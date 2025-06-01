@@ -16,7 +16,7 @@ export default defineNuxtConfig({
       name: 'OneLiteFeather Network',
       alternateName: 'OneLiteFeather.net',
       description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers. ',
-      url: 'https://onelitefeather.net',
+      url: 'http://localhost:3000',
       logo: '/logo.svg',
 
       // Contact Information, if applicable
@@ -60,7 +60,8 @@ export default defineNuxtConfig({
       useCookie: true,
       cookieKey: 'i18n_redirected',
       redirectOn: 'root' // recommended
-    }
+    },
+    baseUrl: 'http://localhost:3000',
   },
   tailwindcss: {
     cssPath: [`~/css/tailwind.css`, { injectPosition: "first" }],
@@ -86,7 +87,15 @@ export default defineNuxtConfig({
   },
   site: {
     name: 'OneLiteFeather',
-    url: 'https://blog.onelitefeather.net',
+    url: 'http://localhost:3000',
+  },
+  posthog: {
+    publicKey: 'phc_t9nBlYL9LcDj4LDKZfQ97m5nbvFDTugkdQqAAspfdI',
+    host: 'https://eu.i.posthog.com',
+    proxy: true,
+    clientOptions: {
+      person_profiles: 'always'
+    }
   },
   sitemap: {
     autoI18n: true,

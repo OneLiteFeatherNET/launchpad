@@ -21,9 +21,9 @@ const {blogArticle} = defineProps<{
                class="w-full h-96 object-cover rounded-xxl" />
       <div class="p-4">
         <h1 class="text-xl font-bold text-on-surface dark:text-white">{{ blogArticle.title }}</h1>
-        <time v-if="blogArticle?.pubDate" class="text-sm text-on-surface-variant dark:text-white">
-          <i18n-d :value="blogArticle?.pubDate"></i18n-d>
-      </time>
+        <time class="text-sm text-on-surface-variant dark:text-white">
+          <i18n-d :value="blogArticle.pubDate"></i18n-d>
+        </time>
         <p class="text-on-surface-variant mt-4 dark:text-white">{{ blogArticle.description }}</p>
       </div>
     </NuxtLink>
