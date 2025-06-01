@@ -4,6 +4,13 @@ description: 'Adoption von Plugins hilft uns und der Minecraft Community weiterh
 pubDate: 'Feb 5 2025'
 headerImage: 'images/blog/plugin-adoptation.webp'
 slug: 'wer-moechte-plugins-adoptieren'
+schemaOrg:
+  - type: "BlogPosting"
+    headline: 'Adoption von Plugins hilft uns und der Minecraft Community weiterhin sinnvolle Plugins/Software zu warten, dabei helfen wir als Organisation den Maintainer die Richtigen Personen oder Resourcen zu finden.'
+    author:
+      type: "Person"
+      name: "Phillipp Glanz"
+    datePublished: "2025-02-05T00:00:00+00:00"
 ---
 # Wer möchte "Plugins" adoptieren?
 

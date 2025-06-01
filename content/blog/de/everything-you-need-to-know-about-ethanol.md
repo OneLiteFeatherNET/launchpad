@@ -4,6 +4,13 @@ description: 'Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Se
 pubDate: 'Jul 23 2024'
 headerImage: 'images/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
 slug: 'alles-was-man-ueber-ethanol-wissen-sollte'
+schemaOrg:
+  - type: "BlogPosting"
+    headline: 'Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern. Genauso wie Fractureiser wird diese von dem User mori0 / Riesenrad beworben, um Server zu “trollen”. Was sich dahinter verbirgt.'
+    author:
+      type: "Person"
+      name: "Phillipp Glanz"
+    datePublished: "2024-07-23T00:00:00+00:00"
 ---
 Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern. Genauso wie Fractureiser wird diese von dem User mori0 / Riesenrad beworben, um Server zu “trollen”. Was sich dahinter verbirgt.
 
