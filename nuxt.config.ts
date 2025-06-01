@@ -159,7 +159,10 @@ export default defineNuxtConfig({
     posthog: {
       publicKey: 'phc_t9nBlYL9LcDj4LDKZfQ97m5nbvFDTugkdQqAAspfdI',
       host: 'https://eu.i.posthog.com',
-      proxy: true
+      proxy: true,
+      clientOptions: {
+        person_profiles: 'always'
+      }
     },
     site: {
       url: 'https://blog.onelitefeather.net',
