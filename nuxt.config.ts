@@ -45,7 +45,8 @@ export default defineNuxtConfig({
     '@nuxtjs/robots',
     'nuxt-schema-org',
     'nuxt-og-image',
-    '@nuxt/content'
+    '@nuxt/content',
+    'nuxt-posthog'
   ],
   i18n: {
     strategy: 'prefix',
@@ -151,9 +152,12 @@ export default defineNuxtConfig({
     runtimeConfig: {
       public: {
         siteUrl: 'https://blog.onelitefeather.net',
-        posthogPublicKey: 'phc_t9nBlYL9LcDj4LDKZfQ97m5nbvFDTugkdQqAAspfdI',
-        posthogHost: 'https://eu.i.posthog.com'
       }
+    },
+    posthog: {
+      publicKey: 'phc_t9nBlYL9LcDj4LDKZfQ97m5nbvFDTugkdQqAAspfdI',
+      host: 'https://eu.i.posthog.com',
+      proxy: true
     },
     site: {
       url: 'https://blog.onelitefeather.net',

@@ -8,15 +8,15 @@
       <div>
         <h2 class="text-lg font-bold">{{ $t('footer.social_media') }}</h2>
         <ul>
-          <li><a href="https://github.com/OneLiteFeatherNET" target="_blank" rel="noopener noreferrer" :aria-label="$t('footer.github_aria')">{{ $t('footer.github') }}</a></li>
-          <li><a href="https://opencollective.com/onelitefeather" target="_blank" rel="noopener noreferrer" :aria-label="$t('footer.opencollective_aria')">{{ $t('footer.opencollective') }}</a></li>
+          <li><a href="https://github.com/OneLiteFeatherNET" v-posthog-capture="'github-click'" target="_blank" rel="noopener noreferrer" :aria-label="$t('footer.github_aria')">{{ $t('footer.github') }}</a></li>
+          <li><a href="https://opencollective.com/onelitefeather" v-posthog-capture="'opencollective-click'" target="_blank" rel="noopener noreferrer" :aria-label="$t('footer.opencollective_aria')">{{ $t('footer.opencollective') }}</a></li>
         </ul>
       </div>
       <div>
         <h2 class="text-lg font-bold">{{ $t('footer.legal') }}</h2>
         <ul>
-          <li><NuxtLinkLocale to="/imprint">{{ $t('footer.imprint') }}</NuxtLinkLocale></li>
-          <li><NuxtLinkLocale to="/privacy">{{ $t('footer.privacy_policy') }}</NuxtLinkLocale></li>
+          <li><NuxtLinkLocale to="/imprint" v-posthog-capture="'imprint-click'">{{ $t('footer.imprint') }}</NuxtLinkLocale></li>
+          <li><NuxtLinkLocale to="/privacy" v-posthog-capture="'imprint-privacy'">{{ $t('footer.privacy_policy') }}</NuxtLinkLocale></li>
         </ul>
       </div>
       <div>

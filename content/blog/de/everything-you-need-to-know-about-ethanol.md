@@ -1,5 +1,6 @@
 ---
 title: 'Alles, was du über Ethanol wissen solltest'
+alternativeTitle: 'Schon jetzt auf mehreren hundert Servern, was sich dahinter verbirgt'
 description: 'Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern. Genauso wie Fractureiser wird diese von dem User mori0 / Riesenrad beworben, um Server zu “trollen”. Was sich dahinter verbirgt.'
 pubDate: 'Jul 23 2024'
 headerImage: 'images/blog/cyber-theDigitalArtist-Ethanol-Post.webp'

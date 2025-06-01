@@ -17,17 +17,22 @@ const props = defineProps({
     default: false
   }
 });
+const { $clientPosthog, $serverPosthog } = useNuxtApp();
 
 // The isLargePage prop is passed from the parent component
 
 // Function to track share events (for future PostHog integration)
 const trackShareEvent = (platform: string) => {
-  // This function will be used for PostHog tracking in the future
-  posthog.capture('social_share', {
-    platform: platform,
-    url: props.url,
-    title: props.title
-  });
+
+  onMounted(() => {
+    $clientPosthog?.capture('share_event', {
+      platform,
+      url: props.url,
+      title: props.title,
+      description: props.description,
+      isLargePage: props.isLargePage
+    });
+  })
 };
 
 // Function to add tracking parameter for large pages

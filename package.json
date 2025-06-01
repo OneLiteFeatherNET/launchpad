@@ -25,6 +25,7 @@
     "eslint": "^9.27.0",
     "nuxt": "^3.17.4",
     "nuxt-og-image": "5.1.4",
+    "nuxt-posthog": "1.6.3",
     "nuxt-schema-org": "5.0.5",
     "unstorage": "^1.16.0",
     "vue": "^3.5.14",

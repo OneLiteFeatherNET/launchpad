@@ -4,6 +4,7 @@ import SocialMediaShare from "~/components/blog/SocialMediaShare.vue";
 const { locale, t, locales } = useI18n()
 const route = useRoute()
 const config = useRuntimeConfig()
+const {getFeatureFlag } = usePostHogFeatureFlag();
 
 definePageMeta({
   layout: 'blog-entry',
@@ -106,6 +107,14 @@ useHead({
   link: headLinks
 })
 useHead(article?.value?.head || {})
+
+const title = computed(() => {
+  if (getFeatureFlag('alternative-title-conversion').value === 'test') {
+    return article?.value?.alternativeTitle || article?.value?.title || 'No Title';
+  } else {
+    return article?.value?.title || 'No Title';
+  }
+});
 </script>
 
 <template>
@@ -122,6 +131,7 @@ useHead(article?.value?.head || {})
                quality='80'
                class="aspect-video object-cover rounded-lg" />
       <div class="p-4">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ title }}</h1>
         <time v-if="article?.pubDate" class="text-sm text-gray-500 dark:text-gray-400"><i18n-d :value="article?.pubDate"></i18n-d></time>
         <ContentRenderer class="text-gray-700 dark:text-gray-300 mt-2" :value="article">
         </ContentRenderer>

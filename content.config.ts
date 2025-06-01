@@ -11,6 +11,7 @@ export default defineContentConfig({
             source: 'blog/de/**/*.md',
             schema: z.object({
                 title: z.string(),
+                alternativeTitle: z.string().optional(),
                 description: z.string(),
                 slug: z.string(),
                 // Transform string to Date object
@@ -31,6 +32,7 @@ export default defineContentConfig({
             source: 'blog/en/**/*.md',
             schema: z.object({
                 title: z.string(),
+                alternativeTitle: z.string().optional(),
                 description: z.string(),
                 slug: z.string(),
                 // Transform string to Date object
