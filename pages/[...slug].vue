@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
-const { locale, t } = useI18n()
+const { locale, t, locales } = useI18n()
 const route = useRoute()
+const config = useRuntimeConfig()
 
 definePageMeta({
   layout: 'blog-entry',
@@ -12,6 +13,29 @@ const { data: article} = await useAsyncData(route.path, () => {
   // @ts-ignore
   return queryCollection('blog_'+locale?.value || 'blog_de').where("slug", "=", pathParts.at(2)).first();
 });
+
+// Find translations in other languages if translationKey exists
+const alternateLanguages = ref<{locale: string, url: string}[]>([]);
+if (article.value?.translationKey) {
+  const otherLocales = (locales.value || []).filter(l => typeof l === 'object' && l.code !== locale.value);
+
+  for (const otherLocale of otherLocales) {
+    if (typeof otherLocale === 'object') {
+      const { data: translatedArticle } = await useAsyncData(`${route.path}_${otherLocale.code}`, () => {
+        // @ts-ignore
+        return queryCollection(`blog_${otherLocale.code}`).where("translationKey", "=", article.value?.translationKey).first();
+      });
+
+      if (translatedArticle.value) {
+        const baseUrl = config.public.siteUrl || 'https://blog.onelitefeather.net';
+        alternateLanguages.value.push({
+          locale: otherLocale.code,
+          url: `${baseUrl}/${otherLocale.code}/${translatedArticle.value.slug}`
+        });
+      }
+    }
+  }
+}
 useSeoMeta(article.value?.seo || {
 })
 const img = useImage()
@@ -28,14 +52,57 @@ useSeoMeta({
   twitterImage: previewSocial
 })
 
-useHead({
-  link: [
-    {
-      rel: 'icon',
-      type: 'image/png',
-      href: '/favicon.png'
+// Prepare link array for head
+const headLinks = [
+  {
+    rel: 'icon',
+    type: 'image/png',
+    href: '/favicon.png'
+  }
+];
+
+// Add canonical URL
+if (article.value) {
+  const baseUrl = config.public.siteUrl || 'https://blog.onelitefeather.net';
+  const canonicalUrl = `${baseUrl}/${locale.value}/${article.value.slug}`;
+
+  headLinks.push({
+    rel: 'canonical',
+    href: canonicalUrl
+  });
+
+  // Add alternate language links
+  for (const alt of alternateLanguages.value) {
+    headLinks.push({
+      rel: 'alternate',
+      hreflang: alt.locale,
+      href: alt.url
+    });
+  }
+
+  // Add x-default hreflang (pointing to the default locale version)
+  const defaultLocale = 'de'; // As specified in nuxt.config.ts
+  if (locale.value === defaultLocale) {
+    headLinks.push({
+      rel: 'alternate',
+      hreflang: 'x-default',
+      href: canonicalUrl
+    });
+  } else {
+    // Find the default locale URL in alternateLanguages
+    const defaultLocaleUrl = alternateLanguages.value.find(alt => alt.locale === defaultLocale)?.url;
+    if (defaultLocaleUrl) {
+      headLinks.push({
+        rel: 'alternate',
+        hreflang: 'x-default',
+        href: defaultLocaleUrl
+      });
     }
-  ]
+  }
+}
+
+useHead({
+  link: headLinks
 })
 useHead(article?.value?.head || {})
 </script>

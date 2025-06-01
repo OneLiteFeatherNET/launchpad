@@ -18,6 +18,8 @@ export default defineContentConfig({
                 updatedDate: z.coerce.date().optional(),
                 headerImage: z.string().optional(),
                 headerImageAlt: z.string().optional(),
+                // Link to the same article in other languages
+                translationKey: z.string().optional(),
                 excerpt: z.object({
                     type: z.string(),
                     children: z.any(),
@@ -36,6 +38,8 @@ export default defineContentConfig({
                 updatedDate: z.coerce.date().optional(),
                 headerImage: z.string().optional(),
                 headerImageAlt: z.string().optional(),
+                // Link to the same article in other languages
+                translationKey: z.string().optional(),
                 excerpt: z.object({
                     type: z.string(),
                     children: z.any(),

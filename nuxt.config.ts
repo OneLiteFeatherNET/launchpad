@@ -84,6 +84,7 @@ export default defineNuxtConfig({
   },
   site: {
     name: 'OneLiteFeather',
+    url: 'https://blog.onelitefeather.net',
   },
   content: {
     build: {
@@ -102,6 +103,14 @@ export default defineNuxtConfig({
     }
   },
   $production: {
+    runtimeConfig: {
+      public: {
+        siteUrl: 'https://blog.onelitefeather.net',
+      }
+    },
+    site: {
+      url: 'https://blog.onelitefeather.net',
+    },
     image: {
       cloudflare: {
         baseUrl: 'https://blog.onelitefeather.net',
