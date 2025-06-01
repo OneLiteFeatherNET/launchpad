@@ -74,7 +74,7 @@ const emailShareUrl = computed(() => {
 
 <template>
   <div class="social-media-share">
-    <h3 class="text-lg font-bold mb-3">{{ $t('article.share') }}</h3>
+    <h3 class="text-lg font-bold mb-3 dark:text-white">{{ $t('article.share') }}</h3>
     <div class="flex space-x-3">
       <!-- Facebook -->
       <a :href="facebookShareUrl" 

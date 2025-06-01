@@ -129,7 +129,7 @@ const title = computed(() => {
                fit='cover'
                format='webp'
                quality='80'
-               class="aspect-video object-cover rounded-lg" />
+               class="aspect-video object-cover rounded-lg w-[48rem] place-self-center" />
       <div class="p-4">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ title }}</h1>
         <time v-if="article?.pubDate" class="text-sm text-gray-500 dark:text-gray-400"><i18n-d :value="article?.pubDate"></i18n-d></time>
