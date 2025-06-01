@@ -58,7 +58,7 @@ useSchemaOrg({
         :blogArticle="top1Article"
     />
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
-      <ArticleCard
+      <LazyBlogPageCardArticleCard
           v-for="article in allPosts"
           :blogArticle="article" />
     </div>
