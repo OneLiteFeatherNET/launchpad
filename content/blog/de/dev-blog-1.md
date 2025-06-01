@@ -4,6 +4,7 @@ description: 'Heute möchte ich aus unserem Team die aktiv verwenden Technologie
 pubDate: 'Oct 21 2023'
 headerImage: 'images/blog/dev-blog-1.webp'
 headerImageAlt: 'Title Bild für DevBlog #1'
+translationKey: 'dev-blog-1-what-we-using'
 schemaOrg:
   - type: "BlogPosting"
     headline: "Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. "
