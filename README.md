@@ -1,22 +1,62 @@
-# Nuxt Minimal Starter
+# OneLiteFeather Blog
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A multilingual blog platform built with Nuxt 3, featuring content in both German and English.
+
+## Project Overview
+
+This project serves as the official blog for OneLiteFeather.net, providing articles and information in multiple languages. It's built with modern web technologies to ensure fast loading times, SEO optimization, and a great user experience.
+
+## Features
+
+- Multilingual content (German and English)
+- Responsive design with Tailwind CSS
+- SEO optimized with meta tags, sitemap, and robots.txt
+- Content management using Nuxt Content
+- Social media preview images
+- Structured data for better search engine visibility
+
+## Roadmap
+
+This project is intended to become the normal/official site for OneLiteFeather.net. Future plans include:
+
+- Expanding content categories
+- Enhancing user experience
+- Improving performance metrics
+- Adding more interactive elements
+- Integrating with other OneLiteFeather services
+
+## Technologies Used
+
+- [Nuxt 3](https://nuxt.com/) - Vue.js framework
+- [Nuxt Content](https://content.nuxtjs.org/) - Content management
+- [Nuxt i18n](https://i18n.nuxtjs.org/) - Internationalization
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [Nuxt SEO](https://nuxtseo.com/) - SEO optimization
+
+## Project Structure
+
+- `content/` - Blog posts and other content (organized by language)
+- `components/` - Vue components
+- `layouts/` - Page layouts
+- `pages/` - Application pages
+- `public/` - Static assets
+- `i18n/` - Internationalization configuration
 
 ## Setup
 
 Make sure to install dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
+# Using pnpm (recommended)
 pnpm install
 
-# yarn
+# Using npm
+npm install
+
+# Using yarn
 yarn install
 
-# bun
+# Using bun
 bun install
 ```
 
@@ -25,16 +65,16 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
+# Using pnpm (recommended)
 pnpm dev
 
-# yarn
+# Using npm
+npm run dev
+
+# Using yarn
 yarn dev
 
-# bun
+# Using bun
 bun run dev
 ```
 
@@ -43,32 +83,32 @@ bun run dev
 Build the application for production:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
+# Using pnpm (recommended)
 pnpm build
 
-# yarn
+# Using npm
+npm run build
+
+# Using yarn
 yarn build
 
-# bun
+# Using bun
 bun run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
+# Using pnpm (recommended)
 pnpm preview
 
-# yarn
+# Using npm
+npm run preview
+
+# Using yarn
 yarn preview
 
-# bun
+# Using bun
 bun run preview
 ```
 
