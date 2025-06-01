@@ -117,7 +117,7 @@ export default defineNuxtConfig({
           d1_databases: [
             {
               binding: 'DB',
-              database_name: 'launchpand',
+              database_name: 'launchpad',
               database_id: 'a92127c1-aaa3-4753-82ba-ea59fa9e7140'
             }
           ],
