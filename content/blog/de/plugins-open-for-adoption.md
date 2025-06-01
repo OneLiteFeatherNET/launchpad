@@ -13,8 +13,6 @@ schemaOrg:
       name: "Phillipp Glanz"
     datePublished: "2025-02-05T00:00:00+00:00"
 ---
-# Wer möchte "Plugins" adoptieren?
-
 ## Vorwort
 Durch die Erfahrung durch Jenkins möchten wir Plugins vorstellen die zur Adoption freigegeben sind. Dabei möchten wir als OneLiteFeather die Maintainer/Contributoren dazu unterstützen Sicherheit/Tools und mehr zu organisieren. 
 
