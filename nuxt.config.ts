@@ -46,7 +46,8 @@ export default defineNuxtConfig({
     'nuxt-schema-org',
     'nuxt-og-image',
     '@nuxt/content',
-    'nuxt-posthog'
+    'nuxt-posthog',
+    'nuxt-gtag'
   ],
   i18n: {
     strategy: 'prefix',
@@ -162,6 +163,13 @@ export default defineNuxtConfig({
     },
     site: {
       url: 'https://blog.onelitefeather.net',
+    },
+    gtag: {
+      id: 'AW-16761048144',
+      config: {
+        anonymize_ip: true,
+        send_page_view: true
+      }
     },
     image: {
       cloudflare: {
