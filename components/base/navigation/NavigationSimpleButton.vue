@@ -19,6 +19,7 @@ const route = useRoute()
       class=" hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-2 text-sm font-medium rounded-full transition-colors shadow-sm"
       :class="{ 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm': route.path === props.path,
        'text-gray-900 dark:text-gray-100 dark:bg-gray-800': route.path !== props.path }"
+      :aria-current="route.path === props.path ? 'page' : undefined"
   >
   {{ $t(props.textKey) }}
   </NuxtLink>
@@ -29,7 +30,9 @@ const route = useRoute()
       class="block px-3 py-2 text-base font-medium rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 shadow-sm"
       :class="{ 'bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm':  route.path === props.path,
        'text-gray-900 dark:text-gray-100 dark:bg-gray-800': route.path !== props.path }"
+      :aria-current="route.path === props.path ? 'page' : undefined"
       @click="emit('click-mobile')"
+      role="menuitem"
   >
     {{ $t(props.textKey) }}
   </NuxtLink>

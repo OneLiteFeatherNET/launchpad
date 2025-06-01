@@ -8,8 +8,8 @@
       <div>
         <h2 class="text-lg font-bold">Social Media</h2>
         <ul>
-          <li><a href="https://github.com/OneLiteFeatherNET" target="_blank">GitHub</a></li>
-          <li><a href="https://opencollective.com/onelitefeather" target="_blank">OpenCollective</a></li>
+          <li><a href="https://github.com/OneLiteFeatherNET" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">GitHub</a></li>
+          <li><a href="https://opencollective.com/onelitefeather" target="_blank" rel="noopener noreferrer" aria-label="OpenCollective (opens in a new tab)">OpenCollective</a></li>
         </ul>
       </div>
       <div>
@@ -24,7 +24,7 @@
           © {{ new Date().getFullYear() }} OneLiteFeather. All rights reserved.
         </p>
         <p>
-          Made with <span class="text-red-500">&hearts;</span> by the OneLiteFeather Team and contributors.
+          Made with <span class="text-red-500" aria-hidden="true">&hearts;</span><span class="sr-only">love</span> by the OneLiteFeather Team and contributors.
         </p>
       </div>
     </div>

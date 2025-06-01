@@ -19,7 +19,7 @@ const title = computed(() =>route.meta?.title ?? 'TDB');
   </Head>
   <Body class="h-full dark:bg-gray-900">
     <NavigationBar />
-    <main class="px-4 mx-auto sm:px-6 lg:px-8 w-screen h-full">
+    <main class="px-4 mx-auto sm:px-6 lg:px-8 w-full h-full">
       <slot/>
     </main>
     <FooterSection />

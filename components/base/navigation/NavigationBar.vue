@@ -38,10 +38,13 @@ const mobileMenuOpen = ref(false);
         </nav>
         <div class="md:hidden flex items-center">
           <button
+              id="mobile-menu-button"
               @click="mobileMenuOpen = !mobileMenuOpen"
               class="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label="Toggle mobile menu"
+              :aria-expanded="mobileMenuOpen"
           >
-            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
               <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -49,7 +52,7 @@ const mobileMenuOpen = ref(false);
         </div>
       </div>
     </div>
-    <div class="md:hidden" v-show="mobileMenuOpen">
+    <div class="md:hidden" v-show="mobileMenuOpen" role="menu" aria-labelledby="mobile-menu-button">
       <div class="pt-2 pb-4 space-y-1 px-4">
         <NavigationSimpleButton
             v-for="item in navItems"
