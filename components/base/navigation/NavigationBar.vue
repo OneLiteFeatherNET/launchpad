@@ -20,7 +20,7 @@ const mobileMenuOpen = ref(false);
         <div class="flex items-center">
           <NuxtLinkLocale to="/" class="flex-shrink-0 flex items-center">
             <NuxtImg src="images/logo.svg"
-                     alt="OneLiteFeather Logo"
+                     :alt="$t('accessibility.logo_alt')"
                      width="60"
                      height="60"
                      class="h-15 w-15 rounded-full"
@@ -41,7 +41,7 @@ const mobileMenuOpen = ref(false);
               id="mobile-menu-button"
               @click="mobileMenuOpen = !mobileMenuOpen"
               class="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label="Toggle mobile menu"
+              :aria-label="$t('navigation.toggle_mobile_menu')"
               :aria-expanded="mobileMenuOpen"
           >
             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

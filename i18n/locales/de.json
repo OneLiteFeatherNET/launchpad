@@ -1,6 +1,7 @@
 {
   "navigation": {
-    "overview": "Übersicht"
+    "overview": "Übersicht",
+    "toggle_mobile_menu": "Mobile Menü umschalten"
   },
   "layouts": {
     "title": "Titel"
@@ -19,5 +20,21 @@
       "title": "Impressum",
       "description": "Hier findest du unser Impressum."
     }
+  },
+  "footer": {
+    "social_media": "Social Media",
+    "legal": "Rechtliches",
+    "github": "GitHub",
+    "github_aria": "GitHub (öffnet in einem neuen Tab)",
+    "opencollective": "OpenCollective",
+    "opencollective_aria": "OpenCollective (öffnet in einem neuen Tab)",
+    "imprint": "Impressum",
+    "privacy_policy": "Datenschutz",
+    "all_rights_reserved": "Alle Rechte vorbehalten",
+    "made_with_love": "Mit Liebe erstellt vom OneLiteFeather Team und Mitwirkenden",
+    "love": "Liebe"
+  },
+  "accessibility": {
+    "logo_alt": "OneLiteFeather Logo"
   }
 }

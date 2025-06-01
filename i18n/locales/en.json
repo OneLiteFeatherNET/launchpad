@@ -1,6 +1,7 @@
 {
   "navigation": {
-    "overview": "Overview"
+    "overview": "Overview",
+    "toggle_mobile_menu": "Toggle mobile menu"
   },
   "layouts": {
     "title": "Title"
@@ -18,6 +19,22 @@
     "imprint": {
       "title": "Imprint",
       "description": "Here you can find our imprint."
-    },
+    }
+  },
+  "footer": {
+    "social_media": "Social Media",
+    "legal": "Legal",
+    "github": "GitHub",
+    "github_aria": "GitHub (opens in a new tab)",
+    "opencollective": "OpenCollective",
+    "opencollective_aria": "OpenCollective (opens in a new tab)",
+    "imprint": "Imprint",
+    "privacy_policy": "Privacy Policy",
+    "all_rights_reserved": "All rights reserved",
+    "made_with_love": "Made with love by the OneLiteFeather Team and contributors",
+    "love": "love"
+  },
+  "accessibility": {
+    "logo_alt": "OneLiteFeather Logo"
   }
 }
