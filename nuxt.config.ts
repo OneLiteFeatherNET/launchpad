@@ -120,7 +120,10 @@ export default defineNuxtConfig({
               database_name: 'launchpand',
               database_id: 'a92127c1-aaa3-4753-82ba-ea59fa9e7140'
             }
-          ]
+          ],
+          vars: {
+            "NUXT_IMAGE_PROVIDER": "cloudflare",
+          }
         }
       }
     }
