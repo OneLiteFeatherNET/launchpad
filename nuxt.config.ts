@@ -35,17 +35,17 @@ export default defineNuxtConfig({
     })
   },
   modules: [
-    '@nuxt/content',
-    '@nuxt/eslint',
-    '@nuxtjs/i18n',
-    '@nuxtjs/tailwindcss',
     '@vueuse/nuxt',
+    '@nuxt/eslint',
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@nuxt/image',
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
     'nuxt-schema-org',
-    'nuxt-og-image'
+    'nuxt-og-image',
+    '@nuxt/content'
   ],
   i18n: {
     strategy: 'prefix',

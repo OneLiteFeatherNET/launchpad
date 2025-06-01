@@ -1,10 +1,12 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 import { asSchemaOrgCollection } from 'nuxt-schema-org/content'
+import { asSitemapCollection } from '@nuxtjs/sitemap/content'
+
 
 
 export default defineContentConfig({
     collections: {
-        blog_de: defineCollection( asSchemaOrgCollection({
+        blog_de: defineCollection(asSitemapCollection(asSchemaOrgCollection({
             type: 'page',
             source: 'blog/de/**/*.md',
             schema: z.object({
@@ -21,8 +23,8 @@ export default defineContentConfig({
                     children: z.any(),
                 }),
             })
-        })),
-        blog_en: defineCollection( asSchemaOrgCollection({
+        }))),
+        blog_en: defineCollection(asSitemapCollection(asSchemaOrgCollection({
             type: 'page',
             source: 'blog/en/*.md',
             schema: z.object({
@@ -39,6 +41,6 @@ export default defineContentConfig({
                     children: z.any(),
                 }),
             })
-        }))
+        })))
     }
 })
