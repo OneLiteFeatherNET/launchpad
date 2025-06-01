@@ -129,7 +129,7 @@ useHead(article?.value?.head || {})
         <!-- Social Media Sharing Buttons -->
         <div class="mt-6">
           <SocialMediaShare 
-            :url="config.public.siteUrl + '/' + locale.value + '/' + article.slug" 
+            :url="config.public.siteUrl + '/' + locale + '/' + article.slug"
             :title="article.title" 
             :description="article.description || ''" 
             :is-large-page="['alles-was-man-ueber-ethanol-wissen-sollte', 'riding-the-rollercoaster-of-automation-with-proxmox-and-ansible', 'plugins-open-for-adoption', 'effizientes-logging-in-paper-plugins', 'dev-blog-1'].includes(article.slug)"
