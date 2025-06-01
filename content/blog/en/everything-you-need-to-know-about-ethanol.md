@@ -3,8 +3,14 @@ title: 'Everything You Need to Know About Ethanol'
 description: 'Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.'
 pubDate: 'Jul 23 2024'
 headerImage: 'images/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
+headerImageAlt: 'Ethanol Malware Post Image'
 slug: 'everything-you-need-to-know-about-ethanol'
-language: 'en'
+schemaOrg:
+  - type: "BlogPosting"
+    headline: 'Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.'
+    author:
+      type: "Person"
+      name: "Phillipp Glanz"
 ---
 
 Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.

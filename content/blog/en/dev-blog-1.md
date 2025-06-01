@@ -3,8 +3,14 @@ title: 'DevBlog #1'
 description: 'Today I would like to present you the active used technologies from our team and which advantages these offer to us...'
 pubDate: 'Oct 21 2023'
 headerImage: 'images/blog/dev-blog-1.webp'
-language: 'en'
+headerImageAlt: 'Title image for DevBlog #1'
 slug: 'dev-blog-1-what-we-using'
+schemaOrg:
+  - type: "BlogPosting"
+    headline: "Today I would like to present you the active used technologies from our team and which advantages these offer to us..."
+    author:
+      type: "Person"
+      name: "Phillipp Glanz"
 ---
 This blog entry was translated, there is also a german version of it!
 
