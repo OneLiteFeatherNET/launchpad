@@ -36,5 +36,13 @@
   },
   "accessibility": {
     "logo_alt": "OneLiteFeather Logo"
+  },
+  "article": {
+    "share": "Diesen Artikel teilen",
+    "share_on_facebook": "Auf Facebook teilen",
+    "share_on_twitter": "Auf Twitter teilen",
+    "share_on_linkedin": "Auf LinkedIn teilen",
+    "share_on_whatsapp": "Auf WhatsApp teilen",
+    "share_by_email": "Per E-Mail teilen"
   }
 }
