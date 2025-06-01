@@ -86,6 +86,51 @@ export default defineNuxtConfig({
     name: 'OneLiteFeather',
     url: 'https://blog.onelitefeather.net',
   },
+  sitemap: {
+    autoI18n: true,
+    xslColumns: [
+      { label: 'URL', width: '50%' },
+      { label: 'Last Modified', select: 'sitemap:lastmod', width: '25%' },
+      { label: 'Language', select: 'sitemap:hreflang', width: '25%' }
+    ],
+    urls: [],
+    defaults: {
+      changefreq: 'weekly',
+      priority: 0.8,
+      lastmod: new Date()
+    },
+    // Ensure alternate language versions are properly linked
+    i18n: {
+      locales: ['de', 'en'],
+      defaultLocale: 'de'
+    },
+    // Process content collections to add alternate links based on translationKey
+    transformEntries: async (entries) => {
+      // Group entries by translationKey
+      const entriesByTranslationKey = entries.reduce((acc, entry) => {
+        if (entry.translationKey) {
+          if (!acc[entry.translationKey]) {
+            acc[entry.translationKey] = [];
+          }
+          acc[entry.translationKey].push(entry);
+        }
+        return acc;
+      }, {});
+
+      // Add alternate links to entries
+      return entries.map(entry => {
+        if (entry.translationKey && entriesByTranslationKey[entry.translationKey]) {
+          entry.alternates = entriesByTranslationKey[entry.translationKey]
+            .filter(alt => alt._path !== entry._path)
+            .map(alt => ({
+              hreflang: alt._locale || 'x-default',
+              href: alt._path
+            }));
+        }
+        return entry;
+      });
+    }
+  },
   content: {
     build: {
       markdown: {

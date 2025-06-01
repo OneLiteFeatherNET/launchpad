@@ -28,7 +28,7 @@ export default defineContentConfig({
         }))),
         blog_en: defineCollection(asSitemapCollection(asSchemaOrgCollection({
             type: 'page',
-            source: 'blog/en/*.md',
+            source: 'blog/en/**/*.md',
             schema: z.object({
                 title: z.string(),
                 description: z.string(),
