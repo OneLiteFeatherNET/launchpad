@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useProjectStatus } from '~/composables/useProjectStatus';
 
 const { locale, t } = useI18n();
+const { getStatusColor, getStatusTranslationKey } = useProjectStatus();
 
 // SEO optimization
 definePageMeta({
@@ -53,26 +55,6 @@ const getProfileImageUrl = (author: any) => {
   return getMinecraftHeadUrl(author.minecraftUsername);
 };
 
-// Status color mapping
-const statusColorMap = {
-  'Aktiv': 'success',
-  'Active': 'success',
-  'In Entwicklung': 'info',
-  'In Development': 'info',
-  'In Progress': 'info',
-  'In Bearbeitung': 'info',
-  'Geplant': 'warning',
-  'Planned': 'warning',
-  'Abgeschlossen': 'success',
-  'Completed': 'success',
-  'Pausiert': 'error',
-  'Paused': 'error'
-};
-
-// Get status color
-const getStatusColor = (status: string) => {
-  return statusColorMap[status] || 'primary';
-};
 </script>
 
 <template>
@@ -123,7 +105,7 @@ const getStatusColor = (status: string) => {
                   `text-on-${getStatusColor(project.status)}-container dark:text-on-${getStatusColor(project.status)}-container-dark`
                 ]"
               >
-                {{ project.status }}
+                {{ $t(`projects.status.${getStatusTranslationKey(project.status)}`) }}
               </div>
 
               <!-- Affiliate badge if applicable -->

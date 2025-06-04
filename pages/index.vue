@@ -41,7 +41,6 @@ definePageMeta({
 
 // Use the localized content composable to fetch data
 const { data: carouselData } = await useLocalizedContent('carousel');
-const { data: historyData } = await useLocalizedContent('history');
 const { data: activitiesData } = await useLocalizedContent('activities');
 const { data: projectsData } = await useLocalizedContent('projects');
 const { data: sponsorsData } = await useLocalizedContent('sponsors');
@@ -51,8 +50,15 @@ const { fetchBlogPosts } = useBlog();
 const { data: blogPosts } = await fetchBlogPosts(3);
 
 // Fetch the latest tutorials
-const { data: tutorials } = await useAsyncData('home-tutorials', () => {
-  return queryCollection(`tutorials_${locale.value}`).order('pubDate', 'DESC').limit(3).all();
+const { data: tutorialsData } = await useLocalizedContentList('tutorials', {}, 'nuxtContent');
+
+// Sort tutorials by date and limit to 3
+const tutorials = computed(() => {
+  if (isUnmounted.value || !tutorialsData.value) return [];
+
+  return tutorialsData.value
+    .sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime())
+    .slice(0, 3);
 });
 
 // Combine and sort blog posts and tutorials by date
@@ -84,8 +90,7 @@ const featuredContent = computed(() => {
 });
 
 const slides = computed(() => isUnmounted.value ? [] : carouselData.value?.slides || []);
-const historyTitle = computed(() => isUnmounted.value ? '' : historyData.value?.title || '');
-const timeline = computed(() => isUnmounted.value ? [] : historyData.value?.timeline || []);
+// Timeline data is now fetched directly in the HomeTimeline component
 const activitiesTitle = computed(() => isUnmounted.value ? '' : activitiesData.value?.title || '');
 const activities = computed(() => isUnmounted.value ? [] : activitiesData.value?.activities || []);
 const featuredProjects = computed(() => {
@@ -117,7 +122,7 @@ const featuredSponsors = computed(() => {
     <HomeMinecraftServers />
 
     <!-- Timeline Component -->
-    <HomeTimeline :title="historyTitle" :timeline="timeline" />
+    <HomeTimeline />
 
     <!-- Activities Component -->
     <HomeActivities :title="activitiesTitle" :activities="activities" />
