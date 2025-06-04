@@ -19,7 +19,7 @@ const title = computed(() => t(route.meta?.title ?? 'TDB'));
       <Meta :id="meta.hid" :property="meta.property" :content="meta.content" />
     </template>
   </Head>
-  <Body class="h-full dark:bg-gray-900">
+  <Body class="h-full bg-surface dark:bg-gray-900">
     <DevModeDisclaimer />
     <NavigationBar />
     <main class="px-4 mx-auto sm:px-6 lg:px-8 w-full h-full min-h-screen">
