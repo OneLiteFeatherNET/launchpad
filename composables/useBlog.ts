@@ -1,11 +1,13 @@
 import type { BlogPost, BlogPostListItem } from '~/types/blog';
 import type { Author } from '~/types/author';
+import { useContentService } from './content/useContentService';
 
 /**
  * Composable for blog-related functionality
  */
 export const useBlog = () => {
   const { locale } = useI18n();
+  const contentService = useContentService('nuxtContent');
 
   /**
    * Fetch a blog post by slug
@@ -25,13 +27,20 @@ export const useBlog = () => {
     const { data, pending, error, refresh } = await useAsyncData<BlogPostListItem[]>(
       `blog-posts-${locale.value}-${limit}`,
       async () => {
-        const query = queryCollection<BlogPostListItem>(`blog_${locale.value}`).order('pubDate', 'DESC');
-        
+        const collectionName = `blog_${locale.value}`;
+        const allPosts = await contentService.queryAll<BlogPostListItem>(collectionName);
+
+        // Sort by publication date (newest first)
+        const sortedPosts = allPosts.sort((a, b) => 
+          new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+        );
+
+        // Apply limit if specified
         if (limit) {
-          return await query.limit(limit).all();
+          return sortedPosts.slice(0, limit);
         }
-        
-        return await query.all();
+
+        return sortedPosts;
       }
     );
 
@@ -46,9 +55,15 @@ export const useBlog = () => {
     const { data, pending, error, refresh } = await useAsyncData<BlogPostListItem>(
       `featured-blog-post-${locale.value}`,
       async () => {
-        return await queryCollection<BlogPostListItem>(`blog_${locale.value}`)
-          .order('pubDate', 'DESC')
-          .first();
+        const collectionName = `blog_${locale.value}`;
+        const allPosts = await contentService.queryAll<BlogPostListItem>(collectionName);
+
+        // Sort by publication date (newest first) and get the first one
+        const sortedPosts = allPosts.sort((a, b) => 
+          new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+        );
+
+        return sortedPosts[0] || null;
       }
     );
 
@@ -65,11 +80,20 @@ export const useBlog = () => {
     const { data, pending, error, refresh } = await useAsyncData<BlogPostListItem[]>(
       `blog-posts-by-author-${locale.value}-${authorNamespace}-${authorKey}`,
       async () => {
-        return await queryCollection<BlogPostListItem>(`blog_${locale.value}`)
-          .where('author.namespace', '=', authorNamespace)
-          .where('author.key', '=', authorKey)
-          .order('pubDate', 'DESC')
-          .all();
+        const collectionName = `blog_${locale.value}`;
+        const allPosts = await contentService.queryAll<BlogPostListItem>(collectionName);
+
+        // Filter posts by author
+        const authorPosts = allPosts.filter(post => 
+          post.author && 
+          post.author.namespace === authorNamespace && 
+          post.author.key === authorKey
+        );
+
+        // Sort by publication date (newest first)
+        return authorPosts.sort((a, b) => 
+          new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+        );
       }
     );
 
