@@ -1,10 +1,15 @@
 <script setup lang="ts">
-defineProps({
+import { useProjectStatus } from '~/composables/useProjectStatus';
+
+const props = defineProps({
   project: {
     type: Object,
     required: true
   }
 });
+
+// Import project status utilities
+const { getStatusTranslationKey } = useProjectStatus();
 </script>
 
 <template>
@@ -53,10 +58,10 @@ defineProps({
         <div 
           class="inline-flex items-center px-4 py-2 rounded-full bg-primary-container dark:bg-primary-container-dark text-on-primary-container dark:text-on-primary-container-dark"
           role="status"
-          :aria-label="$t('projects.status') + ': ' + project.status"
+          :aria-label="$t('projects.status') + ': ' + $t(`projects.status.${getStatusTranslationKey(project.status)}`)"
         >
           <span class="font-medium">{{ $t('projects.status') }}:</span>
-          <span class="ml-2">{{ project.status }}</span>
+          <span class="ml-2">{{ $t(`projects.status.${getStatusTranslationKey(project.status)}`) }}</span>
         </div>
 
         <a 

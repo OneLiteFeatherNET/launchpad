@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useProjectStatus } from '~/composables/useProjectStatus';
 
 const props = defineProps({
   project: {
@@ -12,30 +13,17 @@ const props = defineProps({
   }
 });
 
+// Import project status utilities
+const { getStatusColor, getStatusTranslationKey } = useProjectStatus();
+
 // Function to get Minecraft head URL
 const getMinecraftHeadUrl = (username?: string) => {
   return username ? `https://mc-heads.net/avatar/${username}/100` : '/images/authors/placeholder.svg';
 };
 
-// Status color mapping
-const statusColorMap = {
-  'Evaluierung': 'info',
-  'Evaluation': 'info',
-  'Prototypen': 'warning',
-  'Prototype': 'warning',
-  'Entwicklung': 'success',
-  'Development': 'success',
-  'Wartung': 'primary',
-  'Maintenance': 'primary',
-  'Archiviert': 'secondary',
-  'Archived': 'secondary',
-  'Aufgegeben': 'error',
-  'Abandoned': 'error'
-};
-
 // Get status color
 const statusColor = computed(() => {
-  return statusColorMap[props.project.status] || 'primary';
+  return getStatusColor(props.project.status);
 });
 </script>
 
@@ -63,7 +51,7 @@ const statusColor = computed(() => {
             `text-on-${statusColor}-container dark:text-on-${statusColor}-container-dark`
           ]"
         >
-          {{ project.status }}
+          {{ $t(`projects.status.${getStatusTranslationKey(project.status)}`) }}
         </div>
 
         <!-- Affiliate badge if applicable -->

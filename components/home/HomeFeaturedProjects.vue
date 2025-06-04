@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useProjectStatus } from '~/composables/useProjectStatus';
 
 const props = defineProps({
   title: {
@@ -16,6 +17,9 @@ const props = defineProps({
   }
 });
 
+// Import project status utilities
+const { getStatusColor, getStatusTranslationKey } = useProjectStatus();
+
 // Function to get Minecraft head URL
 const getMinecraftHeadUrl = (username: string) => {
   return `https://mc-heads.net/avatar/${username}/100`;
@@ -30,27 +34,6 @@ const getProfileImageUrl = (author: any) => {
 
   // Otherwise use Minecraft head
   return getMinecraftHeadUrl(author.minecraftUsername);
-};
-
-// Status color mapping
-const statusColorMap = {
-  'Aktiv': 'success',
-  'Active': 'success',
-  'In Entwicklung': 'info',
-  'In Development': 'info',
-  'In Progress': 'info',
-  'In Bearbeitung': 'info',
-  'Geplant': 'warning',
-  'Planned': 'warning',
-  'Abgeschlossen': 'success',
-  'Completed': 'success',
-  'Pausiert': 'error',
-  'Paused': 'error'
-};
-
-// Get status color
-const getStatusColor = (status: string) => {
-  return statusColorMap[status] || 'primary';
 };
 </script>
 
@@ -101,7 +84,7 @@ const getStatusColor = (status: string) => {
                   `text-on-${getStatusColor(project.status)}-container dark:text-on-${getStatusColor(project.status)}-container-dark`
                 ]"
               >
-                {{ project.status }}
+                {{ $t(`projects.status.${getStatusTranslationKey(project.status)}`) }}
               </div>
 
               <!-- Affiliate badge if applicable -->
@@ -147,7 +130,14 @@ const getStatusColor = (status: string) => {
                       quality="80"
                       loading="lazy"
                     />
-                    <span class="text-sm text-on-surface-variant dark:text-on-surface-variant-dark">{{ author.name }}</span>
+                    <NuxtLinkLocale 
+                      v-if="author.slug" 
+                      :to="`/authors/${author.slug}`" 
+                      class="text-sm text-on-surface-variant dark:text-on-surface-variant-dark hover:underline"
+                    >
+                      {{ author.name }}
+                    </NuxtLinkLocale>
+                    <span v-else class="text-sm text-on-surface-variant dark:text-on-surface-variant-dark">{{ author.name }}</span>
                     <span v-if="authorIndex < project.authors.length - 1 && authorIndex < 2" class="mx-1 text-on-surface-variant dark:text-on-surface-variant-dark">,</span>
                   </div>
                   <span v-if="project.authors.length > 3" class="text-sm text-on-surface-variant dark:text-on-surface-variant-dark">

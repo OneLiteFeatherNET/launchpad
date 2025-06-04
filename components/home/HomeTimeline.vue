@@ -6,29 +6,49 @@ const { t } = useI18n();
 const props = defineProps({
   title: {
     type: String,
-    required: true
+    default: ''
   },
-  timeline: {
+  customTimeline: {
     type: Array,
-    required: true,
     default: () => []
+  },
+  useCustomData: {
+    type: Boolean,
+    default: false
   }
+});
+
+// Fetch history data which contains timeline items if not using custom data
+const { data: historyData } = !props.useCustomData 
+  ? await useLocalizedContent('history')
+  : { data: ref(null) };
+
+// Get title from props or from history data
+const title = computed(() => {
+  if (props.title) return props.title;
+  return historyData.value?.title || '';
+});
+
+// Get timeline items from props or from history data
+const timelineItems = computed(() => {
+  if (props.useCustomData) return props.customTimeline;
+  return historyData.value?.timeline || [];
 });
 
 // Sort timeline items by year (newest first)
 const sortedTimeline = computed(() => {
-  return [...props.timeline].sort((a, b) => {
+  return [...timelineItems.value].sort((a, b) => {
     // First compare by year
     const yearA = parseInt(a.year) || 0;
     const yearB = parseInt(b.year) || 0;
 
     if (yearA !== yearB) {
-      return yearB - yearA; // Descending order (newest first)
+      return yearA - yearB; // Descending order (newest first)
     }
 
     // If years are the same, compare by month if available
     if (a.month && b.month) {
-      return a.month.localeCompare(b.month);
+      return b.month.localeCompare(a.month);
     }
 
     // If one has a month and the other doesn't, the one with a month comes first
@@ -46,26 +66,7 @@ const newestEntries = computed(() => {
 
 // Get the 2 oldest entries
 const oldestEntries = computed(() => {
-  return [...sortedTimeline.value].sort((a, b) => {
-    // First compare by year (oldest first)
-    const yearA = parseInt(a.year) || 0;
-    const yearB = parseInt(b.year) || 0;
-
-    if (yearA !== yearB) {
-      return yearA - yearB;
-    }
-
-    // If years are the same, compare by month if available
-    if (a.month && b.month) {
-      return b.month.localeCompare(a.month);
-    }
-
-    // If one has a month and the other doesn't, the one without a month comes first
-    if (a.month) return 1;
-    if (b.month) return -1;
-
-    return 0;
-  }).slice(0, 2);
+  return [...sortedTimeline.value].reverse().slice(0, 2);
 });
 
 // Create a middle entry that links to the full timeline
@@ -73,13 +74,13 @@ const middleEntry = computed(() => {
   return {
     year: t('timeline.view_all_year'),
     description: t('timeline.view_all_description'),
-    color: 'secondary',
     isViewAllLink: true
   };
 });
 
 // Combine the entries for display
 const displayEntries = computed(() => {
+  // return sortedTimeline.value;
   return [...newestEntries.value, middleEntry.value, ...oldestEntries.value];
 });
 </script>
@@ -103,8 +104,8 @@ const displayEntries = computed(() => {
               index % 2 === 0 ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0',
               'ml-16 sm:ml-16',
               'relative z-1',
-              item.color === 'secondary' 
-                ? 'bg-secondary-container dark:bg-secondary-container-dark' 
+              item.color === 'secondary'
+                ? 'bg-secondary-container dark:bg-secondary-container-dark'
                 : `bg-${item.color}-container dark:bg-${item.color}-container-dark`
             ]"
             role="article"

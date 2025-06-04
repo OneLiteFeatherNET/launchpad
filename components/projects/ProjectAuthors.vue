@@ -13,66 +13,131 @@ const { locale } = useI18n();
 const resolvedAuthors = ref([]);
 const isLoading = ref(true);
 
-// Function to fetch author data by namespace and key
-const fetchAuthorData = async (namespace, key, authorRef) => {
+// Function to fetch all authors data at once
+const fetchAllAuthorsData = async (authorRefs) => {
   try {
-    // First try to find the author in the standalone authors collection
+    // Extract unique namespace-key pairs to query
+    const authorQueries = authorRefs
+      .filter(ref => ref.namespace && ref.key)
+      .map(ref => ({
+        namespace: ref.namespace,
+        key: ref.key,
+        originalRef: ref // Keep reference to the original author object
+      }));
+
+    // If no valid author references, return empty array
+    if (authorQueries.length === 0) {
+      return [];
+    }
+
+    // Prepare collections based on locale
     const authorCollection = locale.value === 'de' ? 'authors_de' : 'authors_en';
-    const author = await queryCollection(authorCollection)
-      .where({ namespace, key })
-      .findOne();
-
-    if (author) {
-      return author;
-    }
-
-    // If not found, try to find the author in the team collection
     const teamCollection = locale.value === 'de' ? 'team_de' : 'team_en';
-    const teamData = await queryCollection(teamCollection).first();
-    if (teamData && teamData.ranks) {
-      const allMembers = teamData.ranks.flatMap(rank => rank.members) || [];
-      const teamMember = allMembers.find((member) => member.namespace === namespace && member.key === key);
-      if (teamMember) {
-        return teamMember;
+
+    // Create a map to store resolved authors
+    const resolvedAuthorsMap = new Map();
+
+    // Step 1: Fetch all authors from the authors collection
+    const authorQueryConditions = authorQueries.map(q => ({ namespace: q.namespace, key: q.key }));
+    const authorsResult = await queryCollection(authorCollection)
+      .where(author => authorQueryConditions.some(
+        condition => author.namespace === condition.namespace && author.key === condition.key
+      ))
+      .find();
+
+    // Map authors by namespace:key for easy lookup
+    const authorsMap = new Map();
+    authorsResult.forEach(author => {
+      const key = `${author.namespace}:${author.key}`;
+      authorsMap.set(key, author);
+    });
+
+    // Step 2: Fetch team data (only once)
+    let teamMembers = [];
+    try {
+      const teamData = await queryCollection(teamCollection).first();
+      if (teamData && teamData.ranks) {
+        teamMembers = teamData.ranks.flatMap(rank => rank.members) || [];
       }
+    } catch (teamError) {
+      console.error('Error fetching team data:', teamError);
     }
 
-    // If still not found, return a placeholder with the reference info
-    return {
-      name: `${namespace}:${key}`,
-      namespace,
-      key,
-      slug: authorRef.slug // Preserve the slug from the author reference
-    };
+    // Step 3: Process each author query
+    for (const query of authorQueries) {
+      const { namespace, key, originalRef } = query;
+      const lookupKey = `${namespace}:${key}`;
+
+      // Check if author was found in authors collection
+      if (authorsMap.has(lookupKey)) {
+        const author = authorsMap.get(lookupKey);
+        resolvedAuthorsMap.set(lookupKey, {
+          ...author,
+          slug: originalRef.slug || author.slug
+        });
+        continue;
+      }
+
+      // Check if author is in team members
+      const teamMember = teamMembers.find(
+        member => member.namespace === namespace && member.key === key
+      );
+
+      if (teamMember) {
+        resolvedAuthorsMap.set(lookupKey, {
+          ...teamMember,
+          slug: originalRef.slug || teamMember.slug
+        });
+        continue;
+      }
+
+      // If not found anywhere, use placeholder
+      resolvedAuthorsMap.set(lookupKey, {
+        name: lookupKey,
+        namespace,
+        key,
+        slug: originalRef.slug
+      });
+    }
+
+    // Convert map to array in the same order as original queries
+    return authorQueries.map(query => {
+      const lookupKey = `${query.namespace}:${query.key}`;
+      return resolvedAuthorsMap.get(lookupKey);
+    });
   } catch (error) {
-    console.error(`Error fetching author data for ${namespace}:${key}:`, error);
-    return {
-      name: `${namespace}:${key}`,
-      namespace,
-      key,
-      slug: authorRef.slug // Preserve the slug from the author reference
-    };
+    console.error('Error fetching authors data:', error);
+    // Return placeholders for all authors on error
+    return authorRefs.map(ref => {
+      if (ref.namespace && ref.key) {
+        return {
+          name: `${ref.namespace}:${ref.key}`,
+          namespace: ref.namespace,
+          key: ref.key,
+          slug: ref.slug
+        };
+      }
+      return ref;
+    });
   }
 };
 
 // Resolve all author references
 onMounted(async () => {
   try {
-    const authors = [];
+    // Separate author references from full author objects
+    const authorRefs = props.authors.filter(author => author.namespace && author.key);
+    const fullAuthors = props.authors.filter(author => !author.namespace || !author.key);
 
-    for (const authorRef of props.authors) {
-      if (authorRef.namespace && authorRef.key) {
-        const authorData = await fetchAuthorData(authorRef.namespace, authorRef.key, authorRef);
-        authors.push(authorData);
-      } else {
-        // If it's already a full author object, use it as is
-        authors.push(authorRef);
-      }
-    }
+    // Fetch data for author references
+    const resolvedAuthorRefs = await fetchAllAuthorsData(authorRefs);
 
-    resolvedAuthors.value = authors;
+    // Combine resolved references with full author objects
+    resolvedAuthors.value = [...resolvedAuthorRefs, ...fullAuthors];
   } catch (error) {
     console.error('Error resolving author references:', error);
+    // Fallback to original authors array
+    resolvedAuthors.value = props.authors;
   } finally {
     isLoading.value = false;
   }
