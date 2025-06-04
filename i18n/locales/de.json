@@ -133,7 +133,11 @@
     "no_items": "Noch keine Zeitleisten-Einträge verfügbar.",
     "view_all": "Vollständige Zeitleiste anzeigen",
     "view_all_year": "Vollständige Zeitleiste",
-    "view_all_description": "Klicken Sie hier, um unsere komplette Geschichte anzuzeigen"
+    "view_all_description": "Klicken Sie hier, um unsere komplette Geschichte anzuzeigen",
+    "meta": {
+      "title": "Zeitleiste",
+      "description": "Entdecke unsere Geschichte"
+    }
   },
   "minecraft": {
     "servers": "Minecraft Server",
@@ -157,7 +161,8 @@
     "featured_content": "Neueste Beiträge",
     "featured_projects": "Ausgewählte Projekte",
     "sponsors": "Unsere Sponsoren",
-    "view_all_sponsors": "Alle Sponsoren anzeigen"
+    "view_all_sponsors": "Alle Sponsoren anzeigen",
+    "view_all_projects": "Alle Projekte anzeigen"
   },
   "projects": {
     "view_on_github": "Auf GitHub ansehen",

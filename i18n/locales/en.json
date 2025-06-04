@@ -133,7 +133,11 @@
     "no_items": "No timeline items available yet.",
     "view_all": "View full timeline",
     "view_all_year": "Full Timeline",
-    "view_all_description": "Click here to view our complete history timeline"
+    "view_all_description": "Click here to view our complete history timeline",
+    "meta": {
+      "title": "Timeline",
+      "description": "Explore our history timeline"
+    }
   },
   "minecraft": {
     "servers": "Minecraft Servers",
@@ -157,7 +161,8 @@
     "featured_content": "Latest Content",
     "featured_projects": "Featured Projects",
     "sponsors": "Our Sponsors",
-    "view_all_sponsors": "View All Sponsors"
+    "view_all_sponsors": "View All Sponsors",
+    "view_all_projects": "View All Projects"
   },
   "projects": {
     "view_on_github": "View on GitHub",
