@@ -22,7 +22,7 @@ onClickOutside(dropdown, () => {
     <button
       v-if="!props.mobile"
       @click="isOpen = !isOpen"
-      class="flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 text-sm font-medium rounded-full transition-colors shadow-sm"
+      class="flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 text-sm font-medium rounded-full transition-colors shadow-sm text-gray-900 dark:text-gray-100"
       aria-haspopup="true"
       :aria-expanded="isOpen"
       :aria-label="$t(props.textKey)"
@@ -37,7 +37,7 @@ onClickOutside(dropdown, () => {
     <button
       v-else
       @click="isOpen = !isOpen"
-      class="flex items-center justify-between w-full px-3 py-2 text-base font-medium rounded-full transition-colors"
+      class="flex items-center justify-between w-full px-3 py-2 text-base font-medium rounded-full transition-colors text-gray-900 dark:text-gray-100"
       aria-haspopup="true"
       :aria-expanded="isOpen"
       :aria-label="$t(props.textKey)"
