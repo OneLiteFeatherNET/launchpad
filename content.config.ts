@@ -117,6 +117,10 @@ const personSchema = z.object({
   joinDate: z.string().optional(), // Used in team members
   onProbation: z.boolean().optional(), // Used in team members
 });
+const memberSchema = z.object({
+  namespace: z.string().regex(namespaceKeyPattern, { message: namespaceKeyMessage }),
+  key: z.string().regex(namespaceKeyPattern, { message: namespaceKeyMessage }),
+});
 
 // Use the unified personSchema for authors
 const authorSchema = personSchema;
@@ -206,14 +210,16 @@ const activitiesSchema = z.object({
 
 // Rank schema for team
 const rankSchema = z.object({
-  name: commonFields.name,
-  description: commonFields.description.optional(),
-  members: z.array(personSchema), // Use the unified personSchema for team members
+  namespace: z.string().regex(namespaceKeyPattern, { message: namespaceKeyMessage }),
+  key: z.string().regex(namespaceKeyPattern, { message: namespaceKeyMessage }),
+  members: z.array(memberSchema), // Use the unified personSchema for team members
 });
 
 // Rank explanation schema
 const rankExplanationSchema = z.object({
   rank: z.string(),
+  namespace: z.string().regex(namespaceKeyPattern, { message: namespaceKeyMessage }),
+  key: z.string().regex(namespaceKeyPattern, { message: namespaceKeyMessage }),
   description: commonFields.description,
 });
 

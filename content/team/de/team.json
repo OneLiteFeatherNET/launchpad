@@ -3,174 +3,160 @@
   "description": "Lernen Sie die Mitglieder des OneLiteFeather-Teams kennen, die hinter unseren Projekten stehen. Letzte Aktualisierung: 24.5.2025",
   "ranks": [
     {
-      "name": "Administration",
-      "description": "Verantwortlich für die Verwaltung und finanzielle Leitung der Plattform.",
+      "namespace": "rank",
+      "key": "administration",
       "members": [
         {
-          "name": "Seelenretterin",
-          "slug": "seelenretterin",
-          "bio": "Finanzieller Serverinhaber und Teil der Administration. Erstellt auch Inhalte für diverse Social Media für neue Spieler.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "seelenretterin"
         },
         {
-          "name": "TheMeinerLP (Phillipp Glanz)",
-          "slug": "themeinerlp",
-          "bio": "Finanzieller Serverinhaber und Teil der Administration. Auch in der Entwicklungsleitung tätig.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "themeinerlp"
         },
         {
-          "name": "theEvilReaper",
-          "slug": "theevilreaper",
-          "bio": "Mitglied der Administration. Auch in der Entwicklungsleitung tätig.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "theevilreaper"
         }
       ]
     },
     {
-      "name": "Entwicklungsleitung",
-      "description": "Verwaltet die Server, kümmert sich um neue Entwickler und entscheidet über Technologien.",
+      "namespace": "rank",
+      "key": "development-lead",
       "members": [
         {
-          "name": "TheMeinerLP (Phillipp Glanz)",
-          "slug": "themeinerlp",
-          "bio": "Verwaltet die Server, kümmert sich um neue Entwickler und hilft bei Fragen. Entscheidet nach Fachwissen, welche Technologien eingeführt werden.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "themeinerlp"
         },
         {
-          "name": "theEvilReaper",
-          "slug": "theevilreaper",
-          "bio": "Verwaltet die Server, kümmert sich um neue Entwickler und hilft bei Fragen. Entscheidet nach Fachwissen, welche Technologien eingeführt werden.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "theevilreaper"
         }
       ]
     },
     {
-      "name": "Builder",
-      "description": "Kreative Köpfe, die unsere Welten gestalten.",
+      "namespace": "rank",
+      "key": "builder",
       "members": [
         {
-          "name": "PegasusFieber17",
-          "slug": "pegasusfieber17",
-          "bio": "Bauleitung. Baut an Dörfern, Redstoneschaltungen und anderen Projekten.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "pegasusfieber17"
         }
       ]
     },
     {
-      "name": "Entwickler",
-      "description": "Entwickeln Plugins, KI, RestApis und andere technische Lösungen.",
+      "namespace": "rank",
+      "key": "developer",
       "members": [
         {
-          "name": "Joltra",
-          "slug": "joltra",
-          "bio": "Entwickler bei OneLiteFeather. Arbeitet an Plugins, KI und RestApis.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "joltra"
         },
         {
-          "name": "Random (3s1)",
-          "slug": "random-3s1",
-          "bio": "Entwickler bei OneLiteFeather. Arbeitet an Plugins, KI und RestApis.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "random-3s1"
         },
         {
-          "name": "theShadowsDust",
-          "slug": "theshadowsdust",
-          "bio": "Entwickler bei OneLiteFeather. Arbeitet an Plugins, KI und RestApis.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "theshadowsdust"
         }
       ]
     },
     {
-      "name": "Systemintegratoren",
-      "description": "Kümmern sich um Serverinfrastruktur, Sicherheit und Automatisierung.",
+      "namespace": "rank",
+      "key": "system-administrator",
       "members": [
         {
-          "name": "Saynax",
-          "slug": "saynax",
-          "bio": "Serverflüsterer, der sich darum kümmert, dass Server geschützt sind. Entwickelt auch an Automatisierungen (DevOps) mit.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "saynax"
         },
         {
-          "name": "mcmdev",
-          "slug": "mcmdev",
-          "bio": "Serverflüsterer, der sich darum kümmert, dass Server geschützt sind. Entwickelt auch an Automatisierungen (DevOps) mit.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "mcmdev"
         }
       ]
     },
     {
-      "name": "Marketing",
-      "description": "Erstellt Inhalte für Social Media und gewinnt neue Spieler.",
+      "namespace": "rank",
+      "key": "marketing",
       "members": [
         {
-          "name": "Seelenretterin",
-          "slug": "seelenretterin",
-          "bio": "Erstellt Inhalte für diverse Social Media für neue Spieler.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "seelenretterin"
         }
       ]
     },
     {
-      "name": "Writer",
-      "description": "Erstellen Konzepte für Spielmodi und übersetzen diese in Features für Plugins.",
+      "namespace": "rank",
+      "key": "writer",
       "members": [
         {
-          "name": "weltspielt",
-          "slug": "weltspielt",
-          "bio": "Kümmert sich um Konzepte für Spielmodis und sorgt dafür, dass ein Konzept in Features für Plugins übersetzt wird, die die Entwickler versionsweise entwickeln.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "weltspielt"
         }
       ]
     },
     {
-      "name": "Moderation",
-      "description": "Betreut Spieler und sorgt für die Einhaltung der Regeln.",
+      "namespace": "rank",
+      "key": "moderation",
       "members": [
         {
-          "name": "Morelia0815",
-          "slug": "morelia0815",
-          "bio": "Kümmert sich darum, dass die Spieler betreut und Regeln eingehalten werden. Direkte Ansprechpartnerin für Probleme rund um den Minecraft Server.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "morelia0815"
         },
         {
-          "name": "blndr2",
-          "slug": "blndr2",
-          "bio": "Kümmert sich darum, dass die Spieler betreut und Regeln eingehalten werden. Direkter Ansprechpartner für Probleme rund um den Minecraft Server.",
-          "profileImage": ""
+          "namespace": "author",
+          "key": "blndr2"
         }
       ]
     }
   ],
   "rankExplanations": [
     {
+      "namespace": "rank",
+      "key": "administration",
       "rank": "Administration",
       "description": "Die Administration besteht aus den finanziellen Serverinhabern und weiteren Mitgliedern, die für die Verwaltung und strategische Ausrichtung verantwortlich sind."
     },
     {
+      "namespace": "rank",
+      "key": "development-lead",
       "rank": "Entwicklungsleitung",
       "description": "Die Entwicklungsleitung verwaltet die Server, kümmert sich um neue Entwickler und entscheidet nach Fachwissen, welche Technologien eingeführt werden."
     },
     {
+      "namespace": "rank",
+      "key": "builder",
       "rank": "Builder",
       "description": "Builder bauen an Dörfern, Redstoneschaltungen und anderen Projekten, um die Spielwelt zu gestalten."
     },
     {
+      "namespace": "rank",
+      "key": "developer",
       "rank": "Entwickler",
       "description": "Entwickler arbeiten an Plugins, KI, RestApis und anderen technischen Lösungen für den Server."
     },
     {
+      "namespace": "rank",
+      "key": "system-administrator",
       "rank": "Systemintegratoren",
       "description": "Systemintegratoren kümmern sich um die Serverinfrastruktur, Sicherheit und Automatisierung (DevOps)."
     },
     {
+      "namespace": "rank",
+      "key": "marketing",
       "rank": "Marketing",
       "description": "Das Marketing-Team erstellt Inhalte für Social Media, um neue Spieler zu gewinnen."
     },
     {
+      "namespace": "rank",
+      "key": "writer",
       "rank": "Writer",
       "description": "Writer erstellen Konzepte für Spielmodi und übersetzen diese in Features für Plugins, die von den Entwicklern umgesetzt werden."
     },
     {
+      "namespace": "rank",
+      "key": "moderation",
       "rank": "Moderation",
       "description": "Moderatoren betreuen Spieler, sorgen für die Einhaltung der Regeln und sind direkte Ansprechpartner für Probleme rund um den Minecraft Server."
     }

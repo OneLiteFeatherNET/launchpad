@@ -4,6 +4,7 @@ import BackButton from '~/components/common/BackButton.vue';
 import { useContentService } from '~/composables/content/useContentService';
 
 const { t, locale } = useI18n();
+const localePath = useLocalePath();
 const route = useRoute();
 const slug = route.params.slug as string;
 

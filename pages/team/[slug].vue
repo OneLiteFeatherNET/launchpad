@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useContentService } from '~/composables/content/useContentService';
 
 const { locale, t } = useI18n();
 const route = useRoute();
 const slug = route.params.slug as string;
+const localePath = useLocalePath();
 
 // SEO optimization
 definePageMeta({
@@ -28,6 +30,28 @@ const teamMember = computed(() => {
   return null;
 });
 
+// Check if an author exists for this team member
+const contentService = useContentService('nuxtContent');
+const authorCollection = `authors_${locale.value}`;
+const { data: authorExists } = await useAsyncData(`author-exists-${slug}`, async () => {
+  try {
+    // First check if there's a standalone author with this slug
+    const standaloneAuthor = await contentService.findBySlug(authorCollection, slug);
+    if (standaloneAuthor) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error(`Error checking if author exists for ${slug}:`, error);
+    return false;
+  }
+});
+
+// If an author exists for this team member, redirect to the author page
+if (authorExists.value) {
+  navigateTo(localePath(`/authors/${slug}`));
+}
+
 // Fetch projects data to show member's projects
 const { data: projectsData } = await useAsyncData(`projects-for-member-${slug}`, () => {
   const collection = locale.value === 'de' ? 'projects_de' : 'projects_en';
@@ -48,7 +72,7 @@ const memberProjects = computed(() => {
 // Fetch blog posts data to show member's blog posts
 const { data: blogPostsData } = await useAsyncData(`blog-posts-for-member-${slug}`, () => {
   const collection = locale.value === 'de' ? 'blog_de' : 'blog_en';
-  return queryCollection(collection).find();
+  return queryCollection(collection).first();
 });
 
 // Get blog posts where this member is an author

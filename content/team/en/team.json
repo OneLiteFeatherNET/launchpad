@@ -10,19 +10,34 @@
           "name": "Seelenretterin",
           "slug": "seelenretterin",
           "bio": "Financial server owner and part of the administration. Also creates content for various social media to attract new players.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "seelenretterin",
+          "minecraftUsername": "Seelenretterin",
+          "role": "Administration",
+          "about": "Financial server owner and part of the administration. Also creates content for various social media to attract new players."
         },
         {
           "name": "TheMeinerLP (Phillipp Glanz)",
           "slug": "themeinerlp",
           "bio": "Financial server owner and part of the administration. Also active in development leadership.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "themeinerlp",
+          "minecraftUsername": "themeinerlp",
+          "role": "Administration & Development Leadership",
+          "about": "Financial server owner and part of the administration. Also active in development leadership."
         },
         {
           "name": "theEvilReaper",
           "slug": "theevilreaper",
           "bio": "Member of the administration. Also active in development leadership.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "theevilreaper",
+          "minecraftUsername": "theEvilReaper",
+          "role": "Administration & Development Leadership",
+          "about": "Member of the administration. Also active in development leadership."
         }
       ]
     },
@@ -34,13 +49,23 @@
           "name": "TheMeinerLP (Phillipp Glanz)",
           "slug": "themeinerlp",
           "bio": "Manages servers, supports new developers, and helps with questions. Makes decisions about which technologies to implement based on expertise.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "themeinerlp",
+          "minecraftUsername": "themeinerlp",
+          "role": "Development Leadership",
+          "about": "Manages servers, supports new developers, and helps with questions. Makes decisions about which technologies to implement based on expertise."
         },
         {
           "name": "theEvilReaper",
           "slug": "theevilreaper",
           "bio": "Manages servers, supports new developers, and helps with questions. Makes decisions about which technologies to implement based on expertise.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "theevilreaper",
+          "minecraftUsername": "theEvilReaper",
+          "role": "Development Leadership",
+          "about": "Manages servers, supports new developers, and helps with questions. Makes decisions about which technologies to implement based on expertise."
         }
       ]
     },
@@ -52,7 +77,12 @@
           "name": "PegasusFieber17",
           "slug": "pegasusfieber17",
           "bio": "Building leadership. Builds villages, redstone circuits, and other projects.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "pegasusfieber17",
+          "minecraftUsername": "PegasusFieber17",
+          "role": "Building Leadership",
+          "about": "Building leadership. Builds villages, redstone circuits, and other projects."
         }
       ]
     },
@@ -64,19 +94,34 @@
           "name": "Joltra",
           "slug": "joltra",
           "bio": "Developer at OneLiteFeather. Works on plugins, AI, and RestApis.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "joltra",
+          "minecraftUsername": "Joltra",
+          "role": "Developer",
+          "about": "Developer at OneLiteFeather. Works on plugins, AI, and RestApis."
         },
         {
           "name": "Random (3s1)",
           "slug": "random-3s1",
           "bio": "Developer at OneLiteFeather. Works on plugins, AI, and RestApis.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "random-3s1",
+          "minecraftUsername": "3s1",
+          "role": "Developer",
+          "about": "Developer at OneLiteFeather. Works on plugins, AI, and RestApis."
         },
         {
           "name": "theShadowsDust",
           "slug": "theshadowsdust",
           "bio": "Developer at OneLiteFeather. Works on plugins, AI, and RestApis.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "theshadowsdust",
+          "minecraftUsername": "theShadowsDust",
+          "role": "Developer",
+          "about": "Developer at OneLiteFeather. Works on plugins, AI, and RestApis."
         }
       ]
     },
@@ -88,13 +133,23 @@
           "name": "Saynax",
           "slug": "saynax",
           "bio": "Server whisperer who ensures servers are protected. Also develops automation solutions (DevOps).",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "saynax",
+          "minecraftUsername": "Saynax",
+          "role": "System Integrator",
+          "about": "Server whisperer who ensures servers are protected. Also develops automation solutions (DevOps)."
         },
         {
           "name": "mcmdev",
           "slug": "mcmdev",
           "bio": "Server whisperer who ensures servers are protected. Also develops automation solutions (DevOps).",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "mcmdev",
+          "minecraftUsername": "mcmdev",
+          "role": "System Integrator",
+          "about": "Server whisperer who ensures servers are protected. Also develops automation solutions (DevOps)."
         }
       ]
     },
@@ -106,7 +161,12 @@
           "name": "Seelenretterin",
           "slug": "seelenretterin",
           "bio": "Creates content for various social media to attract new players.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "seelenretterin",
+          "minecraftUsername": "Seelenretterin",
+          "role": "Marketing",
+          "about": "Creates content for various social media to attract new players."
         }
       ]
     },
@@ -118,7 +178,12 @@
           "name": "weltspielt",
           "slug": "weltspielt",
           "bio": "Takes care of concepts for game modes and ensures that concepts are translated into features for plugins that developers implement in versions.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "weltspielt",
+          "minecraftUsername": "weltspielt",
+          "role": "Writer",
+          "about": "Takes care of concepts for game modes and ensures that concepts are translated into features for plugins that developers implement in versions."
         }
       ]
     },
@@ -130,7 +195,12 @@
           "name": "Morelia0815",
           "slug": "morelia0815",
           "bio": "Ensures that players are supported and rules are followed. Direct contact for issues related to the Minecraft server.",
-          "profileImage": ""
+          "profileImage": "",
+          "namespace": "author",
+          "key": "morelia0815",
+          "minecraftUsername": "Morelia0815",
+          "role": "Moderator",
+          "about": "Ensures that players are supported and rules are followed. Direct contact for issues related to the Minecraft server."
         },
         {
           "name": "blndr2",
