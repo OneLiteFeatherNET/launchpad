@@ -23,7 +23,7 @@
     "@unhead/vue": "^2.0.10",
     "@vueuse/nuxt": "13.3.0",
     "eslint": "^9.27.0",
-    "nuxt": "^3.17.4",
+    "nuxt": "^3.19.0",
     "nuxt-gtag": "3.0.3",
     "nuxt-og-image": "5.1.9",
     "nuxt-posthog": "1.6.3",
