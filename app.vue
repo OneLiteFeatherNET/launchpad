@@ -10,3 +10,6 @@ useHead({
   }
 })
 </script>
+<style>
+@import "@/assets/css/tokens.css";
+</style>
