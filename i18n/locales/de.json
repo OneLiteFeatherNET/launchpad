@@ -22,6 +22,9 @@
     }
   },
   "footer": {
+    "brand": "OneLiteFeather",
+    "description": "Ein Minecraft‑Netzwerk mit Fokus auf Community und Entwicklung",
+    "copyright": "© {year} OneLiteFeather. Alle Rechte vorbehalten.",
     "social_media": "Social Media",
     "legal": "Rechtliches",
     "github": "GitHub",
@@ -32,7 +35,24 @@
     "privacy_policy": "Datenschutz",
     "all_rights_reserved": "Alle Rechte vorbehalten",
     "made_with_love": "Mit Liebe erstellt vom OneLiteFeather Team und Mitwirkenden",
-    "love": "Liebe"
+    "love": "Liebe",
+    "services": {
+      "title": "Dienste",
+      "minecraft": "Minecraft Server",
+      "blogging": "Blog",
+      "github": "GitHub"
+    },
+    "organization": {
+      "title": "Organisation",
+      "about": "Über uns",
+      "contact": "Kontakt",
+      "careers": "Karriere"
+    },
+    "social": {
+      "title": "Social Media"
+    },
+    "privacy": "Datenschutz",
+    "terms": "Impressum"
   },
   "accessibility": {
     "logo_alt": "OneLiteFeather Logo"
