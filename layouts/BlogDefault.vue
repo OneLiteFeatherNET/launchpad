@@ -2,8 +2,9 @@
 import NavigationBar from "~/components/blog/base/navigation/NavigationBar.vue";
 import FooterSection from "~/components/blog/page/footer/FooterSection.vue";
 const route = useRoute()
+const { t } = useI18n()
 const head = useLocaleHead()
-const title = computed(() =>route.meta?.title ?? 'TDB');
+const title = computed(() => t(route.meta?.title ?? 'TDB'));
 </script>
 
 <template>

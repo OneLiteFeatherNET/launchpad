@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from '#imports';
-import NavigationSimpleButton from "~/components/base/navigation/NavigationSimpleButton.vue";
-import NavigationLanguageSelector from "~/components/base/navigation/NavigationLanguageSelector.vue";
+import NavigationSimpleButton from "~/components/blog/base/navigation/NavigationSimpleButton.vue";
+import NavigationLanguageSelector from "~/components/blog/base/navigation/NavigationLanguageSelector.vue";
 const locale = useCookieLocale();
 const localePath = useLocalePath()
 
