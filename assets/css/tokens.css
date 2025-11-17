@@ -17,7 +17,10 @@
     /* Gradients */
     --gradient-brand: linear-gradient(90deg, #2A388F 0%, #27A9E1 100%);
     --gradient-accent: linear-gradient(90deg, #91268F 0%, #EC008B 60%, #F7931D 100%);
-}
+    /* Light variants (hellere Varianten) */
+    --gradient-brand-light: linear-gradient(90deg, #5163C6 0%, #7FD3F4 100%);
+    --gradient-accent-light: linear-gradient(90deg, #B35DB2 0%, #FF4FAE 60%, #FFB866 100%);
+  }
 
 /* Dark mode via class strategy (Tailwind default: 'media', hier nutzen wir 'class') */
 .dark {
@@ -29,4 +32,38 @@
 
     /* Core bleibt gleich, du kannst bei Bedarf abtönen: */
     /* --color-brand-primary: #263276; */
-}
+  }
+
+  /* Utility: Gradient-Text auf Basis der Brand-Token */
+  .text-gradient-brand {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent; /* iOS/Safari */
+  }
+
+  .text-gradient-accent {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent; /* iOS/Safari */
+  }
+
+  /* Light utilities */
+  .text-gradient-brand-light {
+      background: var(--gradient-brand-light);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent; /* iOS/Safari */
+  }
+
+  .text-gradient-accent-light {
+      background: var(--gradient-accent-light);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent; /* iOS/Safari */
+  }

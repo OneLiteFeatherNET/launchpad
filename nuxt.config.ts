@@ -82,7 +82,6 @@ export default defineNuxtConfig({
   // Include FontAwesome core styles (we set autoAddCss = false in the plugin)
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css',
-    '~/components/onelitefeather/common/navigation/navigation.css'
   ],
   appConfig: {
     appId: 'OneLiteFeather'
