@@ -22,9 +22,9 @@ const props = defineProps<Props>()
       preload
     />
 
-    <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent p-4">
-      <p v-if="props.item.note" class="max-w-3xl text-sm text-white drop-shadow-md">
-        {{ props.item.note }}
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pb-12">
+      <p v-if="props.item.note" class="max-w-3xl text-base text-white drop-shadow-md">
+        <span class="inline-block rounded-md bg-black/60 px-3 py-1.5 backdrop-blur-[2px]">{{ props.item.note }}</span>
       </p>
     </div>
   </div>

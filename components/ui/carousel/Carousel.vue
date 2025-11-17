@@ -180,6 +180,12 @@ const aspectPercent = computed(() => {
   return `${(h / w) * 100}%`
 })
 
+// Style for the sliding track – force GPU acceleration and hint repaint
+const trackStyle = computed(() => ({
+  transform: `translate3d(-${current.value * 100}%, 0, 0)`,
+  willChange: 'transform'
+}))
+
 function slideAriaText() {
   const s = normalizedSlides.value[current.value]
   if (!s) return ''
@@ -214,7 +220,7 @@ const componentFor = (s: ImageSlide | BlogSlide | NewsSlide | EventSlide) => {
   >
     <!-- Ratio wrapper -->
     <div
-      class="relative w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]"
+      class="group relative w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] touch-pan-y select-none"
       :style="{ paddingTop: aspectPercent }"
       @mouseenter="isHovering = true"
       @mouseleave="isHovering = false"
@@ -224,10 +230,10 @@ const componentFor = (s: ImageSlide | BlogSlide | NewsSlide | EventSlide) => {
       @touchend.passive="onPointerUp"
       tabindex="0"
     >
-      <!-- Slides track -->
+      <!-- Slides track (unter Dots, unter Controls) -->
       <div
-        class="absolute inset-0 flex h-full w-full transition-transform duration-500 ease-out"
-        :style="{ transform: `translateX(-${current * 100}%)` }"
+        class="absolute inset-0 z-30 flex flex-nowrap h-full w-full transition-transform duration-500 ease-out"
+        :style="trackStyle"
         aria-live="polite"
       >
         <div
@@ -242,27 +248,31 @@ const componentFor = (s: ImageSlide | BlogSlide | NewsSlide | EventSlide) => {
       </div>
 
       <!-- Controls -->
-      <div class="pointer-events-none absolute inset-0 flex items-center justify-between p-2">
-        <div class="pointer-events-auto">
+      <div class="pointer-events-none absolute inset-0 z-50 flex items-center justify-between p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100 focus-within:opacity-100">
+        <div class="pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto focus-within:pointer-events-auto" @pointerdown.stop @pointerup.stop @click.stop>
           <NavigationIconButton
             :aria-label="'Vorherige Folie'"
             :icon="['fas','chevron-left']"
-            variant="tonal"
+            variant="filled"
+            size="xl"
+            class="shadow-xl shadow-black/40 ring-1 ring-black/20"
             @click="prev"
           />
         </div>
-        <div class="pointer-events-auto">
+        <div class="pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto focus-within:pointer-events-auto" @pointerdown.stop @pointerup.stop @click.stop>
           <NavigationIconButton
             :aria-label="'Nächste Folie'"
             :icon="['fas','chevron-right']"
-            variant="tonal"
+            variant="filled"
+            size="xl"
+            class="shadow-xl shadow-black/40 ring-1 ring-black/20"
             @click="next"
           />
         </div>
       </div>
 
       <!-- Dots -->
-      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 transform">
+      <div class="absolute bottom-2 left-1/2 z-40 -translate-x-1/2 transform" @pointerdown.stop @pointerup.stop>
         <div class="flex gap-2 rounded-full bg-black/25 px-3 py-2 backdrop-blur-sm">
           <button
             v-for="(s, i) in normalizedSlides"
