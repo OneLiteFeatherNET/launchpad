@@ -15,7 +15,8 @@ const { t } = useI18n();
     v-if="!mobile"
     :key="path"
     :to="path"
-    class="olf-btn olf-btn--simple"
+    class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors shadow-sm no-underline text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60"
+    :class="route.path === path ? 'bg-[var(--color-secondary)]/15 text-[var(--color-secondary)]' : ''"
     :aria-current="route.path === path ? 'page' : undefined"
   >
     {{ t(textKey) }}
@@ -25,7 +26,8 @@ const { t } = useI18n();
     v-else
     :key="path"
     :to="path"
-    class="olf-btn olf-btn--simple olf-btn--mobile"
+    class="block px-3 py-2 text-base font-medium rounded-full transition-colors no-underline text-[var(--color-text)] hover:bg-[var(--color-secondary)]/10 dark:hover:bg-[var(--color-secondary)]/20"
+    :class="route.path === path ? 'bg-[var(--color-secondary)]/15 text-[var(--color-secondary)]' : ''"
     :aria-current="route.path === path ? 'page' : undefined"
     @click="emit('click-mobile')"
     role="menuitem"
@@ -35,14 +37,4 @@ const { t } = useI18n();
 </template>
 
 <style scoped>
-/* Simple nav button variants mapped to design tokens */
-.olf-btn--simple {
-  @apply px-4 py-2 text-sm font-medium rounded-full transition-colors shadow-sm text-text dark:text-text;
-}
-.olf-btn--simple.olf-btn--mobile {
-  @apply block px-3 py-2 text-base font-medium rounded-full;
-}
-.olf-btn--simple[aria-current='page'] {
-  @apply bg-blue-50 dark:bg-gray-800 text-blue-600 dark:text-blue-400 shadow-sm;
-}
 </style>
