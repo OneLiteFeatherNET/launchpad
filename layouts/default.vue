@@ -17,7 +17,7 @@ const title = computed(() => t(route.meta?.title ?? 'TDB'));
     <
   </Head>
     <Body class="h-full dark:bg-gray-900">
-      <NavigationBar />
+      <OnelitefeatherCommonNavigationBar />
       <main class="px-4 mx-auto sm:px-6 lg:px-8 w-full h-full">
         <slot/>
       </main>

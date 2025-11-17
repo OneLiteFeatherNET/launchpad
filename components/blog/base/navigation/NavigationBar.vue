@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { ref } from '#imports';
-import NavigationSimpleButton from "~/components/blog/base/navigation/NavigationSimpleButton.vue";
+import SimpleNavButton from "~/components/ui/buttons/SimpleNavButton.vue";
 import NavigationLanguageSelector from "~/components/blog/base/navigation/NavigationLanguageSelector.vue";
+const { t } = useI18n();
 const locale = useCookieLocale();
-const localePath = useLocalePath()
+const localePath = useLocalePath();
 
 
 const navItems = [
-  { textKey: 'navigation.overview', path: localePath('index', locale?.value as Locale) },
+  { textKey: 'navigation.overview', path: localePath('index', locale?.value as 'de' | 'en' | undefined) },
 ];
 
 const mobileMenuOpen = ref(false);
@@ -20,7 +21,7 @@ const mobileMenuOpen = ref(false);
         <div class="flex items-center">
           <NuxtLinkLocale to="/" class="flex-shrink-0 flex items-center">
             <NuxtImg src="images/logo.svg"
-                     :alt="$t('accessibility.logo_alt')"
+                     :alt="t('accessibility.logo_alt')"
                      width="60"
                      height="60"
                      class="h-15 w-15 rounded-full"
@@ -30,7 +31,7 @@ const mobileMenuOpen = ref(false);
           </NuxtLinkLocale>
         </div>
         <nav class="hidden md:flex items-center space-x-1">
-          <NavigationSimpleButton
+          <SimpleNavButton
               v-for="item in navItems"
               :text-key="item.textKey"
               :path="item.path" />
@@ -41,7 +42,7 @@ const mobileMenuOpen = ref(false);
               id="mobile-menu-button"
               @click="mobileMenuOpen = !mobileMenuOpen"
               class="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              :aria-label="$t('navigation.toggle_mobile_menu')"
+              :aria-label="t('navigation.toggle_mobile_menu')"
               :aria-expanded="mobileMenuOpen"
           >
             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -54,7 +55,7 @@ const mobileMenuOpen = ref(false);
     </div>
     <div class="md:hidden" v-show="mobileMenuOpen" role="menu" aria-labelledby="mobile-menu-button">
       <div class="pt-2 pb-4 space-y-1 px-4">
-        <NavigationSimpleButton
+        <SimpleNavButton
             v-for="item in navItems"
             :text-key="item.textKey"
             :path="item.path"

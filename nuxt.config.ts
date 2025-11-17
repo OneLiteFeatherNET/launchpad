@@ -10,6 +10,16 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
+        }
+      ]
+    }
+  },
   schemaOrg: {
     identity: defineOrganization({
       // Basic Information
@@ -69,6 +79,11 @@ export default defineNuxtConfig({
     viewer: true,
     exposeConfig: false,
   },
+  // Include FontAwesome core styles (we set autoAddCss = false in the plugin)
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    '~/components/onelitefeather/common/navigation/navigation.css'
+  ],
   appConfig: {
     appId: 'OneLiteFeather'
   },
