@@ -3,6 +3,7 @@ import { ref } from '#imports';
 import NavigationItem from './NavigationItem.vue';
 import LanguageSelector from './LanguageSelector.vue';
 import NavigationIconButton from '~/components/ui/buttons/NavigationIconButton.vue';
+import GradientText from '~/components/ui/typography/GradientText.vue';
 
 const { t } = useI18n();
 
@@ -47,7 +48,7 @@ const elevationClasses = {
         <div class="flex items-center">
           <NuxtLinkLocale to="/" class="flex items-center gap-2 text-neutral-900 no-underline hover:opacity-90 dark:text-neutral-100">
             <NuxtImg src="images/logo.svg" :alt="t('accessibility.logo_alt')" width="40" height="40" class="h-10 w-10" format="webp" />
-            <span class="text-lg font-semibold">OneLiteFeather</span>
+            <GradientText tone="light" class="text-lg font-semibold">OneLiteFeather</GradientText>
           </NuxtLinkLocale>
         </div>
 
