@@ -14,7 +14,6 @@ const title = computed(() => t(route.meta?.title ?? 'TDB'));
   <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
   <Head>
     <Title>{{ title }}</Title>
-    <
   </Head>
     <Body class="h-full dark:bg-gray-900">
       <OnelitefeatherCommonNavigationBar />
