@@ -33,7 +33,7 @@ const iconSizeClass = computed(() => ({
   xl: 'h-7 w-7',
 })[size.value]);
 
-const handleClick = (event: MouseEvent) => emit('click', event);
+const handleClick = (event: MouseEvent) => emit('click', event)
 </script>
 
 <template>

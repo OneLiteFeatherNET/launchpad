@@ -5,64 +5,12 @@ import CarouselItemImage from '~/components/ui/carousel/items/CarouselItemImage.
 import CarouselItemBlog from '~/components/ui/carousel/items/CarouselItemBlog.vue'
 import CarouselItemNews from '~/components/ui/carousel/items/CarouselItemNews.vue'
 import CarouselItemEvent from '~/components/ui/carousel/items/CarouselItemEvent.vue'
-
-/**
- * Unterstützte Slide‑Typen
- */
-export type ImageSlide = {
-  type: 'image'
-  src: string
-  alt: string
-  note?: string
-}
-
-export type BlogSlide = {
-  type: 'blog'
-  title: string
-  href: string
-  excerpt?: string
-  image?: string
-  alt?: string
-  author?: string
-  date?: string | Date
-  tag?: string
-}
-
-export type NewsSlide = {
-  type: 'news'
-  title: string
-  href?: string
-  summary?: string
-  image?: string
-  alt?: string
-  date?: string | Date
-  tag?: string
-}
-
-export type EventSlide = {
-  type: 'event'
-  title: string
-  dateStart: string | Date
-  dateEnd?: string | Date
-  location?: string
-  href?: string
-  image?: string
-  alt?: string
-  note?: string
-}
-
-/** Altes, bildbasiertes Slide (Backwards‑Kompatibilität) */
-export type LegacyImageSlide = {
-  src: string
-  alt: string
-  note?: string
-}
-
-export type AnySlide = ImageSlide | BlogSlide | NewsSlide | EventSlide | LegacyImageSlide
+import type { AnySlide, NormalizedSlide } from '~/types/carousel'
+import { normalizeSlides, getSlideAriaText } from '~/composables/useCarousel'
 
 const props = withDefaults(defineProps<{
   /**
-   * Akzeptiert sowohl das alte Format (nur Bild) als auch verschiedene Typen
+   * Accepts both the old format (image only) and various types
    */
   slides: AnySlide[]
   autoPlay?: boolean
@@ -76,30 +24,15 @@ const props = withDefaults(defineProps<{
   interval: 5000,
   loop: true,
   aspect: '16/9',
-  ariaLabel: 'Bildkarussell'
+  ariaLabel: 'Image Carousel'
 })
 
 const current = ref(0)
 const timer = ref<ReturnType<typeof setInterval> | null>(null)
 const isHovering = ref(false)
 
-// Normalisierung: Legacy → ImageSlide
-const normalizedSlides = computed<(ImageSlide | BlogSlide | NewsSlide | EventSlide)[]>(() =>
-  (props.slides || []).map((s) => {
-    const any = s as AnySlide
-    if ((any as ImageSlide).type === 'image' || (any as BlogSlide).type === 'blog' || (any as NewsSlide).type === 'news' || (any as EventSlide).type === 'event') {
-      return any as ImageSlide | BlogSlide | NewsSlide | EventSlide
-    }
-    // Legacy: hat src/alt, aber keinen type
-    if ((any as LegacyImageSlide).src && (any as LegacyImageSlide).alt) {
-      const legacy = any as LegacyImageSlide
-      const converted: ImageSlide = { type: 'image', src: legacy.src, alt: legacy.alt, note: legacy.note }
-      return converted
-    }
-    // Fallback: sichere leere Bild‑Slide
-    return { type: 'image', src: '', alt: '' } as ImageSlide
-  })
-)
+// Normalization: Legacy → typed slides
+const normalizedSlides = computed<NormalizedSlide[]>(() => normalizeSlides(props.slides))
 
 const slidesCount = computed(() => normalizedSlides.value.length)
 const lastIndex = computed(() => Math.max(0, slidesCount.value - 1))
@@ -113,8 +46,12 @@ const goTo = (index: number) => {
   }
 }
 
-const next = () => goTo(current.value + 1)
-const prev = () => goTo(current.value - 1)
+const next = () => {
+  goTo(current.value + 1)
+}
+const prev = () => {
+  goTo(current.value - 1)
+}
 
 const start = () => {
   // Always clear any previous interval
@@ -161,11 +98,17 @@ const onKeydown = (e: KeyboardEvent) => {
 // Simple swipe support
 const startX = ref<number | null>(null)
 const onPointerDown = (e: PointerEvent | TouchEvent) => {
-  startX.value = 'touches' in e ? e.touches[0].clientX : (e as PointerEvent).clientX
+  // Ignore if clicking on a button or interactive element
+  const target = e.target as HTMLElement
+  if (target?.closest('button') || target?.closest('[role="button"]')) {
+    return
+  }
+  startX.value = 'touches' in e ? e.touches[0]?.clientX ?? null : (e as PointerEvent).clientX
 }
 const onPointerUp = (e: PointerEvent | TouchEvent) => {
   if (startX.value == null) return
-  const endX = 'changedTouches' in e ? e.changedTouches[0].clientX : (e as PointerEvent).clientX
+  const endX = 'changedTouches' in e ? e.changedTouches[0]?.clientX : (e as PointerEvent).clientX
+  if (endX === undefined) return
   const delta = endX - startX.value
   const threshold = 40
   if (Math.abs(delta) > threshold) {
@@ -176,8 +119,8 @@ const onPointerUp = (e: PointerEvent | TouchEvent) => {
 
 const aspectPercent = computed(() => {
   const [w, h] = props.aspect.split('/').map(n => Number(n))
-  if (!isFinite(w) || !isFinite(h) || h === 0) return '56.25%'
-  return `${(h / w) * 100}%`
+  if (!isFinite(w ?? 0) || !isFinite(h ?? 0) || (h ?? 0) === 0) return '56.25%'
+  return `${((h ?? 16) / (w ?? 9)) * 100}%`
 })
 
 // Style for the sliding track – force GPU acceleration and hint repaint
@@ -186,22 +129,16 @@ const trackStyle = computed(() => ({
   willChange: 'transform'
 }))
 
-function slideAriaText() {
-  const s = normalizedSlides.value[current.value]
-  if (!s) return ''
-  let label = ''
-  switch (s.type) {
-    case 'image': label = s.alt || 'Bild'; break
-    case 'blog': label = s.title; break
-    case 'news': label = s.title; break
-    case 'event': label = s.title; break
-  }
-  return `Folie ${current.value + 1} von ${slidesCount.value}: ${label}`
-}
-const liveText = computed(slideAriaText)
+// Accessibility: Live text for current slide
+const liveText = computed(() => {
+  const slide = normalizedSlides.value[current.value]
+  if (!slide) return ''
+  return getSlideAriaText(slide, current.value, slidesCount.value)
+})
 
-const componentFor = (s: ImageSlide | BlogSlide | NewsSlide | EventSlide) => {
-  switch (s.type) {
+// Component mapping for dynamic rendering
+const componentFor = (slide: NormalizedSlide) => {
+  switch (slide.type) {
     case 'image': return CarouselItemImage
     case 'blog': return CarouselItemBlog
     case 'news': return CarouselItemNews
@@ -230,58 +167,57 @@ const componentFor = (s: ImageSlide | BlogSlide | NewsSlide | EventSlide) => {
       @touchend.passive="onPointerUp"
       tabindex="0"
     >
-      <!-- Slides track (unter Dots, unter Controls) -->
+      <!-- Slides track (below dots, below controls) -->
       <div
-        class="absolute inset-0 z-30 flex flex-nowrap h-full w-full transition-transform duration-500 ease-out"
+        class="absolute inset-0 z-30 flex h-full transition-transform duration-500 ease-out"
         :style="trackStyle"
         aria-live="polite"
       >
         <div
           v-for="(s, i) in normalizedSlides"
           :key="i"
-          class="relative h-full w-full shrink-0 grow-0 basis-full"
+          class="relative h-full flex-shrink-0"
+          :style="{ width: '100%', minWidth: '100%' }"
         >
           <slot name="slide" :item="s" :index="i">
-            <component :is="componentFor(s)" :item="s" class="absolute inset-0 h-full w-full" />
+            <component :is="componentFor(s)" :item="s as any" class="absolute inset-0 h-full w-full" />
           </slot>
         </div>
       </div>
 
       <!-- Controls -->
-      <div class="pointer-events-none absolute inset-0 z-50 flex items-center justify-between p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100 focus-within:opacity-100">
-        <div class="pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto focus-within:pointer-events-auto" @pointerdown.stop @pointerup.stop @click.stop>
-          <NavigationIconButton
-            :aria-label="'Vorherige Folie'"
-            :icon="['fas','chevron-left']"
-            variant="filled"
-            size="xl"
-            class="shadow-xl shadow-black/40 ring-1 ring-black/20"
-            @click="prev"
-          />
-        </div>
-        <div class="pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto focus-within:pointer-events-auto" @pointerdown.stop @pointerup.stop @click.stop>
-          <NavigationIconButton
-            :aria-label="'Nächste Folie'"
-            :icon="['fas','chevron-right']"
-            variant="filled"
-            size="xl"
-            class="shadow-xl shadow-black/40 ring-1 ring-black/20"
-            @click="next"
-          />
-        </div>
+      <div class="absolute inset-x-0 top-0 bottom-10 z-50 flex items-center justify-between p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100" style="pointer-events: none;">
+        <NavigationIconButton
+          :aria-label="'Previous slide'"
+          :icon="['fas','chevron-left']"
+          variant="filled"
+          size="xl"
+          class="shadow-xl shadow-black/40 ring-1 ring-black/20 cursor-pointer"
+          style="pointer-events: auto !important;"
+          @click="(e: MouseEvent) => { e.stopPropagation(); prev(); }"
+        />
+        <NavigationIconButton
+          :aria-label="'Next slide'"
+          :icon="['fas','chevron-right']"
+          variant="filled"
+          size="xl"
+          class="shadow-xl shadow-black/40 ring-1 ring-black/20 cursor-pointer"
+          style="pointer-events: auto !important;"
+          @click="(e: MouseEvent) => { e.stopPropagation(); next(); }"
+        />
       </div>
 
       <!-- Dots -->
-      <div class="absolute bottom-2 left-1/2 z-40 -translate-x-1/2 transform" @pointerdown.stop @pointerup.stop>
+      <div class="absolute bottom-2 left-1/2 z-40 -translate-x-1/2 transform">
         <div class="flex gap-2 rounded-full bg-black/25 px-3 py-2 backdrop-blur-sm">
           <button
-            v-for="(s, i) in normalizedSlides"
+            v-for="(_s, i) in normalizedSlides"
             :key="i"
             type="button"
             class="h-2.5 w-2.5 rounded-full transition"
             :class="i === current ? 'bg-white' : 'bg-white/50 hover:bg-white/80'"
-            :aria-label="`Folie ${i + 1} anzeigen`"
-            @click="goTo(i)"
+            :aria-label="`Show slide ${i + 1}`"
+            @click.stop="goTo(i)"
           />
         </div>
       </div>
