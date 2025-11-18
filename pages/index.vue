@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import Carousel from '~/components/ui/carousel/Carousel.vue'
+import VerticalTimeline from '~/components/ui/timeline/VerticalTimeline.vue'
+import type { TimelineEvent } from '~/types/timeline'
 
 // Beispiel: Gemischte Slides (Image, Blog, News, Event)
 // Hinweis: Das Carousel bleibt abwärtskompatibel – reine Bild‑Slides ohne `type`
@@ -51,11 +53,46 @@ const slides = [
     note: 'Willkommen bei OneLiteFeather.net – dein Hub für Tools, Content und Community.'
   }
 ]
+
+const timelineEvents: TimelineEvent[] = [
+  {
+    id: 'kickoff',
+    title: 'Projekt Kickoff',
+    date: '2025-01-15',
+    description: 'Start der Initiative und Definition der Meilensteine.',
+    colorVariant: 'brand',
+  },
+  {
+    id: 'alpha',
+    title: 'Alpha Release',
+    date: '2025-03-01',
+    description: 'Interner Test mit ausgewählten Features.',
+    colorVariant: 'accent',
+  },
+  {
+    id: 'beta',
+    title: 'Beta Release',
+    date: '2025-06-10',
+    description: 'Öffentliche Beta und Sammeln von Feedback.',
+    colorVariant: 'orange',
+  },
+  {
+    id: 'launch',
+    title: 'Launch',
+    date: '2025-09-30',
+    description: 'Offizieller Start mit Marketing‑Kampagne.',
+    colorVariant: 'purple',
+  }
+]
 </script>
 
 <template>
   <div class="mx-auto max-w-6xl px-4 py-6 md:py-10">
     <Carousel :slides="slides" aspect="16/9" aria-label="Startseiten-Highlight-Karussell" />
+  </div>
+  <div class="mx-auto max-w-6xl px-4 pb-16">
+    <h2 class="mt-4 mb-6 text-2xl font-bold text-gradient-accent">Roadmap</h2>
+    <VerticalTimeline :events="timelineEvents" line-color="brand" aria-label="Projekt‑Roadmap" />
   </div>
 </template>
 
