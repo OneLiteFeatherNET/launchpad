@@ -4,7 +4,7 @@ import { defineOrganization } from 'nuxt-schema-org/schema'
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: {
-    enabled: true,
+    enabled: false,
 
     timeline: {
       enabled: true

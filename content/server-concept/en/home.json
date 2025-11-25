@@ -1,0 +1,25 @@
+{
+  "key": "home",
+  "title": "Our Server Concept",
+  "subtitle": "How we ensure fair performance, stability, and fun for everyone.",
+  "points": [
+    {
+      "id": 1,
+      "icon": "account_tree",
+      "title": "Modular Network",
+      "text": "Multiple specialized services (proxy, lobby, game modes) are decoupled and scalable. This lets us handle traffic spikes with ease."
+    },
+    {
+      "id": 2,
+      "icon": "dns",
+      "title": "High‑Performance Infrastructure",
+      "text": "Selected locations with low latency, caching, and asynchronous processing deliver smooth gameplay."
+    },
+    {
+      "id": 3,
+      "icon": "shield_lock",
+      "title": "Security & Backups",
+      "text": "Automated backups, access restrictions, and monitoring protect data and gameplay around the clock."
+    }
+  ]
+}

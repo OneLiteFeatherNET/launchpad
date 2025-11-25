@@ -1,0 +1,25 @@
+{
+  "key": "home",
+  "title": "Unser Server‑Konzept",
+  "subtitle": "So stellen wir faire Performance, Stabilität und Spaß für alle sicher.",
+  "points": [
+    {
+      "id": 1,
+      "icon": "account_tree",
+      "title": "Modulares Netzwerk",
+      "text": "Mehrere spezialisierte Dienste (Proxy, Lobby, Spielmodi) sind entkoppelt und skalierbar. So können wir Lastspitzen gezielt abfedern."
+    },
+    {
+      "id": 2,
+      "icon": "dns",
+      "title": "Performante Infrastruktur",
+      "text": "Ausgewählte Standorte mit niedriger Latenz, Caching und asynchronen Prozessen sorgen für flüssiges Gameplay."
+    },
+    {
+      "id": 3,
+      "icon": "shield_lock",
+      "title": "Sicherheit & Backups",
+      "text": "Automatisierte Backups, Zugriffsbeschränkungen und Monitoring schützen Daten und Gameplay rund um die Uhr."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "key": "home",
+  "slides": [
+    {
+      "type": "image",
+      "src": "/images/carousel/carousel_spawn.png",
+      "alt": "Spawn area on our server (screenshot)",
+      "note": "Impressions from the community – see more in the blog."
+    },
+    {
+      "type": "image",
+      "src": "/images/carousel/carousel_tempel.png",
+      "alt": "Temple build on our server (screenshot)",
+      "note": "Impressions from the community – see more in the blog."
+    },
+    {
+      "type": "blog",
+      "title": "DevBlog #1",
+      "href": "/en/blog/dev-blog-1-what-we-using",
+      "excerpt": "Overview of the technologies we use and why they benefit us.",
+      "image": "/images/blog/dev-blog-1.webp",
+      "author": "Phillipp Glanz",
+      "date": "2023-10-21",
+      "tag": "Blog"
+    },
+    {
+      "type": "blog",
+      "title": "Everything You Need to Know About Ethanol",
+      "href": "/en/blog/everything-you-need-to-know-about-ethanol",
+      "excerpt": "Relatively unknown yet already on hundreds of servers – what’s behind it?",
+      "image": "/images/blog/cyber-theDigitalArtist-Ethanol-Post.webp",
+      "author": "Phillipp Glanz",
+      "date": "2024-07-23",
+      "tag": "Blog"
+    }
+  ]
+}

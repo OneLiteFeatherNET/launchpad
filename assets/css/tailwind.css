@@ -21,3 +21,8 @@
     --gradient-via:  var(--color-secondary-blue);
     --gradient-to:   var(--color-secondary-pink);
 }
+
+* {
+    padding: 0;
+    margin: 0;
+}

@@ -10,20 +10,27 @@ const variant = props.variant ?? 'desktop';
 const { locale, locales, setLocale } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const isOpen = ref(false);
+const buttonId = computed(() => `lang-button-${variant}`);
+const dropdownId = computed(() => `lang-menu-${variant}`);
 
 const availableLocales = computed(() => locales.value.filter((i: any) => i.code !== locale.value));
 const currentLocale = computed(() => locales.value.find((i: any) => i.code === locale.value));
 
-const toggleDropdown = () => isOpen.value = !isOpen.value;
+const toggleDropdown = () => (isOpen.value = !isOpen.value);
 const selectLocale = async (localeCode: string) => { await setLocale(localeCode as 'de' | 'en'); isOpen.value = false };
 </script>
 
 <template>
-  <div v-if="variant === 'desktop'" class="relative">
+  <div v-if="variant === 'desktop'" class="relative" @keydown.escape.window="isOpen = false">
     <button
       @click="toggleDropdown"
       :aria-label="t('navigation.change_language')"
-      class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60"
+      :id="buttonId"
+      type="button"
+      aria-haspopup="menu"
+      :aria-expanded="isOpen ? 'true' : 'false'"
+      :aria-controls="dropdownId"
+      class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
     >
       <span class="material-symbols-outlined text-xl">language</span>
       <span class="uppercase">{{ currentLocale?.code }}</span>
@@ -40,13 +47,18 @@ const selectLocale = async (localeCode: string) => { await setLocale(localeCode 
     >
       <div
         v-if="isOpen"
-        class="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-neutral-200 bg-white py-1 shadow-lg ring-1 ring-black/5 dark:border-neutral-700 dark:bg-neutral-900"
+        :id="dropdownId"
+        role="menu"
+        :aria-labelledby="buttonId"
+        tabindex="-1"
+        class="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] py-1 shadow-lg ring-1 ring-black/5 dark:border-[var(--color-border)] dark:bg-[var(--color-surface)]"
       >
         <NuxtLink
           v-for="loc in availableLocales"
           :key="loc.code"
           :to="switchLocalePath(loc.code)"
-          class="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/70 dark:hover:bg-[var(--color-secondary)]/20"
+          role="menuitem"
+          class="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/85 dark:hover:bg-[var(--color-secondary)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]"
           @click="selectLocale(loc.code)"
         >
           <span class="uppercase font-semibold text-[var(--color-secondary)]">{{ loc.code }}</span>
@@ -56,8 +68,8 @@ const selectLocale = async (localeCode: string) => { await setLocale(localeCode 
     </Transition>
   </div>
 
-  <div v-else class="flex flex-col">
-    <div class="flex items-center gap-3 px-4 py-3 text-base font-medium text-[var(--color-text)]/70 dark:text-[var(--color-text)]/70">
+  <div v-else class="flex flex-col" @keydown.escape.window="isOpen = false">
+    <div class="flex items-center gap-3 px-4 py-3 text-base font-medium text-[var(--color-text)]/70 dark:text-[var(--color-text)]/85">
       <span class="material-symbols-outlined text-2xl">language</span>
       {{ t('navigation.change_language') }}
     </div>
@@ -65,7 +77,7 @@ const selectLocale = async (localeCode: string) => { await setLocale(localeCode 
       v-for="loc in availableLocales"
       :key="loc.code"
       :to="switchLocalePath(loc.code)"
-      class="ml-4 flex items-center gap-3 rounded-xl px-6 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/70 dark:hover:bg-[var(--color-secondary)]/20"
+      class="ml-4 flex items-center gap-3 rounded-xl px-6 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/85 dark:hover:bg-[var(--color-secondary)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]"
       @click="selectLocale(loc.code)"
     >
       <span class="uppercase font-semibold text-[var(--color-secondary)]">{{ loc.code }}</span>

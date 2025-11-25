@@ -15,13 +15,16 @@ const title = computed(() => t(route.meta?.title ?? 'TDB'));
   <Head>
     <Title>{{ title }}</Title>
   </Head>
-    <Body class="h-full dark:bg-gray-900">
-      <OnelitefeatherCommonNavigationBar />
-      <main class="px-4 mx-auto sm:px-6 lg:px-8 w-full h-full">
-        <slot/>
-      </main>
-    <Footer />
-  </Body>
+    <Body class="dark:bg-gray-900 overflow-x-hidden">
+      <!-- Local wrapper ensures flex layout even if <Body> classes are not applied by the renderer -->
+      <div class="min-h-screen flex flex-col">
+        <OnelitefeatherCommonNavigationBar />
+        <main class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1">
+          <slot/>
+        </main>
+        <Footer />
+      </div>
+    </Body>
   </Html>
 </template>
 

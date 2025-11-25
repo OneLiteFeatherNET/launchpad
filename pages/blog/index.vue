@@ -6,7 +6,7 @@ const { locale, t } = useI18n()
 
 definePageMeta({
   title: 'blog.overview.title',
-  layout: 'blog-default',
+  layout: 'default',
 });
 const { data: top1Article} = await useAsyncData('top1', () => {
   // @ts-ignore

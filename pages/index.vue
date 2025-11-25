@@ -1,21 +1,16 @@
 <script setup lang="ts">
-import Carousel from '~/components/ui/carousel/Carousel.vue'
-import VerticalTimeline from '~/components/ui/timeline/VerticalTimeline.vue'
-import type { TimelineEvent } from '~/types/timeline'
-import ServerAddresses from '~/components/sections/ServerAddresses.vue'
-const { locale } = useI18n()
+import Carousel from "~/components/sections/carousel/Carousel.vue";
+import ServerConcept from "~/components/sections/server-concept/ServerConcept.vue";
+import ServerAddresses from "~/components/sections/server-addresses/ServerAddresses.vue";
+const { locale, locales, t } = useI18n()
 
-// Timeline-Inhalte aus Nuxt Content (i18n)
-// Wir nutzen je Sprache eine eigene Collection: timeline_de / timeline_en
-const { data: timelineData } = await useAsyncData('timeline-home', () => {
-  // @ts-ignore queryCollection ist von @nuxt/content bereitgestellt
-  return queryCollection('timeline_' + (locale?.value || 'de')).all()
+// Server concept content from Nuxt Content (i18n)
+const { data: conceptData } = await useAsyncData('server-concept-home', () => {
+  // @ts-ignore queryCollection is provided by @nuxt/content
+  return queryCollection('server_concept_' + (locale?.value || 'de')).all()
 }, { watch: [locale] })
 
-const timelineEvents = computed<TimelineEvent[]>(() => {
-  const doc = timelineData.value?.[0] as { events?: TimelineEvent[] } | undefined
-  return doc?.events ?? []
-})
+const concept = computed(() => (conceptData.value?.[0] as any) || null)
 
 // Server Connect content from Nuxt Content (i18n)
 const { data: connectData } = await useAsyncData('server-connect', () => {
@@ -25,9 +20,9 @@ const { data: connectData } = await useAsyncData('server-connect', () => {
 
 const connect = computed(() => (connectData.value?.[0] as any) || null)
 
-// Carousel-Inhalte aus Nuxt Content (i18n)
+// Carousel content from Nuxt Content (i18n)
 const { data: homeCarousel } = await useAsyncData('home-carousel', () => {
-  // @ts-ignore queryCollection wird von @nuxt/content bereitgestellt
+  // @ts-ignore queryCollection is provided by @nuxt/content
   return queryCollection('home_carousel_' + (locale?.value || 'de')).all()
 }, { watch: [locale] })
 
@@ -36,12 +31,89 @@ const slides = computed(() => {
   return doc?.slides ?? []
 })
 
+// SEO: meta, canonical and i18n alternate links (hreflang)
+const route = useRoute()
+const site = useSiteConfig()
+const switchLocalePath = useSwitchLocalePath()
+
+const canonicalUrl = computed(() => new URL(route.fullPath || '/', site.url).toString())
+
+// Build hreflang alternate links for all configured locales + x-default
+const alternateLinks = computed(() => {
+  const items: Array<{ rel: 'alternate'; hreflang: string; href: string }> = []
+  const all = Array.isArray(locales.value) ? locales.value : []
+  for (const l of all as Array<any>) {
+    const code = typeof l === 'string' ? l : l.code
+    const iso = typeof l === 'string' ? l : (l.iso || l.code)
+    const path = switchLocalePath(code) || '/'
+    const href = new URL(path, site.url).toString()
+    items.push({ rel: 'alternate', hreflang: iso, href })
+  }
+  // x-default falls back to current locale URL
+  items.push({ rel: 'alternate', hreflang: 'x-default', href: canonicalUrl.value })
+  return items
+})
+
+useHead(() => ({
+  link: [
+    { rel: 'canonical', href: canonicalUrl.value },
+    // Favicon kept for consistency
+    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+    ...alternateLinks.value,
+  ]
+}))
+
+// Social preview image for OG/Twitter
+const img = useImage()
+const previewSocial = img('images/logo.svg', {
+  width: 1200,
+  height: 630,
+  format: 'webp',
+  quality: 80,
+})
+
+const pageTitle = computed(() => site.name)
+const pageDescription = computed(() =>
+  // If you later add i18n keys, replace this with t('home.meta.description')
+  'OneLiteFeather is a Minecraft Network sharing development tools with the community.'
+)
+
+useSeoMeta(() => ({
+  title: pageTitle.value,
+  description: pageDescription.value,
+  ogTitle: pageTitle.value,
+  ogDescription: pageDescription.value,
+  ogType: 'website',
+  ogUrl: canonicalUrl.value,
+  ogImage: previewSocial,
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle.value,
+  twitterDescription: pageDescription.value,
+  twitterImage: previewSocial,
+}))
+
+useSchemaOrg(() => ({
+  '@type': 'WebPage',
+  name: pageTitle.value,
+  description: pageDescription.value,
+  url: canonicalUrl.value,
+  inLanguage: (locale?.value || 'de'),
+}))
+
 </script>
 
 <template>
-  <div class="mx-auto max-w-6xl px-4 py-6 md:py-10">
+  <!-- Full-bleed Carousel on mobile: remove outer padding and width limits; restore container on md+ -->
+  <div class="-mx-4 sm:-mx-6 px-0 py-6 md:py-10 md:mx-auto md:max-w-6xl md:px-4 lg:px-8">
     <Carousel :slides="slides" aspect="16/9" aria-label="Startseiten-Highlight-Karussell" />
   </div>
+  <!-- Server Concept Section -->
+  <ServerConcept
+    v-if="concept"
+    :title="concept.title"
+    :subtitle="concept.subtitle"
+    :points="concept.points || []"
+  />
   <!-- Server Connect Section -->
   <ServerAddresses
     v-if="connect"
@@ -50,15 +122,11 @@ const slides = computed(() => {
     :java-link="connect.javaLink"
     :bedrock-link="connect.bedrockLink"
   />
-  <div class="mx-auto max-w-6xl px-4 pb-16">
-    <h2 class="mt-4 mb-6 text-2xl font-bold inline-block bg-gradient-accent bg-clip-text text-transparent">Roadmap</h2>
-    <VerticalTimeline :events="timelineEvents" line-color="brand" mode="preview" aria-label="Projekt‑Roadmap" />
-  </div>
 </template>
 
 <style scoped>
-/* Hinweise:
-   - Eigene Bilder unter `public/` ablegen, z. B. `public/hero/slide1.jpg`.
-   - Dann im Array oben `src: '/hero/slide1.jpg'` verwenden.
-   - `alt` ist wichtig für Barrierefreiheit & SEO. `note` wird als Overlay-Text angezeigt. */
+/* Notes:
+   - Place your own images under `public/`, e.g., `public/hero/slide1.jpg`.
+   - Then reference it in the array above with `src: '/hero/slide1.jpg'`.
+   - `alt` is important for accessibility & SEO. `note` is displayed as overlay text. */
 </style>
