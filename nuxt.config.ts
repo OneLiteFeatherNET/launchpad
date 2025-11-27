@@ -51,13 +51,13 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@nuxt/image',
-    '@nuxtjs/sitemap',
     '@nuxtjs/robots',
     'nuxt-schema-org',
     'nuxt-og-image',
     '@nuxt/content',
     'nuxt-posthog',
-    'nuxt-gtag'
+    'nuxt-gtag',
+    '@nuxtjs/sitemap'
   ],
   i18n: {
     strategy: 'prefix',
@@ -143,7 +143,7 @@ export default defineNuxtConfig({
       }, {});
 
       // Add alternate links to entries
-      return entries.map(entry => {
+      return entries.map((entry: any) => {
         if (entry.translationKey && entriesByTranslationKey[entry.translationKey]) {
           entry.alternates = entriesByTranslationKey[entry.translationKey]
             .filter(alt => alt._path !== entry._path)
@@ -207,6 +207,9 @@ export default defineNuxtConfig({
     },
     nitro: {
       preset: "cloudflare_pages",
+        externals: {
+            inline: ["@nuxt/content"]
+        },
       cloudflare: {
         deployConfig: true,
         nodeCompat: true,

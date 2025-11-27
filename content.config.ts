@@ -3,70 +3,71 @@ import { asSchemaOrgCollection } from 'nuxt-schema-org/content'
 import { asSitemapCollection } from '@nuxtjs/sitemap/content'
 
 
-
+let blogSchema = z.object({
+    title: z.string(),
+    alternativeTitle: z.string().optional(),
+    description: z.string(),
+    slug: z.string(),
+    // Transform string to Date object
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    headerImage: z.string().optional(),
+    headerImageAlt: z.string().optional(),
+    // Link to the same article in other languages
+    translationKey: z.string().optional(),
+    excerpt: z.object({
+        type: z.string(),
+        children: z.any(),
+    }),
+});
 export default defineContentConfig({
     collections: {
         blog_de: defineCollection(asSitemapCollection(asSchemaOrgCollection({
             type: 'page',
             source: 'blog/de/**/*.md',
-            schema: z.object({
-                title: z.string(),
-                alternativeTitle: z.string().optional(),
-                description: z.string(),
-                slug: z.string(),
-                // Transform string to Date object
-                pubDate: z.coerce.date(),
-                updatedDate: z.coerce.date().optional(),
-                headerImage: z.string().optional(),
-                headerImageAlt: z.string().optional(),
-                // Link to the same article in other languages
-                translationKey: z.string().optional(),
-                excerpt: z.object({
-                    type: z.string(),
-                    children: z.any(),
-                }),
-            })
+            schema: blogSchema
         }))),
         blog_en: defineCollection(asSitemapCollection(asSchemaOrgCollection({
             type: 'page',
             source: 'blog/en/**/*.md',
-            schema: z.object({
-                title: z.string(),
-                alternativeTitle: z.string().optional(),
-                description: z.string(),
-                slug: z.string(),
-                // Transform string to Date object
-                pubDate: z.coerce.date(),
-                updatedDate: z.coerce.date().optional(),
-                headerImage: z.string().optional(),
-                headerImageAlt: z.string().optional(),
-                // Link to the same article in other languages
-                translationKey: z.string().optional(),
-                excerpt: z.object({
-                    type: z.string(),
-                    children: z.any(),
-                }),
-            })
+            schema: blogSchema
         }))),
 
         // Carousel content for home page (i18n)
         home_carousel_de: defineCollection({
+            type: "data",
             source: 'carousel/de/home.json',
             schema: z.object({
                 key: z.string().optional(),
-                slides: z.array(z.any()).default([]),
-            }).passthrough(),
+                slides: z.array(
+                    z.object({
+                        // Definiere die Struktur deiner Slides explizit
+                        title: z.string(),
+                        image: z.string(),
+                        // ... weitere Felder
+                    })
+                ).default([]),
+            }),
         }),
         home_carousel_en: defineCollection({
+            type: "data",
             source: 'carousel/en/home.json',
             schema: z.object({
                 key: z.string().optional(),
-                slides: z.array(z.any()).default([]),
-            }).passthrough(),
+                slides: z.array(
+                    z.object({
+                        // Definiere die Struktur deiner Slides explizit
+                        title: z.string(),
+                        image: z.string(),
+                        // ... weitere Felder
+                    })
+                ).default([]),
+            }),
         }),
 
         // Server connect information (i18n)
         server_connect_de: defineCollection({
+            type: "data",
             source: 'server/de/connect.json',
             schema: z.object({
                 javaAddress: z.string(),
@@ -77,6 +78,7 @@ export default defineContentConfig({
             }).passthrough(),
         }),
         server_connect_en: defineCollection({
+            type: "data",
             source: 'server/en/connect.json',
             schema: z.object({
                 javaAddress: z.string(),
@@ -89,6 +91,7 @@ export default defineContentConfig({
 
         // Timeline (i18n)
         timeline_de: defineCollection({
+            type: "data",
             source: 'timeline/de/home.json',
             schema: z.object({
                 key: z.string().optional(),
@@ -107,6 +110,7 @@ export default defineContentConfig({
             }).passthrough(),
         }),
         timeline_en: defineCollection({
+            type: "data",
             source: 'timeline/en/home.json',
             schema: z.object({
                 key: z.string().optional(),
@@ -127,6 +131,7 @@ export default defineContentConfig({
 
         // Team overview (i18n)
         team_de: defineCollection({
+            type: "data",
             source: 'team/de/home.json',
             schema: z.object({
                 key: z.string().optional(),
@@ -145,6 +150,7 @@ export default defineContentConfig({
             }).passthrough(),
         }),
         team_en: defineCollection({
+            type: "data",
             source: 'team/en/home.json',
             schema: z.object({
                 key: z.string().optional(),
@@ -165,6 +171,7 @@ export default defineContentConfig({
 
         // Server concept (i18n)
         server_concept_de: defineCollection({
+            type: "data",
             source: 'server-concept/de/home.json',
             schema: z.object({
                 key: z.string().optional(),
@@ -181,6 +188,7 @@ export default defineContentConfig({
             }).passthrough(),
         }),
         server_concept_en: defineCollection({
+            type: "data",
             source: 'server-concept/en/home.json',
             schema: z.object({
                 key: z.string().optional(),
