@@ -21,6 +21,7 @@
     "@tailwindcss/postcss": "^4.1.17",
     "@tailwindcss/vite": "^4.1.17",
     "@unhead/vue": "^2.0.19",
+    "@vueuse/core": "^14.1.0",
     "@vueuse/nuxt": "14.1.0",
     "autoprefixer": "^10.4.22",
     "debug": "^4.4.3",

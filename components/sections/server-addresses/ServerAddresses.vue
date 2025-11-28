@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @ts-ignore-next-line: types for @vueuse/core may not be available in this environment
 import { useClipboard } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import ServerAddressCard from './ServerAddressCard.vue'
@@ -113,9 +114,11 @@ const onCopyBedrock = async () => {
           />
         </div>
 
-        <p v-if="!isSupported" class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
-          {{ t('server.connect.clipboard_note') }}
-        </p>
+        <ClientOnly>
+          <p v-if="!isSupported" class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+            {{ t('server.connect.clipboard_note') }}
+          </p>
+        </ClientOnly>
         <!-- Global live region removed because each button has its own feedback -->
         </div>
       </div>
