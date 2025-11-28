@@ -1,0 +1,61 @@
+{
+  "key": "home",
+  "events": [
+    {
+      "id": "planning",
+      "title": "Planungsphase",
+      "date": "2024-10-01",
+      "description": "Konzeption und erste Entwürfe für das Projekt.",
+      "colorVariant": "neutral"
+    },
+    {
+      "id": "kickoff",
+      "title": "Projekt Kickoff",
+      "date": "2025-01-15",
+      "description": "Start der Initiative und Definition der Meilensteine.",
+      "colorVariant": "brand"
+    },
+    {
+      "id": "infrastructure",
+      "title": "Infrastruktur-Setup",
+      "date": "2025-02-20",
+      "description": "Einrichtung der Entwicklungsumgebung und CI/CD Pipeline.",
+      "colorVariant": "accent"
+    },
+    {
+      "id": "alpha",
+      "title": "Alpha Release",
+      "date": "2025-04-15",
+      "description": "Interner Test mit ausgewählten Features.",
+      "colorVariant": "orange"
+    },
+    {
+      "id": "beta",
+      "title": "Beta Release",
+      "date": "2025-07-10",
+      "description": "Öffentliche Beta und Sammeln von Feedback.",
+      "colorVariant": "purple"
+    },
+    {
+      "id": "optimization",
+      "title": "Performance-Optimierung",
+      "date": "2025-09-05",
+      "description": "Feintuning und Verbesserung der System-Performance.",
+      "colorVariant": "brand"
+    },
+    {
+      "id": "launch",
+      "title": "Launch",
+      "date": "2025-11-20",
+      "description": "Offizieller Start mit Marketing-Kampagne.",
+      "colorVariant": "accent"
+    },
+    {
+      "id": "expansion",
+      "title": "Feature-Erweiterung",
+      "date": "2026-02-15",
+      "description": "Neue Features basierend auf User-Feedback implementieren.",
+      "colorVariant": "orange"
+    }
+  ]
+}

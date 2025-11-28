@@ -1,0 +1,62 @@
+{
+  "key": "home",
+  "members": [
+    {
+      "id": "phillipp",
+      "name": "Phillipp Glanz",
+      "slug": "phillipp-glanz",
+      "role": "Entwicklungsleiter",
+      "slogan": "Code, Kaffee und Kreativität.",
+      "mcName": "OneLiteFeather",
+      "href": "/team/phillipp-glanz"
+    },
+    {
+      "id": "mira",
+      "name": "Mira Sommer",
+      "slug": "mira-sommer",
+      "role": "Community Managerin",
+      "slogan": "Spieler zuerst – immer.",
+      "mcName": "MiraCraft",
+      "href": "/team/mira-sommer"
+    },
+    {
+      "id": "timo",
+      "name": "Timo Beck",
+      "slug": "timo-beck",
+      "role": "Server Administrator",
+      "slogan": "Stabilität vor Features.",
+      "mcName": "Tim0",
+      "href": "/team/timo-beck"
+    },
+    {
+      "id": "placeholder-dev",
+      "name": "Dein Platz?",
+      "role": "Entwickler/in",
+      "slogan": "Entwickle mit uns neue Features."
+    },
+    {
+      "id": "placeholder-cm",
+      "name": "Dein Platz?",
+      "role": "Community Manager/in",
+      "slogan": "Baue unsere Community mit auf."
+    },
+    {
+      "id": "placeholder-mod",
+      "name": "Dein Platz?",
+      "role": "Moderator/in",
+      "slogan": "Sorge für Fairness und Ordnung."
+    },
+    {
+      "id": "placeholder-content",
+      "name": "Dein Platz?",
+      "role": "Content Creator/in",
+      "slogan": "Erstelle Guides, Posts und Videos."
+    },
+    {
+      "id": "placeholder-socialmedia",
+      "name": "Dein Platz?",
+      "role": "Social Media Manager/in",
+      "slogan": "Gestalte unsere Präsenz auf Social Media."
+    }
+  ]
+}

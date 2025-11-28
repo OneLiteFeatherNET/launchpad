@@ -1,0 +1,62 @@
+{
+  "key": "home",
+  "members": [
+    {
+      "id": "phillipp",
+      "name": "Phillipp Glanz",
+      "slug": "phillipp-glanz",
+      "role": "Lead Developer",
+      "slogan": "Code, coffee and creativity.",
+      "mcName": "OneLiteFeather",
+      "href": "/en/team/phillipp-glanz"
+    },
+    {
+      "id": "mira",
+      "name": "Mira Sommer",
+      "slug": "mira-sommer",
+      "role": "Community Manager",
+      "slogan": "Players first – always.",
+      "mcName": "MiraCraft",
+      "href": "/en/team/mira-sommer"
+    },
+    {
+      "id": "timo",
+      "name": "Timo Beck",
+      "slug": "timo-beck",
+      "role": "Server Administrator",
+      "slogan": "Stability over features.",
+      "mcName": "Tim0",
+      "href": "/en/team/timo-beck"
+    },
+    {
+      "id": "placeholder-dev",
+      "name": "Your seat?",
+      "role": "Developer",
+      "slogan": "Build new features with us."
+    },
+    {
+      "id": "placeholder-cm",
+      "name": "Your seat?",
+      "role": "Community Manager",
+      "slogan": "Help grow and support our community."
+    },
+    {
+      "id": "placeholder-mod",
+      "name": "Your seat?",
+      "role": "Moderator",
+      "slogan": "Keep things fair and organized."
+    },
+    {
+      "id": "placeholder-content",
+      "name": "Your seat?",
+      "role": "Content Creator",
+      "slogan": "Create guides, posts and videos."
+    },
+    {
+      "id": "placeholder-socialmedia",
+      "name": "Your seat?",
+      "role": "Social Media Manager",
+      "slogan": "Shape our presence on social media."
+    }
+  ]
+}

@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import NavigationBar from "~/components/base/navigation/NavigationBar.vue";
+
 import FooterSection from "~/components/blog/page/footer/FooterSection.vue";
+import NavigationBar from "~/components/blog/base/navigation/NavigationBar.vue";
+import Footer from "~/components/onelitefeather/common/Footer.vue";
+
 const route = useRoute()
 const { t } = useI18n()
 const head = useLocaleHead()
@@ -8,24 +11,21 @@ const title = computed(() => t(route.meta?.title ?? 'TDB'));
 </script>
 
 <template>
-<Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
+  <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
   <Head>
     <Title>{{ title }}</Title>
-    <template v-for="link in head.link" :key="link.hid">
-      <Link :id="link.hid" :rel="link.rel" :href="link.href" :hreflang="link.hreflang" />
-    </template>
-    <template v-for="meta in head.meta" :key="meta.hid">
-      <Meta :id="meta.hid" :property="meta.property" :content="meta.content" />
-    </template>
   </Head>
-  <Body class="h-full dark:bg-gray-900">
-    <NavigationBar />
-    <main class="px-4 mx-auto sm:px-6 lg:px-8 w-full h-full">
-      <slot/>
-    </main>
-    <FooterSection />
-  </Body>
-</Html>
+    <Body class="dark:bg-gray-900 overflow-x-hidden">
+      <!-- Local wrapper ensures flex layout even if <Body> classes are not applied by the renderer -->
+      <div class="min-h-screen flex flex-col">
+        <OnelitefeatherCommonNavigationBar />
+        <main class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1">
+          <slot/>
+        </main>
+        <Footer />
+      </div>
+    </Body>
+  </Html>
 </template>
 
 <style scoped>

@@ -1,0 +1,104 @@
+@import 'tailwindcss';
+
+@layer components {
+  /* Block: olf-nav (OneLiteFeather navigation) */
+  .olf-nav {
+    @apply bg-surface dark:bg-surface sticky top-0 z-50 transition-shadow duration-300;
+  }
+  .olf-nav__container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .olf-nav__inner {
+    @apply flex items-center justify-between h-16;
+  }
+
+  /* Brand */
+  .olf-nav__brand {
+    @apply flex items-center gap-3;
+  }
+  .olf-nav__brand-logo {
+    @apply h-10 w-10 rounded-full;
+  }
+  .olf-nav__brand-title {
+    @apply text-lg font-medium text-text dark:text-text;
+  }
+
+  /* Desktop list */
+  .olf-nav__list--desktop {
+    @apply hidden md:flex items-center gap-2;
+  }
+
+  /* Mobile toggle */
+  .olf-nav__toggle {
+    @apply md:hidden;
+  }
+
+  /* Mobile overlay */
+  .olf-nav__mobile-overlay {
+    @apply md:hidden bg-surface dark:bg-surface border-t border-border dark:border-border;
+  }
+  .olf-nav__mobile-nav {
+    @apply px-4 py-3 space-y-1;
+  }
+  .olf-nav__mobile-divider {
+    @apply pt-2 border-t border-border dark:border-border mt-2;
+  }
+
+  /* Bottom navigation */
+  .olf-nav--bottom {
+    @apply md:hidden fixed bottom-0 left-0 right-0 z-50 bg-surface dark:bg-surface border-t border-border dark:border-border;
+  }
+  .olf-nav__bottom-grid {
+    @apply grid grid-cols-4 h-20;
+  }
+
+  /* Item */
+  .olf-nav__item {
+    @apply relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 group text-text/70 hover:bg-surface dark:text-text/70 dark:hover:bg-gray-800;
+  }
+  .olf-nav__item--active {
+    @apply bg-secondary/10 text-secondary dark:bg-secondary/20 dark:text-secondary;
+  }
+  .olf-nav__item__label {
+    @apply relative z-10 flex items-center gap-2;
+  }
+  .olf-nav__item__active-indicator {
+    @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-secondary dark:bg-secondary rounded-full;
+  }
+
+  /* Mobile item */
+  .olf-nav__item--mobile {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium;
+  }
+
+  /* Bottom item */
+  .olf-nav__item--bottom {
+    @apply flex flex-col items-center justify-center gap-1 py-2 transition-all duration-200 relative;
+  }
+
+  /* Buttons */
+  .olf-btn {
+    @apply relative p-3 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+  }
+  .olf-btn--icon {
+    @apply text-text/70 hover:bg-secondary/10 dark:text-text/70 dark:hover:bg-secondary/20;
+  }
+  .olf-btn--filled {
+    @apply bg-secondary text-white hover:bg-secondary/90;
+  }
+
+  /* Language selector */
+  .olf-lang {
+    @apply relative;
+  }
+  .olf-lang__button {
+    @apply flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-text/70 hover:bg-surface dark:text-text/70 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary;
+  }
+  .olf-lang__dropdown {
+    @apply absolute right-0 mt-2 w-48 bg-surface dark:bg-surface rounded-2xl shadow-lg border border-border dark:border-border overflow-hidden z-50;
+  }
+  .olf-lang__mobile-list {
+    @apply space-y-1;
+  }
+}
+

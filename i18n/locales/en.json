@@ -1,12 +1,40 @@
 {
   "navigation": {
     "overview": "Overview",
-    "toggle_mobile_menu": "Toggle mobile menu"
+    "toggle_mobile_menu": "Toggle mobile menu",
+    "home": "Home",
+    "back_home": "Back to home",
+    "main": "Main navigation",
+    "mobile": "Mobile navigation",
+    "bottom": "Bottom navigation",
+    "blog": "Blog",
+    "bluemap": "BlueMap",
+    "server": "Server",
+    "discord": "Discord",
+    "change_language": "Change language"
   },
   "layouts": {
     "title": "Title"
   },
   "TDB": "To Do",
+  "server": {
+    "connect": {
+      "title": "Connect to the server",
+      "subtitle": "Choose your platform and copy the address.",
+      "java": "Java Edition",
+      "bedrock": "Bedrock Edition",
+      "copy_aria": "Copy server address {address} to clipboard",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "clipboard_note": "Your browser does not support copying to the clipboard. Please copy the address manually."
+    }
+  },
+  "index": {
+    "title": "Home"
+  },
+  "bluemap": {
+    "title": "BlueMap"
+  },
   "blog": {
     "overview": {
       "title": "Overview",
@@ -21,7 +49,33 @@
       "description": "Here you can find our imprint."
     }
   },
+  "team": {
+    "title": "Team",
+    "subtitle": "Meet the people behind OneLiteFeather.",
+    "search_label": "Search team",
+    "search_placeholder": "Search name…",
+    "filter_role": "Role",
+    "filter_role_all": "All",
+    "limit_label": "Count",
+    "scroll_area_aria": "Horizontal scrollable team list",
+    "list_label": "Team members",
+    "no_results": "No results found",
+    "card_aria": "Profile of {name}, {role}",
+    "avatar_alt": "Avatar of {name}",
+    "view_profile": "View profile",
+    "profile_not_found": "This profile was not found."
+  },
+  "timeline": {
+    "aria_label": "Timeline",
+    "show_all": "Show all",
+    "show_all_aria": "Show all timeline events",
+    "more": "More",
+    "more_aria": "More about {title}"
+  },
   "footer": {
+    "brand": "OneLiteFeather",
+    "description": "A Minecraft network focused on community and development",
+    "copyright": "© {year} OneLiteFeather. All rights reserved.",
     "social_media": "Social Media",
     "legal": "Legal",
     "github": "GitHub",
@@ -32,7 +86,33 @@
     "privacy_policy": "Privacy Policy",
     "all_rights_reserved": "All rights reserved",
     "made_with_love": "Made with love by the OneLiteFeather Team and contributors",
-    "love": "love"
+    "love": "love",
+    "aria_label": "Website footer",
+    "services": {
+      "title": "Services",
+      "minecraft": "Minecraft Server",
+      "blogging": "Blog",
+      "status": "Status",
+      "github": "GitHub"
+    },
+    "organization": {
+      "title": "Organization",
+      "about": "About us",
+      "contact": "Contact",
+      "careers": "Careers"
+    },
+    "social": {
+      "title": "Social Media"
+    },
+    "privacy": "Privacy",
+    "terms": "Imprint"
+  },
+  "social": {
+    "twitch": "Twitch",
+    "youtube": "YouTube",
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
   },
   "accessibility": {
     "logo_alt": "OneLiteFeather Logo"

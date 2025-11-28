@@ -1,0 +1,61 @@
+{
+  "key": "home",
+  "events": [
+    {
+      "id": "planning",
+      "title": "Planning Phase",
+      "date": "2024-10-01",
+      "description": "Concept development and initial project drafts.",
+      "colorVariant": "neutral"
+    },
+    {
+      "id": "kickoff",
+      "title": "Project Kickoff",
+      "date": "2025-01-15",
+      "description": "Start of the initiative and definition of milestones.",
+      "colorVariant": "brand"
+    },
+    {
+      "id": "infrastructure",
+      "title": "Infrastructure Setup",
+      "date": "2025-02-20",
+      "description": "Setting up development environment and CI/CD pipeline.",
+      "colorVariant": "accent"
+    },
+    {
+      "id": "alpha",
+      "title": "Alpha Release",
+      "date": "2025-04-15",
+      "description": "Internal testing with selected features.",
+      "colorVariant": "orange"
+    },
+    {
+      "id": "beta",
+      "title": "Beta Release",
+      "date": "2025-07-10",
+      "description": "Public beta and collecting user feedback.",
+      "colorVariant": "purple"
+    },
+    {
+      "id": "optimization",
+      "title": "Performance Optimization",
+      "date": "2025-09-05",
+      "description": "Fine-tuning and improving system performance.",
+      "colorVariant": "brand"
+    },
+    {
+      "id": "launch",
+      "title": "Launch",
+      "date": "2025-11-20",
+      "description": "Official launch with marketing campaign.",
+      "colorVariant": "accent"
+    },
+    {
+      "id": "expansion",
+      "title": "Feature Expansion",
+      "date": "2026-02-15",
+      "description": "Implementing new features based on user feedback.",
+      "colorVariant": "orange"
+    }
+  ]
+}

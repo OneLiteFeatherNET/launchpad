@@ -1,0 +1,25 @@
+{
+  "key": "community",
+  "title": "Our Community Values",
+  "subtitle": "Unity, fun, and kindness – so OneLiteFeather.net stays a great place for everyone.",
+  "points": [
+    {
+      "id": 1,
+      "icon": "groups",
+      "title": "Unity",
+      "text": "We support each other, play as a team, and keep our respect even when things get tense. Drama belongs elsewhere, not in our chat."
+    },
+    {
+      "id": 2,
+      "icon": "sports_esports",
+      "title": "Fun First",
+      "text": "Building, farming, PvP, or events: fun comes first. Fair play over ego trips, so the experience works for everyone."
+    },
+    {
+      "id": 3,
+      "icon": "handshake",
+      "title": "Kindness",
+      "text": "Being kind isn’t a “nice-to-have”, it’s the default. No hate, no bullying, no deliberate provocation – we want a chill atmosphere."
+    }
+  ]
+}

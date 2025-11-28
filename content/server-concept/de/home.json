@@ -1,0 +1,25 @@
+{
+  "key": "community",
+  "title": "Unsere Community-Werte",
+  "subtitle": "Zusammenhalt, Spaß und Freundlichkeit – damit OneLiteFeather.net für alle ein guter Ort bleibt.",
+  "points": [
+    {
+      "id": 1,
+      "icon": "groups",
+      "title": "Zusammenhalt",
+      "text": "Wir helfen uns gegenseitig, spielen als Team und verlieren auch bei Stress nicht den Respekt. Drama ist was für Twitter, nicht für unseren Chat."
+    },
+    {
+      "id": 2,
+      "icon": "sports_esports",
+      "title": "Spaß am Spiel",
+      "text": "Ob Bauen, Farmen, PvP oder Events: Der Spielspaß steht vorne. Fair play statt Ego-Trip, damit’s für alle funktioniert."
+    },
+    {
+      "id": 3,
+      "icon": "handshake",
+      "title": "Freundlichkeit",
+      "text": "Freundlicher Umgang ist kein „Nice-to-have“, sondern Standard. Kein Hate, kein Mobbing, kein gezieltes Provozieren – wir wollen eine entspannte Atmosphäre."
+    }
+  ]
+}

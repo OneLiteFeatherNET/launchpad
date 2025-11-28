@@ -1,12 +1,34 @@
 {
   "navigation": {
     "overview": "Übersicht",
-    "toggle_mobile_menu": "Mobile Menü umschalten"
+    "toggle_mobile_menu": "Mobile Menü umschalten",
+    "home": "Startseite",
+    "back_home": "Zur Startseite zurück",
+    "main": "Hauptnavigation",
+    "mobile": "Mobile Navigation",
+    "bottom": "Untere Navigation",
+    "blog": "Blog",
+    "bluemap": "BlueMap",
+    "server": "Server",
+    "discord": "Discord",
+    "change_language": "Sprache ändern"
   },
   "layouts": {
     "title": "Titel"
   },
   "TDB": "Zu erledigen",
+  "server": {
+    "connect": {
+      "title": "Mit dem Server verbinden",
+      "subtitle": "Wähle deine Plattform und kopiere die Adresse.",
+      "java": "Java Edition",
+      "bedrock": "Bedrock Edition",
+      "copy_aria": "Serveradresse {address} in die Zwischenablage kopieren",
+      "copy": "Kopieren",
+      "copied": "Kopiert!",
+      "clipboard_note": "Dein Browser unterstützt das Kopieren in die Zwischenablage nicht. Bitte kopiere die Adresse manuell."
+    }
+  },
   "blog": {
     "overview": {
       "title": "Übersicht",
@@ -21,7 +43,39 @@
       "description": "Hier findest du unser Impressum."
     }
   },
+  "index": {
+    "title": "Startseite"
+  },
+  "bluemap": {
+    "title": "BlueMap"
+  },
+  "team": {
+    "title": "Team",
+    "subtitle": "Lerne die Menschen hinter OneLiteFeather kennen.",
+    "search_label": "Team durchsuchen",
+    "search_placeholder": "Name suchen…",
+    "filter_role": "Rolle",
+    "filter_role_all": "Alle",
+    "limit_label": "Anzahl",
+    "scroll_area_aria": "Horizontale Teamliste zum Scrollen",
+    "list_label": "Teammitglieder",
+    "no_results": "Keine Ergebnisse gefunden",
+    "card_aria": "Profil von {name}, {role}",
+    "avatar_alt": "Avatar von {name}",
+    "view_profile": "Profil ansehen",
+    "profile_not_found": "Dieses Profil wurde nicht gefunden."
+  },
+  "timeline": {
+    "aria_label": "Zeitachse",
+    "show_all": "Alle anzeigen",
+    "show_all_aria": "Alle Ereignisse der Zeitachse anzeigen",
+    "more": "Mehr",
+    "more_aria": "Mehr zu {title}"
+  },
   "footer": {
+    "brand": "OneLiteFeather",
+    "description": "Ein Minecraft‑Netzwerk mit Fokus auf Community und Entwicklung",
+    "copyright": "© {year} OneLiteFeather. Alle Rechte vorbehalten.",
     "social_media": "Social Media",
     "legal": "Rechtliches",
     "github": "GitHub",
@@ -32,7 +86,33 @@
     "privacy_policy": "Datenschutz",
     "all_rights_reserved": "Alle Rechte vorbehalten",
     "made_with_love": "Mit Liebe erstellt vom OneLiteFeather Team und Mitwirkenden",
-    "love": "Liebe"
+    "love": "Liebe",
+    "aria_label": "Website‑Fußzeile",
+    "services": {
+      "title": "Dienste",
+      "minecraft": "Minecraft Server",
+      "blogging": "Blog",
+      "status": "Status",
+      "github": "GitHub"
+    },
+    "organization": {
+      "title": "Organisation",
+      "about": "Über uns",
+      "contact": "Kontakt",
+      "careers": "Karriere"
+    },
+    "social": {
+      "title": "Social Media"
+    },
+    "privacy": "Datenschutz",
+    "terms": "Impressum"
+  },
+  "social": {
+    "twitch": "Twitch",
+    "youtube": "YouTube",
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
   },
   "accessibility": {
     "logo_alt": "OneLiteFeather Logo"
