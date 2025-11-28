@@ -72,9 +72,6 @@ export default defineContentConfig({
             schema: z.object({
                 javaAddress: z.string(),
                 bedrockAddress: z.string(),
-                javaLink: z.string().url().optional(),
-                bedrockLink: z.string().url().optional(),
-                backgroundImages: z.array(z.string()).optional(),
             }).passthrough(),
         }),
         server_connect_en: defineCollection({
@@ -83,9 +80,6 @@ export default defineContentConfig({
             schema: z.object({
                 javaAddress: z.string(),
                 bedrockAddress: z.string(),
-                javaLink: z.string().url().optional(),
-                bedrockLink: z.string().url().optional(),
-                backgroundImages: z.array(z.string()).optional(),
             }).passthrough(),
         }),
 

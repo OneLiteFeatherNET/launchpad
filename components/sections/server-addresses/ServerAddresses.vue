@@ -9,11 +9,6 @@ type Props = {
   subtitle?: string
   javaAddress: string
   bedrockAddress: string
-  // Optional links (fallbacks are generated if not provided)
-  javaLink?: string
-  bedrockLink?: string
-  // Background images (no longer used; kept for backward compatibility)
-  backgroundImages?: string[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -54,7 +49,7 @@ const onCopyBedrock = async () => {
 </script>
 
 <template>
-  <section id="connect" class="relative isolate w-full overflow-hidden">
+  <section id="connect" class="relative isolate w-full overflow-hidden scroll-mt-24 md:scroll-mt-28">
     <!-- Note: Background images were removed (requirement). Aura/Glow remains. -->
 
     <!-- Foreground Content -->

@@ -1,10 +1,4 @@
 {
-  "javaAddress": "play.onelitefeather.net",
-  "bedrockAddress": "bedrock.onelitefeather.net:19132",
-  "javaLink": "https://mcsrvstat.us/server/play.onelitefeather.net",
-  "bedrockLink": "https://mcsrvstat.us/bedrock/bedrock.onelitefeather.net",
-  "backgroundImages": [
-    "/images/blog/cyber-theDigitalArtist-Ethanol-Post.webp",
-    "/images/blog/cyber-theDigitalArtist-Ethanol-Post.jpg"
-  ]
+  "javaAddress": "onelitefeather.net",
+  "bedrockAddress": "onelitefeather.com:19132"
 }

@@ -34,6 +34,14 @@
     /* --color-brand-primary: #263276; */
   }
 
+/* Global smooth scrolling for in-page anchors */
+html { scroll-behavior: smooth; }
+
+/* Respect user preference to reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
   /* Utility: Gradient-Text auf Basis der Brand-Token */
   .text-gradient-brand {
       background: var(--gradient-brand);
