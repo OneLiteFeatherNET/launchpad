@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from '#imports';
+import { ref, computed } from '#imports';
 import NavigationItem from './NavigationItem.vue';
 import LanguageSelector from './LanguageSelector.vue';
 import NavigationIconButton from '~/components/ui/buttons/NavigationIconButton.vue';
@@ -28,17 +28,21 @@ interface NavItem {
   icon?: string | [string,string];
 }
 
-const navItems: NavItem[] = [
-  { textKey: 'navigation.overview', path: localePath('index', locale?.value as 'de' | 'en' | undefined), icon: ['fas','home'] },
-  { textKey: 'navigation.server', path: (localePath('index', locale?.value as 'de' | 'en' | undefined) + '#connect'), icon: ['fas','server'] },
-  { textKey: 'navigation.bluemap', path: localePath('/bluemap', locale?.value as 'de' | 'en' | undefined), icon: ['fas','map'] },
-  { textKey: 'navigation.blog', path: localePath('/blog', locale?.value as 'de' | 'en' | undefined), icon: ['fas','file-alt'] },
-];
+// Stelle sicher, dass Navigationspfade immer die aktuelle Sprache berücksichtigen
+const navItems = computed<NavItem[]>(() => {
+  const currentLocale = locale?.value as 'de' | 'en' | undefined;
+  return [
+    { textKey: 'navigation.overview', path: localePath('index', currentLocale), icon: ['fas','home'] },
+    { textKey: 'navigation.server', path: (localePath('index', currentLocale) + '#connect'), icon: ['fas','server'] },
+    { textKey: 'navigation.bluemap', path: localePath('/bluemap', currentLocale), icon: ['fas','map'] },
+    { textKey: 'navigation.blog', path: localePath('/blog', currentLocale), icon: ['fas','file-alt'] },
+  ];
+});
 
-const allNavItems: NavItem[] = [
-  ...navItems,
+const allNavItems = computed<NavItem[]>(() => [
+  ...navItems.value,
   ...(discordUrl ? [{ textKey: 'navigation.discord', path: discordUrl, icon: ['fab','discord'] } as NavItem] : [])
-];
+]);
 
 const elevationClasses = {
   0: 'shadow-none',
