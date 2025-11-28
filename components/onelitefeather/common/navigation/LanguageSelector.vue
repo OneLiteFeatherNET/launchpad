@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from '#imports';
+import { ref, computed, nextTick } from '#imports';
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -10,18 +10,87 @@ const variant = props.variant ?? 'desktop';
 const { locale, locales, setLocale } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const isOpen = ref(false);
+const buttonRef = ref<HTMLButtonElement | null>(null);
+const menuRef = ref<HTMLElement | null>(null);
+const initialFocus = ref<'first' | 'last'>('first');
 const buttonId = computed(() => `lang-button-${variant}`);
 const dropdownId = computed(() => `lang-menu-${variant}`);
 
 const availableLocales = computed(() => locales.value.filter((i: any) => i.code !== locale.value));
 const currentLocale = computed(() => locales.value.find((i: any) => i.code === locale.value));
 
-const toggleDropdown = () => (isOpen.value = !isOpen.value);
-const selectLocale = async (localeCode: string) => { await setLocale(localeCode as 'de' | 'en'); isOpen.value = false };
+const focusMenuItem = (position: 'first' | 'last' | number = 'first') => {
+  const container = menuRef.value;
+  if (!container) return;
+  const items = Array.from(container.querySelectorAll('a, [role="menuitem"], button')) as HTMLElement[];
+  if (items.length === 0) return;
+  if (position === 'first') items[0].focus();
+  else if (position === 'last') items[items.length - 1].focus();
+  else if (typeof position === 'number' && items[position]) items[position].focus();
+};
+
+const openDropdown = async (focus: 'first' | 'last' = 'first') => {
+  initialFocus.value = focus;
+  isOpen.value = true;
+  await nextTick();
+  focusMenuItem(focus);
+};
+
+const closeDropdown = (returnFocus = true) => {
+  isOpen.value = false;
+  if (returnFocus) nextTick(() => buttonRef.value?.focus());
+};
+
+const toggleDropdown = async () => {
+  if (isOpen.value) closeDropdown(true);
+  else await openDropdown('first');
+};
+
+const onButtonKeydown = async (e: KeyboardEvent) => {
+  if (e.key === 'ArrowDown') { e.preventDefault(); await openDropdown('first'); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); await openDropdown('last'); }
+  else if (e.key === 'Escape') { e.preventDefault(); closeDropdown(true); }
+};
+
+const onMenuKeydown = (e: KeyboardEvent) => {
+  const container = menuRef.value;
+  if (!container) return;
+  const items = Array.from(container.querySelectorAll('a, [role="menuitem"], button')) as HTMLElement[];
+  const currentIndex = items.findIndex(el => el === document.activeElement);
+
+  switch (e.key) {
+    case 'ArrowDown':
+      e.preventDefault();
+      if (items.length) items[(currentIndex + 1) % items.length].focus();
+      break;
+    case 'ArrowUp':
+      e.preventDefault();
+      if (items.length) items[(currentIndex - 1 + items.length) % items.length].focus();
+      break;
+    case 'Home':
+      e.preventDefault();
+      focusMenuItem('first');
+      break;
+    case 'End':
+      e.preventDefault();
+      focusMenuItem('last');
+      break;
+    case 'Escape':
+      e.preventDefault();
+      closeDropdown(true);
+      break;
+    case 'Tab':
+      // Close menu on Tab to follow typical menu behavior
+      closeDropdown(false);
+      break;
+  }
+};
+
+const selectLocale = async (localeCode: string) => { await setLocale(localeCode as 'de' | 'en'); closeDropdown(true) };
 </script>
 
 <template>
-  <div v-if="variant === 'desktop'" class="relative" @keydown.escape.window="isOpen = false">
+  <div v-if="variant === 'desktop'" class="relative" @keydown.escape.window="closeDropdown(true)">
     <button
       @click="toggleDropdown"
       :aria-label="t('navigation.change_language')"
@@ -30,6 +99,8 @@ const selectLocale = async (localeCode: string) => { await setLocale(localeCode 
       aria-haspopup="menu"
       :aria-expanded="isOpen ? 'true' : 'false'"
       :aria-controls="dropdownId"
+      ref="buttonRef"
+      @keydown="onButtonKeydown"
       class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
     >
       <span class="material-symbols-outlined text-xl">language</span>
@@ -51,6 +122,8 @@ const selectLocale = async (localeCode: string) => { await setLocale(localeCode 
         role="menu"
         :aria-labelledby="buttonId"
         tabindex="-1"
+        ref="menuRef"
+        @keydown="onMenuKeydown"
         class="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] py-1 shadow-lg ring-1 ring-black/5 dark:border-[var(--color-border)] dark:bg-[var(--color-surface)]"
       >
         <NuxtLink

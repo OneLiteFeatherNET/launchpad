@@ -31,6 +31,7 @@ const handleClick = () => emit('click');
     :to="path"
     class="relative inline-flex items-center gap-2 px-3 py-2 rounded-full text-[var(--color-text)] no-underline transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
     :class="isActive ? 'bg-[var(--color-secondary)]/15 text-[var(--color-secondary)]' : ''"
+    role="menuitem"
     :aria-current="isActive ? 'page' : undefined"
     @click="handleClick"
   >
