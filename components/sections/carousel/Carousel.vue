@@ -194,8 +194,6 @@ function withAlpha(rgb: string, a: number) {
   >
     <!-- Outer wrapper to host aura outside the rounded container -->
     <div class="relative">
-      <!-- Outer MD3-style aura (outside the carousel box) -->
-      <div class="pointer-events-none absolute -inset-16 md:-inset-24 z-0" :style="outerAuraStyle" aria-hidden="true" />
 
       <!-- Ratio wrapper -->
       <div

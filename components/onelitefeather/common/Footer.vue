@@ -27,12 +27,6 @@ const { t } = useI18n()
           </h4>
            <ul class="space-y-3">
              <li>
-             <!-- Placeholder: Minecraft (not available yet) -->
-             <NuxtLink to="#" @click.prevent class="text-sm text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" aria-disabled="true" title="Coming soon">
-                {{ t('footer.services.minecraft') }}
-              </NuxtLink>
-             </li>
-             <li>
               <NuxtLinkLocale to="/blog" class="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand-primary)] transition-colors">
                 {{ t('footer.services.blogging') }}
               </NuxtLinkLocale>
@@ -43,8 +37,7 @@ const { t } = useI18n()
               </a>
              </li>
             <li>
-             <!-- Placeholder: GitHub (service page not available yet) -->
-             <NuxtLink to="#" @click.prevent class="text-sm text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" aria-disabled="true" title="Coming soon">
+             <NuxtLink to="https://github.com/OneLiteFeatherNET" @click.prevent class="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand-primary)] transition-colors" aria-disabled="true" title="Coming soon">
                 {{ t('footer.services.github') }}
               </NuxtLink>
             </li>
@@ -78,16 +71,16 @@ const { t } = useI18n()
             {{ t('footer.social.title') }}
           </h4>
           <div class="flex gap-3">
-            <a href="https://twitch.tv/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full transition-colors hover:bg-[var(--color-surface)]/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]" :aria-label="t('social.twitch')" :title="t('social.twitch')">
+            <a href="https://twitch.tv/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" :aria-label="t('social.twitch')" :title="t('social.twitch')">
                <FontAwesomeIcon :icon="faTwitch" class="h-5 w-5 text-[var(--color-muted)]" />
              </a>
-             <a href="https://youtube.com/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full transition-colors hover:bg-[var(--color-surface)]/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]" :aria-label="t('social.youtube')" :title="t('social.youtube')">
+             <a href="https://youtube.com/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" :aria-label="t('social.youtube')" :title="t('social.youtube')">
                <FontAwesomeIcon :icon="faYoutube" class="h-5 w-5 text-[var(--color-muted)]" />
              </a>
-             <a href="https://facebook.com/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full transition-colors hover:bg-[var(--color-surface)]/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]" :aria-label="t('social.facebook')" :title="t('social.facebook')">
+             <a href="https://facebook.com/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" :aria-label="t('social.facebook')" :title="t('social.facebook')">
                <FontAwesomeIcon :icon="faFacebook" class="h-5 w-5 text-[var(--color-muted)]" />
              </a>
-             <a href="https://linkedin.com/company/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full transition-colors hover:bg-[var(--color-surface)]/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]" :aria-label="t('social.linkedin')" :title="t('social.linkedin')">
+             <a href="https://linkedin.com/company/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" :aria-label="t('social.linkedin')" :title="t('social.linkedin')">
                <FontAwesomeIcon :icon="faLinkedin" class="h-5 w-5 text-[var(--color-muted)]" />
              </a>
              <a href="https://github.com/OneLiteFeatherNET" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full transition-colors hover:bg-[var(--color-surface)]/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]" :aria-label="t('social.github')" :title="t('social.github')">
