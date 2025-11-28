@@ -83,6 +83,7 @@ export default defineNuxtConfig({
         appId: 'OneLiteFeather'
     },
     image: {
+        provider: 'cloudflare',
         // The screen sizes predefined by `@nuxt/image`:
         screens: {
             xs: 320,
@@ -94,6 +95,9 @@ export default defineNuxtConfig({
             '2xl': 1536
         },
         dir: 'public',
+        cloudflare: {
+            baseURL: 'https://img.onelitefeather.net',
+        }
     },
     postcss: {
         plugins: {
@@ -167,7 +171,7 @@ export default defineNuxtConfig({
         },
         image: {
             cloudflare: {
-                baseURL: 'https://blog.onelitefeather.net',
+                baseURL: 'https://img.onelitefeather.net',
             }
         },
         i18n: {
