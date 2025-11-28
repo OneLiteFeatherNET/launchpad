@@ -54,7 +54,7 @@ const onCopyBedrock = async () => {
 </script>
 
 <template>
-  <section class="relative isolate w-full overflow-hidden">
+  <section id="connect" class="relative isolate w-full overflow-hidden">
     <!-- Note: Background images were removed (requirement). Aura/Glow remains. -->
 
     <!-- Foreground Content -->

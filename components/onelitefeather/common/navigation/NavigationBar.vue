@@ -30,6 +30,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { textKey: 'navigation.overview', path: localePath('index', locale?.value as 'de' | 'en' | undefined), icon: ['fas','home'] },
+  { textKey: 'navigation.server', path: (localePath('index', locale?.value as 'de' | 'en' | undefined) + '#connect'), icon: ['fas','server'] },
   { textKey: 'navigation.blog', path: localePath('/blog', locale?.value as 'de' | 'en' | undefined), icon: ['fas','file-alt'] },
 ];
 
