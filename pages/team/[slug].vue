@@ -36,7 +36,7 @@ useHead(() => ({
   <main class="mx-auto max-w-4xl px-4 py-10">
     <NuxtLink
       to="/"
-      class="text-sm text-brand-600 dark:text-brand-400 hover:underline"
+      class="text-sm text-primary dark:text-primary/80 hover:underline"
       :aria-label="$t('navigation.back_home')"
     >
       ← {{ $t('navigation.home') }}

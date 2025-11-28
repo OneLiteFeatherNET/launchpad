@@ -1,15 +1,7 @@
 import type { Config } from 'tailwindcss';
-import plugin from 'tailwindcss/plugin';
 
 export default {
     darkMode: 'class',
-    content: [
-        './components/**/*.{vue,ts}',
-        './layouts/**/*.vue',
-        './pages/**/*.vue',
-        './app.vue',
-        './plugins/**/*.{ts,js}'
-    ],
     theme: {
         extend: {
             // Farben über CSS-Variablen verfügbar machen (Tailwind-kompatibel)

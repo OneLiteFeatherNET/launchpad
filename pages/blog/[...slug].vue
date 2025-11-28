@@ -114,7 +114,7 @@ const title = computed(() => {
   <div class="container mx-auto max-w-screen-lg px-4 md:px-6 py-6 md:py-8">
     <article
       v-if="blog"
-      class="bg-white dark:bg-neutral-900 rounded-xl shadow-md overflow-hidden ring-1 ring-black/5 dark:ring-white/10 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary-600"
+      class="bg-white dark:bg-neutral-900 rounded-xl shadow-md overflow-hidden ring-1 ring-black/5 dark:ring-white/10 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary"
       role="article"
       :aria-labelledby="'article-title'"
     >
