@@ -3,7 +3,7 @@
       :href="props.href"
       :target="props.target"
       :rel="props.target === '_blank' ? 'noopener noreferrer' : undefined"
-      class="text-blue-600 hover:underline underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-sm break-words"
+      class="text-blue-600 dark:text-blue-400 hover:underline underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-sm break-words transition-colors"
   >
     <slot />
   </NuxtLink>

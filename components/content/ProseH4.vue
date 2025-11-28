@@ -1,10 +1,10 @@
 <template>
-  <h4 :id="props.id" class="text-lg font-semibold mb-4 scroll-mt-24 break-words">
+  <h4 :id="props.id" class="text-lg font-semibold mb-4 scroll-mt-24 break-words dark:text-white">
     <a
         v-if="props.id && generate"
         :href="`#${props.id}`"
         :aria-label="permalinkLabel"
-        class="hover:underline underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 rounded-sm break-words"
+        class="hover:underline underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-sm break-words transition-colors"
     >
       <slot />
     </a>

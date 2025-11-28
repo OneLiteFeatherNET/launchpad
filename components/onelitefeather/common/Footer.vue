@@ -83,7 +83,7 @@ const { t } = useI18n()
              <a href="https://linkedin.com/company/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" :aria-label="t('social.linkedin')" :title="t('social.linkedin')">
                <FontAwesomeIcon :icon="faLinkedin" class="h-5 w-5 text-[var(--color-muted)]" />
              </a>
-             <a href="https://github.com/OneLiteFeatherNET" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full transition-colors hover:bg-[var(--color-surface)]/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]" :aria-label="t('social.github')" :title="t('social.github')">
+             <a href="https://github.com/OneLiteFeatherNET" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]" :aria-label="t('social.github')" :title="t('social.github')">
                <FontAwesomeIcon :icon="faGithub" class="h-5 w-5 text-[var(--color-muted)]" />
              </a>
            </div>

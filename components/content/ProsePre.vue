@@ -1,6 +1,6 @@
 <template>
   <pre
-    :class="[$props.class, 'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 rounded-md overflow-auto']"
+    :class="[$props.class, 'focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-md overflow-auto transition-colors dark:text-white']"
     :tabindex="0"
     :aria-label="ariaLabel"
   ><slot /></pre>
