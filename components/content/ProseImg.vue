@@ -5,6 +5,9 @@
       :alt="props.alt"
       :width="props.width"
       :height="props.height"
+      loading="lazy"
+      decoding="async"
+      class="max-w-full h-auto"
   />
 </template>
 
