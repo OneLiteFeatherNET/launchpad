@@ -11,7 +11,7 @@ const props = defineProps<{
 
 <template>
   <Transition name="fade-down">
-    <div v-if="open" class="md:hidden bg-[var(--color-surface)] dark:bg-[var(--color-surface)] border-t border-[var(--color-border)] dark:border-[var(--color-border)]">
+    <div v-if="open" class="lg:hidden bg-[var(--color-surface)] dark:bg-[var(--color-surface)] border-t border-[var(--color-border)] dark:border-[var(--color-border)]">
       <nav class="px-4 py-3 space-y-1" role="navigation" :aria-label="t('navigation.mobile')">
         <NavList :items="items" variant="mobile" />
       </nav>

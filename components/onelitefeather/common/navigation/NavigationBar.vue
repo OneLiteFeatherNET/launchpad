@@ -62,12 +62,12 @@ const elevationClasses = {
           </NuxtLinkLocale>
         </div>
 
-        <nav class="hidden items-center gap-2 md:flex" role="menubar">
+        <nav class="hidden items-center gap-2 lg:flex" role="menubar">
           <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" />
           <LanguageSelector />
         </nav>
 
-        <div class="md:hidden">
+        <div class="lg:hidden">
           <NavigationIconButton
             :icon="mobileMenuOpen ? ['fas','times'] : ['fas','bars']"
             :aria-label="t('navigation.toggle_mobile_menu')"
@@ -90,7 +90,7 @@ const elevationClasses = {
     >
       <div
         v-if="mobileMenuOpen"
-        class="fixed inset-0 top-16 z-40 bg-black/40 backdrop-blur-sm md:hidden"
+        class="fixed inset-0 top-16 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
         aria-hidden="false"
         @click.self="mobileMenuOpen = false"
       >
@@ -111,7 +111,7 @@ const elevationClasses = {
 
   <!-- Bottom navigation for mobile -->
   <nav v-else :class="['fixed bottom-0 inset-x-0 z-50 bg-[var(--color-surface)] dark:bg-[var(--color-surface)]', elevationClasses[elevation]]" role="navigation" :aria-label="t('navigation.bottom')">
-    <div class="grid [grid-template-columns:repeat(auto-fit,minmax(5rem,1fr))] gap-1 p-2 md:hidden">
+    <div class="grid [grid-template-columns:repeat(auto-fit,minmax(5rem,1fr))] gap-1 p-2 lg:hidden">
       <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" variant="bottom" />
     </div>
   </nav>
