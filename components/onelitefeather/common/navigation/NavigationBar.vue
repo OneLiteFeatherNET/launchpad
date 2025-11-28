@@ -5,7 +5,7 @@ import LanguageSelector from './LanguageSelector.vue';
 import NavigationIconButton from '~/components/ui/buttons/NavigationIconButton.vue';
 import GradientText from '~/components/ui/typography/GradientText.vue';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const runtimeConfig = useRuntimeConfig();
 
 const props = defineProps<{
@@ -18,7 +18,7 @@ const variant = props.variant ?? 'top';
 
 const mobileMenuOpen = ref(false);
 const mobileMenuId = 'mobile-menu-panel';
-const locale = useCookieLocale();
+// Verwende die reaktive i18n-Locale; localePath nutzt automatisch die aktuelle Sprache
 const localePath = useLocalePath();
 const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined) || (process?.env?.NUXT_PUBLIC_DISCORD_URL as string | undefined);
 
@@ -28,14 +28,15 @@ interface NavItem {
   icon?: string | [string,string];
 }
 
-// Stelle sicher, dass Navigationspfade immer die aktuelle Sprache berücksichtigen
+// Navigationspfade basieren auf der aktuellen (reaktiven) Sprache
 const navItems = computed<NavItem[]>(() => {
-  const currentLocale = locale?.value as 'de' | 'en' | undefined;
+  // Abhängigkeit zu locale.value herstellen, damit Reaktivität gewährleistet ist
+  const _ = locale.value; // eslint-disable-line @typescript-eslint/no-unused-vars
   return [
-    { textKey: 'navigation.overview', path: localePath('index', currentLocale), icon: ['fas','home'] },
-    { textKey: 'navigation.server', path: (localePath('index', currentLocale) + '#connect'), icon: ['fas','server'] },
-    { textKey: 'navigation.bluemap', path: localePath('/bluemap', currentLocale), icon: ['fas','map'] },
-    { textKey: 'navigation.blog', path: localePath('/blog', currentLocale), icon: ['fas','file-alt'] },
+    { textKey: 'navigation.overview', path: localePath('index'), icon: ['fas','home'] },
+    { textKey: 'navigation.server', path: (localePath('index') + '#connect'), icon: ['fas','server'] },
+    { textKey: 'navigation.bluemap', path: localePath('bluemap'), icon: ['fas','map'] },
+    { textKey: 'navigation.blog', path: localePath('blog'), icon: ['fas','file-alt'] },
   ];
 });
 
@@ -106,7 +107,7 @@ const elevationClasses = {
         >
           <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" variant="mobile" @click="mobileMenuOpen = false" />
           <div class="my-2 border-t border-[var(--color-border)] pt-2 dark:border-[var(--color-border)]">
-            <LanguageSelector variant="mobile" />
+            <LanguageSelector variant="mobile" @selected="mobileMenuOpen = false" />
           </div>
         </nav>
       </div>

@@ -8,16 +8,18 @@ definePageMeta({
   title: 'blog.overview.title',
   layout: 'default',
 });
-const { data: top1Article} = await useAsyncData('top1', () => {
+// Make key depend on locale and refetch when locale changes
+const { data: top1Article} = await useAsyncData(() => `top1-${locale.value}`, () => {
   // @ts-ignore
-  return queryCollection('blog_'+locale?.value || 'blog_de').order('pubDate', 'DESC').first();
-});
+  return queryCollection('blog_'+(locale?.value || 'de')).order('pubDate', 'DESC').first();
+}, { watch: [locale] });
 
-const {data: allPostsData} = await useAsyncData('all-posts', () => {
+const {data: allPostsData} = await useAsyncData(() => `all-posts-${locale.value}`, () => {
   // @ts-ignore
-  return queryCollection('blog_'+locale?.value || 'blog_de').order('pubDate', 'DESC').all();
-});
-const allPosts = allPostsData.value?.slice(1); // Remove the first item as it is already displayed in Top1
+  return queryCollection('blog_'+(locale?.value || 'de')).order('pubDate', 'DESC').all();
+}, { watch: [locale] });
+// Derive remaining posts reactively so it updates on locale change
+const allPosts = computed(() => (allPostsData.value || []).slice(1));
 useHead({
   link: [
     {

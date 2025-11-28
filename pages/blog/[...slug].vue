@@ -11,10 +11,10 @@ definePageMeta({
 });
 
 const pathParts = route.path.split('/');
-const { data: article} = await useAsyncData(route.path, () => {
+const { data: article} = await useAsyncData(() => `${route.path}-${locale.value}`, () => {
   // @ts-ignore
-  return queryCollection('blog_'+locale?.value || 'blog_de').where("slug", "=", pathParts.at(3)).first();
-});
+  return queryCollection('blog_'+(locale?.value || 'de')).where("slug", "=", pathParts.at(3)).first();
+}, { watch: [locale] });
 
 // Avoid logging content data in production for privacy
 

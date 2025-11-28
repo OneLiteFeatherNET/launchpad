@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, nextTick } from '#imports';
+import { ref, computed, nextTick, navigateTo, onMounted, onBeforeUnmount } from '#imports';
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -86,7 +86,45 @@ const onMenuKeydown = (e: KeyboardEvent) => {
   }
 };
 
-const selectLocale = async (localeCode: string) => { await setLocale(localeCode as 'de' | 'en'); closeDropdown(true) };
+// Close dropdown when clicking outside (desktop variant)
+const onDocumentClick = (e: MouseEvent) => {
+  if (!isOpen.value) return;
+  const target = e.target as Node | null;
+  const btn = buttonRef.value;
+  const menu = menuRef.value;
+  if (btn && btn.contains(target)) return;
+  if (menu && menu.contains(target)) return;
+  closeDropdown(false);
+};
+
+onMounted(() => {
+  if (variant === 'desktop') {
+    document.addEventListener('click', onDocumentClick);
+    document.addEventListener('touchstart', onDocumentClick, { passive: true as any });
+  }
+});
+
+onBeforeUnmount(() => {
+  if (variant === 'desktop') {
+    document.removeEventListener('click', onDocumentClick);
+    document.removeEventListener('touchstart', onDocumentClick as any);
+  }
+});
+
+// Inform parent (e.g., mobile overlay) when a language was selected
+const emit = defineEmits<{ (e: 'selected', locale: string): void }>();
+
+const selectLocale = async (localeCode: string) => {
+  // Sprache setzen und dann ausdrücklich zur sprachspezifischen Route navigieren,
+  // damit die URL korrekt aktualisiert wird und serverseitige Navigation greift.
+  await setLocale(localeCode as 'de' | 'en');
+  const targetPath = switchLocalePath(localeCode);
+  if (targetPath) {
+    await navigateTo(targetPath);
+  }
+  emit('selected', localeCode);
+  closeDropdown(true);
+};
 </script>
 
 <template>
@@ -132,7 +170,7 @@ const selectLocale = async (localeCode: string) => { await setLocale(localeCode 
           :to="switchLocalePath(loc.code)"
           role="menuitem"
           class="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/85 dark:hover:bg-[var(--color-secondary)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]"
-          @click="selectLocale(loc.code)"
+          @click.prevent="selectLocale(loc.code)"
         >
           <span class="uppercase font-semibold text-[var(--color-secondary)]">{{ loc.code }}</span>
           <span>{{ loc.name }}</span>
@@ -151,7 +189,7 @@ const selectLocale = async (localeCode: string) => { await setLocale(localeCode 
       :key="loc.code"
       :to="switchLocalePath(loc.code)"
       class="ml-4 flex items-center gap-3 rounded-xl px-6 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/85 dark:hover:bg-[var(--color-secondary)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]"
-      @click="selectLocale(loc.code)"
+      @click.prevent="selectLocale(loc.code)"
     >
       <span class="uppercase font-semibold text-[var(--color-secondary)]">{{ loc.code }}</span>
       <span>{{ loc.name }}</span>
