@@ -2,24 +2,16 @@
 import ArticleCard from "~/components/blog/page/card/ArticleCard.vue";
 import {definePageMeta} from "#imports";
 import Top1 from "~/components/blog/page/top1/Top1.vue";
-const { locale, t } = useI18n()
+
+const { t } = useI18n()
 
 definePageMeta({
   title: 'blog.overview.title',
   layout: 'default',
 });
-// Make key depend on locale and refetch when locale changes
-const { data: top1Article} = await useAsyncData(() => `top1-${locale.value}`, () => {
-  // @ts-ignore
-  return queryCollection('blog_'+(locale?.value || 'de')).order('pubDate', 'DESC').first();
-}, { watch: [locale] });
 
-const {data: allPostsData} = await useAsyncData(() => `all-posts-${locale.value}`, () => {
-  // @ts-ignore
-  return queryCollection('blog_'+(locale?.value || 'de')).order('pubDate', 'DESC').all();
-}, { watch: [locale] });
-// Derive remaining posts reactively so it updates on locale change
-const allPosts = computed(() => (allPostsData.value || []).slice(1));
+const { top1Article, allPosts } = useBlogOverview()
+
 useHead({
   link: [
     {
@@ -29,6 +21,7 @@ useHead({
     }
   ]
 })
+
 const img = useImage()
 const previewSocial = img('images/logo.svg', {
   width: 1200,
@@ -36,6 +29,7 @@ const previewSocial = img('images/logo.svg', {
   format: 'webp',
   quality: 80,
 });
+
 useSeoMeta({
   description: t('blog.overview.description'),
   ogDescription: t('blog.overview.description'),
@@ -44,6 +38,7 @@ useSeoMeta({
   twitterDescription: t('blog.overview.description'),
   twitterImage: previewSocial
 })
+
 useSchemaOrg({
   '@context': 'https://schema.org',
   '@type': 'Blog',

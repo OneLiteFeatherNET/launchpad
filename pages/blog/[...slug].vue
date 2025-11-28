@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
 import SocialMediaShare from "~/components/blog/SocialMediaShare.vue";
-const { locale, t, locales } = useI18n()
-const route = useRoute()
+import type { BlogArticle } from "~/types/blog";
+
+const { locale, t } = useI18n()
 const config = useRuntimeConfig()
 const {getFeatureFlag } = usePostHogFeatureFlag();
 
@@ -10,42 +11,10 @@ definePageMeta({
   layout: 'default',
 });
 
-const pathParts = route.path.split('/');
-const { data: article} = await useAsyncData(() => `${route.path}-${locale.value}`, () => {
-  // @ts-ignore
-  return queryCollection('blog_'+(locale?.value || 'de')).where("slug", "=", pathParts.at(3)).first();
-}, { watch: [locale] });
+const { blog, headLinks } = useBlogArticle()
 
-// Avoid logging content data in production for privacy
-
-// Provide a typed (any) alias to avoid union type issues from content manifest
-const blog = computed(() => article.value as any);
-
-// Find translations in other languages if translationKey exists
-const alternateLanguages = ref<{locale: string, url: string}[]>([]);
-if (blog.value?.translationKey) {
-  const otherLocales = (locales.value || []).filter(l => typeof l === 'object' && l.code !== locale.value);
-
-  for (const otherLocale of otherLocales) {
-    if (typeof otherLocale === 'object') {
-      const { data: translatedArticle } = await useAsyncData(`${route.path}_${otherLocale.code}`, () => {
-        // @ts-ignore
-        return queryCollection(`blog_${otherLocale.code}`).where("translationKey", "=", blog.value?.translationKey).first();
-      });
-
-      if (translatedArticle.value) {
-        const baseUrl = config.public.siteUrl || config.public.baseUrl || 'https://blog.onelitefeather.net';
-        // Prefer full ISO hreflang if available, fallback to code
-        const hreflangValue = (otherLocale as any).iso || (otherLocale as any)._hreflang || otherLocale.code;
-        alternateLanguages.value.push({
-          locale: hreflangValue,
-          url: `${baseUrl}/${otherLocale.code}/blog/${(translatedArticle.value as any).slug}`
-        });
-      }
-    }
-  }
-}
 useSeoMeta(blog.value?.seo || {})
+
 const img = useImage()
 const previewSocial = img(blog.value?.headerImage || 'logo.svg', {
   width: 1200,
@@ -53,6 +22,7 @@ const previewSocial = img(blog.value?.headerImage || 'logo.svg', {
   format: 'webp',
   quality: 80,
 });
+
 useSeoMeta({
   twitterTitle: blog?.value?.seo?.title || blog?.value?.title || '',
   twitterDescription: blog?.value?.seo?.description || '',
@@ -60,46 +30,9 @@ useSeoMeta({
   twitterImage: previewSocial
 })
 
-// Prepare link array for head
-let headLinks: any = [];
-// add favicon
-headLinks.push({ rel: 'icon', type: 'image/png', href: '/favicon.png' });
-
-// Add canonical URL
-if (blog.value) {
-  const baseUrl = config.public.siteUrl || config.public.baseUrl || 'https://blog.onelitefeather.net';
-  // Ensure we use the correct hreflang for the current locale (prefer ISO)
-  const currentLocaleObj = (locales.value || []).find(l => typeof l === 'object' && (l as any).code === locale.value) as any || {};
-  const currentHreflang = currentLocaleObj.iso || currentLocaleObj._hreflang || locale.value;
-  // Ensure canonical includes blog path segment for proper SEO structure
-  const canonicalUrl = `${baseUrl}/${locale.value}/blog/${blog.value.slug}`;
-
-  // Self-referencing canonical (each language page should canonicalize to itself)
-  headLinks.push({ rel: 'canonical', href: canonicalUrl });
-
-  // Add self hreflang (important to avoid duplicate detection)
-  headLinks.push({ rel: 'alternate', hreflang: currentHreflang, href: canonicalUrl });
-
-  // Add alternate language links
-  for (const alt of alternateLanguages.value) {
-    headLinks.push({ rel: 'alternate', hreflang: alt.locale, href: alt.url });
-  }
-
-  // Add x-default hreflang (pointing to the default locale version)
-  const defaultLocale = 'de'; // As specified in nuxt.config.ts
-  if (locale.value === defaultLocale) {
-    headLinks.push({ rel: 'alternate', hreflang: 'x-default', href: canonicalUrl });
-  } else {
-    // Find the default locale URL in alternateLanguages or build it
-    const defaultLocaleUrl = (alternateLanguages.value.find(alt => alt.locale?.startsWith('de') || alt.locale === 'de')?.url)
-      || `${baseUrl}/${defaultLocale}/${blog.value.slug}`;
-    headLinks.push({ rel: 'alternate', hreflang: 'x-default', href: defaultLocaleUrl });
-  }
-}
-
 // Use a single useHead call to set links (and merge with any useSeoMeta output)
-useHead({ link: headLinks } as any)
-useHead(blog.value?.head as any || {})
+useHead({ link: headLinks })
+useHead((blog.value as BlogArticle | null)?.head || {})
 
 const title = computed(() => {
   if (getFeatureFlag('alternative-title-conversion').value === 'test') {
@@ -133,7 +66,7 @@ const title = computed(() => {
         <time
           v-if="blog?.pubDate"
           class="mt-1 block text-sm text-neutral-600 dark:text-neutral-400"
-          :datetime="new Date(blog?.pubDate as any).toISOString()"
+          :datetime="new Date(blog?.pubDate).toISOString()"
         >
           <i18n-d :value="blog?.pubDate"></i18n-d>
         </time>

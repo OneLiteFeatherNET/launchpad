@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import SectionHeading from '~/components/ui/typography/SectionHeading.vue'
-
-type ConceptPoint = {
-  id?: string | number
-  title: string
-  text: string
-  icon?: string
-}
+import type { ServerConceptPoint } from '~/types/home'
 
 type Props = {
   title: string
   subtitle?: string
-  points: ConceptPoint[]
+  points: ServerConceptPoint[]
 }
 
 const props = defineProps<Props>()

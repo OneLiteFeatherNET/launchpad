@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type {BlogDeCollectionItem, BlogEnCollectionItem} from '@nuxt/content';
+import type { BlogArticle } from "~/types/blog";
+
 const {getFeatureFlag } = usePostHogFeatureFlag();
-
-
 const {locale} = useI18n();
-const {blogArticle} = defineProps<{
-  blogArticle: BlogDeCollectionItem | BlogEnCollectionItem;
+
+const { blogArticle } = defineProps<{
+  blogArticle: BlogArticle;
 }>();
 const title = computed(() => {
   if (getFeatureFlag('blog-ethanol-conversion').value === 'test') {

@@ -156,7 +156,7 @@ export default defineNuxtConfig({
     $production: {
         runtimeConfig: {
             public: {
-                siteUrl: 'https://blog.onelitefeather.net',
+                siteUrl: 'https://onelitefeather.net',
                 discordUrl: 'https://1lf.link/discord',
                 // Override BlueMap URL for production if needed
                 bluemapUrl: 'https://bluemap.onelitefeather.dev/',
@@ -171,7 +171,7 @@ export default defineNuxtConfig({
             }
         },
         site: {
-            url: 'https://blog.onelitefeather.net',
+            url: 'https://onelitefeather.net',
         },
         gtag: {
             id: 'AW-16761048144',
@@ -186,7 +186,7 @@ export default defineNuxtConfig({
             }
         },
         i18n: {
-            baseUrl: 'https://blog.onelitefeather.net',
+            baseUrl: 'https://onelitefeather.net',
         },
         nitro: {
             preset: "cloudflare_pages",

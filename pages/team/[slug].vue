@@ -1,28 +1,7 @@
 <script setup lang="ts">
-const route = useRoute()
-const { locale, t } = useI18n()
+const { t } = useI18n()
 
-const slug = computed(() => route.params.slug as string)
-
-// Load team data for current locale
-const { data: teamData } = await useAsyncData(() => `team-profile-${locale.value}`, () => {
-  // @ts-ignore provided by @nuxt/content
-  return queryCollection('team_' + (locale?.value || 'de')).all()
-}, { watch: [locale] })
-
-const member = computed(() => {
-  const doc = teamData.value?.[0] as { members?: any[] } | undefined
-  const list = doc?.members || []
-  return list.find((m: any) => m.slug === slug.value) || null
-})
-
-const avatarSrc = computed(() => {
-  const m = member.value
-  if (!m) return '/favicon.ico'
-  if (m.avatarUrl) return m.avatarUrl
-  if (m.mcName) return `https://mc-heads.net/avatar/${encodeURIComponent(m.mcName)}/256`
-  return '/favicon.ico'
-})
+const { member, avatarSrc } = useTeamProfile()
 
 useHead(() => ({
   title: member.value ? `${member.value.name} — OneLiteFeather` : 'Team — OneLiteFeather',

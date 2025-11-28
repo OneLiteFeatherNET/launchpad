@@ -2,11 +2,11 @@
 
 ## Project Structure & Module Organization
 - `pages/`: Route-driven Vue pages (e.g. `index.vue`, `blog/[...slug].vue`).
-- `components/`: Reusable UI, grouped by domain (e.g. `components/blog`, `components/ui`).
+- `components/`: Reusable UI, grouped by domain (e.g. `components/blog`, `components/ui`, `components/sections`).
 - `layouts/`: Shared page layouts and chrome.
 - `content/`: Markdown/content files used by `@nuxt/content`.
 - `server/`: Nitro server routes and backend utilities.
-- `composables/` & `utils/`: Shared logic and helpers in TypeScript.
+- `composables/` & `utils/`: Shared logic and helpers in TypeScript (e.g. `useHomeContent`, `useBlogOverview`, `useTeamProfile`).
 - `assets/` & `public/`: Styles (Tailwind) and static assets.
 
 ## Build, Test, and Development Commands
@@ -38,5 +38,6 @@
 
 ## Agent-Specific Instructions
 - Prefer minimal, focused diffs aligned with existing Nuxt patterns.
+- For neue Features zuerst Domain-Typen unter `types/` und Composables unter `composables/` anlegen, dann Sections/UI-Komponenten bauen und die Seite nur noch daraus zusammensetzen.
 - Do not introduce new dependencies or configuration presets without clear justification.
 - Respect the existing directory structure; extend rather than rearrange where possible.

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {computed, computed as vComputed} from 'vue'
+import { NuxtLink } from '#components'
 
 interface NewsItem {
   type: 'news'
@@ -53,7 +54,7 @@ const isSvg = vComputed(() => props.item.image ? /\.svg(\?|$)/i.test(props.item.
 
         <h3 class="mb-2 text-xl font-semibold leading-snug sm:text-2xl">
           <component
-            :is="item.href ? 'NuxtLink' : 'div'"
+            :is="item.href ? NuxtLink : 'div'"
             :to="item.href"
             class="hover:underline"
             :aria-label="item.href ? `News: ${item.title}` : undefined"

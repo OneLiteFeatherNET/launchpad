@@ -9,7 +9,7 @@ const emit = defineEmits(['click-mobile']);
 const route = useRoute();
 const { t } = useI18n();
 
-// Mark button as active not only on the exact path but also on its subpages (unterseiten)
+// Mark button as active not only on the exact path but also on its subpages
 const isActive = computed(() => {
   // Normalize to avoid issues with trailing slashes
   const current = (route.path || '/').replace(/\/+$/g, '') || '/';

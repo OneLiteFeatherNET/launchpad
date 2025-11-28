@@ -1,17 +1,7 @@
 <script setup lang="ts">
 import TeamMemberCard from './TeamMemberCard.vue'
 import { useI18n } from 'vue-i18n'
-
-type TeamMember = {
-  id: string | number
-  name: string
-  slug?: string
-  role: string
-  slogan?: string
-  mcName?: string
-  avatarUrl?: string
-  href?: string
-}
+import type { TeamMember } from '~/types/team'
 
 type Props = {
   title?: string

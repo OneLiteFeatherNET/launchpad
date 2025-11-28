@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<{
   colorVariant?: TimelineColorVariant
   // Marks the current/active event
   current?: boolean
-  // Optional: blur den Eintrag (z. B. in der Preview, wenn "Alle anzeigen" sichtbar ist)
+  // Optional: blur the item (e.g. in preview mode when “Show all” is visible)
   blurred?: boolean
 }>(), {
   colorVariant: 'brand',

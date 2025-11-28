@@ -13,9 +13,7 @@ type Props = {
 
 const props = withDefaults(defineProps<Props>(), {
   title: undefined,
-  subtitle: undefined,
-  // No default images anymore — feature is no longer actively used
-  backgroundImages: () => []
+  subtitle: undefined
 })
 
 const { t } = useI18n()

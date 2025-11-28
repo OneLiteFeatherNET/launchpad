@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import IconFa from "~/components/ui/icons/IconFa.vue";
+import { useAnalytics } from "~/composables/useAnalytics";
 
 const props = defineProps({
   url: {
@@ -19,21 +20,17 @@ const props = defineProps({
     default: false
   }
 });
-const { $clientPosthog, $serverPosthog } = useNuxtApp();
+const { trackShare } = useAnalytics();
 
 // The isLargePage prop is passed from the parent component
 
 // Function to track share events (for future PostHog integration)
 const trackShareEvent = (platform: string) => {
-
-  onMounted(() => {
-    $clientPosthog?.capture('share_event', {
-      platform,
-      url: props.url,
-      title: props.title,
-      description: props.description,
-      isLargePage: props.isLargePage
-    });
+  trackShare(platform, {
+    url: props.url,
+    title: props.title,
+    description: props.description,
+    isLargePage: props.isLargePage
   })
 };
 

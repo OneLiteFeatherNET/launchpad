@@ -5,21 +5,21 @@ import type { TimelineColorVariant, TimelineEvent, TimelineSide } from '~/types/
 
 const props = withDefaults(defineProps<{
   events: TimelineEvent[]
-  // Alternierendes Layout links/rechts ab md
+  // Alternate layout left/right from md breakpoint upwards
   alternate?: boolean
-  // Farbe der Linie
+  // Color of the central line
   lineColor?: TimelineColorVariant
-  // Aktuelles Event hervorheben
+  // Highlight the current event
   currentId?: string | number
   ariaLabel?: string
-  // Anzeige-Modus: Vorschau (3 Elemente) oder komplett
+  // Display mode: preview (first 4 items) or full
   mode?: 'preview' | 'complete'
-  // Option: Den letzten sichtbaren Eintrag in der Preview leicht blurren, wenn der "Alle anzeigen"-Button sichtbar ist
+  // Optionally blur the last visible item in preview mode when the “Show all” button is visible
   previewBlur?: boolean
 }>(), {
   alternate: true,
   lineColor: 'neutral',
-  // Keine feste Standardbeschriftung – i18n-Fallback wird unten berechnet
+  // No fixed default label – i18n fallback is computed below
   ariaLabel: undefined,
   mode: 'complete',
   previewBlur: true,
@@ -27,11 +27,11 @@ const props = withDefaults(defineProps<{
 
 const { t, te } = useI18n()
 
-// a11y/i18n: Aria-Label bevorzugt aus i18n, optional via Prop überschreibbar
+// a11y/i18n: aria-label prefers i18n, but can be overridden via prop
 const ariaLabelComputed = computed(() => {
   if (props.ariaLabel) return props.ariaLabel
-  // Fallback-Kaskade, falls Key fehlt: deutscher Default
-  return te && te('timeline.aria_label') ? t('timeline.aria_label') : 'Zeitachse'
+  // Fallback if key is missing: English default
+  return te && te('timeline.aria_label') ? t('timeline.aria_label') : 'Timeline'
 })
 
 const lineColorClass = computed(() => {
@@ -45,7 +45,7 @@ const lineColorClass = computed(() => {
   }
 })
 
-// Vorschau-Logik: per Button weitere laden
+// Preview logic: load more items via button
 const expanded = ref(false)
 const PREVIEW_COUNT = 4
 const isPreview = computed(() => props.mode === 'preview')
@@ -56,7 +56,7 @@ const displayedEvents = computed(() => {
 })
 const expandAll = () => { expanded.value = true }
 
-// Zurücksetzen, wenn Modus oder Anzahl der Events sich ändert (z. B. bei i18n-Wechsel)
+// Reset preview state when mode or number of events changes (e.g. when locale changes)
 watch(
   () => [props.mode, props.events?.length],
   () => { if (isPreview.value) expanded.value = false },
@@ -70,23 +70,23 @@ const getSide = (ev: TimelineEvent, index: number): TimelineSide => {
 
 const isCurrent = (ev: TimelineEvent) => props.currentId != null && String(props.currentId) === String(ev.id)
 
-// Zeige einen Boden-Glow auch ohne Button: in kompletter Ansicht oder nach Expand im Preview
+// Show a bottom glow even without the “Show all” button: in full mode or after expanding the preview
 const shouldShowBottomGlow = computed(() => {
   if (!props?.events?.length) return false
-  // Wenn der Load-More Button sichtbar ist, übernimmt dessen Wrapper den Glow
+  // When the “Show all” button is visible, its wrapper handles the glow
   if (hasMore.value) return false
   if (props.mode === 'complete') return true
   return isPreview.value && expanded.value
 })
 
-// "Geburt"-Kennzeichnung nur anzeigen, wenn die gesamte Timeline sichtbar ist
+// Show “birth” marker only when the full timeline is visible
 const showBirthLabels = computed(() => {
   if (!props?.events?.length) return false
   if (props.mode === 'complete') return true
   return isPreview.value && expanded.value
 })
 
-// Blur-Logik für den letzten sichtbaren Eintrag in der Preview
+// Blur logic for the last visible entry in preview mode
 const shouldBlur = (index: number) => {
   if (!props.previewBlur) return false
   return hasMore.value && index === PREVIEW_COUNT - 1
@@ -95,7 +95,7 @@ const shouldBlur = (index: number) => {
 
 <template>
   <section class="relative" :class="lineColorClass">
-    <!-- Zentrale Linie (nur ab md) -->
+    <!-- Central line (visible from md breakpoint upwards) -->
 
     <ol role="list" :aria-label="ariaLabelComputed" class="relative mx-auto max-w-5xl space-y-10">
       <div class="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-[var(--line)] md:block" aria-hidden="true" />
@@ -118,11 +118,11 @@ const shouldBlur = (index: number) => {
           />
         </slot>
 
-        <!-- Button mit Preview-Blur in Brand/Accent Farben unter dem 4. Eintrag -->
+        <!-- “Show all” button with preview blur styling below the 4th entry -->
         <li v-if="hasMore && i === PREVIEW_COUNT - 1" class="list-none mx-auto -mt-2 flex justify-center">
           <slot name="load-more" :expand-all="expandAll" :remaining="props.events.length - PREVIEW_COUNT">
             <div class="relative isolate">
-              <!-- Glow-Layer (dekorativ) -->
+              <!-- Decorative glow layers -->
               <span aria-hidden="true" class="pointer-events-none absolute z-0 left-1/2 top-full h-8 w-40 -translate-x-1/2 -translate-y-1/2 rounded-[999px] blur-2xl opacity-40 bg-[radial-gradient(60%_100%_at_50%_50%,var(--color-brand-primary)_0%,transparent_70%)]"></span>
               <span aria-hidden="true" class="pointer-events-none absolute z-0 left-1/2 top-full h-6 w-32 -translate-x-1/2 -translate-y-1/2 rounded-[999px] blur-2xl opacity-35 bg-[radial-gradient(60%_100%_at_50%_50%,var(--color-brand-accent)_0%,transparent_70%)]"></span>
 
@@ -141,9 +141,7 @@ const shouldBlur = (index: number) => {
       </template>
     </ol>
 
-    <!-- (alter Button unten entfernt – erscheint nun unter dem 4. Eintrag) -->
-
-    <!-- Boden-Glow auch ohne Button (komplette Ansicht oder nach Expand) -->
+    <!-- Bottom glow even without button (full view or expanded preview) -->
     <div v-if="shouldShowBottomGlow" class="mx-auto mt-6 flex max-w-5xl justify-center">
       <div class="relative isolate h-8 w-40">
         <span aria-hidden="true" class="pointer-events-none absolute z-0 inset-0 rounded-[999px] blur-2xl opacity-40 bg-[radial-gradient(60%_100%_at_50%_50%,var(--color-brand-primary)_0%,transparent_70%)]"></span>

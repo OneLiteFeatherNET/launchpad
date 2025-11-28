@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {computed} from 'vue'
+import { NuxtLink } from '#components'
 
 interface EventItem {
   type: 'event'
@@ -68,7 +69,12 @@ const timeRange = computed(() => {
         </div>
 
         <h3 class="mb-2 text-xl font-semibold leading-snug sm:text-2xl">
-          <component :is="item.href ? 'NuxtLink' : 'div'" :to="item.href" class="hover:underline" :aria-label="item.href ? `Event: ${item.title}` : undefined">
+          <component
+            :is="item.href ? NuxtLink : 'div'"
+            :to="item.href"
+            class="hover:underline"
+            :aria-label="item.href ? `Event: ${item.title}` : undefined"
+          >
             {{ item.title }}
           </component>
         </h3>
