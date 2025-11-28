@@ -1,25 +1,25 @@
 {
-  "key": "home",
-  "title": "Unser Server‑Konzept",
-  "subtitle": "So stellen wir faire Performance, Stabilität und Spaß für alle sicher.",
+  "key": "community",
+  "title": "Unsere Community-Werte",
+  "subtitle": "Zusammenhalt, Spaß und Freundlichkeit – damit OneLiteFeather.net für alle ein guter Ort bleibt.",
   "points": [
     {
       "id": 1,
-      "icon": "account_tree",
-      "title": "Modulares Netzwerk",
-      "text": "Mehrere spezialisierte Dienste (Proxy, Lobby, Spielmodi) sind entkoppelt und skalierbar. So können wir Lastspitzen gezielt abfedern."
+      "icon": "groups",
+      "title": "Zusammenhalt",
+      "text": "Wir helfen uns gegenseitig, spielen als Team und verlieren auch bei Stress nicht den Respekt. Drama ist was für Twitter, nicht für unseren Chat."
     },
     {
       "id": 2,
-      "icon": "dns",
-      "title": "Performante Infrastruktur",
-      "text": "Ausgewählte Standorte mit niedriger Latenz, Caching und asynchronen Prozessen sorgen für flüssiges Gameplay."
+      "icon": "sports_esports",
+      "title": "Spaß am Spiel",
+      "text": "Ob Bauen, Farmen, PvP oder Events: Der Spielspaß steht vorne. Fair play statt Ego-Trip, damit’s für alle funktioniert."
     },
     {
       "id": 3,
-      "icon": "shield_lock",
-      "title": "Sicherheit & Backups",
-      "text": "Automatisierte Backups, Zugriffsbeschränkungen und Monitoring schützen Daten und Gameplay rund um die Uhr."
+      "icon": "handshake",
+      "title": "Freundlichkeit",
+      "text": "Freundlicher Umgang ist kein „Nice-to-have“, sondern Standard. Kein Hate, kein Mobbing, kein gezieltes Provozieren – wir wollen eine entspannte Atmosphäre."
     }
   ]
 }
