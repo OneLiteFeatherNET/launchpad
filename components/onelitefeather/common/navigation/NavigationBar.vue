@@ -6,6 +6,7 @@ import NavigationIconButton from '~/components/ui/buttons/NavigationIconButton.v
 import GradientText from '~/components/ui/typography/GradientText.vue';
 
 const { t } = useI18n();
+const runtimeConfig = useRuntimeConfig();
 
 const props = defineProps<{
   elevation?: 0 | 1 | 2 | 3 | 4 | 5;
@@ -19,6 +20,7 @@ const mobileMenuOpen = ref(false);
 const mobileMenuId = 'mobile-menu-panel';
 const locale = useCookieLocale();
 const localePath = useLocalePath();
+const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined) || (process?.env?.NUXT_PUBLIC_DISCORD_URL as string | undefined);
 
 interface NavItem {
   textKey: string;
@@ -29,6 +31,11 @@ interface NavItem {
 const navItems: NavItem[] = [
   { textKey: 'navigation.overview', path: localePath('index', locale?.value as 'de' | 'en' | undefined), icon: ['fas','home'] },
   { textKey: 'navigation.blog', path: localePath('/blog', locale?.value as 'de' | 'en' | undefined), icon: ['fas','file-alt'] },
+];
+
+const allNavItems: NavItem[] = [
+  ...navItems,
+  ...(discordUrl ? [{ textKey: 'navigation.discord', path: discordUrl, icon: ['fab','discord'] } as NavItem] : [])
 ];
 
 const elevationClasses = {
@@ -54,7 +61,7 @@ const elevationClasses = {
         </div>
 
         <nav class="hidden items-center gap-2 md:flex" role="menubar">
-          <NavigationItem v-for="item in navItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" />
+          <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" />
           <LanguageSelector />
         </nav>
 
@@ -91,7 +98,7 @@ const elevationClasses = {
           role="navigation"
           :aria-label="t('navigation.mobile')"
         >
-          <NavigationItem v-for="item in navItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" variant="mobile" @click="mobileMenuOpen = false" />
+          <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" variant="mobile" @click="mobileMenuOpen = false" />
           <div class="my-2 border-t border-[var(--color-border)] pt-2 dark:border-[var(--color-border)]">
             <LanguageSelector variant="mobile" />
           </div>
@@ -103,7 +110,7 @@ const elevationClasses = {
   <!-- Bottom navigation for mobile -->
   <nav v-else :class="['fixed bottom-0 inset-x-0 z-50 bg-[var(--color-surface)] dark:bg-[var(--color-surface)]', elevationClasses[elevation]]" role="navigation" :aria-label="t('navigation.bottom')">
     <div class="grid [grid-template-columns:repeat(auto-fit,minmax(5rem,1fr))] gap-1 p-2 md:hidden">
-      <NavigationItem v-for="item in navItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" variant="bottom" />
+      <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" variant="bottom" />
     </div>
   </nav>
 </template>

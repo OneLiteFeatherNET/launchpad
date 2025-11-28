@@ -145,10 +145,16 @@ export default defineNuxtConfig({
             }
         }
     },
+    runtimeConfig: {
+        public: {
+            discordUrl: 'https://1lf.link/discord',
+        }
+    },
     $production: {
         runtimeConfig: {
             public: {
                 siteUrl: 'https://blog.onelitefeather.net',
+                discordUrl: 'https://1lf.link/discord',
             }
         },
         posthog: {
