@@ -33,9 +33,9 @@ const { t } = useI18n()
               </NuxtLink>
              </li>
              <li>
-              <NuxtLink to="/blog" class="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand-primary)] transition-colors">
+              <NuxtLinkLocale to="/blog" class="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand-primary)] transition-colors">
                 {{ t('footer.services.blogging') }}
-              </NuxtLink>
+              </NuxtLinkLocale>
              </li>
             <li>
              <!-- Placeholder: GitHub (service page not available yet) -->
@@ -103,12 +103,12 @@ const { t } = useI18n()
           {{ t('footer.copyright', { year: new Date().getFullYear() }) }}
         </p>
          <div class="flex gap-6">
-           <NuxtLink to="/privacy" class="text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-brand-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]">
+           <NuxtLinkLocale to="/privacy" class="text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-brand-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]">
              {{ t('footer.privacy') }}
-           </NuxtLink>
-           <NuxtLink to="/imprint" class="text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-brand-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]">
+           </NuxtLinkLocale>
+           <NuxtLinkLocale to="/imprint" class="text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-brand-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]">
              {{ t('footer.terms') }}
-           </NuxtLink>
+           </NuxtLinkLocale>
          </div>
        </div>
      </div>

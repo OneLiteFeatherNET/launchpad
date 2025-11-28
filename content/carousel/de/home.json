@@ -16,7 +16,7 @@
     {
       "type": "blog",
       "title": "Effizientes Logging in Paper-Plugins",
-      "href": "/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki",
+      "href": "/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki",
       "excerpt": "Lerne, wie du mit SLF4J und log4j2 Marker verwendest, um Logs thematisch zu gruppieren.",
       "image": "/images/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki.jpg",
       "author": "Phillipp Glanz",
@@ -26,7 +26,7 @@
     {
       "type": "blog",
       "title": "Alles, was du über Ethanol wissen solltest",
-      "href": "/blog/alles-was-man-ueber-ethanol-wissen-sollte",
+      "href": "/de/blog/alles-was-man-ueber-ethanol-wissen-sollte",
       "excerpt": "Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern – was steckt dahinter?",
       "image": "/images/blog/cyber-theDigitalArtist-Ethanol-Post.webp",
       "author": "Phillipp Glanz",
