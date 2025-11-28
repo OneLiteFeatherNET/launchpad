@@ -148,6 +148,8 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             discordUrl: 'https://1lf.link/discord',
+            // Public BlueMap URL used to embed the external map
+            bluemapUrl: 'https://bluemap.onelitefeather.dev/',
         }
     },
     $production: {
@@ -155,6 +157,8 @@ export default defineNuxtConfig({
             public: {
                 siteUrl: 'https://blog.onelitefeather.net',
                 discordUrl: 'https://1lf.link/discord',
+                // Override BlueMap URL for production if needed
+                bluemapUrl: 'https://bluemap.onelitefeather.dev/',
             }
         },
         posthog: {

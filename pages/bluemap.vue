@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { definePageMeta } from '#imports'
+const bluemapUrl = useBluemapUrl();
 
 definePageMeta({
   title: 'bluemap.title'
@@ -20,7 +21,7 @@ useHead({
       </div>
       <div class="rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)]">
         <iframe
-          src="https://bluemap.onelitefeather.dev/"
+          :src="bluemapUrl"
           title="BlueMap"
           class="w-full h-[75vh] sm:h-[80vh]"
           loading="lazy"
