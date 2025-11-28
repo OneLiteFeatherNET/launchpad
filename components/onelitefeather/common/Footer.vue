@@ -9,9 +9,9 @@ const { t } = useI18n()
   <footer class="mt-auto bg-[var(--color-surface)] dark:bg-[var(--color-surface)]" role="contentinfo" :aria-label="t('footer.aria_label')">
     <!-- Main section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
         <!-- Logo/Brand section -->
-        <div class="col-span-1 md:col-span-1">
+        <div class="col-span-1 sm:col-span-2 md:col-span-1">
           <h3 class="text-lg font-semibold text-[var(--color-text)] mb-4">
             {{ t('footer.brand') }}
           </h3>
@@ -70,7 +70,7 @@ const { t } = useI18n()
           <h4 class="text-sm font-semibold text-[var(--color-text)] mb-4">
             {{ t('footer.social.title') }}
           </h4>
-          <div class="flex gap-3">
+          <div class="flex flex-wrap gap-3">
             <a href="https://twitch.tv/onelitefeathernet" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" :aria-label="t('social.twitch')" :title="t('social.twitch')">
                <FontAwesomeIcon :icon="faTwitch" class="h-5 w-5 text-[var(--color-muted)]" />
              </a>
