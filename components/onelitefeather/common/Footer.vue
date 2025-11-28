@@ -37,6 +37,11 @@ const { t } = useI18n()
                 {{ t('footer.services.blogging') }}
               </NuxtLinkLocale>
              </li>
+             <li>
+              <a href="https://status.onelitefeather.net" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand-primary)] transition-colors" :aria-label="t('footer.services.status')" :title="t('footer.services.status')">
+                {{ t('footer.services.status') }}
+              </a>
+             </li>
             <li>
              <!-- Placeholder: GitHub (service page not available yet) -->
              <NuxtLink to="#" @click.prevent class="text-sm text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" aria-disabled="true" title="Coming soon">
