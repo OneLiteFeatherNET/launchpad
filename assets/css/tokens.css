@@ -1,38 +1,3 @@
-:root {
-    /* Brand core */
-    --color-brand-primary:  #2A388F; /* tiefes Blau */
-    --color-brand-secondary:#27A9E1; /* helleres Blau */
-    --color-brand-accent:   #EC008B; /* magenta */
-    --color-brand-orange:   #F7931D; /* orange */
-    --color-brand-purple:   #91268F; /* violett */
-    --color-white:          #FFFFFF;
-
-    /* Derived neutrals (UI) */
-    --color-bg:             #ffffff;
-    --color-surface:        #f8fafc;
-    --color-text:           #111827;
-    --color-muted:          #6b7280;
-    --color-border:         #e5e7eb;
-
-    /* Gradients */
-    --gradient-brand: linear-gradient(90deg, #2A388F 0%, #27A9E1 100%);
-    --gradient-accent: linear-gradient(90deg, #91268F 0%, #EC008B 60%, #F7931D 100%);
-    /* Light variants (hellere Varianten) */
-    --gradient-brand-light: linear-gradient(90deg, #5163C6 0%, #7FD3F4 100%);
-    --gradient-accent-light: linear-gradient(90deg, #B35DB2 0%, #FF4FAE 60%, #FFB866 100%);
-  }
-
-/* Dark mode via class strategy (Tailwind default: 'media', hier nutzen wir 'class') */
-.dark {
-    --color-bg:       #0b1020;
-    --color-surface:  #11162a;
-    --color-text:     #e5e7eb;
-    --color-muted:    #9aa3b2;
-    --color-border:   #1f2743;
-
-    /* Core bleibt gleich, du kannst bei Bedarf abtönen: */
-    /* --color-brand-primary: #263276; */
-  }
 
 /* Global smooth scrolling for in-page anchors */
 html { scroll-behavior: smooth; }
