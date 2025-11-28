@@ -8,6 +8,7 @@
     "mobile": "Mobile navigation",
     "bottom": "Bottom navigation",
     "blog": "Blog",
+    "bluemap": "BlueMap",
     "server": "Server",
     "discord": "Discord",
     "change_language": "Change language"
@@ -30,6 +31,9 @@
   },
   "index": {
     "title": "Home"
+  },
+  "bluemap": {
+    "title": "BlueMap"
   },
   "blog": {
     "overview": {
