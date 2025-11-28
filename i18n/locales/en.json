@@ -26,6 +26,9 @@
       "clipboard_note": "Your browser does not support copying to the clipboard. Please copy the address manually."
     }
   },
+  "index": {
+    "title": "Home"
+  },
   "blog": {
     "overview": {
       "title": "Overview",

@@ -2,8 +2,13 @@
 import Carousel from "~/components/sections/carousel/Carousel.vue";
 import ServerConcept from "~/components/sections/server-concept/ServerConcept.vue";
 import ServerAddresses from "~/components/sections/server-addresses/ServerAddresses.vue";
+import {definePageMeta} from "#imports";
 const { locale, locales, t } = useI18n()
 
+definePageMeta({
+  title: 'index.title',
+  layout: 'default',
+});
 // Server concept content from Nuxt Content (i18n)
 const { data: conceptData } = await useAsyncData('server-concept-home', () => {
   // @ts-ignore queryCollection is provided by @nuxt/content

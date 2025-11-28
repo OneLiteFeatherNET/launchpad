@@ -40,6 +40,9 @@
       "description": "Hier findest du unser Impressum."
     }
   },
+  "index": {
+    "title": "Startseite"
+  },
   "team": {
     "title": "Team",
     "subtitle": "Lerne die Menschen hinter OneLiteFeather kennen.",
