@@ -104,7 +104,7 @@ export function useBlogArticle() {
 
   // Helper to resolve a base URL
   const resolveBaseUrl = () =>
-    config.public.siteUrl || config.public.baseUrl || 'https://blog.onelitefeather.net'
+    config.public.siteUrl || config.public.baseUrl || 'https://onelitefeather.net'
 
   // Rebuild alternates whenever article/locale changes
   watch([blog, locale, locales], async () => {
