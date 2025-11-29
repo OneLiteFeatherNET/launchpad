@@ -2,6 +2,7 @@
 import {definePageMeta} from "#imports";
 import SocialMediaShare from "~/components/blog/SocialMediaShare.vue";
 import type { BlogArticle } from "~/types/blog";
+import { extractPlainTextFromExcerpt } from "~/utils/content";
 
 const { locale, t, d } = useI18n()
 const config = useRuntimeConfig()
@@ -23,6 +24,12 @@ const previewSocial = computed(() =>
   })
 )
 
+// Canonical URL for OG tags
+const baseUrl = computed(() => config.public.siteUrl || config.public.baseUrl || 'https://blog.onelitefeather.net')
+const canonicalUrl = computed(() =>
+  blog.value ? (blog.value.canonical || `${baseUrl.value}/${locale.value}/blog/${blog.value.slug}`) : baseUrl.value
+)
+
 // Use a single useHead call to set links (and merge with any useSeoMeta output)
 useHead(() => ({ link: headLinks.value }))
 useHead(() => (blog.value as BlogArticle | null)?.head || {})
@@ -39,7 +46,8 @@ const title = computed(() => {
 useSeoMeta(() => {
   const seo = (blog.value as any)?.seo || {}
   const metaTitle = seo.title || title.value
-  const metaDescription = seo.description || blog.value?.description || ''
+  const metaDescription =
+    seo.description || blog.value?.description || extractPlainTextFromExcerpt((blog.value as any)?.excerpt) || ''
   return {
     title: metaTitle,
     ogTitle: seo.ogTitle || metaTitle,
@@ -47,7 +55,11 @@ useSeoMeta(() => {
     description: metaDescription,
     ogDescription: seo.ogDescription || metaDescription,
     ogImage: previewSocial.value,
-    twitterImage: previewSocial.value
+    twitterImage: previewSocial.value,
+    ogType: 'article',
+    ogUrl: canonicalUrl.value,
+    twitterCard: 'summary_large_image',
+    ogImageAlt: blog.value?.headerImageAlt || blog.value?.title || ''
   }
 })
 </script>

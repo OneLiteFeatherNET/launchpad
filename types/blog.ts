@@ -10,6 +10,15 @@ export interface BlogAlternateLanguageLink {
   url: string
 }
 
+export interface BlogSEO {
+  title?: string
+  description?: string
+  ogTitle?: string
+  ogDescription?: string
+  twitterTitle?: string
+  twitterDescription?: string
+}
+
 // Extend content-generated item type with optional new header fields
 export type BlogArticle = (
   | BlogDeCollectionItem
@@ -17,4 +26,6 @@ export type BlogArticle = (
 ) & {
   canonical?: string
   alternates?: BlogAlternateHeader[]
+  seo?: BlogSEO
+  head?: Record<string, any>
 }
