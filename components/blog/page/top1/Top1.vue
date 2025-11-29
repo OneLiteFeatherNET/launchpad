@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BlogDeCollectionItem, BlogEnCollectionItem} from '@nuxt/content';
-const {locale} = useI18n();
+const {locale, d} = useI18n();
 const {blogArticle} = defineProps<{
   blogArticle: BlogDeCollectionItem | BlogEnCollectionItem;
 }>();
@@ -31,7 +31,7 @@ const {blogArticle} = defineProps<{
         <h1 class="text-[22px] leading-7 font-medium text-gray-900 dark:text-gray-100">{{ blogArticle.title }}</h1>
         <!-- body-small date -->
         <time class="block text-sm text-gray-600 dark:text-gray-400 mt-0.5">
-          <i18n-d :value="Date.parse(blogArticle.pubDate)"></i18n-d>
+          {{ d(new Date(blogArticle.pubDate as any)) }}
         </time>
         <!-- body-medium description -->
         <p class="text-gray-700 dark:text-gray-300 mt-3">{{ blogArticle.description }}</p>

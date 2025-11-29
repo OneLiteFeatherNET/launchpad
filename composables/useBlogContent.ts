@@ -1,4 +1,4 @@
-import type { BlogArticle, BlogAlternateLanguageLink } from '~/types/blog'
+import type { BlogArticle, BlogAlternateLanguageLink, BlogAlternateHeader } from '~/types/blog'
 
 export interface BlogOverviewOptions {
   /**
@@ -78,47 +78,63 @@ export function useBlogArticle() {
   const route = useRoute()
   const config = useRuntimeConfig()
 
-  const pathParts = route.path.split('/')
-  const slug = pathParts.at(3)
+  // Slug derived from catch-all route param; reactive on client navigation
+  const slug = computed<string | undefined>(() => {
+    const p = (route.params as any)?.slug
+    if (Array.isArray(p) && p.length) return String(p[p.length - 1])
+    if (typeof p === 'string') return p
+    const parts = (route.path || '').split('/')
+    return parts.at(3)
+  })
 
   const { data: article } = useAsyncData<BlogArticle | null>(
     () => `${route.path}-${locale.value}`,
     () => {
       // @ts-ignore queryCollection is provided by @nuxt/content
       return queryCollection('blog_' + (locale?.value || 'de'))
-        .where('slug', '=', slug)
+        .where('slug', '=', slug.value as any)
         .first()
     },
-    { watch: [locale] }
+    { watch: [locale, slug] }
   )
 
   const blog = computed<BlogArticle | null>(() => article.value)
 
   const alternateLanguages = ref<BlogAlternateLanguageLink[]>([])
 
-  if (blog.value?.translationKey) {
+  // Helper to resolve a base URL
+  const resolveBaseUrl = () =>
+    config.public.siteUrl || config.public.baseUrl || 'https://blog.onelitefeather.net'
+
+  // Rebuild alternates whenever article/locale changes
+  watch([blog, locale, locales], async () => {
+    alternateLanguages.value = []
+    if (!blog.value) return
+
+    if (blog.value.alternates && Array.isArray(blog.value.alternates)) {
+      for (const alt of blog.value.alternates as BlogAlternateHeader[]) {
+        if (!alt?.hreflang || !alt?.href) continue
+        alternateLanguages.value.push({ locale: alt.hreflang, url: alt.href })
+      }
+      return
+    }
+
+    if (!blog.value.translationKey) return
+
     const otherLocales = (locales.value || []).filter((l) => {
       return typeof l === 'object' && (l as any).code !== locale.value
     })
 
+    const baseUrl = resolveBaseUrl()
     for (const otherLocale of otherLocales as any[]) {
       if (typeof otherLocale !== 'object') continue
 
-      const { data: translatedArticle } = useAsyncData<BlogArticle | null>(
-        `${route.path}_${otherLocale.code}`,
-        () => {
-          // @ts-ignore queryCollection is provided by @nuxt/content
-          return queryCollection(`blog_${otherLocale.code}`)
-            .where('translationKey', '=', blog.value?.translationKey)
-            .first()
-        }
-      )
+      // @ts-ignore queryCollection is provided by @nuxt/content
+      const translated = await queryCollection(`blog_${otherLocale.code}`)
+        .where('translationKey', '=', blog.value?.translationKey)
+        .first()
 
-      if (translatedArticle.value) {
-        const baseUrl =
-          config.public.siteUrl ||
-          config.public.baseUrl ||
-          'https://blog.onelitefeather.net'
+      if (translated) {
         const hreflangValue =
           (otherLocale as any).iso ||
           (otherLocale as any)._hreflang ||
@@ -126,56 +142,71 @@ export function useBlogArticle() {
 
         alternateLanguages.value.push({
           locale: hreflangValue,
-          url: `${baseUrl}/${otherLocale.code}/blog/${translatedArticle.value.slug}`
+          url: `${baseUrl}/${otherLocale.code}/blog/${(translated as any).slug}`
         })
       }
     }
-  }
+  }, { immediate: true })
 
   // Canonical + hreflang Informationen für den Head
-  const headLinks: { rel: string; href: string; hreflang?: string; type?: string }[] = []
+  const headLinks = computed(() => {
+    const links: { rel: string; href: string; hreflang?: string; type?: string }[] = []
+    // add favicon
+    links.push({ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' })
 
-  // add favicon
-  headLinks.push({ rel: 'icon', type: 'image/png', href: '/favicon.png' })
+    if (!blog.value) return links
 
-  if (blog.value) {
-    const baseUrl =
-      config.public.siteUrl ||
-      config.public.baseUrl ||
-      'https://blog.onelitefeather.net'
+    const baseUrl = resolveBaseUrl()
 
     const currentLocaleObj =
       ((locales.value || []) as any[]).find(
         (l: any) => typeof l === 'object' && l.code === locale.value
       ) || {}
     const currentHreflang =
-      currentLocaleObj.iso || currentLocaleObj._hreflang || locale.value
+      (currentLocaleObj as any).iso || (currentLocaleObj as any)._hreflang || (locale.value as any)
 
-    const canonicalUrl = `${baseUrl}/${locale.value}/blog/${blog.value.slug}`
+    // Prefer explicit canonical from front-matter, else compute fallback
+    const canonicalUrl =
+      blog.value.canonical || `${baseUrl}/${locale.value}/blog/${blog.value.slug}`
 
-    headLinks.push({ rel: 'canonical', href: canonicalUrl })
-    headLinks.push({ rel: 'alternate', hreflang: currentHreflang, href: canonicalUrl })
+    links.push({ rel: 'canonical', href: canonicalUrl })
 
-    for (const alt of alternateLanguages.value) {
-      headLinks.push({ rel: 'alternate', hreflang: alt.locale, href: alt.url })
+    // Build a de-dup set for alternates
+    const seen = new Set<string>()
+    const pushAlt = (hreflang: string, href: string) => {
+      const key = `${hreflang}::${href}`
+      if (seen.has(key)) return
+      seen.add(key)
+      links.push({ rel: 'alternate', hreflang, href })
     }
 
-    const defaultLocale = 'de'
-    if (locale.value === defaultLocale) {
-      headLinks.push({ rel: 'alternate', hreflang: 'x-default', href: canonicalUrl })
+    if (blog.value.alternates && Array.isArray(blog.value.alternates)) {
+      for (const alt of blog.value.alternates as BlogAlternateHeader[]) {
+        if (!alt?.hreflang || !alt?.href) continue
+        pushAlt(alt.hreflang, alt.href)
+      }
+      // Ensure current locale is present
+      const hasCurrent = [...seen].some((k) => k.startsWith(`${currentHreflang}::`))
+      if (!hasCurrent) pushAlt(currentHreflang, canonicalUrl)
     } else {
-      const defaultLocaleUrl =
-        alternateLanguages.value.find(
-          (alt) => alt.locale?.startsWith('de') || alt.locale === 'de'
-        )?.url || `${baseUrl}/${defaultLocale}/${blog.value.slug}`
+      // Fallback: generate alternates programmatically from computed ref
+      pushAlt(currentHreflang, canonicalUrl)
+      for (const alt of alternateLanguages.value) pushAlt(alt.locale, alt.url)
 
-      headLinks.push({
-        rel: 'alternate',
-        hreflang: 'x-default',
-        href: defaultLocaleUrl
-      })
+      const defaultLocale = 'de'
+      if (locale.value === defaultLocale) {
+        pushAlt('x-default', canonicalUrl)
+      } else {
+        const defaultLocaleUrl =
+          alternateLanguages.value.find(
+            (alt) => alt.locale?.startsWith('de') || alt.locale === 'de'
+          )?.url || `${baseUrl}/${defaultLocale}/${blog.value.slug}`
+        pushAlt('x-default', defaultLocaleUrl)
+      }
     }
-  }
+
+    return links
+  })
 
   return {
     blog,

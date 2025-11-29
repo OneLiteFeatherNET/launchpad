@@ -15,6 +15,16 @@ let blogSchema = z.object({
     headerImageAlt: z.string().optional(),
     // Link to the same article in other languages
     translationKey: z.string().optional(),
+
+    // New optional SEO header fields (backwards compatible)
+    canonical: z.string().url().optional(),
+    alternates: z.array(
+        z.object({
+            hreflang: z.string(),
+            href: z.string().url(),
+        })
+    ).optional(),
+
     excerpt: z.object({
         type: z.string(),
         children: z.any(),

@@ -3,7 +3,7 @@ import {definePageMeta} from "#imports";
 import SocialMediaShare from "~/components/blog/SocialMediaShare.vue";
 import type { BlogArticle } from "~/types/blog";
 
-const { locale, t } = useI18n()
+const { locale, t, d } = useI18n()
 const config = useRuntimeConfig()
 const {getFeatureFlag } = usePostHogFeatureFlag();
 
@@ -13,26 +13,19 @@ definePageMeta({
 
 const { blog, headLinks } = useBlogArticle()
 
-useSeoMeta(blog.value?.seo || {})
-
 const img = useImage()
-const previewSocial = img(blog.value?.headerImage || 'logo.svg', {
-  width: 1200,
-  height: 630,
-  format: 'webp',
-  quality: 80,
-});
-
-useSeoMeta({
-  twitterTitle: blog?.value?.seo?.title || blog?.value?.title || '',
-  twitterDescription: blog?.value?.seo?.description || '',
-  ogImage: previewSocial,
-  twitterImage: previewSocial
-})
+const previewSocial = computed(() =>
+  img(blog.value?.headerImage || 'images/logo.svg', {
+    width: 1200,
+    height: 630,
+    format: 'webp',
+    quality: 80,
+  })
+)
 
 // Use a single useHead call to set links (and merge with any useSeoMeta output)
-useHead({ link: headLinks })
-useHead((blog.value as BlogArticle | null)?.head || {})
+useHead(() => ({ link: headLinks.value }))
+useHead(() => (blog.value as BlogArticle | null)?.head || {})
 
 const title = computed(() => {
   if (getFeatureFlag('alternative-title-conversion').value === 'test') {
@@ -41,6 +34,22 @@ const title = computed(() => {
     return blog?.value?.title || t('layouts.title');
   }
 });
+
+// Ensure the document title and meta reflect the article
+useSeoMeta(() => {
+  const seo = (blog.value as any)?.seo || {}
+  const metaTitle = seo.title || title.value
+  const metaDescription = seo.description || blog.value?.description || ''
+  return {
+    title: metaTitle,
+    ogTitle: seo.ogTitle || metaTitle,
+    twitterTitle: seo.twitterTitle || metaTitle,
+    description: metaDescription,
+    ogDescription: seo.ogDescription || metaDescription,
+    ogImage: previewSocial.value,
+    twitterImage: previewSocial.value
+  }
+})
 </script>
 
 <template>
@@ -68,7 +77,7 @@ const title = computed(() => {
           class="mt-1 block text-sm text-neutral-600 dark:text-neutral-400"
           :datetime="new Date(blog?.pubDate).toISOString()"
         >
-          <i18n-d :value="blog?.pubDate"></i18n-d>
+          {{ d(new Date(blog?.pubDate as any)) }}
         </time>
 
         <section

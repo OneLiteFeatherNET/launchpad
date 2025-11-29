@@ -7,13 +7,14 @@ import Footer from "~/components/onelitefeather/common/Footer.vue";
 const route = useRoute()
 const { t } = useI18n()
 const head = useLocaleHead()
-const title = computed(() => t(route.meta?.title ?? 'TDB'));
+// Only set a static <Title> when the route explicitly provides one via meta.
+const routeTitle = computed(() => (route.meta?.title ? t(route.meta.title as string) : null))
 </script>
 
 <template>
   <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
   <Head>
-    <Title>{{ title }}</Title>
+    <Title v-if="routeTitle">{{ routeTitle }}</Title>
   </Head>
     <Body class="dark:bg-gray-900 overflow-x-hidden">
       <!-- Local wrapper ensures flex layout even if <Body> classes are not applied by the renderer -->
