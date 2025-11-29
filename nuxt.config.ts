@@ -154,6 +154,20 @@ export default defineNuxtConfig({
         }
     },
     $production: {
+        i18n: {
+            strategy: 'prefix',
+            defaultLocale: 'en',
+            locales: [
+                {code: 'de', iso: 'de-DE', name: 'Deutsch', file: 'de.json'},
+                {code: 'en', iso: 'en-US', name: 'English', file: 'en.json'}
+            ],
+            detectBrowserLanguage: {
+                useCookie: true,
+                cookieKey: 'i18n_redirected',
+                redirectOn: 'root' // recommended
+            },
+            baseUrl: 'https://onelitefeather.net',
+        },
         runtimeConfig: {
             public: {
                 siteUrl: 'https://onelitefeather.net',
@@ -161,6 +175,25 @@ export default defineNuxtConfig({
                 // Override BlueMap URL for production if needed
                 bluemapUrl: 'https://bluemap.onelitefeather.dev/',
             }
+        },
+        schemaOrg: {
+            identity: defineOrganization({
+                name: 'OneLiteFeather Network',
+                alternateName: 'OneLiteFeather.net',
+                description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers. ',
+                url: 'https://onelitefeather.net',
+                logo: '/logo.svg',
+                email: 'contact@onelitefeather.net',
+                foundingDate: '2019-09-01',
+                numberOfEmployees: {
+                    '@type': 'QuantitativeValue',
+                    'minValue': 1,
+                    'maxValue': 25
+                },
+                sameAs: [
+                    'https://github.com/OneLiteFeatherNET'
+                ]
+            })
         },
         posthog: {
             publicKey: 'phc_t9nBlYL9LcDj4LDKZfQ97m5nbvFDTugkdQqAAspfdI',
