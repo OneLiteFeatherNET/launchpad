@@ -77,7 +77,7 @@ Otis stellt eine Schnittstelle zur Verwaltung von Spielerstammdaten zur Verfügu
 
 Jetzt wird es technisch - Otis setzt auf eine [geschichtete (layered) Architektur](https://de.wikipedia.org/wiki/Schichtenarchitektur) mit dem [Microservice Prinzip](https://de.wikipedia.org/wiki/Microservices) im zustandslosen ([stateless](https://de.wikipedia.org/wiki/Zustandslosigkeit)) Design. Dabei unterteilen wir im Gradle Projekt zwischen Backend, Client und Velocity Plugin. Das Velocity Plugin basiert auf den Client und der Client wird anhand der OpenAPI Dokumentation aus dem Backend generiert. Das Backend ist intern in sogenannten drei Schichten aufgeteilt. Die erste Schicht repräsentiert DTOs und Controller und dient zur Kommunikation mit dem Client. Der Controller übergibt Anfragen über DTOs via Dependency Injection an die Serviceschicht, diese übernimmt Validierung sowie andere Aufgaben und übergibt diese an die Datenbankschicht. Die Datenbankschicht hat auch manchmal das Schlüsselwort “Repository” enthalten.
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/SchichtenarchitekturAufrufstrukturen.svg" class="dark:bg-white/5 bg-white" alt="Schichtenarchitektur Aufrufstrukturen" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/SchichtenarchitekturAufrufstrukturen.svg" class="dark:bg-white/85 bg-white" alt="Schichtenarchitektur Aufrufstrukturen" />
 
 ### DTOs
 
