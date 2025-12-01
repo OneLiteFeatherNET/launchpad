@@ -26,8 +26,6 @@ schemaOrg:
       type: 'Person'
       name: 'Phillipp Glanz'
     datePublished: '2025-11-29T00:00:00+00:00'
----# Projektvorstellung Otis
-
 
 ---
 
@@ -41,20 +39,25 @@ Da Otis als zentrale Anlaufstelle für Spielerstammdaten (als Schnittstelle) uns
 ---
 
 ## Problem
-
-Aus Entwicklersicht haben wir keine eindeutige Datenquelle (sogenannte “[Single source of Truth](https://de.wikipedia.org/wiki/Single_Point_of_Truth)”) für die Spielersuche, für die Konvertierung von Spielernamen zu ihrer UUID und zur Verarbeitung von internen Daten (externe, abhängige Systeme). Durch fehlende zentralen Datenquellen wie Otis sie zur Verfügung stellt, sind Entwickler gezwungen, ihre Daten von verschiedenen Quellen (Datenbanken von eigenen oder third party plugins und Software) zusammenzutragen oder ihre eigenen Datenquellen zu erzeugen. Folgend verliert man als Team den Überblick über schon vorhandene Daten, hat möglicherweise duplizierte Daten und -sätze und entwickelt am Datenschutz vorbei, da eine zentrale Löschung nicht mehr möglich ist. Fehler und komplexe Abhängigkeiten sind eine weitere Folge - eine zerstreute Infrastruktur, bei der man wiederum als Systemadministrator bei Migrationen der Datenbanken und -quellen leicht den Überblick verliert.
+Aus Entwicklersicht haben wir keine eindeutige Datenquelle (sogenannte “Single source of Truth”) für die Spielersuche, für die Konvertierung von Spielernamen zu ihrer UUID und zur Verarbeitung von internen Daten (externe, abhängige Systeme). Durch fehlende zentralen Datenquellen wie Otis sie zur Verfügung stellt, sind Entwickler gezwungen, ihre Daten von verschiedenen Quellen (Datenbanken von eigenen oder third party plugins und Software) zusammenzutragen oder ihre eigenen Datenquellen zu erzeugen. Folgend verliert man als Team den Überblick über schon vorhandene Daten, hat möglicherweise duplizierte Daten und -sätze und entwickelt am Datenschutz vorbei, da eine zentrale Löschung nicht mehr möglich ist. Fehler und komplexe Abhängigkeiten sind eine weitere Folge - eine zerstreute Infrastruktur, bei der man wiederum als Systemadministrator bei Migrationen der Datenbanken und -quellen leicht den Überblick verliert.
 
 Administrator und Moderation haben in ihren täglichen Prozessen ohne Otis mit einem erhöhten Organisationsaufwand zu kämpfen. Darunter fällt indirekt die Verwaltung von Spielern auf Servern, zum Beispiel globale Freischaltungen und Banns auf Servern oder die Erkennung von Spielern nach Namenswechseln und ein erhöhter Kommunikationsaufwand gegenüber anderen Teammitgliedern und Spielern.
 
 Die Entstehung von dezentralen Datenquellen ist nicht unbedingt durch technologische Probleme verursacht, denn auch soziale Komponenten spielen einen entscheidenden Faktor. Zu Beginn eines Software Projektes wie zum Beispiel eines Minecraft Servers gibt es wenig bis keine Entwickler, es werden auch Drittanbieter für Features verwendet (“heruntergeladene Plugins”) und gegebenenfalls Minispiele von ein oder mehreren Entwicklern entwickelt, die prototypenähnliche Merkmale haben. In vielen Fällen fehlen regelmäßige Termine für diese Entwickler, um sich auf Standards und gemeinsame Schnittstellen, Systeme zu einigen. Dadurch kann es vorkommen, dass Minispiel 1: “Bedwars” und Minispiel 2: “SkyPvP” Daten über Spieler teilen, wie zum Beispiel:
 
-* Spielername, UUID
-* IP Addresse
-* Spracheinstellungen
-* Texturen vom Spieler
-* Kills und Tode des Spielers im Scoreboard in den Spielmodis
-* Score (meist Punkte)
-* Globales Spielgeld / Währung,…
+Spielername, UUID
+
+IP Addresse
+
+Spracheinstellungen
+
+Texturen vom Spieler
+
+Kills und Tode des Spielers im Scoreboard in den Spielmodis
+
+Score (meist Punkte)
+
+Globales Spielgeld / Währung,…
 
 Meist sind Entwickler an einzelnen Projekten beschäftigt und wissen nicht unbedingt, was ihr Vorgänger oder ein weiteres Teammitglied an Datenquellen zur Verfügung hat, weshalb diese Überlegung einer zentralen Anlaufstelle für Spielerdaten selten überlegt wird. Wenn sie doch etabliert wird, findet man diese in “Core” Systemen, die meist ein weiteres Plugin sind und eine feste Abhängigkeit voraussetzen - jeder Entwickler muss sie implementieren, da diese Systeme sehr viel beherbergen, meist über das Ziel einer zentralen Datenquelle hinaus. Zudem sind diese Systeme sehr wartungsintensiv, da sie als Plugin selbst auch up to date mit der Paper / Spigot oder Minestom API sein müssen und ihre zusätzlichen Abhängigkeiten auch sogenannte “breaking changes” mit sich bringen können, wenn sie ein Update bringen. Dadurch entsteht unter Entwicklern der Unmut, dieses System zu verwenden, weil sie nicht auf ein Update des “Core Systems” in ihrem Plugin / System warten können und erfinden ihre eigene Datenquelle oder basieren auf ein anderes Plugin, welches ihre benötigten Spielerdaten in Teilen liefert. Aus unseren Beobachtungen scheitern diese Versuche der zentralen Daten- und Codequelle auch daran, dass Entwicklerteams eine hohe Fluktuation an Entwicklern haben können und Dokumentation nicht zum passenden Zeitpunkt vorhanden ist.
 
@@ -62,12 +65,11 @@ Zu den technische Komponenten, die eine zentrale Quelle von Spielerstammdaten ve
 
 Die genaue Definition der Fachlichkeit ist nicht Teil dieses Blogs, dennoch beschränken wir uns hier auf das Wissen über die uns von eingesetzten Technologien und Standards außerhalb des Minecraft “Kosmos”.
 
-**TLDR: Eine zentralisierte Software ist abhängig von fachlichen, technischen und sozialen Entscheidungen und Kenntnissen, der erste Schritt ist die Kommunikation miteinander!**
+TLDR: Eine zentralisierte Software ist abhängig von fachlichen, technischen und sozialen Entscheidungen und Kenntnissen, der erste Schritt ist die Kommunikation miteinander!
 
-Otis löst nicht die “universal Spielerdatenbank” der Spielerdatenbanken. Es sammelt nur die Daten, die von uns als Team als fachlich relevant eingestuft worden sind. Zudem löst es nicht das Problem der Kommunikation: Es muss kommuniziert werden, dass Otis unsere Lösung ist, die verwendet werden soll. Neue Entwickler müssen wissen und angeleitet werden, dass Otis existiert, bevor sie ihre Minispiele oder anderen Ideen in Code umsetzen, welche Spielerstammdaten benötigen.
+Otis kann nicht das Problem einer universellen Spielerdatenbank lösen. Primär sammelt es nur spezifische Daten, die von unserem Team als fachlich relevant eingestuft wurden. Darüber hinaus besteht ein Kommunikationsproblem. Unter spezifischen Umständen ist nicht direkt ersichtlich, dass Otis die zentrale Lösung für Spielerdaten darstellt. Ohne konkrete Einarbeitung besteht die Gefahr, dass beispielsweise bei neuen Minispielen auf eigene Lösungen gesetzt wird, anstatt die bereits existierende zu nutzen.
 
-Eine theoretische Alternative zu Otis wäre eine Zentrale NoSQL Datenbank, bei der sich die Plugins (Clients) auf dieser verbinden und sich ihre benötigten Daten abgreifen. Diese Alternative scheitert an der Fachkenntnis, an den duplizierten Daten (unterschiedliche UUID Felder, z.B. BUUID → Bedwars UUID, für verschiedene Spielmodis) und an der Datenarchivierung. Weitere Alternativen lassen sich OpenSource nicht finden, auf denen wir mit unseren Systemen aufbauen können und die unseren Anwendungsfall repräsentieren.
-
+Eine andere Alternative zu unserem Projekt stellt eine zentrale Datenbank dar, die entweder mit einer SQL- oder NoSQL-Struktur betrieben wird. Hier verbinden sich die Plugins als Clients, um Anfragen zu stellen und die benötigten Daten abzurufen. Diese Alternative scheitert jedoch an mehreren Punkten. Sie setzt eine starke Fachkenntnis voraus, benötigt eine Lösung für duplizierte Daten (beispielsweise unterschiedliche UUID-Felder wie BUUID für Bedwars-spezifische Daten in verschiedenen Spielmodi) und erfordert ein durchdachtes Konzept für die Datenarchivierung. Weitere OpenSource-Alternativen, die unseren Anwendungsfall innerhalb des Minecraft-Rahmens abdecken könnten, lassen sich nicht finden.
 
 ---
 
