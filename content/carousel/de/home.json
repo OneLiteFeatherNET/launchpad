@@ -15,12 +15,12 @@
     },
     {
       "type": "blog",
-      "title": "Effizientes Logging in Paper-Plugins",
-      "href": "/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki",
-      "excerpt": "Lerne, wie du mit SLF4J und log4j2 Marker verwendest, um Logs thematisch zu gruppieren.",
-      "image": "/images/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki.jpg",
+      "title": "Otis: Zentrale Spielerstammdaten für Minecraft",
+      "href": "/de/blog/otis-zentrale-spielerstammdaten-minecraft",
+      "excerpt": "UUID v4/v7, Name und Sprache als verlässliche Basis für Services.",
+      "image": "/images/blog/otis-player-data-header.png",
       "author": "Phillipp Glanz",
-      "date": "2024-09-29",
+      "date": "2025-11-29",
       "tag": "Blog"
     },
     {
