@@ -1,7 +1,21 @@
 {
   "name": "onelitefeather.net",
+  "version": "0.0.0-development",
+  "description": "OneLiteFeather blog built with Nuxt",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheMeinerLP/launchpad.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TheMeinerLP/launchpad/issues"
+  },
+  "homepage": "https://github.com/TheMeinerLP/launchpad#readme",
+  "license": "MIT",
   "scripts": {
     "build": "nuxi build",
     "dev": "nuxt dev",
