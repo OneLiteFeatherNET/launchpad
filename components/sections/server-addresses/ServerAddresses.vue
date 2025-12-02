@@ -75,15 +75,15 @@ const onCopyBedrockPort = async () => {
         <!-- Decorative aura background (now via Tailwind utilities, incl. motion-reduce) -->
         <div
           aria-hidden="true"
-          class="pointer-events-none absolute inset-0 md:-inset-1 -z-10 rounded-3xl opacity-[0.58] blur-[32px] md:blur-[38px] [background:conic-gradient(from_180deg_at_50%_50%,var(--color-brand-accent)_0deg,var(--color-brand-secondary)_120deg,var(--color-brand-orange)_240deg,var(--color-brand-accent)_360deg)] animate-aura-breathe motion-reduce:animate-none [will-change:transform]"
+          class="pointer-events-none absolute inset-1 md:-inset-1 lg:-inset-2 -z-10 rounded-3xl opacity-[0.52] lg:opacity-[0.58] blur-[28px] md:blur-[32px] lg:blur-[38px] [background:conic-gradient(from_180deg_at_50%_50%,var(--color-brand-accent)_0deg,var(--color-brand-secondary)_120deg,var(--color-brand-orange)_240deg,var(--color-brand-accent)_360deg)] animate-aura-breathe motion-reduce:animate-none [will-change:transform]"
         >
           <!-- Blob 1 -->
           <div
-            class="absolute inset-[-12%] md:inset-[-20%] rounded-[inherit] pointer-events-none mix-blend-screen opacity-[0.26] translate-x-[-10%] translate-y-[-8%] scale-[1.02] md:scale-[1.05] animate-blob-drift-1 motion-reduce:animate-none [background:radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-accent)_60%,white_40%)_0%,transparent_70%)] [will-change:transform,opacity]"
+            class="absolute inset-[-8%] md:inset-[-12%] lg:inset-[-20%] rounded-[inherit] pointer-events-none mix-blend-screen opacity-[0.24] translate-x-[-8%] translate-y-[-6%] scale-[1.0] md:scale-[1.02] lg:scale-[1.05] animate-blob-drift-1 motion-reduce:animate-none [background:radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-accent)_60%,white_40%)_0%,transparent_70%)] [will-change:transform,opacity]"
           />
           <!-- Blob 2 -->
           <div
-            class="absolute inset-[-12%] md:inset-[-20%] rounded-[inherit] pointer-events-none mix-blend-screen opacity-[0.24] translate-x-[8%] translate-y-[6%] scale-[0.95] md:scale-[0.98] animate-blob-drift-2 motion-reduce:animate-none [background:radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-secondary)_60%,white_40%)_0%,transparent_70%)] [will-change:transform,opacity]"
+            class="absolute inset-[-8%] md:inset-[-12%] lg:inset-[-20%] rounded-[inherit] pointer-events-none mix-blend-screen opacity-[0.22] translate-x-[6%] translate-y-[4%] scale-[0.92] md:scale-[0.95] lg:scale-[0.98] animate-blob-drift-2 motion-reduce:animate-none [background:radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-secondary)_60%,white_40%)_0%,transparent_70%)] [will-change:transform,opacity]"
           />
         </div>
         <div
