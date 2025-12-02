@@ -37,7 +37,7 @@ const isSvg = vComputed(() => props.item.image ? /\.svg(\?|$)/i.test(props.item.
       :alt="item.alt || item.title"
       sizes="sm:100vw md:100vw lg:1280px"
       densities="1x 2x"
-      quality="85"
+      quality="75"
       :placeholder="false"
       format="avif,webp"
       :loading="props.priority ? 'eager' : 'lazy'"

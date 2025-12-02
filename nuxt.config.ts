@@ -79,6 +79,8 @@ export default defineNuxtConfig({
         provider: 'cloudflare',
         // Prefer modern formats with automatic fallback for browsers that don't support them.
         format: ['avif', 'webp'],
+        // Slightly lower default quality to trim payloads without obvious visual loss.
+        quality: 75,
         // The screen sizes predefined by `@nuxt/image`:
         screens: {
             xs: 320,
