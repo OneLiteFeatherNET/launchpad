@@ -87,7 +87,7 @@ const onCopyBedrockPort = async () => {
           />
         </div>
         <div
-          class="rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/90 p-6 shadow-2xl shadow-black/20 backdrop-blur-md md:p-10"
+          class="rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/90 p-6 shadow-2xl shadow-black/20 backdrop-blur-md md:p-10 md:max-w-[105%] md:mx-[-2.5%]"
           role="region"
           :aria-labelledby="'server-connect-title'"
           :aria-describedby="'server-connect-subtitle'"
