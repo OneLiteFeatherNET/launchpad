@@ -25,16 +25,18 @@ const title = computed(() => {
       v-posthog-capture="'blog-article-card-click'"
       class="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-xl">
       <div class="relative">
-        <NuxtImg v-if="blogArticle?.headerImage"
-                 :src="blogArticle?.headerImage"
-                 :alt="blogArticle?.headerImageAlt"
-                 sizes='xs:300px sm:500px md:700px lg:1200px xl:1920px'
-                 width='1920px'
-                 height='1080px'
-                 fit='cover'
-                 format='webp'
-                 quality='80'
-                 class="w-full h-48 object-cover rounded-t-xl" />
+        <NuxtPicture
+          v-if="blogArticle?.headerImage"
+          :src="blogArticle?.headerImage"
+          :alt="blogArticle?.headerImageAlt"
+          sizes="xs:300px sm:500px md:700px lg:1200px xl:1920px"
+          width="1920"
+          height="1080"
+          fit="cover"
+          quality="80"
+          format="avif,webp"
+          :img-attrs="{ class: 'w-full h-48 object-cover rounded-t-xl' }"
+        />
         <!-- Material 3 state layer -->
         <div aria-hidden="true" class="absolute inset-0 bg-black/0 group-hover:bg-black/5 group-active:bg-black/10 transition-colors"></div>
       </div>

@@ -15,15 +15,16 @@ const props = defineProps<Props>()
 
 <template>
   <div class="absolute inset-0 h-full w-full">
-    <!-- Raster images via NuxtImg without blur placeholder and with 2x density -->
-    <NuxtImg
+    <!-- Raster images via NuxtPicture without blur placeholder and with 2x density -->
+    <NuxtPicture
       :src="props.item.src"
       :alt="props.item.alt"
       sizes="sm:100vw md:100vw lg:1280px"
       densities="1x 2x"
       quality="85"
       :placeholder="false"
-      class="absolute inset-0 h-full w-full object-cover object-center"
+      format="avif,webp"
+      :img-attrs="{ class: 'absolute inset-0 h-full w-full object-cover object-center' }"
       preload
     />
     <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent md:from-black/80 md:via-black/40 p-3 md:p-4 pb-8 md:pb-12">

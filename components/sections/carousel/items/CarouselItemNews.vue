@@ -30,14 +30,15 @@ const isSvg = vComputed(() => props.item.image ? /\.svg(\?|$)/i.test(props.item.
 
 <template>
   <article class="absolute inset-0 h-full w-full">
-    <NuxtImg
+    <NuxtPicture
       :src="item.image"
       :alt="item.alt || item.title"
       sizes="sm:100vw md:100vw lg:1280px"
       densities="1x 2x"
       quality="85"
       :placeholder="false"
-      class="absolute inset-0 h-full w-full object-cover"
+      format="avif,webp"
+      :img-attrs="{ class: 'absolute inset-0 h-full w-full object-cover' }"
       preload
     />
 
