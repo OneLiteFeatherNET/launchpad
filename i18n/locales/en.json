@@ -101,6 +101,7 @@
       "contact": "Contact",
       "careers": "Careers"
     },
+    "version": "Version {version}",
     "social": {
       "title": "Social Media"
     },

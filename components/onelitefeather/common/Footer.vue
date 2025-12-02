@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { computed } from '#imports'
 import { useI18n } from 'vue-i18n'
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {faFacebook, faGithub, faLinkedin, faTwitch, faYoutube} from "@fortawesome/free-brands-svg-icons";
 const { t } = useI18n()
+const appConfig = useAppConfig()
+
+const versionLabel = computed(() =>
+  appConfig.version ? t('footer.version', { version: appConfig.version }) : ''
+)
 </script>
 
 <template>
@@ -95,21 +101,26 @@ const { t } = useI18n()
       <div class="border-t border-[var(--color-border)] dark:border-[var(--color-border)]"></div>
 
      <!-- Copyright section -->
-     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-       <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-        <p class="text-sm text-[var(--color-muted)] dark:text-[var(--color-muted)]">
-          {{ t('footer.copyright', { year: new Date().getFullYear() }) }}
-        </p>
-         <div class="flex gap-6">
-           <NuxtLinkLocale to="/privacy" class="text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-brand-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]">
-             {{ t('footer.privacy') }}
-           </NuxtLinkLocale>
-           <NuxtLinkLocale to="/imprint" class="text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-brand-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]">
-             {{ t('footer.terms') }}
-           </NuxtLinkLocale>
-         </div>
-       </div>
-     </div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+          <div class="flex flex-col items-center gap-1 text-sm text-[var(--color-muted)] dark:text-[var(--color-muted)] sm:items-start">
+            <p>
+              {{ t('footer.copyright', { year: new Date().getFullYear() }) }}
+            </p>
+            <p v-if="versionLabel">
+              {{ versionLabel }}
+            </p>
+          </div>
+          <div class="flex gap-6">
+            <NuxtLinkLocale to="/privacy" class="text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-brand-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]">
+              {{ t('footer.privacy') }}
+            </NuxtLinkLocale>
+            <NuxtLinkLocale to="/imprint" class="text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-brand-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]">
+              {{ t('footer.terms') }}
+            </NuxtLinkLocale>
+          </div>
+        </div>
+      </div>
    </footer>
 </template>
 

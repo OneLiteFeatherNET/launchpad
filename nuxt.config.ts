@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import {defineOrganization} from 'nuxt-schema-org/schema'
 import tailwindcss from "@tailwindcss/vite";
+import pkg from './package.json' assert {type: 'json'}
 
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
@@ -71,7 +72,8 @@ export default defineNuxtConfig({
         '~/assets/css/tailwind.css'
     ],
     appConfig: {
-        appId: 'OneLiteFeather'
+        appId: 'OneLiteFeather',
+        version: pkg.version
     },
     image: {
         provider: 'cloudflare',
