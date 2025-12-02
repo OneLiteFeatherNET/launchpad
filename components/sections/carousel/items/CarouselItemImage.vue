@@ -29,9 +29,11 @@ const props = withDefaults(defineProps<Props>(), {
       :placeholder="false"
       format="avif,webp"
       :loading="props.priority ? 'eager' : 'lazy'"
-      :fetchpriority="props.priority ? 'high' : undefined"
       :preload="props.priority"
-      :img-attrs="{ class: 'absolute inset-0 h-full w-full object-cover object-center' }"
+      :img-attrs="{
+        class: 'absolute inset-0 h-full w-full object-cover object-center',
+        fetchpriority: props.priority ? 'high' : undefined
+      }"
     />
     <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent md:from-black/80 md:via-black/40 p-3 md:p-4 pb-8 md:pb-12">
       <p v-if="props.item.note" class="max-w-3xl text-sm md:text-base text-white drop-shadow-md">

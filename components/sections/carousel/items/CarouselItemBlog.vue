@@ -39,9 +39,11 @@ const dateLabel = computed(() => {
       :placeholder="false"
       format="avif,webp"
       :loading="props.priority ? 'eager' : 'lazy'"
-      :fetchpriority="props.priority ? 'high' : undefined"
       :preload="props.priority"
-      :img-attrs="{ class: 'absolute inset-0 h-full w-full object-cover' }"
+      :img-attrs="{
+        class: 'absolute inset-0 h-full w-full object-cover',
+        fetchpriority: props.priority ? 'high' : undefined
+      }"
     />
 
     <!-- Gradient overlay for readability -->
