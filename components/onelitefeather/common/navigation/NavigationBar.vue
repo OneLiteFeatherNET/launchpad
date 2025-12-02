@@ -67,7 +67,7 @@ const elevationClasses = {
           </NuxtLinkLocale>
         </div>
 
-        <nav class="hidden items-center gap-2 lg:flex" role="menubar">
+        <nav class="hidden items-center gap-2 lg:flex" role="navigation" :aria-label="t('navigation.main')">
           <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" />
           <LanguageSelector />
         </nav>
