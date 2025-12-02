@@ -309,7 +309,7 @@ function withAlpha(rgb: string, a: number) {
             v-for="(_s, i) in normalizedSlides"
             :key="i"
             type="button"
-            class="h-2.5 w-2.5 rounded-full transition"
+            class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
             :class="i === current ? 'bg-white' : 'bg-white/50 hover:bg-white/80'"
             :aria-label="`Show slide ${i + 1}`"
             :aria-current="i === current ? 'true' : undefined"
