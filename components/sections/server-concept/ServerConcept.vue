@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import SectionHeading from '~/components/ui/typography/SectionHeading.vue'
 import type { ServerConceptPoint } from '~/types/home'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { faUsers, faGamepad, faHandshake, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   title: string
@@ -13,6 +16,14 @@ const props = defineProps<Props>()
 // A11y: Stable IDs for heading & description so the section region can reference them correctly
 const headingId = 'server-concept-title'
 const descriptionId = 'server-concept-subtitle'
+
+const iconMap: Record<string, IconDefinition> = {
+  groups: faUsers,
+  sports_esports: faGamepad,
+  handshake: faHandshake
+}
+
+const iconFor = (name?: string): IconDefinition => iconMap[name ?? ''] ?? faCircleInfo
 </script>
 
 <template>
@@ -40,11 +51,11 @@ const descriptionId = 'server-concept-subtitle'
           role="listitem"
         >
           <header class="mb-3 flex items-center gap-3">
-            <span
-              v-if="p.icon"
-              class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_24]"
+            <FontAwesomeIcon
+              :icon="iconFor(p.icon)"
+              class="h-5 w-5 text-emerald-600 dark:text-emerald-400"
               aria-hidden="true"
-            >{{ p.icon }}</span>
+            />
             <h3 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{{ p.title }}</h3>
           </header>
           <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed">{{ p.text }}</p>

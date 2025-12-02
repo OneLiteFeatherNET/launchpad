@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   name: string
@@ -58,7 +60,7 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: p
       <p v-if="slogan" class="mt-3 line-clamp-3 text-sm text-gray-700 dark:text-gray-300">“{{ slogan }}”</p>
       <p v-if="profileHref" class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400">
         {{ t('team.view_profile') }}
-        <span class="material-symbols-outlined text-base [font-variation-settings:'FILL'_0,'wght'_500,'GRAD'_0,'opsz'_20]" aria-hidden="true">north_east</span>
+        <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="h-3.5 w-3.5" aria-hidden="true" />
       </p>
     </component>
   </li>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, nextTick, navigateTo, onMounted, onBeforeUnmount } from '#imports';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faLanguage, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -141,9 +143,9 @@ const selectLocale = async (localeCode: string) => {
       @keydown="onButtonKeydown"
       class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
     >
-      <span class="material-symbols-outlined text-xl">language</span>
+      <FontAwesomeIcon :icon="faLanguage" class="text-lg" />
       <span class="uppercase">{{ currentLocale?.code }}</span>
-      <span class="material-symbols-outlined text-xl transition-transform" :class="{ 'rotate-180': isOpen }">expand_more</span>
+      <FontAwesomeIcon :icon="faChevronDown" class="text-sm transition-transform" :class="{ 'rotate-180': isOpen }" />
     </button>
 
     <Transition
@@ -181,7 +183,7 @@ const selectLocale = async (localeCode: string) => {
 
   <div v-else class="flex flex-col" @keydown.escape.window="isOpen = false">
     <div class="flex items-center gap-3 px-4 py-3 text-base font-medium text-[var(--color-text)]/70 dark:text-[var(--color-text)]/85">
-      <span class="material-symbols-outlined text-2xl">language</span>
+      <FontAwesomeIcon :icon="faLanguage" class="text-xl" />
       {{ t('navigation.change_language') }}
     </div>
     <NuxtLink
