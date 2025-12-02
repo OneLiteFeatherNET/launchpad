@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import Carousel from "~/components/sections/carousel/Carousel.vue";
-import ServerConcept from "~/components/sections/server-concept/ServerConcept.vue";
-import ServerAddresses from "~/components/sections/server-addresses/ServerAddresses.vue";
 import {definePageMeta} from "#imports";
 
 definePageMeta({
@@ -20,14 +17,14 @@ useHomeSeo()
     <Carousel :slides="slides" aspect="16/9" aria-label="Startseiten-Highlight-Karussell" />
   </div>
   <!-- Server Concept Section -->
-  <ServerConcept
+  <LazyServerConcept
     v-if="concept"
     :title="concept.title"
     :subtitle="concept.subtitle"
     :points="concept.points || []"
   />
   <!-- Server Connect Section -->
-  <ServerAddresses
+  <LazyServerAddresses
     v-if="connect"
     :java-address="connect.javaAddress"
     :bedrock-host="connect.bedrockHost"

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-
-import FooterSection from "~/components/blog/page/footer/FooterSection.vue";
-import NavigationBar from "~/components/blog/base/navigation/NavigationBar.vue";
-import Footer from "~/components/onelitefeather/common/Footer.vue";
-
 const route = useRoute()
 const { t } = useI18n()
 const head = useLocaleHead()
@@ -23,7 +18,7 @@ const routeTitle = computed(() => (route.meta?.title ? t(route.meta.title as str
         <main class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1">
           <slot/>
         </main>
-        <Footer />
+        <LazyFooter />
       </div>
     </Body>
   </Html>

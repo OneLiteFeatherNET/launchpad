@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
-import SocialMediaShare from "~/components/blog/SocialMediaShare.vue";
 import type { BlogArticle } from "~/types/blog";
 import { extractPlainTextFromExcerpt } from "~/utils/content";
 
@@ -105,7 +104,7 @@ useSeoMeta(() => {
         <!-- Social Media Sharing Buttons -->
         <section class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6" :aria-label="t('article.share')">
           <h2 class="sr-only">{{ t('article.share') }}</h2>
-          <SocialMediaShare
+          <LazySocialMediaShare
             :url="`${config.public.siteUrl}/${locale.value}/blog/${blog?.slug || ''}`"
             :title="blog?.title"
             :description="blog?.description || ''"
