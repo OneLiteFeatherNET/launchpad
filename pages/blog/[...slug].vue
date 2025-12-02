@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
 import {definePageMeta} from "#imports";
 import type { BlogArticle } from "~/types/blog";
 import { extractPlainTextFromExcerpt } from "~/utils/content";
@@ -12,6 +13,7 @@ definePageMeta({
 });
 
 const { blog, headLinks } = useBlogArticle()
+const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/blog/SocialMediaShare.vue'))
 
 const img = useImage()
 const previewSocial = computed(() =>

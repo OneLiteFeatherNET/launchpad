@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
+import Carousel from "~/components/sections/carousel/Carousel.vue";
 import {definePageMeta} from "#imports";
 
 definePageMeta({
@@ -9,6 +11,8 @@ definePageMeta({
 const { concept, connect, slides } = useHomeContent()
 useHomeSeo()
 
+const LazyServerConcept = defineAsyncComponent(() => import('~/components/sections/server-concept/ServerConcept.vue'))
+const LazyServerAddresses = defineAsyncComponent(() => import('~/components/sections/server-addresses/ServerAddresses.vue'))
 </script>
 
 <template>
