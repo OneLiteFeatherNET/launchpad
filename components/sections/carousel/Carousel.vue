@@ -229,6 +229,7 @@ function withAlpha(rgb: string, a: number) {
               :is="componentFor(s)"
               :item="s as any"
               class="absolute inset-0 h-full w-full"
+              :priority="i === 0"
             />
           </slot>
         </div>

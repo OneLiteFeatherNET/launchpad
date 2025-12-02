@@ -14,7 +14,9 @@ interface EventItem {
   note?: string
 }
 
-const props = defineProps<{ item: EventItem }>()
+const props = withDefaults(defineProps<{ item: EventItem; priority?: boolean }>(), {
+  priority: false
+})
 
 const start = computed(() => new Date(props.item.dateStart))
 const end = computed(() => props.item.dateEnd ? new Date(props.item.dateEnd) : undefined)
@@ -41,8 +43,10 @@ const timeRange = computed(() => {
       quality="85"
       placeholder="empty"
       format="avif,webp"
+      :loading="props.priority ? 'eager' : 'lazy'"
+      :fetchpriority="props.priority ? 'high' : undefined"
+      :preload="props.priority"
       :img-attrs="{ class: 'absolute inset-0 h-full w-full object-cover' }"
-      preload
     />
 
     <!-- Gradient overlay for readability -->

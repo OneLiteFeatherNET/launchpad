@@ -13,7 +13,9 @@ interface NewsItem {
   tag?: string
 }
 
-const props = defineProps<{ item: NewsItem }>()
+const props = withDefaults(defineProps<{ item: NewsItem; priority?: boolean }>(), {
+  priority: false
+})
 
 const dateLabel = computed(() => {
   const d = props.item.date ? new Date(props.item.date) : null
@@ -38,8 +40,10 @@ const isSvg = vComputed(() => props.item.image ? /\.svg(\?|$)/i.test(props.item.
       quality="85"
       :placeholder="false"
       format="avif,webp"
+      :loading="props.priority ? 'eager' : 'lazy'"
+      :fetchpriority="props.priority ? 'high' : undefined"
+      :preload="props.priority"
       :img-attrs="{ class: 'absolute inset-0 h-full w-full object-cover' }"
-      preload
     />
 
     <!-- Gradient overlay for readability -->
