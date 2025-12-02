@@ -1,4 +1,5 @@
 {
   "javaAddress": "onelitefeather.net",
-  "bedrockAddress": "onelitefeather.com:19132"
+  "bedrockHost": "onelitefeather.com",
+  "bedrockPort": "19132"
 }

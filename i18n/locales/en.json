@@ -26,6 +26,9 @@
       "copy_aria": "Copy server address {address} to clipboard",
       "copy": "Copy",
       "copied": "Copied!",
+      "copy_port": "Copy port",
+      "copy_port_aria": "Copy port {port} to clipboard",
+      "port_label": "Port",
       "clipboard_note": "Your browser does not support copying to the clipboard. Please copy the address manually."
     }
   },

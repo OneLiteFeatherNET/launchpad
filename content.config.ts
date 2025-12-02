@@ -81,7 +81,9 @@ export default defineContentConfig({
             source: 'server/de/connect.json',
             schema: z.object({
                 javaAddress: z.string(),
-                bedrockAddress: z.string(),
+                bedrockAddress: z.string().optional(),
+                bedrockHost: z.string().optional(),
+                bedrockPort: z.string().optional(),
             }).passthrough(),
         }),
         server_connect_en: defineCollection({
@@ -89,7 +91,9 @@ export default defineContentConfig({
             source: 'server/en/connect.json',
             schema: z.object({
                 javaAddress: z.string(),
-                bedrockAddress: z.string(),
+                bedrockAddress: z.string().optional(),
+                bedrockHost: z.string().optional(),
+                bedrockPort: z.string().optional(),
             }).passthrough(),
         }),
 

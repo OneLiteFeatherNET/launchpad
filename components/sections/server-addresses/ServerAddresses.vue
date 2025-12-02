@@ -8,12 +8,17 @@ type Props = {
   title?: string
   subtitle?: string
   javaAddress: string
-  bedrockAddress: string
+  bedrockAddress?: string
+  bedrockHost?: string
+  bedrockPort?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: undefined,
-  subtitle: undefined
+  subtitle: undefined,
+  bedrockAddress: undefined,
+  bedrockHost: undefined,
+  bedrockPort: undefined
 })
 
 const { t } = useI18n()
@@ -25,9 +30,14 @@ const displaySubtitle = computed(() => props.subtitle ?? t('server.connect.subti
 // Separate clipboard instances so the "Copied!" state is independent per button
 const { copy: copyJavaFn, copied: copiedJava, isSupported: isSupportedJava } = useClipboard()
 const { copy: copyBedrockFn, copied: copiedBedrock, isSupported: isSupportedBedrock } = useClipboard()
+const { copy: copyBedrockPortFn, copied: copiedBedrockPort, isSupported: isSupportedBedrockPort } = useClipboard()
 
 // Aggregate check for Clipboard API support (show the notice only if neither instance is supported)
-const isSupported = computed(() => isSupportedJava.value || isSupportedBedrock.value)
+const isSupported = computed(() => isSupportedJava.value || isSupportedBedrock.value || isSupportedBedrockPort.value)
+
+const bedrockHost = computed(() => props.bedrockHost || props.bedrockAddress?.split(':')[0] || '')
+const bedrockPort = computed(() => props.bedrockPort || props.bedrockAddress?.split(':')[1] || '')
+const bedrockFull = computed(() => (bedrockHost.value ? `${bedrockHost.value}${bedrockPort.value ? ':' + bedrockPort.value : ''}` : ''))
 
 const onCopyJava = async () => {
   try {
@@ -39,7 +49,15 @@ const onCopyJava = async () => {
 
 const onCopyBedrock = async () => {
   try {
-    await copyBedrockFn(props.bedrockAddress)
+    await copyBedrockFn(bedrockFull.value)
+  } catch {
+    // no-op
+  }
+}
+
+const onCopyBedrockPort = async () => {
+  try {
+    if (bedrockPort.value) await copyBedrockPortFn(bedrockPort.value)
   } catch {
     // no-op
   }
@@ -98,12 +116,16 @@ const onCopyBedrock = async () => {
           <!-- Bedrock Card -->
           <ServerAddressCard
             :title="t('server.connect.bedrock')"
-            :address="props.bedrockAddress"
+            :address="bedrockHost || ''"
+            :secondary-value="bedrockPort || ''"
+            :secondary-label="bedrockPort ? t('server.connect.port_label') : ''"
             icon="stadia_controller"
             iconClass="text-indigo-600 dark:text-indigo-400"
             buttonClass="bg-indigo-600"
             :copied="copiedBedrock"
             :onCopy="onCopyBedrock"
+            :copied-secondary="copiedBedrockPort"
+            :onCopySecondary="onCopyBedrockPort"
           />
         </div>
 

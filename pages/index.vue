@@ -30,9 +30,8 @@ useHomeSeo()
   <ServerAddresses
     v-if="connect"
     :java-address="connect.javaAddress"
-    :bedrock-address="connect.bedrockAddress"
-    :java-link="connect.javaLink"
-    :bedrock-link="connect.bedrockLink"
+    :bedrock-host="connect.bedrockHost"
+    :bedrock-port="connect.bedrockPort"
   />
 </template>
 

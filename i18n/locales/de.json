@@ -26,6 +26,9 @@
       "copy_aria": "Serveradresse {address} in die Zwischenablage kopieren",
       "copy": "Kopieren",
       "copied": "Kopiert!",
+      "copy_port": "Port kopieren",
+      "copy_port_aria": "Port {port} in die Zwischenablage kopieren",
+      "port_label": "Port",
       "clipboard_note": "Dein Browser unterstützt das Kopieren in die Zwischenablage nicht. Bitte kopiere die Adresse manuell."
     }
   },
