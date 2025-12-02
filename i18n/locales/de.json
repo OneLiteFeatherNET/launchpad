@@ -25,6 +25,7 @@
       "bedrock": "Bedrock Edition",
       "copy_aria": "Serveradresse {address} in die Zwischenablage kopieren",
       "copy": "Kopieren",
+      "copy_address": "Adresse kopieren",
       "copied": "Kopiert!",
       "copy_port": "Port kopieren",
       "copy_port_aria": "Port {port} in die Zwischenablage kopieren",

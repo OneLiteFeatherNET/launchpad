@@ -66,7 +66,7 @@ const copyIconSecondary = computed<IconDefinition>(() => (props.copiedSecondary 
         @click="onCopy"
       >
         <FontAwesomeIcon :icon="copyIconPrimary" class="text-base" aria-hidden="true" />
-        <span v-if="!copied">{{ t('server.connect.copy') }}</span>
+        <span v-if="!copied">{{ t('server.connect.copy_address') }}</span>
         <span v-else>{{ t('server.connect.copied') }}</span>
       </button>
       <button

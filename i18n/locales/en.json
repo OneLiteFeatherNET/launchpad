@@ -25,6 +25,7 @@
       "bedrock": "Bedrock Edition",
       "copy_aria": "Copy server address {address} to clipboard",
       "copy": "Copy",
+      "copy_address": "Copy address",
       "copied": "Copied!",
       "copy_port": "Copy port",
       "copy_port_aria": "Copy port {port} to clipboard",
