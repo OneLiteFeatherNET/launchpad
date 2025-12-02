@@ -75,6 +75,8 @@ export default defineNuxtConfig({
     },
     image: {
         provider: 'cloudflare',
+        // Prefer modern formats with automatic fallback for browsers that don't support them.
+        format: ['avif', 'webp'],
         // The screen sizes predefined by `@nuxt/image`:
         screens: {
             xs: 320,
@@ -204,6 +206,7 @@ export default defineNuxtConfig({
             }
         },
         image: {
+            format: ['avif', 'webp'],
             cloudflare: {
                 baseURL: 'https://img.onelitefeather.net',
             }
