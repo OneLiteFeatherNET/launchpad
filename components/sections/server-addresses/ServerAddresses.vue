@@ -65,7 +65,7 @@ const onCopyBedrockPort = async () => {
 </script>
 
 <template>
-  <section id="connect" class="relative isolate w-full overflow-hidden scroll-mt-24 md:scroll-mt-28">
+  <section id="connect" class="relative isolate w-full overflow-visible scroll-mt-24 md:scroll-mt-28">
     <!-- Note: Background images were removed (requirement). Aura/Glow remains. -->
 
     <!-- Foreground Content -->
