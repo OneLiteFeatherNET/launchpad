@@ -266,6 +266,7 @@ function withAlpha(rgb: string, a: number) {
           aria-roledescription="slide"
           :aria-label="getSlideAriaText(s, i, slidesCount)"
           :aria-hidden="i !== current"
+          :inert="i !== current ? true : undefined"
           :id="`carousel-slide-${i}`"
         >
           <slot name="slide" :item="s" :index="i">
