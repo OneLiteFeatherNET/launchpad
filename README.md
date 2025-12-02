@@ -114,6 +114,12 @@ bun run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
+## Releases
+
+- Main branch uses `semantic-release` with conventional commits to automate versions, changelog, git tag, and package.json updates.
+- Run `pnpm release` on the main branch with push access; it updates `CHANGELOG.md`, bumps the version, and creates the release commit/tag.
+- The current app version is surfaced in the footer from `appConfig.version` (pulled from `package.json`).
+
 ## Testing
 
 This project is tested with BrowserStack.
