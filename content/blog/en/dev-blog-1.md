@@ -1,17 +1,29 @@
 ---
 title: 'DevBlog #1'
+alternativeTitle: 'What we use and why it helps'
 description: 'Today I would like to present you the active used technologies from our team and which advantages these offer to us...'
-pubDate: 'Oct 21 2023'
+pubDate: '2023-10-21'
 headerImage: 'images/blog/dev-blog-1.webp'
 headerImageAlt: 'Title image for DevBlog #1'
 slug: 'dev-blog-1-what-we-using'
 translationKey: 'dev-blog-1-what-we-using'
+canonical: 'https://onelitefeather.net/en/blog/dev-blog-1-what-we-using'
+alternates:
+  - hreflang: 'de'
+    href: 'https://onelitefeather.net/de/blog/dev-blog-1-was-wir-verwenden'
+  - hreflang: 'en'
+    href: 'https://onelitefeather.net/en/blog/dev-blog-1-what-we-using'
+  - hreflang: 'x-default'
+    href: 'https://onelitefeather.net/en/blog/dev-blog-1-what-we-using'
 schemaOrg:
-  - type: "BlogPosting"
-    headline: "Today I would like to present you the active used technologies from our team and which advantages these offer to us..."
+  - type: 'BlogPosting'
+    headline: 'DevBlog #1: What we use'
+    alternativeHeadline: 'What we use and why it helps'
+    description: 'Today I would like to present you the active used technologies from our team and which advantages these offer to us...'
     author:
-      type: "Person"
-      name: "Phillipp Glanz"
+      type: 'Person'
+      name: 'Phillipp Glanz'
+    datePublished: '2023-10-21T00:00:00+00:00'
 ---
 This blog entry was translated, there is also a german version of it!
 

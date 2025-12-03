@@ -2,17 +2,28 @@
 title: 'Everything You Need to Know About Ethanol'
 alternativeTitle: 'Already present on several hundred servers, what lies behind it'
 description: 'Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.'
-pubDate: 'Jul 23 2024'
+pubDate: '2024-07-23'
 headerImage: 'images/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
 headerImageAlt: 'Ethanol Malware Post Image'
 slug: 'everything-you-need-to-know-about-ethanol'
 translationKey: 'everything-you-need-to-know-about-ethanol'
+canonical: 'https://onelitefeather.net/en/blog/everything-you-need-to-know-about-ethanol'
+alternates:
+  - hreflang: 'de'
+    href: 'https://onelitefeather.net/de/blog/alles-was-man-ueber-ethanol-wissen-sollte'
+  - hreflang: 'en'
+    href: 'https://onelitefeather.net/en/blog/everything-you-need-to-know-about-ethanol'
+  - hreflang: 'x-default'
+    href: 'https://onelitefeather.net/en/blog/everything-you-need-to-know-about-ethanol'
 schemaOrg:
-  - type: "BlogPosting"
-    headline: 'Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.'
+  - type: 'BlogPosting'
+    headline: 'Everything You Need to Know About Ethanol'
+    alternativeHeadline: 'Already present on several hundred servers, what lies behind it'
+    description: 'Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.'
     author:
-      type: "Person"
-      name: "Phillipp Glanz"
+      type: 'Person'
+      name: 'Phillipp Glanz'
+    datePublished: '2024-07-23T00:00:00+00:00'
 ---
 
 Relatively unknown yet already present on several hundred servers. Like Fractureiser, it is promoted by the user mori0 / Riesenrad to “troll” servers. What lies behind it.
