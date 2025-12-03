@@ -18,7 +18,7 @@ const routeTitle = computed(() => (route.meta?.title ? t(route.meta.title as str
         <main class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1">
           <slot/>
         </main>
-        <LazyFooter />
+        <LazyOnelitefeatherCommonFooter />
       </div>
     </Body>
   </Html>
