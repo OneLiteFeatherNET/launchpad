@@ -1,6 +1,6 @@
-import { queryContent } from '#imports'
-import type { BlogArticle, BlogAlternateLanguageLink, BlogAlternateHeader } from '~/types/blog'
 import { createError } from '#imports'
+import { queryContent } from '#content'
+import type { BlogArticle, BlogAlternateLanguageLink, BlogAlternateHeader } from '~/types/blog'
 
 export interface BlogOverviewOptions {
   /**
