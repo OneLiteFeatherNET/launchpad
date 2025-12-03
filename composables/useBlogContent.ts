@@ -1,3 +1,4 @@
+import { queryContent } from '#imports'
 import type { BlogArticle, BlogAlternateLanguageLink, BlogAlternateHeader } from '~/types/blog'
 
 export interface BlogOverviewOptions {
@@ -79,21 +80,32 @@ export function useBlogArticle() {
   const config = useRuntimeConfig()
 
   // Slug derived from catch-all route param; reactive on client navigation
-  const slug = computed<string | undefined>(() => {
+  const slugSegments = computed<string[]>(() => {
     const p = (route.params as any)?.slug
-    if (Array.isArray(p) && p.length) return String(p[p.length - 1])
-    if (typeof p === 'string') return p
-    const parts = (route.path || '').split('/')
-    return parts.at(3)
+    if (Array.isArray(p) && p.length) return p.map(String)
+    if (typeof p === 'string' && p.length > 0) return [p]
+
+    const parts = (route.path || '').split('/').filter(Boolean)
+    const blogIndex = parts.indexOf('blog')
+    if (blogIndex !== -1) return parts.slice(blogIndex + 1)
+    return []
   })
+
+  const slug = computed<string | undefined>(() => slugSegments.value.at(-1))
+  const contentPath = computed(
+    () => `/${['blog', locale.value, ...slugSegments.value].filter(Boolean).join('/')}`
+  )
 
   const { data: article } = useAsyncData<BlogArticle | null>(
     () => `${route.path}-${locale.value}`,
-    () => {
-      // @ts-ignore queryCollection is provided by @nuxt/content
-      return queryCollection('blog_' + (locale?.value || 'de'))
-        .where('slug', '=', slug.value as any)
-        .first()
+    async () => {
+      if (!slug.value) return null
+
+      const doc = await queryContent(`blog/${locale.value}`)
+        .where('_path', '=', contentPath.value)
+        .findOne()
+
+      return (doc as BlogArticle | null) || null
     },
     { watch: [locale, slug] }
   )
