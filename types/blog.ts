@@ -24,6 +24,7 @@ export type BlogArticle = (
   | BlogDeCollectionItem
   | BlogEnCollectionItem
 ) & {
+  releaseDate?: string | Date
   canonical?: string
   alternates?: BlogAlternateHeader[]
   seo?: BlogSEO

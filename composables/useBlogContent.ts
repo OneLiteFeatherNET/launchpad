@@ -1,5 +1,6 @@
 import { queryContent } from '#imports'
 import type { BlogArticle, BlogAlternateLanguageLink, BlogAlternateHeader } from '~/types/blog'
+import { createError } from '#imports'
 
 export interface BlogOverviewOptions {
   /**
@@ -32,13 +33,28 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
     { watch: [locale] }
   )
 
-  const top1Article = computed<BlogArticle | null>(
-    () => (allPostsData.value || [])[0] || null
-  )
+  const isReleased = (entry: BlogArticle | null | undefined) => {
+    if (!entry) return false
+    const release = (entry as any).releaseDate || entry.pubDate
+    if (!release) return true
+    return new Date(release as any).getTime() <= Date.now()
+  }
 
-  const remainingPosts = computed<BlogArticle[]>(() =>
-    (allPostsData.value || []).slice(1)
-  )
+  const releaseDate = (entry: BlogArticle) =>
+    (entry as any).releaseDate || entry.pubDate || new Date(0).toISOString()
+
+  const visiblePosts = computed<BlogArticle[]>(() => {
+    const posts = (allPostsData.value || []).filter(isReleased)
+    return posts.sort(
+      (a, b) =>
+        new Date(releaseDate(b) as any).getTime() -
+        new Date(releaseDate(a) as any).getTime()
+    )
+  })
+
+  const top1Article = computed<BlogArticle | null>(() => visiblePosts.value[0] || null)
+
+  const remainingPosts = computed<BlogArticle[]>(() => visiblePosts.value.slice(1))
 
   const page = ref(options.page ?? 1)
   const pageSize = options.pageSize
@@ -104,6 +120,17 @@ export function useBlogArticle() {
       const doc = await queryContent(`blog/${locale.value}`)
         .where('_path', '=', contentPath.value)
         .findOne()
+
+      const isReleased = (entry: BlogArticle | null | undefined) => {
+        if (!entry) return false
+        const release = (entry as any).releaseDate || entry.pubDate
+        if (!release) return true
+        return new Date(release as any).getTime() <= Date.now()
+      }
+
+      if (doc && !isReleased(doc as BlogArticle)) {
+        throw createError({ statusCode: 404, statusMessage: 'Article not released' })
+      }
 
       return (doc as BlogArticle | null) || null
     },
