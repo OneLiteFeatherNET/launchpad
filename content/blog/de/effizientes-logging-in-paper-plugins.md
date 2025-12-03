@@ -1,17 +1,27 @@
 ---
-title: "Effizientes Logging in Paper-Plugins mit SLF4J und log4j2"
-description: "Lerne, wie du mit SLF4J und log4j2 Marker verwendest, um Logs thematisch zu gruppieren und die Auswertung zu erleichtern."
-pubDate: 2024-09-29
-slug: "effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki"
+title: 'Effizientes Logging in Paper-Plugins mit SLF4J und log4j2'
+alternativeTitle: 'Markerbasiertes Logging für strukturierte Auswertungen'
+description: 'Lerne, wie du mit SLF4J und log4j2 Marker verwendest, um Logs thematisch zu gruppieren und die Auswertung zu erleichtern.'
+pubDate: '2024-09-29'
 headerImage: 'images/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki.jpg'
 headerImageAlt: 'Effizientes Logging in Paper-Plugins mit SLF4J und log4j2 Grafana Loki Bild'
+slug: 'effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
+translationKey: 'effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
+canonical: 'https://onelitefeather.net/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
+alternates:
+  - hreflang: 'de'
+    href: 'https://onelitefeather.net/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
+  - hreflang: 'x-default'
+    href: 'https://onelitefeather.net/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
 schemaOrg:
-  - type: "BlogPosting"
-    headline: "Lerne, wie du mit SLF4J und log4j2 Marker verwendest, um Logs thematisch zu gruppieren und die Auswertung zu erleichtern."
+  - type: 'BlogPosting'
+    headline: 'Effizientes Logging in Paper-Plugins mit SLF4J und log4j2'
+    alternativeHeadline: 'Markerbasiertes Logging für strukturierte Auswertungen'
+    description: 'Lerne, wie du mit SLF4J und log4j2 Marker verwendest, um Logs thematisch zu gruppieren und die Auswertung zu erleichtern.'
     author:
-      type: "Person"
-      name: "Phillipp Glanz"
-    datePublished: "2024-09-29T00:00:00+00:00"
+      type: 'Person'
+      name: 'Phillipp Glanz'
+    datePublished: '2024-09-29T00:00:00+00:00'
 ---
 
 Wenn man ein Minecraft-Plugin für PaperMC entwickelt, kann es schnell unübersichtlich werden, den Überblick über die Logs zu behalten. Besonders bei großen Projekten oder Multi-Modul-Architekturen stoßen herkömmliche Log-Nachrichten an ihre Grenzen. Umso wichtiger ist es, eine klare Struktur in die Log-Dateien zu bringen, die relevante Informationen einfach filterbar macht.

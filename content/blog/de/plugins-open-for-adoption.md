@@ -1,17 +1,27 @@
 ---
 title: 'Wer möchte "Plugins" adoptieren ?'
+alternativeTitle: 'Maintainer für unsere Plugins gesucht'
 description: 'Adoption von Plugins hilft uns und der Minecraft Community weiterhin sinnvolle Plugins/Software zu warten, dabei helfen wir als Organisation den Maintainer die Richtigen Personen oder Resourcen zu finden.'
-pubDate: 'Feb 5 2025'
+pubDate: '2025-02-05'
 headerImage: 'images/blog/plugin-adoptation.webp'
 headerImageAlt: 'Wer möchte Plugins adoptieren ? Bild'
 slug: 'wer-moechte-plugins-adoptieren'
+translationKey: 'plugins-open-for-adoption'
+canonical: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'
+alternates:
+  - hreflang: 'de'
+    href: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'
+  - hreflang: 'x-default'
+    href: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'
 schemaOrg:
-  - type: "BlogPosting"
-    headline: 'Adoption von Plugins hilft uns und der Minecraft Community weiterhin sinnvolle Plugins/Software zu warten, dabei helfen wir als Organisation den Maintainer die Richtigen Personen oder Resourcen zu finden.'
+  - type: 'BlogPosting'
+    headline: 'Wer möchte "Plugins" adoptieren ?'
+    alternativeHeadline: 'Maintainer für unsere Plugins gesucht'
+    description: 'Adoption von Plugins hilft uns und der Minecraft Community weiterhin sinnvolle Plugins/Software zu warten, dabei helfen wir als Organisation den Maintainer die Richtigen Personen oder Resourcen zu finden.'
     author:
-      type: "Person"
-      name: "Phillipp Glanz"
-    datePublished: "2025-02-05T00:00:00+00:00"
+      type: 'Person'
+      name: 'Phillipp Glanz'
+    datePublished: '2025-02-05T00:00:00+00:00'
 ---
 ## Vorwort
 Durch die Erfahrung durch Jenkins möchten wir Plugins vorstellen die zur Adoption freigegeben sind. Dabei möchten wir als OneLiteFeather die Maintainer/Contributoren dazu unterstützen Sicherheit/Tools und mehr zu organisieren. 

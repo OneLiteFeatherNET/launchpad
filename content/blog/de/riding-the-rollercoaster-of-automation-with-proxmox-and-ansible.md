@@ -1,18 +1,29 @@
 ---
 title: 'Mit Proxmox und Ansible in eine Achterbahn der Automatisierung'
+alternativeTitle: 'Wie wir Infrastruktur mit Proxmox und Ansible automatisieren'
 description: 'In der unendlichen Weite der digitalen Welt hat unser Team, OneLiteFeather, eine kleine aber feine Spielwiese gefunden, auf der wir unsere kreativen und technischen Visionen verwirklichen. Im Zentrum dieser Entdeckungsreise stehen Proxmox und Ansible, zwei Werkzeuge, die uns nicht nur den Rücken freihalten, sondern auch die Türen zu unerforschten Gebieten öffnen.'
-pubDate: 'Oct 15 2023'
+pubDate: '2023-10-15'
 headerImage: 'images/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible.webp'
 headerImageAlt: 'Mit Proxmox und Ansible in eine Achterbahn der Automatisierung Bild'
 slug: 'mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
 translationKey: 'proxmox-ansible-automation'
+canonical: 'https://onelitefeather.net/de/blog/mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
+alternates:
+  - hreflang: 'de'
+    href: 'https://onelitefeather.net/de/blog/mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
+  - hreflang: 'en'
+    href: 'https://onelitefeather.net/en/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible'
+  - hreflang: 'x-default'
+    href: 'https://onelitefeather.net/en/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible'
 schemaOrg:
-  - type: "BlogPosting"
-    headline: 'In der unendlichen Weite der digitalen Welt hat unser Team, OneLiteFeather, eine kleine aber feine Spielwiese gefunden, auf der wir unsere kreativen und technischen Visionen verwirklichen. Im Zentrum dieser Entdeckungsreise stehen Proxmox und Ansible, zwei Werkzeuge, die uns nicht nur den Rücken freihalten, sondern auch die Türen zu unerforschten Gebieten öffnen.'
+  - type: 'BlogPosting'
+    headline: 'Mit Proxmox und Ansible in eine Achterbahn der Automatisierung'
+    alternativeHeadline: 'Wie wir Infrastruktur mit Proxmox und Ansible automatisieren'
+    description: 'In der unendlichen Weite der digitalen Welt hat unser Team, OneLiteFeather, eine kleine aber feine Spielwiese gefunden, auf der wir unsere kreativen und technischen Visionen verwirklichen. Im Zentrum dieser Entdeckungsreise stehen Proxmox und Ansible, zwei Werkzeuge, die uns nicht nur den Rücken freihalten, sondern auch die Türen zu unerforschten Gebieten öffnen.'
     author:
-      type: "Person"
-      name: "Phillipp Glanz"
-    datePublished: "2023-10-15T00:00:00+00:00"
+      type: 'Person'
+      name: 'Phillipp Glanz'
+    datePublished: '2023-10-15T00:00:00+00:00'
 ---
 In der unendlichen Weite der digitalen Welt hat unser Team, OneLiteFeather, eine kleine aber feine Spielwiese gefunden, auf der wir unsere kreativen und technischen Visionen verwirklichen. Im Zentrum dieser Entdeckungsreise stehen Proxmox und Ansible, zwei Werkzeuge, die uns nicht nur den Rücken freihalten, sondern auch die Türen zu unerforschten Gebieten öffnen.
 <!--more-->

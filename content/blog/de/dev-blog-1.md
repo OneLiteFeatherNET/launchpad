@@ -1,18 +1,29 @@
 ---
 title: 'DevBlog #1'
+alternativeTitle: 'Welche Technologien wir nutzen und warum'
 description: 'Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. '
-pubDate: 'Oct 21 2023'
+pubDate: '2023-10-21'
 headerImage: 'images/blog/dev-blog-1.webp'
 headerImageAlt: 'Title Bild für DevBlog #1'
-translationKey: 'dev-blog-1-what-we-using'
 slug: 'dev-blog-1-was-wir-verwenden'
+translationKey: 'dev-blog-1-what-we-using'
+canonical: 'https://onelitefeather.net/de/blog/dev-blog-1-was-wir-verwenden'
+alternates:
+  - hreflang: 'de'
+    href: 'https://onelitefeather.net/de/blog/dev-blog-1-was-wir-verwenden'
+  - hreflang: 'en'
+    href: 'https://onelitefeather.net/en/blog/dev-blog-1-what-we-using'
+  - hreflang: 'x-default'
+    href: 'https://onelitefeather.net/en/blog/dev-blog-1-what-we-using'
 schemaOrg:
-  - type: "BlogPosting"
-    headline: "Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. "
+  - type: 'BlogPosting'
+    headline: 'DevBlog #1: Technologien, die wir nutzen'
+    alternativeHeadline: 'Welche Technologien wir nutzen und warum'
+    description: 'Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. '
     author:
-      type: "Person"
-      name: "Phillipp Glanz"
-    datePublished: "2023-10-21T00:00:00+00:00"
+      type: 'Person'
+      name: 'Phillipp Glanz'
+    datePublished: '2023-10-21T00:00:00+00:00'
 ---
 Hallo alle zusammen,
 mein Name ist Phillipp. Ich bin einer der zwei Entwicklungsleiter und betreue hier im Team die Technologien sowie die Server Architektur. 

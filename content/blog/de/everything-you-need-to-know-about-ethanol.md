@@ -2,18 +2,28 @@
 title: 'Alles, was du über Ethanol wissen solltest'
 alternativeTitle: 'Schon jetzt auf mehreren hundert Servern, was sich dahinter verbirgt'
 description: 'Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern. Genauso wie Fractureiser wird diese von dem User mori0 / Riesenrad beworben, um Server zu “trollen”. Was sich dahinter verbirgt.'
-pubDate: 'Jul 23 2024'
+pubDate: '2024-07-23'
 headerImage: 'images/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
 headerImageAlt: 'Ethanol Malware Post Bild'
 slug: 'alles-was-man-ueber-ethanol-wissen-sollte'
 translationKey: 'everything-you-need-to-know-about-ethanol'
+canonical: 'https://onelitefeather.net/de/blog/alles-was-man-ueber-ethanol-wissen-sollte'
+alternates:
+  - hreflang: 'de'
+    href: 'https://onelitefeather.net/de/blog/alles-was-man-ueber-ethanol-wissen-sollte'
+  - hreflang: 'en'
+    href: 'https://onelitefeather.net/en/blog/everything-you-need-to-know-about-ethanol'
+  - hreflang: 'x-default'
+    href: 'https://onelitefeather.net/en/blog/everything-you-need-to-know-about-ethanol'
 schemaOrg:
-  - type: "BlogPosting"
-    headline: 'Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern. Genauso wie Fractureiser wird diese von dem User mori0 / Riesenrad beworben, um Server zu “trollen”. Was sich dahinter verbirgt.'
+  - type: 'BlogPosting'
+    headline: 'Alles, was du über Ethanol wissen solltest'
+    alternativeHeadline: 'Schon jetzt auf mehreren hundert Servern, was sich dahinter verbirgt'
+    description: 'Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern. Genauso wie Fractureiser wird diese von dem User mori0 / Riesenrad beworben, um Server zu “trollen”. Was sich dahinter verbirgt.'
     author:
-      type: "Person"
-      name: "Phillipp Glanz"
-    datePublished: "2024-07-23T00:00:00+00:00"
+      type: 'Person'
+      name: 'Phillipp Glanz'
+    datePublished: '2024-07-23T00:00:00+00:00'
 ---
 Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern. Genauso wie Fractureiser wird diese von dem User mori0 / Riesenrad beworben, um Server zu “trollen”. Was sich dahinter verbirgt.
 
