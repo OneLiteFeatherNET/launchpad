@@ -11,8 +11,10 @@ canonical: 'https://onelitefeather.net/de/blog/effizientes-logging-paper-plugins
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
+  - hreflang: 'en'
+    href: 'https://onelitefeather.net/en/blog/efficient-logging-paper-plugins-slf4j-log4j2-grafana-loki'
   - hreflang: 'x-default'
-    href: 'https://onelitefeather.net/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
+    href: 'https://onelitefeather.net/en/blog/efficient-logging-paper-plugins-slf4j-log4j2-grafana-loki'
 schemaOrg:
   - type: 'BlogPosting'
     headline: 'Effizientes Logging in Paper-Plugins mit SLF4J und log4j2'
