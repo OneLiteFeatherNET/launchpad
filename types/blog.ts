@@ -19,11 +19,29 @@ export interface BlogSEO {
   twitterDescription?: string
 }
 
+export interface BlogAuthorProfile {
+  slug: string
+  name: string
+  role?: string
+  avatar?: string
+  bio?: string
+  links?: {
+    website?: string
+    github?: string
+    twitter?: string
+    linkedin?: string
+    mastodon?: string
+    discord?: string
+  }
+}
+
 // Extend content-generated item type with optional new header fields
 export type BlogArticle = (
   | BlogDeCollectionItem
   | BlogEnCollectionItem
 ) & {
+  author?: string | string[]
+  authors?: BlogAuthorProfile[]
   releaseDate?: string | Date
   canonical?: string
   alternates?: BlogAlternateHeader[]

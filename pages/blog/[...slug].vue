@@ -12,7 +12,7 @@ definePageMeta({
   layout: 'default',
 });
 
-const { blog, headLinks } = useBlogArticle()
+const { blog, headLinks, authors } = useBlogArticle()
 const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/blog/SocialMediaShare.vue'))
 
 const img = useImage()
@@ -94,6 +94,28 @@ useSeoMeta(() => {
         >
           {{ d(new Date(blog?.pubDate as any)) }}
         </time>
+        <div
+          v-if="authors?.length"
+          class="mt-3 flex flex-wrap items-center gap-4 text-neutral-800 dark:text-neutral-200"
+        >
+          <div v-for="author in authors" :key="author.slug" class="flex items-center gap-3">
+            <NuxtImg
+              v-if="author.avatar"
+              :src="author.avatar"
+              :alt="author.name"
+              width="48"
+              height="48"
+              class="h-12 w-12 rounded-full border border-neutral-200 object-cover dark:border-neutral-700"
+              format="webp"
+            />
+            <div>
+              <p class="text-sm font-semibold">{{ author.name }}</p>
+              <p v-if="author.role" class="text-xs text-neutral-600 dark:text-neutral-400">
+                {{ author.role }}
+              </p>
+            </div>
+          </div>
+        </div>
 
         <section
           class="prose prose-neutral dark:prose-invert mt-4 md:mt-6 max-w-none"

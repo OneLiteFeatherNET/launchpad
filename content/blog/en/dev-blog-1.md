@@ -7,6 +7,7 @@ headerImage: 'images/blog/dev-blog-1.webp'
 headerImageAlt: 'Title image for DevBlog #1'
 slug: 'dev-blog-1-what-we-using'
 translationKey: 'dev-blog-1-what-we-using'
+author: phillipp-glanz
 canonical: 'https://onelitefeather.net/en/blog/dev-blog-1-what-we-using'
 alternates:
   - hreflang: 'de'

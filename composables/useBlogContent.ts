@@ -1,6 +1,11 @@
 import { createError } from '#imports'
 import { queryContent } from '#content'
-import type { BlogArticle, BlogAlternateLanguageLink, BlogAlternateHeader } from '~/types/blog'
+import type {
+  BlogArticle,
+  BlogAlternateLanguageLink,
+  BlogAlternateHeader,
+  BlogAuthorProfile
+} from '~/types/blog'
 
 export interface BlogOverviewOptions {
   /**
@@ -137,7 +142,32 @@ export function useBlogArticle() {
     { watch: [locale, slug] }
   )
 
-  const blog = computed<BlogArticle | null>(() => article.value)
+  const authorSlugs = computed<string[]>(() => {
+    const raw = (article.value as any)?.author
+    if (!raw) return []
+    return (Array.isArray(raw) ? raw : [raw]).map((s) => String(s)).filter(Boolean)
+  })
+
+  const { data: authors } = useAsyncData<BlogAuthorProfile[]>(
+    () => `blog-authors-${authorSlugs.value.join('|')}`,
+    async () => {
+      if (!authorSlugs.value.length) return []
+      const results = await Promise.all(
+        authorSlugs.value.map((slug) =>
+          queryContent('authors')
+            .where('_path', '=', `/authors/${slug}`)
+            .findOne()
+        )
+      )
+      return (results.filter(Boolean) as BlogAuthorProfile[]) || []
+    },
+    { watch: [authorSlugs] }
+  )
+
+  const blog = computed<BlogArticle | null>(() => {
+    if (!article.value) return null
+    return { ...(article.value as BlogArticle), authors: authors.value || [] }
+  })
 
   const alternateLanguages = ref<BlogAlternateLanguageLink[]>([])
 
@@ -249,6 +279,7 @@ export function useBlogArticle() {
 
   return {
     blog,
+    authors,
     alternateLanguages,
     headLinks
   }

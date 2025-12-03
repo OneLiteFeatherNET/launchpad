@@ -7,6 +7,7 @@ headerImage: 'images/blog/otis-player-data-header.png'
 headerImageAlt: 'Otis Microservice: zentrale Minecraft-Spielerdaten (Java, Micronaut)'
 slug: 'otis-zentrale-spielerstammdaten-minecraft'
 translationKey: 'otis'
+author: phillipp-glanz
 
 canonical: 'https://onelitefeather.net/de/blog/otis-zentrale-spielerstammdaten-minecraft'
 alternates:

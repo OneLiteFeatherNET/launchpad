@@ -7,6 +7,7 @@ headerImage: 'images/blog/riding-the-rollercoaster-of-automation-with-proxmox-an
 headerImageAlt: 'Mit Proxmox und Ansible in eine Achterbahn der Automatisierung Bild'
 slug: 'mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
 translationKey: 'proxmox-ansible-automation'
+author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
 alternates:
   - hreflang: 'de'

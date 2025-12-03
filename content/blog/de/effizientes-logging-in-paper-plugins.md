@@ -7,6 +7,7 @@ headerImage: 'images/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana
 headerImageAlt: 'Effizientes Logging in Paper-Plugins mit SLF4J und log4j2 Grafana Loki Bild'
 slug: 'effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
 translationKey: 'effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
+author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
 alternates:
   - hreflang: 'de'

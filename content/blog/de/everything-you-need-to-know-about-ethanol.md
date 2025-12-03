@@ -7,6 +7,7 @@ headerImage: 'images/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
 headerImageAlt: 'Ethanol Malware Post Bild'
 slug: 'alles-was-man-ueber-ethanol-wissen-sollte'
 translationKey: 'everything-you-need-to-know-about-ethanol'
+author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/alles-was-man-ueber-ethanol-wissen-sollte'
 alternates:
   - hreflang: 'de'
