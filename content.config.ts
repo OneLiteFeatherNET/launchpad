@@ -1,6 +1,9 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 import { asSchemaOrgCollection } from 'nuxt-schema-org/content'
-import { createLocalizedCollections, withI18nMeta } from './utils/content/collections'
+import {
+  defineLocalizedCollections,
+  withI18nMeta
+} from './utils/content/collections'
 
 const blogSchema = withI18nMeta(
   z.object({
@@ -107,50 +110,38 @@ const serverConceptSchema = z
 
 export default defineContentConfig({
   collections: {
-    ...createLocalizedCollections('blog', (locale) =>
-      defineCollection(
-        asSchemaOrgCollection({
-          type: 'page',
-          source: `blog/${locale}/**/*.md`,
-          schema: blogSchema
-        })
-      )
-    ),
-    ...createLocalizedCollections('home_carousel', (locale) =>
-      defineCollection({
-        type: 'data',
-        source: `carousel/${locale}/home.json`,
-        schema: carouselSchema
+    ...defineLocalizedCollections('blog', (locale) =>
+      asSchemaOrgCollection({
+        type: 'page',
+        source: `blog/${locale}/**/*.md`,
+        schema: blogSchema
       })
     ),
-    ...createLocalizedCollections('server_connect', (locale) =>
-      defineCollection({
-        type: 'data',
-        source: `server/${locale}/connect.json`,
-        schema: connectSchema
-      })
-    ),
-    ...createLocalizedCollections('timeline', (locale) =>
-      defineCollection({
-        type: 'data',
-        source: `timeline/${locale}/home.json`,
-        schema: timelineSchema
-      })
-    ),
-    ...createLocalizedCollections('team', (locale) =>
-      defineCollection({
-        type: 'data',
-        source: `team/${locale}/home.json`,
-        schema: teamSchema
-      })
-    ),
-    ...createLocalizedCollections('server_concept', (locale) =>
-      defineCollection({
-        type: 'data',
-        source: `server-concept/${locale}/home.json`,
-        schema: serverConceptSchema
-      })
-    ),
+    ...defineLocalizedCollections('home_carousel', (locale) => ({
+      type: 'data',
+      source: `carousel/${locale}/home.json`,
+      schema: carouselSchema
+    })),
+    ...defineLocalizedCollections('server_connect', (locale) => ({
+      type: 'data',
+      source: `server/${locale}/connect.json`,
+      schema: connectSchema
+    })),
+    ...defineLocalizedCollections('timeline', (locale) => ({
+      type: 'data',
+      source: `timeline/${locale}/home.json`,
+      schema: timelineSchema
+    })),
+    ...defineLocalizedCollections('team', (locale) => ({
+      type: 'data',
+      source: `team/${locale}/home.json`,
+      schema: teamSchema
+    })),
+    ...defineLocalizedCollections('server_concept', (locale) => ({
+      type: 'data',
+      source: `server-concept/${locale}/home.json`,
+      schema: serverConceptSchema
+    })),
     authors: defineCollection({
       type: 'page',
       source: 'authors/**/*.md',

@@ -28,3 +28,9 @@ export const createLocalizedCollections = (
     acc[`${name}_${locale}`] = factory(locale)
     return acc
   }, {})
+
+export const defineLocalizedCollections = (
+  name: string,
+  configFactory: (locale: Locale) => Parameters<typeof defineCollection>[0]
+) =>
+  createLocalizedCollections(name, (locale) => defineCollection(configFactory(locale)))
