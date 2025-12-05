@@ -95,6 +95,18 @@ useSeoMeta(() => {
           {{ d(new Date(blog?.pubDate as any)) }}
         </time>
         <div
+          v-if="blog?.tags?.length"
+          class="mt-3 flex flex-wrap gap-2"
+        >
+          <UiChip
+            v-for="tag in blog.tags"
+            :key="tag"
+            :label="tag"
+            variant="tonal"
+            as="span"
+          />
+        </div>
+        <div
           v-if="authors?.length"
           class="mt-3 flex flex-wrap items-center gap-4 text-neutral-800 dark:text-neutral-200"
         >

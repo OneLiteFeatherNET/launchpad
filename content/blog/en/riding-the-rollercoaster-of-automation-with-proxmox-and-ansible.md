@@ -7,6 +7,11 @@ headerImage: 'images/blog/riding-the-rollercoaster-of-automation-with-proxmox-an
 headerImageAlt: 'Riding the Rollercoaster of Automation with Proxmox and Ansible Image'
 slug: 'riding-the-rollercoaster-of-automation-with-proxmox-and-ansible'
 translationKey: 'proxmox-ansible-automation'
+tags:
+  - automation
+  - proxmox
+  - ansible
+  - infrastructure
 author: phillipp-glanz
 canonical: 'https://onelitefeather.net/en/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible'
 alternates:

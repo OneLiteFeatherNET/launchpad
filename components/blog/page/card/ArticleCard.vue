@@ -45,6 +45,15 @@ const title = computed(() => {
         <h2 class="text-[22px] leading-7 font-medium text-gray-900 dark:text-gray-100">{{ title }}</h2>
         <!-- body-small for supporting text like dates -->
         <time class="block text-sm text-gray-600 dark:text-gray-400 mt-0.5">{{ d(new Date(blogArticle.pubDate as any)) }}</time>
+        <div v-if="blogArticle.tags?.length" class="mt-2 flex flex-wrap gap-2">
+          <UiChip
+            v-for="tag in blogArticle.tags"
+            :key="tag"
+            :label="tag"
+            variant="outlined"
+            as="span"
+          />
+        </div>
         <!-- body-medium content excerpt -->
         <ContentRenderer class="text-gray-700 dark:text-gray-300 mt-3" :value="blogArticle" :excerpt="true">
         </ContentRenderer>

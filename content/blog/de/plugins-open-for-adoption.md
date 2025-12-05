@@ -7,6 +7,10 @@ headerImage: 'images/blog/plugin-adoptation.webp'
 headerImageAlt: 'Wer möchte Plugins adoptieren ? Bild'
 slug: 'wer-moechte-plugins-adoptieren'
 translationKey: 'plugins-open-for-adoption'
+tags:
+  - minecraft
+  - community
+  - plugins
 author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'
 alternates:

@@ -13,6 +13,7 @@ let blogSchema = z.object({
     updatedDate: z.coerce.date().optional(),
     headerImage: z.string().optional(),
     headerImageAlt: z.string().optional(),
+    tags: z.array(z.string()).optional(),
     // Link to the same article in other languages
     translationKey: z.string().optional(),
 
@@ -174,6 +175,19 @@ export default defineContentConfig({
                         avatarUrl: z.string().url().optional(),
                     }).passthrough()
                 ).default([]),
+            }).passthrough(),
+        }),
+
+        authors: defineCollection({
+            type: "page",
+            source: 'authors/**/*.md',
+            schema: z.object({
+                slug: z.string(),
+                name: z.string(),
+                role: z.string().optional(),
+                avatar: z.string().optional(),
+                bio: z.string().optional(),
+                links: z.record(z.string()).optional(),
             }).passthrough(),
         }),
 

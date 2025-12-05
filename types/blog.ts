@@ -47,4 +47,5 @@ export type BlogArticle = (
   alternates?: BlogAlternateHeader[]
   seo?: BlogSEO
   head?: Record<string, any>
+  tags?: string[]
 }

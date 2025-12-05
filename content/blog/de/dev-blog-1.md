@@ -8,6 +8,10 @@ headerImageAlt: 'Title Bild für DevBlog #1'
 slug: 'dev-blog-1-was-wir-verwenden'
 translationKey: 'dev-blog-1-what-we-using'
 author: phillipp-glanz
+tags:
+  - devblog
+  - technologien
+  - team
 canonical: 'https://onelitefeather.net/de/blog/dev-blog-1-was-wir-verwenden'
 alternates:
   - hreflang: 'de'
