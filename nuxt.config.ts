@@ -110,21 +110,6 @@ export default defineNuxtConfig({
             person_profiles: 'always'
         }
     },
-    sitemap: {
-        autoI18n: true,
-        xslColumns: [
-            {label: 'URL', width: '50%'},
-            {label: 'Last Modified', select: 'sitemap:lastmod', width: '25%'},
-            {label: 'Language', select: 'sitemap:hreflang', width: '25%'}
-        ],
-        urls: [],
-        sources: [],
-        defaults: {
-            changefreq: 'weekly',
-            priority: 0.8,
-            lastmod: new Date()
-        }
-    },
     content: {
         build: {
             markdown: {
