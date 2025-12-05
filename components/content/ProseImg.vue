@@ -1,13 +1,13 @@
 <template>
   <component
-      :is="ImageComponent"
-      :src="refinedSrc"
-      :alt="props.alt"
-      :width="props.width"
-      :height="props.height"
-      loading="lazy"
-      decoding="async"
-      class="max-w-full h-auto"
+    :is="componentToRender"
+    :src="refinedSrc"
+    :alt="props.alt"
+    :width="props.width"
+    :height="props.height"
+    loading="lazy"
+    decoding="async"
+    class="max-w-full h-auto"
   />
 </template>
 
@@ -36,8 +36,18 @@ const props = defineProps({
   }
 })
 
+const isInternal = computed(() => props.src?.startsWith('/') && !props.src.startsWith('//'))
+const isSvg = computed(() => {
+  const src = props.src
+  if (!src) {
+    return false
+  }
+  const [pathOnly] = src.split(/[?#]/)
+  return pathOnly.toLowerCase().endsWith('.svg')
+})
+
 const refinedSrc = computed(() => {
-  if (props.src?.startsWith('/') && !props.src.startsWith('//')) {
+  if (isInternal.value) {
     const _base = withLeadingSlash(withTrailingSlash(useRuntimeConfig().app.baseURL))
     if (_base !== '/' && !props.src.startsWith(_base)) {
       return joinURL(_base, props.src)
@@ -45,4 +55,6 @@ const refinedSrc = computed(() => {
   }
   return props.src
 })
+
+const componentToRender = computed(() => (isInternal.value && !isSvg.value ? ImageComponent : 'img'))
 </script>
