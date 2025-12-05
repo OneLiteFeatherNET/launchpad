@@ -1,11 +1,53 @@
-import { createError } from '#imports'
-import { queryContent } from '#content'
+import { createError, queryCollection } from '#imports'
+import type { PageCollectionItemBase } from '@nuxt/content'
+import type { LocaleObject } from 'vue-i18n'
 import type {
   BlogArticle,
   BlogAlternateLanguageLink,
   BlogAlternateHeader,
   BlogAuthorProfile
 } from '~/types/blog'
+
+type BlogCollectionKey = 'blog_de' | 'blog_en'
+type HeadLink = { rel: string; href: string; hreflang?: string; type?: string }
+type AuthorCollectionItem = BlogAuthorProfile & PageCollectionItemBase
+
+declare module '@nuxt/content' {
+  interface PageCollections {
+    authors: AuthorCollectionItem
+  }
+  interface Collections {
+    authors: AuthorCollectionItem
+  }
+}
+
+const normalizeReleaseDate = (entry: BlogArticle): Date | null => {
+  const raw = entry.releaseDate ?? entry.pubDate
+  if (!raw) return null
+  const parsed = raw instanceof Date ? raw : new Date(raw)
+  return Number.isNaN(parsed.getTime()) ? null : parsed
+}
+
+const releaseTimestamp = (entry: BlogArticle): number =>
+  normalizeReleaseDate(entry)?.getTime() ?? 0
+
+const isReleased = (entry: BlogArticle | null | undefined): entry is BlogArticle => {
+  if (!entry) return false
+  const release = normalizeReleaseDate(entry)
+  if (!release) return true
+  return release.getTime() <= Date.now()
+}
+
+const normalizeLocales = (list: unknown[]): LocaleObject[] =>
+  list
+    .filter(
+      (locale): locale is LocaleObject =>
+        Boolean(locale && typeof locale === 'object' && 'code' in (locale as Record<string, unknown>))
+    )
+    .map((locale) => locale as LocaleObject)
+
+const resolveHreflang = (locale: LocaleObject, fallback: string): string =>
+  locale.iso || (locale as { _hreflang?: string })._hreflang || locale.code || fallback
 
 export interface BlogOverviewOptions {
   /**
@@ -26,35 +68,22 @@ export interface BlogOverviewOptions {
  */
 export function useBlogOverview(options: BlogOverviewOptions = {}) {
   const { locale } = useI18n()
+  const blogCollection = computed<BlogCollectionKey>(
+    () => (`blog_${locale?.value || 'de'}`) as BlogCollectionKey
+  )
 
   const { data: allPostsData } = useAsyncData<BlogArticle[]>(
     () => `all-posts-${locale.value}`,
-    () => {
-      // @ts-ignore queryCollection is provided by @nuxt/content
-      return queryCollection('blog_' + (locale?.value || 'de'))
+    () =>
+      queryCollection(blogCollection.value)
         .order('pubDate', 'DESC')
-        .all()
-    },
+        .all(),
     { watch: [locale] }
   )
 
-  const isReleased = (entry: BlogArticle | null | undefined) => {
-    if (!entry) return false
-    const release = (entry as any).releaseDate || entry.pubDate
-    if (!release) return true
-    return new Date(release as any).getTime() <= Date.now()
-  }
-
-  const releaseDate = (entry: BlogArticle) =>
-    (entry as any).releaseDate || entry.pubDate || new Date(0).toISOString()
-
   const visiblePosts = computed<BlogArticle[]>(() => {
     const posts = (allPostsData.value || []).filter(isReleased)
-    return posts.sort(
-      (a, b) =>
-        new Date(releaseDate(b) as any).getTime() -
-        new Date(releaseDate(a) as any).getTime()
-    )
+    return [...posts].sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a))
   })
 
   const top1Article = computed<BlogArticle | null>(() => visiblePosts.value[0] || null)
@@ -99,10 +128,17 @@ export function useBlogArticle() {
   const { locale, locales } = useI18n()
   const route = useRoute()
   const config = useRuntimeConfig()
+  const blogCollection = computed<BlogCollectionKey>(
+    () => (`blog_${locale?.value || 'de'}`) as BlogCollectionKey
+  )
+  const availableLocales = computed<LocaleObject[]>(() =>
+    normalizeLocales((locales.value || []) as unknown[])
+  )
 
   // Slug derived from catch-all route param; reactive on client navigation
   const slugSegments = computed<string[]>(() => {
-    const p = (route.params as any)?.slug
+    const params = route.params as Record<string, string | string[] | undefined>
+    const p = params?.slug
     if (Array.isArray(p) && p.length) return p.map(String)
     if (typeof p === 'string' && p.length > 0) return [p]
 
@@ -113,37 +149,27 @@ export function useBlogArticle() {
   })
 
   const slug = computed<string | undefined>(() => slugSegments.value.at(-1))
-  const contentPath = computed(
-    () => `/${['blog', locale.value, ...slugSegments.value].filter(Boolean).join('/')}`
-  )
 
   const { data: article } = useAsyncData<BlogArticle | null>(
     () => `${route.path}-${locale.value}`,
     async () => {
       if (!slug.value) return null
 
-      const doc = await queryContent(`blog/${locale.value}`)
-        .where('_path', '=', contentPath.value)
-        .findOne()
+      const doc = (await queryCollection(blogCollection.value)
+        .where('slug', '=', slug.value)
+        .first()) as BlogArticle | null
 
-      const isReleased = (entry: BlogArticle | null | undefined) => {
-        if (!entry) return false
-        const release = (entry as any).releaseDate || entry.pubDate
-        if (!release) return true
-        return new Date(release as any).getTime() <= Date.now()
-      }
-
-      if (doc && !isReleased(doc as BlogArticle)) {
+      if (doc && !isReleased(doc)) {
         throw createError({ statusCode: 404, statusMessage: 'Article not released' })
       }
 
-      return (doc as BlogArticle | null) || null
+      return doc || null
     },
     { watch: [locale, slug] }
   )
 
   const authorSlugs = computed<string[]>(() => {
-    const raw = (article.value as any)?.author
+    const raw = article.value?.author
     if (!raw) return []
     return (Array.isArray(raw) ? raw : [raw]).map((s) => String(s)).filter(Boolean)
   })
@@ -154,12 +180,12 @@ export function useBlogArticle() {
       if (!authorSlugs.value.length) return []
       const results = await Promise.all(
         authorSlugs.value.map((slug) =>
-          queryContent('authors')
-            .where('_path', '=', `/authors/${slug}`)
-            .findOne()
+          queryCollection('authors')
+            .where('slug', '=', slug)
+            .first()
         )
       )
-      return (results.filter(Boolean) as BlogAuthorProfile[]) || []
+      return (results.filter(Boolean) as AuthorCollectionItem[]) || []
     },
     { watch: [authorSlugs] }
   )
@@ -172,7 +198,7 @@ export function useBlogArticle() {
   const alternateLanguages = ref<BlogAlternateLanguageLink[]>([])
 
   // Helper to resolve a base URL
-  const resolveBaseUrl = () =>
+  const resolveBaseUrl = (): string =>
     config.public.siteUrl || config.public.baseUrl || 'https://onelitefeather.net'
 
   // Rebuild alternates whenever article/locale changes
@@ -190,36 +216,28 @@ export function useBlogArticle() {
 
     if (!blog.value.translationKey) return
 
-    const otherLocales = (locales.value || []).filter((l) => {
-      return typeof l === 'object' && (l as any).code !== locale.value
-    })
+    const otherLocales = availableLocales.value.filter((l) => l.code !== locale.value)
 
     const baseUrl = resolveBaseUrl()
-    for (const otherLocale of otherLocales as any[]) {
-      if (typeof otherLocale !== 'object') continue
-
-      // @ts-ignore queryCollection is provided by @nuxt/content
-      const translated = await queryCollection(`blog_${otherLocale.code}`)
+    for (const otherLocale of otherLocales) {
+      const translated = await queryCollection(`blog_${otherLocale.code}` as BlogCollectionKey)
         .where('translationKey', '=', blog.value?.translationKey)
         .first()
 
       if (translated) {
-        const hreflangValue =
-          (otherLocale as any).iso ||
-          (otherLocale as any)._hreflang ||
-          otherLocale.code
+        const hreflangValue = resolveHreflang(otherLocale, otherLocale.code)
 
         alternateLanguages.value.push({
           locale: hreflangValue,
-          url: `${baseUrl}/${otherLocale.code}/blog/${(translated as any).slug}`
+          url: `${baseUrl}/${otherLocale.code}/blog/${(translated as BlogArticle).slug}`
         })
       }
     }
   }, { immediate: true })
 
   // Canonical + hreflang Informationen für den Head
-  const headLinks = computed(() => {
-    const links: { rel: string; href: string; hreflang?: string; type?: string }[] = []
+  const headLinks = computed<HeadLink[]>(() => {
+    const links: HeadLink[] = []
     // add favicon
     links.push({ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' })
 
@@ -228,11 +246,9 @@ export function useBlogArticle() {
     const baseUrl = resolveBaseUrl()
 
     const currentLocaleObj =
-      ((locales.value || []) as any[]).find(
-        (l: any) => typeof l === 'object' && l.code === locale.value
-      ) || {}
-    const currentHreflang =
-      (currentLocaleObj as any).iso || (currentLocaleObj as any)._hreflang || (locale.value as any)
+      availableLocales.value.find((l) => l.code === locale.value) ||
+      ({ code: locale.value } as LocaleObject)
+    const currentHreflang = resolveHreflang(currentLocaleObj, locale.value)
 
     // Prefer explicit canonical from front-matter, else compute fallback
     const canonicalUrl =
