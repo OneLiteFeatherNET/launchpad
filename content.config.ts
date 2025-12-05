@@ -1,43 +1,24 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 import { asSchemaOrgCollection } from 'nuxt-schema-org/content'
+import { createLocalizedCollections, withI18nMeta } from './utils/content/collections'
 
-const locales = ['de', 'en'] as const
-type Locale = (typeof locales)[number]
-
-const createLocalizedCollections = (
-  name: string,
-  factory: (locale: Locale) => ReturnType<typeof defineCollection>
-) =>
-  locales.reduce<Record<string, ReturnType<typeof defineCollection>>>((acc, locale) => {
-    acc[`${name}_${locale}`] = factory(locale)
-    return acc
-  }, {})
-
-const blogSchema = z.object({
-  title: z.string(),
-  alternativeTitle: z.string().optional(),
-  description: z.string(),
-  slug: z.string(),
-  pubDate: z.coerce.date(),
-  updatedDate: z.coerce.date().optional(),
-  headerImage: z.string().optional(),
-  headerImageAlt: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-  translationKey: z.string().optional(),
-  canonical: z.string().url().optional(),
-  alternates: z
-    .array(
-      z.object({
-        hreflang: z.string(),
-        href: z.string().url()
-      })
-    )
-    .optional(),
-  excerpt: z.object({
-    type: z.string(),
-    children: z.any()
+const blogSchema = withI18nMeta(
+  z.object({
+    title: z.string(),
+    alternativeTitle: z.string().optional(),
+    description: z.string(),
+    slug: z.string(),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    headerImage: z.string().optional(),
+    headerImageAlt: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    excerpt: z.object({
+      type: z.string(),
+      children: z.any()
+    })
   })
-})
+)
 
 const carouselSchema = z.object({
   key: z.string().optional(),
