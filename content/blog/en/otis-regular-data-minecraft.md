@@ -36,9 +36,13 @@ schemaOrg:
 
 ## Preamble
 
+Otis is a [Java](https://www.java.com/de/) [Micronaut](https://micronaut.io/) service ([Otis](https://github.com/OneLiteFeatherNET/otis)) that provides central player master data. That includes the Mojang UUID ([v4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))) for Minecraft Java, an internal UUID ([v7](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_7_(timestamp_and_random))) for our ecosystem, the player name, language, and optionally first/last join times. As a central interface, Otis also unlocks further use cases such as metadata, bans, or Discord bots. Being system-critical, it must be highly available.
+
+As an MVP microservice, Otis helps us gather experience with our infrastructure while keeping a high availability/consistency bar.
+
 ---
 
-## Preamble
+## Problem
 
 From a developer perspective, we lack a single source of truth for player lookup, converting names to UUIDs, and processing internal data for downstream systems. Without Otis, devs pull data from scattered sources (own/third-party DBs and services) or roll their own, which leads to duplicate data, inconsistent deletions (bad for GDPR), and tangled dependencies—sysadmins can lose track during migrations.
 
