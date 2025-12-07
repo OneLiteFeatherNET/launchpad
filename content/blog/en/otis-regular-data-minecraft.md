@@ -36,7 +36,7 @@ schemaOrg:
 ## Preamble
 
 Modern Minecraft server ecosystems often lack a reliable central point of truth for player information. Developers must frequently retrieve the same data from scattered sources or—even worse—reimplement their own redundant systems. This leads to data duplication, inconsistent states, and incomplete data deletion, which can conflict with privacy law requirements and make daily development unnecessarily complicated.
-
+<!--more-->
 Administrators also face challenges without centralized data: cross-server punishments become harder to manage, players changing their names become difficult to track, and communication across teams is slowed down.
 
 The reasons behind decentralized data aren't purely technical. Social and organizational factors often play just as large a role. At the start of a project, teams are small or rely on third‑party plugins with their own data models. Developers work independently, often without alignment on common standards. As a result, different minigames—such as “Bedwars” and “SkyPvP”—may all store nearly identical information:
