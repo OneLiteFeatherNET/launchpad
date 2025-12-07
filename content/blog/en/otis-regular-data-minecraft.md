@@ -33,65 +33,138 @@ schemaOrg:
     datePublished: '2025-11-29T00:00:00+00:00'
 
 ---
-
 ## Preamble
 
-Otis is a [Java](https://www.java.com/de/) [Micronaut](https://micronaut.io/) service ([Otis](https://github.com/OneLiteFeatherNET/otis)) that provides central player master data. That includes the Mojang UUID ([v4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))) for Minecraft Java, an internal UUID ([v7](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_7_(timestamp_and_random))) for our ecosystem, the player name, language, and optionally first/last join times. As a central interface, Otis also unlocks further use cases such as metadata, bans, or Discord bots. Being system-critical, it must be highly available.
+Modern Minecraft server ecosystems often lack a reliable central point of truth for player information. Developers must frequently retrieve the same data from scattered sources or—even worse—reimplement their own redundant systems. This leads to data duplication, inconsistent states, and incomplete data deletion, which can conflict with privacy law requirements and make daily development unnecessarily complicated.
 
-As an MVP microservice, Otis helps us gather experience with our infrastructure while keeping a high availability/consistency bar.
+Administrators also face challenges without centralized data: cross-server punishments become harder to manage, players changing their names become difficult to track, and communication across teams is slowed down.
 
----
+The reasons behind decentralized data aren't purely technical. Social and organizational factors often play just as large a role. At the start of a project, teams are small or rely on third‑party plugins with their own data models. Developers work independently, often without alignment on common standards. As a result, different minigames—such as “Bedwars” and “SkyPvP”—may all store nearly identical information:
 
-## Problem
+- Username and UUID
+- IP address
+- Language preferences
+- Player textures
+- Kills, deaths, and scoreboards
+- Global currency values
 
-From a developer perspective, we lack a single source of truth for player lookup, converting names to UUIDs, and processing internal data for downstream systems. Without Otis, devs pull data from scattered sources (own/third-party DBs and services) or roll their own, which leads to duplicate data, inconsistent deletions (bad for GDPR), and tangled dependencies—sysadmins can lose track during migrations.
+This fragmentation grows as teams expand, developers come and go, and documentation gaps widen. Attempts to introduce “core” plugins often fail because they grow too large, too intrusive, or too tightly coupled with specific server platforms like Paper, Spigot, or Minestom. These systems are difficult to maintain, prone to breaking changes, and rarely attractive to developers who simply need clean, centralized player data.
 
-Admins and moderators also face extra overhead without a shared source: network-wide bans/unlocks, tracking name changes, and coordination with players become harder.
+Technically, additional barriers arise from missing shared knowledge, lack of API standards, and inconsistent experience within teams. Without agreed-upon architectural patterns, centralized systems become complex, unscalable, or unusable because they require intimate knowledge of internal processes. All of this results in poor API design.
 
-Decentralized data often arises due to social/organizational gaps: early projects have few devs, rely on third-party plugins, or multiple minigame teams prototype in isolation without shared standards. Minigames like “Bedwars” and “SkyPvP” may both need player name/UUID, IP, language, textures, scores, currencies, etc. If no central interface exists, teams improvise, duplicate data, or depend on “core” plugins that become heavy hard dependencies and lag behind API updates. High team turnover and missing docs worsen this.
+**TL;DR:** A successful central data service depends not only on technology but also on social alignment and shared understanding. Clear communication is the real foundation.
 
-Technical hurdles: uneven knowledge and missing shared API standards can produce fragile or unusable “core” interfaces. Good APIs need clarity and stability; otherwise, devs avoid them and build their own.
+Otis does not aim to be a universal player database for every Minecraft scenario. Instead, it centralizes the specific set of data our team considers essential. However, even the best central service only works when newcomers are introduced to it before they start implementing new systems.
 
-**TL;DR: Central services depend on technical and social decisions; communication is step one.**
-
-Otis doesn’t aim to be a universal player DB; it stores what our team deems essential. Newcomers must learn Otis early to avoid reinventing data stores.
-
-Alternatives like a shared NoSQL DB suffer from duplicate fields (e.g., differing UUIDs per mode) and lack archiving. We haven’t found an open-source fit for our use case.
-
----
-
-## Solution
-
-Otis exposes an interface to manage player master data. It autonomously handles key fields like player UUID, first/last network join, and player name.
-
-Technically, Otis uses a [layered architecture](https://en.wikipedia.org/wiki/Multitier_architecture) with [microservice](https://en.wikipedia.org/wiki/Microservices) principles in a [stateless](https://en.wikipedia.org/wiki/Stateless_protocol) design. In Gradle, we split backend, client, and Velocity plugin. The Velocity plugin uses the client; the client is generated from the backend’s OpenAPI spec. The backend itself has three layers: DTOs/controllers (client comms), service layer (validation/enrichment), and data layer (“repository”).
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/SchichtenarchitekturAufrufstrukturen.svg" class="dark:bg-white/85 bg-white" alt="Schichtenarchitektur Aufrufstrukturen" />
-
-### DTOs
-
-Data Transfer Objects carry OpenAPI annotations for autogenerated docs. Validation groups ensure constraints (e.g., max 16 chars for names, no negative timestamps) and let us return explicit responses without server stack traces—keeping internals safer.
-
-### Service layer
-
-Requests land in the service layer, which validates/enriches data before persistence. It can set internal fields not exposed externally—effectively the “switchboard.”
-
-### Data layer
-
-The data layer holds entities and queries defining storage structure.
-
-### Why layered + microservice?
-
-This keeps the MVP focused, fast, and clean. With microservices we stay platform-agnostic: Minestom, Bedrock, Paper, Fabric/Forge, etc., all talk via a single REST interface.
-
-A good use case is Minecraft, but any game with stable player IDs could integrate; other platforms (forums, Discord bots) can also plug in.
-
-### Possible issues
-
-Stateless calls mean DB hits are precious. Heavy parallel access can hurt availability/latency (ideally 5–15 ms DB response). Caching (shared across instances for horizontal scaling) helps; vertical scaling by just adding CPU/RAM is not ideal for us.
+An alternative approach using a shared SQL or NoSQL database was considered, but it fails to prevent duplication problems (e.g., “BUUID” fields in minigames), lacks standardized archival strategies, and still requires a heavy amount of specialized knowledge. No existing open‑source alternative met our needs.
 
 ---
 
-## Closing
+## The Problem
 
-This project gives us a solid base to tackle other efforts and deepen our understanding of architecture and communication. Otis can be reused for other (Minecraft) projects to gain stability, consistency, and maintainability. Questions? Ping us on Discord. Constructive feedback on this post is welcome.
+A modern Minecraft network without Otis faces several systemic issues:
+
+### **1. No single source of truth**
+Developers must query multiple databases, plugins, or APIs just to resolve basic facts like UUID to username mappings. This multiplies maintenance work and creates hidden dependencies.
+
+### **2. Scattered and duplicated data**
+Different plugins store the same data repeatedly. Deleting or updating information becomes nearly impossible to do globally.
+
+### **3. Inconsistent data retention and GDPR concerns**
+Without a central deletion point, removing player data according to regulations becomes complex and error‑prone.
+
+### **4. Fragile infrastructure**
+Interdependent systems break easily when one data source is migrated or updated.
+
+### **5. Social and organizational misalignment**
+Teams rarely have consistent standards, shared knowledge bases, or coordinated API design processes.
+
+### **6. High developer turnover**
+Knowledge gets lost. Systems drift apart. Documentation lags behind.
+
+All these points create friction, slow development, and increase operational risk.
+
+---
+
+## The Solution: Otis
+
+Otis is a platform‑agnostic, stateless microservice built with Java and Micronaut. It provides a layered architecture and a clean REST interface that centralizes essential player master data.
+
+Otis automatically manages:
+
+- Mojang UUID (v4)
+- Internal ecosystem UUID (v7)
+- Minecraft username
+- Preferred language
+- First join timestamp
+- Last join timestamp
+
+### **Why UUID v4 and UUID v7?**
+- **UUID v4** matches Mojang’s format for external consistency.
+- **UUID v7** is used internally for improved indexing, time-ordering, and ecosystem‑wide uniformity without exposing internal identifiers publicly.
+
+---
+
+## Architecture
+
+Otis follows a three‑layer, stateless microservice architecture:
+
+### **1. DTO & Controller Layer**
+- Contains OpenAPI‑annotated DTOs.
+- Auto‑generates documentation and ensures strong contract boundaries.
+- Performs input validation (e.g., username length, timestamp checks).
+- Returns explicit, structured errors without exposing stack traces.
+
+### **2. Service Layer**
+- Acts as the business logic unit.
+- Validates, enriches, or transforms data before database persistence.
+- Sets internal fields not exposed externally.
+- Serves as the “switchboard” connecting input to internal processes.
+
+### **3. Repository / Data Layer**
+- Stores all entities and database queries.
+- Defines strict structure for consistent data storage and retrieval.
+
+### **4. Client & Plugin Integration**
+- An autogenerated client (via OpenAPI) ensures minimal manual work.
+- A Velocity plugin consumes the client to bring Otis functionality into the Minecraft proxy environment.
+- Platform independence ensures future compatibility with Paper, Minestom, Fabric/Forge, Bedrock, etc.
+
+---
+
+## Scalability & Stateless Design
+
+Because Otis is stateless, each request directly interacts with the database. This keeps the service simple and predictable but introduces performance considerations:
+
+- Databases should respond within **5–15 ms** to ensure smooth operation.
+- All instances must share a distributed cache to support horizontal scaling effectively.
+- Vertical scaling is discouraged; horizontal scaling is the preferred method.
+
+Without caching, database contention may increase under heavy load. Horizontal scaling—running multiple Otis instances—is the intended approach for production setups.
+
+---
+
+## Limitations
+
+Otis does not attempt to store all possible player‑related data. It intentionally focuses on a minimal, high‑value subset. Specialized services (e.g., metadata service, ban service, analytics) are expected to build on top of Otis rather than overload it.
+
+Otis also cannot solve communication problems: teams must still align on how to use it. New developers must be onboarded early so they do not reinvent their own player data systems.
+
+---
+
+## Conclusion
+
+Otis provides a clean, scalable, maintainable foundation for player master data inside a Minecraft ecosystem. By centralizing essential information, it reduces duplication, simplifies development, improves GDPR compliance, and decreases operational risk across the network.
+
+It is not a one‑size‑fits‑all solution for every scenario, but it creates the stability needed for reliable downstream services. As we continue building additional components, Otis serves as the backbone of a modern, maintainable infrastructure.
+
+Feedback is always welcome, and discussions around Otis happen openly on Discord.
+
+---
+
+## Project Links
+
+- Repository: https://github.com/OneLiteFeatherNET/Otis
+- Issue Tracker: https://github.com/OneLiteFeatherNET/Otis/issues
+- Discord: https://discord.onelitefeather.net
+- Releases: https://github.com/OneLiteFeatherNET/Otis/releases  
