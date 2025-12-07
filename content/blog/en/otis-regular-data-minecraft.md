@@ -1,12 +1,17 @@
 ---
 title: 'Otis: Central player data for Minecraft (Java & Micronaut)'
-alternativeTitle: 'Stable Mojang UUID v4, internal UUID v7, name, and language storage for our ecosystem'
-description: 'Otis serves central player data: Mojang UUID v4, internal UUID v7, name, language, first/last login date. This helps reduce manual microprocesses, supports GDPR-oriented data structures and creates a foundation for more specialized services like general metadata or bans and for use in Discord bots.'
+alternativeTitle: 'Mojang UUID v4, internal UUID v7, name & language as a stable base for the ecosystem'
+description: 'Otis provides central player master data: Mojang UUID (v4), internal UUID (v7), Minecraft name, language, and optionally first/last join. This cuts manual one-off processes, supports GDPR-oriented data flows, and forms the foundation for downstream services like metadata, bans, and Discord bots.'
 pubDate: '2025-11-29'
 headerImage: 'images/blog/otis-player-data-header.png'
 headerImageAlt: 'Otis Microservice: central Minecraft player data (Java, Micronaut)'
 slug: 'otis-central-player-data-minecraft'
 translationKey: 'otis'
+tags:
+  - minecraft
+  - data
+  - microservices
+author: phillipp-glanz
 
 canonical: 'https://onelitefeather.net/en/blog/otis-central-player-data-minecraft'
 alternates:
@@ -21,43 +26,68 @@ schemaOrg:
   - type: 'BlogPosting'
     headline: 'Otis: Central player data for Minecraft'
     alternativeHeadline: 'Java/Micronaut microservice for UUIDs, name, and language'
-    description: 'Central player data interface inside an ecosystem: less manual microprocesses, clearer responsibilities, and a good foundation for reliable services.'
+    description: 'Central player data as an interface in the ecosystem: fewer manual data islands, clearer responsibilities, and a base for reliable services.'
     author:
-        type: 'Person'
-        name: 'Phillipp Glanz'
+      type: 'Person'
+      name: 'Phillipp Glanz'
     datePublished: '2025-11-29T00:00:00+00:00'
----# Introduction to the Otis project
 
 ---
 
 ## Preamble
 
-From a developers point of view, there lacks a single source of data (a so-called [Single source of Truth](https://de.wikipedia.org/wiki/Single_Point_of_Truth)) for easy retrieval of essential player data required for UUID to name conversion and further usage in internal, independent data. Because of this, developers are forced to retrieve required data from various sources (including own or third-party databases or services) or implement their own solutions. When working in a team, this leads to the possibility of losing track of already stored data, which may lead to duplicate data storing and incomplete deletion of data, as not all cases may be covered. Complex errors and dependencies are another result. This leads to a scattered infrastructure where even system administrators may lose track.
+---
 
-Without Otis, even administrators and moderators may have a hard time keeping everything organized. This includes harder networkwide punishment management of players or recognition and handling of players whose username has been changed, which may hinder communication between such players, the server team, and other players.
+## Preamble
 
-The development of a non-centralized data store might not be caused because of technical issues. Environmental changes may also be a cause. For example, at the start of a new project, none or only a small number of developers may be part of the team, which means that third-party solutions (such as external plugins) may be used, or in the case of multiple developers working on separate projects, solutions may be developed concurrently. These developers oftentimes do not communicate to choose a standardized solution. For example, the minigames "Bedwars" and "SkyPvP" may require the same data:
+From a developer perspective, we lack a single source of truth for player lookup, converting names to UUIDs, and processing internal data for downstream systems. Without Otis, devs pull data from scattered sources (own/third-party DBs and services) or roll their own, which leads to duplicate data, inconsistent deletions (bad for GDPR), and tangled dependencies—sysadmins can lose track during migrations.
 
-* Username and UUID
-* IP address
-* Language preference
-* Player textures
-* Kills and deaths for display in the game's scoreboards
-* Some sort of score
-* Global game balance / other currencies
+Admins and moderators also face extra overhead without a shared source: network-wide bans/unlocks, tracking name changes, and coordination with players become harder.
 
-Usually, developers have their hands full due their own projects and may not be aware of what another member of the team is already storing, which oftentimes means no central interface will be agreed upon. However, if a central solution does get thought out, it is usually contained in another "core" plugin, which results in a hard dependency. Each developer must ensure their existence and due to the tendency to include non-essential features may exceed their use as just a central interface for data storage. Since these need to be kept up-to-date separately, updates can introduce breaking changes. This furthermore results in developers not wanting to use such a system, as they do not want to have to wait for it to update first, which prompts them to implement their own solution regardless. From our observations, attempts to centralize data and code sources may also fail due to big fluctuations in the development team and a common lack of a documentation.
+Decentralized data often arises due to social/organizational gaps: early projects have few devs, rely on third-party plugins, or multiple minigame teams prototype in isolation without shared standards. Minigames like “Bedwars” and “SkyPvP” may both need player name/UUID, IP, language, textures, scores, currencies, etc. If no central interface exists, teams improvise, duplicate data, or depend on “core” plugins that become heavy hard dependencies and lag behind API updates. High team turnover and missing docs worsen this.
 
-Technical difficulties of implementing a central player data system may include a lack of common knowledge by the implementing developers, resulting in missing (API) standards. Such standards are important for future development, as the lack of such may result in inconsistent and coherently bad practices. The core interface may end up very complex, not scalable, or plain unusable, as it may require knowledge of internal processes (→ bad API design).
+Technical hurdles: uneven knowledge and missing shared API standards can produce fragile or unusable “core” interfaces. Good APIs need clarity and stability; otherwise, devs avoid them and build their own.
 
-The exact definition of this expertise is not part of this blog, however we will limit ourselves on the knowledge about technologies and standards used by us outside the Minecraft "cosmos".
+**TL;DR: Central services depend on technical and social decisions; communication is step one.**
 
-**TL;DR: A central service is independent of professional, technical, and social decisions and knowledge. The first step toward it is good communication!**
+Otis doesn’t aim to be a universal player DB; it stores what our team deems essential. Newcomers must learn Otis early to avoid reinventing data stores.
 
-Otis does not solve the requirement of universally applicable player data databases. It only stores data considered by us as a team as relevant. It also does not solve the issue of missing communication. It is important to make clear that Otis a solution by us is, which should be used. Newcomers must be made aware and instructed on Otis **before** they implement their own minigames or ideas which may require common player data.
-
-An alternative to Otis might be a central NoSQL database which can be used by other plugins (clients) to retrieve required data. This however fails to requirement of non-duplicate data (use of differently-named fields, like BUUID as Bedwars UUID) and data archive. We were not able to find other open-source alternatives which we could use for our systems and uses.
+Alternatives like a shared NoSQL DB suffer from duplicate fields (e.g., differing UUIDs per mode) and lack archiving. We haven’t found an open-source fit for our use case.
 
 ---
 
-### The Solution
+## Solution
+
+Otis exposes an interface to manage player master data. It autonomously handles key fields like player UUID, first/last network join, and player name.
+
+Technically, Otis uses a [layered architecture](https://en.wikipedia.org/wiki/Multitier_architecture) with [microservice](https://en.wikipedia.org/wiki/Microservices) principles in a [stateless](https://en.wikipedia.org/wiki/Stateless_protocol) design. In Gradle, we split backend, client, and Velocity plugin. The Velocity plugin uses the client; the client is generated from the backend’s OpenAPI spec. The backend itself has three layers: DTOs/controllers (client comms), service layer (validation/enrichment), and data layer (“repository”).
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/SchichtenarchitekturAufrufstrukturen.svg" class="dark:bg-white/85 bg-white" alt="Schichtenarchitektur Aufrufstrukturen" />
+
+### DTOs
+
+Data Transfer Objects carry OpenAPI annotations for autogenerated docs. Validation groups ensure constraints (e.g., max 16 chars for names, no negative timestamps) and let us return explicit responses without server stack traces—keeping internals safer.
+
+### Service layer
+
+Requests land in the service layer, which validates/enriches data before persistence. It can set internal fields not exposed externally—effectively the “switchboard.”
+
+### Data layer
+
+The data layer holds entities and queries defining storage structure.
+
+### Why layered + microservice?
+
+This keeps the MVP focused, fast, and clean. With microservices we stay platform-agnostic: Minestom, Bedrock, Paper, Fabric/Forge, etc., all talk via a single REST interface.
+
+A good use case is Minecraft, but any game with stable player IDs could integrate; other platforms (forums, Discord bots) can also plug in.
+
+### Possible issues
+
+Stateless calls mean DB hits are precious. Heavy parallel access can hurt availability/latency (ideally 5–15 ms DB response). Caching (shared across instances for horizontal scaling) helps; vertical scaling by just adding CPU/RAM is not ideal for us.
+
+---
+
+## Closing
+
+This project gives us a solid base to tackle other efforts and deepen our understanding of architecture and communication. Otis can be reused for other (Minecraft) projects to gain stability, consistency, and maintainability. Questions? Ping us on Discord. Constructive feedback on this post is welcome.
