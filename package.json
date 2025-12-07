@@ -1,7 +1,7 @@
 {
   "name": "onelitefeather.net",
   "version": "0.0.0-development",
-  "description": "OneLiteFeather blog built with Nuxt",
+  "description": "OneLiteFeather blog sharing network updates and engineering stories",
   "private": true,
   "type": "module",
   "engines": {
