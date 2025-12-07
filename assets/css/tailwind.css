@@ -1,7 +1,10 @@
 @import 'tailwindcss';
 
+:root {
+    color-scheme: light dark;
+}
+
 @theme {
-    /* Sekundärfarben aus dem Brand Guide */
     --color-secondary-pink: #EC008B;
     --color-secondary-orange: #F7931D;
     --color-secondary-purple: #91268F;
@@ -16,39 +19,17 @@
     --color-white:          #FFFFFF;
 
     /* Derived neutrals (UI) */
-    --color-bg:             #ffffff;
-    --color-surface:        #ffffff;
-    --color-text:           #111827;
-    --color-muted:          #6b7280;
-    --color-border:         #e5e7eb;
+    --color-bg:             light-dark(#ffffff, #0b1020);
+    --color-surface:        light-dark(#ffffff, #11162a);
+    --color-text:           light-dark(#111827, #e5e7eb);
+    --color-muted:          light-dark(#6b7280, #9aa3b2);
+    --color-border:         light-dark(#e5e7eb, #1f2743);
 
-    /* Gradients */
-    --gradient-brand: linear-gradient(90deg, #2A388F 0%, #27A9E1 100%);
-    --gradient-accent: linear-gradient(90deg, #91268F 0%, #EC008B 60%, #F7931D 100%);
-    /* Light variants (hellere Varianten) */
-    --gradient-brand-light: linear-gradient(90deg, #5163C6 0%, #7FD3F4 100%);
-    --gradient-accent-light: linear-gradient(90deg, #B35DB2 0%, #FF4FAE 60%, #FFB866 100%);
-}
-
-@theme {
     --gradient-from: var(--color-secondary-pink);
     --gradient-via:  var(--color-secondary-purple);
     --gradient-to:   var(--color-secondary-cyan);
+    /* Sekundärfarben aus dem Brand Guide */
 
-    /* Brand core */
-    --color-brand-primary:  #2A388F; /* tiefes Blau */
-    --color-brand-secondary:#27A9E1; /* helleres Blau */
-    --color-brand-accent:   #EC008B; /* magenta */
-    --color-brand-orange:   #F7931D; /* orange */
-    --color-brand-purple:   #91268F; /* violett */
-    --color-white:          #FFFFFF;
-
-    /* Derived neutrals (UI) */
-    --color-bg:             #ffffff;
-    --color-surface:        #ffffff;
-    --color-text:           #111827;
-    --color-muted:          #6b7280;
-    --color-border:         #e5e7eb;
 
     /* Gradients */
     --gradient-brand: linear-gradient(90deg, #2A388F 0%, #27A9E1 100%);
@@ -56,14 +37,4 @@
     /* Light variants (hellere Varianten) */
     --gradient-brand-light: linear-gradient(90deg, #5163C6 0%, #7FD3F4 100%);
     --gradient-accent-light: linear-gradient(90deg, #B35DB2 0%, #FF4FAE 60%, #FFB866 100%);
-}
-@theme dark {
-    --gradient-from: var(--color-secondary-cyan);
-    --gradient-via:  var(--color-secondary-blue);
-    --gradient-to:   var(--color-secondary-pink);
-    --color-bg:       #0b1020;
-    --color-surface:  #11162a;
-    --color-text:     #e5e7eb;
-    --color-muted:    #9aa3b2;
-    --color-border:   #1f2743;
 }
