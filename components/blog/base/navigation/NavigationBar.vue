@@ -15,7 +15,7 @@ const mobileMenuOpen = ref(false);
 </script>
 
 <template>
-  <header class="bg-white dark:bg-gray-900 sticky top-0 z-10 shadow-sm">
+  <header class="bg-white/90 dark:bg-gray-900/90 backdrop-blur sticky top-0 z-10 shadow-sm border-b border-gray-100 dark:border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
@@ -27,7 +27,7 @@ const mobileMenuOpen = ref(false);
                      class="h-15 w-15 rounded-full"
                      format="webp">
             </NuxtImg>
-            <span class="text-xl font-medium dark:text-white ">OneLiteFeather</span>
+            <span class="text-xl font-medium text-gray-900 dark:text-white">OneLiteFeather</span>
           </NuxtLinkLocale>
         </div>
         <nav class="hidden md:flex items-center space-x-1">
