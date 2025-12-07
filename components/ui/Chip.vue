@@ -50,14 +50,14 @@ const componentAttrs = computed(() => {
 const variantClasses = computed(() => {
   switch (props.variant) {
     case 'elevated':
-      return 'bg-white/90 dark:bg-surface/80 border-black/5 dark:border-white/10 shadow-sm hover:shadow-md text-neutral-900 dark:text-neutral-50'
+      return 'bg-white/90 text-neutral-900 border-black/5 shadow-sm hover:shadow-md dark:bg-white/15 dark:text-white dark:border-white/15'
     case 'outlined':
-      return 'border-border text-neutral-800 dark:text-neutral-100 hover:bg-black/5 dark:hover:bg-white/5'
+      return 'border-border text-neutral-800 hover:bg-black/5 dark:text-white dark:border-white/25 dark:hover:bg-white/10'
     default:
-      return 'bg-primary/10 text-primary dark:text-primary-fg border-primary/20 hover:bg-primary/15 dark:hover:bg-primary/20'
+      return 'bg-primary/10 text-primary border-primary/20 hover:bg-primary/15 dark:bg-white/20 dark:text-white dark:border-white/30 dark:hover:bg-white/30'
   }
 })
 
 const selectedClasses =
-  'bg-primary/20 text-primary dark:text-primary-fg border-primary/40 shadow-sm hover:bg-primary/25 dark:hover:bg-primary/25'
+  'bg-primary/20 text-primary border-primary/40 shadow-sm hover:bg-primary/25 dark:bg-white/40 dark:text-black dark:border-white/50 dark:hover:bg-white/50'
 </script>
