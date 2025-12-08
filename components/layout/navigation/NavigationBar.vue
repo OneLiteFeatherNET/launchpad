@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, computed } from '#imports';
-import NavigationItem from './NavigationItem.vue';
-import LanguageSelector from './LanguageSelector.vue';
-import NavigationIconButton from '~/components/base/buttons/NavigationIconButton.vue';
-import GradientText from '~/components/base/typography/GradientText.vue';
+import NavigationItem from './NavigationItem.vue'
+import NavigationDropdown from './NavigationDropdown.vue'
+import LanguageSelector from './LanguageSelector.vue'
+import NavigationIconButton from '~/components/base/buttons/NavigationIconButton.vue'
+import GradientText from '~/components/base/typography/GradientText.vue'
+import IconFa from '~/components/base/icons/IconFa.vue'
 
 const { t, locale } = useI18n();
 const runtimeConfig = useRuntimeConfig();
@@ -22,27 +24,46 @@ const mobileMenuId = 'mobile-menu-panel';
 const localePath = useLocalePath();
 const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined) || (process?.env?.NUXT_PUBLIC_DISCORD_URL as string | undefined);
 
-interface NavItem {
-  textKey: string;
-  path: string;
-  icon?: string | [string,string];
+type NavItem = {
+  type: 'item'
+  textKey: string
+  path: string
+  icon?: string | [string, string]
 }
 
+type NavGroup = {
+  type: 'group'
+  textKey: string
+  icon?: string | [string, string]
+  children: Array<{ textKey: string; path: string; icon?: string | [string, string] }>
+}
+
+type NavEntry = NavItem | NavGroup
+
 // Navigationspfade basieren auf der aktuellen (reaktiven) Sprache
-const navItems = computed<NavItem[]>(() => {
+const navItems = computed<NavEntry[]>(() => {
   // Abhängigkeit zu locale.value herstellen, damit Reaktivität gewährleistet ist
   const _ = locale.value; // eslint-disable-line @typescript-eslint/no-unused-vars
   return [
-    { textKey: 'navigation.overview', path: localePath('index'), icon: ['fas','home'] },
-    { textKey: 'navigation.server', path: (localePath('index') + '#connect'), icon: ['fas','server'] },
-    { textKey: 'navigation.bluemap', path: localePath('bluemap'), icon: ['fas','map'] },
-    { textKey: 'navigation.blog', path: localePath('blog'), icon: ['fas','file-alt'] },
+    { type: 'item', textKey: 'navigation.overview', path: localePath('index'), icon: ['fas','home'] },
+    { type: 'item', textKey: 'navigation.server', path: (localePath('index') + '#connect'), icon: ['fas','server'] },
+    { type: 'item', textKey: 'navigation.bluemap', path: localePath('bluemap'), icon: ['fas','map'] },
+    { type: 'item', textKey: 'navigation.blog', path: localePath('blog'), icon: ['fas','file-alt'] },
+    {
+      type: 'group',
+      textKey: 'navigation.more',
+      icon: ['fas','ellipsis-h'],
+      children: [
+        { textKey: 'navigation.status', path: 'https://status.onelitefeather.net', icon: ['fas','signal'] },
+        { textKey: 'navigation.roadmap', path: '#', icon: ['fas','list-ul'] }
+      ]
+    }
   ];
 });
 
-const allNavItems = computed<NavItem[]>(() => [
+const allNavItems = computed<NavEntry[]>(() => [
   ...navItems.value,
-  ...(discordUrl ? [{ textKey: 'navigation.discord', path: discordUrl, icon: ['fab','discord'] } as NavItem] : [])
+  ...(discordUrl ? [{ type: 'item', textKey: 'navigation.discord', path: discordUrl, icon: ['fab','discord'] } as NavItem] : [])
 ]);
 
 const elevationClasses = {
@@ -68,7 +89,20 @@ const elevationClasses = {
         </div>
 
         <nav class="hidden items-center gap-2 lg:flex" role="navigation" :aria-label="t('navigation.main')">
-          <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" />
+          <template v-for="item in allNavItems" :key="item.type === 'item' ? item.path : item.textKey">
+            <NavigationItem
+              v-if="item.type === 'item'"
+              :text-key="item.textKey"
+              :path="item.path"
+              :icon="item.icon"
+            />
+            <NavigationDropdown
+              v-else
+              :text-key="item.textKey"
+              :icon="item.icon"
+              :children="item.children"
+            />
+          </template>
           <LanguageSelector />
         </nav>
 
@@ -105,7 +139,33 @@ const elevationClasses = {
           role="navigation"
           :aria-label="t('navigation.mobile')"
         >
-          <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" variant="mobile" @click="mobileMenuOpen = false" />
+          <template v-for="item in allNavItems" :key="item.type === 'item' ? item.path : item.textKey">
+            <NavigationItem
+              v-if="item.type === 'item'"
+              :text-key="item.textKey"
+              :path="item.path"
+              :icon="item.icon"
+              variant="mobile"
+              @click="mobileMenuOpen = false"
+            />
+            <details v-else class="rounded-xl border border-[var(--color-border)]/60 bg-[var(--color-surface)]/70 p-2 mb-2">
+              <summary class="flex items-center gap-2 px-2 py-1 text-[var(--color-text)] cursor-pointer select-none">
+                <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
+                <span class="text-sm font-medium">{{ t(item.textKey) }}</span>
+              </summary>
+              <div class="mt-2 space-y-1">
+                <NavigationItem
+                  v-for="child in item.children"
+                  :key="child.path"
+                  :text-key="child.textKey"
+                  :path="child.path"
+                  :icon="child.icon"
+                  variant="mobile"
+                  @click="mobileMenuOpen = false"
+                />
+              </div>
+            </details>
+          </template>
           <div class="my-2 border-t border-[var(--color-border)] pt-2 dark:border-[var(--color-border)]">
             <LanguageSelector variant="mobile" @selected="mobileMenuOpen = false" />
           </div>
@@ -117,7 +177,15 @@ const elevationClasses = {
   <!-- Bottom navigation for mobile -->
   <nav v-else :class="['fixed bottom-0 inset-x-0 z-50 bg-[var(--color-surface)] dark:bg-[var(--color-surface)]', elevationClasses[elevation]]" role="navigation" :aria-label="t('navigation.bottom')">
     <div class="grid [grid-template-columns:repeat(auto-fit,minmax(5rem,1fr))] gap-1 p-2 lg:hidden">
-      <NavigationItem v-for="item in allNavItems" :key="item.path" :text-key="item.textKey" :path="item.path" :icon="item.icon" variant="bottom" />
+      <NavigationItem
+        v-for="item in allNavItems"
+        v-if="item.type === 'item'"
+        :key="item.path"
+        :text-key="item.textKey"
+        :path="item.path"
+        :icon="item.icon"
+        variant="bottom"
+      />
     </div>
   </nav>
 </template>

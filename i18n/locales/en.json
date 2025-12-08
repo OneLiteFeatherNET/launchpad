@@ -11,7 +11,10 @@
     "bluemap": "BlueMap",
     "server": "Server",
     "discord": "Discord",
-    "change_language": "Change language"
+    "change_language": "Change language",
+    "more": "More",
+    "status": "Status",
+    "roadmap": "Roadmap"
   },
   "layouts": {
     "title": "Title"
