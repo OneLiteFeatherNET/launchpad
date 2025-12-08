@@ -6,6 +6,7 @@ import LanguageSelector from './LanguageSelector.vue'
 import NavigationIconButton from '~/components/base/buttons/NavigationIconButton.vue'
 import GradientText from '~/components/base/typography/GradientText.vue'
 import IconFa from '~/components/base/icons/IconFa.vue'
+import { navConfig, type NavConfigEntry, type NavLinkConfig, type NavGroupConfig } from './navItems'
 
 const { t, locale } = useI18n();
 const runtimeConfig = useRuntimeConfig();
@@ -24,47 +25,52 @@ const mobileMenuId = 'mobile-menu-panel';
 const localePath = useLocalePath();
 const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined) || (process?.env?.NUXT_PUBLIC_DISCORD_URL as string | undefined);
 
-type NavItem = {
-  type: 'item'
-  textKey: string
-  path: string
-  icon?: string | [string, string]
-}
-
-type NavGroup = {
-  type: 'group'
-  textKey: string
-  icon?: string | [string, string]
-  children: Array<{ textKey: string; path: string; icon?: string | [string, string] }>
-}
-
-type NavEntry = NavItem | NavGroup
+type BuiltLink = NavLinkConfig & { path: string }
+type BuiltGroup = NavGroupConfig & { children: BuiltLink[] }
+type NavEntry = BuiltLink | BuiltGroup
 
 // Navigationspfade basieren auf der aktuellen (reaktiven) Sprache
-const navItems = computed<NavEntry[]>(() => {
-  // Abhängigkeit zu locale.value herstellen, damit Reaktivität gewährleistet ist
-  const _ = locale.value; // eslint-disable-line @typescript-eslint/no-unused-vars
-  return [
-    { type: 'item', textKey: 'navigation.overview', path: localePath('index'), icon: ['fas','home'] },
-    { type: 'item', textKey: 'navigation.server', path: (localePath('index') + '#connect'), icon: ['fas','server'] },
-    { type: 'item', textKey: 'navigation.bluemap', path: localePath('bluemap'), icon: ['fas','map'] },
-    { type: 'item', textKey: 'navigation.blog', path: localePath('blog'), icon: ['fas','file-alt'] },
-    {
-      type: 'group',
-      textKey: 'navigation.more',
-      icon: ['fas','ellipsis-h'],
-      children: [
-        { textKey: 'navigation.status', path: 'https://status.onelitefeather.net', icon: ['fas','signal'] },
-        { textKey: 'navigation.roadmap', path: '#', icon: ['fas','list-ul'] }
-      ]
-    }
-  ];
-});
+const resolvePath = (link: NavLinkConfig): string => {
+  if (link.path) return link.path
+  if (link.routeName) {
+    const base = localePath(link.routeName as any)
+    return link.hash ? `${base}${link.hash}` : base
+  }
+  return '#'
+}
 
-const allNavItems = computed<NavEntry[]>(() => [
-  ...navItems.value,
-  ...(discordUrl ? [{ type: 'item', textKey: 'navigation.discord', path: discordUrl, icon: ['fab','discord'] } as NavItem] : [])
-]);
+const navItems = computed<NavEntry[]>(() => {
+  const _ = locale.value // keep reactivity
+  return navConfig.map((entry) => {
+    if (entry.type === 'group') {
+      return {
+        ...entry,
+        children: entry.children.map(child => ({ ...child, path: resolvePath(child) }))
+      } as BuiltGroup
+    }
+    return { ...entry, path: resolvePath(entry) } as BuiltLink
+  })
+})
+
+const allNavItems = computed<NavEntry[]>(() => {
+  const items: NavEntry[] = [...navItems.value]
+  if (discordUrl) {
+    items.push({ type: 'link', textKey: 'navigation.discord', path: discordUrl, icon: ['fab', 'discord'], external: true })
+  }
+  return items
+})
+
+const bottomNavLinks = computed<BuiltLink[]>(() => {
+  const links: BuiltLink[] = []
+  allNavItems.value.forEach((entry) => {
+    if (entry.type === 'group') {
+      links.push(...entry.children.map(c => ({ ...c, path: c.path })))
+    } else {
+      links.push(entry)
+    }
+  })
+  return links
+})
 
 const elevationClasses = {
   0: 'shadow-none',
@@ -178,8 +184,7 @@ const elevationClasses = {
   <nav v-else :class="['fixed bottom-0 inset-x-0 z-50 bg-[var(--color-surface)] dark:bg-[var(--color-surface)]', elevationClasses[elevation]]" role="navigation" :aria-label="t('navigation.bottom')">
     <div class="grid [grid-template-columns:repeat(auto-fit,minmax(5rem,1fr))] gap-1 p-2 lg:hidden">
       <NavigationItem
-        v-for="item in allNavItems"
-        v-if="item.type === 'item'"
+        v-for="item in bottomNavLinks"
         :key="item.path"
         :text-key="item.textKey"
         :path="item.path"
