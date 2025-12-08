@@ -54,13 +54,7 @@ const navItems = computed<NavEntry[]>(() => {
 const allNavItems = computed<NavEntry[]>(() => {
   const items: NavEntry[] = [...navItems.value]
   if (discordUrl) {
-    const firstGroupIndex = items.findIndex((e) => e.type === 'group')
-    const discordLink: BuiltLink = { type: 'link', textKey: 'navigation.discord', path: discordUrl, icon: ['fab', 'discord'], external: true }
-    if (firstGroupIndex !== -1) {
-      (items[firstGroupIndex] as BuiltGroup).children.push(discordLink)
-    } else {
-      items.push(discordLink)
-    }
+    items.push({ type: 'link', textKey: 'navigation.discord', path: discordUrl, icon: ['fab', 'discord'], external: true })
   }
   return items
 })

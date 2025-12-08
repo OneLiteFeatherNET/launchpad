@@ -27,8 +27,7 @@ export const navConfig: NavConfigEntry[] = [
     children: [
       { type: 'link', textKey: 'navigation.server', routeName: 'index', hash: '#connect', icon: ['fas', 'server'] },
       { type: 'link', textKey: 'navigation.bluemap', routeName: 'bluemap', icon: ['fas', 'map'] },
-      { type: 'link', textKey: 'navigation.status', path: 'https://status.onelitefeather.net', icon: ['fas', 'signal'], external: true },
-      { type: 'link', textKey: 'navigation.roadmap', path: '#', icon: ['fas', 'list-ul'] }
+      { type: 'link', textKey: 'navigation.status', path: 'https://status.onelitefeather.net', icon: ['fas', 'signal'], external: true }
     ]
   }
 ]
