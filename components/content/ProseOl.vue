@@ -1,5 +1,9 @@
+<script setup lang="ts">
+import ProseList from './ProseList.vue'
+</script>
+
 <template>
-  <ol class="list-decimal mb-4 ps-4 marker:text-gray-700 dark:marker:text-gray-300 dark:text-white transition-colors">
+  <ProseList ordered>
     <slot />
-  </ol>
+  </ProseList>
 </template>
