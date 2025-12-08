@@ -14,6 +14,7 @@ useHomeSeo()
 const LazyServerConcept = defineAsyncComponent(() => import('~/components/features/home/server-concept/ServerConcept.vue'))
 const LazyServerAddresses = defineAsyncComponent(() => import('~/components/features/home/server-addresses/ServerAddresses.vue'))
 const LazySponsoring = defineAsyncComponent(() => import('~/components/features/home/sponsoring/Sponsoring.vue'))
+const LazyOpenCollective = defineAsyncComponent(() => import('~/components/features/home/opencollective/OpenCollectiveStats.vue'))
 
 type SponsorCard = {
   name: string
@@ -36,6 +37,15 @@ const sponsors: SponsorCard[] = [
     badge: 'Security'
   }
 ]
+
+const collective = {
+  totalRaised: 1250,
+  goal: 3000,
+  contributors: 18,
+  currency: 'EUR',
+  link: 'https://opencollective.com/onelitefeather',
+  updatedAt: new Date().toISOString()
+}
 </script>
 
 <template>
@@ -58,6 +68,14 @@ const sponsors: SponsorCard[] = [
     :bedrock-port="connect.bedrockPort"
   />
   <LazySponsoring :sponsors="sponsors" />
+  <LazyOpenCollective
+    :total-raised="collective.totalRaised"
+    :goal="collective.goal"
+    :contributors="collective.contributors"
+    :currency="collective.currency"
+    :link="collective.link"
+    :updated-at="collective.updatedAt"
+  />
 </template>
 
 <style scoped>

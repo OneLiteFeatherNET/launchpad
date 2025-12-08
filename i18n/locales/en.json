@@ -86,6 +86,18 @@
     "cta_badge": "Get in touch",
     "cta_link": "Learn more"
   },
+  "collective": {
+    "title": "OpenCollective",
+    "subtitle": "How we fund operations, infrastructure, and new features.",
+    "section_aria": "OpenCollective funding for OneLiteFeather",
+    "raised": "Raised",
+    "goal": "Goal",
+    "of_goal": "of {goal}",
+    "contributors": "Contributors",
+    "cta": "View on OpenCollective",
+    "updated": "Updated: {date}",
+    "progress_label": "Raised {raised} of {goal}"
+  },
   "footer": {
     "brand": "OneLiteFeather",
     "description": "A Minecraft network focused on community and development",
