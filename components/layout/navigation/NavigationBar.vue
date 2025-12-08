@@ -100,32 +100,32 @@ const elevationClasses = {
         </div>
 
         <nav class="hidden items-center gap-2 lg:flex" role="navigation" :aria-label="t('navigation.main')">
-          <NavigationItem
-            v-for="item in allNavItems"
-            v-if="item.type === 'link'"
-            :key="item.path"
-            :text-key="item.textKey"
-            :path="item.path"
-            :icon="item.icon"
-          />
-          <div v-else class="relative" :key="item.textKey">
-            <details class="group">
-              <summary class="flex items-center gap-2 px-3 py-2 rounded-full text-[var(--color-text)] no-underline transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] cursor-pointer list-none">
-                <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
-                <span class="text-sm font-medium">{{ t(item.textKey) }}</span>
-                <IconFa :icon="['fas','chevron-down']" class="h-3 w-3" />
-              </summary>
-              <div class="absolute right-0 mt-2 w-56 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg ring-1 ring-black/5 dark:border-[var(--color-border)] dark:bg-[var(--color-surface)] py-2 z-20">
-                <NavigationItem
-                  v-for="child in item.children"
-                  :key="child.path"
-                  :text-key="child.textKey"
-                  :path="child.path"
-                  :icon="child.icon"
-                />
-              </div>
-            </details>
-          </div>
+          <template v-for="item in allNavItems" :key="item.type === 'link' ? item.path : item.textKey">
+            <NavigationItem
+              v-if="item.type === 'link'"
+              :text-key="item.textKey"
+              :path="item.path"
+              :icon="item.icon"
+            />
+            <div v-else class="relative">
+              <details class="group">
+                <summary class="flex items-center gap-2 px-3 py-2 rounded-full text-[var(--color-text)] no-underline transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] cursor-pointer list-none">
+                  <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
+                  <span class="text-sm font-medium">{{ t(item.textKey) }}</span>
+                  <IconFa :icon="['fas','chevron-down']" class="h-3 w-3" />
+                </summary>
+                <div class="absolute right-0 mt-2 w-56 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg ring-1 ring-black/5 dark:border-[var(--color-border)] dark:bg-[var(--color-surface)] py-2 z-20">
+                  <NavigationItem
+                    v-for="child in item.children"
+                    :key="child.path"
+                    :text-key="child.textKey"
+                    :path="child.path"
+                    :icon="child.icon"
+                  />
+                </div>
+              </details>
+            </div>
+          </template>
           <LanguageSelector />
         </nav>
 
@@ -162,37 +162,36 @@ const elevationClasses = {
           role="navigation"
           :aria-label="t('navigation.mobile')"
         >
-          <NavigationItem
-            v-for="item in allNavItems"
-            v-if="item.type === 'link'"
-            :key="item.path"
-            :text-key="item.textKey"
-            :path="item.path"
-            :icon="item.icon"
-            variant="mobile"
-            @click="mobileMenuOpen = false"
-          />
-          <details
-            v-else
-            :key="item.textKey"
-            class="rounded-xl border border-[var(--color-border)]/60 bg-[var(--color-surface)]/70 p-2 mb-2"
-          >
-            <summary class="flex items-center gap-2 px-2 py-1 text-[var(--color-text)] cursor-pointer select-none">
-              <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
-              <span class="text-sm font-medium">{{ t(item.textKey) }}</span>
-            </summary>
-            <div class="mt-2 space-y-1">
-              <NavigationItem
-                v-for="child in item.children"
-                :key="child.path"
-                :text-key="child.textKey"
-                :path="child.path"
-                :icon="child.icon"
-                variant="mobile"
-                @click="mobileMenuOpen = false"
-              />
-            </div>
-          </details>
+          <template v-for="item in allNavItems" :key="item.type === 'link' ? item.path : item.textKey">
+            <NavigationItem
+              v-if="item.type === 'link'"
+              :text-key="item.textKey"
+              :path="item.path"
+              :icon="item.icon"
+              variant="mobile"
+              @click="mobileMenuOpen = false"
+            />
+            <details
+              v-else
+              class="rounded-xl border border-[var(--color-border)]/60 bg-[var(--color-surface)]/70 p-2 mb-2"
+            >
+              <summary class="flex items-center gap-2 px-2 py-1 text-[var(--color-text)] cursor-pointer select-none">
+                <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
+                <span class="text-sm font-medium">{{ t(item.textKey) }}</span>
+              </summary>
+              <div class="mt-2 space-y-1">
+                <NavigationItem
+                  v-for="child in item.children"
+                  :key="child.path"
+                  :text-key="child.textKey"
+                  :path="child.path"
+                  :icon="child.icon"
+                  variant="mobile"
+                  @click="mobileMenuOpen = false"
+                />
+              </div>
+            </details>
+          </template>
           <div class="my-2 border-t border-[var(--color-border)] pt-2 dark:border-[var(--color-border)]">
             <LanguageSelector variant="mobile" @selected="mobileMenuOpen = false" />
           </div>
