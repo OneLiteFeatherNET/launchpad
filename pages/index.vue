@@ -38,14 +38,7 @@ const sponsors: SponsorCard[] = [
   }
 ]
 
-const collective = {
-  totalRaised: 1250,
-  goal: 3000,
-  contributors: 18,
-  currency: 'EUR',
-  link: 'https://opencollective.com/onelitefeather',
-  updatedAt: new Date().toISOString()
-}
+const { data: collective } = await useAsyncData('opencollective-stats', () => $fetch('/api/opencollective'))
 </script>
 
 <template>
@@ -69,6 +62,7 @@ const collective = {
   />
   <LazySponsoring :sponsors="sponsors" />
   <LazyOpenCollective
+    v-if="collective"
     :total-raised="collective.totalRaised"
     :goal="collective.goal"
     :contributors="collective.contributors"

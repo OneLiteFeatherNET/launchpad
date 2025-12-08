@@ -148,6 +148,9 @@ export default defineNuxtConfig({
             discordUrl: 'https://1lf.link/discord',
             // Public BlueMap URL used to embed the external map
             bluemapUrl: 'https://bluemap.onelitefeather.dev/',
+            openCollectiveSlug: 'onelitefeather',
+            openCollectiveGoal: 3000,
+            openCollectiveCurrency: 'EUR',
         }
     },
     $production: {
@@ -171,6 +174,9 @@ export default defineNuxtConfig({
                 discordUrl: 'https://1lf.link/discord',
                 // Override BlueMap URL for production if needed
                 bluemapUrl: 'https://bluemap.onelitefeather.dev/',
+                openCollectiveSlug: 'onelitefeather',
+                openCollectiveGoal: 3000,
+                openCollectiveCurrency: 'EUR',
             }
         },
         schemaOrg: {
