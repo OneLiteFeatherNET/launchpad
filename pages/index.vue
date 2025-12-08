@@ -62,13 +62,13 @@ const sponsors: SponsorCard[] = [
   />
   <LazySponsoring :sponsors="sponsors" />
   <LazyOpenCollective
-    v-if="collective"
-    :total-raised="collective.totalRaised"
-    :goal="collective.goal"
-    :contributors="collective.contributors"
-    :currency="collective.currency"
-    :link="collective.link"
-    :updated-at="collective.updatedAt"
+    v-if="collective?.value"
+    :total-raised="collective.value.totalRaised"
+    :goal="collective.value.goal"
+    :contributors="collective.value.contributors"
+    :currency="collective.value.currency"
+    :link="collective.value.link"
+    :updated-at="collective.value.updatedAt"
   />
 </template>
 
