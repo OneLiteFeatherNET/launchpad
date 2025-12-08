@@ -76,6 +76,16 @@
     "more": "Mehr",
     "more_aria": "Mehr zu {title}"
   },
+  "sponsor": {
+    "title": "Sponsoring",
+    "subtitle": "Partner, die unsere Infrastruktur ermöglichen",
+    "section_aria": "Sponsoren und Unterstützer von OneLiteFeather",
+    "card_aria": "Sponsor {name}",
+    "cta_title": "Dein Logo hier?",
+    "cta_description": "Werde Sponsor und unterstütze unsere Infrastruktur. Wir freuen uns auf deine Nachricht.",
+    "cta_badge": "Jetzt anfragen",
+    "cta_link": "Mehr erfahren"
+  },
   "footer": {
     "brand": "OneLiteFeather",
     "description": "Ein Minecraft‑Netzwerk mit Fokus auf Community und Entwicklung",

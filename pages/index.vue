@@ -57,11 +57,7 @@ const sponsors: SponsorCard[] = [
     :bedrock-host="connect.bedrockHost"
     :bedrock-port="connect.bedrockPort"
   />
-  <LazySponsoring
-    :sponsors="sponsors"
-    title="Sponsoring"
-    subtitle="Partner, die unsere Infrastruktur ermöglichen"
-  />
+  <LazySponsoring :sponsors="sponsors" />
 </template>
 
 <style scoped>

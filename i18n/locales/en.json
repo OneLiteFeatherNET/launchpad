@@ -76,6 +76,16 @@
     "more": "More",
     "more_aria": "More about {title}"
   },
+  "sponsor": {
+    "title": "Sponsoring",
+    "subtitle": "Partners that power our infrastructure",
+    "section_aria": "Sponsors and supporters of OneLiteFeather",
+    "card_aria": "Sponsor {name}",
+    "cta_title": "Your logo here?",
+    "cta_description": "Become a sponsor and support our infrastructure. We look forward to hearing from you.",
+    "cta_badge": "Get in touch",
+    "cta_link": "Learn more"
+  },
   "footer": {
     "brand": "OneLiteFeather",
     "description": "A Minecraft network focused on community and development",

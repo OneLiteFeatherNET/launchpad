@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, useI18n } from '#imports'
 import SectionHeading from '~/components/base/typography/SectionHeading.vue'
 
 type Sponsor = {
@@ -13,35 +14,60 @@ const props = withDefaults(defineProps<{
   subtitle?: string
   sponsors: Sponsor[]
 }>(), {
-  title: 'Sponsoring',
-  subtitle: 'Partner, die unsere Infrastruktur ermöglichen'
+  title: undefined,
+  subtitle: undefined
 })
+
+const { t } = useI18n()
 
 const headingId = 'sponsoring-title'
 const descriptionId = 'sponsoring-subtitle'
+const sectionAria = computed(() => t('sponsor.section_aria'))
+
+const displayTitle = computed(() => props.title ?? t('sponsor.title'))
+const displaySubtitle = computed(() => props.subtitle ?? t('sponsor.subtitle'))
+
+const enhancedSponsors = computed(() => {
+  const ctaCard: Sponsor = {
+    name: t('sponsor.cta_title'),
+    url: 'mailto:sponsoring@onelitefeather.net',
+    description: t('sponsor.cta_description'),
+    badge: t('sponsor.cta_badge')
+  }
+  return [...props.sponsors, ctaCard]
+})
+
+const ariaLabelFor = (name: string) => t('sponsor.card_aria', { name })
 </script>
 
 <template>
-  <section id="sponsoring" class="relative isolate w-full">
+  <section
+    id="sponsoring"
+    class="relative isolate w-full"
+    role="region"
+    :aria-labelledby="headingId"
+    :aria-describedby="descriptionId"
+    :aria-label="sectionAria"
+  >
     <div class="mx-auto max-w-6xl px-4 py-12 md:py-16">
       <div class="mb-8 text-center">
-        <SectionHeading :level="2" :id="headingId" :description-id="subtitle ? descriptionId : undefined">
-          {{ title }}
-          <template #description v-if="subtitle">
-            {{ subtitle }}
+        <SectionHeading :level="2" :id="headingId" :description-id="descriptionId">
+          {{ displayTitle }}
+          <template #description>
+            {{ displaySubtitle }}
           </template>
         </SectionHeading>
       </div>
 
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <a
-          v-for="sponsor in sponsors"
+          v-for="sponsor in enhancedSponsors"
           :key="sponsor.name"
           :href="sponsor.url"
           target="_blank"
           rel="noopener noreferrer"
           class="group block h-full rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-5 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70 transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-          :aria-label="`Sponsor ${sponsor.name}`"
+          :aria-label="ariaLabelFor(sponsor.name)"
         >
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0">
@@ -60,7 +86,7 @@ const descriptionId = 'sponsoring-subtitle'
             </span>
           </div>
           <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-400">
-            Mehr erfahren
+            {{ t('sponsor.cta_link') }}
             <span aria-hidden="true">→</span>
           </span>
         </a>
