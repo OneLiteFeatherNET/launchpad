@@ -1,0 +1,16 @@
+{
+  "sponsors": [
+    {
+      "name": "Cloudflare",
+      "url": "https://www.cloudflare.com/",
+      "description": "Edge CDN, DDoS protection, and DNS performance for our network.",
+      "badge": "CDN & Security"
+    },
+    {
+      "name": "1Password",
+      "url": "https://1password.com/",
+      "description": "Secure team vaults, secrets management, and access control.",
+      "badge": "Security"
+    }
+  ]
+}

@@ -108,6 +108,25 @@ const serverConceptSchema = z
   })
   .passthrough()
 
+const sponsorsSchema = z
+  .object({
+    key: z.string().optional(),
+    sponsors: z
+      .array(
+        z
+          .object({
+            name: z.string(),
+            url: z.string().url(),
+            description: z.string().optional(),
+            badge: z.string().optional(),
+            logo: z.string().optional()
+          })
+          .passthrough()
+      )
+      .default([])
+  })
+  .passthrough()
+
 export default defineContentConfig({
   collections: {
     ...defineLocalizedCollections('blog', (locale) =>
@@ -141,6 +160,11 @@ export default defineContentConfig({
       type: 'data',
       source: `server-concept/${locale}/home.json`,
       schema: serverConceptSchema
+    })),
+    ...defineLocalizedCollections('sponsors', (locale) => ({
+      type: 'data',
+      source: `sponsors/${locale}/home.json`,
+      schema: sponsorsSchema
     })),
     authors: defineCollection({
       type: 'page',
