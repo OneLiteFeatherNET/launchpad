@@ -9,6 +9,7 @@ definePageMeta({
 });
 
 const { concept, connect, slides } = useHomeContent()
+const { data: collective } = await useOpenCollective()
 useHomeSeo()
 
 const LazyServerConcept = defineAsyncComponent(() => import('~/components/features/home/server-concept/ServerConcept.vue'))
@@ -38,7 +39,6 @@ const sponsors: SponsorCard[] = [
   }
 ]
 
-const { data: collective } = await useAsyncData('opencollective-stats', () => $fetch('/api/opencollective'))
 </script>
 
 <template>
