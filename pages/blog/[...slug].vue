@@ -3,6 +3,7 @@ import { defineAsyncComponent } from 'vue'
 import {definePageMeta} from "#imports";
 import type { BlogArticle } from "~/types/blog";
 import { extractPlainTextFromExcerpt } from "~/utils/content";
+import UiChip from '~/components/base/Chip.vue'
 
 const { locale, t, d } = useI18n()
 const config = useRuntimeConfig()
@@ -13,7 +14,7 @@ definePageMeta({
 });
 
 const { blog, headLinks, authors } = useBlogArticle()
-const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/blog/SocialMediaShare.vue'))
+const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/features/blog/SocialMediaShare.vue'))
 
 const img = useImage()
 const previewSocial = computed(() =>

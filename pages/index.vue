@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue'
-import Carousel from "~/components/sections/carousel/Carousel.vue";
+import Carousel from "~/components/features/home/carousel/Carousel.vue";
 import {definePageMeta} from "#imports";
 
 definePageMeta({
@@ -11,8 +11,31 @@ definePageMeta({
 const { concept, connect, slides } = useHomeContent()
 useHomeSeo()
 
-const LazyServerConcept = defineAsyncComponent(() => import('~/components/sections/server-concept/ServerConcept.vue'))
-const LazyServerAddresses = defineAsyncComponent(() => import('~/components/sections/server-addresses/ServerAddresses.vue'))
+const LazyServerConcept = defineAsyncComponent(() => import('~/components/features/home/server-concept/ServerConcept.vue'))
+const LazyServerAddresses = defineAsyncComponent(() => import('~/components/features/home/server-addresses/ServerAddresses.vue'))
+const LazySponsoring = defineAsyncComponent(() => import('~/components/features/home/sponsoring/Sponsoring.vue'))
+
+type SponsorCard = {
+  name: string
+  url: string
+  description?: string
+  badge?: string
+}
+
+const sponsors: SponsorCard[] = [
+  {
+    name: 'Cloudflare',
+    url: 'https://www.cloudflare.com/',
+    description: 'Edge CDN, DDoS-Schutz und DNS-Performance für unser Netzwerk.',
+    badge: 'CDN & Security'
+  },
+  {
+    name: '1Password',
+    url: 'https://1password.com/',
+    description: 'Sichere Team-Vaults, Secrets-Verwaltung und Zugriffskontrolle.',
+    badge: 'Security'
+  }
+]
 </script>
 
 <template>
@@ -33,6 +56,11 @@ const LazyServerAddresses = defineAsyncComponent(() => import('~/components/sect
     :java-address="connect.javaAddress"
     :bedrock-host="connect.bedrockHost"
     :bedrock-port="connect.bedrockPort"
+  />
+  <LazySponsoring
+    :sponsors="sponsors"
+    title="Sponsoring"
+    subtitle="Partner, die unsere Infrastruktur ermöglichen"
   />
 </template>
 

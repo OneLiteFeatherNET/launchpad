@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ArticleCard from "~/components/blog/page/card/ArticleCard.vue";
+import ArticleCard from "~/components/features/blog/page/card/ArticleCard.vue";
 import {definePageMeta} from "#imports";
-import Top1 from "~/components/blog/page/top1/Top1.vue";
+import Top1 from "~/components/features/blog/page/top1/Top1.vue";
 
 const { t } = useI18n()
 
@@ -56,9 +56,11 @@ useSchemaOrg({
         :blogArticle="top1Article"
     />
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
-      <LazyBlogPageCardArticleCard
-          v-for="article in allPosts"
-          :blogArticle="article" />
+      <ArticleCard
+        v-for="article in allPosts"
+        :key="article.slug"
+        :blogArticle="article"
+      />
     </div>
   </div>
 </template>
