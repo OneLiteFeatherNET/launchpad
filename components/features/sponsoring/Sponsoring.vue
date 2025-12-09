@@ -139,6 +139,15 @@ watch(
                         <p class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
                           {{ enhancedSponsors[current]?.name }}
                         </p>
+                        <div v-if="enhancedSponsors[current]?.logo" class="mt-2">
+                          <NuxtImg
+                            :src="enhancedSponsors[current]?.logo"
+                            :alt="enhancedSponsors[current]?.name"
+                            class="h-10 w-auto max-w-[160px] object-contain"
+                            format="webp"
+                            loading="lazy"
+                          />
+                        </div>
                         <p v-if="enhancedSponsors[current]?.description" class="mt-1 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
                           {{ enhancedSponsors[current]?.description }}
                         </p>
