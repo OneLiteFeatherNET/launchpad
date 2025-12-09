@@ -15,8 +15,8 @@ useHomeSeo()
 
 const LazyServerConcept = defineAsyncComponent(() => import('~/components/features/home/server-concept/ServerConcept.vue'))
 const LazyServerAddresses = defineAsyncComponent(() => import('~/components/features/home/server-addresses/ServerAddresses.vue'))
-const LazySponsoring = defineAsyncComponent(() => import('~/components/features/home/sponsoring/Sponsoring.vue'))
-const LazyOpenCollective = defineAsyncComponent(() => import('~/components/features/home/opencollective/OpenCollectiveStats.vue'))
+const LazySponsoring = defineAsyncComponent(() => import('~/components/features/sponsoring/Sponsoring.vue'))
+const LazyOpenCollective = defineAsyncComponent(() => import('~/components/features/opencollective/OpenCollectiveStats.vue'))
 
 </script>
 
