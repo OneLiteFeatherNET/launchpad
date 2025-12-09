@@ -184,7 +184,7 @@ watch(
           data-ph-capture-attribute-name="sponsor-contact"
         >
           <span
-            class="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-brand-400/30 via-sky-400/25 to-brand-500/30 opacity-70 blur-lg"
+            class="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-brand-400/30 via-sky-400/25 to-brand-500/30 opacity-70 blur-lg animate-[spin_18s_linear_infinite]"
             aria-hidden="true"
           />
           <p class="text-sm font-semibold text-brand-800 dark:text-brand-200">
@@ -197,7 +197,7 @@ watch(
             {{ t('sponsor.cta_description') }}
           </p>
           <div class="mt-auto pt-6 flex items-end">
-            <span class="relative inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/85 dark:bg-white/10 shadow-sm overflow-hidden cta-scale">
+            <span class="relative inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/85 dark:bg-white/10 shadow-sm overflow-hidden animate-[pulse_2.8s_ease-in-out_infinite]">
               <span class="pointer-events-none absolute inset-[-2px] rounded-full border border-brand-400/40 dark:border-brand-300/30" aria-hidden="true" />
               {{ t('sponsor.cta_link') }}
               <span aria-hidden="true">→</span>
@@ -208,17 +208,3 @@ watch(
     </div>
   </section>
 </template>
-
-<style scoped>
-.cta-scale {
-  animation: cta-scale 2.6s ease-in-out infinite;
-}
-@keyframes cta-scale {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.06);
-  }
-}
-</style>
