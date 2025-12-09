@@ -2,9 +2,7 @@ import type {
   HomeCarouselDocument,
   HomeCarouselSlide,
   ServerConceptDocument,
-  ServerConnectDocument,
-  SponsorsDocument,
-  SponsorEntry
+  ServerConnectDocument
 } from '~/types/home'
 
 export function useHomeContent() {
@@ -56,7 +54,6 @@ export function useHomeContent() {
   return {
     concept,
     connect,
-    slides,
-    sponsors: computed(() => []) // deprecated: use useSponsoring instead
+    slides
   }
 }

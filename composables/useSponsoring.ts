@@ -1,4 +1,4 @@
-import type { SponsorEntry, SponsorsDocument } from '~/types/home'
+import type { SponsorEntry, SponsorsDocument } from '~/types/sponsoring'
 
 export function useSponsoring() {
   const { locale } = useI18n()

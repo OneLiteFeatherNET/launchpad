@@ -4,9 +4,7 @@ import type {
   ServerConceptDeCollectionItem,
   ServerConceptEnCollectionItem,
   ServerConnectDeCollectionItem,
-  ServerConnectEnCollectionItem,
-  SponsorsDeCollectionItem,
-  SponsorsEnCollectionItem
+  ServerConnectEnCollectionItem
 } from '@nuxt/content'
 import type { AnySlide } from '~/types/carousel'
 
@@ -26,6 +24,3 @@ export type HomeCarouselDocument =
   | HomeCarouselEnCollectionItem
 
 export type HomeCarouselSlide = AnySlide
-
-export type SponsorsDocument = SponsorsDeCollectionItem | SponsorsEnCollectionItem
-export type SponsorEntry = NonNullable<SponsorsDocument['sponsors']>[number]
