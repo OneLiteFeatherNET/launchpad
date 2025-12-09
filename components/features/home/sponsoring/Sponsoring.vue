@@ -143,7 +143,7 @@ const handleTouchEnd = (event: TouchEvent) => {
               v-for="(s, idx) in enhancedSponsors"
               :key="s.name"
               type="button"
-              class="relative h-3 w-3 rounded-full transition-all transform ring-1 ring-white/70 dark:ring-black/40"
+              class="relative h-3 w-3 rounded-full transition-all transform"
               :class="idx === current ? 'dot-active scale-110' : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
               :aria-label="ariaLabelFor(s.name)"
               :aria-current="idx === current ? 'true' : undefined"
@@ -167,7 +167,7 @@ const handleTouchEnd = (event: TouchEvent) => {
           <p class="mt-2 text-sm text-brand-800 dark:text-brand-100/80">
             {{ t('sponsor.cta_description') }}
           </p>
-          <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-brand-700 dark:text-brand-200">
+          <span class="mt-auto inline-flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-300">
             {{ t('sponsor.cta_link') }}
             <span aria-hidden="true">→</span>
           </span>
@@ -190,13 +190,13 @@ const handleTouchEnd = (event: TouchEvent) => {
 .dot-active {
   background: var(--color-brand-accent, #38bdf8);
   box-shadow:
-    0 0 0 2px rgba(255, 255, 255, 0.9),
-    0 0 0 4px color-mix(in srgb, var(--color-brand-accent, #38bdf8) 45%, transparent);
+    0 0 0 2.5px rgba(255, 255, 255, 0.95),
+    0 0 0 5px color-mix(in srgb, var(--color-brand-accent, #38bdf8) 38%, transparent);
 }
 
 :global(.dark) .dot-active {
   box-shadow:
-    0 0 0 2px rgba(0, 0, 0, 0.35),
-    0 0 0 4px color-mix(in srgb, var(--color-brand-accent, #38bdf8) 35%, transparent);
+    0 0 0 2px rgba(0, 0, 0, 0.4),
+    0 0 0 4.5px color-mix(in srgb, var(--color-brand-accent, #38bdf8) 32%, transparent);
 }
 </style>
