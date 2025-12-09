@@ -9,6 +9,16 @@ type CollectiveResponse = {
   currency?: string
 }
 
+type CollectiveStats = {
+  slug: string
+  currency: string
+  totalRaised: number
+  goal: number
+  contributors: number | null
+  updatedAt: string
+  link: string
+}
+
 export const useOpenCollective = () => {
   const config = useRuntimeConfig()
   const slug = (config.public as any)?.openCollectiveSlug || 'onelitefeather'
@@ -18,7 +28,7 @@ export const useOpenCollective = () => {
 
   const { data, error, refresh, pending } = useAsyncData(
     'opencollective-stats',
-    async () => {
+    async (): Promise<CollectiveStats> => {
       const url = `${link}.json`
       const res = await $fetch<CollectiveResponse>(url, { timeout: 5000 })
 
@@ -41,7 +51,7 @@ export const useOpenCollective = () => {
     {
       server: true,
       lazy: false,
-      default: () => ({
+      default: (): CollectiveStats => ({
         slug,
         currency: fallbackCurrency,
         totalRaised: 0,
