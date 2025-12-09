@@ -162,7 +162,7 @@ const handleTouchEnd = (event: TouchEvent) => {
 
         <a
           :href="'mailto:sponsoring@onelitefeather.net'"
-          class="group block h-full rounded-2xl border-2 border-brand-300/80 dark:border-brand-800/80 bg-brand-50/80 dark:bg-brand-900/30 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          class="group block h-full rounded-2xl bg-brand-50/80 dark:bg-brand-900/30 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           :aria-label="ariaLabelFor(t('sponsor.cta_title'))"
         >
           <p class="text-sm font-semibold text-brand-700 dark:text-brand-200">
