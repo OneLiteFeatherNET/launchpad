@@ -8,13 +8,15 @@ import type {
 export function useHomeContent() {
   const { locale } = useI18n()
 
+  const fetchCollection = async <T>(key: string) => {
+    // @ts-expect-error queryCollection is provided by @nuxt/content at runtime
+    return (await queryCollection(key).all()) as T[]
+  }
+
   // Server concept content from Nuxt Content (i18n)
   const { data: conceptData } = useAsyncData<ServerConceptDocument[]>(
     'server-concept-home',
-    () => {
-      // @ts-ignore queryCollection is provided by @nuxt/content
-      return queryCollection('server_concept_' + (locale?.value || 'de')).all()
-    },
+    () => fetchCollection<ServerConceptDocument>('server_concept_' + (locale?.value || 'de')),
     { watch: [locale] }
   )
 
@@ -25,10 +27,7 @@ export function useHomeContent() {
   // Server Connect content from Nuxt Content (i18n)
   const { data: connectData } = useAsyncData<ServerConnectDocument[]>(
     'server-connect',
-    () => {
-      // @ts-ignore queryCollection is provided by @nuxt/content
-      return queryCollection('server_connect_' + (locale?.value || 'de')).all()
-    },
+    () => fetchCollection<ServerConnectDocument>('server_connect_' + (locale?.value || 'de')),
     { watch: [locale] }
   )
 
@@ -39,10 +38,7 @@ export function useHomeContent() {
   // Carousel content from Nuxt Content (i18n)
   const { data: homeCarousel } = useAsyncData<HomeCarouselDocument[]>(
     'home-carousel',
-    () => {
-      // @ts-ignore queryCollection is provided by @nuxt/content
-      return queryCollection('home_carousel_' + (locale?.value || 'de')).all()
-    },
+    () => fetchCollection<HomeCarouselDocument>('home_carousel_' + (locale?.value || 'de')),
     { watch: [locale] }
   )
 
