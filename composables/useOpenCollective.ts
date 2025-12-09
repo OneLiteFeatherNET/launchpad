@@ -38,7 +38,19 @@ export const useOpenCollective = () => {
         link
       }
     },
-    { server: true, lazy: false }
+    {
+      server: true,
+      lazy: false,
+      default: () => ({
+        slug,
+        currency: fallbackCurrency,
+        totalRaised: 0,
+        goal: fallbackGoal,
+        contributors: null,
+        updatedAt: new Date().toISOString(),
+        link
+      })
+    }
   )
 
   return {

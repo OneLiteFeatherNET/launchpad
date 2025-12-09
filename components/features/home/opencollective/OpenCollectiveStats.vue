@@ -20,7 +20,8 @@ const props = withDefaults(defineProps<Props>(), {
   contributors: undefined,
   currency: 'EUR',
   link: 'https://opencollective.com/onelitefeather',
-  updatedAt: undefined
+  updatedAt: undefined,
+  totalRaised: 0
 })
 
 const { t, locale } = useI18n()
