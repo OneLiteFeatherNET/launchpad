@@ -4,6 +4,7 @@ import {
   defineLocalizedCollections,
   withI18nMeta
 } from './utils/content/collections'
+import {asSitemapCollection} from "@nuxtjs/sitemap/content";
 
 const blogSchema = withI18nMeta(
   z.object({
@@ -130,11 +131,13 @@ const sponsorsSchema = z
 export default defineContentConfig({
   collections: {
     ...defineLocalizedCollections('blog', (locale) =>
-      asSchemaOrgCollection({
-        type: 'page',
-        source: `blog/${locale}/**/*.md`,
-        schema: blogSchema
-      })
+      asSitemapCollection(
+          asSchemaOrgCollection({
+              type: 'page',
+              source: `blog/${locale}/**/*.md`,
+              schema: blogSchema
+          })
+      )
     ),
     ...defineLocalizedCollections('home_carousel', (locale) => ({
       type: 'data',
