@@ -52,7 +52,6 @@ const handleTouchEnd = (event: TouchEvent) => {
   startX.value = null
 }
 </script>
-</script>
 
 <template>
   <section
@@ -103,7 +102,13 @@ const handleTouchEnd = (event: TouchEvent) => {
             @touchstart.passive="startX = $event.changedTouches?.[0]?.clientX ?? null"
             @touchend.passive="handleTouchEnd($event)"
           >
-            <Transition name="fade" mode="out-in">
+            <Transition
+              mode="out-in"
+              enter-active-class="transition-opacity duration-200"
+              leave-active-class="transition-opacity duration-200"
+              enter-from-class="opacity-0"
+              leave-to-class="opacity-0"
+            >
               <a
                 :key="enhancedSponsors[current]?.name"
                 :href="enhancedSponsors[current]?.url"
@@ -144,7 +149,9 @@ const handleTouchEnd = (event: TouchEvent) => {
               :key="s.name"
               type="button"
               class="relative h-3 w-3 rounded-full transition-all transform"
-              :class="idx === current ? 'dot-active scale-110' : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
+              :class="idx === current
+                ? 'bg-[var(--color-brand-accent,#38bdf8)] scale-110 ring-2 ring-white/90 dark:ring-black/40 ring-offset-2 ring-offset-white/70 dark:ring-offset-black/30 shadow-[0_0_0_4px_rgba(56,189,248,0.35)]'
+                : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
               :aria-label="ariaLabelFor(s.name)"
               :aria-current="idx === current ? 'true' : undefined"
               @click="current = idx"
@@ -176,27 +183,3 @@ const handleTouchEnd = (event: TouchEvent) => {
     </div>
   </section>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.dot-active {
-  background: var(--color-brand-accent, #38bdf8);
-  box-shadow:
-    0 0 0 2.5px rgba(255, 255, 255, 0.95),
-    0 0 0 5px color-mix(in srgb, var(--color-brand-accent, #38bdf8) 38%, transparent);
-}
-
-:global(.dark) .dot-active {
-  box-shadow:
-    0 0 0 2px rgba(0, 0, 0, 0.4),
-    0 0 0 4.5px color-mix(in srgb, var(--color-brand-accent, #38bdf8) 32%, transparent);
-}
-</style>
