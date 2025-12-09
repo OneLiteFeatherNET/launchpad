@@ -1,23 +1,8 @@
 import { useRuntimeConfig } from '#imports'
-
-type CollectiveResponse = {
-  balance?: number
-  backersCount?: number
-  yearlyIncome?: number
-  updatedAt?: string
-  lastTransactionAt?: string
-  currency?: string
-}
-
-type CollectiveStats = {
-  slug: string
-  currency: string
-  totalRaised: number
-  goal: number
-  contributors: number | null
-  updatedAt: string
-  link: string
-}
+import type {
+    CollectiveResponse,
+    CollectiveStats
+} from '~/types/opencollective'
 
 export const useOpenCollective = () => {
   const config = useRuntimeConfig()
