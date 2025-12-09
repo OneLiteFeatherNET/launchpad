@@ -32,6 +32,16 @@ const displaySubtitle = computed(() => props.subtitle ?? t('sponsor.subtitle'))
 
 const enhancedSponsors = computed<Sponsor[]>(() => props.sponsors ?? [])
 
+const resolveIcon = (icon?: Sponsor['icon']) => {
+  if (!icon) return null
+  if (Array.isArray(icon)) return icon
+  if (typeof icon === 'string' && icon.includes(' ')) {
+    const [prefix, name] = icon.split(' ')
+    return [prefix, name] as [string, string]
+  }
+  return icon
+}
+
 const ariaLabelFor = (name: string) => t('sponsor.card_aria', { name })
 
 const current = ref(0)
@@ -152,8 +162,8 @@ watch(
                             loading="lazy"
                           />
                           <IconFa
-                            v-else-if="enhancedSponsors[current]?.icon"
-                            :icon="enhancedSponsors[current]?.icon as any"
+                            v-else-if="resolveIcon(enhancedSponsors[current]?.icon)"
+                            :icon="resolveIcon(enhancedSponsors[current]?.icon) as any"
                             class="h-8 w-8 text-brand-600 dark:text-brand-300"
                             aria-hidden="true"
                           />
