@@ -32,30 +32,40 @@ const descriptionId = 'collective-subtitle'
 const displayTitle = computed(() => props.title ?? t('collective.title'))
 const displaySubtitle = computed(() => props.subtitle ?? t('collective.subtitle'))
 
+const raisedValue = computed(() => {
+  const value = Number(props.totalRaised ?? 0)
+  return Number.isFinite(value) ? value : 0
+})
+
+const goalValue = computed(() => {
+  const value = Number(props.goal ?? 0)
+  return Number.isFinite(value) && value > 0 ? value : 0
+})
+
 const formattedRaised = computed(() => {
   return new Intl.NumberFormat(locale.value, {
     style: 'currency',
     currency: props.currency || 'EUR',
     maximumFractionDigits: 0
-  }).format(props.totalRaised)
+  }).format(raisedValue.value)
 })
 
 const formattedGoal = computed(() => {
-  if (!props.goal) return null
+  if (!goalValue.value) return null
   return new Intl.NumberFormat(locale.value, {
     style: 'currency',
     currency: props.currency || 'EUR',
     maximumFractionDigits: 0
-  }).format(props.goal)
+  }).format(goalValue.value)
 })
 
 const progress = computed(() => {
-  if (!props.goal || props.goal <= 0) return null
-  return Math.min(100, Math.round((props.totalRaised / props.goal) * 100))
+  if (!goalValue.value) return 0
+  return Math.min(100, Math.max(0, Math.round((raisedValue.value / goalValue.value) * 100)))
 })
 
 const progressLabel = computed(() => {
-  if (!props.goal || !formattedGoal.value) return formattedRaised.value
+  if (!goalValue.value || !formattedGoal.value) return formattedRaised.value
   return t('collective.progress_label', { raised: formattedRaised.value, goal: formattedGoal.value })
 })
 
@@ -93,10 +103,10 @@ const updatedLabel = computed(() => {
           <p v-if="formattedGoal" class="text-sm text-neutral-600 dark:text-neutral-400">
             {{ t('collective.of_goal', { goal: formattedGoal }) }}
           </p>
-          <div v-if="progress !== null" class="mt-4" role="img" :aria-label="progressLabel">
+          <div v-if="goalValue" class="mt-4" role="img" :aria-label="progressLabel">
             <div class="h-3 w-full rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
               <div
-                class="h-full rounded-full bg-brand-500 transition-all"
+                class="h-full rounded-full bg-[var(--color-brand-accent,#38bdf8)] transition-all"
                 :style="{ width: `${progress}%` }"
               />
             </div>
