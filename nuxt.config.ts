@@ -64,18 +64,22 @@ export default defineNuxtConfig({
         baseUrl: 'http://localhost:3000',
     },
     sitemap: {
-        autoI18n: true,
+        autoI18n: {
+            locales: [
+                { code: 'de', iso: 'de-DE' },
+                { code: 'en', iso: 'en-US' }
+            ],
+            strategy: 'prefix',
+            defaultLocale: 'en'
+        },
         xslColumns: [
             {label: 'URL', width: '50%'},
             {label: 'Last Modified', select: 'sitemap:lastmod', width: '25%'},
             {label: 'Language', select: 'sitemap:hreflang', width: '25%'}
         ],
-        urls: [],
-        sources: [],
         defaults: {
             changefreq: 'weekly',
-            priority: 0.8,
-            lastmod: new Date()
+            priority: 0.8
         }
     },
 
