@@ -52,19 +52,19 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     return 'OneLiteFeather is a Minecraft Network sharing development tools with the community.'
   })
 
-  useSeoMeta(() => ({
-    title: pageTitle.value,
-    description: pageDescription.value,
-    ogTitle: pageTitle.value,
-    ogDescription: pageDescription.value,
+  useSeoMeta({
+    title: pageTitle,
+    description: pageDescription,
+    ogTitle: pageTitle,
+    ogDescription: pageDescription,
     ogType: opts.ogType || 'website',
-    ogUrl: canonicalUrl.value,
-    ogImage: socialImage.value,
+    ogUrl: canonicalUrl,
+    ogImage: socialImage,
     twitterCard: opts.twitterCard || 'summary_large_image',
-    twitterTitle: pageTitle.value,
-    twitterDescription: pageDescription.value,
-    twitterImage: socialImage.value
-  }))
+    twitterTitle: pageTitle,
+    twitterDescription: pageDescription,
+    twitterImage: socialImage
+  })
 
   useSchemaOrg(() => ({
     '@type': opts.schemaType || 'WebPage',
