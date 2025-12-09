@@ -38,6 +38,20 @@ const next = () => {
 const prev = () => {
   current.value = (current.value - 1 + enhancedSponsors.length) % enhancedSponsors.length
 }
+
+const onSwipe = (direction: 'left' | 'right') => {
+  direction === 'left' ? next() : prev()
+}
+
+const startX = ref<number | null>(null)
+const handleTouchEnd = (event: TouchEvent) => {
+  const endX = event.changedTouches?.[0]?.clientX ?? null
+  if (startX.value == null || endX == null) return
+  const delta = endX - startX.value
+  if (Math.abs(delta) > 30) onSwipe(delta < 0 ? 'left' : 'right')
+  startX.value = null
+}
+</script>
 </script>
 
 <template>
@@ -62,7 +76,7 @@ const prev = () => {
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr] lg:items-stretch">
         <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-500/60 via-brand-400/50 to-brand-600/60 p-[1.5px] shadow-[0_15px_40px_-22px_rgba(0,0,0,0.3)]">
           <div class="relative h-full rounded-[1.1rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 p-6 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-wrap items-center justify-between gap-3">
             <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">{{ t('sponsor.title') }}</p>
             <div class="flex gap-2">
               <button
@@ -84,7 +98,11 @@ const prev = () => {
             </div>
           </div>
 
-          <div class="relative mt-4 min-h-[200px]">
+          <div
+            class="relative mt-4 min-h-[220px]"
+            @touchstart.passive="startX = $event.changedTouches?.[0]?.clientX ?? null"
+            @touchend.passive="handleTouchEnd($event)"
+          >
             <Transition name="fade" mode="out-in">
               <a
                 :key="enhancedSponsors[current]?.name"
@@ -125,9 +143,10 @@ const prev = () => {
               v-for="(s, idx) in enhancedSponsors"
               :key="s.name"
               type="button"
-              class="relative h-3 w-3 rounded-full transition-all transform"
+              class="relative h-3 w-3 rounded-full transition-all transform ring-1 ring-white/70 dark:ring-black/40"
               :class="idx === current ? 'dot-active scale-110' : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
               :aria-label="ariaLabelFor(s.name)"
+              :aria-current="idx === current ? 'true' : undefined"
               @click="current = idx"
             />
           </div>
@@ -169,15 +188,15 @@ const prev = () => {
 }
 
 .dot-active {
-  background: linear-gradient(135deg, var(--color-brand-primary, #22c55e), var(--color-brand-secondary, #38bdf8));
+  background: var(--color-brand-accent, #38bdf8);
   box-shadow:
-    0 0 0 2px rgba(255, 255, 255, 0.85),
-    0 0 0 4px rgba(34, 197, 94, 0.25);
+    0 0 0 2px rgba(255, 255, 255, 0.9),
+    0 0 0 4px color-mix(in srgb, var(--color-brand-accent, #38bdf8) 45%, transparent);
 }
 
 :global(.dark) .dot-active {
   box-shadow:
     0 0 0 2px rgba(0, 0, 0, 0.35),
-    0 0 0 4px rgba(56, 189, 248, 0.25);
+    0 0 0 4px color-mix(in srgb, var(--color-brand-accent, #38bdf8) 35%, transparent);
 }
 </style>
