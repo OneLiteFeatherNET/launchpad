@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from '#imports';
+import { ref, computed, watch, useRoute } from '#imports';
 import NavigationItem from './NavigationItem.vue'
 import LanguageSelector from './LanguageSelector.vue'
 import NavigationIconButton from '~/components/base/buttons/NavigationIconButton.vue'
@@ -9,6 +9,7 @@ import { navConfig, type NavConfigEntry, type NavLinkConfig, type NavGroupConfig
 
 const { t, locale } = useI18n();
 const runtimeConfig = useRuntimeConfig();
+const route = useRoute()
 
 const props = defineProps<{
   elevation?: 0 | 1 | 2 | 3 | 4 | 5;
@@ -19,6 +20,7 @@ const elevation = props.elevation ?? 2;
 const variant = props.variant ?? 'top';
 
 const mobileMenuOpen = ref(false);
+const openGroup = ref<string | null>(null);
 const mobileMenuId = 'mobile-menu-panel';
 // Verwende die reaktive i18n-Locale; localePath nutzt automatisch die aktuelle Sprache
 const localePath = useLocalePath();
@@ -79,11 +81,29 @@ const elevationClasses = {
   4: 'shadow-xl',
   5: 'shadow-2xl'
 };
+
+const toggleGroup = (key: string) => {
+  openGroup.value = openGroup.value === key ? null : key
+}
+
+const closeMenus = () => {
+  openGroup.value = null
+  mobileMenuOpen.value = false
+}
+
+watch(
+  () => route.fullPath,
+  () => closeMenus()
+)
 </script>
 
 <template>
   <!-- Top Navigation for desktop/tablet -->
-  <header v-if="variant === 'top'" :class="['sticky top-0 z-50 w-full bg-[var(--color-surface)]/90 dark:bg-[var(--color-surface)]/95 backdrop-blur', elevationClasses[elevation]]" @keydown.escape.window="mobileMenuOpen = false">
+  <header
+    v-if="variant === 'top'"
+    :class="['sticky top-0 z-50 w-full bg-[var(--color-surface)]/90 dark:bg-[var(--color-surface)]/95 backdrop-blur', elevationClasses[elevation]]"
+    @keydown.escape.window="closeMenus"
+  >
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8" role="navigation" :aria-label="t('navigation.main')">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
@@ -100,10 +120,18 @@ const elevationClasses = {
               :text-key="item.textKey"
               :path="item.path"
               :icon="item.icon"
+              @click="closeMenus"
             />
             <div v-else class="relative">
-              <details class="group">
-                <summary class="flex items-center gap-2 px-3 py-2 rounded-full text-[var(--color-text)] no-underline transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] cursor-pointer list-none">
+              <details
+                class="group"
+                :open="openGroup === item.textKey"
+                @toggle.prevent
+              >
+                <summary
+                  class="flex items-center gap-2 px-3 py-2 rounded-full text-[var(--color-text)] no-underline transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] cursor-pointer list-none"
+                  @click.prevent="toggleGroup(item.textKey)"
+                >
                   <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
                   <span class="text-sm font-medium">{{ t(item.textKey) }}</span>
                   <IconFa :icon="['fas','chevron-down']" class="h-3 w-3" />
@@ -115,6 +143,7 @@ const elevationClasses = {
                     :text-key="child.textKey"
                     :path="child.path"
                     :icon="child.icon"
+                    @click="closeMenus"
                   />
                 </div>
               </details>
