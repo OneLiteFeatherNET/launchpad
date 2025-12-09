@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useI18n } from '#imports'
+import { computed, ref, useI18n, watch } from '#imports'
 import SectionHeading from '~/components/base/typography/SectionHeading.vue'
 
 type Sponsor = {
@@ -27,16 +27,18 @@ const sectionAria = computed(() => t('sponsor.section_aria'))
 const displayTitle = computed(() => props.title ?? t('sponsor.title'))
 const displaySubtitle = computed(() => props.subtitle ?? t('sponsor.subtitle'))
 
-const enhancedSponsors: Sponsor[] = props.sponsors;
+const enhancedSponsors = computed<Sponsor[]>(() => props.sponsors ?? [])
 
 const ariaLabelFor = (name: string) => t('sponsor.card_aria', { name })
 
 const current = ref(0)
 const next = () => {
-  current.value = (current.value + 1) % enhancedSponsors.length
+  if (!enhancedSponsors.value.length) return
+  current.value = (current.value + 1) % enhancedSponsors.value.length
 }
 const prev = () => {
-  current.value = (current.value - 1 + enhancedSponsors.length) % enhancedSponsors.length
+  if (!enhancedSponsors.value.length) return
+  current.value = (current.value - 1 + enhancedSponsors.value.length) % enhancedSponsors.value.length
 }
 
 const onSwipe = (direction: 'left' | 'right') => {
@@ -51,6 +53,20 @@ const handleTouchEnd = (event: TouchEvent) => {
   if (Math.abs(delta) > 30) onSwipe(delta < 0 ? 'left' : 'right')
   startX.value = null
 }
+
+watch(
+  () => enhancedSponsors.value.length,
+  (len) => {
+    if (!len) {
+      current.value = 0
+      return
+    }
+    if (current.value >= len) {
+      current.value = 0
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
@@ -148,7 +164,7 @@ const handleTouchEnd = (event: TouchEvent) => {
                 v-for="(s, idx) in enhancedSponsors"
                 :key="s.name"
                 type="button"
-                class="relative h-3 w-3 rounded-full transition-all transform"
+                class="relative h-3 w-3 rounded-full transition-all transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-accent,#38bdf8)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
                 :class="idx === current
                   ? 'bg-[var(--color-brand-accent,#38bdf8)] scale-110 ring-2 ring-[var(--color-border)]/10 ring-offset-2 ring-offset-[var(--color-surface)] shadow-[0_0_0_2px_rgba(56,189,248,0.25)]'
                   : 'bg-zinc-300 dark:bg-zinc-700 scale-100 ring-1 ring-[var(--color-border)]/40'"
@@ -162,7 +178,7 @@ const handleTouchEnd = (event: TouchEvent) => {
 
         <a
           :href="'mailto:sponsoring@onelitefeather.net'"
-          class="group block h-full rounded-2xl bg-[var(--color-brand-accent)]/12 border border-[var(--color-brand-accent)]/30 text-brand-900 dark:text-brand-100 p-6 shadow-sm"
+          class="group flex h-full flex-col rounded-2xl bg-[var(--color-brand-accent)]/12 border border-[var(--color-brand-accent)]/30 text-brand-900 dark:text-brand-100 p-6 shadow-sm"
           :aria-label="ariaLabelFor(t('sponsor.cta_title'))"
         >
           <p class="text-sm font-semibold text-brand-800 dark:text-brand-200">
@@ -174,7 +190,7 @@ const handleTouchEnd = (event: TouchEvent) => {
           <p class="mt-2 text-sm text-brand-800/90 dark:text-brand-100/80">
             {{ t('sponsor.cta_description') }}
           </p>
-          <div class="mt-6 flex flex-1 items-end">
+          <div class="mt-auto pt-6 flex items-end">
             <span class="inline-flex items-center gap-2 text-sm font-medium text-brand-700 dark:text-brand-200">
               {{ t('sponsor.cta_link') }}
               <span aria-hidden="true">→</span>
