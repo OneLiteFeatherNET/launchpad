@@ -1,4 +1,10 @@
-export function useHomeSeo() {
+type HomeSeoOptions = {
+  title?: string
+  description?: string
+  image?: string
+}
+
+export function useHomeSeo(opts: HomeSeoOptions = {}) {
   const { locale, locales } = useI18n()
   const route = useRoute()
   const site = useSiteConfig()
@@ -33,16 +39,15 @@ export function useHomeSeo() {
 
   // Social preview image for OG/Twitter
   const img = useImage()
-  const previewSocial = img('images/logo.svg', {
-    width: 1200,
-    height: 630,
-    format: 'webp',
-    quality: 80
-  })
+  const socialImage = computed(() =>
+    opts.image
+      ? img(opts.image, { width: 1200, height: 630, format: 'webp', quality: 80 })
+      : img('images/logo.svg', { width: 1200, height: 630, format: 'webp', quality: 80 })
+  )
 
-  const pageTitle = computed(() => site.name)
+  const pageTitle = computed(() => opts.title || site.name)
   const pageDescription = computed(() =>
-    // If you later add i18n keys, replace this with t('home.meta.description')
+    opts.description ||
     'OneLiteFeather is a Minecraft Network sharing development tools with the community.'
   )
 
@@ -53,11 +58,11 @@ export function useHomeSeo() {
     ogDescription: pageDescription.value,
     ogType: 'website',
     ogUrl: canonicalUrl.value,
-    ogImage: previewSocial,
+    ogImage: socialImage.value,
     twitterCard: 'summary_large_image',
     twitterTitle: pageTitle.value,
     twitterDescription: pageDescription.value,
-    twitterImage: previewSocial
+    twitterImage: socialImage.value
   })
 
   useSchemaOrg(() => ({
