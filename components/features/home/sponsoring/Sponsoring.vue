@@ -33,10 +33,10 @@ const ariaLabelFor = (name: string) => t('sponsor.card_aria', { name })
 
 const current = ref(0)
 const next = () => {
-  current.value = (current.value + 1) % enhancedSponsors.value.length
+  current.value = (current.value + 1) % enhancedSponsors.length
 }
 const prev = () => {
-  current.value = (current.value - 1 + enhancedSponsors.value.length) % enhancedSponsors.value.length
+  current.value = (current.value - 1 + enhancedSponsors.length) % enhancedSponsors.length
 }
 </script>
 
@@ -125,8 +125,8 @@ const prev = () => {
               v-for="(s, idx) in enhancedSponsors"
               :key="s.name"
               type="button"
-              class="h-2.5 w-2.5 rounded-full transition-all transform ring-2 ring-transparent"
-              :class="idx === current ? 'bg-brand-500 scale-125 shadow ring-offset-2 ring-brand-200 dark:ring-brand-800' : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
+              class="relative h-3 w-3 rounded-full transition-all transform"
+              :class="idx === current ? 'dot-active scale-110' : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
               :aria-label="ariaLabelFor(s.name)"
               @click="current = idx"
             />
@@ -166,5 +166,18 @@ const prev = () => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.dot-active {
+  background: linear-gradient(135deg, var(--color-brand-primary, #22c55e), var(--color-brand-secondary, #38bdf8));
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.85),
+    0 0 0 4px rgba(34, 197, 94, 0.25);
+}
+
+:global(.dark) .dot-active {
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.35),
+    0 0 0 4px rgba(56, 189, 248, 0.25);
 }
 </style>
