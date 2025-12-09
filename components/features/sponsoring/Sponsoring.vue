@@ -178,9 +178,13 @@ watch(
 
         <a
           :href="'mailto:sponsoring@onelitefeather.net'"
-          class="group flex h-full flex-col rounded-2xl bg-[var(--color-brand-accent)]/12 border border-[var(--color-brand-accent)]/30 text-brand-900 dark:text-brand-100 p-6 shadow-sm"
+          class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-[var(--color-brand-accent,#38bdf8)]/10 text-brand-900 dark:text-brand-100 p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           :aria-label="ariaLabelFor(t('sponsor.cta_title'))"
         >
+          <span
+            class="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-brand-400/30 via-sky-400/25 to-brand-500/30 opacity-70 blur-lg"
+            aria-hidden="true"
+          />
           <p class="text-sm font-semibold text-brand-800 dark:text-brand-200">
             {{ t('sponsor.cta_badge') }}
           </p>
@@ -191,9 +195,10 @@ watch(
             {{ t('sponsor.cta_description') }}
           </p>
           <div class="mt-auto pt-6 flex items-end">
-            <span class="inline-flex items-center gap-2 text-sm font-medium text-brand-700 dark:text-brand-200">
+            <span class="relative inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/80 dark:bg-white/10 shadow-sm">
               {{ t('sponsor.cta_link') }}
               <span aria-hidden="true">→</span>
+              <span class="absolute -inset-px rounded-full bg-gradient-to-r from-brand-400/70 via-sky-400/60 to-brand-500/70 opacity-40 blur-md" aria-hidden="true" />
             </span>
           </div>
         </a>

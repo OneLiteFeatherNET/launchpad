@@ -129,6 +129,27 @@ const onCopyBedrockPort = async () => {
           />
         </div>
 
+        <div class="mt-6 flex flex-col items-center gap-3">
+          <span class="inline-flex items-center gap-2 rounded-full bg-[var(--color-brand-accent,#38bdf8)]/15 px-3 py-1 text-sm font-semibold text-brand-800 dark:text-brand-100 ring-1 ring-[var(--color-brand-accent,#38bdf8)]/40">
+            {{ t('server.connect.title') }}
+          </span>
+          <button
+            type="button"
+            class="relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 via-sky-500 to-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/90 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-500"
+            @click="onCopyJava"
+          >
+            {{ t('server.connect.copy_address') }}
+            <span aria-hidden="true">→</span>
+            <span
+              class="absolute -inset-px rounded-full opacity-40 blur-[6px] bg-gradient-to-r from-brand-400 via-sky-400 to-brand-500 pointer-events-none"
+              aria-hidden="true"
+            />
+          </button>
+          <p class="text-xs text-gray-600 dark:text-gray-400">
+            {{ t('server.connect.subtitle') }}
+          </p>
+        </div>
+
         <ClientOnly>
           <p v-if="!isSupported" class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
             {{ t('server.connect.clipboard_note') }}

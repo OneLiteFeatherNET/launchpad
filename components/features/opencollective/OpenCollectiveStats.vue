@@ -132,23 +132,29 @@ const updatedLabel = computed(() => {
           :href="props.link"
           target="_blank"
           rel="noopener noreferrer"
-          class="rounded-2xl bg-[var(--color-brand-accent)]/15 text-brand-900 dark:text-brand-100 p-5 sm:p-6 shadow-sm border border-[var(--color-brand-accent)]/30 transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 flex flex-col justify-between"
+          class="group relative overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-[var(--color-brand-accent,#38bdf8)]/12 text-brand-900 dark:text-brand-100 p-5 sm:p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 flex flex-col justify-between"
           :aria-label="t('collective.cta')"
         >
+          <span
+            class="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-brand-400/30 via-sky-400/25 to-brand-500/30 opacity-80 blur-lg"
+            aria-hidden="true"
+          />
           <div>
-            <p class="text-sm font-semibold text-brand-800 dark:text-brand-200">
-              OpenCollective
+            <p class="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-brand-800 shadow-sm dark:bg-white/10">
+              {{ t('collective.raised') }}
+              <span class="h-2 w-2 rounded-full bg-brand-500 animate-pulse" aria-hidden="true" />
             </p>
-            <p class="mt-2 text-lg font-bold">
+            <p class="mt-3 text-lg font-bold">
               {{ t('collective.cta') }}
             </p>
             <p class="mt-2 text-sm text-brand-800/80 dark:text-brand-100/80">
               {{ t('collective.subtitle') }}
             </p>
           </div>
-          <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-brand-800 dark:text-brand-200">
+          <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/80 dark:bg-white/10 shadow-sm">
             {{ t('collective.cta') }}
             <span aria-hidden="true">→</span>
+            <span class="absolute -inset-px rounded-full bg-gradient-to-r from-brand-400/70 via-sky-400/60 to-brand-500/70 opacity-40 blur-md" aria-hidden="true" />
           </span>
         </a>
       </div>
