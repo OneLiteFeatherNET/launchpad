@@ -7,6 +7,8 @@ type Sponsor = {
   url: string
   description?: string
   badge?: string
+  logo?: string
+  icon?: [string, string] | string
 }
 
 const props = withDefaults(defineProps<{
@@ -139,13 +141,20 @@ watch(
                         <p class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
                           {{ enhancedSponsors[current]?.name }}
                         </p>
-                        <div v-if="enhancedSponsors[current]?.logo" class="mt-2">
+                        <div v-if="enhancedSponsors[current]?.logo || enhancedSponsors[current]?.icon" class="mt-2">
                           <NuxtImg
+                            v-if="enhancedSponsors[current]?.logo"
                             :src="enhancedSponsors[current]?.logo"
                             :alt="enhancedSponsors[current]?.name"
-                            class="h-10 w-auto max-w-[160px] object-contain"
+                            class="h-10 w-auto max-w-[180px] object-contain"
                             format="webp"
                             loading="lazy"
+                          />
+                          <IconFa
+                            v-else-if="enhancedSponsors[current]?.icon"
+                            :icon="enhancedSponsors[current]?.icon as any"
+                            class="h-8 w-8 text-brand-600 dark:text-brand-300"
+                            aria-hidden="true"
                           />
                         </div>
                         <p v-if="enhancedSponsors[current]?.description" class="mt-1 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
