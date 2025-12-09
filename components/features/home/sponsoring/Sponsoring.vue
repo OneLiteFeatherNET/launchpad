@@ -74,95 +74,95 @@ const handleTouchEnd = (event: TouchEvent) => {
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr] lg:items-stretch">
         <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-500/60 via-brand-400/50 to-brand-600/60 p-[1.5px] shadow-[0_15px_40px_-22px_rgba(0,0,0,0.3)]">
-          <div class="relative h-full rounded-[1.1rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 p-6 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70">
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">{{ t('sponsor.title') }}</p>
-            <div class="flex gap-2">
-              <button
-                type="button"
-                class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-                :aria-label="t('carousel.prev') || 'Zurück'"
-                @click="prev"
-              >
-                ‹
-              </button>
-              <button
-                type="button"
-                class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-                :aria-label="t('carousel.next') || 'Weiter'"
-                @click="next"
-              >
-                ›
-              </button>
+          <div class="relative h-full rounded-[1.1rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 p-5 sm:p-6 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">{{ t('sponsor.title') }}</p>
+              <div class="flex gap-2">
+                <button
+                  type="button"
+                  class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                  :aria-label="t('carousel.prev') || 'Zurück'"
+                  @click="prev"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                  :aria-label="t('carousel.next') || 'Weiter'"
+                  @click="next"
+                >
+                  ›
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div
-            class="relative mt-4 min-h-[220px]"
-            @touchstart.passive="startX = $event.changedTouches?.[0]?.clientX ?? null"
-            @touchend.passive="handleTouchEnd($event)"
-          >
-            <Transition
-              mode="out-in"
-              enter-active-class="transition-opacity duration-200"
-              leave-active-class="transition-opacity duration-200"
-              enter-from-class="opacity-0"
-              leave-to-class="opacity-0"
+            <div
+              class="relative mt-4 min-h-[260px] sm:min-h-[220px]"
+              @touchstart.passive="startX = $event.changedTouches?.[0]?.clientX ?? null"
+              @touchend.passive="handleTouchEnd($event)"
             >
-              <a
-                :key="enhancedSponsors[current]?.name"
-                :href="enhancedSponsors[current]?.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="absolute inset-0 block h-full"
-                :aria-label="ariaLabelFor(enhancedSponsors[current]?.name || '')"
+              <Transition
+                mode="out-in"
+                enter-active-class="transition-opacity duration-200"
+                leave-active-class="transition-opacity duration-200"
+                enter-from-class="opacity-0"
+                leave-to-class="opacity-0"
               >
-                <div class="flex h-full flex-col rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/90 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
-                  <div class="flex items-start justify-between gap-3">
-                    <div class="min-w-0">
-                      <p class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-                        {{ enhancedSponsors[current]?.name }}
-                      </p>
-                      <p v-if="enhancedSponsors[current]?.description" class="mt-1 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                        {{ enhancedSponsors[current]?.description }}
-                      </p>
+                <a
+                  :key="enhancedSponsors[current]?.name"
+                  :href="enhancedSponsors[current]?.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="absolute inset-0 block h-full"
+                  :aria-label="ariaLabelFor(enhancedSponsors[current]?.name || '')"
+                >
+                  <div class="flex h-full flex-col rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/90 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                    <div class="flex items-start justify-between gap-3">
+                      <div class="min-w-0">
+                        <p class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                          {{ enhancedSponsors[current]?.name }}
+                        </p>
+                        <p v-if="enhancedSponsors[current]?.description" class="mt-1 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed line-clamp-4 sm:line-clamp-3">
+                          {{ enhancedSponsors[current]?.description }}
+                        </p>
+                      </div>
+                      <span
+                        v-if="enhancedSponsors[current]?.badge"
+                        class="inline-flex shrink-0 items-center rounded-full bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-200 px-3 py-1 text-xs font-semibold ring-1 ring-brand-100/60 dark:ring-brand-900/60"
+                      >
+                        {{ enhancedSponsors[current]?.badge }}
+                      </span>
                     </div>
-                    <span
-                      v-if="enhancedSponsors[current]?.badge"
-                      class="inline-flex shrink-0 items-center rounded-full bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-200 px-3 py-1 text-xs font-semibold ring-1 ring-brand-100/60 dark:ring-brand-900/60"
-                    >
-                      {{ enhancedSponsors[current]?.badge }}
+                    <span class="mt-auto inline-flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-400">
+                      {{ t('sponsor.cta_link') }}
+                      <span aria-hidden="true">→</span>
                     </span>
                   </div>
-                  <span class="mt-auto inline-flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-400">
-                    {{ t('sponsor.cta_link') }}
-                    <span aria-hidden="true">→</span>
-                  </span>
-                </div>
-              </a>
-            </Transition>
-          </div>
+                </a>
+              </Transition>
+            </div>
 
-          <div class="mt-4 flex gap-2 justify-center">
-            <button
-              v-for="(s, idx) in enhancedSponsors"
-              :key="s.name"
-              type="button"
-              class="relative h-3 w-3 rounded-full transition-all transform"
-              :class="idx === current
-                ? 'bg-[var(--color-brand-accent,#38bdf8)] scale-110 ring-2 ring-white/90 dark:ring-black/40 ring-offset-2 ring-offset-white/70 dark:ring-offset-black/30 shadow-[0_0_0_4px_rgba(56,189,248,0.35)]'
-                : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
-              :aria-label="ariaLabelFor(s.name)"
-              :aria-current="idx === current ? 'true' : undefined"
-              @click="current = idx"
-            />
-          </div>
+            <div class="mt-4 flex gap-2 justify-center">
+              <button
+                v-for="(s, idx) in enhancedSponsors"
+                :key="s.name"
+                type="button"
+                class="relative h-3 w-3 rounded-full transition-all transform"
+                :class="idx === current
+                  ? 'bg-[var(--color-brand-accent,#38bdf8)] scale-110 ring-2 ring-white/90 dark:ring-black/40 ring-offset-2 ring-offset-white/70 dark:ring-offset-black/30 shadow-[0_0_0_4px_rgba(56,189,248,0.35)]'
+                  : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
+                :aria-label="ariaLabelFor(s.name)"
+                :aria-current="idx === current ? 'true' : undefined"
+                @click="current = idx"
+              />
+            </div>
           </div>
         </div>
 
         <a
           :href="'mailto:sponsoring@onelitefeather.net'"
-          class="group block h-full rounded-2xl bg-brand-50/80 dark:bg-brand-900/30 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          class="group block h-full rounded-2xl bg-brand-50/80 dark:bg-brand-900/30 p-6"
           :aria-label="ariaLabelFor(t('sponsor.cta_title'))"
         >
           <p class="text-sm font-semibold text-brand-700 dark:text-brand-200">
