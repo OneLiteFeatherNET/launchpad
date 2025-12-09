@@ -10,7 +10,7 @@ definePageMeta({
 
 const { concept, connect, slides } = useHomeContent()
 const { sponsors } = useSponsoring()
-const { data: collective, error } = useOpenCollective()
+const { data: collective } = useOpenCollective()
 useHomeSeo()
 
 const LazyServerConcept = defineAsyncComponent(() => import('~/components/features/home/server-concept/ServerConcept.vue'))
@@ -41,7 +41,7 @@ const LazyOpenCollective = defineAsyncComponent(() => import('~/components/featu
   />
   <LazySponsoring v-if="sponsors?.length" :sponsors="sponsors" />
   <LazyOpenCollective
-    v-if="collective && !error"
+    v-if="collective"
     :total-raised="collective.totalRaised"
     :goal="collective.goal"
     :contributors="collective.contributors"
