@@ -13,6 +13,11 @@ tags:
   - plugins
 author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'
+sitemap:
+  loc: '/de/blog/wer-moechte-plugins-adoptieren'
+  lastmod: '2025-02-05'
+  changefreq: monthly
+  priority: 0.8
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'

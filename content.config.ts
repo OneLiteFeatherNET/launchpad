@@ -4,6 +4,7 @@ import {
   defineLocalizedCollections,
   withI18nMeta
 } from './utils/content/collections'
+import {asSitemapCollection} from "@nuxtjs/sitemap/content";
 
 const blogSchema = withI18nMeta(
   z.object({
@@ -108,14 +109,36 @@ const serverConceptSchema = z
   })
   .passthrough()
 
+const sponsorsSchema = z
+  .object({
+    key: z.string().optional(),
+    sponsors: z
+      .array(
+        z
+          .object({
+            name: z.string(),
+            url: z.string().url(),
+            description: z.string().optional(),
+            badge: z.string().optional(),
+            logo: z.string().optional(),
+            icon: z.string().optional()
+          })
+          .passthrough()
+      )
+      .default([])
+  })
+  .passthrough()
+
 export default defineContentConfig({
   collections: {
     ...defineLocalizedCollections('blog', (locale) =>
-      asSchemaOrgCollection({
-        type: 'page',
-        source: `blog/${locale}/**/*.md`,
-        schema: blogSchema
-      })
+      asSitemapCollection(
+          asSchemaOrgCollection({
+              type: 'page',
+              source: `blog/${locale}/**/*.md`,
+              schema: blogSchema
+          })
+      )
     ),
     ...defineLocalizedCollections('home_carousel', (locale) => ({
       type: 'data',
@@ -141,6 +164,11 @@ export default defineContentConfig({
       type: 'data',
       source: `server-concept/${locale}/home.json`,
       schema: serverConceptSchema
+    })),
+    ...defineLocalizedCollections('sponsors', (locale) => ({
+      type: 'data',
+      source: `sponsors/${locale}/home.json`,
+      schema: sponsorsSchema
     })),
     authors: defineCollection({
       type: 'page',

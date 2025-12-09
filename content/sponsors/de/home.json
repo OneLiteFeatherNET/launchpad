@@ -1,0 +1,18 @@
+{
+  "sponsors": [
+    {
+      "name": "Cloudflare",
+      "url": "https://www.cloudflare.com/",
+      "description": "Cloudflare liefert unser Edge-CDN, schützt vor DDoS-Angriffen und sorgt mit weltweit verteilten Rechenzentren für schnelle DNS-Antworten und stabile Latenzen – egal, von wo du dich verbindest.",
+      "badge": "CDN & Security",
+      "icon": "fab cloudflare"
+    },
+    {
+      "name": "1Password",
+      "url": "https://1password.com/",
+      "description": "1Password stellt uns sichere Team-Vaults, Secrets-Verwaltung und feingranulare Zugriffskontrolle bereit, damit Schlüssel und Passwörter sicher bleiben und nur dorthin kommen, wo sie hingehören.",
+      "badge": "Security",
+      "icon": "fas key"
+    }
+  ]
+}

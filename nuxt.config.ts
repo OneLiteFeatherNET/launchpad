@@ -6,7 +6,7 @@ import pkg from './package.json' assert {type: 'json'}
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
     devtools: {
-        enabled: false,
+        enabled: true,
 
         timeline: {
             enabled: true
@@ -64,18 +64,14 @@ export default defineNuxtConfig({
         baseUrl: 'http://localhost:3000',
     },
     sitemap: {
-        autoI18n: true,
         xslColumns: [
             {label: 'URL', width: '50%'},
             {label: 'Last Modified', select: 'sitemap:lastmod', width: '25%'},
             {label: 'Language', select: 'sitemap:hreflang', width: '25%'}
         ],
-        urls: [],
-        sources: [],
         defaults: {
             changefreq: 'weekly',
-            priority: 0.8,
-            lastmod: new Date()
+            priority: 0.8
         }
     },
 
@@ -148,6 +144,9 @@ export default defineNuxtConfig({
             discordUrl: 'https://1lf.link/discord',
             // Public BlueMap URL used to embed the external map
             bluemapUrl: 'https://bluemap.onelitefeather.dev/',
+            openCollectiveSlug: 'onelitefeather',
+            openCollectiveGoal: 3000,
+            openCollectiveCurrency: 'EUR',
         }
     },
     $production: {
@@ -171,6 +170,9 @@ export default defineNuxtConfig({
                 discordUrl: 'https://1lf.link/discord',
                 // Override BlueMap URL for production if needed
                 bluemapUrl: 'https://bluemap.onelitefeather.dev/',
+                openCollectiveSlug: 'onelitefeather',
+                openCollectiveGoal: 3000,
+                openCollectiveCurrency: 'EUR',
             }
         },
         schemaOrg: {
@@ -215,9 +217,6 @@ export default defineNuxtConfig({
             cloudflare: {
                 baseURL: 'https://img.onelitefeather.net',
             }
-        },
-        i18n: {
-            baseUrl: 'https://onelitefeather.net',
         },
         nitro: {
             preset: "cloudflare_pages",

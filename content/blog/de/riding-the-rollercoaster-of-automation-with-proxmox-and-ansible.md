@@ -14,6 +14,11 @@ tags:
   - infrastructure
 author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
+sitemap:
+  loc: '/de/blog/mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
+  lastmod: '2023-10-15'
+  changefreq: monthly
+  priority: 0.8
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/blog/mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'

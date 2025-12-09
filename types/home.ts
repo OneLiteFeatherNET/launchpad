@@ -24,4 +24,3 @@ export type HomeCarouselDocument =
   | HomeCarouselEnCollectionItem
 
 export type HomeCarouselSlide = AnySlide
-

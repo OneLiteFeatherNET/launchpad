@@ -11,7 +11,14 @@
     "bluemap": "BlueMap",
     "server": "Server",
     "discord": "Discord",
-    "change_language": "Change language"
+    "change_language": "Change language",
+    "more": "More",
+    "status": "Status",
+    "roadmap": "Roadmap"
+  },
+  "carousel": {
+    "prev": "Previous",
+    "next": "Next"
   },
   "layouts": {
     "title": "Title"
@@ -75,6 +82,28 @@
     "show_all_aria": "Show all timeline events",
     "more": "More",
     "more_aria": "More about {title}"
+  },
+  "sponsor": {
+    "title": "Sponsoring",
+    "subtitle": "Partners that power our infrastructure",
+    "section_aria": "Sponsors and supporters of OneLiteFeather",
+    "card_aria": "Sponsor {name}",
+    "cta_title": "Your logo here?",
+    "cta_description": "Become a sponsor and support our infrastructure. We look forward to hearing from you.",
+    "cta_badge": "Get in touch",
+    "cta_link": "Learn more"
+  },
+  "collective": {
+    "title": "OpenCollective",
+    "subtitle": "How we fund operations, infrastructure, and new features.",
+    "section_aria": "OpenCollective funding for OneLiteFeather",
+    "raised": "Raised",
+    "goal": "Goal",
+    "of_goal": "of {goal}",
+    "contributors": "Contributors",
+    "cta": "View on OpenCollective",
+    "updated": "Updated: {date}",
+    "progress_label": "Raised {raised} of {goal}"
   },
   "footer": {
     "brand": "OneLiteFeather",

@@ -1,6 +1,6 @@
 import { createError, queryCollection } from '#imports'
 import type { PageCollectionItemBase } from '@nuxt/content'
-import type { LocaleObject } from 'vue-i18n'
+import type { LocaleObject } from 'vue-i18n-routing'
 import type {
   BlogArticle,
   BlogAlternateLanguageLink,
@@ -198,8 +198,10 @@ export function useBlogArticle() {
   const alternateLanguages = ref<BlogAlternateLanguageLink[]>([])
 
   // Helper to resolve a base URL
-  const resolveBaseUrl = (): string =>
-    config.public.siteUrl || config.public.baseUrl || 'https://onelitefeather.net'
+  const resolveBaseUrl = (): string => {
+    const pub = config.public as { siteUrl?: string; baseUrl?: string }
+    return pub.siteUrl || pub.baseUrl || 'https://onelitefeather.net'
+  }
 
   // Rebuild alternates whenever article/locale changes
   watch([blog, locale, locales], async () => {

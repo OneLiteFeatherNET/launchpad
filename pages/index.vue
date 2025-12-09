@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue'
-import Carousel from "~/components/sections/carousel/Carousel.vue";
+import Carousel from "~/components/features/home/carousel/Carousel.vue";
 import {definePageMeta} from "#imports";
 
 definePageMeta({
@@ -9,10 +9,15 @@ definePageMeta({
 });
 
 const { concept, connect, slides } = useHomeContent()
+const { sponsors } = useSponsoring()
+const { data: collective } = useOpenCollective()
 useHomeSeo()
 
-const LazyServerConcept = defineAsyncComponent(() => import('~/components/sections/server-concept/ServerConcept.vue'))
-const LazyServerAddresses = defineAsyncComponent(() => import('~/components/sections/server-addresses/ServerAddresses.vue'))
+const LazyServerConcept = defineAsyncComponent(() => import('~/components/features/home/server-concept/ServerConcept.vue'))
+const LazyServerAddresses = defineAsyncComponent(() => import('~/components/features/home/server-addresses/ServerAddresses.vue'))
+const LazySponsoring = defineAsyncComponent(() => import('~/components/features/sponsoring/Sponsoring.vue'))
+const LazyOpenCollective = defineAsyncComponent(() => import('~/components/features/opencollective/OpenCollectiveStats.vue'))
+
 </script>
 
 <template>
@@ -34,11 +39,14 @@ const LazyServerAddresses = defineAsyncComponent(() => import('~/components/sect
     :bedrock-host="connect.bedrockHost"
     :bedrock-port="connect.bedrockPort"
   />
+  <LazySponsoring v-if="sponsors?.length" :sponsors="sponsors" />
+  <LazyOpenCollective
+    v-if="collective"
+    :total-raised="collective.totalRaised"
+    :goal="collective.goal"
+    :contributors="collective.contributors"
+    :currency="collective.currency"
+    :link="collective.link"
+    :updated-at="collective.updatedAt"
+  />
 </template>
-
-<style scoped>
-/* Notes:
-   - Place your own images under `public/`, e.g., `public/hero/slide1.jpg`.
-   - Then reference it in the array above with `src: '/hero/slide1.jpg'`.
-   - `alt` is important for accessibility & SEO. `note` is displayed as overlay text. */
-</style>

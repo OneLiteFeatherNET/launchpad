@@ -67,7 +67,9 @@
     "unist-util-visit": "^5.0.0",
     "unstorage": "^1.17.3",
     "vue": "^3.5.25",
-    "vue-router": "^4.6.3"
+    "vue-i18n-routing": "^1.2.0",
+    "vue-router": "^4.6.3",
+    "zod": "^4.1.13"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
