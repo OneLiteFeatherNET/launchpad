@@ -87,7 +87,7 @@ const updatedLabel = computed(() => {
       </div>
 
       <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-3">
-        <div class="rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 p-5 sm:p-6 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70">
+        <div class="rounded-2xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/90 p-5 sm:p-6 shadow-sm">
           <p class="text-sm text-neutral-600 dark:text-neutral-400">{{ t('collective.raised') }}</p>
           <p class="mt-1 text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-100">{{ formattedRaised }}</p>
           <p v-if="formattedGoal" class="text-sm text-neutral-600 dark:text-neutral-400">
@@ -106,7 +106,7 @@ const updatedLabel = computed(() => {
           </div>
         </div>
 
-        <div class="rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 p-5 sm:p-6 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70 flex flex-col justify-between">
+        <div class="rounded-2xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/90 p-5 sm:p-6 shadow-sm flex flex-col justify-between">
           <div>
             <p class="text-sm text-neutral-600 dark:text-neutral-400">{{ t('collective.contributors') }}</p>
             <p class="mt-1 text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-100">
@@ -122,19 +122,21 @@ const updatedLabel = computed(() => {
           :href="props.link"
           target="_blank"
           rel="noopener noreferrer"
-          class="rounded-2xl border border-brand-100/70 dark:border-brand-900/60 bg-brand-50/90 dark:bg-brand-900/30 p-5 sm:p-6 shadow-sm ring-1 ring-brand-100/80 dark:ring-brand-900/60 transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 flex flex-col justify-between"
+          class="rounded-2xl bg-[var(--color-brand-accent)]/15 text-brand-900 dark:text-brand-100 p-5 sm:p-6 shadow-sm border border-[var(--color-brand-accent)]/30 transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 flex flex-col justify-between"
           :aria-label="t('collective.cta')"
         >
-          <p class="text-sm font-semibold text-brand-700 dark:text-brand-200">
-            OpenCollective
-          </p>
-          <p class="mt-2 text-lg font-bold text-brand-900 dark:text-brand-100">
-            {{ t('collective.cta') }}
-          </p>
-          <p class="mt-2 text-sm text-brand-800 dark:text-brand-100/80">
-            {{ t('collective.subtitle') }}
-          </p>
-          <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-brand-700 dark:text-brand-200">
+          <div>
+            <p class="text-sm font-semibold text-brand-800 dark:text-brand-200">
+              OpenCollective
+            </p>
+            <p class="mt-2 text-lg font-bold">
+              {{ t('collective.cta') }}
+            </p>
+            <p class="mt-2 text-sm text-brand-800/80 dark:text-brand-100/80">
+              {{ t('collective.subtitle') }}
+            </p>
+          </div>
+          <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-brand-800 dark:text-brand-200">
             {{ t('collective.cta') }}
             <span aria-hidden="true">→</span>
           </span>

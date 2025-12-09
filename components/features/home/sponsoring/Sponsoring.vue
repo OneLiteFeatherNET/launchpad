@@ -73,8 +73,8 @@ const handleTouchEnd = (event: TouchEvent) => {
       </div>
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr] lg:items-stretch">
-        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-500/60 via-brand-400/50 to-brand-600/60 p-[1.5px] shadow-[0_15px_40px_-22px_rgba(0,0,0,0.3)]">
-          <div class="relative h-full rounded-[1.1rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 p-5 sm:p-6 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70">
+        <div class="relative rounded-2xl border border-[var(--color-border)]/80 bg-[var(--color-surface)]/90 dark:bg-[var(--color-surface)]/90 shadow-sm">
+          <div class="relative h-full rounded-[1.1rem] p-5 sm:p-6">
             <div class="flex flex-wrap items-center justify-between gap-3">
               <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">{{ t('sponsor.title') }}</p>
               <div class="flex gap-2">
@@ -129,7 +129,7 @@ const handleTouchEnd = (event: TouchEvent) => {
                       </div>
                       <span
                         v-if="enhancedSponsors[current]?.badge"
-                        class="inline-flex shrink-0 items-center rounded-full bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-200 px-3 py-1 text-xs font-semibold ring-1 ring-brand-100/60 dark:ring-brand-900/60"
+                        class="inline-flex shrink-0 items-center rounded-full bg-[var(--color-surface)] text-brand-700 dark:text-brand-200 px-3 py-1 text-xs font-semibold ring-1 ring-[var(--color-border)]/60"
                       >
                         {{ enhancedSponsors[current]?.badge }}
                       </span>
@@ -150,8 +150,8 @@ const handleTouchEnd = (event: TouchEvent) => {
                 type="button"
                 class="relative h-3 w-3 rounded-full transition-all transform"
                 :class="idx === current
-                  ? 'bg-[var(--color-brand-accent,#38bdf8)] scale-110 ring-2 ring-white/90 dark:ring-black/40 ring-offset-2 ring-offset-white/70 dark:ring-offset-black/30 shadow-[0_0_0_4px_rgba(56,189,248,0.35)]'
-                  : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
+                  ? 'bg-[var(--color-brand-accent,#38bdf8)] scale-110 ring-2 ring-[var(--color-border)]/10 ring-offset-2 ring-offset-[var(--color-surface)] shadow-[0_0_0_2px_rgba(56,189,248,0.25)]'
+                  : 'bg-zinc-300 dark:bg-zinc-700 scale-100 ring-1 ring-[var(--color-border)]/40'"
                 :aria-label="ariaLabelFor(s.name)"
                 :aria-current="idx === current ? 'true' : undefined"
                 @click="current = idx"
