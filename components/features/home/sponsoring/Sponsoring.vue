@@ -80,7 +80,7 @@ const handleTouchEnd = (event: TouchEvent) => {
             <div class="flex gap-2">
               <button
                 type="button"
-                class="rounded-full p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                 :aria-label="t('carousel.prev') || 'Zurück'"
                 @click="prev"
               >
@@ -88,7 +88,7 @@ const handleTouchEnd = (event: TouchEvent) => {
               </button>
               <button
                 type="button"
-                class="rounded-full p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                 :aria-label="t('carousel.next') || 'Weiter'"
                 @click="next"
               >
@@ -174,10 +174,12 @@ const handleTouchEnd = (event: TouchEvent) => {
           <p class="mt-2 text-sm text-brand-800 dark:text-brand-100/80">
             {{ t('sponsor.cta_description') }}
           </p>
-          <span class="mt-auto inline-flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-300">
-            {{ t('sponsor.cta_link') }}
-            <span aria-hidden="true">→</span>
-          </span>
+          <div class="mt-6 flex flex-1 items-end">
+            <span class="inline-flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-300">
+              {{ t('sponsor.cta_link') }}
+              <span aria-hidden="true">→</span>
+            </span>
+          </div>
         </a>
       </div>
     </div>
