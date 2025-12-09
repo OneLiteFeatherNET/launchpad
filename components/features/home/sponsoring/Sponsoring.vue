@@ -162,20 +162,20 @@ const handleTouchEnd = (event: TouchEvent) => {
 
         <a
           :href="'mailto:sponsoring@onelitefeather.net'"
-          class="group block h-full rounded-2xl bg-brand-50/80 dark:bg-brand-900/30 p-6"
+          class="group block h-full rounded-2xl bg-[var(--color-brand-accent)]/12 border border-[var(--color-brand-accent)]/30 text-brand-900 dark:text-brand-100 p-6 shadow-sm"
           :aria-label="ariaLabelFor(t('sponsor.cta_title'))"
         >
-          <p class="text-sm font-semibold text-brand-700 dark:text-brand-200">
+          <p class="text-sm font-semibold text-brand-800 dark:text-brand-200">
             {{ t('sponsor.cta_badge') }}
           </p>
           <p class="mt-2 text-xl font-bold text-brand-900 dark:text-brand-100">
             {{ t('sponsor.cta_title') }}
           </p>
-          <p class="mt-2 text-sm text-brand-800 dark:text-brand-100/80">
+          <p class="mt-2 text-sm text-brand-800/90 dark:text-brand-100/80">
             {{ t('sponsor.cta_description') }}
           </p>
           <div class="mt-6 flex flex-1 items-end">
-            <span class="inline-flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-300">
+            <span class="inline-flex items-center gap-2 text-sm font-medium text-brand-700 dark:text-brand-200">
               {{ t('sponsor.cta_link') }}
               <span aria-hidden="true">→</span>
             </span>
