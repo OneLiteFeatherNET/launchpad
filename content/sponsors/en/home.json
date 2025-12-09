@@ -3,13 +3,13 @@
     {
       "name": "Cloudflare",
       "url": "https://www.cloudflare.com/",
-      "description": "Edge CDN, DDoS protection, and DNS performance for our network.",
+      "description": "Cloudflare powers our edge CDN, shields us from DDoS attacks, and delivers fast DNS and stable latency with a globally distributed network—no matter where players connect from.",
       "badge": "CDN & Security"
     },
     {
       "name": "1Password",
       "url": "https://1password.com/",
-      "description": "Secure team vaults, secrets management, and access control.",
+      "description": "1Password provides secure team vaults, secrets management, and granular access control so keys and passwords stay protected and only land where they should.",
       "badge": "Security"
     }
   ]

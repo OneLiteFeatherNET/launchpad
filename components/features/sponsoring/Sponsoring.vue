@@ -130,7 +130,7 @@ watch(
                   :href="enhancedSponsors[current]?.url"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="absolute inset-0 block h-full"
+                  class="block w-full"
                   :aria-label="ariaLabelFor(enhancedSponsors[current]?.name || '')"
                 >
                   <div class="flex h-full flex-col rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/90 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
@@ -139,7 +139,7 @@ watch(
                         <p class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
                           {{ enhancedSponsors[current]?.name }}
                         </p>
-                        <p v-if="enhancedSponsors[current]?.description" class="mt-1 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed line-clamp-4 sm:line-clamp-3">
+                        <p v-if="enhancedSponsors[current]?.description" class="mt-1 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
                           {{ enhancedSponsors[current]?.description }}
                         </p>
                       </div>
