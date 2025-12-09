@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LayoutNavigationBar from '~/components/layout/navigation/NavigationBar.vue'
-import LayoutFooter from '~/components/layout/Footer.vue'
+import LayoutNavigationBar from '~/components/features/navigation/NavigationBar.vue'
+import LayoutFooter from '~/components/features/footer/Footer.vue'
 
 const route = useRoute()
 const { t } = useI18n()
