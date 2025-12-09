@@ -38,7 +38,7 @@ export const useOpenCollective = () => {
         link
       }
     },
-    { server: true }
+    { server: true, lazy: false }
   )
 
   return {
