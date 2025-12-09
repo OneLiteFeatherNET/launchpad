@@ -8,10 +8,11 @@ definePageMeta({
   layout: 'default',
 });
 
+const { t } = useI18n()
 const { concept, connect, slides } = useHomeContent()
 const { sponsors } = useSponsoring()
 const { data: collective } = useOpenCollective()
-useHomeSeo()
+useHomeSeo({ title: t('index.title') })
 
 const LazyServerConcept = defineAsyncComponent(() => import('~/components/features/home/server-concept/ServerConcept.vue'))
 const LazyServerAddresses = defineAsyncComponent(() => import('~/components/features/home/server-addresses/ServerAddresses.vue'))
