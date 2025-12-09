@@ -1,9 +1,9 @@
-import { defineSitemapEventHandler, queryContent } from '#imports'
+import { defineSitemapEventHandler } from '#imports'
+import { serverQueryContent } from '@nuxt/content/server'
 import type { SitemapUrlInput } from '#sitemap/types'
 
 export default defineSitemapEventHandler(async (event) => {
-  // Use queryContent from #imports to avoid package import resolution issues
-  const docs = await queryContent(event).find()
+  const docs = await serverQueryContent(event).find()
 
   const entries: SitemapUrlInput[] = docs
     .filter((doc) => typeof doc._path === 'string')
