@@ -10,7 +10,7 @@ export function useSponsoring() {
 
   const { data } = useAsyncData<SponsorsDocument | null>(
     'sponsors',
-    () => queryCollection(collectionKey.value).first<SponsorsDocument>(),
+    () => queryCollection(collectionKey.value).first(),
     { watch: [collectionKey] }
   )
 
