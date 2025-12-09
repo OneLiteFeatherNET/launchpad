@@ -59,7 +59,7 @@ const mainIcon = computed<IconDefinition>(() => iconMap[props.icon] ?? faCircleI
     <div class="mt-auto flex flex-wrap items-center gap-3">
       <CopyButton
         :aria-label="t('server.connect.copy_aria', { address })"
-        :button-class="buttonClass"
+        :button-class="buttonClass || 'bg-gradient-to-r from-brand-500 via-sky-500 to-brand-600 text-white shadow-lg shadow-brand-500/20 hover:shadow-xl focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-500'"
         :copied="copied"
         label-key="server.connect.copy_address"
         :on-copy="onCopy"
