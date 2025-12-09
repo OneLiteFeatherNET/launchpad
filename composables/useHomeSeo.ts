@@ -46,7 +46,7 @@ export function useHomeSeo() {
     'OneLiteFeather is a Minecraft Network sharing development tools with the community.'
   )
 
-  useSeoMeta(() => ({
+  useSeoMeta({
     title: pageTitle.value,
     description: pageDescription.value,
     ogTitle: pageTitle.value,
@@ -58,7 +58,7 @@ export function useHomeSeo() {
     twitterTitle: pageTitle.value,
     twitterDescription: pageDescription.value,
     twitterImage: previewSocial
-  }))
+  })
 
   useSchemaOrg(() => ({
     '@type': 'WebPage',
@@ -68,4 +68,3 @@ export function useHomeSeo() {
     inLanguage: (locale?.value || 'de')
   }))
 }
-
