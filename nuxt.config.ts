@@ -6,7 +6,7 @@ import pkg from './package.json' assert {type: 'json'}
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
     devtools: {
-        enabled: false,
+        enabled: true,
 
         timeline: {
             enabled: true
@@ -221,9 +221,6 @@ export default defineNuxtConfig({
             cloudflare: {
                 baseURL: 'https://img.onelitefeather.net',
             }
-        },
-        i18n: {
-            baseUrl: 'https://onelitefeather.net',
         },
         nitro: {
             preset: "cloudflare_pages",
