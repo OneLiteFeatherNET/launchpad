@@ -197,12 +197,15 @@ watch(
             {{ t('sponsor.cta_description') }}
           </p>
           <div class="mt-auto pt-6 flex items-end">
-            <span class="relative inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/80 dark:bg-white/10 shadow-sm overflow-hidden">
-              {{ t('sponsor.cta_link') }}
-              <span aria-hidden="true">→</span>
-              <span class="absolute -inset-px rounded-full bg-gradient-to-r from-brand-400/70 via-sky-400/60 to-brand-500/70 opacity-40 blur-md" aria-hidden="true" />
-              <span class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-white/70 dark:ring-white/40 animate-[ping_2s_ease-out_infinite]" aria-hidden="true" />
-              <span class="pointer-events-none absolute inset-0 rounded-full ring-4 ring-brand-400/60 animate-[ping_3s_ease-out_infinite]" aria-hidden="true" />
+            <span class="relative inline-flex items-center rounded-full p-[2px] overflow-hidden">
+              <span
+                class="absolute inset-0 rounded-full bg-[conic-gradient(from_90deg,rgba(59,130,246,0.6),rgba(14,165,233,0.35),rgba(59,130,246,0.6))] opacity-80 animate-[spin_5s_linear_infinite]"
+                aria-hidden="true"
+              />
+              <span class="relative inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/85 dark:bg-white/10 shadow-sm">
+                {{ t('sponsor.cta_link') }}
+                <span aria-hidden="true">→</span>
+              </span>
             </span>
           </div>
         </a>
