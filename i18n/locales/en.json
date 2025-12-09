@@ -16,6 +16,10 @@
     "status": "Status",
     "roadmap": "Roadmap"
   },
+  "carousel": {
+    "prev": "Previous",
+    "next": "Next"
+  },
   "layouts": {
     "title": "Title"
   },
