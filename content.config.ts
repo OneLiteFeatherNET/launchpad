@@ -120,7 +120,8 @@ const sponsorsSchema = z
             url: z.string().url(),
             description: z.string().optional(),
             badge: z.string().optional(),
-            logo: z.string().optional()
+            logo: z.string().optional(),
+            icon: z.string().optional()
           })
           .passthrough()
       )
