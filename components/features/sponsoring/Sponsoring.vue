@@ -178,15 +178,11 @@ watch(
 
         <a
           :href="'mailto:sponsoring@onelitefeather.net'"
-          class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-[var(--color-brand-accent,#38bdf8)]/10 text-brand-900 dark:text-brand-100 p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-white/95 dark:bg-zinc-900/90 text-brand-900 dark:text-brand-100 p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           :aria-label="ariaLabelFor(t('sponsor.cta_title'))"
           data-ph-capture-attribute="cta"
           data-ph-capture-attribute-name="sponsor-contact"
         >
-          <span
-            class="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-brand-400/30 via-sky-400/25 to-brand-500/30 opacity-70 blur-lg animate-[spin_18s_linear_infinite]"
-            aria-hidden="true"
-          />
           <p class="text-sm font-semibold text-brand-800 dark:text-brand-200">
             {{ t('sponsor.cta_badge') }}
           </p>
