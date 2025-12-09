@@ -151,10 +151,11 @@ const updatedLabel = computed(() => {
               {{ t('collective.subtitle') }}
             </p>
           </div>
-          <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/80 dark:bg-white/10 shadow-sm">
+          <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/80 dark:bg-white/10 shadow-sm relative overflow-hidden">
             {{ t('collective.cta') }}
             <span aria-hidden="true">→</span>
             <span class="absolute -inset-px rounded-full bg-gradient-to-r from-brand-400/70 via-sky-400/60 to-brand-500/70 opacity-40 blur-md" aria-hidden="true" />
+            <span class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-brand-400/60 animate-ping" aria-hidden="true" />
           </span>
         </a>
       </div>
