@@ -1,9 +1,9 @@
-import { serverQueryContent } from '#content/server'
-import { defineSitemapEventHandler } from '#imports'
+import { defineSitemapEventHandler, queryContent } from '#imports'
 import type { SitemapUrlInput } from '#sitemap/types'
 
 export default defineSitemapEventHandler(async (event) => {
-  const docs = await serverQueryContent(event).find()
+  // Use queryContent from #imports to avoid package import resolution issues
+  const docs = await queryContent(event).find()
 
   const entries: SitemapUrlInput[] = docs
     .filter((doc) => typeof doc._path === 'string')

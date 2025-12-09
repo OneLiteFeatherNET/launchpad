@@ -1,4 +1,6 @@
 onlyBuiltDependencies:
+  - '@intlify/vue-i18n-bridge'
+  - '@intlify/vue-router-bridge'
   - '@parcel/watcher'
   - '@tailwindcss/oxide'
   - better-sqlite3
@@ -6,6 +8,7 @@ onlyBuiltDependencies:
   - esbuild
   - sharp
   - unrs-resolver
+  - vue-demi
 
 overrides:
   '@eslint/plugin-kit@<0.3.4': '>=0.3.4'
