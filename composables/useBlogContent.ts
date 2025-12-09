@@ -1,6 +1,6 @@
 import { createError, queryCollection } from '#imports'
 import type { PageCollectionItemBase } from '@nuxt/content'
-import type { LocaleObject } from 'vue-i18n'
+import type { LocaleObject } from 'vue-i18n-routing'
 import type {
   BlogArticle,
   BlogAlternateLanguageLink,
