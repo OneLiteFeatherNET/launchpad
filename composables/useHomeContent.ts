@@ -53,24 +53,10 @@ export function useHomeContent() {
     return (doc?.slides as HomeCarouselSlide[] | undefined) ?? []
   })
 
-  const { data: sponsorData } = useAsyncData<SponsorsDocument[]>(
-    'sponsors-home',
-    () => {
-      // @ts-ignore queryCollection is provided by @nuxt/content
-      return queryCollection('sponsors_' + (locale?.value || 'de')).all()
-    },
-    { watch: [locale] }
-  )
-
-  const sponsors = computed<SponsorEntry[]>(() => {
-    const doc = sponsorData.value?.[0] as SponsorsDocument | undefined
-    return (doc?.sponsors as SponsorEntry[] | undefined) ?? []
-  })
-
   return {
     concept,
     connect,
     slides,
-    sponsors
+    sponsors: computed(() => []) // deprecated: use useSponsoring instead
   }
 }

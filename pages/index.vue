@@ -9,35 +9,14 @@ definePageMeta({
 });
 
 const { concept, connect, slides } = useHomeContent()
-const { data: collective } = await useOpenCollective()
+const { sponsors } = useSponsoring()
+const { data: collective, error } = useOpenCollective()
 useHomeSeo()
 
 const LazyServerConcept = defineAsyncComponent(() => import('~/components/features/home/server-concept/ServerConcept.vue'))
 const LazyServerAddresses = defineAsyncComponent(() => import('~/components/features/home/server-addresses/ServerAddresses.vue'))
 const LazySponsoring = defineAsyncComponent(() => import('~/components/features/home/sponsoring/Sponsoring.vue'))
 const LazyOpenCollective = defineAsyncComponent(() => import('~/components/features/home/opencollective/OpenCollectiveStats.vue'))
-
-type SponsorCard = {
-  name: string
-  url: string
-  description?: string
-  badge?: string
-}
-
-const sponsors: SponsorCard[] = [
-  {
-    name: 'Cloudflare',
-    url: 'https://www.cloudflare.com/',
-    description: 'Edge CDN, DDoS-Schutz und DNS-Performance für unser Netzwerk.',
-    badge: 'CDN & Security'
-  },
-  {
-    name: '1Password',
-    url: 'https://1password.com/',
-    description: 'Sichere Team-Vaults, Secrets-Verwaltung und Zugriffskontrolle.',
-    badge: 'Security'
-  }
-]
 
 </script>
 
@@ -60,21 +39,14 @@ const sponsors: SponsorCard[] = [
     :bedrock-host="connect.bedrockHost"
     :bedrock-port="connect.bedrockPort"
   />
-  <LazySponsoring :sponsors="sponsors" />
+  <LazySponsoring v-if="sponsors?.length" :sponsors="sponsors" />
   <LazyOpenCollective
-    v-if="collective?.value"
-    :total-raised="collective.value.totalRaised"
-    :goal="collective.value.goal"
-    :contributors="collective.value.contributors"
-    :currency="collective.value.currency"
-    :link="collective.value.link"
-    :updated-at="collective.value.updatedAt"
+    v-if="collective && !error"
+    :total-raised="collective.totalRaised"
+    :goal="collective.goal"
+    :contributors="collective.contributors"
+    :currency="collective.currency"
+    :link="collective.link"
+    :updated-at="collective.updatedAt"
   />
 </template>
-
-<style scoped>
-/* Notes:
-   - Place your own images under `public/`, e.g., `public/hero/slide1.jpg`.
-   - Then reference it in the array above with `src: '/hero/slide1.jpg'`.
-   - `alt` is important for accessibility & SEO. `note` is displayed as overlay text. */
-</style>
