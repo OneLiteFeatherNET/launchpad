@@ -59,7 +59,7 @@ const mainIcon = computed<IconDefinition>(() => iconMap[props.icon] ?? faCircleI
     <div class="mt-auto flex flex-wrap items-center gap-3">
       <CopyButton
         :aria-label="t('server.connect.copy_aria', { address })"
-        :button-class="buttonClass || 'relative overflow-hidden bg-gradient-to-r from-brand-500 via-sky-500 to-brand-600 text-white shadow-lg shadow-brand-500/20 hover:shadow-xl focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-500 after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:ring-2 after:ring-white/50 after:animate-[ping_1.2s_ease-in-out_infinite] before:pointer-events-none before:absolute before:inset-0 before:rounded-full before:ring-2 before:ring-brand-400/50 before:animate-[ping_2s_ease-in-out_infinite]'"
+        :button-class="buttonClass || 'relative overflow-hidden bg-gradient-to-r from-brand-500 via-sky-500 to-brand-600 text-white shadow-lg shadow-brand-500/20 hover:shadow-xl focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-500 after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:ring-2 after:ring-white/60 after:animate-[ping_2s_ease-out_infinite] before:pointer-events-none before:absolute before:inset-0 before:rounded-full before:ring-2 before:ring-brand-400/60 before:animate-[ping_3s_ease-out_infinite]'"
         :copied="copied"
         label-key="server.connect.copy_address"
         :on-copy="onCopy"

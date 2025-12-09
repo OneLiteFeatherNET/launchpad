@@ -157,8 +157,8 @@ const updatedLabel = computed(() => {
             {{ t('collective.cta') }}
             <span aria-hidden="true">→</span>
             <span class="absolute -inset-px rounded-full bg-gradient-to-r from-brand-400/70 via-sky-400/60 to-brand-500/70 opacity-40 blur-md" aria-hidden="true" />
-            <span class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-brand-400/70 animate-[ping_1s_ease-in-out_infinite]" aria-hidden="true" />
-            <span class="pointer-events-none absolute inset-0 rounded-full ring-4 ring-brand-300/50 animate-[ping_1.8s_ease-in-out_infinite]" aria-hidden="true" />
+            <span class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-white/70 dark:ring-white/40 animate-[ping_2s_ease-out_infinite]" aria-hidden="true" />
+            <span class="pointer-events-none absolute inset-0 rounded-full ring-4 ring-brand-400/60 animate-[ping_3s_ease-out_infinite]" aria-hidden="true" />
           </span>
         </a>
       </div>
