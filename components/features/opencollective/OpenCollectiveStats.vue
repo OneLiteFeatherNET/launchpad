@@ -153,11 +153,8 @@ const updatedLabel = computed(() => {
               {{ t('collective.subtitle') }}
             </p>
           </div>
-          <span class="relative inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/85 dark:bg-white/10 shadow-sm overflow-hidden">
-            <span
-              class="pointer-events-none absolute inset-[-4px] rounded-full bg-[conic-gradient(from_90deg,rgba(59,130,246,0.75),rgba(14,165,233,0.35),rgba(59,130,246,0.75))] [mask:radial-gradient(circle,transparent_0,transparent_62%,#000_66%,#000_100%)] opacity-85 animate-[spin_8s_linear_infinite]"
-              aria-hidden="true"
-            />
+          <span class="relative inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/85 dark:bg-white/10 shadow-sm overflow-hidden cta-scale">
+            <span class="pointer-events-none absolute inset-[-2px] rounded-full border border-brand-400/40 dark:border-brand-300/30" aria-hidden="true" />
             {{ t('collective.cta') }}
             <span aria-hidden="true">→</span>
           </span>
@@ -166,3 +163,17 @@ const updatedLabel = computed(() => {
     </div>
   </section>
 </template>
+
+<style scoped>
+.cta-scale {
+  animation: cta-scale 2.6s ease-in-out infinite;
+}
+@keyframes cta-scale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+</style>

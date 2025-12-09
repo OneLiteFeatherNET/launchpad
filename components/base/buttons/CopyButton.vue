@@ -34,3 +34,17 @@ const icon = computed(() => (props.copied ? faCheck : faCopy))
     <span v-else>{{ t('server.connect.copied') }}</span>
   </button>
 </template>
+
+<style scoped>
+.cta-scale {
+  animation: cta-scale 2.6s ease-in-out infinite;
+}
+@keyframes cta-scale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+</style>
