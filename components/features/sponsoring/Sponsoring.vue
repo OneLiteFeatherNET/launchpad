@@ -180,6 +180,8 @@ watch(
           :href="'mailto:sponsoring@onelitefeather.net'"
           class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-[var(--color-brand-accent,#38bdf8)]/10 text-brand-900 dark:text-brand-100 p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           :aria-label="ariaLabelFor(t('sponsor.cta_title'))"
+          data-ph-capture-attribute="cta"
+          data-ph-capture-attribute-name="sponsor-contact"
         >
           <span
             class="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-brand-400/30 via-sky-400/25 to-brand-500/30 opacity-70 blur-lg"
@@ -199,7 +201,8 @@ watch(
               {{ t('sponsor.cta_link') }}
               <span aria-hidden="true">→</span>
               <span class="absolute -inset-px rounded-full bg-gradient-to-r from-brand-400/70 via-sky-400/60 to-brand-500/70 opacity-40 blur-md" aria-hidden="true" />
-              <span class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-brand-400/60 animate-ping" aria-hidden="true" />
+              <span class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-brand-400/70 animate-[ping_1s_ease-in-out_infinite]" aria-hidden="true" />
+              <span class="pointer-events-none absolute inset-0 rounded-full ring-4 ring-brand-300/50 animate-[ping_1.8s_ease-in-out_infinite]" aria-hidden="true" />
             </span>
           </div>
         </a>

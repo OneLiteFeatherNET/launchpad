@@ -134,6 +134,8 @@ const updatedLabel = computed(() => {
           rel="noopener noreferrer"
           class="group relative overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-[var(--color-brand-accent,#38bdf8)]/12 text-brand-900 dark:text-brand-100 p-5 sm:p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 flex flex-col justify-between"
           :aria-label="t('collective.cta')"
+          data-ph-capture-attribute="cta"
+          data-ph-capture-attribute-name="open-collective"
         >
           <span
             class="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-brand-400/30 via-sky-400/25 to-brand-500/30 opacity-80 blur-lg"
@@ -155,7 +157,8 @@ const updatedLabel = computed(() => {
             {{ t('collective.cta') }}
             <span aria-hidden="true">→</span>
             <span class="absolute -inset-px rounded-full bg-gradient-to-r from-brand-400/70 via-sky-400/60 to-brand-500/70 opacity-40 blur-md" aria-hidden="true" />
-            <span class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-brand-400/60 animate-ping" aria-hidden="true" />
+            <span class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-brand-400/70 animate-[ping_1s_ease-in-out_infinite]" aria-hidden="true" />
+            <span class="pointer-events-none absolute inset-0 rounded-full ring-4 ring-brand-300/50 animate-[ping_1.8s_ease-in-out_infinite]" aria-hidden="true" />
           </span>
         </a>
       </div>
