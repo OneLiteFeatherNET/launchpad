@@ -1,125 +1,43 @@
-# OneLiteFeather Blog
+# OneLiteFeather Blog / Site
 
-A multilingual blog platform built with Nuxt 3, featuring content in both German and English.
+Multilingual (de/en) Nuxt site with @nuxt/content, SEO/i18n, and feature-based components.
 
-## Project Overview
-
-This project serves as the official blog for OneLiteFeather.net, providing articles and information in multiple languages. It's built with modern web technologies to ensure fast loading times, SEO optimization, and a great user experience.
-
-## Features
-
-- Multilingual content (German and English)
-- Responsive design with Tailwind CSS
-- SEO optimized with meta tags, sitemap, and robots.txt
-- Content management using Nuxt Content
-- Social media preview images
-- Structured data for better search engine visibility
-
-## Roadmap
-
-This project is intended to become the normal/official site for OneLiteFeather.net. Future plans include:
-
-- Expanding content categories
-- Enhancing user experience
-- Improving performance metrics
-- Adding more interactive elements
-- Integrating with other OneLiteFeather services
-
-## Technologies Used
-
-- [Nuxt 3](https://nuxt.com/) - Vue.js framework
-- [Nuxt Content](https://content.nuxtjs.org/) - Content management
-- [Nuxt i18n](https://i18n.nuxtjs.org/) - Internationalization
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Nuxt SEO](https://nuxtseo.com/) - SEO optimization
+## Stack
+- Nuxt 3 + TypeScript, Tailwind CSS
+- @nuxt/content for Markdown/data collections (blog, sponsors, timeline, etc.)
+- @nuxtjs/i18n, @nuxtjs/seo, @nuxtjs/sitemap, nuxt-schema-org
+- FontAwesome (brands/solid) + @nuxt/image (Cloudflare provider)
 
 ## Project Structure
+- `content/` — localized collections (`blog_{locale}`, `sponsors_{locale}`, etc.)
+- `components/features/` — navigation, footer, sponsoring, OpenCollective, home sections
+- `components/base/` — primitives (buttons, typography, icons)
+- `layouts/` — shared layout chrome
+- `pages/` — route-driven pages
+- `i18n/locales/` — locale message files
 
-- `content/` - Blog posts and other content (organized by language)
-- `components/` - Vue components
-- `layouts/` - Page layouts
-- `pages/` - Application pages
-- `public/` - Static assets
-- `i18n/` - Internationalization configuration
+## Scripts
+- Install: `pnpm install`
+- Dev: `pnpm dev`
+- Build: `pnpm build`
+- Preview: `pnpm preview`
+- Generate (SSG): `pnpm generate`
 
-## Setup
+## Content authoring
+- Blog posts live under `content/blog/{locale}/`. Frontmatter supports `title`, `description`, `slug`, `pubDate`, `canonical`, `alternates`, `sitemap`, etc.
+- Sponsors: `content/sponsors/{locale}/home.json` supports `name`, `url`, `description`, `badge`, plus optional `logo` (URL) or `icon` (`"fab cloudflare"` style).
+- Schema for all collections lives in `content.config.ts`.
 
-Make sure to install dependencies:
-
-```bash
-# Using pnpm (recommended)
-pnpm install
-
-# Using npm
-npm install
-
-# Using yarn
-yarn install
-
-# Using bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# Using pnpm (recommended)
-pnpm dev
-
-# Using npm
-npm run dev
-
-# Using yarn
-yarn dev
-
-# Using bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# Using pnpm (recommended)
-pnpm build
-
-# Using npm
-npm run build
-
-# Using yarn
-yarn build
-
-# Using bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# Using pnpm (recommended)
-pnpm preview
-
-# Using npm
-npm run preview
-
-# Using yarn
-yarn preview
-
-# Using bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## SEO / i18n
+- `usePageSeo` + `useHomeSeo` provide canonical/hreflang and social meta.
+- Sitemap is auto-generated with i18n-aware content source and alternates.
+- Schema.org via `nuxt-schema-org`; site config from `nuxt.config.ts`.
 
 ## Releases
+- Semantic-release on main with conventional commits. Run `pnpm release` (with push access) to publish tags/changelog.
+- Footer version is pulled from `package.json` (`appConfig.version`).
 
-- Main branch uses `semantic-release` with conventional commits to automate versions, changelog, git tag, and package.json updates.
-- Run `pnpm release` on the main branch with push access; it updates `CHANGELOG.md`, bumps the version, and creates the release commit/tag.
-- The current app version is surfaced in the footer from `appConfig.version` (pulled from `package.json`).
-
-## Testing
-
-This project is tested with BrowserStack.
+## Contributing
+- Use 2-space indentation and `<script setup lang="ts">`.
+- Prefer feature components under `components/features/` and shared primitives in `components/base/`.
+- Keep diffs small; follow existing naming (`PascalCase.vue`, route-based pages).
