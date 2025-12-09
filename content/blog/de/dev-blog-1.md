@@ -13,6 +13,11 @@ tags:
   - technologien
   - team
 canonical: 'https://onelitefeather.net/de/blog/dev-blog-1-was-wir-verwenden'
+sitemap:
+  loc: '/de/blog/dev-blog-1-was-wir-verwenden'
+  lastmod: '2023-10-21'
+  changefreq: monthly
+  priority: 0.8
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/blog/dev-blog-1-was-wir-verwenden'
