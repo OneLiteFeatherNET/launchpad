@@ -27,15 +27,7 @@ const sectionAria = computed(() => t('sponsor.section_aria'))
 const displayTitle = computed(() => props.title ?? t('sponsor.title'))
 const displaySubtitle = computed(() => props.subtitle ?? t('sponsor.subtitle'))
 
-const enhancedSponsors = computed(() => {
-  const ctaCard: Sponsor = {
-    name: t('sponsor.cta_title'),
-    url: 'mailto:sponsoring@onelitefeather.net',
-    description: t('sponsor.cta_description'),
-    badge: t('sponsor.cta_badge')
-  }
-  return [...props.sponsors, ctaCard]
-})
+const enhancedSponsors: Sponsor[] = props.sponsors;
 
 const ariaLabelFor = (name: string) => t('sponsor.card_aria', { name })
 
@@ -68,7 +60,8 @@ const prev = () => {
       </div>
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr] lg:items-stretch">
-        <div class="relative overflow-hidden rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 p-6 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70">
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-500/60 via-brand-400/50 to-brand-600/60 p-[1.5px] shadow-[0_15px_40px_-22px_rgba(0,0,0,0.3)]">
+          <div class="relative h-full rounded-[1.1rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/90 p-6 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70">
           <div class="flex items-center justify-between">
             <p class="text-sm font-medium text-neutral-600 dark:text-neutral-400">{{ t('sponsor.title') }}</p>
             <div class="flex gap-2">
@@ -91,17 +84,17 @@ const prev = () => {
             </div>
           </div>
 
-          <div class="relative mt-4 min-h-[160px]">
-            <Transition name="fade">
+          <div class="relative mt-4 min-h-[200px]">
+            <Transition name="fade" mode="out-in">
               <a
                 :key="enhancedSponsors[current]?.name"
                 :href="enhancedSponsors[current]?.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="block h-full"
+                class="absolute inset-0 block h-full"
                 :aria-label="ariaLabelFor(enhancedSponsors[current]?.name || '')"
               >
-                <div class="rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/90 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                <div class="flex h-full flex-col rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/90 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
                   <div class="flex items-start justify-between gap-3">
                     <div class="min-w-0">
                       <p class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
@@ -118,7 +111,7 @@ const prev = () => {
                       {{ enhancedSponsors[current]?.badge }}
                     </span>
                   </div>
-                  <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-400">
+                  <span class="mt-auto inline-flex items-center gap-2 text-sm font-medium text-brand-600 dark:text-brand-400">
                     {{ t('sponsor.cta_link') }}
                     <span aria-hidden="true">→</span>
                   </span>
@@ -127,16 +120,17 @@ const prev = () => {
             </Transition>
           </div>
 
-          <div class="mt-4 flex gap-2">
+          <div class="mt-4 flex gap-2 justify-center">
             <button
               v-for="(s, idx) in enhancedSponsors"
               :key="s.name"
               type="button"
-              class="h-2.5 w-2.5 rounded-full transition-all"
-              :class="idx === current ? 'bg-brand-500 w-6' : 'bg-zinc-300 dark:bg-zinc-700'"
+              class="h-2.5 w-2.5 rounded-full transition-all transform ring-2 ring-transparent"
+              :class="idx === current ? 'bg-brand-500 scale-125 shadow ring-offset-2 ring-brand-200 dark:ring-brand-800' : 'bg-zinc-300 dark:bg-zinc-700 scale-100'"
               :aria-label="ariaLabelFor(s.name)"
               @click="current = idx"
             />
+          </div>
           </div>
         </div>
 
