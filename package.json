@@ -78,7 +78,7 @@
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/vue-fontawesome": "^3.1.2",
     "better-sqlite3": "^12.4.6",
-    "h3": "1.15.4",
+    "h3": "1.15.5",
     "posthog-js": "^1.298.1"
   }
 }
