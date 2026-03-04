@@ -9,9 +9,6 @@ OneLiteFeather.net is the official website of the OneLiteFeather Minecraft Netwo
 - [Home](https://onelitefeather.net/en/): Overview of the OneLiteFeather Minecraft Network
 - [Blog](https://onelitefeather.net/en/blog): Development blog with articles about Minecraft server development, community updates, and technical guides
 - [BlueMap](https://onelitefeather.net/en/bluemap): Interactive 3D map of the Minecraft server
-- [Team](https://onelitefeather.net/en/team): Meet the team behind OneLiteFeather
-- [Server](https://onelitefeather.net/en/server): Minecraft server connection details for Java and Bedrock editions
-- [Status](https://onelitefeather.net/en/status): Live status of OneLiteFeather services
 
 ## About
 
