@@ -1,0 +1,37 @@
+# OneLiteFeather Network
+
+> OneLiteFeather is a Minecraft Network focusing on the development of tools with the intention to share with other servers.
+
+OneLiteFeather.net is the official website of the OneLiteFeather Minecraft Network. The site is available in English and German.
+
+## Main Sections
+
+- [Home](https://onelitefeather.net/en/): Overview of the OneLiteFeather Minecraft Network
+- [Blog](https://onelitefeather.net/en/blog): Development blog with articles about Minecraft server development, community updates, and technical guides
+- [BlueMap](https://onelitefeather.net/en/bluemap): Interactive 3D map of the Minecraft server
+- [Team](https://onelitefeather.net/en/team): Meet the team behind OneLiteFeather
+- [Server](https://onelitefeather.net/en/server): Minecraft server connection details for Java and Bedrock editions
+- [Status](https://onelitefeather.net/en/status): Live status of OneLiteFeather services
+
+## About
+
+OneLiteFeather is a Minecraft Network founded in 2019 that focuses on developing open-source tools for the Minecraft server community. The network shares development tools, plugins, and knowledge with other servers.
+
+## Open Source
+
+OneLiteFeather actively develops and maintains open-source projects on GitHub: https://github.com/OneLiteFeatherNET
+
+## Funding
+
+OneLiteFeather is community-funded via OpenCollective: https://opencollective.com/onelitefeather
+
+## Contact
+
+- Email: contact@onelitefeather.net
+- GitHub: https://github.com/OneLiteFeatherNET
+- Discord: https://1lf.link/discord
+
+## Languages
+
+- English: https://onelitefeather.net/en/
+- German (Deutsch): https://onelitefeather.net/de/
