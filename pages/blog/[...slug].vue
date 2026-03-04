@@ -27,8 +27,11 @@ const previewSocial = computed(() =>
   })
 )
 
-// Canonical URL for OG tags
-const baseUrl = computed(() => site.url || config.public.siteUrl || 'https://onelitefeather.net')
+// Canonical URL for OG tags — resolution order matches resolveBaseUrl() in useBlogContent.ts
+const baseUrl = computed(() => {
+  const pub = config.public as { siteUrl?: string }
+  return pub.siteUrl || site.url || 'https://onelitefeather.net'
+})
 const canonicalUrl = computed(() =>
   blog.value ? (blog.value.canonical || `${baseUrl.value}/${locale.value}/blog/${blog.value.slug}`) : baseUrl.value
 )
