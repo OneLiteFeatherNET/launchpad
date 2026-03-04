@@ -85,9 +85,28 @@ useSchemaOrg(() => {
       '@type': 'Person' as const,
       name: a.name
     })) || [],
-    image: previewSocial.value
+    image: previewSocial.value,
+    dateModified: blog.value.updatedDate
+      ? new Date(blog.value.updatedDate).toISOString()
+      : blog.value.pubDate
+        ? new Date(blog.value.pubDate).toISOString()
+        : undefined,
+    publisher: {
+      '@type': 'Organization' as const,
+      name: 'OneLiteFeather Network',
+      url: 'https://onelitefeather.net'
+    }
   }
 })
+
+useSchemaOrg([{
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl.value },
+    { '@type': 'ListItem', position: 2, name: t('blog.overview.title'), item: `${baseUrl.value}/${locale.value}/blog` },
+    { '@type': 'ListItem', position: 3, name: blog.value?.title || '' }
+  ]
+}])
 
 defineOgImage({
   title: blog.value?.title || t('blog.overview.title'),
