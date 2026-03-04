@@ -77,6 +77,12 @@ export default defineNuxtConfig({
             priority: 0.8
         }
     },
+    routeRules: {
+        '/en/imprint': { index: false },
+        '/de/imprint': { index: false },
+        '/en/privacy': { index: false },
+        '/de/privacy': { index: false },
+    },
 
     vite: {
         plugins: [tailwindcss()],
