@@ -1,7 +1,7 @@
 import type { PageSeoOptions } from '~/types/seo'
 
 export function usePageSeo(opts: PageSeoOptions = {}) {
-  const { locale, locales } = useI18n()
+  const { locale, locales, t } = useI18n()
   const route = useRoute()
   const site = useSiteConfig()
   const switchLocalePath = useSwitchLocalePath()
@@ -31,7 +31,6 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   useHead(() => ({
     link: [
       { rel: 'canonical', href: canonicalUrl.value },
-      // Favicon kept for consistency
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       ...alternateLinks.value
     ],
@@ -42,14 +41,33 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   const socialImage = computed(() =>
     opts.image
       ? img(opts.image, { width: 1200, height: 630, format: 'webp', quality: 80 })
-      : img('images/logo.svg', { width: 1200, height: 630, format: 'webp', quality: 80 })
+      : undefined
   )
 
   const pageTitle = computed(() => opts.title || site.name)
   const pageDescription = computed(() => {
     if (opts.description) return opts.description
     if (site.description) return site.description
-    return 'OneLiteFeather is a Minecraft Network sharing development tools with the community.'
+    return t('seo.default_description')
+  })
+
+  // Resolve og:locale from the current locale code
+  const currentLocaleObj = computed(() => {
+    const all = Array.isArray(locales.value) ? locales.value : []
+    return (all as Array<any>).find(
+      l => (typeof l === 'string' ? l : l.code) === locale.value
+    )
+  })
+  const ogLocale = computed(() => {
+    const l = currentLocaleObj.value
+    if (!l) return locale.value
+    return typeof l === 'string' ? l : (l.iso || l.code)
+  })
+  const ogLocaleAlternate = computed(() => {
+    const all = Array.isArray(locales.value) ? locales.value : []
+    return (all as Array<any>)
+      .filter(l => (typeof l === 'string' ? l : l.code) !== locale.value)
+      .map(l => (typeof l === 'string' ? l : (l.iso || l.code)))
   })
 
   useSeoMeta({
@@ -60,10 +78,20 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     ogType: opts.ogType || 'website',
     ogUrl: canonicalUrl,
     ogImage: socialImage,
+    ogImageAlt: opts.imageAlt || pageTitle,
+    ogSiteName: site.name,
+    ogLocale: ogLocale,
+    ogLocaleAlternate: ogLocaleAlternate,
     twitterCard: opts.twitterCard || 'summary_large_image',
     twitterTitle: pageTitle,
     twitterDescription: pageDescription,
     twitterImage: socialImage
+  })
+
+  // Auto-generate OG image via nuxt-og-image for every page
+  defineOgImage({
+    title: opts.title || site.name || 'OneLiteFeather',
+    description: pageDescription.value
   })
 
   useSchemaOrg(() => ({

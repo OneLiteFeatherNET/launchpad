@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { definePageMeta } from '#imports'
+const { t } = useI18n()
 const bluemapUrl = useBluemapUrl();
 
 definePageMeta({
   title: 'bluemap.title'
 })
 
-useHead({
-  meta: [
-    { name: 'description', content: 'Interactive BlueMap Karte des OneLiteFeather Minecraft-Servers.' }
-  ]
+usePageSeo({
+  description: t('bluemap.description'),
+  schemaType: 'WebPage',
 })
 </script>
 

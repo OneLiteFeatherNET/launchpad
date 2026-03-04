@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
+const { t } = useI18n()
 
 definePageMeta({
   title: 'blog.privacy.title',
 });
+
+usePageSeo({
+  description: t('blog.privacy.description'),
+  robots: 'noindex, follow',
+})
 </script>
 
 <template>

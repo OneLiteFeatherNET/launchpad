@@ -58,11 +58,14 @@
     "title": "Startseite"
   },
   "bluemap": {
-    "title": "BlueMap"
+    "title": "BlueMap",
+    "description": "Interaktive BlueMap-Karte des OneLiteFeather Minecraft-Servers."
   },
   "team": {
     "title": "Team",
     "subtitle": "Lerne die Menschen hinter OneLiteFeather kennen.",
+    "profile_title_fallback": "Team — OneLiteFeather",
+    "profile_description_fallback": "Teammitglied-Profil bei OneLiteFeather.",
     "search_label": "Team durchsuchen",
     "search_placeholder": "Name suchen…",
     "filter_role": "Rolle",
@@ -147,6 +150,9 @@
     "facebook": "Facebook",
     "linkedin": "LinkedIn",
     "github": "GitHub"
+  },
+  "seo": {
+    "default_description": "OneLiteFeather ist ein Minecraft-Netzwerk, das Entwicklungstools mit der Community teilt."
   },
   "accessibility": {
     "logo_alt": "OneLiteFeather Logo"

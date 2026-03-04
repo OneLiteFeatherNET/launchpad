@@ -14,6 +14,10 @@ export type PageSeoOptions = {
    */
   image?: string
   /**
+   * Alt text for the social preview image.
+   */
+  imageAlt?: string
+  /**
    * Explicit canonical URL. If omitted, the current route path is resolved against site.url.
    */
   canonical?: string

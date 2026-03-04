@@ -12,40 +12,10 @@ definePageMeta({
 
 const { top1Article, allPosts } = useBlogOverview()
 
-useHead({
-  link: [
-    {
-      rel: 'icon',
-      type: 'image/svg+xml',
-      href: '/favicon.svg'
-    }
-  ]
-})
-
-const img = useImage()
-const previewSocial = img('images/logo.svg', {
-  width: 1200,
-  height: 630,
-  format: 'webp',
-  quality: 80,
-});
-
-useSeoMeta({
+usePageSeo({
+  title: t('blog.overview.title'),
   description: t('blog.overview.description'),
-  ogDescription: t('blog.overview.description'),
-  ogImage: previewSocial,
-  twitterTitle: t('blog.overview.title'),
-  twitterDescription: t('blog.overview.description'),
-  twitterImage: previewSocial
-})
-
-useSchemaOrg({
-  '@context': 'https://schema.org',
-  '@type': 'Blog',
-  name: t('blog.overview.title'),
-  description: t('blog.overview.description'),
-  url: previewSocial,
-  image: previewSocial, // Replace with your blog image URL
+  schemaType: 'Blog',
 })
 </script>
 

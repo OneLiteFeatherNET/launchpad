@@ -7,6 +7,7 @@ import UiChip from '~/components/base/Chip.vue'
 
 const { locale, t, d } = useI18n()
 const config = useRuntimeConfig()
+const site = useSiteConfig()
 const {getFeatureFlag } = usePostHogFeatureFlag();
 
 definePageMeta({
@@ -27,7 +28,7 @@ const previewSocial = computed(() =>
 )
 
 // Canonical URL for OG tags
-const baseUrl = computed(() => config.public.siteUrl || config.public.baseUrl || 'https://blog.onelitefeather.net')
+const baseUrl = computed(() => site.url || config.public.siteUrl || 'https://onelitefeather.net')
 const canonicalUrl = computed(() =>
   blog.value ? (blog.value.canonical || `${baseUrl.value}/${locale.value}/blog/${blog.value.slug}`) : baseUrl.value
 )
@@ -61,8 +62,36 @@ useSeoMeta(() => {
     ogType: 'article',
     ogUrl: canonicalUrl.value,
     twitterCard: 'summary_large_image',
-    ogImageAlt: blog.value?.headerImageAlt || blog.value?.title || ''
+    ogImageAlt: blog.value?.headerImageAlt || blog.value?.title || '',
+    articlePublishedTime: blog.value?.pubDate
+      ? new Date(blog.value.pubDate).toISOString()
+      : undefined,
+    articleAuthor: authors.value?.map(a => a.name) || undefined
   }
+})
+
+// Article structured data
+useSchemaOrg(() => {
+  if (!blog.value) return {}
+  return {
+    '@type': 'Article',
+    headline: blog.value.title,
+    description: blog.value.description || '',
+    url: canonicalUrl.value,
+    datePublished: blog.value.pubDate
+      ? new Date(blog.value.pubDate).toISOString()
+      : undefined,
+    author: authors.value?.map(a => ({
+      '@type': 'Person' as const,
+      name: a.name
+    })) || [],
+    image: previewSocial.value
+  }
+})
+
+defineOgImage({
+  title: blog.value?.title || t('blog.overview.title'),
+  description: blog.value?.description || ''
 })
 </script>
 

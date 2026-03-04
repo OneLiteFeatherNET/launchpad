@@ -3,12 +3,13 @@ const { t } = useI18n()
 
 const { member, avatarSrc } = useTeamProfile()
 
-useHead(() => ({
-  title: member.value ? `${member.value.name} — OneLiteFeather` : 'Team — OneLiteFeather',
-  meta: [
-    { name: 'description', content: member.value?.slogan || member.value?.role || 'Team profile' }
-  ]
-}))
+usePageSeo({
+  title: member.value ? `${member.value.name} — OneLiteFeather` : t('team.profile_title_fallback'),
+  description: member.value?.slogan || member.value?.role || t('team.profile_description_fallback'),
+  image: member.value?.avatar || undefined,
+  imageAlt: member.value ? t('team.avatar_alt', { name: member.value.name }) : undefined,
+  schemaType: 'ProfilePage',
+})
 </script>
 
 <template>
@@ -26,7 +27,7 @@ useHead(() => ({
         <div>
           <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ member.name }}</h1>
           <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">{{ member.role }}</p>
-          <p v-if="member.slogan" class="mt-2 text-gray-700 dark:text-gray-300">“{{ member.slogan }}”</p>
+          <p v-if="member.slogan" class="mt-2 text-gray-700 dark:text-gray-300">"{{ member.slogan }}"</p>
         </div>
       </div>
 

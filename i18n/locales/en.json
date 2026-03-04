@@ -44,7 +44,8 @@
     "title": "Home"
   },
   "bluemap": {
-    "title": "BlueMap"
+    "title": "BlueMap",
+    "description": "Interactive BlueMap map of the OneLiteFeather Minecraft server."
   },
   "blog": {
     "overview": {
@@ -63,6 +64,8 @@
   "team": {
     "title": "Team",
     "subtitle": "Meet the people behind OneLiteFeather.",
+    "profile_title_fallback": "Team — OneLiteFeather",
+    "profile_description_fallback": "Team member profile on OneLiteFeather.",
     "search_label": "Search team",
     "search_placeholder": "Search name…",
     "filter_role": "Role",
@@ -147,6 +150,9 @@
     "facebook": "Facebook",
     "linkedin": "LinkedIn",
     "github": "GitHub"
+  },
+  "seo": {
+    "default_description": "OneLiteFeather is a Minecraft Network sharing development tools with the community."
   },
   "accessibility": {
     "logo_alt": "OneLiteFeather Logo"

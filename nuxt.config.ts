@@ -32,6 +32,9 @@ export default defineNuxtConfig({
         })
     },
     site: {
+        url: 'http://localhost:3000',
+        name: 'OneLiteFeather Network',
+        description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers.',
         debug: true,
     },
     modules: [
