@@ -3,12 +3,10 @@ import { ref } from '#imports';
 import SimpleNavButton from "~/components/base/buttons/SimpleNavButton.vue";
 import NavigationLanguageSelector from "./NavigationLanguageSelector.vue";
 const { t } = useI18n();
-const locale = useCookieLocale();
 const localePath = useLocalePath();
 
-
 const navItems = [
-  { textKey: 'navigation.overview', path: localePath('index', locale?.value as 'de' | 'en' | undefined) },
+  { textKey: 'navigation.overview', path: localePath('index') },
 ];
 
 const mobileMenuOpen = ref(false);
