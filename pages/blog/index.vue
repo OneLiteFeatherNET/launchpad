@@ -4,6 +4,7 @@ import {definePageMeta} from "#imports";
 import Top1 from "~/components/features/blog/page/top1/Top1.vue";
 
 const { t } = useI18n()
+const site = useSiteConfig()
 
 definePageMeta({
   title: 'blog.overview.title',
@@ -17,6 +18,14 @@ usePageSeo({
   description: t('blog.overview.description'),
   schemaType: 'Blog',
 })
+
+useSchemaOrg([{
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: t('navigation.home'), item: site.url },
+    { '@type': 'ListItem', position: 2, name: t('blog.overview.title') }
+  ]
+}])
 </script>
 
 <template>
