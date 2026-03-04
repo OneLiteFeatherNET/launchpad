@@ -23,8 +23,10 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
       const href = new URL(path, site.url).toString()
       items.push({ rel: 'alternate', hreflang: iso, href })
     }
-    // x-default falls back to current locale URL
-    items.push({ rel: 'alternate', hreflang: 'x-default', href: canonicalUrl.value })
+    // x-default always points to the English locale URL (defaultLocale in nuxt.config.ts)
+    const enPath = switchLocalePath('en') || '/'
+    const enHref = new URL(enPath, site.url).toString()
+    items.push({ rel: 'alternate', hreflang: 'x-default', href: enHref })
     return items
   })
 

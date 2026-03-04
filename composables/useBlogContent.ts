@@ -280,14 +280,14 @@ export function useBlogArticle() {
       pushAlt(currentHreflang, canonicalUrl)
       for (const alt of alternateLanguages.value) pushAlt(alt.locale, alt.url)
 
-      const defaultLocale = 'de'
+      const defaultLocale = 'en'
       if (locale.value === defaultLocale) {
         pushAlt('x-default', canonicalUrl)
       } else {
         const defaultLocaleUrl =
           alternateLanguages.value.find(
-            (alt) => alt.locale?.startsWith('de') || alt.locale === 'de'
-          )?.url || `${baseUrl}/${defaultLocale}/${blog.value.slug}`
+            (alt) => alt.locale?.startsWith('en') || alt.locale === 'en'
+          )?.url || `${baseUrl}/${defaultLocale}/blog/${blog.value.slug}`
         pushAlt('x-default', defaultLocaleUrl)
       }
     }
