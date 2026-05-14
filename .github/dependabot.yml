@@ -1,0 +1,14 @@
+# Dependency management is handled by Renovate (see renovate.json).
+# This file intentionally disables Dependabot version updates so the two
+# bots do not produce duplicate PRs for the same dependency.
+#
+# Note: Dependabot *security* updates are configured separately and cannot
+# be disabled via this file. To turn them off, go to:
+#   Settings -> Code security -> Dependabot security updates
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 0
