@@ -1,11 +1,30 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
-    ":semanticCommitsDisabled"
+    "config:recommended",
+    ":semanticCommitsDisabled",
+    ":dependencyDashboard"
   ],
-  "ignoreDeps": [],
-  "labels": ["Renovate"],
-  "rebaseWhen": "conflicted",
-  "schedule": ["on the first day of the month"]
+  "labels": ["dependencies", "Renovate"],
+  "rebaseWhen": "behind-base-branch",
+  "schedule": ["before 6am on the first day of the month"],
+  "prConcurrentLimit": 10,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on the first day of the month"]
+  },
+  "packageRules": [
+    {
+      "groupName": "patch updates",
+      "matchUpdateTypes": ["patch"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["major-update"],
+      "dependencyDashboardApproval": true
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "labels": ["security"]
+  }
 }
