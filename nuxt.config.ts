@@ -252,10 +252,10 @@ export default defineNuxtConfig({
         }
     },
     ogImage: {
-        compatibility: {
-            runtime: {
-                resvg: "wasm"
-            }
-        }
+        // Generate OG images at build time and serve them as static assets.
+        // Avoids shipping the Satori/Resvg pipeline into the Cloudflare Workers
+        // runtime, which fails to initialise there. The /_og endpoint is
+        // unavailable at runtime; images are emitted under public/ during build.
+        zeroRuntime: true
     }
 })
