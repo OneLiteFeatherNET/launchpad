@@ -32,6 +32,32 @@ const displaySubtitle = computed(() => props.subtitle ?? t('sponsor.subtitle'))
 
 const enhancedSponsors = computed<Sponsor[]>(() => props.sponsors ?? [])
 
+// Describe each sponsor as a schema.org Organization and attach the list
+// as a `sponsor` array on the OneLiteFeather org (referenced by @id), so
+// Google understands the partnerships beyond the marketing copy.
+const site = useSiteConfig()
+useSchemaOrg(() => {
+  const sponsors = enhancedSponsors.value
+  if (!sponsors.length) return []
+  const slug = (name: string) => encodeURIComponent(name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''))
+  const organizations = sponsors.map((s) => ({
+    '@type': 'Organization' as const,
+    '@id': `${site.url}/#/sponsor/${slug(s.name)}`,
+    name: s.name,
+    url: s.url,
+    description: s.description || undefined,
+    logo: s.logo || undefined
+  }))
+  return [
+    ...organizations,
+    {
+      '@type': 'Organization' as const,
+      '@id': `${site.url}/#identity`,
+      sponsor: organizations.map((o) => ({ '@id': o['@id'] }))
+    }
+  ]
+})
+
 const resolveIcon = (icon?: Sponsor['icon']) => {
   if (!icon) return null
   if (Array.isArray(icon)) return icon
