@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 definePageMeta({
   title: 'blog.privacy.title',
@@ -10,6 +10,10 @@ usePageSeo({
   description: t('blog.privacy.description'),
   robots: 'noindex, follow',
 })
+
+useBreadcrumbs(() => [
+  { name: t('navigation.home'), url: `/${locale.value}/` }, { name: t('blog.privacy.title') }
+])
 </script>
 
 <template>
@@ -291,7 +295,8 @@ usePageSeo({
         </ul>
       </div>
       <p class="text-sm mt-10 pt-4 border-t border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">
-        <a href="https://datenschutz-generator.de/" title="Rechtstext von Dr. Schwenke - für weitere Informationen bitte anklicken."
+        <a
+href="https://datenschutz-generator.de/" title="Rechtstext von Dr. Schwenke - für weitere Informationen bitte anklicken."
            target="_blank" rel="noopener noreferrer nofollow"
            class="text-blue-600 dark:text-blue-400 hover:underline">
           Erstellt mit kostenlosem Datenschutz-Generator.de von Dr. Thomas Schwenke

@@ -3,7 +3,7 @@ import ArticleCard from "~/components/features/blog/page/card/ArticleCard.vue";
 import {definePageMeta} from "#imports";
 import Top1 from "~/components/features/blog/page/top1/Top1.vue";
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const site = useSiteConfig()
 
 definePageMeta({
@@ -26,13 +26,28 @@ usePageSeo({
   ]
 })
 
-useSchemaOrg([{
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: t('navigation.home'), item: site.url },
-    { '@type': 'ListItem', position: 2, name: t('blog.overview.title') }
+useBreadcrumbs(() => [
+  { name: t('navigation.home'), url: `/${locale.value}/` }, { name: t('blog.overview.title') }
+])
+
+// Help Google identify the list of articles as a structured collection.
+useSchemaOrg(() => {
+  const articles = [top1Article.value, ...(allPosts.value || [])].filter(Boolean)
+  if (!articles.length) return []
+  return [
+    {
+      '@type': 'ItemList',
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      numberOfItems: articles.length,
+      itemListElement: articles.map((article, index) => ({
+        '@type': 'ListItem' as const,
+        position: index + 1,
+        url: new URL(`/${locale.value}/blog/${article!.slug}`, site.url).toString(),
+        name: article!.title
+      }))
+    }
   ]
-}])
+})
 </script>
 
 <template>

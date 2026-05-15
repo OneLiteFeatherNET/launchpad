@@ -26,6 +26,21 @@ export default defineNuxtConfig({
                 'minValue': 1,
                 'maxValue': 25
             },
+            address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Geisinger Straße 6',
+                postalCode: '71634',
+                addressLocality: 'Ludwigsburg',
+                addressCountry: 'DE'
+            },
+            contactPoint: [
+                {
+                    '@type': 'ContactPoint',
+                    contactType: 'customer support',
+                    email: 'contact@onelitefeather.net',
+                    availableLanguage: ['en', 'de']
+                }
+            ],
             sameAs: [
                 'https://github.com/OneLiteFeatherNET',
                 'https://1lf.link/discord',
@@ -222,6 +237,21 @@ export default defineNuxtConfig({
                     'minValue': 1,
                     'maxValue': 25
                 },
+                address: {
+                    '@type': 'PostalAddress',
+                    streetAddress: 'Geisinger Straße 6',
+                    postalCode: '71634',
+                    addressLocality: 'Ludwigsburg',
+                    addressCountry: 'DE'
+                },
+                contactPoint: [
+                    {
+                        '@type': 'ContactPoint',
+                        contactType: 'customer support',
+                        email: 'contact@onelitefeather.net',
+                        availableLanguage: ['en', 'de']
+                    }
+                ],
                 sameAs: [
                     'https://github.com/OneLiteFeatherNET',
                     'https://1lf.link/discord',

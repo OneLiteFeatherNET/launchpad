@@ -18,23 +18,19 @@ const { blog, headLinks, authors } = useBlogArticle()
 const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/features/blog/SocialMediaShare.vue'))
 
 const img = useImage()
-const previewSocial = computed(() =>
-  img(blog.value?.headerImage || 'images/logo.svg', {
+const previewSocial = computed(() => img(blog.value?.headerImage || 'images/logo.svg', {
     width: 1200,
     height: 630,
     format: 'webp',
     quality: 80,
-  })
-)
+  }))
 
 // Canonical URL for OG tags — resolution order matches resolveBaseUrl() in useBlogContent.ts
 const baseUrl = computed(() => {
   const pub = config.public as { siteUrl?: string }
   return pub.siteUrl || site.url || 'https://onelitefeather.net'
 })
-const canonicalUrl = computed(() =>
-  blog.value ? (blog.value.canonical || `${baseUrl.value}/${locale.value}/blog/${blog.value.slug}`) : baseUrl.value
-)
+const canonicalUrl = computed(() => blog.value ? (blog.value.canonical || `${baseUrl.value}/${locale.value}/blog/${blog.value.slug}`) : baseUrl.value)
 
 // Use a single useHead call to set links (and merge with any useSeoMeta output)
 useHead(() => ({ link: headLinks.value }))
@@ -52,8 +48,8 @@ const title = computed(() => {
 useSeoMeta(() => {
   const seo = (blog.value as any)?.seo || {}
   const metaTitle = seo.title || title.value
-  const metaDescription =
-    seo.description || blog.value?.description || extractPlainTextFromExcerpt((blog.value as any)?.excerpt) || ''
+  const metaDescription
+    = seo.description || blog.value?.description || extractPlainTextFromExcerpt((blog.value as any)?.excerpt) || ''
   return {
     title: metaTitle,
     ogTitle: seo.ogTitle || metaTitle,
@@ -82,6 +78,16 @@ useSeoMeta(() => {
   }
 })
 
+// Multiple aspect ratios are recommended by Google for article rich results.
+const articleImages = computed(() => {
+  const source = blog.value?.headerImage || 'images/logo.svg'
+  return [
+    img(source, { width: 1200, height: 630, format: 'webp', quality: 80 }),
+    img(source, { width: 1200, height: 900, format: 'webp', quality: 80 }),
+    img(source, { width: 1200, height: 1200, format: 'webp', quality: 80 })
+  ]
+})
+
 // Article structured data
 useSchemaOrg(() => {
   if (!blog.value) return {}
@@ -90,6 +96,7 @@ useSchemaOrg(() => {
     headline: blog.value.title,
     description: blog.value.description || '',
     url: canonicalUrl.value,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl.value },
     datePublished: blog.value.pubDate
       ? new Date(blog.value.pubDate).toISOString()
       : undefined,
@@ -97,7 +104,10 @@ useSchemaOrg(() => {
       '@type': 'Person' as const,
       name: a.name
     })) || [],
-    image: previewSocial.value,
+    image: articleImages.value,
+    articleSection: blog.value.tags?.[0] || undefined,
+    keywords: blog.value.tags?.join(', ') || undefined,
+    inLanguage: locale.value,
     dateModified: blog.value.updatedDate
       ? new Date(blog.value.updatedDate).toISOString()
       : blog.value.pubDate
@@ -106,19 +116,20 @@ useSchemaOrg(() => {
     publisher: {
       '@type': 'Organization' as const,
       name: 'OneLiteFeather Network',
-      url: 'https://onelitefeather.net'
+      url: 'https://onelitefeather.net',
+      logo: {
+        '@type': 'ImageObject' as const,
+        url: 'https://onelitefeather.net/images/logo.svg'
+      }
     }
   }
 })
 
-useSchemaOrg([{
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl.value },
-    { '@type': 'ListItem', position: 2, name: t('blog.overview.title'), item: `${baseUrl.value}/${locale.value}/blog` },
-    { '@type': 'ListItem', position: 3, name: blog.value?.title || '' }
-  ]
-}])
+useBreadcrumbs(() => [
+  { name: t('navigation.home'), url: `/${locale.value}/` },
+  { name: t('blog.overview.title'), url: `/${locale.value}/blog` },
+  { name: blog.value?.title || '' }
+])
 
 defineOgImage('NuxtSeo', {
   title: blog.value?.title || t('blog.overview.title'),

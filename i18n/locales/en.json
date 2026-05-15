@@ -155,6 +155,32 @@
     "default_description": "OneLiteFeather is a Minecraft Network sharing development tools with the community.",
     "default_keywords": "OneLiteFeather, Minecraft, Minecraft server, Minecraft network, plugins, open source, Paper, Velocity, Java, Bedrock, development tools, community"
   },
+  "faq": {
+    "section_title": "Frequently asked questions",
+    "section_subtitle": "Everything you need to know to get started on the network.",
+    "items": {
+      "what_is": {
+        "question": "What is OneLiteFeather?",
+        "answer": "OneLiteFeather is a Minecraft Network founded in 2019 that develops and shares open source plugins, Paper extensions and tooling with the broader Minecraft server community."
+      },
+      "editions": {
+        "question": "Which Minecraft editions can I join with?",
+        "answer": "Our server supports both the Java Edition and Bedrock Edition. The exact addresses are listed in the “Connect to the server” section on this page."
+      },
+      "free": {
+        "question": "Is OneLiteFeather free to play?",
+        "answer": "Yes. Joining and playing on our network is completely free. Operations and infrastructure are community-funded through OpenCollective; supporters are listed publicly at https://opencollective.com/onelitefeather."
+      },
+      "bluemap": {
+        "question": "Is there a live map of the world?",
+        "answer": "Yes — our BlueMap renders the world in 3D and is available at https://onelitefeather.net/en/bluemap. It is updated regularly and works in any modern browser."
+      },
+      "contact": {
+        "question": "How do I get in touch with the team?",
+        "answer": "Join the community Discord at https://1lf.link/discord, open an issue on GitHub at https://github.com/OneLiteFeatherNET, or email us at contact@onelitefeather.net."
+      }
+    }
+  },
   "accessibility": {
     "logo_alt": "OneLiteFeather Logo"
   },

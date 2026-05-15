@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { definePageMeta } from '#imports'
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const bluemapUrl = useBluemapUrl();
 
 definePageMeta({
@@ -19,6 +19,10 @@ usePageSeo({
     'OneLiteFeather server'
   ]
 })
+
+useBreadcrumbs(() => [
+  { name: t('navigation.home'), url: `/${locale.value}/` }, { name: t('bluemap.title') }
+])
 </script>
 
 <template>
