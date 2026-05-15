@@ -123,7 +123,10 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     twitterCreator
   })
 
-  // Auto-generate OG image via nuxt-og-image for every page
+  // Auto-generate OG image via nuxt-og-image. v6 of the module changed
+  // `defineOgImage` so the component name is the first positional argument;
+  // passing an options object there crashes head rendering with
+  // "originalName.split is not a function".
   defineOgImage('NuxtSeo', {
     title: opts.title || site.name || 'OneLiteFeather',
     description: pageDescription.value

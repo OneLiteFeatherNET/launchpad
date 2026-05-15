@@ -131,6 +131,7 @@ useBreadcrumbs(() => [
   { name: blog.value?.title || '' }
 ])
 
+// nuxt-og-image v6 wants the component name as the first positional argument.
 defineOgImage('NuxtSeo', {
   title: blog.value?.title || t('blog.overview.title'),
   description: blog.value?.description || ''

@@ -1,0 +1,38 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:3000/en/",
+        "http://localhost:3000/de/",
+        "http://localhost:3000/en/blog",
+        "http://localhost:3000/de/blog",
+        "http://localhost:3000/en/bluemap"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "preset": "desktop",
+        "skipAudits": ["uses-http2", "redirects-http", "is-on-https"]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:seo": ["error", { "minScore": 0.95 }],
+        "categories:best-practices": ["warn", { "minScore": 0.9 }],
+        "categories:accessibility": ["warn", { "minScore": 0.9 }],
+        "robots-txt": "error",
+        "canonical": "error",
+        "hreflang": "error",
+        "viewport": "error",
+        "html-has-lang": "error",
+        "html-lang-valid": "error",
+        "meta-description": "error",
+        "document-title": "error",
+        "image-alt": "warn",
+        "link-text": "warn"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}
