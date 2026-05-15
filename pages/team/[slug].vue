@@ -19,6 +19,8 @@ useBreadcrumbs(() => [
 ])
 
 // Person schema so the team member can earn its own knowledge panel.
+// The stable `@id` is reused by Article.author across every blog post so
+// Google can merge the entities into one identity in its graph.
 useSchemaOrg(() => {
   if (!member.value) return []
   const profileUrl = new URL(`/${locale.value}/team/${member.value.slug || ''}`, site.url).toString()
@@ -28,12 +30,13 @@ useSchemaOrg(() => {
   return [
     {
       '@type': 'Person',
+      '@id': member.value.slug ? `${site.url}/#/person/${member.value.slug}` : undefined,
       name: member.value.name,
       url: profileUrl,
       image: avatar,
       jobTitle: member.value.role || undefined,
       description: member.value.slogan || member.value.role || undefined,
-      worksFor: { '@type': 'Organization', name: 'OneLiteFeather Network', url: site.url }
+      worksFor: { '@id': `${site.url}/#identity` }
     }
   ]
 })

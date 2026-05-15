@@ -88,6 +88,13 @@ const articleImages = computed(() => {
   ]
 })
 
+// Stable @id for the org and per-author Person entities. Using the site
+// root (without a locale prefix) keeps the identifier stable across the
+// en/de translations of the same author.
+const orgId = computed(() => `${site.url}/#identity`)
+const personIdFor = (slug: string | undefined) =>
+  slug ? `${site.url}/#/person/${slug}` : undefined
+
 // Article structured data
 useSchemaOrg(() => {
   if (!blog.value) return {}
@@ -102,7 +109,9 @@ useSchemaOrg(() => {
       : undefined,
     author: authors.value?.map(a => ({
       '@type': 'Person' as const,
-      name: a.name
+      '@id': personIdFor(a.slug),
+      name: a.name,
+      url: a.slug ? `${site.url}/${locale.value}/team/${a.slug}` : undefined
     })) || [],
     image: articleImages.value,
     articleSection: blog.value.tags?.[0] || undefined,
@@ -113,15 +122,7 @@ useSchemaOrg(() => {
       : blog.value.pubDate
         ? new Date(blog.value.pubDate).toISOString()
         : undefined,
-    publisher: {
-      '@type': 'Organization' as const,
-      name: 'OneLiteFeather Network',
-      url: 'https://onelitefeather.net',
-      logo: {
-        '@type': 'ImageObject' as const,
-        url: 'https://onelitefeather.net/images/logo.svg'
-      }
-    }
+    publisher: { '@id': orgId.value }
   }
 })
 
