@@ -1,0 +1,36 @@
+name: Promote release tag to deploy branch
+
+# Cloudflare Workers Builds' Git integration only watches branches, never
+# tags. To get tag-gated production deploys we keep `main` as a
+# preview-only branch in the Workers Build branch control and point the
+# Workers production branch at `release`. This workflow fast-forwards
+# `release` to every `v*` tag release-please publishes, which is what
+# actually triggers the Cloudflare Workers production build.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: promote-release-branch
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fast-forward release branch to the tagged commit
+        run: |
+          set -euo pipefail
+          echo "Promoting ${GITHUB_REF_NAME} ($(git rev-parse --short HEAD)) to release"
+          # release-please tags always sit on main's linear history, so the
+          # release branch only ever moves forward. No force push.
+          git push origin "HEAD:refs/heads/release"
