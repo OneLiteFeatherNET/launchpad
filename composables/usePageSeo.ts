@@ -91,7 +91,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   })
 
   // Auto-generate OG image via nuxt-og-image for every page
-  defineOgImage({
+  defineOgImage('NuxtSeo', {
     title: opts.title || site.name || 'OneLiteFeather',
     description: pageDescription.value
   })

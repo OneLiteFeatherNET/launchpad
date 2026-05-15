@@ -111,7 +111,7 @@ useSchemaOrg([{
   ]
 }])
 
-defineOgImage({
+defineOgImage('NuxtSeo', {
   title: blog.value?.title || t('blog.overview.title'),
   description: blog.value?.description || ''
 })
