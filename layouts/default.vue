@@ -7,6 +7,10 @@ const { t } = useI18n()
 const head = useLocaleHead()
 // Only set a static <Title> when the route explicitly provides one via meta.
 const routeTitle = computed(() => (route.meta?.title ? t(route.meta.title as string) : null))
+
+// Expose the main navigation as schema.org SiteNavigationElement so Google
+// has a structured signal when picking SERP sitelinks.
+useSiteNavigationSchema()
 </script>
 
 <template>
