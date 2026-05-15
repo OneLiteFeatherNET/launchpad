@@ -2,13 +2,10 @@
 import { defineAsyncComponent } from 'vue'
 import {definePageMeta} from "#imports";
 import type { BlogArticle } from "~/types/blog";
-import { extractPlainTextFromExcerpt } from "~/utils/content";
 import UiChip from '~/components/base/Chip.vue'
 
 const { locale, t, d } = useI18n()
 const config = useRuntimeConfig()
-const site = useSiteConfig()
-const {getFeatureFlag } = usePostHogFeatureFlag();
 
 definePageMeta({
   layout: 'default',
@@ -17,147 +14,13 @@ definePageMeta({
 const { blog, headLinks, authors } = useBlogArticle()
 const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/features/blog/SocialMediaShare.vue'))
 
-const img = useImage()
-const previewSocial = computed(() => img(blog.value?.headerImage || 'images/logo.svg', {
-    width: 1200,
-    height: 630,
-    format: 'webp',
-    quality: 80,
-  }))
+// All Article-level SEO (meta tags, Article JSON-LD, breadcrumbs, OG
+// image) lives in useArticleSeo — keeps this page focused on view code.
+const { title } = useArticleSeo(blog, authors)
 
-// Canonical URL for OG tags — resolution order matches resolveBaseUrl() in useBlogContent.ts
-const baseUrl = computed(() => {
-  const pub = config.public as { siteUrl?: string }
-  return pub.siteUrl || site.url || 'https://onelitefeather.net'
-})
-const canonicalUrl = computed(() => blog.value ? (blog.value.canonical || `${baseUrl.value}/${locale.value}/blog/${blog.value.slug}`) : baseUrl.value)
-
-// Use a single useHead call to set links (and merge with any useSeoMeta output)
+// Surface canonical + hreflang + alternates from useBlogArticle.
 useHead(() => ({ link: headLinks.value }))
 useHead(() => (blog.value as BlogArticle | null)?.head || {})
-
-const title = computed(() => {
-  if (getFeatureFlag('alternative-title-conversion').value === 'test') {
-    return blog?.value?.alternativeTitle || blog?.value?.title || t('layouts.title');
-  } else {
-    return blog?.value?.title || t('layouts.title');
-  }
-});
-
-// Ensure the document title and meta reflect the article
-useSeoMeta(() => {
-  const seo = (blog.value as any)?.seo || {}
-  const metaTitle = seo.title || title.value
-  const metaDescription
-    = seo.description || blog.value?.description || extractPlainTextFromExcerpt((blog.value as any)?.excerpt) || ''
-  return {
-    title: metaTitle,
-    ogTitle: seo.ogTitle || metaTitle,
-    twitterTitle: seo.twitterTitle || metaTitle,
-    description: metaDescription,
-    ogDescription: seo.ogDescription || metaDescription,
-    ogImage: previewSocial.value,
-    ogImageWidth: 1200,
-    ogImageHeight: 630,
-    ogImageType: 'image/webp',
-    twitterImage: previewSocial.value,
-    twitterImageAlt: blog.value?.headerImageAlt || blog.value?.title || '',
-    ogType: 'article',
-    ogUrl: canonicalUrl.value,
-    twitterCard: 'summary_large_image',
-    ogImageAlt: blog.value?.headerImageAlt || blog.value?.title || '',
-    articlePublishedTime: blog.value?.pubDate
-      ? new Date(blog.value.pubDate).toISOString()
-      : undefined,
-    articleModifiedTime: blog.value?.updatedDate
-      ? new Date(blog.value.updatedDate).toISOString()
-      : (blog.value?.pubDate ? new Date(blog.value.pubDate).toISOString() : undefined),
-    articleAuthor: authors.value?.map(a => a.name) || undefined,
-    articleTag: blog.value?.tags || undefined,
-    keywords: blog.value?.tags?.join(', ') || undefined
-  }
-})
-
-// Multiple aspect ratios are recommended by Google for article rich results.
-const articleImages = computed(() => {
-  const source = blog.value?.headerImage || 'images/logo.svg'
-  return [
-    img(source, { width: 1200, height: 630, format: 'webp', quality: 80 }),
-    img(source, { width: 1200, height: 900, format: 'webp', quality: 80 }),
-    img(source, { width: 1200, height: 1200, format: 'webp', quality: 80 })
-  ]
-})
-
-// Compact thumbnail for SERP card previews — Google recommends a
-// dedicated thumbnailUrl alongside the larger `image` array.
-const articleThumbnail = computed(() => {
-  const source = blog.value?.headerImage || 'images/logo.svg'
-  return img(source, { width: 600, height: 400, format: 'webp', quality: 75 })
-})
-
-// Approximate word count derived from the MDC body — gives Google a
-// reliability signal for the Article rich result.
-const articleWordCount = computed(() => {
-  const body = (blog.value as { body?: unknown } | null)?.body
-  if (!body) return undefined
-  // Re-use the excerpt walker; cap the extracted text so we count fast.
-  const text = extractPlainTextFromExcerpt(body, 20_000)
-  if (!text) return undefined
-  const words = text.split(/\s+/).filter(Boolean).length
-  return words > 0 ? words : undefined
-})
-
-// Stable @ids via the shared builders in utils/schema-ids.ts. Using the
-// site root (without a locale prefix) keeps the identifier stable across
-// the en/de translations of the same author.
-const orgId = computed(() => organizationId(site.url))
-const personIdFor = (slug: string | undefined) =>
-  slug ? personId(site.url, slug) : undefined
-
-// Article structured data
-useSchemaOrg(() => {
-  if (!blog.value) return {}
-  return {
-    '@type': 'Article',
-    headline: blog.value.title,
-    description: blog.value.description || '',
-    url: canonicalUrl.value,
-    mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl.value },
-    datePublished: blog.value.pubDate
-      ? new Date(blog.value.pubDate).toISOString()
-      : undefined,
-    author: authors.value?.map(a => ({
-      '@type': 'Person' as const,
-      '@id': personIdFor(a.slug),
-      name: a.name,
-      url: a.slug ? personProfileUrl(site.url, locale.value, a.slug) : undefined
-    })) || [],
-    image: articleImages.value,
-    thumbnailUrl: articleThumbnail.value,
-    wordCount: articleWordCount.value,
-    articleSection: blog.value.tags?.[0] || undefined,
-    keywords: blog.value.tags?.join(', ') || undefined,
-    inLanguage: locale.value,
-    dateModified: blog.value.updatedDate
-      ? new Date(blog.value.updatedDate).toISOString()
-      : blog.value.pubDate
-        ? new Date(blog.value.pubDate).toISOString()
-        : undefined,
-    publisher: { '@id': orgId.value }
-  }
-})
-
-useBreadcrumbs(() => [
-  { name: t('navigation.home'), url: `/${locale.value}/` },
-  { name: t('blog.overview.title'), url: `/${locale.value}/blog` },
-  { name: blog.value?.title || '' }
-])
-
-// nuxt-og-image v6 wants the component name as the first positional argument.
-defineOgImage('NuxtSeo', {
-  title: blog.value?.title || t('blog.overview.title'),
-  description: blog.value?.description || ''
-})
 </script>
 
 <template>
