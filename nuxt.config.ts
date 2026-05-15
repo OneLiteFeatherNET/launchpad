@@ -142,12 +142,6 @@ export default defineNuxtConfig({
             baseURL: 'https://img.onelitefeather.net',
         }
     },
-    postcss: {
-        plugins: {
-            "@tailwindcss/postcss": {},
-            'postcss-import': {},
-        },
-    },
     posthog: {
         publicKey: 'phc_t9nBlYL9LcDj4LDKZfQ97m5nbvFDTugkdQqAAspfdI',
         host: 'https://eu.i.posthog.com',
