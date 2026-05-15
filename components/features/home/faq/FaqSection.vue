@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { extractPlainTextFromExcerpt } from '~/utils/content'
+import { extractPlainText } from '~/utils/content'
 
 const { t } = useI18n()
 const { items } = useFaqContent()
@@ -40,7 +40,7 @@ useSchemaOrg(() => {
         name: entry.question,
         acceptedAnswer: {
           '@type': 'Answer' as const,
-          text: extractPlainTextFromExcerpt(entry.body, 500)
+          text: extractPlainText(entry.body, 500)
         }
       }))
     }

@@ -80,7 +80,7 @@ export function useArticleSeo(
   const articleWordCount = computed(() => {
     const body = (blog.value as { body?: unknown } | null)?.body
     if (!body) return undefined
-    const text = extractPlainTextFromExcerpt(body, 20_000)
+    const text = extractPlainText(body, 20_000)
     if (!text) return undefined
     const words = text.split(/\s+/).filter(Boolean).length
     return words > 0 ? words : undefined
@@ -95,7 +95,7 @@ export function useArticleSeo(
     const metaTitle = seo.title || title.value
     const metaDescription = seo.description
       || blog.value?.description
-      || extractPlainTextFromExcerpt((blog.value as { excerpt?: unknown } | null)?.excerpt)
+      || extractPlainText((blog.value as { excerpt?: unknown } | null)?.excerpt)
       || ''
     const headerAlt = blog.value?.headerImageAlt || blog.value?.title || ''
     return {
