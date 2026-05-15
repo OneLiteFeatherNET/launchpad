@@ -1,30 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    ":semanticCommitsDisabled",
-    ":dependencyDashboard"
-  ],
-  "labels": ["dependencies", "Renovate"],
-  "rebaseWhen": "behind-base-branch",
-  "schedule": ["before 6am on the first day of the month"],
-  "prConcurrentLimit": 10,
-  "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": ["before 6am on the first day of the month"]
-  },
-  "packageRules": [
-    {
-      "groupName": "patch updates",
-      "matchUpdateTypes": ["patch"]
-    },
-    {
-      "matchUpdateTypes": ["major"],
-      "addLabels": ["major-update"],
-      "dependencyDashboardApproval": true
-    }
-  ],
-  "vulnerabilityAlerts": {
-    "labels": ["security"]
-  }
+    "github>onelitefeathernet/renovate:default(onelitefeathernet/maintainers-launchpad)"
+  ]
 }
