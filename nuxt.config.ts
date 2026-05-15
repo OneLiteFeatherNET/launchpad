@@ -286,7 +286,7 @@ export default defineNuxtConfig({
         nitro: {
             preset: "cloudflare_module",
             externals: {
-                inline: ["@nuxt/content"]
+                inline: ["@nuxt/content", "axios"]
             },
             cloudflare: {
                 deployConfig: true,
