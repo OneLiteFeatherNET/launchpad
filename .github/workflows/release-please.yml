@@ -1,0 +1,27 @@
+name: Release Please
+
+on:
+  push:
+    branches: [main]
+
+# Release Please opens (or updates) a release PR. Once that PR is merged,
+# the same workflow run promotes the merge into a tag + GitHub Release.
+permissions:
+  contents: write
+  pull-requests: write
+
+# Allow only one release run at a time so concurrent pushes to main don't
+# race on the release PR.
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
