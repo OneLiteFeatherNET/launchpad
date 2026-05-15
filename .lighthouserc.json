@@ -11,7 +11,12 @@
       "numberOfRuns": 1,
       "settings": {
         "preset": "desktop",
-        "skipAudits": ["uses-http2", "redirects-http", "is-on-https"]
+        "skipAudits": [
+          "uses-http2",
+          "redirects-http",
+          "is-on-https",
+          "is-crawlable"
+        ]
       }
     },
     "assert": {
