@@ -107,12 +107,12 @@ const articleWordCount = computed(() => {
   return words > 0 ? words : undefined
 })
 
-// Stable @id for the org and per-author Person entities. Using the site
-// root (without a locale prefix) keeps the identifier stable across the
-// en/de translations of the same author.
-const orgId = computed(() => `${site.url}/#identity`)
+// Stable @ids via the shared builders in utils/schema-ids.ts. Using the
+// site root (without a locale prefix) keeps the identifier stable across
+// the en/de translations of the same author.
+const orgId = computed(() => organizationId(site.url))
 const personIdFor = (slug: string | undefined) =>
-  slug ? `${site.url}/#/person/${slug}` : undefined
+  slug ? personId(site.url, slug) : undefined
 
 // Article structured data
 useSchemaOrg(() => {
@@ -130,7 +130,7 @@ useSchemaOrg(() => {
       '@type': 'Person' as const,
       '@id': personIdFor(a.slug),
       name: a.name,
-      url: a.slug ? `${site.url}/${locale.value}/team/${a.slug}` : undefined
+      url: a.slug ? personProfileUrl(site.url, locale.value, a.slug) : undefined
     })) || [],
     image: articleImages.value,
     thumbnailUrl: articleThumbnail.value,

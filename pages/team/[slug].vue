@@ -23,20 +23,22 @@ useBreadcrumbs(() => [
 // Google can merge the entities into one identity in its graph.
 useSchemaOrg(() => {
   if (!member.value) return []
-  const profileUrl = new URL(`/${locale.value}/team/${member.value.slug || ''}`, site.url).toString()
+  const profileUrl = member.value.slug
+    ? personProfileUrl(site.url, locale.value, member.value.slug)
+    : new URL(`/${locale.value}/team/`, site.url).toString()
   const avatar = avatarSrc.value?.startsWith('http')
     ? avatarSrc.value
     : new URL(avatarSrc.value || '/favicon.svg', site.url).toString()
   return [
     {
       '@type': 'Person',
-      '@id': member.value.slug ? `${site.url}/#/person/${member.value.slug}` : undefined,
+      '@id': member.value.slug ? personId(site.url, member.value.slug) : undefined,
       name: member.value.name,
       url: profileUrl,
       image: avatar,
       jobTitle: member.value.role || undefined,
       description: member.value.slogan || member.value.role || undefined,
-      worksFor: { '@id': `${site.url}/#identity` }
+      worksFor: { '@id': organizationId(site.url) }
     }
   ]
 })

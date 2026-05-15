@@ -39,10 +39,9 @@ const site = useSiteConfig()
 useSchemaOrg(() => {
   const sponsors = enhancedSponsors.value
   if (!sponsors.length) return []
-  const slug = (name: string) => encodeURIComponent(name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''))
   const organizations = sponsors.map((s) => ({
     '@type': 'Organization' as const,
-    '@id': `${site.url}/#/sponsor/${slug(s.name)}`,
+    '@id': sponsorId(site.url, s.name),
     name: s.name,
     url: s.url,
     description: s.description || undefined,
@@ -52,7 +51,7 @@ useSchemaOrg(() => {
     ...organizations,
     {
       '@type': 'Organization' as const,
-      '@id': `${site.url}/#identity`,
+      '@id': organizationId(site.url),
       sponsor: organizations.map((o) => ({ '@id': o['@id'] }))
     }
   ]
