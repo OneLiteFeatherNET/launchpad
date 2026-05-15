@@ -3,7 +3,7 @@ import ArticleCard from "~/components/features/blog/page/card/ArticleCard.vue";
 import {definePageMeta} from "#imports";
 import Top1 from "~/components/features/blog/page/top1/Top1.vue";
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const site = useSiteConfig()
 
 definePageMeta({
@@ -17,28 +17,50 @@ usePageSeo({
   title: t('blog.overview.title'),
   description: t('blog.overview.description'),
   schemaType: 'Blog',
+  keywords: [
+    'OneLiteFeather blog',
+    'Minecraft development blog',
+    'Minecraft plugin development',
+    'Paper plugin development',
+    'open source Minecraft'
+  ]
 })
 
-useSchemaOrg([{
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: t('navigation.home'), item: site.url },
-    { '@type': 'ListItem', position: 2, name: t('blog.overview.title') }
+useBreadcrumbs(() => [
+  { name: t('navigation.home'), url: `/${locale.value}/` }, { name: t('blog.overview.title') }
+])
+
+// Help Google identify the list of articles as a structured collection.
+useSchemaOrg(() => {
+  const articles = [top1Article.value, ...(allPosts.value || [])].filter(Boolean)
+  if (!articles.length) return []
+  return [
+    {
+      '@type': 'ItemList',
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      numberOfItems: articles.length,
+      itemListElement: articles.map((article, index) => ({
+        '@type': 'ListItem' as const,
+        position: index + 1,
+        url: new URL(`/${locale.value}/blog/${article!.slug}`, site.url).toString(),
+        name: article!.title
+      }))
+    }
   ]
-}])
+})
 </script>
 
 <template>
   <div class="container mx-auto py-4">
     <Top1
         v-if="top1Article"
-        :blogArticle="top1Article"
+        :blog-article="top1Article"
     />
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
       <ArticleCard
         v-for="article in allPosts"
         :key="article.slug"
-        :blogArticle="article"
+        :blog-article="article"
       />
     </div>
   </div>

@@ -18,6 +18,11 @@ const blogSchema = withI18nMeta(
     headerImage: z.string().optional(),
     headerImageAlt: z.string().optional(),
     tags: z.array(z.string()).optional(),
+    // Author slug(s) matching entries in the `authors` page collection.
+    // Without this field on the schema, the column is dropped and the
+    // page-level Author lookups (visible cards + Article JSON-LD) come
+    // back empty.
+    author: z.union([z.string(), z.array(z.string())]).optional(),
     excerpt: z.object({
       type: z.string(),
       children: z.any()
@@ -130,6 +135,14 @@ const sponsorsSchema = z
   })
   .passthrough()
 
+const faqSchema = z
+  .object({
+    key: z.string(),
+    question: z.string(),
+    order: z.number().int().default(0)
+  })
+  .passthrough()
+
 export default defineContentConfig({
   collections: {
     ...defineLocalizedCollections('blog', (locale) =>
@@ -170,6 +183,11 @@ export default defineContentConfig({
       type: 'data',
       source: `sponsors/${locale}/home.json`,
       schema: sponsorsSchema
+    })),
+    ...defineLocalizedCollections('faq', (locale) => ({
+      type: 'page',
+      source: `faq/${locale}/*.md`,
+      schema: faqSchema
     })),
     authors: defineCollection({
       type: 'page',

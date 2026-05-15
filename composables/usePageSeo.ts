@@ -1,11 +1,29 @@
 import type { PageSeoOptions } from '~/types/seo'
 
+const DEFAULT_LOCALE = 'en'
+
+const normaliseKeywords = (input?: string | string[]): string | undefined => {
+  if (!input) return undefined
+  const list = Array.isArray(input)
+    ? input
+    : String(input).split(',')
+  const cleaned = list.map(k => String(k).trim()).filter(Boolean)
+  return cleaned.length ? cleaned.join(', ') : undefined
+}
+
+const buildRobots = (opts: PageSeoOptions): string | undefined => {
+  if (opts.robots) return opts.robots
+  if (!opts.noindex && !opts.nofollow) return undefined
+  return [opts.noindex ? 'noindex' : 'index', opts.nofollow ? 'nofollow' : 'follow'].join(', ')
+}
+
 export function usePageSeo(opts: PageSeoOptions = {}) {
   const { locale, locales, t } = useI18n()
   const route = useRoute()
   const site = useSiteConfig()
   const switchLocalePath = useSwitchLocalePath()
   const img = useImage()
+  const runtime = useRuntimeConfig()
 
   const canonicalUrl = computed(() => {
     if (opts.canonical) return new URL(opts.canonical, site.url).toString()
@@ -23,28 +41,34 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
       const href = new URL(path, site.url).toString()
       items.push({ rel: 'alternate', hreflang: iso, href })
     }
-    // x-default always points to the English locale URL (defaultLocale in nuxt.config.ts)
-    const enPath = switchLocalePath('en') || '/'
-    const enHref = new URL(enPath, site.url).toString()
-    items.push({ rel: 'alternate', hreflang: 'x-default', href: enHref })
+    // x-default points to the default locale URL (defaultLocale in nuxt.config.ts)
+    const defaultPath = switchLocalePath(DEFAULT_LOCALE) || '/'
+    const defaultHref = new URL(defaultPath, site.url).toString()
+    items.push({ rel: 'alternate', hreflang: 'x-default', href: defaultHref })
     return items
   })
 
-  useHead(() => ({
-    link: [
-      { rel: 'canonical', href: canonicalUrl.value },
-      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-      ...alternateLinks.value
-    ],
-    meta: opts.robots ? [{ name: 'robots', content: opts.robots }] : []
-  }))
+  const robotsDirective = computed(() => buildRobots(opts))
+  const keywordsMeta = computed(() => normaliseKeywords(opts.keywords))
+
+  useHead(() => {
+    const meta: Array<{ name: string; content: string }> = []
+    if (robotsDirective.value) meta.push({ name: 'robots', content: robotsDirective.value })
+    if (keywordsMeta.value) meta.push({ name: 'keywords', content: keywordsMeta.value })
+    return {
+      link: [
+        { rel: 'canonical', href: canonicalUrl.value },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        ...alternateLinks.value
+      ],
+      meta
+    }
+  })
 
   // Social preview image for OG/Twitter
-  const socialImage = computed(() =>
-    opts.image
+  const socialImage = computed(() => opts.image
       ? img(opts.image, { width: 1200, height: 630, format: 'webp', quality: 80 })
-      : undefined
-  )
+      : undefined)
 
   const pageTitle = computed(() => opts.title || site.name)
   const pageDescription = computed(() => {
@@ -56,9 +80,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   // Resolve og:locale from the current locale code
   const currentLocaleObj = computed(() => {
     const all = Array.isArray(locales.value) ? locales.value : []
-    return (all as Array<any>).find(
-      l => (typeof l === 'string' ? l : l.code) === locale.value
-    )
+    return (all as Array<any>).find(l => (typeof l === 'string' ? l : l.code) === locale.value)
   })
   const ogLocale = computed(() => {
     const l = currentLocaleObj.value
@@ -72,6 +94,11 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
       .map(l => (typeof l === 'string' ? l : (l.iso || l.code)))
   })
 
+  type SocialHandles = { twitterSite?: string; twitterCreator?: string }
+  const socialHandles = (runtime.public as { social?: SocialHandles }).social
+  const twitterSite = opts.twitterSite || socialHandles?.twitterSite || undefined
+  const twitterCreator = opts.twitterCreator || socialHandles?.twitterCreator || twitterSite
+
   useSeoMeta({
     title: pageTitle,
     description: pageDescription,
@@ -81,16 +108,25 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     ogUrl: canonicalUrl,
     ogImage: socialImage,
     ogImageAlt: opts.imageAlt || pageTitle,
+    ogImageWidth: opts.imageWidth || (socialImage.value ? 1200 : undefined),
+    ogImageHeight: opts.imageHeight || (socialImage.value ? 630 : undefined),
+    ogImageType: opts.imageType || (socialImage.value ? 'image/webp' : undefined),
     ogSiteName: site.name,
     ogLocale: ogLocale,
     ogLocaleAlternate: ogLocaleAlternate,
     twitterCard: opts.twitterCard || 'summary_large_image',
     twitterTitle: pageTitle,
     twitterDescription: pageDescription,
-    twitterImage: socialImage
+    twitterImage: socialImage,
+    twitterImageAlt: opts.imageAlt || pageTitle,
+    twitterSite,
+    twitterCreator
   })
 
-  // Auto-generate OG image via nuxt-og-image for every page
+  // Auto-generate OG image via nuxt-og-image. v6 of the module changed
+  // `defineOgImage` so the component name is the first positional argument;
+  // passing an options object there crashes head rendering with
+  // "originalName.split is not a function".
   defineOgImage('NuxtSeo', {
     title: opts.title || site.name || 'OneLiteFeather',
     description: pageDescription.value
@@ -101,6 +137,6 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     name: pageTitle.value,
     description: pageDescription.value,
     url: canonicalUrl.value,
-    inLanguage: locale?.value || 'de'
+    inLanguage: locale?.value || DEFAULT_LOCALE
   }))
 }

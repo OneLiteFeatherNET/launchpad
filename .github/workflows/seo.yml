@@ -1,0 +1,86 @@
+name: SEO
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Cancel superseded runs on the same ref to keep the queue tidy.
+concurrency:
+  group: seo-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  meta-and-sitemap:
+    name: Meta + sitemap + robots
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Start Nuxt dev server
+        run: pnpm dev > nuxt-dev.log 2>&1 &
+        env:
+          # Skip analytics network calls when running headless.
+          NUXT_PUBLIC_POSTHOG_DISABLED: 'true'
+
+      - name: Wait for server
+        run: pnpm exec wait-on http://localhost:3000 --timeout 240000 --interval 2000
+
+      - name: Run SEO meta checks
+        run: pnpm seo:check -- --base http://localhost:3000
+
+      - name: Upload dev server log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuxt-dev-log
+          path: nuxt-dev.log
+          if-no-files-found: ignore
+
+  lighthouse:
+    name: Lighthouse SEO score
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Start Nuxt dev server
+        run: pnpm dev > nuxt-dev.log 2>&1 &
+        env:
+          NUXT_PUBLIC_POSTHOG_DISABLED: 'true'
+
+      - name: Wait for server
+        run: pnpm exec wait-on http://localhost:3000 --timeout 240000 --interval 2000
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./.lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Upload dev server log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuxt-dev-log-lh
+          path: nuxt-dev.log
+          if-no-files-found: ignore

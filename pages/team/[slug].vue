@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const site = useSiteConfig()
 
 const { member, avatarSrc } = useTeamProfile()
 
@@ -9,6 +10,37 @@ usePageSeo({
   image: member.value?.avatar || undefined,
   imageAlt: member.value ? t('team.avatar_alt', { name: member.value.name }) : undefined,
   schemaType: 'ProfilePage',
+})
+
+useBreadcrumbs(() => [
+  { name: t('navigation.home'), url: `/${locale.value}/` },
+  { name: t('team.title'), url: `/${locale.value}/team` },
+  { name: member.value?.name || t('team.title') }
+])
+
+// Person schema so the team member can earn its own knowledge panel.
+// The stable `@id` is reused by Article.author across every blog post so
+// Google can merge the entities into one identity in its graph.
+useSchemaOrg(() => {
+  if (!member.value) return []
+  const profileUrl = member.value.slug
+    ? personProfileUrl(site.url, locale.value, member.value.slug)
+    : new URL(`/${locale.value}/team/`, site.url).toString()
+  const avatar = avatarSrc.value?.startsWith('http')
+    ? avatarSrc.value
+    : new URL(avatarSrc.value || '/favicon.svg', site.url).toString()
+  return [
+    {
+      '@type': 'Person',
+      '@id': member.value.slug ? personId(site.url, member.value.slug) : undefined,
+      name: member.value.name,
+      url: profileUrl,
+      image: avatar,
+      jobTitle: member.value.role || undefined,
+      description: member.value.slogan || member.value.role || undefined,
+      worksFor: { '@id': organizationId(site.url) }
+    }
+  ]
 })
 </script>
 
@@ -23,7 +55,7 @@ usePageSeo({
     </NuxtLink>
     <div v-if="member" class="mt-4 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-6 md:p-8">
       <div class="flex items-start gap-5">
-        <img :src="avatarSrc" :alt="t('team.avatar_alt', { name: member.name })" width="96" height="96" class="h-24 w-24 rounded-2xl ring-1 ring-black/5 dark:ring-white/5 object-cover" />
+        <img :src="avatarSrc" :alt="t('team.avatar_alt', { name: member.name })" width="96" height="96" class="h-24 w-24 rounded-2xl ring-1 ring-black/5 dark:ring-white/5 object-cover" >
         <div>
           <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ member.name }}</h1>
           <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">{{ member.role }}</p>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 definePageMeta({
   title: 'blog.imprint.title',
@@ -10,6 +10,10 @@ usePageSeo({
   description: t('blog.imprint.description'),
   robots: 'noindex, follow',
 })
+
+useBreadcrumbs(() => [
+  { name: t('navigation.home'), url: `/${locale.value}/` }, { name: t('blog.imprint.title') }
+])
 </script>
 
 <template>

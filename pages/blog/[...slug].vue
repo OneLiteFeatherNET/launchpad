@@ -2,13 +2,10 @@
 import { defineAsyncComponent } from 'vue'
 import {definePageMeta} from "#imports";
 import type { BlogArticle } from "~/types/blog";
-import { extractPlainTextFromExcerpt } from "~/utils/content";
 import UiChip from '~/components/base/Chip.vue'
 
 const { locale, t, d } = useI18n()
 const config = useRuntimeConfig()
-const site = useSiteConfig()
-const {getFeatureFlag } = usePostHogFeatureFlag();
 
 definePageMeta({
   layout: 'default',
@@ -17,104 +14,13 @@ definePageMeta({
 const { blog, headLinks, authors } = useBlogArticle()
 const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/features/blog/SocialMediaShare.vue'))
 
-const img = useImage()
-const previewSocial = computed(() =>
-  img(blog.value?.headerImage || 'images/logo.svg', {
-    width: 1200,
-    height: 630,
-    format: 'webp',
-    quality: 80,
-  })
-)
+// All Article-level SEO (meta tags, Article JSON-LD, breadcrumbs, OG
+// image) lives in useArticleSeo — keeps this page focused on view code.
+const { title } = useArticleSeo(blog, authors)
 
-// Canonical URL for OG tags — resolution order matches resolveBaseUrl() in useBlogContent.ts
-const baseUrl = computed(() => {
-  const pub = config.public as { siteUrl?: string }
-  return pub.siteUrl || site.url || 'https://onelitefeather.net'
-})
-const canonicalUrl = computed(() =>
-  blog.value ? (blog.value.canonical || `${baseUrl.value}/${locale.value}/blog/${blog.value.slug}`) : baseUrl.value
-)
-
-// Use a single useHead call to set links (and merge with any useSeoMeta output)
+// Surface canonical + hreflang + alternates from useBlogArticle.
 useHead(() => ({ link: headLinks.value }))
 useHead(() => (blog.value as BlogArticle | null)?.head || {})
-
-const title = computed(() => {
-  if (getFeatureFlag('alternative-title-conversion').value === 'test') {
-    return blog?.value?.alternativeTitle || blog?.value?.title || t('layouts.title');
-  } else {
-    return blog?.value?.title || t('layouts.title');
-  }
-});
-
-// Ensure the document title and meta reflect the article
-useSeoMeta(() => {
-  const seo = (blog.value as any)?.seo || {}
-  const metaTitle = seo.title || title.value
-  const metaDescription =
-    seo.description || blog.value?.description || extractPlainTextFromExcerpt((blog.value as any)?.excerpt) || ''
-  return {
-    title: metaTitle,
-    ogTitle: seo.ogTitle || metaTitle,
-    twitterTitle: seo.twitterTitle || metaTitle,
-    description: metaDescription,
-    ogDescription: seo.ogDescription || metaDescription,
-    ogImage: previewSocial.value,
-    twitterImage: previewSocial.value,
-    ogType: 'article',
-    ogUrl: canonicalUrl.value,
-    twitterCard: 'summary_large_image',
-    ogImageAlt: blog.value?.headerImageAlt || blog.value?.title || '',
-    articlePublishedTime: blog.value?.pubDate
-      ? new Date(blog.value.pubDate).toISOString()
-      : undefined,
-    articleAuthor: authors.value?.map(a => a.name) || undefined
-  }
-})
-
-// Article structured data
-useSchemaOrg(() => {
-  if (!blog.value) return {}
-  return {
-    '@type': 'Article',
-    headline: blog.value.title,
-    description: blog.value.description || '',
-    url: canonicalUrl.value,
-    datePublished: blog.value.pubDate
-      ? new Date(blog.value.pubDate).toISOString()
-      : undefined,
-    author: authors.value?.map(a => ({
-      '@type': 'Person' as const,
-      name: a.name
-    })) || [],
-    image: previewSocial.value,
-    dateModified: blog.value.updatedDate
-      ? new Date(blog.value.updatedDate).toISOString()
-      : blog.value.pubDate
-        ? new Date(blog.value.pubDate).toISOString()
-        : undefined,
-    publisher: {
-      '@type': 'Organization' as const,
-      name: 'OneLiteFeather Network',
-      url: 'https://onelitefeather.net'
-    }
-  }
-})
-
-useSchemaOrg([{
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl.value },
-    { '@type': 'ListItem', position: 2, name: t('blog.overview.title'), item: `${baseUrl.value}/${locale.value}/blog` },
-    { '@type': 'ListItem', position: 3, name: blog.value?.title || '' }
-  ]
-}])
-
-defineOgImage('NuxtSeo', {
-  title: blog.value?.title || t('blog.overview.title'),
-  description: blog.value?.description || ''
-})
 </script>
 
 <template>

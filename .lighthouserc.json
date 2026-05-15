@@ -1,0 +1,43 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:3000/en/?mockProductionEnv",
+        "http://localhost:3000/de/?mockProductionEnv",
+        "http://localhost:3000/en/blog?mockProductionEnv",
+        "http://localhost:3000/de/blog?mockProductionEnv",
+        "http://localhost:3000/en/bluemap?mockProductionEnv"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "preset": "desktop",
+        "skipAudits": [
+          "uses-http2",
+          "redirects-http",
+          "is-on-https",
+          "is-crawlable"
+        ]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:seo": ["error", { "minScore": 0.95 }],
+        "categories:best-practices": ["warn", { "minScore": 0.9 }],
+        "categories:accessibility": ["warn", { "minScore": 0.9 }],
+        "robots-txt": "error",
+        "canonical": "error",
+        "hreflang": "error",
+        "viewport": "error",
+        "html-has-lang": "error",
+        "html-lang-valid": "error",
+        "meta-description": "error",
+        "document-title": "error",
+        "image-alt": "warn",
+        "link-text": "warn"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

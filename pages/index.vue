@@ -18,6 +18,7 @@ const LazyServerConcept = defineAsyncComponent(() => import('~/components/featur
 const LazyServerAddresses = defineAsyncComponent(() => import('~/components/features/home/server-addresses/ServerAddresses.vue'))
 const LazySponsoring = defineAsyncComponent(() => import('~/components/features/sponsoring/Sponsoring.vue'))
 const LazyOpenCollective = defineAsyncComponent(() => import('~/components/features/opencollective/OpenCollectiveStats.vue'))
+const LazyFaqSection = defineAsyncComponent(() => import('~/components/features/home/faq/FaqSection.vue'))
 
 </script>
 
@@ -50,4 +51,5 @@ const LazyOpenCollective = defineAsyncComponent(() => import('~/components/featu
     :link="collective.link"
     :updated-at="collective.updatedAt"
   />
+  <LazyFaqSection />
 </template>

@@ -150,7 +150,16 @@ export function useBlogArticle() {
 
   const slug = computed<string | undefined>(() => slugSegments.value.at(-1))
 
-  const { data: article } = useAsyncData<BlogArticle | null>(
+  // Fetch the article and its authors in a single useAsyncData so the result
+  // is fully resolved during SSR. The previous two-step approach used a
+  // second useAsyncData whose cache key depended on the article's author
+  // slugs — that key was empty during setup, so SSR captured an empty
+  // authors list and the rendered author cards and Article JSON-LD shipped
+  // without any author data.
+  const { data: payload } = useAsyncData<{
+    article: BlogArticle | null
+    authors: BlogAuthorProfile[]
+  } | null>(
     () => `${route.path}-${locale.value}`,
     async () => {
       if (!slug.value) return null
@@ -163,32 +172,32 @@ export function useBlogArticle() {
         throw createError({ statusCode: 404, statusMessage: 'Article not released' })
       }
 
-      return doc || null
+      if (!doc) return { article: null, authors: [] }
+
+      const slugs = (Array.isArray(doc.author) ? doc.author : [doc.author])
+        .filter(Boolean)
+        .map((s) => String(s))
+
+      const authorDocs = slugs.length
+        ? await Promise.all(
+          slugs.map((authorSlug) =>
+            queryCollection('authors')
+              .where('slug', '=', authorSlug)
+              .first()
+          )
+        )
+        : []
+
+      return {
+        article: doc,
+        authors: (authorDocs.filter(Boolean) as AuthorCollectionItem[]) || []
+      }
     },
     { watch: [locale, slug] }
   )
 
-  const authorSlugs = computed<string[]>(() => {
-    const raw = article.value?.author
-    if (!raw) return []
-    return (Array.isArray(raw) ? raw : [raw]).map((s) => String(s)).filter(Boolean)
-  })
-
-  const { data: authors } = useAsyncData<BlogAuthorProfile[]>(
-    () => `blog-authors-${authorSlugs.value.join('|')}`,
-    async () => {
-      if (!authorSlugs.value.length) return []
-      const results = await Promise.all(
-        authorSlugs.value.map((slug) =>
-          queryCollection('authors')
-            .where('slug', '=', slug)
-            .first()
-        )
-      )
-      return (results.filter(Boolean) as AuthorCollectionItem[]) || []
-    },
-    { watch: [authorSlugs] }
-  )
+  const article = computed<BlogArticle | null>(() => payload.value?.article || null)
+  const authors = computed<BlogAuthorProfile[]>(() => payload.value?.authors || [])
 
   const blog = computed<BlogArticle | null>(() => {
     if (!article.value) return null

@@ -32,6 +32,10 @@ const displaySubtitle = computed(() => props.subtitle ?? t('sponsor.subtitle'))
 
 const enhancedSponsors = computed<Sponsor[]>(() => props.sponsors ?? [])
 
+// Schema.org markup for the sponsor list lives in its own composable so
+// this component stays focused on rendering.
+useSponsorSchema(enhancedSponsors)
+
 const resolveIcon = (icon?: Sponsor['icon']) => {
   if (!icon) return null
   if (Array.isArray(icon)) return icon
