@@ -157,29 +157,7 @@
   },
   "faq": {
     "section_title": "Häufig gestellte Fragen",
-    "section_subtitle": "Das Wichtigste, um auf dem Netzwerk loszulegen.",
-    "items": {
-      "what_is": {
-        "question": "Was ist OneLiteFeather?",
-        "answer": "OneLiteFeather ist ein 2019 gegründetes Minecraft-Netzwerk, das Open-Source-Plugins, Paper-Erweiterungen und Tools entwickelt und mit der Minecraft-Server-Community teilt."
-      },
-      "editions": {
-        "question": "Mit welcher Minecraft-Edition kann ich beitreten?",
-        "answer": "Unser Server unterstützt sowohl die Java Edition als auch die Bedrock Edition. Die genauen Adressen findest du im Abschnitt „Mit dem Server verbinden\" auf dieser Seite."
-      },
-      "free": {
-        "question": "Ist OneLiteFeather kostenlos?",
-        "answer": "Ja. Das Spielen auf unserem Netzwerk ist komplett kostenlos. Betrieb und Infrastruktur werden über OpenCollective community-finanziert; alle Unterstützer sind öffentlich gelistet unter https://opencollective.com/onelitefeather."
-      },
-      "bluemap": {
-        "question": "Gibt es eine Live-Karte der Welt?",
-        "answer": "Ja — unsere BlueMap rendert die Welt in 3D und ist unter https://onelitefeather.net/de/bluemap erreichbar. Sie wird regelmäßig aktualisiert und läuft in jedem modernen Browser."
-      },
-      "contact": {
-        "question": "Wie erreiche ich das Team?",
-        "answer": "Tritt unserem Community-Discord unter {discord} bei, öffne ein Issue auf GitHub unter {github} oder schreib uns eine E-Mail an {email}."
-      }
-    }
+    "section_subtitle": "Das Wichtigste, um auf dem Netzwerk loszulegen."
   },
   "accessibility": {
     "logo_alt": "OneLiteFeather Logo"

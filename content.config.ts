@@ -130,6 +130,14 @@ const sponsorsSchema = z
   })
   .passthrough()
 
+const faqSchema = z
+  .object({
+    key: z.string(),
+    question: z.string(),
+    order: z.number().int().default(0)
+  })
+  .passthrough()
+
 export default defineContentConfig({
   collections: {
     ...defineLocalizedCollections('blog', (locale) =>
@@ -170,6 +178,11 @@ export default defineContentConfig({
       type: 'data',
       source: `sponsors/${locale}/home.json`,
       schema: sponsorsSchema
+    })),
+    ...defineLocalizedCollections('faq', (locale) => ({
+      type: 'page',
+      source: `faq/${locale}/*.md`,
+      schema: faqSchema
     })),
     authors: defineCollection({
       type: 'page',

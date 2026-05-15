@@ -1,56 +1,8 @@
 <script setup lang="ts">
+import { extractPlainTextFromExcerpt } from '~/utils/content'
+
 const { t } = useI18n()
-
-/**
- * The keys here must match the entries under the `faq.items.*` namespace in
- * each locale file. Order is preserved when rendered.
- */
-const itemKeys = ['what_is',
-'editions',
-'free',
-'bluemap',
-'contact'] as const
-
-interface FaqEntry {
-  key: typeof itemKeys[number]
-  question: string
-  answer: string
-}
-
-// Answer-level interpolation values. Kept here (and not in i18n JSON) so the
-// literal "@" of the contact email never lands in a message string — Vue I18n
-// would otherwise parse it as the start of a linked-message reference and fail
-// to load the whole locale catalog.
-const answerParams: Record<string, Record<string, string>> = {
-  contact: {
-    email: 'contact@onelitefeather.net',
-    discord: 'https://1lf.link/discord',
-    github: 'https://github.com/OneLiteFeatherNET'
-  }
-}
-
-const items = computed<FaqEntry[]>(() => itemKeys.map((key) => ({
-    key,
-    question: t(`faq.items.${key}.question`),
-    answer: t(`faq.items.${key}.answer`, answerParams[key] || {})
-  })))
-
-// FAQPage schema mirrors the visible content. Google currently restricts FAQ
-// rich results to authoritative health/government sites, but the markup is
-// still picked up by other crawlers (Bing, DuckDuckGo, AI assistants).
-useSchemaOrg(() => ([
-  {
-    '@type': 'FAQPage',
-    mainEntity: items.value.map((entry) => ({
-      '@type': 'Question' as const,
-      name: entry.question,
-      acceptedAnswer: {
-        '@type': 'Answer' as const,
-        text: entry.answer
-      }
-    }))
-  }
-]))
+const { items } = useFaqContent()
 
 const detailsClass = [
   'group rounded-xl border border-neutral-200 dark:border-neutral-800',
@@ -69,10 +21,36 @@ const toggleClass = [
   'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300',
   'transition-transform group-open:rotate-45'
 ].join(' ')
+
+const proseClass = [
+  'prose prose-sm md:prose-base prose-neutral dark:prose-invert max-w-none mt-3', 'prose-a:text-primary prose-a:underline-offset-2 prose-a:hover:underline'
+].join(' ')
+
+// FAQPage schema mirrors the visible content. Google currently restricts FAQ
+// rich results to authoritative health/government sites, but the markup is
+// still picked up by other crawlers (Bing, DuckDuckGo, AI assistants). The
+// schema requires plain-text answers, so we strip the MDC AST down.
+useSchemaOrg(() => {
+  if (!items.value.length) return []
+  return [
+    {
+      '@type': 'FAQPage',
+      mainEntity: items.value.map((entry) => ({
+        '@type': 'Question' as const,
+        name: entry.question,
+        acceptedAnswer: {
+          '@type': 'Answer' as const,
+          text: extractPlainTextFromExcerpt(entry.body, 500)
+        }
+      }))
+    }
+  ]
+})
 </script>
 
 <template>
   <section
+    v-if="items.length"
     class="mx-auto max-w-4xl px-4 py-10 md:py-14"
     :aria-labelledby="'faq-heading'"
   >
@@ -98,11 +76,9 @@ const toggleClass = [
           <span>{{ entry.question }}</span>
           <span :class="toggleClass" aria-hidden="true">+</span>
         </summary>
-        <p
-          class="mt-3 text-sm md:text-base leading-relaxed text-neutral-700 dark:text-neutral-300"
-        >
-          {{ entry.answer }}
-        </p>
+        <div :class="proseClass">
+          <ContentRenderer :value="entry" />
+        </div>
       </details>
     </div>
   </section>
