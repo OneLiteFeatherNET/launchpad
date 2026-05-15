@@ -177,7 +177,7 @@
       },
       "contact": {
         "question": "Wie erreiche ich das Team?",
-        "answer": "Tritt unserem Community-Discord unter https://1lf.link/discord bei, öffne ein Issue auf GitHub unter https://github.com/OneLiteFeatherNET oder schreib uns eine E-Mail an contact@onelitefeather.net."
+        "answer": "Tritt unserem Community-Discord unter {discord} bei, öffne ein Issue auf GitHub unter {github} oder schreib uns eine E-Mail an {email}."
       }
     }
   },

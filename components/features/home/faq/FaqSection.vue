@@ -17,10 +17,22 @@ interface FaqEntry {
   answer: string
 }
 
+// Answer-level interpolation values. Kept here (and not in i18n JSON) so the
+// literal "@" of the contact email never lands in a message string — Vue I18n
+// would otherwise parse it as the start of a linked-message reference and fail
+// to load the whole locale catalog.
+const answerParams: Record<string, Record<string, string>> = {
+  contact: {
+    email: 'contact@onelitefeather.net',
+    discord: 'https://1lf.link/discord',
+    github: 'https://github.com/OneLiteFeatherNET'
+  }
+}
+
 const items = computed<FaqEntry[]>(() => itemKeys.map((key) => ({
     key,
     question: t(`faq.items.${key}.question`),
-    answer: t(`faq.items.${key}.answer`)
+    answer: t(`faq.items.${key}.answer`, answerParams[key] || {})
   })))
 
 // FAQPage schema mirrors the visible content. Google currently restricts FAQ
