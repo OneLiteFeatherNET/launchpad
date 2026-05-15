@@ -1,7 +1,27 @@
 /**
  * Utilities for working with @nuxt/content document structures.
- * Focus: extracting plain text from the `excerpt` AST for meta descriptions.
+ * Focus: extracting plain text from the `excerpt` AST for meta descriptions
+ * and walking the `body` AST (minimark format) for things like word counts.
  */
+
+/**
+ * Walks the minimark AST that @nuxt/content stores in `body.value`. Nodes
+ * are tuples of the form `[tag, attrs, ...children]` where children can be
+ * strings or further nodes; arrays starting with a string + object are tag
+ * nodes, everything else is treated as a child list.
+ */
+const walkMinimark = (input: unknown, sink: string[]): void => {
+  if (typeof input === 'string') {
+    sink.push(input)
+    return
+  }
+  if (!Array.isArray(input)) return
+  if (input.length >= 2 && typeof input[0] === 'string' && typeof input[1] === 'object' && input[1] !== null) {
+    for (let i = 2; i < input.length; i++) walkMinimark(input[i], sink)
+    return
+  }
+  for (const child of input) walkMinimark(child, sink)
+}
 
 export function extractPlainTextFromExcerpt(excerpt: any, maxLength = 180): string {
   if (!excerpt) return ''
@@ -14,6 +34,11 @@ export function extractPlainTextFromExcerpt(excerpt: any, maxLength = 180): stri
     // Text node
     if (typeof node.value === 'string') {
       parts.push(node.value)
+      return
+    }
+    // minimark wrapper: { type: 'minimark', value: [[tag, attrs, ...children], ...] }
+    if (node.type === 'minimark' && node.value) {
+      walkMinimark(node.value, parts)
       return
     }
     // Element with children (paragraphs, links, strong, etc.)

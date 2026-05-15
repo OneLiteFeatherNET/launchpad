@@ -88,6 +88,25 @@ const articleImages = computed(() => {
   ]
 })
 
+// Compact thumbnail for SERP card previews — Google recommends a
+// dedicated thumbnailUrl alongside the larger `image` array.
+const articleThumbnail = computed(() => {
+  const source = blog.value?.headerImage || 'images/logo.svg'
+  return img(source, { width: 600, height: 400, format: 'webp', quality: 75 })
+})
+
+// Approximate word count derived from the MDC body — gives Google a
+// reliability signal for the Article rich result.
+const articleWordCount = computed(() => {
+  const body = (blog.value as { body?: unknown } | null)?.body
+  if (!body) return undefined
+  // Re-use the excerpt walker; cap the extracted text so we count fast.
+  const text = extractPlainTextFromExcerpt(body, 20_000)
+  if (!text) return undefined
+  const words = text.split(/\s+/).filter(Boolean).length
+  return words > 0 ? words : undefined
+})
+
 // Stable @id for the org and per-author Person entities. Using the site
 // root (without a locale prefix) keeps the identifier stable across the
 // en/de translations of the same author.
@@ -114,6 +133,8 @@ useSchemaOrg(() => {
       url: a.slug ? `${site.url}/${locale.value}/team/${a.slug}` : undefined
     })) || [],
     image: articleImages.value,
+    thumbnailUrl: articleThumbnail.value,
+    wordCount: articleWordCount.value,
     articleSection: blog.value.tags?.[0] || undefined,
     keywords: blog.value.tags?.join(', ') || undefined,
     inLanguage: locale.value,
