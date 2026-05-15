@@ -1,0 +1,53 @@
+name: Deploy release to Cloudflare Workers
+
+# Production deploys are gated on release-please tags. Cloudflare Workers
+# Builds' Git integration only watches branches, so instead of letting it
+# auto-deploy main we build here and ship with `wrangler deploy` whenever
+# release-please cuts a `v*` tag (i.e. when its release PR is merged).
+#
+# Prerequisites (one-time, see PR description):
+#   - Disable / pause the Workers Builds Git integration so it does not
+#     also deploy on every push to main.
+#   - Add repo secrets CLOUDFLARE_API_TOKEN (Workers Scripts:Edit + the
+#     account's D1 scope) and CLOUDFLARE_ACCOUNT_ID.
+on:
+  push:
+    tags:
+      - 'v*'
+
+concurrency:
+  group: deploy-release
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build (cloudflare_module preset)
+        run: pnpm build
+        env:
+          NODE_ENV: production
+
+      # Nitro's cloudflare_module preset with deployConfig:true writes
+      # wrangler.json plus the worker entry into .output/, so wrangler
+      # deploy runs from there with no extra flags.
+      - name: Deploy with Wrangler
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+          workingDirectory: .output
