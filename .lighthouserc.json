@@ -2,11 +2,11 @@
   "ci": {
     "collect": {
       "url": [
-        "http://localhost:3000/en/",
-        "http://localhost:3000/de/",
-        "http://localhost:3000/en/blog",
-        "http://localhost:3000/de/blog",
-        "http://localhost:3000/en/bluemap"
+        "http://localhost:3000/en/?mockProductionEnv",
+        "http://localhost:3000/de/?mockProductionEnv",
+        "http://localhost:3000/en/blog?mockProductionEnv",
+        "http://localhost:3000/de/blog?mockProductionEnv",
+        "http://localhost:3000/en/bluemap?mockProductionEnv"
       ],
       "numberOfRuns": 1,
       "settings": {
