@@ -18,6 +18,11 @@ const blogSchema = withI18nMeta(
     headerImage: z.string().optional(),
     headerImageAlt: z.string().optional(),
     tags: z.array(z.string()).optional(),
+    // Author slug(s) matching entries in the `authors` page collection.
+    // Without this field on the schema, the column is dropped and the
+    // page-level Author lookups (visible cards + Article JSON-LD) come
+    // back empty.
+    author: z.union([z.string(), z.array(z.string())]).optional(),
     excerpt: z.object({
       type: z.string(),
       children: z.any()
