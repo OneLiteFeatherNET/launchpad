@@ -17,6 +17,13 @@ usePageSeo({
   title: t('blog.overview.title'),
   description: t('blog.overview.description'),
   schemaType: 'Blog',
+  keywords: [
+    'OneLiteFeather blog',
+    'Minecraft development blog',
+    'Minecraft plugin development',
+    'Paper plugin development',
+    'open source Minecraft'
+  ]
 })
 
 useSchemaOrg([{
@@ -32,13 +39,13 @@ useSchemaOrg([{
   <div class="container mx-auto py-4">
     <Top1
         v-if="top1Article"
-        :blogArticle="top1Article"
+        :blog-article="top1Article"
     />
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
       <ArticleCard
         v-for="article in allPosts"
         :key="article.slug"
-        :blogArticle="article"
+        :blog-article="article"
       />
     </div>
   </div>

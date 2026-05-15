@@ -152,7 +152,8 @@
     "github": "GitHub"
   },
   "seo": {
-    "default_description": "OneLiteFeather is a Minecraft Network sharing development tools with the community."
+    "default_description": "OneLiteFeather is a Minecraft Network sharing development tools with the community.",
+    "default_keywords": "OneLiteFeather, Minecraft, Minecraft server, Minecraft network, plugins, open source, Paper, Velocity, Java, Bedrock, development tools, community"
   },
   "accessibility": {
     "logo_alt": "OneLiteFeather Logo"
@@ -160,9 +161,16 @@
   "article": {
     "share": "Share this article",
     "share_on_facebook": "Share on Facebook",
-    "share_on_twitter": "Share on Twitter",
+    "share_on_twitter": "Share on X (Twitter)",
     "share_on_linkedin": "Share on LinkedIn",
     "share_on_whatsapp": "Share on WhatsApp",
-    "share_by_email": "Share by Email"
+    "share_on_telegram": "Share on Telegram",
+    "share_on_bluesky": "Share on Bluesky",
+    "share_on_mastodon": "Share on Mastodon",
+    "share_on_reddit": "Share on Reddit",
+    "share_by_email": "Share by Email",
+    "share_native": "Share…",
+    "copy_link": "Copy link",
+    "copied": "Link copied"
   }
 }

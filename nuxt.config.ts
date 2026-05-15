@@ -16,9 +16,9 @@ export default defineNuxtConfig({
         identity: defineOrganization({
             name: 'OneLiteFeather Network',
             alternateName: 'OneLiteFeather.net',
-            description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers. ',
+            description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers.',
             url: 'http://localhost:3000',
-            logo: '/logo.svg',
+            logo: '/images/logo.svg',
             email: 'contact@onelitefeather.net',
             foundingDate: '2019-09-01',
             numberOfEmployees: {
@@ -27,7 +27,9 @@ export default defineNuxtConfig({
                 'maxValue': 25
             },
             sameAs: [
-                'https://github.com/OneLiteFeatherNET'
+                'https://github.com/OneLiteFeatherNET',
+                'https://1lf.link/discord',
+                'https://opencollective.com/onelitefeather'
             ]
         })
     },
@@ -35,7 +37,7 @@ export default defineNuxtConfig({
         url: 'http://localhost:3000',
         name: 'OneLiteFeather Network',
         description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers.',
-        debug: true,
+        defaultLocale: 'en'
     },
     modules: [
       '@vueuse/nuxt',
@@ -44,6 +46,7 @@ export default defineNuxtConfig({
       '@nuxt/eslint',
       '@nuxtjs/i18n',
       '@nuxtjs/seo',
+      '@nuxtjs/robots',
       '@nuxtjs/sitemap',
       '@nuxt/image',
       'nuxt-og-image',
@@ -52,6 +55,12 @@ export default defineNuxtConfig({
       'nuxt-gtag',
       'nuxt-vitalizer'
     ],
+    robots: {
+        // Allow indexing for all crawlers by default. Per-route exclusions (legal pages, etc.)
+        // are handled via routeRules. Blocking `/_nuxt/` would hide JS/CSS from crawlers and
+        // break rendering for Googlebot, so we don't disallow anything globally here.
+        sitemap: ['/sitemap.xml']
+    },
     i18n: {
         strategy: 'prefix',
         defaultLocale: 'en',
@@ -78,10 +87,11 @@ export default defineNuxtConfig({
         }
     },
     routeRules: {
-        '/en/imprint': { index: false },
-        '/de/imprint': { index: false },
-        '/en/privacy': { index: false },
-        '/de/privacy': { index: false },
+        // Legal pages are intentionally excluded from search indexing.
+        '/en/imprint': { robots: 'noindex, follow' },
+        '/de/imprint': { robots: 'noindex, follow' },
+        '/en/privacy': { robots: 'noindex, follow' },
+        '/de/privacy': { robots: 'noindex, follow' },
     },
 
     vite: {
@@ -156,6 +166,14 @@ export default defineNuxtConfig({
             openCollectiveSlug: 'onelitefeather',
             openCollectiveGoal: 3000,
             openCollectiveCurrency: 'EUR',
+            // Social handles consumed by usePageSeo for twitter:site / twitter:creator.
+            // Empty strings are filtered out by the composable.
+            social: {
+                twitterSite: '',
+                twitterCreator: '',
+                githubUrl: 'https://github.com/OneLiteFeatherNET',
+                openCollectiveUrl: 'https://opencollective.com/onelitefeather'
+            }
         }
     },
     $production: {
@@ -182,15 +200,21 @@ export default defineNuxtConfig({
                 openCollectiveSlug: 'onelitefeather',
                 openCollectiveGoal: 3000,
                 openCollectiveCurrency: 'EUR',
+                social: {
+                    twitterSite: '',
+                    twitterCreator: '',
+                    githubUrl: 'https://github.com/OneLiteFeatherNET',
+                    openCollectiveUrl: 'https://opencollective.com/onelitefeather'
+                }
             }
         },
         schemaOrg: {
             identity: defineOrganization({
                 name: 'OneLiteFeather Network',
                 alternateName: 'OneLiteFeather.net',
-                description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers. ',
+                description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers.',
                 url: 'https://onelitefeather.net',
-                logo: '/logo.svg',
+                logo: 'https://onelitefeather.net/images/logo.svg',
                 email: 'contact@onelitefeather.net',
                 foundingDate: '2019-09-01',
                 numberOfEmployees: {
@@ -199,7 +223,9 @@ export default defineNuxtConfig({
                     'maxValue': 25
                 },
                 sameAs: [
-                    'https://github.com/OneLiteFeatherNET'
+                    'https://github.com/OneLiteFeatherNET',
+                    'https://1lf.link/discord',
+                    'https://opencollective.com/onelitefeather'
                 ]
             })
         },

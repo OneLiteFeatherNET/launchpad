@@ -8,8 +8,16 @@ definePageMeta({
 })
 
 usePageSeo({
+  title: t('bluemap.title'),
   description: t('bluemap.description'),
   schemaType: 'WebPage',
+  keywords: [
+    'OneLiteFeather BlueMap',
+    'Minecraft world map',
+    'Minecraft 3D map',
+    'Minecraft live map',
+    'OneLiteFeather server'
+  ]
 })
 </script>
 

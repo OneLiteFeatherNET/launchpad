@@ -61,7 +61,11 @@ useSeoMeta(() => {
     description: metaDescription,
     ogDescription: seo.ogDescription || metaDescription,
     ogImage: previewSocial.value,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    ogImageType: 'image/webp',
     twitterImage: previewSocial.value,
+    twitterImageAlt: blog.value?.headerImageAlt || blog.value?.title || '',
     ogType: 'article',
     ogUrl: canonicalUrl.value,
     twitterCard: 'summary_large_image',
@@ -69,7 +73,12 @@ useSeoMeta(() => {
     articlePublishedTime: blog.value?.pubDate
       ? new Date(blog.value.pubDate).toISOString()
       : undefined,
-    articleAuthor: authors.value?.map(a => a.name) || undefined
+    articleModifiedTime: blog.value?.updatedDate
+      ? new Date(blog.value.updatedDate).toISOString()
+      : (blog.value?.pubDate ? new Date(blog.value.pubDate).toISOString() : undefined),
+    articleAuthor: authors.value?.map(a => a.name) || undefined,
+    articleTag: blog.value?.tags || undefined,
+    keywords: blog.value?.tags?.join(', ') || undefined
   }
 })
 
