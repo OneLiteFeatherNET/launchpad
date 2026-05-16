@@ -56,12 +56,13 @@ PR. Use only the skills/agents the change actually touches.
 - **Accessibility** (run the relevant ones on every changed
   `components/`/`layouts/`/`pages/` file): `a11y-semantic-structure`,
   `a11y-keyboard-focus`, `a11y-aria-dynamic`, `a11y-names-labels-i18n`,
-  `a11y-forms`, `a11y-contrast-motion`.
+  `a11y-forms`, `a11y-contrast-motion`, `a11y-typography`.
 - **Performance**: `perf-defer-third-party-scripts`,
   `perf-reduce-unused-js`, `perf-no-legacy-js`, `perf-minify-js`,
   `perf-render-blocking-css`, `perf-lcp-element`,
-  `perf-cls-layout-stability`. CI runs the **desktop** preset only;
-  mobile (TBT/CLS/TTI) is the known weak spot — check it manually.
+  `perf-cls-layout-stability`, `perf-image-delivery`,
+  `perf-main-thread-work` (INP/TBT). CI runs the **desktop** preset
+  only; mobile (TBT/CLS/TTI) is the known weak spot — check it manually.
 - **Best Practices**: `bp-clean-console`, `bp-no-hydration-mismatch`,
   `bp-bfcache`, `bp-no-prod-source-maps`.
 - **Network/Loading**: `net-cache-lifetimes`, `net-resource-hints`,
