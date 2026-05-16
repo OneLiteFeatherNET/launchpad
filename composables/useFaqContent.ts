@@ -1,13 +1,6 @@
-import { queryCollection } from '#imports'
-import type { PageCollectionItemBase } from '@nuxt/content'
-
-type FaqCollectionKey = 'faq_de' | 'faq_en'
-
-export interface FaqDocument extends PageCollectionItemBase {
-  key: string
-  question: string
-  order?: number
-}
+import { useContentRepository } from '~/composables/useContentRepository'
+import type { Locale } from '~/utils/content/collections'
+import type { FaqEntry } from '~/types/faq'
 
 /**
  * Fetches all FAQ entries for the active locale, ordered by the optional
@@ -17,15 +10,16 @@ export interface FaqDocument extends PageCollectionItemBase {
  */
 export function useFaqContent() {
   const { locale } = useI18n()
-  const collection = computed<FaqCollectionKey>(() => (`faq_${locale?.value || 'en'}`) as FaqCollectionKey)
+  const repo = useContentRepository()
+  const activeLocale = computed<Locale>(() => (locale?.value || 'en') as Locale)
 
-  const { data: entries } = useAsyncData<FaqDocument[]>(
-    () => `faq-${collection.value}`,
-    () => queryCollection(collection.value).order('order', 'ASC').all() as Promise<FaqDocument[]>,
-    { watch: [collection] }
+  const { data: entries } = useAsyncData<FaqEntry[]>(
+    () => `faq-${activeLocale.value}`,
+    () => repo.listFaqEntries(activeLocale.value),
+    { watch: [activeLocale] }
   )
 
-  const items = computed<FaqDocument[]>(() => entries.value || [])
+  const items = computed<FaqEntry[]>(() => entries.value || [])
 
   return { items }
 }

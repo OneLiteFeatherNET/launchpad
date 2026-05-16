@@ -1,6 +1,7 @@
-import { createError, queryCollection } from '#imports'
-import type { PageCollectionItemBase } from '@nuxt/content'
+import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
+import { useContentRepository } from '~/composables/useContentRepository'
+import type { Locale } from '~/utils/content/collections'
 import type {
   BlogArticle,
   BlogAlternateLanguageLink,
@@ -8,18 +9,7 @@ import type {
   BlogAuthorProfile
 } from '~/types/blog'
 
-type BlogCollectionKey = 'blog_de' | 'blog_en'
 type HeadLink = { rel: string; href: string; hreflang?: string; type?: string }
-type AuthorCollectionItem = BlogAuthorProfile & PageCollectionItemBase
-
-declare module '@nuxt/content' {
-  interface PageCollections {
-    authors: AuthorCollectionItem
-  }
-  interface Collections {
-    authors: AuthorCollectionItem
-  }
-}
 
 const normalizeReleaseDate = (entry: BlogArticle): Date | null => {
   const raw = entry.releaseDate ?? entry.pubDate
@@ -28,8 +18,7 @@ const normalizeReleaseDate = (entry: BlogArticle): Date | null => {
   return Number.isNaN(parsed.getTime()) ? null : parsed
 }
 
-const releaseTimestamp = (entry: BlogArticle): number =>
-  normalizeReleaseDate(entry)?.getTime() ?? 0
+const releaseTimestamp = (entry: BlogArticle): number => normalizeReleaseDate(entry)?.getTime() ?? 0
 
 const isReleased = (entry: BlogArticle | null | undefined): entry is BlogArticle => {
   if (!entry) return false
@@ -38,16 +27,14 @@ const isReleased = (entry: BlogArticle | null | undefined): entry is BlogArticle
   return release.getTime() <= Date.now()
 }
 
-const normalizeLocales = (list: unknown[]): LocaleObject[] =>
-  list
-    .filter(
-      (locale): locale is LocaleObject =>
-        Boolean(locale && typeof locale === 'object' && 'code' in (locale as Record<string, unknown>))
-    )
-    .map((locale) => locale as LocaleObject)
+const isLocaleObject = (locale: unknown): locale is LocaleObject => Boolean(locale && typeof locale === 'object' && 'code' in (locale as Record<string, unknown>))
 
-const resolveHreflang = (locale: LocaleObject, fallback: string): string =>
-  locale.iso || (locale as { _hreflang?: string })._hreflang || locale.code || fallback
+const normalizeLocales = (list: unknown[]): LocaleObject[] => list.filter(isLocaleObject)
+
+const resolveHreflang = (locale: LocaleObject, fallback: string): string => {
+  const hreflang = (locale as { _hreflang?: string })._hreflang
+  return locale.iso || hreflang || locale.code || fallback
+}
 
 export interface BlogOverviewOptions {
   /**
@@ -68,17 +55,13 @@ export interface BlogOverviewOptions {
  */
 export function useBlogOverview(options: BlogOverviewOptions = {}) {
   const { locale } = useI18n()
-  const blogCollection = computed<BlogCollectionKey>(
-    () => (`blog_${locale?.value || 'de'}`) as BlogCollectionKey
-  )
+  const repo = useContentRepository()
+  const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
   const { data: allPostsData } = useAsyncData<BlogArticle[]>(
-    () => `all-posts-${locale.value}`,
-    () =>
-      queryCollection(blogCollection.value)
-        .order('pubDate', 'DESC')
-        .all(),
-    { watch: [locale] }
+    () => `all-posts-${activeLocale.value}`,
+    () => repo.listBlogArticles(activeLocale.value),
+    { watch: [activeLocale] }
   )
 
   const visiblePosts = computed<BlogArticle[]>(() => {
@@ -128,12 +111,11 @@ export function useBlogArticle() {
   const { locale, locales } = useI18n()
   const route = useRoute()
   const config = useRuntimeConfig()
-  const blogCollection = computed<BlogCollectionKey>(
-    () => (`blog_${locale?.value || 'de'}`) as BlogCollectionKey
-  )
-  const availableLocales = computed<LocaleObject[]>(() =>
-    normalizeLocales((locales.value || []) as unknown[])
-  )
+  const repo = useContentRepository()
+  const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
+  const availableLocales = computed<LocaleObject[]>(() => {
+    return normalizeLocales((locales.value || []) as unknown[])
+  })
 
   // Slug derived from catch-all route param; reactive on client navigation
   const slugSegments = computed<string[]>(() => {
@@ -164,9 +146,7 @@ export function useBlogArticle() {
     async () => {
       if (!slug.value) return null
 
-      const doc = (await queryCollection(blogCollection.value)
-        .where('slug', '=', slug.value)
-        .first()) as BlogArticle | null
+      const doc = await repo.getBlogArticleBySlug(activeLocale.value, slug.value)
 
       if (doc && !isReleased(doc)) {
         throw createError({ statusCode: 404, statusMessage: 'Article not released' })
@@ -179,18 +159,12 @@ export function useBlogArticle() {
         .map((s) => String(s))
 
       const authorDocs = slugs.length
-        ? await Promise.all(
-          slugs.map((authorSlug) =>
-            queryCollection('authors')
-              .where('slug', '=', authorSlug)
-              .first()
-          )
-        )
+        ? await Promise.all(slugs.map((authorSlug) => repo.getAuthorBySlug(authorSlug)))
         : []
 
       return {
         article: doc,
-        authors: (authorDocs.filter(Boolean) as AuthorCollectionItem[]) || []
+        authors: authorDocs.filter((a): a is BlogAuthorProfile => Boolean(a))
       }
     },
     { watch: [locale, slug] }
@@ -213,7 +187,11 @@ export function useBlogArticle() {
   }
 
   // Rebuild alternates whenever article/locale changes
-  watch([blog, locale, locales], async () => {
+  watch([
+    blog,
+    locale,
+    locales
+  ], async () => {
     alternateLanguages.value = []
     if (!blog.value) return
 
@@ -225,15 +203,17 @@ export function useBlogArticle() {
       return
     }
 
-    if (!blog.value.translationKey) return
+    const translationKey = blog.value.translationKey
+    if (!translationKey) return
 
     const otherLocales = availableLocales.value.filter((l) => l.code !== locale.value)
 
     const baseUrl = resolveBaseUrl()
     for (const otherLocale of otherLocales) {
-      const translated = await queryCollection(`blog_${otherLocale.code}` as BlogCollectionKey)
-        .where('translationKey', '=', blog.value?.translationKey)
-        .first()
+      const translated = await repo.getBlogArticleByTranslationKey(
+        otherLocale.code as Locale,
+        translationKey
+      )
 
       if (translated) {
         const hreflangValue = resolveHreflang(otherLocale, otherLocale.code)
@@ -256,14 +236,14 @@ export function useBlogArticle() {
 
     const baseUrl = resolveBaseUrl()
 
-    const currentLocaleObj =
-      availableLocales.value.find((l) => l.code === locale.value) ||
-      ({ code: locale.value } as LocaleObject)
+    const currentLocaleObj
+      = availableLocales.value.find((l) => l.code === locale.value)
+      || ({ code: locale.value } as LocaleObject)
     const currentHreflang = resolveHreflang(currentLocaleObj, locale.value)
 
     // Prefer explicit canonical from front-matter, else compute fallback
-    const canonicalUrl =
-      blog.value.canonical || `${baseUrl}/${locale.value}/blog/${blog.value.slug}`
+    const canonicalUrl
+      = blog.value.canonical || `${baseUrl}/${locale.value}/blog/${blog.value.slug}`
 
     links.push({ rel: 'canonical', href: canonicalUrl })
 
@@ -293,10 +273,8 @@ export function useBlogArticle() {
       if (locale.value === defaultLocale) {
         pushAlt('x-default', canonicalUrl)
       } else {
-        const defaultLocaleUrl =
-          alternateLanguages.value.find(
-            (alt) => alt.locale?.startsWith('en') || alt.locale === 'en'
-          )?.url || `${baseUrl}/${defaultLocale}/blog/${blog.value.slug}`
+        const defaultLocaleUrl
+          = alternateLanguages.value.find((alt) => alt.locale?.startsWith('en') || alt.locale === 'en')?.url || `${baseUrl}/${defaultLocale}/blog/${blog.value.slug}`
         pushAlt('x-default', defaultLocaleUrl)
       }
     }
