@@ -18,51 +18,43 @@ const buildRobots = (opts: PageSeoOptions): string | undefined => {
 }
 
 export function usePageSeo(opts: PageSeoOptions = {}) {
-  const { locale, locales, t } = useI18n()
+  const { locale, t } = useI18n()
   const route = useRoute()
   const site = useSiteConfig()
   const switchLocalePath = useSwitchLocalePath()
   const img = useImage()
   const runtime = useRuntimeConfig()
 
+  // Absolute, query/hash-free URL. `switchLocalePath` preserves the current
+  // request's query string, so without stripping it every tracking param
+  // (utm/fbclid/posthog…) would spawn a distinct canonical + hreflang set
+  // and Google would report duplicates / pick its own canonical.
+  const cleanUrl = (path: string): string => {
+    const u = new URL(path || '/', site.url)
+    u.search = ''
+    u.hash = ''
+    return u.toString()
+  }
+
+  // Canonical must be byte-identical to this locale's self-referencing
+  // hreflang entry below, otherwise the two become conflicting signals.
   const canonicalUrl = computed(() => {
-    if (opts.canonical) return new URL(opts.canonical, site.url).toString()
-    return new URL(route.fullPath || '/', site.url).toString()
+    if (opts.canonical) return cleanUrl(new URL(opts.canonical, site.url).toString())
+    return cleanUrl(switchLocalePath(locale.value) || route.path || '/')
   })
 
-  // Build hreflang alternate links for all configured locales + x-default
-  const alternateLinks = computed(() => {
-    const items: Array<{ rel: 'alternate'; hreflang: string; href: string }> = []
-    const all = Array.isArray(locales.value) ? locales.value : []
-    for (const l of all as Array<any>) {
-      const code = typeof l === 'string' ? l : l.code
-      const iso = typeof l === 'string' ? l : (l.iso || l.code)
-      const path = switchLocalePath(code) || '/'
-      const href = new URL(path, site.url).toString()
-      items.push({ rel: 'alternate', hreflang: iso, href })
-    }
-    // x-default points to the default locale URL (defaultLocale in nuxt.config.ts)
-    const defaultPath = switchLocalePath(DEFAULT_LOCALE) || '/'
-    const defaultHref = new URL(defaultPath, site.url).toString()
-    items.push({ rel: 'alternate', hreflang: 'x-default', href: defaultHref })
-    return items
-  })
 
   const robotsDirective = computed(() => buildRobots(opts))
   const keywordsMeta = computed(() => normaliseKeywords(opts.keywords))
 
+  // Canonical + hreflang are emitted once, app-wide, by @nuxtjs/i18n
+  // (see layouts/default.vue). Here we only add page-specific robots /
+  // keywords meta to avoid duplicate or conflicting link tags.
   useHead(() => {
     const meta: Array<{ name: string; content: string }> = []
     if (robotsDirective.value) meta.push({ name: 'robots', content: robotsDirective.value })
     if (keywordsMeta.value) meta.push({ name: 'keywords', content: keywordsMeta.value })
-    return {
-      link: [
-        { rel: 'canonical', href: canonicalUrl.value },
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        ...alternateLinks.value
-      ],
-      meta
-    }
+    return { meta }
   })
 
   // Social preview image for OG/Twitter
@@ -78,22 +70,6 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   })
 
   // Resolve og:locale from the current locale code
-  const currentLocaleObj = computed(() => {
-    const all = Array.isArray(locales.value) ? locales.value : []
-    return (all as Array<any>).find(l => (typeof l === 'string' ? l : l.code) === locale.value)
-  })
-  const ogLocale = computed(() => {
-    const l = currentLocaleObj.value
-    if (!l) return locale.value
-    return typeof l === 'string' ? l : (l.iso || l.code)
-  })
-  const ogLocaleAlternate = computed(() => {
-    const all = Array.isArray(locales.value) ? locales.value : []
-    return (all as Array<any>)
-      .filter(l => (typeof l === 'string' ? l : l.code) !== locale.value)
-      .map(l => (typeof l === 'string' ? l : (l.iso || l.code)))
-  })
-
   type SocialHandles = { twitterSite?: string; twitterCreator?: string }
   const socialHandles = (runtime.public as { social?: SocialHandles }).social
   const twitterSite = opts.twitterSite || socialHandles?.twitterSite || undefined
@@ -112,8 +88,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     ogImageHeight: opts.imageHeight || (socialImage.value ? 630 : undefined),
     ogImageType: opts.imageType || (socialImage.value ? 'image/webp' : undefined),
     ogSiteName: site.name,
-    ogLocale: ogLocale,
-    ogLocaleAlternate: ogLocaleAlternate,
+    // og:locale + og:locale:alternate are emitted by @nuxtjs/i18n.
     twitterCard: opts.twitterCard || 'summary_large_image',
     twitterTitle: pageTitle,
     twitterDescription: pageDescription,
