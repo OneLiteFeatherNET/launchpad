@@ -33,7 +33,7 @@
     "@nuxtjs/i18n": "10.3.0",
     "@nuxtjs/robots": "5.7.1",
     "@nuxtjs/seo": "3.2.2",
-    "@nuxtjs/sitemap": "7.4.11",
+    "@nuxtjs/sitemap": "7.6.0",
     "@resvg/resvg-wasm": "2.6.2",
     "@tailwindcss/postcss": "^4.1.17",
     "@tailwindcss/vite": "^4.1.17",
