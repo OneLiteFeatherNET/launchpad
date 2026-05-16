@@ -45,39 +45,38 @@
 ## Reusable Agents & Skills (`.claude/`)
 These are checked in so every CLI/web session gets the same standards. Treat
 them as rules, not suggestions:
+**Atomic principle:** every skill addresses exactly one topic and has a
+matching single-topic reviewer agent named `<skill>-reviewer`. Apply the
+skill while making the change; delegate the matching reviewer before the
+PR. Use only the skills/agents the change actually touches.
+
 - **`.claude/skills/component-scaffold`** — MUST be followed when adding any
-  new feature/section/page (types → composables → sections → page).
-- **`.claude/skills/a11y-review`** — MUST be run on every changed
-  `components/`, `layouts/`, or `pages/` file before finishing UI work.
-- **`.claude/agents/accessibility-reviewer`** — delegate an independent
-  accessibility pass to this subagent before opening a PR with visual changes.
-- **`.claude/skills/lighthouse-perf`** — MUST be applied when a change can
-  affect load/runtime cost (scripts, modules, images, hydration, layout).
-  Note: CI only runs the **desktop** Lighthouse preset; mobile is the known
-  weak spot (TBT/CLS/TTI) and must be checked manually.
-- **`.claude/skills/lighthouse-best-practices`** — MUST be applied when
-  touching third-party scripts, analytics, cookies, or SSR/hydration
-  (console errors, third-party cookies, bf-cache, source maps).
-- **`.claude/agents/lighthouse-performance-reviewer`** — delegate an
-  independent performance + best-practices pass to this subagent before
-  opening a PR that touches scripts, analytics, images, or SSR/hydration.
-- **`.claude/agents/google-web-guidelines-reviewer`** — delegate an
-  independent review against Google's official web guidelines (Core Web
-  Vitals LCP/INP/CLS, Lighthouse Best Practices, web.dev) before such PRs.
-- **web.dev pillar skills + reviewers** (apply the skill when the change
-  touches the area; delegate the matching reviewer before the PR):
-  - **`.claude/skills/web-security`** / **`.claude/agents/web-security-reviewer`**
-    — web.dev "Safe": HTTPS, CSP/security headers, safe embeds, no
-    mixed/insecure content, dependency safety.
-  - **`.claude/skills/seo-discoverability`** / **`.claude/agents/seo-discoverability-reviewer`**
-    — web.dev "Discoverable": crawlability, metadata, canonical/hreflang,
-    structured data, sitemap/robots (keep SEO ≥ 0.95).
-  - **`.claude/skills/privacy-consent`** / **`.claude/agents/privacy-consent-reviewer`**
-    — consent-gated analytics, third-party data minimisation, GDPR
-    alignment for PostHog/gtag.
-  - **`.claude/skills/network-caching`** / **`.claude/agents/network-caching-reviewer`**
-    — web.dev "Fast" loading: cache lifetimes, preconnect/preload/priority
-    hints, compression, critical request chain.
+  new feature/section/page (types → composables → sections → page); it
+  lists which atomic skills to bake in.
+- **Accessibility** (run the relevant ones on every changed
+  `components/`/`layouts/`/`pages/` file): `a11y-semantic-structure`,
+  `a11y-keyboard-focus`, `a11y-aria-dynamic`, `a11y-names-labels-i18n`,
+  `a11y-forms`, `a11y-contrast-motion`.
+- **Performance**: `perf-defer-third-party-scripts`,
+  `perf-reduce-unused-js`, `perf-no-legacy-js`, `perf-minify-js`,
+  `perf-render-blocking-css`, `perf-lcp-element`,
+  `perf-cls-layout-stability`. CI runs the **desktop** preset only;
+  mobile (TBT/CLS/TTI) is the known weak spot — check it manually.
+- **Best Practices**: `bp-clean-console`, `bp-no-hydration-mismatch`,
+  `bp-bfcache`, `bp-no-prod-source-maps`.
+- **Network/Loading**: `net-cache-lifetimes`, `net-resource-hints`,
+  `net-critical-request-chain`, `net-font-loading`,
+  `net-text-compression`.
+- **Security ("Safe")**: `sec-no-mixed-content`, `sec-response-headers`,
+  `sec-content-security-policy`, `sec-safe-links-embeds`,
+  `sec-dependency-safety`.
+- **SEO ("Discoverable")**: `seo-page-metadata`,
+  `seo-canonical-hreflang`, `seo-crawlable-content`, `seo-indexability`,
+  `seo-structured-data` (keep SEO ≥ 0.95).
+- **Privacy**: `privacy-consent-gating`, `privacy-data-minimisation`,
+  `privacy-transparency`.
+- Each of the above has a `<name>-reviewer` agent under
+  `.claude/agents/` for an independent single-topic pass before the PR.
 - **Source maps are never published to production.** The Lighthouse
   `valid-source-maps` audit is an accepted trade-off; if symbolication is
   needed, generate hidden maps in CI and upload them privately — never

@@ -21,25 +21,26 @@ Follow this order strictly; it is the repo convention from `AGENTS.md`.
    calls the composable; it contains no business logic.
 
 ## Build the web.dev quality pillars in from the start
-Don't retrofit quality — apply the relevant pillar skill while scaffolding,
-not after:
-- **Accessible** (`a11y-review`): semantic structure, keyboard, names/i18n
-  from the first component.
-- **Fast** (`lighthouse-perf`, `network-caching`): no eager third-party
-  script; defer/lazy below-the-fold; size media to avoid CLS; keep the
-  LCP element server-rendered.
-- **Discoverable** (`seo-discoverability`): real `<h1>`/metadata via the
-  SEO composable; primary content server-rendered, not client-only.
-- **Safe** (`web-security`): HTTPS-only sub-resources; `rel="noopener
-  noreferrer"` on `target="_blank"`; no unsafe embeds.
-- **Privacy** (`privacy-consent`): any tracking is consent-gated; no
-  pre-consent cookies/requests.
+Don't retrofit quality — apply the relevant **atomic** skill while
+scaffolding, not after. Only the ones the feature touches:
+- **Accessible**: `a11y-semantic-structure`, `a11y-keyboard-focus`,
+  `a11y-names-labels-i18n` (+ `a11y-forms`, `a11y-aria-dynamic`,
+  `a11y-contrast-motion` as relevant).
+- **Fast**: `perf-defer-third-party-scripts`, `perf-lcp-element`,
+  `perf-cls-layout-stability`, `perf-reduce-unused-js`;
+  `net-resource-hints`/`net-font-loading` if adding origins/fonts.
+- **Discoverable**: `seo-page-metadata`, `seo-crawlable-content`
+  (+ `seo-canonical-hreflang`, `seo-indexability` for new routes).
+- **Safe**: `sec-no-mixed-content`, `sec-safe-links-embeds`
+  (+ `sec-content-security-policy` if adding origins).
+- **Privacy**: `privacy-consent-gating` for any tracking.
 
 ## Constraints
 - Do not add new dependencies or config presets without clear justification.
 - Respect the existing directory structure; extend, don't rearrange.
 - Every new string goes into both `i18n/locales/en.json` and `de.json`.
-- Before finishing, run `a11y-review` on the new components, plus the
-  pillar skill(s) matching what the feature touches (scripts → perf +
-  privacy, new route/content → seo, external resources → security), and
-  ensure `pnpm lint` and `pnpm build` pass.
+- Before finishing, apply the atomic a11y skills to the new components,
+  plus the atomic skill(s) matching what the feature touches (scripts →
+  `perf-defer-third-party-scripts` + `privacy-consent-gating`, new
+  route/content → `seo-*`, external resources → `sec-*`), and ensure
+  `pnpm lint` and `pnpm build` pass.
