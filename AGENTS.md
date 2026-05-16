@@ -61,6 +61,13 @@ them as rules, not suggestions:
 - **`.claude/agents/lighthouse-performance-reviewer`** — delegate an
   independent performance + best-practices pass to this subagent before
   opening a PR that touches scripts, analytics, images, or SSR/hydration.
+- **`.claude/agents/google-web-guidelines-reviewer`** — delegate an
+  independent review against Google's official web guidelines (Core Web
+  Vitals LCP/INP/CLS, Lighthouse Best Practices, web.dev) before such PRs.
+- **Source maps are never published to production.** The Lighthouse
+  `valid-source-maps` audit is an accepted trade-off; if symbolication is
+  needed, generate hidden maps in CI and upload them privately — never
+  deploy public `.map` files or a public `sourceMappingURL`.
 - Accessibility tooling is enforced in CI: `eslint-plugin-vuejs-accessibility`
   via `pnpm lint`, and the Lighthouse `accessibility` gate
   (error, minScore 0.9) via `pnpm seo:lighthouse`. Keep both green.

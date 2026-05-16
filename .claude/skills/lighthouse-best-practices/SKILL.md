@@ -49,10 +49,16 @@ do not hold open connections that block bfcache. Verify in Chrome DevTools
 
 ## Missing source maps (`valid-source-maps`)
 
-Large first-party JS ships without source maps. Enable production client
-source maps in `nuxt.config.ts` (e.g. `sourcemap.client`) so the audit
-passes and prod stack traces are usable. Confirm the build still deploys
-on the Cloudflare `cloudflare_module` preset.
+**Policy: never publish source maps to production.** Public `.map` files
+(or a `sourceMappingURL` pointing at a deployed URL) expose first-party
+source and are a security/IP concern, so this audit is **accepted as a
+deliberate trade-off** — do not "fix" it by serving source maps.
+
+If symbolicated stack traces are needed, generate **hidden** source maps
+in CI (no `sourceMappingURL` comment in the shipped bundle) and upload
+them privately to the error monitor; never deploy the `.map` files to
+Cloudflare or reference them from public assets. Do not enable a plain
+`sourcemap.client` that emits public maps in `nuxt.config.ts`.
 
 ## Inspector / cookie issues (`inspector-issues`)
 
