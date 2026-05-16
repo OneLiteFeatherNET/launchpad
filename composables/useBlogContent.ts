@@ -49,6 +49,27 @@ const normalizeLocales = (list: unknown[]): LocaleObject[] =>
 const resolveHreflang = (locale: LocaleObject, fallback: string): string =>
   locale.iso || (locale as { _hreflang?: string })._hreflang || locale.code || fallback
 
+// Last non-empty path segment of a (possibly absolute) URL — the blog slug.
+const slugFromUrl = (url: string): string | undefined => {
+  try {
+    const path = url.includes('://') ? new URL(url).pathname : url
+    return path.split('/').filter(Boolean).at(-1)
+  } catch {
+    return url.split('/').filter(Boolean).at(-1)
+  }
+}
+
+// Map an hreflang value (e.g. `de`, `de-DE`) back to a configured locale code.
+const localeCodeFromHreflang = (
+  hreflang: string,
+  available: LocaleObject[]
+): string | undefined => {
+  const match = available.find(
+    (l) => l.code === hreflang || l.iso === hreflang || hreflang.split('-')[0] === l.code
+  )
+  return match?.code
+}
+
 export interface BlogOverviewOptions {
   /**
    * Optional current page (1-based) for future pagination.
@@ -124,7 +145,7 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
  * Fetches a single blog article and its translations in other languages.
  * Uses i18n information together with @nuxt/content.
  */
-export function useBlogArticle() {
+export async function useBlogArticle() {
   const { locale, locales } = useI18n()
   const route = useRoute()
   const config = useRuntimeConfig()
@@ -134,6 +155,12 @@ export function useBlogArticle() {
   const availableLocales = computed<LocaleObject[]>(() =>
     normalizeLocales((locales.value || []) as unknown[])
   )
+
+  // Lets `switchLocalePath`/`<SwitchLocalePathLink>` resolve the correct
+  // localized slug instead of naively reusing the current one — blog posts
+  // use a different slug per language, so without this the language switcher
+  // produces a 404.
+  const setI18nParams = useSetI18nParams()
 
   // Slug derived from catch-all route param; reactive on client navigation
   const slugSegments = computed<string[]>(() => {
@@ -156,7 +183,7 @@ export function useBlogArticle() {
   // slugs — that key was empty during setup, so SSR captured an empty
   // authors list and the rendered author cards and Article JSON-LD shipped
   // without any author data.
-  const { data: payload } = useAsyncData<{
+  const { data: payload } = await useAsyncData<{
     article: BlogArticle | null
     authors: BlogAuthorProfile[]
   } | null>(
@@ -168,11 +195,13 @@ export function useBlogArticle() {
         .where('slug', '=', slug.value)
         .first()) as BlogArticle | null
 
-      if (doc && !isReleased(doc)) {
-        throw createError({ statusCode: 404, statusMessage: 'Article not released' })
+      // A missing or not-yet-released article is a 404. Returning a marker
+      // (instead of throwing here) lets us raise a single fatal error after
+      // the data resolves, which reliably renders the error page with the
+      // correct HTTP status during SSR.
+      if (!doc || !isReleased(doc)) {
+        return { article: null, authors: [] }
       }
-
-      if (!doc) return { article: null, authors: [] }
 
       const slugs = (Array.isArray(doc.author) ? doc.author : [doc.author])
         .filter(Boolean)
@@ -196,6 +225,12 @@ export function useBlogArticle() {
     { watch: [locale, slug] }
   )
 
+  // A requested slug that resolves to no (released) article must surface a
+  // real 404 page instead of silently rendering an empty article.
+  if (slug.value && !payload.value?.article) {
+    throw createError({ statusCode: 404, statusMessage: 'Article not found', fatal: true })
+  }
+
   const article = computed<BlogArticle | null>(() => payload.value?.article || null)
   const authors = computed<BlogAuthorProfile[]>(() => payload.value?.authors || [])
 
@@ -212,20 +247,42 @@ export function useBlogArticle() {
     return pub.siteUrl || pub.baseUrl || 'https://onelitefeather.net'
   }
 
+  // Push the per-locale slugs into Nuxt i18n so the language switcher links
+  // to the translated article URL rather than reusing the current slug.
+  const publishLocaleParams = (localeSlugs: Record<string, string>) => {
+    const params: Record<string, { slug: string[] }> = {}
+    for (const [code, value] of Object.entries(localeSlugs)) {
+      if (value) params[code] = { slug: [value] }
+    }
+    if (Object.keys(params).length) setI18nParams(params)
+  }
+
   // Rebuild alternates whenever article/locale changes
   watch([blog, locale, locales], async () => {
     alternateLanguages.value = []
     if (!blog.value) return
 
+    // Always know the current locale's own slug.
+    const localeSlugs: Record<string, string> = {}
+    if (blog.value.slug) localeSlugs[locale.value] = blog.value.slug
+
     if (blog.value.alternates && Array.isArray(blog.value.alternates)) {
       for (const alt of blog.value.alternates as BlogAlternateHeader[]) {
         if (!alt?.hreflang || !alt?.href) continue
         alternateLanguages.value.push({ locale: alt.hreflang, url: alt.href })
+
+        const code = localeCodeFromHreflang(alt.hreflang, availableLocales.value)
+        const altSlug = slugFromUrl(alt.href)
+        if (code && altSlug) localeSlugs[code] = altSlug
       }
+      publishLocaleParams(localeSlugs)
       return
     }
 
-    if (!blog.value.translationKey) return
+    if (!blog.value.translationKey) {
+      publishLocaleParams(localeSlugs)
+      return
+    }
 
     const otherLocales = availableLocales.value.filter((l) => l.code !== locale.value)
 
@@ -237,13 +294,17 @@ export function useBlogArticle() {
 
       if (translated) {
         const hreflangValue = resolveHreflang(otherLocale, otherLocale.code)
+        const translatedSlug = (translated as BlogArticle).slug
 
         alternateLanguages.value.push({
           locale: hreflangValue,
-          url: `${baseUrl}/${otherLocale.code}/blog/${(translated as BlogArticle).slug}`
+          url: `${baseUrl}/${otherLocale.code}/blog/${translatedSlug}`
         })
+        if (translatedSlug) localeSlugs[otherLocale.code] = translatedSlug
       }
     }
+
+    publishLocaleParams(localeSlugs)
   }, { immediate: true })
 
   // Canonical + hreflang Informationen für den Head

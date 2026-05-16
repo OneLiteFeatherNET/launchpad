@@ -176,5 +176,11 @@
     "share_native": "Share…",
     "copy_link": "Copy link",
     "copied": "Link copied"
+  },
+  "error": {
+    "title_404": "Page not found",
+    "message_404": "The page you are looking for doesn’t exist or may have moved to a new address.",
+    "title_generic": "Something went wrong",
+    "message_generic": "An unexpected error occurred. Please try again in a moment."
   }
 }

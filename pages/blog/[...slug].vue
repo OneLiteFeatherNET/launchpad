@@ -11,7 +11,7 @@ definePageMeta({
   layout: 'default',
 });
 
-const { blog, headLinks, authors } = useBlogArticle()
+const { blog, headLinks, authors } = await useBlogArticle()
 const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/features/blog/SocialMediaShare.vue'))
 
 // All Article-level SEO (meta tags, Article JSON-LD, breadcrumbs, OG
