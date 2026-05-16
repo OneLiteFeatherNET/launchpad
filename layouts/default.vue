@@ -1,10 +1,21 @@
 <script setup lang="ts">
+import { unref } from 'vue'
 import LayoutNavigationBar from '~/components/features/navigation/NavigationBar.vue'
 import LayoutFooter from '~/components/features/footer/Footer.vue'
 
 const route = useRoute()
 const { t } = useI18n()
-const head = useLocaleHead()
+
+// Single source of truth for canonical + hreflang + og:locale across the
+// whole app. Driven by @nuxtjs/i18n (incl. translated blog slugs via
+// useSetI18nParams), so individual composables no longer hand-roll their
+// own canonical/alternate links — that previously produced duplicate /
+// conflicting hreflang tags that Google flagged.
+const head = useLocaleHead({ dir: true, lang: true, seo: true })
+useHead(() => {
+  const h = unref(head)
+  return { link: h?.link ?? [], meta: h?.meta ?? [] }
+})
 // Only set a static <Title> when the route explicitly provides one via meta.
 const routeTitle = computed(() => (route.meta?.title ? t(route.meta.title as string) : null))
 

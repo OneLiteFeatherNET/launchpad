@@ -1,17 +1,16 @@
-import { queryCollection } from '#imports'
+import { useContentRepository } from '~/composables/useContentRepository'
+import type { Locale } from '~/utils/content/collections'
 import type { SponsorEntry, SponsorsDocument } from '~/types/sponsoring'
 
 export function useSponsoring() {
   const { locale } = useI18n()
-  type SponsorsCollectionKey = 'sponsors_de' | 'sponsors_en'
-  const collectionKey = computed<SponsorsCollectionKey>(
-    () => (`sponsors_${locale?.value || 'de'}`) as SponsorsCollectionKey
-  )
+  const repo = useContentRepository()
+  const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
   const { data } = useAsyncData<SponsorsDocument | null>(
-    'sponsors',
-    () => queryCollection(collectionKey.value).first(),
-    { watch: [collectionKey] }
+    () => `sponsors-${activeLocale.value}`,
+    () => repo.getSponsorsDocument(activeLocale.value),
+    { watch: [activeLocale] }
   )
 
   const sponsors = computed<SponsorEntry[]>(() => {

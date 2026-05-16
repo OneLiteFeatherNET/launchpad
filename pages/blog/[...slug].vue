@@ -11,15 +11,16 @@ definePageMeta({
   layout: 'default',
 });
 
-const { blog, headLinks, authors } = useBlogArticle()
+const { blog, authors } = await useBlogArticle()
 const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/features/blog/SocialMediaShare.vue'))
 
 // All Article-level SEO (meta tags, Article JSON-LD, breadcrumbs, OG
 // image) lives in useArticleSeo — keeps this page focused on view code.
+// Canonical + hreflang are emitted app-wide by @nuxtjs/i18n
+// (layouts/default.vue), driven by the translated slugs useBlogArticle
+// publishes via useSetI18nParams.
 const { title } = useArticleSeo(blog, authors)
 
-// Surface canonical + hreflang + alternates from useBlogArticle.
-useHead(() => ({ link: headLinks.value }))
 useHead(() => (blog.value as BlogArticle | null)?.head || {})
 </script>
 

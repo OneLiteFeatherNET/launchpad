@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, nextTick, navigateTo, onMounted, onBeforeUnmount, onKeyStroke } from '#imports';
+import { ref, computed, nextTick, onMounted, onBeforeUnmount, onKeyStroke } from '#imports';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faLanguage, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 const { t } = useI18n();
@@ -9,8 +9,7 @@ const props = defineProps<{
 }>();
 
 const variant = props.variant ?? 'desktop';
-const { locale, locales, setLocale } = useI18n();
-const switchLocalePath = useSwitchLocalePath();
+const { locale, locales } = useI18n();
 const isOpen = ref(false);
 const buttonRef = ref<HTMLButtonElement | null>(null);
 const menuRef = ref<HTMLElement | null>(null);
@@ -120,16 +119,12 @@ onBeforeUnmount(() => {
 // Inform parent (e.g., mobile overlay) when a language was selected
 const emit = defineEmits<{ (e: 'selected', locale: string): void }>();
 
-const selectLocale = async (localeCode: string) => {
-  // Sprache setzen und dann ausdrücklich zur sprachspezifischen Route navigieren,
-  // damit die URL korrekt aktualisiert wird und serverseitige Navigation greift.
-  await setLocale(localeCode as 'de' | 'en');
-  const targetPath = switchLocalePath(localeCode);
-  if (targetPath) {
-    await navigateTo(targetPath);
-  }
+// Navigation is handled by <SwitchLocalePathLink>, which resolves the
+// correct localized path (including translated blog slugs via
+// useSetI18nParams). We only handle the UI side-effects here.
+const onSelect = (localeCode: string) => {
   emit('selected', localeCode);
-  closeDropdown(true);
+  closeDropdown(false);
 };
 </script>
 
@@ -170,17 +165,17 @@ const selectLocale = async (localeCode: string) => {
         @keydown="onMenuKeydown"
         class="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] py-1 shadow-lg ring-1 ring-black/5 dark:border-[var(--color-border)] dark:bg-[var(--color-surface)]"
       >
-        <NuxtLink
+        <SwitchLocalePathLink
           v-for="loc in availableLocales"
           :key="loc.code"
-          :to="switchLocalePath(loc.code)"
+          :locale="loc.code"
           role="menuitem"
           class="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/85 dark:hover:bg-[var(--color-secondary)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]"
-          @click.prevent="selectLocale(loc.code)"
+          @click="onSelect(loc.code)"
         >
           <span class="uppercase font-semibold text-[var(--color-secondary)]">{{ loc.code }}</span>
           <span>{{ loc.name }}</span>
-        </NuxtLink>
+        </SwitchLocalePathLink>
       </div>
     </Transition>
   </div>
@@ -190,15 +185,15 @@ const selectLocale = async (localeCode: string) => {
       <FontAwesomeIcon :icon="faLanguage" class="text-xl" />
       {{ t('navigation.change_language') }}
     </div>
-    <NuxtLink
+    <SwitchLocalePathLink
       v-for="loc in availableLocales"
       :key="loc.code"
-      :to="switchLocalePath(loc.code)"
+      :locale="loc.code"
       class="ml-4 flex items-center gap-3 rounded-xl px-6 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/85 dark:hover:bg-[var(--color-secondary)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]"
-      @click.prevent="selectLocale(loc.code)"
+      @click="onSelect(loc.code)"
     >
       <span class="uppercase font-semibold text-[var(--color-secondary)]">{{ loc.code }}</span>
       <span>{{ loc.name }}</span>
-    </NuxtLink>
+    </SwitchLocalePathLink>
   </div>
 </template>
