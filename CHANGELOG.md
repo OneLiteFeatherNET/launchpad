@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.0.0...onelitefeather.net-v1.1.0) (2026-05-16)
+
+
+### Features
+
+* **.claude:** atomic web.dev-aligned skill & reviewer suite ([#138](https://github.com/OneLiteFeatherNET/launchpad/issues/138)) ([22cb2df](https://github.com/OneLiteFeatherNET/launchpad/commit/22cb2dfc6dfd03563d82e9d3fea6f266e2e5d16a))
+* improve UX flow & accessibility + reusable Claude agents/skills ([#136](https://github.com/OneLiteFeatherNET/launchpad/issues/136)) ([b748278](https://github.com/OneLiteFeatherNET/launchpad/commit/b748278bad6feb29b21beaead33a65f889ee5b64))
+
+
+### Bug Fixes
+
+* **seo-check:** do not append mock query to sitemap endpoints ([8e3d09b](https://github.com/OneLiteFeatherNET/launchpad/commit/8e3d09b73213dcfef6029672804621c999101936))
+* **seo-check:** skip mock query on sitemap endpoints (unblocks sitemap 7.6 bump) ([#135](https://github.com/OneLiteFeatherNET/launchpad/issues/135)) ([8e3d09b](https://github.com/OneLiteFeatherNET/launchpad/commit/8e3d09b73213dcfef6029672804621c999101936))
+
+
+### Refactors
+
+* **content:** introduce typed ContentRepository abstraction ([#132](https://github.com/OneLiteFeatherNET/launchpad/issues/132)) ([34c5bef](https://github.com/OneLiteFeatherNET/launchpad/commit/34c5befe22ac4ddb4b8cc931806767f0de492149))
+
 ## 1.0.0 (2026-05-15)
 
 
