@@ -1,23 +1,12 @@
-import { createError, queryCollection } from '#imports'
-import type { PageCollectionItemBase } from '@nuxt/content'
+import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
+import { useContentRepository } from '~/composables/useContentRepository'
+import type { Locale } from '~/utils/content/collections'
 import type {
   BlogArticle,
   BlogAlternateHeader,
   BlogAuthorProfile
 } from '~/types/blog'
-
-type BlogCollectionKey = 'blog_de' | 'blog_en'
-type AuthorCollectionItem = BlogAuthorProfile & PageCollectionItemBase
-
-declare module '@nuxt/content' {
-  interface PageCollections {
-    authors: AuthorCollectionItem
-  }
-  interface Collections {
-    authors: AuthorCollectionItem
-  }
-}
 
 const normalizeReleaseDate = (entry: BlogArticle): Date | null => {
   const raw = entry.releaseDate ?? entry.pubDate
@@ -84,17 +73,13 @@ export interface BlogOverviewOptions {
  */
 export function useBlogOverview(options: BlogOverviewOptions = {}) {
   const { locale } = useI18n()
-  const blogCollection = computed<BlogCollectionKey>(
-    () => (`blog_${locale?.value || 'de'}`) as BlogCollectionKey
-  )
+  const repo = useContentRepository()
+  const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
   const { data: allPostsData } = useAsyncData<BlogArticle[]>(
-    () => `all-posts-${locale.value}`,
-    () =>
-      queryCollection(blogCollection.value)
-        .order('pubDate', 'DESC')
-        .all(),
-    { watch: [locale] }
+    () => `all-posts-${activeLocale.value}`,
+    () => repo.listBlogArticles(activeLocale.value),
+    { watch: [activeLocale] }
   )
 
   const visiblePosts = computed<BlogArticle[]>(() => {
@@ -143,9 +128,8 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
 export async function useBlogArticle() {
   const { locale, locales } = useI18n()
   const route = useRoute()
-  const blogCollection = computed<BlogCollectionKey>(
-    () => (`blog_${locale?.value || 'de'}`) as BlogCollectionKey
-  )
+  const repo = useContentRepository()
+  const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
   const availableLocales = computed<LocaleObject[]>(() =>
     normalizeLocales((locales.value || []) as unknown[])
   )
@@ -185,9 +169,7 @@ export async function useBlogArticle() {
     async () => {
       if (!slug.value) return null
 
-      const doc = (await queryCollection(blogCollection.value)
-        .where('slug', '=', slug.value)
-        .first()) as BlogArticle | null
+      const doc = await repo.getBlogArticleBySlug(activeLocale.value, slug.value)
 
       // A missing or not-yet-released article is a 404. Returning a marker
       // (instead of throwing here) lets us raise a single fatal error after
@@ -203,17 +185,13 @@ export async function useBlogArticle() {
 
       const authorDocs = slugs.length
         ? await Promise.all(
-          slugs.map((authorSlug) =>
-            queryCollection('authors')
-              .where('slug', '=', authorSlug)
-              .first()
-          )
+          slugs.map((authorSlug) => repo.getAuthorBySlug(authorSlug))
         )
         : []
 
       return {
         article: doc,
-        authors: (authorDocs.filter(Boolean) as AuthorCollectionItem[]) || []
+        authors: authorDocs.filter((a): a is BlogAuthorProfile => Boolean(a))
       }
     },
     { watch: [locale, slug] }
@@ -266,17 +244,19 @@ export async function useBlogArticle() {
       return
     }
 
-    if (!blog.value.translationKey) {
+    const translationKey = blog.value.translationKey
+    if (!translationKey) {
       publishLocaleParams(localeSlugs)
       return
     }
 
     const otherLocales = availableLocales.value.filter((l) => l.code !== locale.value)
     for (const otherLocale of otherLocales) {
-      const translated = await queryCollection(`blog_${otherLocale.code}` as BlogCollectionKey)
-        .where('translationKey', '=', blog.value?.translationKey)
-        .first()
-      const translatedSlug = (translated as BlogArticle | null)?.slug
+      const translated = await repo.getBlogArticleByTranslationKey(
+        otherLocale.code as Locale,
+        translationKey
+      )
+      const translatedSlug = translated?.slug
       if (translatedSlug) localeSlugs[otherLocale.code] = translatedSlug
     }
 
