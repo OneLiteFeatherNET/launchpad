@@ -314,13 +314,18 @@ function withAlpha(rgb: string, a: number) {
             v-for="(_s, i) in normalizedSlides"
             :key="i"
             type="button"
-            class="h-3.5 w-3.5 rounded-full transition ring-1 ring-white/60"
-            :class="i === current ? 'bg-[var(--color-brand-accent,#38bdf8)] ring-2 ring-offset-1 ring-offset-black/20' : 'bg-white/50 hover:bg-white/80'"
+            class="group grid h-6 w-6 place-items-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
             :aria-label="`Show slide ${i + 1}`"
             :aria-current="i === current ? 'true' : undefined"
             :aria-controls="`carousel-slide-${i}`"
             @click.stop="goTo(i)"
-          />
+          >
+            <span
+              aria-hidden="true"
+              class="h-3.5 w-3.5 rounded-full transition ring-1 ring-white/60"
+              :class="i === current ? 'bg-[var(--color-brand-accent,#38bdf8)] ring-2 ring-offset-1 ring-offset-black/20' : 'bg-white/50 group-hover:bg-white/80'"
+            />
+          </button>
         </div>
       </div>
 

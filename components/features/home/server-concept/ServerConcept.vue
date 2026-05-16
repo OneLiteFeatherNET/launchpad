@@ -42,12 +42,11 @@ const iconFor = (name?: string): IconDefinition => iconMap[name ?? ''] ?? faCirc
         </SectionHeading>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3" role="list">
+      <div class="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3">
         <article
           v-for="(p, idx) in points"
           :key="p.id ?? idx"
           class="h-full rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 p-5 shadow-sm ring-1 ring-zinc-200/70 dark:ring-zinc-800/70 transition hover:shadow-md"
-          role="listitem"
         >
           <header class="mb-3 flex items-center gap-3">
             <FontAwesomeIcon
