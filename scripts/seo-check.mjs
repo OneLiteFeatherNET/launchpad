@@ -71,13 +71,21 @@ const colorise = (level, text) => {
   return `${codes[level] || ''}${text}\x1b[0m`
 }
 
+// @nuxtjs/sitemap >= 7.5 serves an empty 204 (and a meta-refresh instead of a
+// 307) whenever the sitemap endpoints are requested with *any* query string,
+// so the mock-prod query must not be appended to sitemap URLs. The sitemap is
+// environment-independent here anyway; only robots.txt and page meta need the
+// production mock.
+const isSitemapPath = (pathname) =>
+  /^\/(sitemap[^/]*\.xml|sitemap_index\.xml|__sitemap__\/)/i.test(pathname)
+
 /**
  * Builds a URL relative to BASE and adds the dev mock-prod query when
  * targeting localhost so we exercise the production robots/sitemap path.
  */
 const buildUrl = (path) => {
   const url = new URL(path, BASE)
-  if (USE_MOCK && !url.searchParams.has('mockProductionEnv')) {
+  if (USE_MOCK && !isSitemapPath(url.pathname) && !url.searchParams.has('mockProductionEnv')) {
     url.searchParams.set('mockProductionEnv', '')
   }
   return url
