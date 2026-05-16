@@ -41,3 +41,18 @@
 - For neue Features zuerst Domain-Typen unter `types/` und Composables unter `composables/` anlegen, dann Sections/UI-Komponenten bauen und die Seite nur noch daraus zusammensetzen.
 - Do not introduce new dependencies or configuration presets without clear justification.
 - Respect the existing directory structure; extend rather than rearrange where possible.
+
+## Reusable Agents & Skills (`.claude/`)
+These are checked in so every CLI/web session gets the same standards. Treat
+them as rules, not suggestions:
+- **`.claude/skills/component-scaffold`** — MUST be followed when adding any
+  new feature/section/page (types → composables → sections → page).
+- **`.claude/skills/a11y-review`** — MUST be run on every changed
+  `components/`, `layouts/`, or `pages/` file before finishing UI work.
+- **`.claude/agents/accessibility-reviewer`** — delegate an independent
+  accessibility pass to this subagent before opening a PR with visual changes.
+- Accessibility tooling is enforced in CI: `eslint-plugin-vuejs-accessibility`
+  via `pnpm lint`, and the Lighthouse `accessibility` gate
+  (error, minScore 0.9) via `pnpm seo:lighthouse`. Keep both green.
+- When adding new skills/agents, place them under `.claude/` and document
+  them here so they remain the single source of truth.

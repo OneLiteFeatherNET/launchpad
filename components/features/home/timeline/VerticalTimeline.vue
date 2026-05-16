@@ -97,7 +97,7 @@ const shouldBlur = (index: number) => {
   <section class="relative" :class="lineColorClass">
     <!-- Central line (visible from md breakpoint upwards) -->
 
-    <ol role="list" :aria-label="ariaLabelComputed" class="relative mx-auto max-w-5xl space-y-10">
+    <ol :aria-label="ariaLabelComputed" class="relative mx-auto max-w-5xl space-y-10">
       <div class="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-[var(--line)] md:block" aria-hidden="true" />
       <template v-for="(ev, i) in displayedEvents" :key="ev.id">
         <slot

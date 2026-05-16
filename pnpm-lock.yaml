@@ -103,6 +103,9 @@ importers:
       eslint:
         specifier: ^9.39.1
         version: 9.39.4(jiti@2.7.0)
+      eslint-plugin-vuejs-accessibility:
+        specifier: ^2.5.0
+        version: 2.5.0(eslint@9.39.4(jiti@2.7.0))(globals@17.6.0)
       nitro:
         specifier: 3.0.260429-beta
         version: 3.0.260429-beta(better-sqlite3@12.10.0)(chokidar@5.0.0)(dotenv@17.4.2)(giget@3.2.0)(ioredis@5.10.1)(jiti@2.7.0)(lru-cache@11.3.6)(rollup@4.60.4)(vite@7.3.3(@types/node@25.8.0)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.47.1)(yaml@2.9.0))
@@ -3322,6 +3325,10 @@ packages:
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
 
+  aria-query@5.3.2:
+    resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
+    engines: {node: '>= 0.4'}
+
   ast-kit@2.2.0:
     resolution: {integrity: sha512-m1Q/RaVOnTp9JxPX+F+Zn7IcLYMzM8kZofDImfsKZd8MbR+ikdOzTeztStWqfrqIxZnYWryyI9ePm3NGjnZgGw==}
     engines: {node: '>=20.19.0'}
@@ -4109,6 +4116,13 @@ packages:
         optional: true
       '@typescript-eslint/parser':
         optional: true
+
+  eslint-plugin-vuejs-accessibility@2.5.0:
+    resolution: {integrity: sha512-oZ2fL4tS91Cm/ezH3BueNP+FtpbbeS627OSqqgp9/lsN//glmoPcLBT6D53xwGocLtyBybaT99tX4ThBh8+ytA==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      eslint: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+      globals: '>= 13.12.1'
 
   eslint-processor-vue-blocks@2.0.0:
     resolution: {integrity: sha512-u4W0CJwGoWY3bjXAuFpc/b6eK3NQEI8MoeW7ritKj3G3z/WtHrKjkqf+wk8mPEy5rlMGS+k6AZYOw2XBoN/02Q==}
@@ -10208,6 +10222,8 @@ snapshots:
 
   argparse@2.0.1: {}
 
+  aria-query@5.3.2: {}
+
   ast-kit@2.2.0:
     dependencies:
       '@babel/parser': 7.29.3
@@ -11040,6 +11056,15 @@ snapshots:
     optionalDependencies:
       '@stylistic/eslint-plugin': 5.10.0(eslint@9.39.4(jiti@2.7.0))
       '@typescript-eslint/parser': 8.59.3(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)
+
+  eslint-plugin-vuejs-accessibility@2.5.0(eslint@9.39.4(jiti@2.7.0))(globals@17.6.0):
+    dependencies:
+      aria-query: 5.3.2
+      eslint: 9.39.4(jiti@2.7.0)
+      globals: 17.6.0
+      vue-eslint-parser: 10.4.0(eslint@9.39.4(jiti@2.7.0))
+    transitivePeerDependencies:
+      - supports-color
 
   eslint-processor-vue-blocks@2.0.0(@vue/compiler-sfc@3.5.34)(eslint@9.39.4(jiti@2.7.0)):
     dependencies:

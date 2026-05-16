@@ -29,7 +29,6 @@ const iconFor = (name?: string): IconDefinition => iconMap[name ?? ''] ?? faCirc
 <template>
   <section
     class="relative isolate w-full"
-    role="region"
     :aria-labelledby="headingId"
     :aria-describedby="props.subtitle ? descriptionId : undefined"
   >

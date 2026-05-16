@@ -5,6 +5,34 @@ html { scroll-behavior: smooth; }
 /* Respect user preference to reduce motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Skip link: visually hidden until focused via keyboard */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -3rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+  transition: top 0.15s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
 }
 
   /* Utility: Gradient-Text auf Basis der Brand-Token */

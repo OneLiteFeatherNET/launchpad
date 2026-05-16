@@ -160,7 +160,8 @@
     "section_subtitle": "Das Wichtigste, um auf dem Netzwerk loszulegen."
   },
   "accessibility": {
-    "logo_alt": "OneLiteFeather Logo"
+    "logo_alt": "OneLiteFeather Logo",
+    "skip_to_content": "Zum Hauptinhalt springen"
   },
   "article": {
     "share": "Diesen Artikel teilen",

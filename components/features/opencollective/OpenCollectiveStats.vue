@@ -81,7 +81,6 @@ const updatedLabel = computed(() => {
   <section
     id="opencollective"
     class="relative isolate w-full"
-    role="region"
     :aria-labelledby="headingId"
     :aria-describedby="descriptionId"
     :aria-label="t('collective.section_aria')"

@@ -90,7 +90,6 @@ watch(
   <section
     id="sponsoring"
     class="relative isolate w-full"
-    role="region"
     :aria-labelledby="headingId"
     :aria-describedby="descriptionId"
     :aria-label="sectionAria"

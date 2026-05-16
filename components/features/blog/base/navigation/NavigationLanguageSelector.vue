@@ -53,6 +53,7 @@ onClickOutside(dropdown, () => {
         class="absolute z-30 mt-2 overflow-hidden origin-top-right bg-white text-gray-900 dark:text-white dark:bg-gray-800 rounded-xl shadow-xxl transition-all transform"
         :class="props.mobile ? 'left-0 right-0' : 'right-0 w-48'"
         role="menu"
+        tabindex="-1"
         :aria-labelledby="props.mobile ? 'mobile-language-menu-button' : 'language-menu-button'"
         @keydown.esc="isOpen = false"
     >

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, nextTick, navigateTo, onMounted, onBeforeUnmount } from '#imports';
+import { ref, computed, nextTick, navigateTo, onMounted, onBeforeUnmount, onKeyStroke } from '#imports';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faLanguage, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 const { t } = useI18n();
@@ -47,6 +47,10 @@ const toggleDropdown = async () => {
   if (isOpen.value) closeDropdown(true);
   else await openDropdown('first');
 };
+
+onKeyStroke('Escape', () => {
+  if (isOpen.value) closeDropdown(true);
+});
 
 const onButtonKeydown = async (e: KeyboardEvent) => {
   if (e.key === 'ArrowDown') { e.preventDefault(); await openDropdown('first'); }
@@ -130,7 +134,7 @@ const selectLocale = async (localeCode: string) => {
 </script>
 
 <template>
-  <div v-if="variant === 'desktop'" class="relative" @keydown.escape.window="closeDropdown(true)">
+  <div v-if="variant === 'desktop'" class="relative">
     <button
       @click="toggleDropdown"
       :aria-label="t('navigation.change_language')"
@@ -181,7 +185,7 @@ const selectLocale = async (localeCode: string) => {
     </Transition>
   </div>
 
-  <div v-else class="flex flex-col" @keydown.escape.window="isOpen = false">
+  <div v-else class="flex flex-col">
     <div class="flex items-center gap-3 px-4 py-3 text-base font-medium text-[var(--color-text)]/70 dark:text-[var(--color-text)]/85">
       <FontAwesomeIcon :icon="faLanguage" class="text-xl" />
       {{ t('navigation.change_language') }}

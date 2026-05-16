@@ -65,9 +65,9 @@ const onWheel = (e: WheelEvent) => {
 
     <div class="mb-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div class="flex gap-3">
-        <label class="sr-only" :for="'team-search'">{{ t('team.search_label') }}</label>
+        <label class="sr-only" for="team-search">{{ t('team.search_label') }}</label>
         <input
-          :id="'team-search'"
+          id="team-search"
           v-model="query"
           type="search"
           :placeholder="t('team.search_placeholder')"
@@ -75,9 +75,9 @@ const onWheel = (e: WheelEvent) => {
         />
 
         <div class="flex items-center gap-2">
-          <label class="text-sm text-gray-700 dark:text-gray-300" :for="'team-role'">{{ t('team.filter_role') }}</label>
+          <label class="text-sm text-gray-700 dark:text-gray-300" for="team-role">{{ t('team.filter_role') }}</label>
           <select
-            :id="'team-role'"
+            id="team-role"
             v-model="selectedRole"
             class="rounded-lg border border-zinc-300/70 dark:border-zinc-700/80 bg-white/90 dark:bg-zinc-900/70 px-2 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
           >
@@ -88,9 +88,9 @@ const onWheel = (e: WheelEvent) => {
       </div>
 
       <div class="flex items-center gap-2">
-        <label class="text-sm text-gray-700 dark:text-gray-300" :for="'team-limit'">{{ t('team.limit_label') }}</label>
+        <label class="text-sm text-gray-700 dark:text-gray-300" for="team-limit">{{ t('team.limit_label') }}</label>
         <select
-          :id="'team-limit'"
+          id="team-limit"
           v-model.number="visibleCount"
           class="rounded-lg border border-zinc-300/70 dark:border-zinc-700/80 bg-white/90 dark:bg-zinc-900/70 px-2 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
         >
@@ -109,7 +109,6 @@ const onWheel = (e: WheelEvent) => {
     >
       <ul
         class="team-scroll flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory [scrollbar-color:theme(colors.zinc.400)_transparent] [scrollbar-width:thin]"
-        role="list"
         :aria-label="t('team.list_label')"
         @wheel.prevent="onWheel"
       >
