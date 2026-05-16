@@ -51,8 +51,21 @@ them as rules, not suggestions:
   `components/`, `layouts/`, or `pages/` file before finishing UI work.
 - **`.claude/agents/accessibility-reviewer`** — delegate an independent
   accessibility pass to this subagent before opening a PR with visual changes.
+- **`.claude/skills/lighthouse-perf`** — MUST be applied when a change can
+  affect load/runtime cost (scripts, modules, images, hydration, layout).
+  Note: CI only runs the **desktop** Lighthouse preset; mobile is the known
+  weak spot (TBT/CLS/TTI) and must be checked manually.
+- **`.claude/skills/lighthouse-best-practices`** — MUST be applied when
+  touching third-party scripts, analytics, cookies, or SSR/hydration
+  (console errors, third-party cookies, bf-cache, source maps).
+- **`.claude/agents/lighthouse-performance-reviewer`** — delegate an
+  independent performance + best-practices pass to this subagent before
+  opening a PR that touches scripts, analytics, images, or SSR/hydration.
 - Accessibility tooling is enforced in CI: `eslint-plugin-vuejs-accessibility`
   via `pnpm lint`, and the Lighthouse `accessibility` gate
   (error, minScore 0.9) via `pnpm seo:lighthouse`. Keep both green.
+- The Lighthouse `best-practices` gate is `warn` (minScore 0.9) and the
+  suite runs the desktop preset only — keep best-practices ≥ 0.9 and do
+  not regress mobile performance.
 - When adding new skills/agents, place them under `.claude/` and document
   them here so they remain the single source of truth.
