@@ -227,9 +227,10 @@ function withAlpha(rgb: string, a: number) {
 </script>
 
 <template>
+  <!-- carousel container per WAI-ARIA APG; section with a name is implicitly a region and owns the keyboard interaction -->
+  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <section
     class="w-full"
-    role="region"
     :aria-label="ariaLabel"
     aria-roledescription="carousel"
     @keydown="onKeydown"
@@ -240,11 +241,15 @@ function withAlpha(rgb: string, a: number) {
     <div class="relative">
 
       <!-- Ratio wrapper -->
+      <!-- focusable swipe surface; pointer/touch gestures have keyboard parity via the section keydown handler -->
+      <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
       <div
         class="group relative z-10 w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] touch-pan-y select-none min-h-[58svh] md:min-h-0"
         :style="{ paddingTop: aspectPercent }"
         @mouseenter="isHovering = true"
         @mouseleave="isHovering = false"
+        @focusin="isHovering = true"
+        @focusout="isHovering = false"
         @pointerdown.passive="onPointerDown"
         @pointerup.passive="onPointerUp"
         @touchstart.passive="onPointerDown"
@@ -309,13 +314,18 @@ function withAlpha(rgb: string, a: number) {
             v-for="(_s, i) in normalizedSlides"
             :key="i"
             type="button"
-            class="h-3.5 w-3.5 rounded-full transition ring-1 ring-white/60"
-            :class="i === current ? 'bg-[var(--color-brand-accent,#38bdf8)] ring-2 ring-offset-1 ring-offset-black/20' : 'bg-white/50 hover:bg-white/80'"
+            class="group grid h-6 w-6 place-items-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
             :aria-label="`Show slide ${i + 1}`"
             :aria-current="i === current ? 'true' : undefined"
             :aria-controls="`carousel-slide-${i}`"
             @click.stop="goTo(i)"
-          />
+          >
+            <span
+              aria-hidden="true"
+              class="h-3.5 w-3.5 rounded-full transition ring-1 ring-white/60"
+              :class="i === current ? 'bg-[var(--color-brand-accent,#38bdf8)] ring-2 ring-offset-1 ring-offset-black/20' : 'bg-white/50 group-hover:bg-white/80'"
+            />
+          </button>
         </div>
       </div>
 

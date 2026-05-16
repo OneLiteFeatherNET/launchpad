@@ -12,7 +12,7 @@ const versionLabel = computed(() =>
 </script>
 
 <template>
-  <footer class="mt-auto bg-[var(--color-surface)] dark:bg-[var(--color-surface)]" role="contentinfo" :aria-label="t('footer.aria_label')">
+  <footer class="mt-auto bg-[var(--color-surface)] dark:bg-[var(--color-surface)]" :aria-label="t('footer.aria_label')">
     <!-- Main section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">

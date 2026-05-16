@@ -21,6 +21,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "postinstall": "nuxt prepare",
     "seo:check": "node scripts/seo-check.mjs",
     "seo:lighthouse": "lhci autorun --config=./.lighthouserc.json"
@@ -44,6 +46,7 @@
     "cheerio": "^1.0.0",
     "debug": "^4.4.3",
     "eslint": "^9.39.1",
+    "eslint-plugin-vuejs-accessibility": "^2.5.0",
     "nitro": "3.0.260429-beta",
     "nuxt": "^4.2.1",
     "nuxt-gtag": "4.1.0",

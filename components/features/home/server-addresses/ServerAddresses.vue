@@ -107,8 +107,8 @@ const onCopyBedrockPort = async () => {
             :title="t('server.connect.java')"
             :address="props.javaAddress"
             icon="desktop_windows"
-            iconClass="text-emerald-600 dark:text-emerald-400"
-            buttonClass="bg-emerald-600"
+            iconClass="text-emerald-700 dark:text-emerald-400"
+            buttonClass="bg-emerald-700"
             :copied="copiedJava"
             :onCopy="onCopyJava"
           />

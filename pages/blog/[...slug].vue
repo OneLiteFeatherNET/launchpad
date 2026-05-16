@@ -29,8 +29,7 @@ useHead(() => (blog.value as BlogArticle | null)?.head || {})
     <article
       v-if="blog"
       class="bg-white dark:bg-neutral-900 rounded-xl shadow-md overflow-hidden ring-1 ring-black/5 dark:ring-white/10 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary"
-      role="article"
-      :aria-labelledby="'article-title'"
+      aria-labelledby="article-title"
     >
       <NuxtPicture
         v-if="blog?.headerImage"

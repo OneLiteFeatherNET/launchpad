@@ -90,7 +90,6 @@ watch(
   <section
     id="sponsoring"
     class="relative isolate w-full"
-    role="region"
     :aria-labelledby="headingId"
     :aria-describedby="descriptionId"
     :aria-label="sectionAria"
@@ -197,14 +196,19 @@ watch(
                 v-for="(s, idx) in enhancedSponsors"
                 :key="s.name"
                 type="button"
-                class="relative h-3 w-3 rounded-full transition-all transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-accent,#38bdf8)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
-                :class="idx === current
-                  ? 'bg-[var(--color-brand-accent,#38bdf8)] scale-110 ring-2 ring-[var(--color-border)]/10 ring-offset-2 ring-offset-[var(--color-surface)] shadow-[0_0_0_2px_rgba(56,189,248,0.25)]'
-                  : 'bg-zinc-300 dark:bg-zinc-700 scale-100 ring-1 ring-[var(--color-border)]/40'"
+                class="group grid h-6 w-6 place-items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-accent,#38bdf8)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
                 :aria-label="ariaLabelFor(s.name)"
                 :aria-current="idx === current ? 'true' : undefined"
                 @click="current = idx"
-              />
+              >
+                <span
+                  aria-hidden="true"
+                  class="relative h-3 w-3 rounded-full transition-all transform"
+                  :class="idx === current
+                    ? 'bg-[var(--color-brand-accent,#38bdf8)] scale-110 ring-2 ring-[var(--color-border)]/10 ring-offset-2 ring-offset-[var(--color-surface)] shadow-[0_0_0_2px_rgba(56,189,248,0.25)]'
+                    : 'bg-zinc-300 dark:bg-zinc-700 scale-100 ring-1 ring-[var(--color-border)]/40'"
+                />
+              </button>
             </div>
           </div>
         </div>

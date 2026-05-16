@@ -35,7 +35,7 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: p
 </script>
 
 <template>
-  <li class="snap-start shrink-0 w-72" role="listitem">
+  <li class="snap-start shrink-0 w-72">
     <component
       :is="profileHref ? NuxtLink : 'div'"
       :to="profileHref"

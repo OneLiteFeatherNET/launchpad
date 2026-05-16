@@ -160,7 +160,8 @@
     "section_subtitle": "Everything you need to know to get started on the network."
   },
   "accessibility": {
-    "logo_alt": "OneLiteFeather Logo"
+    "logo_alt": "OneLiteFeather Logo",
+    "skip_to_content": "Skip to main content"
   },
   "article": {
     "share": "Share this article",

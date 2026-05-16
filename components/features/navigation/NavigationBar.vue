@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, useRoute } from '#imports';
+import { ref, computed, watch, useRoute, onKeyStroke } from '#imports';
 import NavigationItem from './NavigationItem.vue'
 import LanguageSelector from './LanguageSelector.vue'
 import NavigationIconButton from '~/components/base/buttons/NavigationIconButton.vue'
@@ -95,6 +95,8 @@ watch(
   () => route.fullPath,
   () => closeMenus()
 )
+
+onKeyStroke('Escape', () => closeMenus())
 </script>
 
 <template>
@@ -102,9 +104,8 @@ watch(
   <header
     v-if="variant === 'top'"
     :class="['sticky top-0 z-50 w-full bg-[var(--color-surface)]/90 dark:bg-[var(--color-surface)]/95 backdrop-blur', elevationClasses[elevation]]"
-    @keydown.escape.window="closeMenus"
   >
-    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8" role="navigation" :aria-label="t('navigation.main')">
+    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
           <NuxtLinkLocale to="/" :aria-label="t('navigation.overview')" class="flex items-center gap-2 text-[var(--color-text)] no-underline hover:opacity-90 dark:text-[var(--color-text)]">
@@ -113,7 +114,7 @@ watch(
           </NuxtLinkLocale>
         </div>
 
-        <nav class="hidden items-center gap-2 lg:flex" role="navigation" :aria-label="t('navigation.main')">
+        <nav class="hidden items-center gap-2 lg:flex" :aria-label="t('navigation.main')">
           <template v-for="item in allNavItems" :key="item.type === 'link' ? item.path : item.textKey">
             <NavigationItem
               v-if="item.type === 'link'"
@@ -128,8 +129,11 @@ watch(
                 :open="openGroup === item.textKey"
                 @toggle.prevent
               >
+                <!-- summary is the native disclosure button: Enter/Space fire a click natively, so keyboard parity exists -->
+                <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions, vuejs-accessibility/click-events-have-key-events -->
                 <summary
                   class="flex items-center gap-2 px-3 py-2 rounded-full text-[var(--color-text)] no-underline transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] cursor-pointer list-none"
+                  :aria-expanded="openGroup === item.textKey ? 'true' : 'false'"
                   @click.prevent="toggleGroup(item.textKey)"
                 >
                   <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
@@ -173,10 +177,11 @@ watch(
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 -translate-y-2"
     >
+      <!-- decorative backdrop; click-to-dismiss is a pointer convenience, keyboard users dismiss via Escape or the toggle button -->
+      <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions, vuejs-accessibility/click-events-have-key-events -->
       <div
         v-if="mobileMenuOpen"
         class="fixed inset-0 top-16 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
-        aria-hidden="false"
         @click.self="mobileMenuOpen = false"
       >
         <nav

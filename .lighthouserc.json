@@ -23,7 +23,7 @@
       "assertions": {
         "categories:seo": ["error", { "minScore": 0.95 }],
         "categories:best-practices": ["warn", { "minScore": 0.9 }],
-        "categories:accessibility": ["warn", { "minScore": 0.9 }],
+        "categories:accessibility": ["error", { "minScore": 0.9 }],
         "robots-txt": "error",
         "canonical": "error",
         "hreflang": "error",
@@ -32,8 +32,11 @@
         "html-lang-valid": "error",
         "meta-description": "error",
         "document-title": "error",
-        "image-alt": "warn",
-        "link-text": "warn"
+        "image-alt": "error",
+        "link-text": "error",
+        "color-contrast": ["warn", { "minScore": 0.9 }],
+        "tap-targets": "warn",
+        "heading-order": "warn"
       }
     },
     "upload": {
