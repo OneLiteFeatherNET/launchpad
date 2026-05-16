@@ -64,6 +64,20 @@ them as rules, not suggestions:
 - **`.claude/agents/google-web-guidelines-reviewer`** — delegate an
   independent review against Google's official web guidelines (Core Web
   Vitals LCP/INP/CLS, Lighthouse Best Practices, web.dev) before such PRs.
+- **web.dev pillar skills + reviewers** (apply the skill when the change
+  touches the area; delegate the matching reviewer before the PR):
+  - **`.claude/skills/web-security`** / **`.claude/agents/web-security-reviewer`**
+    — web.dev "Safe": HTTPS, CSP/security headers, safe embeds, no
+    mixed/insecure content, dependency safety.
+  - **`.claude/skills/seo-discoverability`** / **`.claude/agents/seo-discoverability-reviewer`**
+    — web.dev "Discoverable": crawlability, metadata, canonical/hreflang,
+    structured data, sitemap/robots (keep SEO ≥ 0.95).
+  - **`.claude/skills/privacy-consent`** / **`.claude/agents/privacy-consent-reviewer`**
+    — consent-gated analytics, third-party data minimisation, GDPR
+    alignment for PostHog/gtag.
+  - **`.claude/skills/network-caching`** / **`.claude/agents/network-caching-reviewer`**
+    — web.dev "Fast" loading: cache lifetimes, preconnect/preload/priority
+    hints, compression, critical request chain.
 - **Source maps are never published to production.** The Lighthouse
   `valid-source-maps` audit is an accepted trade-off; if symbolication is
   needed, generate hidden maps in CI and upload them privately — never
