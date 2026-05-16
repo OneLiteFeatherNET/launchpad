@@ -88,7 +88,10 @@ export default defineNuxtConfig({
             cookieKey: 'i18n_redirected',
             redirectOn: 'root' // recommended
         },
-        baseUrl: 'http://localhost:3000',
+        // Absolute base for i18n-generated canonical + hreflang links. Kept on
+        // the production domain in every environment so the SEO tags Google
+        // sees are always the real URLs (dev never gets indexed anyway).
+        baseUrl: 'https://onelitefeather.net',
     },
     sitemap: {
         xslColumns: [
