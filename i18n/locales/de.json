@@ -89,9 +89,8 @@
     },
     "ranks": {
       "admin": "Administration",
-      "team_assistant": "Team-Assistenz",
-      "content": "Content & Entwicklung",
-      "moderator": "Moderation"
+      "content": "Content",
+      "moderation": "Moderation"
     },
     "open_position": {
       "badge": "Offene Stelle",

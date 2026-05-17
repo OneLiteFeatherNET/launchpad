@@ -2,98 +2,35 @@
   "key": "home",
   "members": [
     {
-      "id": "phillipp",
-      "name": "Phillipp Glanz",
-      "slug": "phillipp-glanz",
-      "role": "Entwicklungsleiter",
+      "id": "themeinerlp",
+      "name": "TheMeinerLP",
+      "slug": "themeinerlp",
       "rank": "admin",
-      "slogan": "Code, Kaffee und Kreativität.",
-      "bio": "Phillipp leitet die Entwicklung bei OneLiteFeather und hält das technische Rückgrat am Laufen – von der Server-Infrastruktur bis zu den Plugins, die das Netzwerk antreiben.",
-      "since": "2021",
-      "links": {
-        "github": "https://github.com/OneLiteFeatherNET",
-        "discord": "https://1lf.link/discord"
-      },
-      "mcName": "OneLiteFeather",
-      "href": "/team/phillipp-glanz"
+      "slogan": "Just Sudo IT.",
+      "href": "/de/team/themeinerlp"
     },
     {
-      "id": "timo",
-      "name": "Timo Beck",
-      "slug": "timo-beck",
-      "role": "Server Administrator",
-      "rank": "admin",
-      "slogan": "Stabilität vor Features.",
-      "bio": "Timo hält die Server stabil und sicher und sorgt dafür, dass alles online bleibt, wenn es darauf ankommt.",
-      "since": "2022",
-      "mcName": "Tim0",
-      "href": "/team/timo-beck"
-    },
-    {
-      "id": "mira",
-      "name": "Mira Sommer",
-      "slug": "mira-sommer",
-      "role": "Community Managerin",
-      "rank": "team_assistant",
-      "slogan": "Spieler zuerst – immer.",
-      "bio": "Mira ist die Brücke zwischen Team und Community, organisiert Events und sorgt dafür, dass sich jede:r Spieler:in gehört fühlt.",
-      "since": "2022",
-      "mcName": "MiraCraft",
-      "href": "/team/mira-sommer"
-    },
-    {
-      "id": "placeholder-cm",
-      "name": "Dein Platz?",
-      "role": "Community Manager/in",
-      "rank": "team_assistant",
-      "slogan": "Baue unsere Community mit auf.",
-      "openPosition": true,
-      "applyUrl": "https://1lf.link/discord"
-    },
-    {
-      "id": "placeholder-socialmedia",
-      "name": "Dein Platz?",
-      "role": "Social Media Manager/in",
-      "rank": "team_assistant",
-      "slogan": "Gestalte unsere Präsenz auf Social Media.",
-      "openPosition": true,
-      "applyUrl": "https://1lf.link/discord"
-    },
-    {
-      "id": "placeholder-dev",
-      "name": "Dein Platz?",
-      "role": "Entwickler/in",
+      "id": "joltra",
+      "name": "Joltra",
+      "slug": "joltra",
       "rank": "content",
-      "slogan": "Entwickle mit uns neue Features.",
-      "openPosition": true,
-      "applyUrl": "https://1lf.link/discord"
+      "href": "/de/team/joltra"
     },
     {
-      "id": "placeholder-content",
-      "name": "Dein Platz?",
-      "role": "Content Creator/in",
+      "id": "theshadowsdust",
+      "name": "theShadowsDust",
+      "slug": "theshadowsdust",
       "rank": "content",
-      "slogan": "Erstelle Guides, Posts und Videos.",
-      "openPosition": true,
-      "applyUrl": "https://1lf.link/discord"
+      "slogan": "I feel like I'm upside down.",
+      "href": "/de/team/theshadowsdust"
     },
     {
-      "id": "placeholder-builder",
-      "name": "Dein Platz?",
-      "role": "Bauer/in",
-      "rank": "content",
-      "slogan": "Erwecke unsere Welten zum Leben.",
-      "openPosition": true,
-      "applyUrl": "https://1lf.link/discord"
-    },
-    {
-      "id": "placeholder-mod",
-      "name": "Dein Platz?",
-      "role": "Moderator/in",
-      "rank": "moderator",
-      "slogan": "Sorge für Fairness und Ordnung.",
-      "openPosition": true,
-      "applyUrl": "https://1lf.link/discord"
+      "id": "b3nny",
+      "name": "B3nNy",
+      "slug": "b3nny",
+      "rank": "moderation",
+      "slogan": "Modrinth.",
+      "href": "/de/team/b3nny"
     }
   ]
 }

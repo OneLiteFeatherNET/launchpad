@@ -88,7 +88,7 @@ const teamSchema = z
             slug: z.string().optional(),
             role: z.string().optional(),
             // Coarse group for sectioning/ordering; specific job stays in `role`.
-            rank: z.enum(['admin', 'team_assistant', 'content', 'moderator']).optional(),
+            rank: z.enum(['admin', 'content', 'moderation']).optional(),
             slogan: z.string().optional(),
             bio: z.string().optional(),
             since: z.string().optional(),
