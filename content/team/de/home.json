@@ -10,6 +10,15 @@
       "href": "/de/team/themeinerlp"
     },
     {
+      "id": "open-admin",
+      "name": "Dein Platz?",
+      "role": "Administration",
+      "rank": "admin",
+      "slogan": "Hilf mit, das Netzwerk zu betreiben und zu gestalten.",
+      "openPosition": true,
+      "applyUrl": "https://1lf.link/discord"
+    },
+    {
       "id": "joltra",
       "name": "Joltra",
       "slug": "joltra",
@@ -25,12 +34,86 @@
       "href": "/de/team/theshadowsdust"
     },
     {
+      "id": "alex-m",
+      "name": "Alex M.",
+      "slug": "alex-m",
+      "rank": "content",
+      "href": "/de/team/alex-m"
+    },
+    {
+      "id": "bavariankingdom",
+      "name": "BavarianKingdom",
+      "slug": "bavariankingdom",
+      "rank": "content",
+      "href": "/de/team/bavariankingdom"
+    },
+    {
+      "id": "mcmdev",
+      "name": "mcmdev",
+      "slug": "mcmdev",
+      "rank": "content",
+      "href": "/de/team/mcmdev"
+    },
+    {
+      "id": "pega",
+      "name": "Pega",
+      "slug": "pega",
+      "rank": "content",
+      "href": "/de/team/pega"
+    },
+    {
+      "id": "random",
+      "name": "Random",
+      "slug": "random",
+      "rank": "content",
+      "href": "/de/team/random"
+    },
+    {
+      "id": "saynax-jonas",
+      "name": "Saynax | Jonas",
+      "slug": "saynax-jonas",
+      "rank": "content",
+      "href": "/de/team/saynax-jonas"
+    },
+    {
+      "id": "theevilreaper",
+      "name": "theEvilReaper",
+      "slug": "theevilreaper",
+      "rank": "content",
+      "href": "/de/team/theevilreaper"
+    },
+    {
+      "id": "weltspielt",
+      "name": "weltspielt",
+      "slug": "weltspielt",
+      "rank": "content",
+      "href": "/de/team/weltspielt"
+    },
+    {
+      "id": "open-content",
+      "name": "Dein Platz?",
+      "role": "Content · Entwicklung · Building",
+      "rank": "content",
+      "slogan": "Erstelle Content, baue Welten oder entwickle mit uns.",
+      "openPosition": true,
+      "applyUrl": "https://1lf.link/discord"
+    },
+    {
       "id": "b3nny",
       "name": "B3nNy",
       "slug": "b3nny",
       "rank": "moderation",
       "slogan": "Modrinth.",
       "href": "/de/team/b3nny"
+    },
+    {
+      "id": "open-moderation",
+      "name": "Dein Platz?",
+      "role": "Moderation",
+      "rank": "moderation",
+      "slogan": "Sorge für eine faire und freundliche Community.",
+      "openPosition": true,
+      "applyUrl": "https://1lf.link/discord"
     }
   ]
 }
