@@ -42,6 +42,7 @@ export type BlogArticle = (
 ) & {
   author?: string | string[]
   authors?: BlogAuthorProfile[]
+  teamMembers?: string[]
   releaseDate?: string | Date
   canonical?: string
   alternates?: BlogAlternateHeader[]

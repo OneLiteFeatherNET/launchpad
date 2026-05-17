@@ -17,7 +17,8 @@ import {
     faServer,
     faShareNodes,
     faSignal,
-    faTimes
+    faTimes,
+    faUsers
 } from '@fortawesome/free-solid-svg-icons'
 import {
     faBluesky,
@@ -55,6 +56,7 @@ library.add(
     faShareNodes,
     faSignal,
     faTimes,
+    faUsers,
     faBluesky,
     faDiscord,
     faFacebookF,

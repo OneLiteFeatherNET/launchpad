@@ -1,8 +1,32 @@
 <script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faGithub, faDiscord, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
+import { faGlobe, faLink } from '@fortawesome/free-solid-svg-icons'
+
 const { t, locale } = useI18n()
 const site = useSiteConfig()
 
 const { member, avatarSrc } = useTeamProfile()
+
+const linkIcons: Record<string, typeof faLink> = {
+  github: faGithub,
+  discord: faDiscord,
+  linkedin: faLinkedinIn,
+  website: faGlobe
+}
+
+const profileLinks = computed(() => {
+  const links = (member.value?.links || {}) as Record<string, string>
+  return Object.entries(links)
+    .filter(([, href]) => Boolean(href))
+    .map(([key, href]) => ({
+      key,
+      href,
+      icon: linkIcons[key.toLowerCase()] || faLink
+    }))
+})
+
+const rankLabel = computed(() => member.value?.rank ? t(`team.ranks.${member.value.rank}`) : null)
 
 usePageSeo({
   title: member.value ? `${member.value.name} — OneLiteFeather` : t('team.profile_title_fallback'),
@@ -57,16 +81,38 @@ useSchemaOrg(() => {
       <div class="flex items-start gap-5">
         <img :src="avatarSrc" :alt="t('team.avatar_alt', { name: member.name })" width="96" height="96" class="h-24 w-24 rounded-2xl ring-1 ring-black/5 dark:ring-white/5 object-cover" >
         <div>
-          <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ member.name }}</h1>
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ member.name }}</h1>
+            <span
+              v-if="rankLabel"
+              class="rounded-full bg-brand-100 dark:bg-brand-900/40 px-2.5 py-0.5 text-xs font-semibold text-brand-700 dark:text-brand-300"
+            >{{ rankLabel }}</span>
+          </div>
           <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">{{ member.role }}</p>
           <p v-if="member.slogan" class="mt-2 text-gray-700 dark:text-gray-300">"{{ member.slogan }}"</p>
+          <p v-if="member.since" class="mt-1 text-xs text-gray-500 dark:text-gray-500">
+            {{ t('team.member_since', { year: member.since }) }}
+          </p>
         </div>
       </div>
 
-      <div class="mt-6 prose dark:prose-invert max-w-none">
-        <p>
-          {{ $t('TDB') }}: Weitere Inhalte zum Profil folgen. Geplant sind u. a. Verknüpfungen zu Blog‑Beiträgen und Projekten.
-        </p>
+      <div v-if="member.bio" class="mt-6 prose dark:prose-invert max-w-none">
+        <p>{{ member.bio }}</p>
+      </div>
+
+      <div v-if="profileLinks.length" class="mt-6 flex flex-wrap gap-3">
+        <a
+          v-for="link in profileLinks"
+          :key="link.key"
+          :href="link.href"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-lg border border-zinc-200/70 dark:border-zinc-800/80 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          :aria-label="t('team.profile_link_aria', { name: member.name, platform: link.key })"
+        >
+          <FontAwesomeIcon :icon="link.icon" class="h-4 w-4" aria-hidden="true" />
+          <span class="capitalize">{{ link.key }}</span>
+        </a>
       </div>
     </div>
 
