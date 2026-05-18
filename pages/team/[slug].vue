@@ -71,11 +71,11 @@ useSchemaOrg(() => {
 <template>
   <main class="mx-auto max-w-4xl px-4 py-10">
     <NuxtLink
-      to="/"
+      :to="`/${locale}/team`"
       class="text-sm text-primary dark:text-primary/80 hover:underline"
-      :aria-label="$t('navigation.back_home')"
+      :aria-label="$t('navigation.back_team')"
     >
-      ← {{ $t('navigation.home') }}
+      ← {{ $t('navigation.team') }}
     </NuxtLink>
     <div v-if="member" class="mt-4 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-6 md:p-8">
       <div class="flex items-start gap-5">
