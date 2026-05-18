@@ -90,8 +90,11 @@
     },
     "ranks": {
       "admin": "Administration",
+      "teamassist": "Team Assistance",
       "content": "Content",
-      "moderation": "Moderation"
+      "moderation": "Moderation",
+      "media": "Social Media",
+      "lite": "Lite"
     },
     "open_position": {
       "badge": "Open position",
