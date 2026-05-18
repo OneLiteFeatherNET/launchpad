@@ -3,6 +3,7 @@ import { defineAsyncComponent } from 'vue'
 import {definePageMeta} from "#imports";
 import type { BlogArticle } from "~/types/blog";
 import UiChip from '~/components/base/Chip.vue'
+import FeaturedTeamMembers from '~/components/features/blog/page/FeaturedTeamMembers.vue'
 
 const { locale, t, d } = useI18n()
 const config = useRuntimeConfig()
@@ -94,6 +95,11 @@ useHead(() => (blog.value as BlogArticle | null)?.head || {})
           <h2 id="article-content-heading" class="sr-only">{{ title }}</h2>
           <ContentRenderer :value="blog" />
         </section>
+
+        <FeaturedTeamMembers
+          v-if="blog?.teamMembers?.length"
+          :slugs="blog.teamMembers"
+        />
 
         <!-- Social Media Sharing Buttons -->
         <section class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6" :aria-label="t('article.share')">

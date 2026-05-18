@@ -23,6 +23,9 @@ const blogSchema = withI18nMeta(
     // page-level Author lookups (visible cards + Article JSON-LD) come
     // back empty.
     author: z.union([z.string(), z.array(z.string())]).optional(),
+    // Slugs of team members featured in this article. Loose backlink to the
+    // team profile pages, independent of the `author`/`authors` collection.
+    teamMembers: z.array(z.string()).optional(),
     excerpt: z.object({
       type: z.string(),
       children: z.any()
@@ -84,10 +87,18 @@ const teamSchema = z
             name: z.string(),
             slug: z.string().optional(),
             role: z.string().optional(),
+            // Coarse group for sectioning/ordering; specific job stays in `role`.
+            rank: z.enum(['admin', 'content', 'moderation']).optional(),
             slogan: z.string().optional(),
+            bio: z.string().optional(),
+            since: z.string().optional(),
+            links: z.record(z.string()).optional(),
             mcName: z.string().optional(),
             href: z.string().optional(),
-            avatarUrl: z.string().url().optional()
+            avatarUrl: z.string().url().optional(),
+            // Marks an entry as an open position rather than a real member.
+            openPosition: z.boolean().optional(),
+            applyUrl: z.string().url().optional()
           })
           .passthrough()
       )

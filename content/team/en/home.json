@@ -2,61 +2,118 @@
   "key": "home",
   "members": [
     {
-      "id": "phillipp",
-      "name": "Phillipp Glanz",
-      "slug": "phillipp-glanz",
-      "role": "Lead Developer",
-      "slogan": "Code, coffee and creativity.",
-      "mcName": "OneLiteFeather",
-      "href": "/en/team/phillipp-glanz"
+      "id": "themeinerlp",
+      "name": "TheMeinerLP",
+      "slug": "themeinerlp",
+      "rank": "admin",
+      "slogan": "Just Sudo IT.",
+      "href": "/en/team/themeinerlp"
     },
     {
-      "id": "mira",
-      "name": "Mira Sommer",
-      "slug": "mira-sommer",
-      "role": "Community Manager",
-      "slogan": "Players first – always.",
-      "mcName": "MiraCraft",
-      "href": "/en/team/mira-sommer"
-    },
-    {
-      "id": "timo",
-      "name": "Timo Beck",
-      "slug": "timo-beck",
-      "role": "Server Administrator",
-      "slogan": "Stability over features.",
-      "mcName": "Tim0",
-      "href": "/en/team/timo-beck"
-    },
-    {
-      "id": "placeholder-dev",
+      "id": "open-admin",
       "name": "Your seat?",
-      "role": "Developer",
-      "slogan": "Build new features with us."
+      "role": "Administration",
+      "rank": "admin",
+      "slogan": "Help run and shape the network.",
+      "openPosition": true,
+      "applyUrl": "https://1lf.link/discord"
     },
     {
-      "id": "placeholder-cm",
-      "name": "Your seat?",
-      "role": "Community Manager",
-      "slogan": "Help grow and support our community."
+      "id": "joltra",
+      "name": "Joltra",
+      "slug": "joltra",
+      "rank": "content",
+      "href": "/en/team/joltra"
     },
     {
-      "id": "placeholder-mod",
-      "name": "Your seat?",
-      "role": "Moderator",
-      "slogan": "Keep things fair and organized."
+      "id": "theshadowsdust",
+      "name": "theShadowsDust",
+      "slug": "theshadowsdust",
+      "rank": "content",
+      "slogan": "I feel like I'm upside down.",
+      "href": "/en/team/theshadowsdust"
     },
     {
-      "id": "placeholder-content",
-      "name": "Your seat?",
-      "role": "Content Creator",
-      "slogan": "Create guides, posts and videos."
+      "id": "alex-m",
+      "name": "Alex M.",
+      "slug": "alex-m",
+      "rank": "content",
+      "href": "/en/team/alex-m"
     },
     {
-      "id": "placeholder-socialmedia",
+      "id": "bavariankingdom",
+      "name": "BavarianKingdom",
+      "slug": "bavariankingdom",
+      "rank": "content",
+      "href": "/en/team/bavariankingdom"
+    },
+    {
+      "id": "mcmdev",
+      "name": "mcmdev",
+      "slug": "mcmdev",
+      "rank": "content",
+      "href": "/en/team/mcmdev"
+    },
+    {
+      "id": "pega",
+      "name": "Pega",
+      "slug": "pega",
+      "rank": "content",
+      "href": "/en/team/pega"
+    },
+    {
+      "id": "random",
+      "name": "Random",
+      "slug": "random",
+      "rank": "content",
+      "href": "/en/team/random"
+    },
+    {
+      "id": "saynax-jonas",
+      "name": "Saynax | Jonas",
+      "slug": "saynax-jonas",
+      "rank": "content",
+      "href": "/en/team/saynax-jonas"
+    },
+    {
+      "id": "theevilreaper",
+      "name": "theEvilReaper",
+      "slug": "theevilreaper",
+      "rank": "admin",
+      "href": "/en/team/theevilreaper"
+    },
+    {
+      "id": "weltspielt",
+      "name": "weltspielt",
+      "slug": "weltspielt",
+      "rank": "content",
+      "href": "/en/team/weltspielt"
+    },
+    {
+      "id": "open-content",
       "name": "Your seat?",
-      "role": "Social Media Manager",
-      "slogan": "Shape our presence on social media."
+      "role": "Content · Development · Building",
+      "rank": "content",
+      "slogan": "Create content, build worlds or write code with us.",
+      "openPosition": true,
+      "applyUrl": "https://1lf.link/discord"
+    },
+    {
+      "id": "b3nny",
+      "name": "B3nNy",
+      "slug": "b3nny",
+      "rank": "moderation",
+      "slogan": "Modrinth.",
+      "href": "/en/team/b3nny"
+    },
+    {
+      "id": "open-moderation",
+      "name": "Your seat?",
+      "role": "Moderation",
+      "rank": "moderation",
+      "slogan": "Keep the community fair and friendly.",
+      "openPosition": true,
+      "applyUrl": "https://1lf.link/discord"
     }
   ]
 }

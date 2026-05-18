@@ -8,6 +8,7 @@
     "mobile": "Mobile navigation",
     "bottom": "Bottom navigation",
     "blog": "Blog",
+    "team": "Team",
     "bluemap": "BlueMap",
     "server": "Server",
     "discord": "Discord",
@@ -48,6 +49,7 @@
     "description": "Interactive BlueMap map of the OneLiteFeather Minecraft server."
   },
   "blog": {
+    "featured_team": "Featured team members",
     "overview": {
       "title": "Overview",
       "description": "Find interesting blog posts from OneLiteFeather.net about development, community and more."
@@ -77,7 +79,24 @@
     "card_aria": "Profile of {name}, {role}",
     "avatar_alt": "Avatar of {name}",
     "view_profile": "View profile",
-    "profile_not_found": "This profile was not found."
+    "profile_not_found": "This profile was not found.",
+    "member_since": "Part of the team since {year}",
+    "profile_link_aria": "{platform} profile of {name}",
+    "index": {
+      "title": "Our Team — OneLiteFeather",
+      "subtitle": "The people behind the network — and the open seats waiting for you.",
+      "description": "Meet the OneLiteFeather team, organised by role, and discover the open positions you can apply for."
+    },
+    "ranks": {
+      "admin": "Administration",
+      "content": "Content",
+      "moderation": "Moderation"
+    },
+    "open_position": {
+      "badge": "Open position",
+      "apply": "Apply via Discord",
+      "apply_aria": "Apply for {role} via Discord"
+    }
   },
   "timeline": {
     "aria_label": "Timeline",
