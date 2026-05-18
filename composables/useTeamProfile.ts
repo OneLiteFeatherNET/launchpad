@@ -23,10 +23,10 @@ export function useTeamProfile(slugOverride?: string) {
 
   const avatarSrc = computed(() => {
     const m = member.value
-    if (!m) return '/favicon.ico'
+    if (!m) return '/favicon.svg'
     if (m.avatarUrl) return m.avatarUrl
     if (m.mcName) return `https://mc-heads.net/avatar/${encodeURIComponent(m.mcName)}/256`
-    return '/favicon.ico'
+    return '/favicon.svg'
   })
 
   return {

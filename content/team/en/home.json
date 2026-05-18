@@ -10,13 +10,12 @@
       "href": "/en/team/themeinerlp"
     },
     {
-      "id": "open-admin",
-      "name": "Your seat?",
-      "role": "Administration",
+      "id": "selenretterin",
+      "name": "Selenretterin",
+      "slug": "selenretterin",
       "rank": "admin",
-      "slogan": "Help run and shape the network.",
-      "openPosition": true,
-      "applyUrl": "https://1lf.link/discord"
+      "slogan": "aka OneLiteFeather",
+      "href": "/en/team/selenretterin"
     },
     {
       "id": "joltra",

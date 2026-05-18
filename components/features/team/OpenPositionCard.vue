@@ -19,14 +19,14 @@ const { t } = useI18n()
 
 <template>
   <li class="shrink-0 w-72">
-    <div class="flex h-full flex-col rounded-2xl border border-dashed border-brand-400/70 dark:border-brand-500/60 bg-brand-50/40 dark:bg-brand-950/20 p-4">
+    <div class="flex h-full flex-col rounded-2xl border border-dashed border-primary/40 dark:border-secondary/50 bg-primary/5 dark:bg-primary/10 p-4">
       <div class="flex items-center gap-4">
         <span
-          class="flex h-16 w-16 items-center justify-center rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 text-2xl font-bold"
+          class="flex h-16 w-16 items-center justify-center rounded-xl bg-primary/10 dark:bg-primary/25 text-primary dark:text-secondary text-2xl font-bold"
           aria-hidden="true"
         >+</span>
         <div class="min-w-0">
-          <p class="text-xs font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-400">
+          <p class="text-xs font-semibold uppercase tracking-wide text-primary dark:text-secondary">
             {{ t('team.open_position.badge') }}
           </p>
           <h3 class="truncate text-lg font-semibold text-gray-900 dark:text-gray-100">{{ props.role }}</h3>
@@ -37,7 +37,7 @@ const { t } = useI18n()
         :href="props.applyUrl"
         target="_blank"
         rel="noopener noreferrer"
-        class="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+        class="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         :aria-label="t('team.open_position.apply_aria', { role: props.role })"
       >
         <FontAwesomeIcon :icon="faDiscord" class="h-4 w-4" aria-hidden="true" />
