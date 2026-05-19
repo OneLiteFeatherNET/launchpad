@@ -50,7 +50,7 @@
     "nitro": "3.0.260429-beta",
     "nuxt": "^4.2.1",
     "nuxt-gtag": "4.1.0",
-    "nuxt-og-image": "6.5.0",
+    "nuxt-og-image": "6.5.1",
     "nuxt-posthog": "1.6.3",
     "nuxt-schema-org": "5.0.10",
     "nuxt-vitalizer": "2.0.0",
