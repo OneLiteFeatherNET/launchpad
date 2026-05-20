@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, nextTick, onBeforeUnmount, watch } from '#imports'
+import IconFa from '~/components/base/icons/IconFa.vue'
 import type { CommunityPoiImage } from '~/types/community-poi'
 
 const props = defineProps<{
@@ -148,7 +149,7 @@ const closeButtonClass = [
             :aria-label="t('community_poi.gallery.close')"
             @click="close"
           >
-            ✕
+            <IconFa :icon="['fas','times']" class="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
         <div class="relative flex flex-1 items-center justify-center">
@@ -160,7 +161,7 @@ const closeButtonClass = [
             :aria-label="t('community_poi.gallery.prev')"
             @click="showPrev"
           >
-            ‹
+            <IconFa :icon="['fas','chevron-left']" class="h-4 w-4" aria-hidden="true" />
           </button>
           <figure v-if="activeImage" class="max-h-full max-w-full">
             <NuxtPicture
@@ -189,7 +190,7 @@ const closeButtonClass = [
             :aria-label="t('community_poi.gallery.next')"
             @click="showNext"
           >
-            ›
+            <IconFa :icon="['fas','chevron-right']" class="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
       </div>

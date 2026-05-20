@@ -6,6 +6,7 @@ summary: 'Ein begehbares Labyrinth – aktuell etwa zur Hälfte fertig gebaut. S
 status: 'in-progress'
 progress: 40
 category: 'community'
+forumUrl: 'https://discord.com/channels/752527676903784518/1189280187876134932'
 goal: 'Fertiges, begehbares Labyrinth mit klarem Eingang, mehreren Sackgassen und einer Lösung. Atmosphäre durch Beleuchtung und kleine Details an Schlüsselstellen.'
 currentState: 'Etwa 40 % des Baus stehen. Außenmauern und das innere Wegenetz sind vorhanden, mehrere Gänge fehlen noch.'
 location: 'Welt – siehe Koordinaten'
@@ -33,7 +34,7 @@ schematics:
     setupNotes: |
       Origin laut Builder: -1465 / 61 / 792, Rotation CW_180.
       Die Datei ist eine WorldEdit .schem – per //schem load labyrinth in WorldEdit laden oder in Litematica über 'Schematic placement' importieren.
-updatedAt: '2026-05-20'
+updatedAt: '2026-04-26'
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/community-poi/labyrinth'

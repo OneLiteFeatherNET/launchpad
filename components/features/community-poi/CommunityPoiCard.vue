@@ -3,6 +3,7 @@ import { computed } from '#imports'
 import CommunityPoiStatusBadge from './CommunityPoiStatusBadge.vue'
 import CommunityPoiCategoryBadge from './CommunityPoiCategoryBadge.vue'
 import CommunityPoiProgressBar from './CommunityPoiProgressBar.vue'
+import IconFa from '~/components/base/icons/IconFa.vue'
 import type { CommunityPoi } from '~/types/community-poi'
 
 const props = defineProps<{
@@ -81,7 +82,7 @@ const showcaseBadgeClass = [
         format="avif,webp"
       />
       <div v-else :class="placeholderClass">
-        <span aria-hidden="true" class="text-4xl">⛏</span>
+        <IconFa :icon="['fas','image']" class="h-10 w-10" aria-hidden="true" />
       </div>
       <div class="absolute left-3 top-3 flex flex-wrap items-center gap-2">
         <CommunityPoiStatusBadge :status="poi.status" />
@@ -91,7 +92,7 @@ const showcaseBadgeClass = [
           :class="showcaseBadgeClass"
           :title="t('community_poi.card.showcase_only')"
         >
-          <span aria-hidden="true">🔒</span>
+          <IconFa :icon="['fas','lock']" class="h-2.5 w-2.5" aria-hidden="true" />
           {{ t('community_poi.card.showcase_only') }}
         </span>
       </div>
@@ -124,12 +125,12 @@ const showcaseBadgeClass = [
         </span>
         <span class="flex items-center gap-3">
           <span v-if="galleryCount" class="inline-flex items-center gap-1">
-            <span aria-hidden="true">🖼</span>
+            <IconFa :icon="['fas','image']" class="h-3 w-3" aria-hidden="true" />
             <span class="sr-only">{{ t('community_poi.card.gallery_count_sr') }}</span>
             {{ galleryCount }}
           </span>
           <span v-if="schematicCount" class="inline-flex items-center gap-1">
-            <span aria-hidden="true">📐</span>
+            <IconFa :icon="['fas','cube']" class="h-3 w-3" aria-hidden="true" />
             <span class="sr-only">{{ t('community_poi.card.schematic_count_sr') }}</span>
             {{ schematicCount }}
           </span>

@@ -6,6 +6,7 @@ summary: 'Rebuild of the Uncensored Library published by Reporters Without Borde
 status: 'planning'
 progress: 0
 category: 'community'
+forumUrl: 'https://discord.com/channels/752527676903784518/1409893917134028861'
 goal: 'A faithful rebuild of the Uncensored Library: same hall shape, clean accents and the central rooms that host otherwise censored texts.'
 currentState: 'Actual construction is at 0 %. Area preparation (clearing, levelling, lighting) is around 45 %. The "NEUE MAGABASE" schematic is the working blueprint.'
 location: 'Prepared build area'

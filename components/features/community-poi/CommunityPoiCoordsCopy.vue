@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from '#imports'
 import { useClipboard } from '@vueuse/core'
+import IconFa from '~/components/base/icons/IconFa.vue'
 
 const props = defineProps<{
   x: number
@@ -18,9 +19,11 @@ let resetTimer: ReturnType<typeof setTimeout> | null = null
 // separated numbers — the `/tp @s …` variant is what players paste straight
 // into chat.
 const rawValue = computed(() => {
-  const parts = props.y !== undefined ? [props.x,
+  const parts = props.y !== undefined
+    ? [props.x,
 props.y,
-props.z] : [props.x, props.z]
+props.z]
+    : [props.x, props.z]
   return parts.join(' ')
 })
 
@@ -44,7 +47,7 @@ const handleCopy = async (kind: 'raw' | 'tp', value: string) => {
 }
 
 const buttonBase = [
-  'inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs',
+  'inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs',
   'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)]',
   'transition hover:bg-[color-mix(in_oklab,var(--color-brand-secondary)_10%,transparent)]',
   'focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-secondary)]'
@@ -60,7 +63,11 @@ const buttonBase = [
       :title="rawValue"
       @click="handleCopy('raw', rawValue)"
     >
-      <span aria-hidden="true">{{ recentlyCopied === 'raw' ? '✓' : '📋' }}</span>
+      <IconFa
+        :icon="['fas', recentlyCopied === 'raw' ? 'check' : 'copy']"
+        class="h-3 w-3"
+        aria-hidden="true"
+      />
       <span>{{
         recentlyCopied === 'raw'
           ? t('community_poi.copy.copied')
@@ -74,7 +81,11 @@ const buttonBase = [
       :title="tpValue"
       @click="handleCopy('tp', tpValue)"
     >
-      <span aria-hidden="true">{{ recentlyCopied === 'tp' ? '✓' : '⌘' }}</span>
+      <IconFa
+        :icon="['fas', recentlyCopied === 'tp' ? 'check' : 'terminal']"
+        class="h-3 w-3"
+        aria-hidden="true"
+      />
       <span>{{
         recentlyCopied === 'tp'
           ? t('community_poi.copy.copied')

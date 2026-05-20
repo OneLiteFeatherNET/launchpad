@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconFa from '~/components/base/icons/IconFa.vue'
+
 defineProps<{
   lore: string
 }>()
@@ -24,8 +26,8 @@ const bodyClass = [
 
 <template>
   <article :class="cardClass" :aria-label="t('community_poi.lore.aria')">
-    <h3 :class="headingClass">
-      <span aria-hidden="true" class="mr-1">📖</span>
+    <h3 :class="['inline-flex items-center gap-2', headingClass]">
+      <IconFa :icon="['fas','book-open']" class="h-3.5 w-3.5" aria-hidden="true" />
       {{ t('community_poi.lore.title') }}
     </h3>
     <p :class="bodyClass">{{ lore }}</p>

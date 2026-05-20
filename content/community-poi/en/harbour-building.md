@@ -6,6 +6,7 @@ summary: 'A harbour project from B3nNy that has not started yet. The schematic f
 status: 'planning'
 progress: 0
 category: 'community'
+forumUrl: 'https://discord.com/channels/752527676903784518/1192098359452909678'
 goal: 'A large harbour building with piers, warehouses and a jetty — a lively hub for shipping and trade.'
 currentState: 'Concept is set, construction has not started yet. The schematic acts as the binding blueprint.'
 location: 'Overworld — see coordinates'

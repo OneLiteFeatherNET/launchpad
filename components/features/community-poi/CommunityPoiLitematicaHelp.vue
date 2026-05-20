@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
+import IconFa from '~/components/base/icons/IconFa.vue'
 
 const { t, tm, rt } = useI18n()
 
@@ -43,6 +44,14 @@ const ruleHeadingClass = [
   'flex items-center gap-1 font-semibold uppercase tracking-wide text-xs', 'text-red-800 dark:text-red-200'
 ].join(' ')
 
+const titleClass = [
+  'inline-flex items-center gap-2 text-base font-semibold', 'text-neutral-900 dark:text-neutral-50'
+].join(' ')
+
+const iconClass = 'h-4 w-4 text-[var(--color-brand-secondary)]'
+
+const linkIconClass = 'h-3 w-3'
+
 const summaryClass = [
   'flex cursor-pointer items-center justify-between gap-2 py-2',
   'text-sm font-medium text-neutral-900 dark:text-neutral-100',
@@ -51,7 +60,7 @@ const summaryClass = [
 ].join(' ')
 
 const chevronClass = [
-  'text-xs transition-transform group-open:rotate-180', 'motion-reduce:transition-none'
+  'h-3 w-3 transition-transform group-open:rotate-180', 'motion-reduce:transition-none'
 ].join(' ')
 
 const linkClass = [
@@ -65,8 +74,8 @@ const linkClass = [
 <template>
   <section :aria-label="t('community_poi.litematica.aria')" :class="wrapperClass">
     <header class="mb-3">
-      <h3 class="text-base font-semibold text-neutral-900 dark:text-neutral-50">
-        <span aria-hidden="true" class="mr-1">📐</span>
+      <h3 :class="titleClass">
+        <IconFa :icon="['fas','cube']" :class="iconClass" aria-hidden="true" />
         {{ t('community_poi.litematica.title') }}
       </h3>
       <p class="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
@@ -76,7 +85,7 @@ const linkClass = [
 
     <aside :class="ruleClass" role="note">
       <p :class="ruleHeadingClass">
-        <span aria-hidden="true">⚠</span>
+        <IconFa :icon="['fas','triangle-exclamation']" class="h-3.5 w-3.5" aria-hidden="true" />
         {{ t('community_poi.litematica.rule.title') }}
       </p>
       <p class="mt-1 text-neutral-800 dark:text-neutral-100">
@@ -89,7 +98,7 @@ const linkClass = [
         <details class="group">
           <summary :class="summaryClass">
             <span>{{ entry.q }}</span>
-            <span aria-hidden="true" :class="chevronClass">▾</span>
+            <IconFa :icon="['fas','chevron-down']" :class="chevronClass" aria-hidden="true" />
           </summary>
           <div class="pb-3 pt-1">
             <p class="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
@@ -103,7 +112,11 @@ const linkClass = [
                   target="_blank"
                   rel="noopener noreferrer external"
                 >
-                  <span aria-hidden="true">↗</span>
+                  <IconFa
+                    :icon="['fas','arrow-up-right-from-square']"
+                    :class="linkIconClass"
+                    aria-hidden="true"
+                  />
                   <span>{{ link.label }}</span>
                   <span class="sr-only">
                     {{ t('community_poi.schematics.opens_external') }}

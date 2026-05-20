@@ -6,6 +6,7 @@ summary: 'Ein noch nicht begonnenes Hafenprojekt von B3nNy. Schematic mit dem ge
 status: 'planning'
 progress: 0
 category: 'community'
+forumUrl: 'https://discord.com/channels/752527676903784518/1192098359452909678'
 goal: 'Großes Hafengebäude mit Anlegestellen, Lagerhallen und Steg – als belebter Knotenpunkt für Schiffsverkehr und Handel.'
 currentState: 'Konzept steht, der Bau wurde noch nicht gestartet. Die Schematic ist als verbindliche Vorlage gedacht.'
 location: 'Welt – siehe Koordinaten'

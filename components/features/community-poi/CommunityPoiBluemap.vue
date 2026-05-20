@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from '#imports'
 import CommunityPoiCoordsCopy from './CommunityPoiCoordsCopy.vue'
+import IconFa from '~/components/base/icons/IconFa.vue'
 import { useBluemapDeepLink, useBluemapUrl } from '~/composables/useBluemap'
 import type { CommunityPoiCoordinates } from '~/types/community-poi'
 
@@ -43,6 +44,12 @@ const wrapperClass = [
   'rounded-lg border p-5', 'border-[var(--color-border)] bg-[var(--color-surface)]'
 ].join(' ')
 
+const titleClass = [
+  'inline-flex items-center gap-2 text-base font-semibold', 'text-neutral-900 dark:text-neutral-50'
+].join(' ')
+
+const iconClass = 'h-4 w-4 text-[var(--color-brand-secondary)]'
+
 const linkClass = [
   'inline-flex items-center gap-2 rounded-md',
   'bg-[var(--color-brand-secondary)] px-3 py-1.5 text-sm font-medium text-white shadow-sm',
@@ -68,8 +75,8 @@ const toggleClass = [
   <section :class="wrapperClass" :aria-label="t('community_poi.bluemap.aria')">
     <header class="mb-3 flex items-start justify-between gap-3">
       <div>
-        <h3 class="text-base font-semibold text-neutral-900 dark:text-neutral-50">
-          <span aria-hidden="true" class="mr-1">🗺</span>
+        <h3 :class="titleClass">
+          <IconFa :icon="['fas','map']" :class="iconClass" aria-hidden="true" />
           {{ t('community_poi.bluemap.title') }}
         </h3>
         <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
@@ -94,7 +101,11 @@ const toggleClass = [
         :class="linkClass"
         :aria-label="linkAria"
       >
-        <span aria-hidden="true">↗</span>
+        <IconFa
+          :icon="['fas','arrow-up-right-from-square']"
+          class="h-3.5 w-3.5"
+          aria-hidden="true"
+        />
         {{ t('community_poi.bluemap.open') }}
       </a>
       <button
@@ -104,7 +115,11 @@ const toggleClass = [
         aria-controls="community-poi-bluemap-embed"
         @click="toggleEmbed"
       >
-        <span aria-hidden="true">{{ showEmbed ? '–' : '+' }}</span>
+        <IconFa
+          :icon="['fas', showEmbed ? 'minus' : 'plus']"
+          class="h-3 w-3"
+          aria-hidden="true"
+        />
         {{ showEmbed
           ? t('community_poi.bluemap.hide_preview')
           : t('community_poi.bluemap.show_preview') }}

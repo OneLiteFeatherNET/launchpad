@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
+import IconFa from '~/components/base/icons/IconFa.vue'
 import type { CommunityPoiSchematic } from '~/types/community-poi'
 
 const props = defineProps<{
@@ -77,7 +78,7 @@ const rotationLabel = (rotation?: CommunityPoiSchematic['rotation']) => rotation
             :rel="isExternal(schematic.url) ? 'noopener noreferrer external' : undefined"
             :class="downloadClass"
           >
-            <span aria-hidden="true">⬇</span>
+            <IconFa :icon="['fas','download']" class="h-3.5 w-3.5" aria-hidden="true" />
             <span>{{ t('community_poi.schematics.download') }}</span>
             <span v-if="isExternal(schematic.url)" class="sr-only">
               {{ t('community_poi.schematics.opens_external') }}

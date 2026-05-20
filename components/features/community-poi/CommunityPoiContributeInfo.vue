@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconFa from '~/components/base/icons/IconFa.vue'
+
 const { t } = useI18n()
 const runtimeConfig = useRuntimeConfig()
 
@@ -16,18 +18,24 @@ const wrapperClass = [
 ].join(' ')
 
 const linkClass = [
-  'inline-flex items-center gap-1 underline underline-offset-2',
+  'inline-flex items-center gap-1.5 underline underline-offset-2',
   'text-[var(--color-brand-secondary)]',
   'hover:text-[var(--color-brand-primary)]',
   'focus:outline-none focus-visible:ring-2',
   'focus-visible:ring-[var(--color-brand-secondary)] rounded'
 ].join(' ')
+
+const titleClass = [
+  'inline-flex items-center gap-2 text-base font-semibold', 'text-[var(--color-text)]'
+].join(' ')
+
+const iconClass = 'h-4 w-4 text-[var(--color-brand-secondary)]'
 </script>
 
 <template>
   <aside :class="wrapperClass" :aria-label="t('community_poi.contribute.aria')">
-    <h2 class="text-base font-semibold text-[var(--color-text)]">
-      <span aria-hidden="true" class="mr-1">📷</span>
+    <h2 :class="titleClass">
+      <IconFa :icon="['fas','image']" :class="iconClass" aria-hidden="true" />
       {{ t('community_poi.contribute.title') }}
     </h2>
     <p class="mt-1 text-sm text-[var(--color-muted)]">
@@ -41,7 +49,7 @@ const linkClass = [
           target="_blank"
           rel="noopener noreferrer external"
         >
-          <span aria-hidden="true">💬</span>
+          <IconFa :icon="['fab','discord']" class="h-3.5 w-3.5" aria-hidden="true" />
           {{ t('community_poi.contribute.discord') }}
           <span class="sr-only">{{ t('community_poi.schematics.opens_external') }}</span>
         </a>
@@ -53,7 +61,7 @@ const linkClass = [
           target="_blank"
           rel="noopener noreferrer external"
         >
-          <span aria-hidden="true">🔀</span>
+          <IconFa :icon="['fab','github']" class="h-3.5 w-3.5" aria-hidden="true" />
           {{ t('community_poi.contribute.github') }}
           <span class="sr-only">{{ t('community_poi.schematics.opens_external') }}</span>
         </a>

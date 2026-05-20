@@ -6,6 +6,7 @@ summary: 'Nachbau der von Reporter ohne Grenzen veröffentlichten Uncensored Lib
 status: 'planning'
 progress: 0
 category: 'community'
+forumUrl: 'https://discord.com/channels/752527676903784518/1409893917134028861'
 goal: 'Originalgetreuer Nachbau der Uncensored Library: gleiche Hallenform, klare Akzente und die zentralen Säle, in denen sonst zensierte Texte ihren Platz finden.'
 currentState: 'Der eigentliche Bau ist bei 0 %. Die Gebietsvorbereitung (Fläche freilegen, Höhenangleich, Beleuchtung) liegt bei rund 45 %. Schematic der "NEUE MAGABASE" als Vorlage vorhanden.'
 location: 'Vorbereitetes Bauareal'

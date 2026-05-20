@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from '#imports'
 import CommunityPoiCoordsCopy from './CommunityPoiCoordsCopy.vue'
+import IconFa from '~/components/base/icons/IconFa.vue'
 import type { CommunityPoi } from '~/types/community-poi'
 
 const props = defineProps<{
@@ -122,11 +123,11 @@ const builderLinkClass = [
       <dd>
         <a
           :href="poi.forumUrl"
-          :class="builderLinkClass"
+          :class="['inline-flex items-center gap-1.5', builderLinkClass]"
           target="_blank"
           rel="noopener noreferrer external"
         >
-          <span aria-hidden="true">💬</span>
+          <IconFa :icon="['fas','comment']" class="h-3.5 w-3.5" aria-hidden="true" />
           {{ t('community_poi.meta.forum_open') }}
           <span class="sr-only">{{ t('community_poi.schematics.opens_external') }}</span>
         </a>

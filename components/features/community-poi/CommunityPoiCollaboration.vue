@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
+import IconFa from '~/components/base/icons/IconFa.vue'
 import type { CommunityPoi } from '~/types/community-poi'
 
 const props = defineProps<{
@@ -42,8 +43,13 @@ const linkClass = [
     :style="wrapperStyle"
     :aria-label="t('community_poi.collaboration.aria')"
   >
-    <h2 :class="headingClass">
-      <span aria-hidden="true" class="mr-1">{{ isOpen ? '🤝' : '🔒' }}</span>
+    <h2 :class="['inline-flex items-center gap-2', headingClass]">
+      <IconFa
+        :icon="['fas', isOpen ? 'handshake' : 'lock']"
+        class="h-4 w-4"
+        :style="{ color: accent }"
+        aria-hidden="true"
+      />
       {{ isOpen
         ? t('community_poi.collaboration.open_title')
         : t('community_poi.collaboration.closed_title') }}
@@ -62,7 +68,7 @@ const linkClass = [
           target="_blank"
           rel="noopener noreferrer external"
         >
-          <span aria-hidden="true">💬</span>
+          <IconFa :icon="['fas','comment']" class="h-3.5 w-3.5" aria-hidden="true" />
           {{ t('community_poi.collaboration.forum_link') }}
           <span class="sr-only">{{ t('community_poi.schematics.opens_external') }}</span>
         </a>
@@ -74,7 +80,7 @@ const linkClass = [
           target="_blank"
           rel="noopener noreferrer external"
         >
-          <span aria-hidden="true">💬</span>
+          <IconFa :icon="['fab','discord']" class="h-3.5 w-3.5" aria-hidden="true" />
           {{ t('community_poi.contribute.discord') }}
           <span class="sr-only">{{ t('community_poi.schematics.opens_external') }}</span>
         </a>
@@ -86,7 +92,7 @@ const linkClass = [
           target="_blank"
           rel="noopener noreferrer external"
         >
-          <span aria-hidden="true">🔀</span>
+          <IconFa :icon="['fab','github']" class="h-3.5 w-3.5" aria-hidden="true" />
           {{ t('community_poi.contribute.github') }}
           <span class="sr-only">{{ t('community_poi.schematics.opens_external') }}</span>
         </a>

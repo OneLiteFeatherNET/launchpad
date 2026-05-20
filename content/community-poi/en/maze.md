@@ -6,6 +6,7 @@ summary: 'A walkable maze, currently around 40 % built. A schematic file ships w
 status: 'in-progress'
 progress: 40
 category: 'community'
+forumUrl: 'https://discord.com/channels/752527676903784518/1189280187876134932'
 goal: 'A finished, walkable maze with a clear entrance, several dead ends and a single solution. Atmosphere through lighting and small details at key spots.'
 currentState: 'Around 40 % of the build is done. The outer walls and the inner path network exist; several corridors are still missing.'
 location: 'Overworld — see coordinates'
@@ -33,7 +34,7 @@ schematics:
     setupNotes: |
       Origin as provided by the builder: -1465 / 61 / 792, rotation CW_180.
       The file is a WorldEdit .schem — load via //schem load labyrinth in WorldEdit, or import it into Litematica via 'Schematic placement'.
-updatedAt: '2026-05-20'
+updatedAt: '2026-04-26'
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/community-poi/labyrinth'
