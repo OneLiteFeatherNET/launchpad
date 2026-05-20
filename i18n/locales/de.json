@@ -264,11 +264,22 @@
       "download": "Herunterladen",
       "opens_external": "(öffnet eine externe Seite)",
       "hint": "Schematic mit dem Litematica-Mod in Minecraft laden, um den Bau Block für Block nachzubauen.",
+      "litematica_version": "Litematica {version}",
       "setup": {
         "title": "Point-/Setup-Guide",
         "origin": "Empfohlener Origin (X/Y/Z)",
         "facing": "Ausrichtung"
       }
+    },
+    "bluemap": {
+      "title": "Auf der BlueMap finden",
+      "aria": "BlueMap-Link mit Koordinaten",
+      "open": "Auf BlueMap öffnen",
+      "link_aria": "{title} auf der BlueMap öffnen (neuer Tab)",
+      "show_preview": "Mini-Vorschau einblenden",
+      "hide_preview": "Mini-Vorschau ausblenden",
+      "iframe_title": "BlueMap-Vorschau für {title}",
+      "embed_note": "Vorschau geladen von {host}. Für volle Funktionen die externe Seite öffnen."
     },
     "facing": {
       "north": "Norden",
@@ -312,6 +323,10 @@
           {
             "q": "Wofür ist der Point-/Setup-Guide gut?",
             "a": "Pro Schematic geben wir empfohlene Origin-Koordinaten und eine Ausrichtung an. Damit liegt das Hologramm an der vorgesehenen Stelle und passt zu den Nachbarbauten."
+          },
+          {
+            "q": "Welche Litematica-Version brauche ich?",
+            "a": "Pro Schematic geben wir die empfohlene Litematica-Version (und passende Minecraft-Version) direkt an der Datei an. Halte dich an diese Kombination – ältere oder neuere Litematica-Versionen können Blöcke unterschiedlich serialisieren und das Hologramm verschiebt sich oder fehlt komplett."
           },
           {
             "q": "Darf ich die Schematics auf eigenen Welten nutzen?",

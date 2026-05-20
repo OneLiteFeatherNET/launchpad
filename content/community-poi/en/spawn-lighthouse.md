@@ -44,6 +44,7 @@ schematics:
     name: 'Lighthouse – base & entrance'
     format: 'litematic'
     version: '1.20.4'
+    litematicaVersion: '0.16.0'
     sizeLabel: 'approx. 30 × 30 × 15'
     origin:
       x: 120
@@ -56,6 +57,7 @@ schematics:
     name: 'Spiral staircase module'
     format: 'litematic'
     version: '1.20.4'
+    litematicaVersion: '0.16.0'
     sizeLabel: 'approx. 8 × 8 × 30'
     origin:
       x: 124

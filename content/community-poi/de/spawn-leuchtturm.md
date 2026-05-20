@@ -44,6 +44,7 @@ schematics:
     name: 'Leuchtturm – Sockel & Eingang'
     format: 'litematic'
     version: '1.20.4'
+    litematicaVersion: '0.16.0'
     sizeLabel: 'ca. 30 × 30 × 15'
     origin:
       x: 120
@@ -56,6 +57,7 @@ schematics:
     name: 'Wendeltreppen-Modul'
     format: 'litematic'
     version: '1.20.4'
+    litematicaVersion: '0.16.0'
     sizeLabel: 'ca. 8 × 8 × 30'
     origin:
       x: 124

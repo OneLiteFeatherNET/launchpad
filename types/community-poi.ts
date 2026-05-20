@@ -56,6 +56,7 @@ export interface CommunityPoiSchematic {
   name: string
   format?: 'litematic' | 'schem' | 'schematic' | 'nbt'
   version?: string
+  litematicaVersion?: string
   sizeLabel?: string
   origin?: CommunityPoiSchematicOrigin
   facing?: CommunityPoiFacing

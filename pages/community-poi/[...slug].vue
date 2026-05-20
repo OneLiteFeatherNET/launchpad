@@ -19,6 +19,7 @@ const { poi } = await useCommunityPoiDetail()
 const LazyGallery = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiGallery.vue'))
 const LazySchematics = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiSchematicList.vue'))
 const LazyLitematicaHelp = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiLitematicaHelp.vue'))
+const LazyBluemap = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiBluemap.vue'))
 
 const title = computed(() => poi.value?.title || t('community_poi.overview.title'))
 const description = computed(() => poi.value?.summary || t('community_poi.overview.description'))
@@ -132,6 +133,12 @@ const progressSectionClass = [
       >
         <CommunityPoiMeta :poi="poi" />
       </section>
+
+      <LazyBluemap
+        v-if="poi.coordinates"
+        :title="poi.title"
+        :coordinates="poi.coordinates"
+      />
 
       <section v-if="poi.body" class="prose prose-neutral max-w-none dark:prose-invert">
         <ContentRenderer :value="poi" />

@@ -215,6 +215,7 @@ const communityPoiSchema = withI18nMeta(z.object({
             'nbt'
           ]).optional(),
           version: z.string().optional(),
+          litematicaVersion: z.string().optional(),
           sizeLabel: z.string().optional(),
           origin: z.object({
             x: z.number(),

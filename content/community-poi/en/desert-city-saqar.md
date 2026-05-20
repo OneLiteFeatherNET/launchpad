@@ -39,6 +39,7 @@ schematics:
     name: 'Sandstone test house'
     format: 'litematic'
     version: '1.20.4'
+    litematicaVersion: '0.16.0'
     sizeLabel: '12 × 9 × 12'
     origin:
       x: 1845

@@ -61,6 +61,11 @@ const facingLabel = (facing?: CommunityPoiSchematic['facing']) => facing ? t(`co
                 {{ formatLabel(schematic.format) }}
               </span>
               <span v-if="schematic.version">MC {{ schematic.version }}</span>
+              <span v-if="schematic.litematicaVersion">
+                {{ t('community_poi.schematics.litematica_version', {
+                  version: schematic.litematicaVersion
+                }) }}
+              </span>
               <span v-if="schematic.sizeLabel">{{ schematic.sizeLabel }}</span>
             </p>
           </div>

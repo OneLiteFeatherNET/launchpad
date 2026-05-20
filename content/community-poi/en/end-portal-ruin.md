@@ -53,6 +53,7 @@ schematics:
     name: 'End portal ruin (complete)'
     format: 'litematic'
     version: '1.20.4'
+    litematicaVersion: '0.16.0'
     sizeLabel: 'approx. 40 × 18 × 40'
     origin:
       x: -340
@@ -64,6 +65,7 @@ schematics:
     name: 'Entrance statue'
     format: 'litematic'
     version: '1.20.4'
+    litematicaVersion: '0.16.0'
     sizeLabel: '6 × 9 × 4'
     origin:
       x: -343

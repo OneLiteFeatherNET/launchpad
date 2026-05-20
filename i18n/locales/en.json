@@ -264,11 +264,22 @@
       "download": "Download",
       "opens_external": "(opens an external site)",
       "hint": "Load the schematic with the Litematica mod in Minecraft to rebuild the project block by block.",
+      "litematica_version": "Litematica {version}",
       "setup": {
         "title": "Point / setup guide",
         "origin": "Recommended origin (X/Y/Z)",
         "facing": "Facing"
       }
+    },
+    "bluemap": {
+      "title": "Find it on BlueMap",
+      "aria": "BlueMap link with coordinates",
+      "open": "Open on BlueMap",
+      "link_aria": "Open {title} on BlueMap (new tab)",
+      "show_preview": "Show mini preview",
+      "hide_preview": "Hide mini preview",
+      "iframe_title": "BlueMap preview for {title}",
+      "embed_note": "Preview loaded from {host}. Open the external site for full functionality."
     },
     "facing": {
       "north": "North",
@@ -312,6 +323,10 @@
           {
             "q": "What's the point / setup guide for?",
             "a": "Each schematic ships with a recommended origin and facing direction. Following them places the hologram in the intended spot and aligns it with neighbouring builds."
+          },
+          {
+            "q": "Which Litematica version do I need?",
+            "a": "Each schematic lists the recommended Litematica version (and matching Minecraft version) right next to the file. Stick to that combination — older or newer Litematica releases can serialise blocks differently, which shifts or breaks the hologram."
           },
           {
             "q": "Can I use the schematics on my own world?",
