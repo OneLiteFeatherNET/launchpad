@@ -41,7 +41,7 @@ jobs:
 
       - name: Upload dev server log on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: nuxt-dev-log
           path: nuxt-dev.log
@@ -79,7 +79,7 @@ jobs:
 
       - name: Upload dev server log on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: nuxt-dev-log-lh
           path: nuxt-dev.log
