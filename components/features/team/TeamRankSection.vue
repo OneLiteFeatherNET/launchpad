@@ -29,6 +29,7 @@ const profileHref = (slug?: string) => slug ? `/${locale.value}/team/${slug}` : 
         :role="m.role || rankLabel"
         :slogan="m.slogan"
         :mc-name="m.mcName"
+        :slug="m.slug"
         :avatar-url="m.avatarUrl"
         :href="profileHref(m.slug)"
       />

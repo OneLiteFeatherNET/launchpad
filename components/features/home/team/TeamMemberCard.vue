@@ -3,12 +3,14 @@ import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { teamAvatarUrl } from '~/utils/teamAvatar'
 
 type Props = {
   name: string
   role: string
   slogan?: string
   mcName?: string
+  slug?: string
   avatarUrl?: string
   href?: string
 }
@@ -16,6 +18,7 @@ type Props = {
 const props = withDefaults(defineProps<Props>(), {
   slogan: undefined,
   mcName: undefined,
+  slug: undefined,
   avatarUrl: undefined,
   href: undefined
 })
@@ -24,12 +27,13 @@ const { t } = useI18n()
 
 const profileHref = computed(() => props.href || (props.mcName ? `/team/${encodeURIComponent(props.mcName.toLowerCase())}` : undefined))
 
-const avatarSrc = computed(() => {
-  if (props.avatarUrl) return props.avatarUrl
-  if (props.mcName) return `https://mc-heads.net/avatar/${encodeURIComponent(props.mcName)}/128`
-  // Default to Steve's head for placeholder/empty slots
-  return 'https://mc-heads.net/avatar/Steve/128'
-})
+// Upstream PNG (mc-heads.net at 128px) is routed through the Cloudflare
+// Images provider, which reships it as AVIF/WebP at the displayed 64px box.
+const avatarSrc = computed(() => teamAvatarUrl({
+  mcName: props.mcName,
+  slug: props.slug,
+  avatarUrl: props.avatarUrl
+}, 128))
 
 const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: props.role }))
 </script>
@@ -43,11 +47,15 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: p
       class="group block h-full rounded-2xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-4 backdrop-blur supports-[backdrop-filter]:bg-white/70 supports-[backdrop-filter]:dark:bg-zinc-900/60 hover:shadow-lg transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
     >
       <div class="flex items-center gap-4">
-        <img
+        <NuxtImg
           :src="avatarSrc"
           :alt="t('team.avatar_alt', { name })"
           width="64"
           height="64"
+          fit="cover"
+          format="avif,webp"
+          quality="80"
+          densities="x1 x2"
           class="h-16 w-16 rounded-xl ring-1 ring-black/5 dark:ring-white/5 object-cover bg-zinc-100 dark:bg-zinc-800"
           loading="lazy"
           decoding="async"

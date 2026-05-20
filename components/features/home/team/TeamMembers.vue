@@ -119,6 +119,7 @@ const onWheel = (e: WheelEvent) => {
           :role="m.role"
           :slogan="m.slogan"
           :mc-name="m.mcName"
+          :slug="m.slug"
           :avatar-url="m.avatarUrl"
           :href="m.href ?? (m.slug ? `/team/${m.slug}` : undefined)"
         />
