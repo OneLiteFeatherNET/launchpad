@@ -16,7 +16,8 @@
     "change_language": "Sprache ändern",
     "more": "Mehr",
     "status": "Status",
-    "roadmap": "Roadmap"
+    "roadmap": "Roadmap",
+    "community_poi": "Community-POIs"
   },
   "carousel": {
     "prev": "Zurück",
@@ -212,5 +213,67 @@
     "message_404": "Die gesuchte Seite existiert nicht oder wurde möglicherweise an eine neue Adresse verschoben.",
     "title_generic": "Etwas ist schiefgelaufen",
     "message_generic": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es gleich noch einmal."
+  },
+  "community_poi": {
+    "overview": {
+      "title": "Community Points of Interest",
+      "description": "Bauprojekte aus unserer Community: Vom Konzept über laufende Baustellen bis zur fertigen Sehenswürdigkeit – mit Fortschritt, Galerie und Litematica-Schematics zum Nachbauen.",
+      "count": "{count} POIs",
+      "empty": "Aktuell sind noch keine Community-POIs veröffentlicht. Schau bald wieder rein – oder reiche dein Projekt ein!"
+    },
+    "status": {
+      "planning": "In Planung",
+      "in-progress": "Im Bau",
+      "paused": "Pausiert",
+      "completed": "Fertig"
+    },
+    "progress": {
+      "label": "Fortschritt",
+      "value_text": "{value} Prozent fertiggestellt",
+      "aria": "Aktueller Baufortschritt"
+    },
+    "goal_state": {
+      "aria": "Ziel und aktueller Zustand",
+      "goal": "Ziel",
+      "current": "Aktueller Zustand"
+    },
+    "meta": {
+      "aria": "Projekt-Metadaten",
+      "location": "Ort im Spiel",
+      "coordinates": "Koordinaten",
+      "builders": "Beteiligte Builder",
+      "started": "Begonnen",
+      "updated": "Zuletzt aktualisiert"
+    },
+    "dimension": {
+      "overworld": "Oberwelt",
+      "nether": "Nether",
+      "end": "End"
+    },
+    "gallery": {
+      "title": "Bildergalerie",
+      "aria": "Bildergalerie zum Projekt",
+      "open_at": "Bild {current} von {total} öffnen",
+      "prev": "Vorheriges Bild",
+      "next": "Nächstes Bild",
+      "close": "Galerie schließen"
+    },
+    "schematics": {
+      "title": "Litematica-Schematics",
+      "aria": "Verfügbare Schematics zum Download",
+      "download": "Herunterladen",
+      "opens_external": "(öffnet eine externe Seite)",
+      "hint": "Schematic mit dem Litematica-Mod in Minecraft laden, um den Bau Block für Block nachzubauen."
+    },
+    "card": {
+      "by": "von",
+      "builders_more": "{first} + {count} weitere",
+      "open_detail": "Details zu {title} öffnen",
+      "gallery_count_sr": "Bilder in der Galerie",
+      "schematic_count_sr": "Verfügbare Schematics"
+    },
+    "detail": {
+      "back": "Zur POI-Übersicht"
+    }
   }
 }

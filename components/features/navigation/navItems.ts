@@ -21,6 +21,7 @@ export const navConfig: NavConfigEntry[] = [
   { type: 'link', textKey: 'navigation.overview', routeName: 'index', icon: ['fas', 'home'] },
   { type: 'link', textKey: 'navigation.blog', routeName: 'blog', icon: ['fas', 'file-alt'] },
   { type: 'link', textKey: 'navigation.team', routeName: 'team', icon: ['fas', 'users'] },
+  { type: 'link', textKey: 'navigation.community_poi', routeName: 'community-poi', icon: ['fas', 'location-dot'] },
   {
     type: 'group',
     textKey: 'navigation.more',

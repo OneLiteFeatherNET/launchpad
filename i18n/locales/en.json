@@ -16,7 +16,8 @@
     "change_language": "Change language",
     "more": "More",
     "status": "Status",
-    "roadmap": "Roadmap"
+    "roadmap": "Roadmap",
+    "community_poi": "Community POIs"
   },
   "carousel": {
     "prev": "Previous",
@@ -212,5 +213,67 @@
     "message_404": "The page you are looking for doesn’t exist or may have moved to a new address.",
     "title_generic": "Something went wrong",
     "message_generic": "An unexpected error occurred. Please try again in a moment."
+  },
+  "community_poi": {
+    "overview": {
+      "title": "Community Points of Interest",
+      "description": "Building projects from our community: from concept to active build site to finished landmark — with progress, image galleries and Litematica schematics to rebuild them yourself.",
+      "count": "{count} POIs",
+      "empty": "No community POIs published yet. Check back soon — or submit your own project!"
+    },
+    "status": {
+      "planning": "Planned",
+      "in-progress": "In progress",
+      "paused": "Paused",
+      "completed": "Completed"
+    },
+    "progress": {
+      "label": "Progress",
+      "value_text": "{value} percent complete",
+      "aria": "Current build progress"
+    },
+    "goal_state": {
+      "aria": "Goal and current state",
+      "goal": "Goal",
+      "current": "Current state"
+    },
+    "meta": {
+      "aria": "Project metadata",
+      "location": "In-game location",
+      "coordinates": "Coordinates",
+      "builders": "Builders involved",
+      "started": "Started",
+      "updated": "Last updated"
+    },
+    "dimension": {
+      "overworld": "Overworld",
+      "nether": "Nether",
+      "end": "End"
+    },
+    "gallery": {
+      "title": "Image gallery",
+      "aria": "Project image gallery",
+      "open_at": "Open image {current} of {total}",
+      "prev": "Previous image",
+      "next": "Next image",
+      "close": "Close gallery"
+    },
+    "schematics": {
+      "title": "Litematica schematics",
+      "aria": "Available schematic downloads",
+      "download": "Download",
+      "opens_external": "(opens an external site)",
+      "hint": "Load the schematic with the Litematica mod in Minecraft to rebuild the project block by block."
+    },
+    "card": {
+      "by": "by",
+      "builders_more": "{first} + {count} more",
+      "open_detail": "Open details for {title}",
+      "gallery_count_sr": "Images in gallery",
+      "schematic_count_sr": "Available schematics"
+    },
+    "detail": {
+      "back": "Back to POI overview"
+    }
   }
 }

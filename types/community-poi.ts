@@ -1,0 +1,81 @@
+import type {
+  CommunityPoiDeCollectionItem,
+  CommunityPoiEnCollectionItem
+} from '@nuxt/content'
+
+export const COMMUNITY_POI_STATUSES = [
+  'planning',
+  'in-progress',
+  'paused',
+  'completed'
+] as const
+export type CommunityPoiStatus = (typeof COMMUNITY_POI_STATUSES)[number]
+
+// Status order used for sorting on the overview page (in-progress first
+// because that's where the community can still help; completed last).
+export const COMMUNITY_POI_STATUS_ORDER: Record<CommunityPoiStatus, number> = {
+  'in-progress': 0,
+  planning: 1,
+  paused: 2,
+  completed: 3
+}
+
+export interface CommunityPoiBuilder {
+  name: string
+  mcName?: string
+  link?: string
+}
+
+export interface CommunityPoiImage {
+  src: string
+  alt: string
+  caption?: string
+  width?: number
+  height?: number
+}
+
+export interface CommunityPoiSchematic {
+  url: string
+  name: string
+  format?: 'litematic' | 'schem' | 'schematic' | 'nbt'
+  version?: string
+  sizeLabel?: string
+}
+
+export interface CommunityPoiCoordinates {
+  x: number
+  y?: number
+  z: number
+  dimension?: 'overworld' | 'nether' | 'end'
+}
+
+export interface CommunityPoiAlternateHeader {
+  hreflang: string
+  href: string
+}
+
+export type CommunityPoi = (
+  | CommunityPoiDeCollectionItem
+  | CommunityPoiEnCollectionItem
+) & {
+  slug: string
+  translationKey?: string
+  title: string
+  summary: string
+  status: CommunityPoiStatus
+  progress: number
+  goal?: string
+  currentState?: string
+  builders?: CommunityPoiBuilder[]
+  location?: string
+  coordinates?: CommunityPoiCoordinates
+  thumbnail?: string
+  thumbnailAlt?: string
+  gallery?: CommunityPoiImage[]
+  schematics?: CommunityPoiSchematic[]
+  startedAt?: string | Date
+  updatedAt?: string | Date
+  canonical?: string
+  alternates?: CommunityPoiAlternateHeader[]
+  head?: Record<string, unknown>
+}

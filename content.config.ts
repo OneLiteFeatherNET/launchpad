@@ -7,8 +7,7 @@ import {
 } from './utils/content/collections'
 import {asSitemapCollection} from "@nuxtjs/sitemap/content";
 
-const blogSchema = withI18nMeta(
-  z.object({
+const blogSchema = withI18nMeta(z.object({
     title: z.string(),
     alternativeTitle: z.string().optional(),
     description: z.string(),
@@ -30,18 +29,15 @@ const blogSchema = withI18nMeta(
       type: z.string(),
       children: z.any()
     })
-  })
-)
+  }))
 
 const carouselSchema = z.object({
   key: z.string().optional(),
   slides: z
-    .array(
-      z.object({
+    .array(z.object({
         title: z.string(),
         image: z.string()
-      })
-    )
+      }))
     .default([])
 })
 
@@ -58,8 +54,7 @@ const timelineSchema = z
   .object({
     key: z.string().optional(),
     events: z
-      .array(
-        z
+      .array(z
           .object({
             id: z.union([z.string(), z.number()]),
             title: z.string(),
@@ -68,10 +63,13 @@ const timelineSchema = z
             href: z.string().optional(),
             icon: z.string().optional(),
             side: z.enum(['left', 'right']).optional(),
-            colorVariant: z.enum(['brand', 'accent', 'neutral', 'orange', 'purple']).optional()
+            colorVariant: z.enum(['brand',
+'accent',
+'neutral',
+'orange',
+'purple']).optional()
           })
-          .passthrough()
-      )
+          .passthrough())
       .default([])
   })
   .passthrough()
@@ -80,8 +78,7 @@ const teamSchema = z
   .object({
     key: z.string().optional(),
     members: z
-      .array(
-        z
+      .array(z
           .object({
             id: z.union([z.string(), z.number()]),
             name: z.string(),
@@ -106,8 +103,7 @@ const teamSchema = z
             // OpenCollective (the donation-funded Lite rank).
             applyVia: z.enum(['discord', 'opencollective']).optional()
           })
-          .passthrough()
-      )
+          .passthrough())
       .default([])
   })
   .passthrough()
@@ -118,16 +114,14 @@ const serverConceptSchema = z
     title: z.string(),
     subtitle: z.string().optional(),
     points: z
-      .array(
-        z
+      .array(z
           .object({
             id: z.union([z.string(), z.number()]),
             icon: z.string().optional(),
             title: z.string(),
             text: z.string()
           })
-          .passthrough()
-      )
+          .passthrough())
       .default([])
   })
   .passthrough()
@@ -136,8 +130,7 @@ const sponsorsSchema = z
   .object({
     key: z.string().optional(),
     sponsors: z
-      .array(
-        z
+      .array(z
           .object({
             name: z.string(),
             url: z.string().url(),
@@ -146,8 +139,7 @@ const sponsorsSchema = z
             logo: z.string().optional(),
             icon: z.string().optional()
           })
-          .passthrough()
-      )
+          .passthrough())
       .default([])
   })
   .passthrough()
@@ -160,17 +152,75 @@ const faqSchema = z
   })
   .passthrough()
 
+const communityPoiSchema = withI18nMeta(z.object({
+    slug: z.string(),
+    title: z.string(),
+    summary: z.string(),
+    status: z.enum([
+      'planning',
+      'in-progress',
+      'paused',
+      'completed'
+    ]),
+    progress: z.number().min(0).max(100).default(0),
+    goal: z.string().optional(),
+    currentState: z.string().optional(),
+    location: z.string().optional(),
+    coordinates: z
+      .object({
+        x: z.number(),
+        y: z.number().optional(),
+        z: z.number(),
+        dimension: z.enum([
+          'overworld',
+          'nether',
+          'end'
+        ]).optional()
+      })
+      .optional(),
+    builders: z
+      .array(z.object({
+          name: z.string(),
+          mcName: z.string().optional(),
+          link: z.string().url().optional()
+        }))
+      .optional(),
+    thumbnail: z.string().optional(),
+    thumbnailAlt: z.string().optional(),
+    gallery: z
+      .array(z.object({
+          src: z.string(),
+          alt: z.string(),
+          caption: z.string().optional(),
+          width: z.number().int().positive().optional(),
+          height: z.number().int().positive().optional()
+        }))
+      .optional(),
+    schematics: z
+      .array(z.object({
+          url: z.string(),
+          name: z.string(),
+          format: z.enum([
+            'litematic',
+            'schem',
+            'schematic',
+            'nbt'
+          ]).optional(),
+          version: z.string().optional(),
+          sizeLabel: z.string().optional()
+        }))
+      .optional(),
+    startedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional()
+  }))
+
 export default defineContentConfig({
   collections: {
-    ...defineLocalizedCollections('blog', (locale) =>
-      asSitemapCollection(
-          asSchemaOrgCollection({
+    ...defineLocalizedCollections('blog', (locale) => asSitemapCollection(asSchemaOrgCollection({
               type: 'page',
               source: `blog/${locale}/**/*.md`,
               schema: blogSchema
-          })
-      )
-    ),
+          }))),
     ...defineLocalizedCollections('home_carousel', (locale) => ({
       type: 'data',
       source: `carousel/${locale}/home.json`,
@@ -211,6 +261,11 @@ export default defineContentConfig({
       source: `team-faq/${locale}/*.md`,
       schema: faqSchema
     })),
+    ...defineLocalizedCollections('community_poi', (locale) => asSitemapCollection(asSchemaOrgCollection({
+          type: 'page',
+          source: `community-poi/${locale}/**/*.md`,
+          schema: communityPoiSchema
+        }))),
     authors: defineCollection({
       type: 'page',
       source: 'authors/**/*.md',
