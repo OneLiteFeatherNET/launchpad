@@ -6,11 +6,15 @@ defineProps<{
 const { t } = useI18n()
 
 const cardClass = [
-  'rounded-lg border-l-4 border-fuchsia-500 bg-fuchsia-50/60 p-5', 'dark:border-fuchsia-400 dark:bg-fuchsia-500/10'
+  'rounded-lg border-l-4 p-5',
+  'border-[var(--color-brand-purple)]',
+  'bg-[color-mix(in_oklab,var(--color-brand-purple)_8%,transparent)]'
 ].join(' ')
 
 const headingClass = [
-  'text-sm font-semibold uppercase tracking-wide', 'text-fuchsia-800 dark:text-fuchsia-200'
+  'text-sm font-semibold uppercase tracking-wide',
+  'text-[color-mix(in_oklab,var(--color-brand-purple)_75%,black)]',
+  'dark:text-[color-mix(in_oklab,var(--color-brand-purple)_30%,white)]'
 ].join(' ')
 
 const bodyClass = [

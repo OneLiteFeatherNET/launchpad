@@ -29,10 +29,10 @@ const schematicCount = computed(() => (props.poi.schematics ?? []).length)
 const detailAria = computed(() => t('community_poi.card.open_detail', { title: props.poi.title }))
 
 const articleClass = [
-  'group flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm',
-  'ring-1 ring-black/5 transition hover:shadow-md',
-  'focus-within:ring-2 focus-within:ring-[var(--color-brand-secondary,#6366f1)]',
-  'dark:bg-neutral-900 dark:ring-white/10'
+  'group flex h-full flex-col overflow-hidden rounded-xl shadow-sm',
+  'bg-[var(--color-surface)] ring-1 ring-[var(--color-border)]',
+  'transition hover:shadow-md',
+  'focus-within:ring-2 focus-within:ring-[var(--color-brand-secondary)]'
 ].join(' ')
 
 const thumbLinkClass = [

@@ -22,6 +22,17 @@ export const COMMUNITY_POI_FACINGS = ['north',
 'west'] as const
 export type CommunityPoiFacing = (typeof COMMUNITY_POI_FACINGS)[number]
 
+// Litematica placement rotation values (UI labels CW_90, CW_180, CCW_90…).
+// We store the lower-case form so it doubles as an i18n key.
+export const COMMUNITY_POI_ROTATIONS = [
+  'none',
+  'cw_90',
+  'cw_180',
+  'cw_270',
+  'ccw_90'
+] as const
+export type CommunityPoiRotation = (typeof COMMUNITY_POI_ROTATIONS)[number]
+
 // Status order used for sorting on the overview page (in-progress first
 // because that's where the community can still help; completed last).
 export const COMMUNITY_POI_STATUS_ORDER: Record<CommunityPoiStatus, number> = {
@@ -60,6 +71,7 @@ export interface CommunityPoiSchematic {
   sizeLabel?: string
   origin?: CommunityPoiSchematicOrigin
   facing?: CommunityPoiFacing
+  rotation?: CommunityPoiRotation
   setupNotes?: string
 }
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { definePageMeta } from '#imports'
+import { defineAsyncComponent, definePageMeta } from '#imports'
 import CommunityPoiGrid from '~/components/features/community-poi/CommunityPoiGrid.vue'
+
+const LazyContribute = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiContributeInfo.vue'))
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()
@@ -63,5 +65,9 @@ useSchemaOrg(() => {
     </header>
 
     <CommunityPoiGrid :pois="pois" />
+
+    <div class="mt-10">
+      <LazyContribute />
+    </div>
   </main>
 </template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from '#imports'
+import CommunityPoiCoordsCopy from './CommunityPoiCoordsCopy.vue'
 import { useBluemapDeepLink, useBluemapUrl } from '~/composables/useBluemap'
 import type { CommunityPoiCoordinates } from '~/types/community-poi'
 
@@ -39,14 +40,14 @@ const toggleEmbed = () => {
 const linkAria = computed(() => t('community_poi.bluemap.link_aria', { title: props.title }))
 
 const wrapperClass = [
-  'rounded-lg border border-neutral-200 bg-white p-5', 'dark:border-neutral-800 dark:bg-neutral-900'
+  'rounded-lg border p-5', 'border-[var(--color-border)] bg-[var(--color-surface)]'
 ].join(' ')
 
 const linkClass = [
   'inline-flex items-center gap-2 rounded-md',
-  'bg-[var(--color-brand,#0ea5e9)] px-3 py-1.5 text-sm font-medium text-white shadow-sm',
+  'bg-[var(--color-brand-secondary)] px-3 py-1.5 text-sm font-medium text-white shadow-sm',
   'hover:opacity-90 focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary,#6366f1)] focus-visible:ring-offset-2',
+  'focus-visible:ring-[var(--color-brand-secondary)] focus-visible:ring-offset-2',
   'focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900'
 ].join(' ')
 
@@ -58,7 +59,7 @@ const toggleClass = [
   'inline-flex items-center gap-1 rounded-md border border-neutral-200',
   'px-3 py-1.5 text-sm text-neutral-800 hover:bg-neutral-50',
   'focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary,#6366f1)]',
+  'focus-visible:ring-[var(--color-brand-secondary)]',
   'dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800'
 ].join(' ')
 </script>
@@ -77,6 +78,13 @@ const toggleClass = [
         </p>
       </div>
     </header>
+
+    <CommunityPoiCoordsCopy
+      class="mb-3"
+      :x="coordinates.x"
+      :y="coordinates.y"
+      :z="coordinates.z"
+    />
 
     <div class="flex flex-wrap items-center gap-2">
       <a

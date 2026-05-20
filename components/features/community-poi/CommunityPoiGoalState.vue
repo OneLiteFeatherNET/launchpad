@@ -7,19 +7,27 @@ defineProps<{
 const { t } = useI18n()
 
 const goalCard = [
-  'rounded-lg border-l-4 border-emerald-500 bg-emerald-50/60 p-4', 'dark:border-emerald-400 dark:bg-emerald-500/10'
+  'rounded-lg border-l-4 p-4',
+  'border-[var(--color-brand-primary)]',
+  'bg-[color-mix(in_oklab,var(--color-brand-primary)_8%,transparent)]'
 ].join(' ')
 
 const goalHeading = [
-  'text-sm font-semibold uppercase tracking-wide', 'text-emerald-800 dark:text-emerald-200'
+  'text-sm font-semibold uppercase tracking-wide',
+  'text-[color-mix(in_oklab,var(--color-brand-primary)_75%,black)]',
+  'dark:text-[color-mix(in_oklab,var(--color-brand-primary)_25%,white)]'
 ].join(' ')
 
 const currentCard = [
-  'rounded-lg border-l-4 border-amber-500 bg-amber-50/60 p-4', 'dark:border-amber-400 dark:bg-amber-500/10'
+  'rounded-lg border-l-4 p-4',
+  'border-[var(--color-brand-orange)]',
+  'bg-[color-mix(in_oklab,var(--color-brand-orange)_8%,transparent)]'
 ].join(' ')
 
 const currentHeading = [
-  'text-sm font-semibold uppercase tracking-wide', 'text-amber-800 dark:text-amber-200'
+  'text-sm font-semibold uppercase tracking-wide',
+  'text-[color-mix(in_oklab,var(--color-brand-orange)_70%,black)]',
+  'dark:text-[color-mix(in_oklab,var(--color-brand-orange)_30%,white)]'
 ].join(' ')
 
 const bodyClass = 'mt-1 whitespace-pre-line text-sm text-neutral-800 dark:text-neutral-100'

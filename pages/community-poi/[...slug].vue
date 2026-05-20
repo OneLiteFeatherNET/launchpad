@@ -20,6 +20,7 @@ const LazyGallery = defineAsyncComponent(() => import('~/components/features/com
 const LazySchematics = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiSchematicList.vue'))
 const LazyLitematicaHelp = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiLitematicaHelp.vue'))
 const LazyBluemap = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiBluemap.vue'))
+const LazyContribute = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiContributeInfo.vue'))
 
 const title = computed(() => poi.value?.title || t('community_poi.overview.title'))
 const description = computed(() => poi.value?.summary || t('community_poi.overview.description'))
@@ -51,9 +52,11 @@ useSchemaOrg(() => {
     `/${locale.value}/community-poi/${poi.value.slug}`,
     site.url
   ).toString()
-  return [
+  const coords = poi.value.coordinates
+  const nodes: Array<Record<string, unknown>> = [
     {
       '@type': 'CreativeWork',
+      '@id': `${detailUrl}#creativework`,
       name: poi.value.title,
       description: poi.value.summary,
       url: detailUrl,
@@ -63,14 +66,35 @@ useSchemaOrg(() => {
       author: (poi.value.builders || []).map((b) => ({ '@type': 'Person' as const, name: b.name }))
     }
   ]
+  if (coords) {
+    // Game-world coordinates are not real GPS positions, but schema.org's
+    // Place type still gives Google a richer entity to attach to the page.
+    nodes.push({
+      '@type': 'Place',
+      '@id': `${detailUrl}#place`,
+      name: poi.value.location || poi.value.title,
+      url: detailUrl,
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: 'minecraft:x', value: coords.x },
+        ...(coords.y !== undefined
+          ? [{ '@type': 'PropertyValue', name: 'minecraft:y', value: coords.y }]
+          : []),
+        { '@type': 'PropertyValue', name: 'minecraft:z', value: coords.z },
+        ...(coords.dimension
+          ? [{ '@type': 'PropertyValue', name: 'minecraft:dimension', value: coords.dimension }]
+          : [])
+      ]
+    })
+  }
+  return nodes
 })
 
 useHead(() => (poi.value as { head?: Record<string, unknown> } | null)?.head || {})
 
 const backLinkClass = [
-  'text-[var(--color-brand-secondary,#6366f1)] underline-offset-2 hover:underline',
+  'text-[var(--color-brand-secondary)] underline-offset-2 hover:underline',
   'focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary,#6366f1)]'
+  'focus-visible:ring-[var(--color-brand-secondary)]'
 ].join(' ')
 
 const heroImgClass = [
@@ -158,6 +182,8 @@ const progressSectionClass = [
         <LazySchematics :schematics="poi.schematics" />
         <LazyLitematicaHelp />
       </section>
+
+      <LazyContribute />
     </article>
   </main>
 </template>

@@ -268,7 +268,8 @@
       "setup": {
         "title": "Point-/Setup-Guide",
         "origin": "Empfohlener Origin (X/Y/Z)",
-        "facing": "Ausrichtung"
+        "facing": "Ausrichtung",
+        "rotation": "Rotation"
       }
     },
     "bluemap": {
@@ -286,6 +287,27 @@
       "south": "Süden",
       "east": "Osten",
       "west": "Westen"
+    },
+    "rotation": {
+      "none": "Keine (NONE)",
+      "cw_90": "CW_90",
+      "cw_180": "CW_180",
+      "cw_270": "CW_270",
+      "ccw_90": "CCW_90"
+    },
+    "copy": {
+      "raw": "Koordinaten kopieren",
+      "tp": "/tp kopieren",
+      "copied": "Kopiert!",
+      "raw_aria": "Koordinaten {value} in die Zwischenablage kopieren",
+      "tp_aria": "{value} in die Zwischenablage kopieren"
+    },
+    "contribute": {
+      "aria": "Wie du Inhalte beisteuern kannst",
+      "title": "Bilder oder neuen POI beisteuern",
+      "body": "Bilder können per Discord nachgereicht oder direkt per Pull-Request auf GitHub eingebunden werden. Neue POIs landen als Markdown unter content/community-poi/.",
+      "discord": "Im Discord melden",
+      "github": "PR auf GitHub eröffnen"
     },
     "category": {
       "team": "Team-Projekt",
@@ -306,6 +328,10 @@
       "title": "Litematica einrichten & verwenden",
       "intro": "Kurzanleitung und FAQ rund um den Litematica-Mod, damit du Schematics aus der Übersicht direkt nutzen kannst.",
       "aria": "Hilfe und FAQ zu Litematica",
+      "rule": {
+        "title": "Serverregel – wichtig!",
+        "body": "Litematica ist auf OneLiteFeather ausschließlich als Blaupause (Hologramm-Anzeige) erlaubt. Auto-Place (Easy Place / Place Holder / Tool-gestütztes automatisches Setzen) ist verboten und wird mit einem Permaban geahndet. Bau die Blöcke selbst – das Hologramm ist Vorlage, keine Bauhilfe."
+      },
       "faq": {
         "entries": [
           {
@@ -314,7 +340,12 @@
           },
           {
             "q": "Wie installiere ich den Mod?",
-            "a": "Du brauchst den Fabric-Loader passend zur Minecraft-Version und legst die Litematica-JAR (sowie die Abhängigkeit MaLiLib) in den mods/-Ordner. Beim Start in den Mods-Einstellungen prüfen, dass beide aktiv sind."
+            "a": "Du brauchst den Fabric-Loader passend zur Minecraft-Version und legst die Litematica-JAR (sowie die Abhängigkeit MaLiLib) in den mods/-Ordner. Beim Start in den Mods-Einstellungen prüfen, dass beide aktiv sind.",
+            "links": [
+              { "label": "Litematica auf Modrinth", "href": "https://modrinth.com/mod/litematica" },
+              { "label": "MaLiLib auf Modrinth", "href": "https://modrinth.com/mod/malilib" },
+              { "label": "Fabric Loader", "href": "https://modrinth.com/mod/fabric-api" }
+            ]
           },
           {
             "q": "Wie lade ich eine Schematic?",
@@ -326,7 +357,14 @@
           },
           {
             "q": "Welche Litematica-Version brauche ich?",
-            "a": "Pro Schematic geben wir die empfohlene Litematica-Version (und passende Minecraft-Version) direkt an der Datei an. Halte dich an diese Kombination – ältere oder neuere Litematica-Versionen können Blöcke unterschiedlich serialisieren und das Hologramm verschiebt sich oder fehlt komplett."
+            "a": "Pro Schematic geben wir die empfohlene Litematica-Version (und passende Minecraft-Version) direkt an der Datei an. Halte dich an diese Kombination – ältere oder neuere Litematica-Versionen können Blöcke unterschiedlich serialisieren und das Hologramm verschiebt sich oder fehlt komplett.",
+            "links": [
+              { "label": "Alle Litematica-Versionen auf Modrinth", "href": "https://modrinth.com/mod/litematica/versions" }
+            ]
+          },
+          {
+            "q": "Darf ich Auto-Place / Easy Place benutzen?",
+            "a": "Nein. Auf OneLiteFeather ist jede Form von Auto-Place verboten – das umfasst Easy Place, Place Holder und ähnliche Funktionen, die Blöcke automatisch setzen. Verstöße werden mit einem Permaban bestraft. Erlaubt ist Litematica nur als visuelle Blaupause; Blöcke setzt du selbst."
           },
           {
             "q": "Darf ich die Schematics auf eigenen Welten nutzen?",

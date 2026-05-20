@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
+import CommunityPoiCoordsCopy from './CommunityPoiCoordsCopy.vue'
 import type { CommunityPoi } from '~/types/community-poi'
 
 const props = defineProps<{
@@ -36,9 +37,9 @@ const updatedDate = computed(() => formatDate(props.poi.updatedAt))
 
 const builderLinkClass = [
   'underline decoration-dotted underline-offset-2',
-  'hover:text-[var(--color-brand-secondary,#6366f1)]',
+  'hover:text-[var(--color-brand-secondary)]',
   'focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary,#6366f1)]'
+  'focus-visible:ring-[var(--color-brand-secondary)]'
 ].join(' ')
 </script>
 
@@ -54,11 +55,18 @@ const builderLinkClass = [
       <dt class="font-medium text-neutral-600 dark:text-neutral-400">
         {{ t('community_poi.meta.coordinates') }}
       </dt>
-      <dd class="font-mono text-neutral-900 dark:text-neutral-100">
-        {{ coordsLabel }}
-        <span v-if="dimensionLabel" class="ml-1 font-sans text-neutral-500">
+      <dd class="text-neutral-900 dark:text-neutral-100">
+        <span class="font-mono">{{ coordsLabel }}</span>
+        <span v-if="dimensionLabel" class="ml-1 text-neutral-500">
           ({{ dimensionLabel }})
         </span>
+        <CommunityPoiCoordsCopy
+          v-if="poi.coordinates"
+          class="mt-1"
+          :x="poi.coordinates.x"
+          :y="poi.coordinates.y"
+          :z="poi.coordinates.z"
+        />
       </dd>
     </div>
     <div v-if="builders.length">

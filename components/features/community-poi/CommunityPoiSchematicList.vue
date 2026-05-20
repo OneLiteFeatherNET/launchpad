@@ -14,7 +14,7 @@ const isExternal = (url: string) => /^https?:\/\//i.test(url)
 const formatLabel = (format?: string) => (format ? `.${format}` : '')
 
 const cardClass = [
-  'rounded-lg border border-neutral-200 bg-white p-4', 'dark:border-neutral-800 dark:bg-neutral-900'
+  'rounded-lg border p-4', 'border-[var(--color-border)] bg-[var(--color-surface)]'
 ].join(' ')
 
 const metaClass = [
@@ -23,9 +23,9 @@ const metaClass = [
 
 const downloadClass = [
   'inline-flex shrink-0 items-center gap-1 rounded-md',
-  'bg-[var(--color-brand,#0ea5e9)] px-3 py-1.5 text-sm font-medium text-white shadow-sm',
+  'bg-[var(--color-brand-secondary)] px-3 py-1.5 text-sm font-medium text-white shadow-sm',
   'hover:opacity-90 focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary,#6366f1)] focus-visible:ring-offset-2',
+  'focus-visible:ring-[var(--color-brand-secondary)] focus-visible:ring-offset-2',
   'focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900'
 ].join(' ')
 
@@ -38,6 +38,7 @@ const setupTitleClass = [
 ].join(' ')
 
 const facingLabel = (facing?: CommunityPoiSchematic['facing']) => facing ? t(`community_poi.facing.${facing}`) : ''
+const rotationLabel = (rotation?: CommunityPoiSchematic['rotation']) => rotation ? t(`community_poi.rotation.${rotation}`) : ''
 </script>
 
 <template>
@@ -85,7 +86,7 @@ const facingLabel = (facing?: CommunityPoiSchematic['facing']) => facing ? t(`co
         </div>
 
         <div
-          v-if="schematic.origin || schematic.facing || schematic.setupNotes"
+          v-if="schematic.origin || schematic.facing || schematic.rotation || schematic.setupNotes"
           :class="setupClass"
         >
           <p :class="setupTitleClass">
@@ -101,6 +102,10 @@ const facingLabel = (facing?: CommunityPoiSchematic['facing']) => facing ? t(`co
             <div v-if="schematic.facing" class="flex gap-1">
               <dt class="font-medium">{{ t('community_poi.schematics.setup.facing') }}:</dt>
               <dd>{{ facingLabel(schematic.facing) }}</dd>
+            </div>
+            <div v-if="schematic.rotation" class="flex gap-1">
+              <dt class="font-medium">{{ t('community_poi.schematics.setup.rotation') }}:</dt>
+              <dd class="font-mono">{{ rotationLabel(schematic.rotation) }}</dd>
             </div>
           </dl>
           <p

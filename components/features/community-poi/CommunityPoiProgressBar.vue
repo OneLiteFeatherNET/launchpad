@@ -20,7 +20,7 @@ const heightClass = computed(() => props.size === 'sm' ? 'h-1.5' : 'h-2.5')
 
 const barClass = [
   'h-full rounded-full transition-[width] duration-500',
-  'bg-gradient-to-r from-[var(--color-brand,#0ea5e9)] to-[var(--color-brand-secondary,#6366f1)]',
+  'bg-gradient-to-r from-[var(--color-brand-primary)] to-[var(--color-brand-secondary)]',
   'motion-reduce:transition-none'
 ].join(' ')
 </script>

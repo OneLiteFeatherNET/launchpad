@@ -10,32 +10,44 @@ const { t } = useI18n()
 
 const label = computed(() => t(`community_poi.status.${props.status}`))
 
-const sizing = 'px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset'
-
+// Brand-aligned tones via color-mix over the project's token palette. Keeps
+// the badges on-brand while still differentiating each status visually.
 const tone = computed(() => {
   switch (props.status) {
     case 'in-progress':
       return [
-        'bg-amber-100 text-amber-900 ring-amber-300/60', 'dark:bg-amber-500/15 dark:text-amber-200 dark:ring-amber-400/40'
+        'bg-[color-mix(in_oklab,var(--color-brand-orange)_18%,white)]',
+        'text-[color-mix(in_oklab,var(--color-brand-orange)_70%,black)]',
+        'ring-[color-mix(in_oklab,var(--color-brand-orange)_40%,transparent)]',
+        'dark:bg-[color-mix(in_oklab,var(--color-brand-orange)_22%,transparent)]',
+        'dark:text-[color-mix(in_oklab,var(--color-brand-orange)_30%,white)]'
       ].join(' ')
     case 'planning':
       return [
-        'bg-sky-100 text-sky-900 ring-sky-300/60', 'dark:bg-sky-500/15 dark:text-sky-200 dark:ring-sky-400/40'
+        'bg-[color-mix(in_oklab,var(--color-brand-secondary)_15%,white)]',
+        'text-[color-mix(in_oklab,var(--color-brand-secondary)_70%,black)]',
+        'ring-[color-mix(in_oklab,var(--color-brand-secondary)_40%,transparent)]',
+        'dark:bg-[color-mix(in_oklab,var(--color-brand-secondary)_22%,transparent)]',
+        'dark:text-[color-mix(in_oklab,var(--color-brand-secondary)_30%,white)]'
       ].join(' ')
     case 'paused':
       return [
-        'bg-neutral-100 text-neutral-800 ring-neutral-300/60', 'dark:bg-neutral-500/15 dark:text-neutral-200 dark:ring-neutral-400/40'
+        'bg-neutral-100 text-neutral-700 ring-neutral-300/60', 'dark:bg-neutral-500/15 dark:text-neutral-200 dark:ring-neutral-400/40'
       ].join(' ')
     case 'completed':
       return [
-        'bg-emerald-100 text-emerald-900 ring-emerald-300/60', 'dark:bg-emerald-500/15 dark:text-emerald-200 dark:ring-emerald-400/40'
+        'bg-[color-mix(in_oklab,var(--color-brand-primary)_15%,white)]',
+        'text-[color-mix(in_oklab,var(--color-brand-primary)_75%,black)]',
+        'ring-[color-mix(in_oklab,var(--color-brand-primary)_40%,transparent)]',
+        'dark:bg-[color-mix(in_oklab,var(--color-brand-primary)_28%,transparent)]',
+        'dark:text-[color-mix(in_oklab,var(--color-brand-primary)_30%,white)]'
       ].join(' ')
     default:
-      return [
-        'bg-neutral-100 text-neutral-800 ring-neutral-300/60', 'dark:bg-neutral-500/15 dark:text-neutral-200 dark:ring-neutral-400/40'
-      ].join(' ')
+      return 'bg-neutral-100 text-neutral-800 ring-neutral-300/60'
   }
 })
+
+const sizing = 'px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset'
 </script>
 
 <template>

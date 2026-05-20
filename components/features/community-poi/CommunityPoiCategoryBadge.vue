@@ -10,20 +10,34 @@ const { t } = useI18n()
 
 const label = computed(() => t(`community_poi.category.${props.category}`))
 
+// Brand-aligned palette: team uses brand purple, community uses brand
+// secondary (cyan-blue), collab uses brand accent (magenta).
 const tone = computed(() => {
   switch (props.category) {
     case 'team':
       return [
-        'bg-violet-100 text-violet-900 ring-violet-300/60', 'dark:bg-violet-500/15 dark:text-violet-200 dark:ring-violet-400/40'
+        'bg-[color-mix(in_oklab,var(--color-brand-purple)_15%,white)]',
+        'text-[color-mix(in_oklab,var(--color-brand-purple)_75%,black)]',
+        'ring-[color-mix(in_oklab,var(--color-brand-purple)_40%,transparent)]',
+        'dark:bg-[color-mix(in_oklab,var(--color-brand-purple)_28%,transparent)]',
+        'dark:text-[color-mix(in_oklab,var(--color-brand-purple)_30%,white)]'
       ].join(' ')
     case 'collab':
       return [
-        'bg-fuchsia-100 text-fuchsia-900 ring-fuchsia-300/60', 'dark:bg-fuchsia-500/15 dark:text-fuchsia-200 dark:ring-fuchsia-400/40'
+        'bg-[color-mix(in_oklab,var(--color-brand-accent)_15%,white)]',
+        'text-[color-mix(in_oklab,var(--color-brand-accent)_70%,black)]',
+        'ring-[color-mix(in_oklab,var(--color-brand-accent)_40%,transparent)]',
+        'dark:bg-[color-mix(in_oklab,var(--color-brand-accent)_28%,transparent)]',
+        'dark:text-[color-mix(in_oklab,var(--color-brand-accent)_30%,white)]'
       ].join(' ')
     case 'community':
     default:
       return [
-        'bg-teal-100 text-teal-900 ring-teal-300/60', 'dark:bg-teal-500/15 dark:text-teal-200 dark:ring-teal-400/40'
+        'bg-[color-mix(in_oklab,var(--color-brand-secondary)_15%,white)]',
+        'text-[color-mix(in_oklab,var(--color-brand-secondary)_75%,black)]',
+        'ring-[color-mix(in_oklab,var(--color-brand-secondary)_40%,transparent)]',
+        'dark:bg-[color-mix(in_oklab,var(--color-brand-secondary)_25%,transparent)]',
+        'dark:text-[color-mix(in_oklab,var(--color-brand-secondary)_30%,white)]'
       ].join(' ')
   }
 })

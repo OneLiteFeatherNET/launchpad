@@ -228,6 +228,13 @@ const communityPoiSchema = withI18nMeta(z.object({
             'east',
             'west'
           ]).optional(),
+          rotation: z.enum([
+            'none',
+            'cw_90',
+            'cw_180',
+            'cw_270',
+            'ccw_90'
+          ]).optional(),
           setupNotes: z.string().optional()
         }))
       .optional(),

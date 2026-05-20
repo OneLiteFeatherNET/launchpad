@@ -73,7 +73,7 @@ onBeforeUnmount(() => {
 const tileButtonClass = [
   'group block aspect-[4/3] w-full overflow-hidden',
   'focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary,#6366f1)]'
+  'focus-visible:ring-[var(--color-brand-secondary)]'
 ].join(' ')
 
 const tileImgClass = [
