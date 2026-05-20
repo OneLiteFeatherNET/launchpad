@@ -15,3 +15,10 @@ export interface FaqEntry extends PageCollectionItemBase {
   question: string
   order?: number
 }
+
+/**
+ * Team-page FAQ entries share the structural contract of {@link FaqEntry}
+ * but live in their own collection so the home FAQ stays focused on the
+ * server-product questions.
+ */
+export type TeamFaqEntry = FaqEntry

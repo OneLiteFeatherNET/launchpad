@@ -39,6 +39,7 @@ const profileHref = (slug?: string) => slug ? `/${locale.value}/team/${slug}` : 
         :role="p.role || rankLabel"
         :slogan="p.slogan"
         :apply-url="p.applyUrl"
+        :apply-via="p.applyVia"
       />
     </ul>
   </section>

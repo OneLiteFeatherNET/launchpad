@@ -1,6 +1,6 @@
 import type { Locale } from './collections'
 import type { BlogArticle, BlogAuthorProfile } from '~/types/blog'
-import type { FaqEntry } from '~/types/faq'
+import type { FaqEntry, TeamFaqEntry } from '~/types/faq'
 import type { TeamDocument } from '~/types/team'
 import type {
   ServerConceptDocument,
@@ -44,6 +44,8 @@ export interface ContentRepository {
   // --- Team -----------------------------------------------------------------
   /** The single team document for a locale, or null. */
   getTeamDocument(locale: Locale): Promise<TeamDocument | null>
+  /** Team-page FAQ entries (applications, rank requirements), ordered ascending. */
+  listTeamFaqEntries(locale: Locale): Promise<TeamFaqEntry[]>
 
   // --- Home -----------------------------------------------------------------
   getServerConcept(locale: Locale): Promise<ServerConceptDocument | null>

@@ -2,7 +2,7 @@ import { queryCollection } from '#imports'
 import type { Locale } from './collections'
 import type { ContentRepository } from './repository'
 import type { BlogArticle, BlogAuthorProfile } from '~/types/blog'
-import type { FaqEntry } from '~/types/faq'
+import type { FaqEntry, TeamFaqEntry } from '~/types/faq'
 import type { TeamDocument } from '~/types/team'
 import type {
   ServerConceptDocument,
@@ -18,6 +18,7 @@ import type { SponsorsDocument } from '~/types/sponsoring'
 // stay confined to this file.
 const blogKey = (locale: Locale) => `blog_${locale}` as 'blog_de' | 'blog_en'
 const faqKey = (locale: Locale) => `faq_${locale}` as 'faq_de' | 'faq_en'
+const teamFaqKey = (locale: Locale) => `team_faq_${locale}` as 'team_faq_de' | 'team_faq_en'
 const teamKey = (locale: Locale) => `team_${locale}` as 'team_de' | 'team_en'
 const sponsorsKey = (locale: Locale) => `sponsors_${locale}` as 'sponsors_de' | 'sponsors_en'
 const serverConceptKey = (locale: Locale) => `server_concept_${locale}` as 'server_concept_de' | 'server_concept_en'
@@ -65,6 +66,12 @@ export function createNuxtContentAdapter(): ContentRepository {
     async getTeamDocument(locale) {
       const docs = await queryCollection(teamKey(locale)).all()
       return (docs[0] ?? null) as TeamDocument | null
+    },
+
+    listTeamFaqEntries(locale) {
+      return queryCollection(teamFaqKey(locale))
+        .order('order', 'ASC')
+        .all() as Promise<TeamFaqEntry[]>
     },
 
     async getServerConcept(locale) {
