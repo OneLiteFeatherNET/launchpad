@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from '#imports'
+import { computed } from '#imports'
 import CommunityPoiCoordsCopy from './CommunityPoiCoordsCopy.vue'
 import IconFa from '~/components/base/icons/IconFa.vue'
 import { useBluemapDeepLink, useBluemapUrl } from '~/composables/useBluemap'
@@ -33,11 +33,6 @@ c.z] : [c.x, c.z]
   return parts.join(' / ')
 })
 
-const showEmbed = ref(false)
-const toggleEmbed = () => {
-  showEmbed.value = !showEmbed.value
-}
-
 const linkAria = computed(() => t('community_poi.bluemap.link_aria', { title: props.title }))
 
 const wrapperClass = [
@@ -61,14 +56,6 @@ const linkClass = [
 const embedNoteClass = [
   'bg-neutral-50 px-3 py-2 text-xs text-neutral-600', 'dark:bg-neutral-800 dark:text-neutral-400'
 ].join(' ')
-
-const toggleClass = [
-  'inline-flex items-center gap-1 rounded-md border border-neutral-200',
-  'px-3 py-1.5 text-sm text-neutral-800 hover:bg-neutral-50',
-  'focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary)]',
-  'dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800'
-].join(' ')
 </script>
 
 <template>
@@ -84,16 +71,6 @@ const toggleClass = [
           <span v-if="dimensionLabel" class="ml-1">({{ dimensionLabel }})</span>
         </p>
       </div>
-    </header>
-
-    <CommunityPoiCoordsCopy
-      class="mb-3"
-      :x="coordinates.x"
-      :y="coordinates.y"
-      :z="coordinates.z"
-    />
-
-    <div class="flex flex-wrap items-center gap-2">
       <a
         :href="deepLink"
         target="_blank"
@@ -108,29 +85,20 @@ const toggleClass = [
         />
         {{ t('community_poi.bluemap.open') }}
       </a>
-      <button
-        type="button"
-        :class="toggleClass"
-        :aria-expanded="showEmbed ? 'true' : 'false'"
-        aria-controls="community-poi-bluemap-embed"
-        @click="toggleEmbed"
-      >
-        <IconFa
-          :icon="['fas', showEmbed ? 'minus' : 'plus']"
-          class="h-3 w-3"
-          aria-hidden="true"
-        />
-        {{ showEmbed
-          ? t('community_poi.bluemap.hide_preview')
-          : t('community_poi.bluemap.show_preview') }}
-      </button>
-    </div>
+    </header>
 
-    <div
-      v-if="showEmbed"
-      id="community-poi-bluemap-embed"
-      class="mt-4 overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-800"
-    >
+    <CommunityPoiCoordsCopy
+      class="mb-3"
+      :x="coordinates.x"
+      :y="coordinates.y"
+      :z="coordinates.z"
+    />
+
+    <!-- The iframe is loaded by default so every POI lands on its
+         in-world position immediately. `loading="lazy"` still defers the
+         fetch until the section is in view, which keeps initial page
+         weight reasonable. -->
+    <div class="overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-800">
       <iframe
         :src="deepLink"
         :title="t('community_poi.bluemap.iframe_title', { title: props.title })"

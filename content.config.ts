@@ -166,7 +166,8 @@ const communityPoiSchema = withI18nMeta(z.object({
     category: z.enum([
       'team',
       'community',
-      'collab'
+      'collab',
+      'farm'
     ]).default('community'),
     featured: z.boolean().optional(),
     featuredCaption: z.string().optional(),

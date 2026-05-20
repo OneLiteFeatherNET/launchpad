@@ -61,6 +61,9 @@ const builderLinkClass = [
         <span v-if="dimensionLabel" class="ml-1 text-neutral-500">
           ({{ dimensionLabel }})
         </span>
+        <p class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+          {{ t('community_poi.meta.coordinates_hint') }}
+        </p>
         <CommunityPoiCoordsCopy
           v-if="poi.coordinates"
           class="mt-1"

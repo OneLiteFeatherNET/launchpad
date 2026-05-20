@@ -13,7 +13,8 @@ export type CommunityPoiStatus = (typeof COMMUNITY_POI_STATUSES)[number]
 
 export const COMMUNITY_POI_CATEGORIES = ['team',
 'community',
-'collab'] as const
+'collab',
+'farm'] as const
 export type CommunityPoiCategory = (typeof COMMUNITY_POI_CATEGORIES)[number]
 
 export const COMMUNITY_POI_FACINGS = ['north',

@@ -11,7 +11,8 @@ const { t } = useI18n()
 const label = computed(() => t(`community_poi.category.${props.category}`))
 
 // Brand-aligned palette: team uses brand purple, community uses brand
-// secondary (cyan-blue), collab uses brand accent (magenta).
+// secondary (cyan-blue), collab uses brand accent (magenta), farm uses
+// brand primary (green) since farms are typically green-themed.
 const tone = computed(() => {
   switch (props.category) {
     case 'team':
@@ -29,6 +30,14 @@ const tone = computed(() => {
         'ring-[color-mix(in_oklab,var(--color-brand-accent)_40%,transparent)]',
         'dark:bg-[color-mix(in_oklab,var(--color-brand-accent)_28%,transparent)]',
         'dark:text-[color-mix(in_oklab,var(--color-brand-accent)_30%,white)]'
+      ].join(' ')
+    case 'farm':
+      return [
+        'bg-[color-mix(in_oklab,var(--color-brand-primary)_15%,white)]',
+        'text-[color-mix(in_oklab,var(--color-brand-primary)_75%,black)]',
+        'ring-[color-mix(in_oklab,var(--color-brand-primary)_40%,transparent)]',
+        'dark:bg-[color-mix(in_oklab,var(--color-brand-primary)_28%,transparent)]',
+        'dark:text-[color-mix(in_oklab,var(--color-brand-primary)_30%,white)]'
       ].join(' ')
     case 'community':
     default:

@@ -240,7 +240,8 @@
     "meta": {
       "aria": "Projekt-Metadaten",
       "location": "Ort im Spiel",
-      "coordinates": "Koordinaten",
+      "coordinates": "BlueMap-Position",
+      "coordinates_hint": "Zum Reinschauen auf der BlueMap – Litematica-Origin findest du pro Schematic.",
       "builders": "Beteiligte Builder",
       "started": "Begonnen",
       "updated": "Zuletzt aktualisiert",
@@ -322,7 +323,8 @@
     "category": {
       "team": "Team-Projekt",
       "community": "Community-Projekt",
-      "collab": "Gemeinschaftsprojekt"
+      "collab": "Gemeinschaftsprojekt",
+      "farm": "Farm"
     },
     "lore": {
       "title": "Geschichte",

@@ -240,7 +240,8 @@
     "meta": {
       "aria": "Project metadata",
       "location": "In-game location",
-      "coordinates": "Coordinates",
+      "coordinates": "BlueMap position",
+      "coordinates_hint": "For visiting on BlueMap — the Litematica origin lives on each schematic.",
       "builders": "Builders involved",
       "started": "Started",
       "updated": "Last updated",
@@ -322,7 +323,8 @@
     "category": {
       "team": "Team project",
       "community": "Community project",
-      "collab": "Team & community collab"
+      "collab": "Team & community collab",
+      "farm": "Farm"
     },
     "lore": {
       "title": "Story",
