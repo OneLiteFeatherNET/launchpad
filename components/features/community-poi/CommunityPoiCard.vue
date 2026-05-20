@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from '#imports'
 import CommunityPoiStatusBadge from './CommunityPoiStatusBadge.vue'
+import CommunityPoiCategoryBadge from './CommunityPoiCategoryBadge.vue'
 import CommunityPoiProgressBar from './CommunityPoiProgressBar.vue'
 import type { CommunityPoi } from '~/types/community-poi'
 
@@ -72,8 +73,9 @@ const footerClass = [
       <div v-else :class="placeholderClass">
         <span aria-hidden="true" class="text-4xl">⛏</span>
       </div>
-      <div class="absolute left-3 top-3">
+      <div class="absolute left-3 top-3 flex flex-wrap items-center gap-2">
         <CommunityPoiStatusBadge :status="poi.status" />
+        <CommunityPoiCategoryBadge v-if="poi.category" :category="poi.category" />
       </div>
     </NuxtLink>
 

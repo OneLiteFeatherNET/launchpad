@@ -1,4 +1,13 @@
-import type { AnySlide, ImageSlide, BlogSlide, NewsSlide, EventSlide, NormalizedSlide, LegacyImageSlide } from '~/types/carousel'
+import type {
+  AnySlide,
+  ImageSlide,
+  BlogSlide,
+  NewsSlide,
+  EventSlide,
+  PoiSlide,
+  NormalizedSlide,
+  LegacyImageSlide
+} from '~/types/carousel'
 
 /**
  * Normalizes a slide to a typed format
@@ -19,6 +28,9 @@ export function normalizeSlide(slide: AnySlide): NormalizedSlide {
   }
   if ((any as EventSlide).type === 'event') {
     return any as EventSlide
+  }
+  if ((any as PoiSlide).type === 'poi') {
+    return any as PoiSlide
   }
 
   // Legacy format: has src/alt but no type
@@ -76,6 +88,13 @@ export function isEventSlide(slide: NormalizedSlide): slide is EventSlide {
 }
 
 /**
+ * Type Guard: Checks if a slide is a PoiSlide
+ */
+export function isPoiSlide(slide: NormalizedSlide): slide is PoiSlide {
+  return slide.type === 'poi'
+}
+
+/**
  * Extracts a label text from a slide for accessibility
  */
 export function getSlideLabel(slide: NormalizedSlide): string {
@@ -87,6 +106,8 @@ export function getSlideLabel(slide: NormalizedSlide): string {
     case 'news':
       return slide.title
     case 'event':
+      return slide.title
+    case 'poi':
       return slide.title
     default:
       return 'Slide'

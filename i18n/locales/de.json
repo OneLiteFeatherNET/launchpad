@@ -263,7 +263,62 @@
       "aria": "Verfügbare Schematics zum Download",
       "download": "Herunterladen",
       "opens_external": "(öffnet eine externe Seite)",
-      "hint": "Schematic mit dem Litematica-Mod in Minecraft laden, um den Bau Block für Block nachzubauen."
+      "hint": "Schematic mit dem Litematica-Mod in Minecraft laden, um den Bau Block für Block nachzubauen.",
+      "setup": {
+        "title": "Point-/Setup-Guide",
+        "origin": "Empfohlener Origin (X/Y/Z)",
+        "facing": "Ausrichtung"
+      }
+    },
+    "facing": {
+      "north": "Norden",
+      "south": "Süden",
+      "east": "Osten",
+      "west": "Westen"
+    },
+    "category": {
+      "team": "Team-Projekt",
+      "community": "Community-Projekt",
+      "collab": "Gemeinschaftsprojekt"
+    },
+    "lore": {
+      "title": "Geschichte",
+      "aria": "Hintergrundgeschichte zum POI"
+    },
+    "carousel": {
+      "tag": "Featured POI",
+      "cta": "Projekt ansehen",
+      "cta_aria": "Zum Projekt: {title}",
+      "title_aria": "Featured POI: {title}"
+    },
+    "litematica": {
+      "title": "Litematica einrichten & verwenden",
+      "intro": "Kurzanleitung und FAQ rund um den Litematica-Mod, damit du Schematics aus der Übersicht direkt nutzen kannst.",
+      "aria": "Hilfe und FAQ zu Litematica",
+      "faq": {
+        "entries": [
+          {
+            "q": "Was ist Litematica überhaupt?",
+            "a": "Litematica ist ein Client-Mod für Minecraft (Fabric), der Schematic-Dateien (.litematic) als Hologramm im Spiel anzeigt. Damit baust du ein Projekt 1:1 nach, ohne den Server zu verändern – andere Spieler:innen sehen das Hologramm nicht."
+          },
+          {
+            "q": "Wie installiere ich den Mod?",
+            "a": "Du brauchst den Fabric-Loader passend zur Minecraft-Version und legst die Litematica-JAR (sowie die Abhängigkeit MaLiLib) in den mods/-Ordner. Beim Start in den Mods-Einstellungen prüfen, dass beide aktiv sind."
+          },
+          {
+            "q": "Wie lade ich eine Schematic?",
+            "a": "Speichere die .litematic-Datei in .minecraft/schematics/. Im Spiel öffnest du das Litematica-Menü (Standard: M), wählst 'Load schematic' und stellst die Position über 'Schematic placement' ein."
+          },
+          {
+            "q": "Wofür ist der Point-/Setup-Guide gut?",
+            "a": "Pro Schematic geben wir empfohlene Origin-Koordinaten und eine Ausrichtung an. Damit liegt das Hologramm an der vorgesehenen Stelle und passt zu den Nachbarbauten."
+          },
+          {
+            "q": "Darf ich die Schematics auf eigenen Welten nutzen?",
+            "a": "Ja, gerne. Die Schematics aus dieser Übersicht dürfen privat und auf eigenen Servern verwendet werden. Bitte gib die ursprünglichen Builder credit, wenn du sie öffentlich teilst."
+          }
+        ]
+      }
     },
     "card": {
       "by": "von",

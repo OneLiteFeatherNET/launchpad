@@ -5,6 +5,7 @@ title: 'Desert city Saqar'
 summary: 'A planned desert city with marketplace, caravanserai and oasis — a central hub in the desert biome.'
 status: 'planning'
 progress: 15
+category: 'team'
 goal: 'A lively desert city with around 25 buildings in an Arabic-inspired style: marketplace with fountain, caravanserai, mosque ruin, palm oasis with water channels and a city wall with gates.'
 currentState: 'Concept phase: city wall and marketplace layout are pegged out, first test houses built in the south to validate the style.'
 location: 'Desert biome, ~1500 blocks east of spawn'
@@ -39,6 +40,12 @@ schematics:
     format: 'litematic'
     version: '1.20.4'
     sizeLabel: '12 × 9 × 12'
+    origin:
+      x: 1845
+      y: 70
+      z: 222
+    facing: 'east'
+    setupNotes: 'Entrance faces east towards the planned marketplace.'
 startedAt: '2026-02-01'
 updatedAt: '2026-05-04'
 alternates:

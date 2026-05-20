@@ -5,6 +5,7 @@ title: 'Wüstenstadt Saqar'
 summary: 'Eine geplante Wüstenstadt mit Marktplatz, Karawanserei und Oase – als zentraler Knotenpunkt im Wüsten-Biom.'
 status: 'planning'
 progress: 15
+category: 'team'
 goal: 'Lebendige Wüstenstadt mit ca. 25 Gebäuden im arabisch inspirierten Stil: Marktplatz mit Brunnen, Karawanserei, Moscheen-Ruine, Palmenoase mit Wasserkanälen und Stadtmauer mit Toren.'
 currentState: 'Konzeptphase: Layout der Stadtmauer und des Marktplatzes ist gesteckt, erste Test-Häuser im Süden errichtet, um den Stil zu validieren.'
 location: 'Wüsten-Biom, ca. 1500 Blöcke östlich vom Spawn'
@@ -39,6 +40,12 @@ schematics:
     format: 'litematic'
     version: '1.20.4'
     sizeLabel: '12 × 9 × 12'
+    origin:
+      x: 1845
+      y: 70
+      z: 222
+    facing: 'east'
+    setupNotes: 'Eingang zeigt nach Osten zum geplanten Marktplatz.'
 startedAt: '2026-02-01'
 updatedAt: '2026-05-04'
 alternates:

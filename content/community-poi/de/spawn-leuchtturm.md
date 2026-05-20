@@ -5,6 +5,9 @@ title: 'Leuchtturm am Spawn'
 summary: 'Ein 80 Blöcke hoher Leuchtturm aus Quarz und Prismarin direkt am Hauptspawn – als weithin sichtbarer Orientierungspunkt für Neulinge.'
 status: 'in-progress'
 progress: 65
+category: 'community'
+featured: true
+featuredCaption: 'Bau mit am Wahrzeichen am Spawn – Quarz, Prismarin und ein Beacon, der nach Hause leuchtet.'
 goal: 'Vollständiger Leuchtturm mit drehender Laterne, Beacon-Beam und begehbarer Aussichtsplattform auf 70 Blöcken Höhe. Im Inneren eine Wendeltreppe sowie eine kleine Galerie für Server-Meilensteine.'
 currentState: 'Sockel und unteres Drittel stehen, Wendeltreppe bis 30 Blöcken eingebaut. Aktuell wird die mittlere Etage mit den Galeriefenstern verkleidet.'
 location: 'Spawn, östlicher Hafen'
@@ -42,11 +45,24 @@ schematics:
     format: 'litematic'
     version: '1.20.4'
     sizeLabel: 'ca. 30 × 30 × 15'
+    origin:
+      x: 120
+      y: 63
+      z: -480
+    facing: 'south'
+    setupNotes: |
+      Origin auf den Eckblock des Sockels setzen (Süd-West-Ecke). Die ersten beiden Reihen liegen im Sand – falls dein Terrain abweicht, ggf. um 1-2 Blöcke nach unten korrigieren.
   - url: '/community-poi/spawn-leuchtturm/leuchtturm-treppe.litematic'
     name: 'Wendeltreppen-Modul'
     format: 'litematic'
     version: '1.20.4'
     sizeLabel: 'ca. 8 × 8 × 30'
+    origin:
+      x: 124
+      y: 70
+      z: -476
+    facing: 'south'
+    setupNotes: 'Modul stapelbar – Origin pro Wiederholung um 30 in Y verschieben.'
 startedAt: '2025-09-12'
 updatedAt: '2026-05-10'
 alternates:

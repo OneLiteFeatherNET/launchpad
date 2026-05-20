@@ -5,6 +5,13 @@ title: 'End-Portal-Ruine'
 summary: 'Eine verwitterte, halb von Wurzeln überwucherte Tempelruine rund um das aktivierte End-Portal – fertig gebaut und für alle besuchbar.'
 status: 'completed'
 progress: 100
+category: 'collab'
+featured: true
+featuredCaption: 'Begeh die fertige Ruine und wage den Sprung in den End – mit Story, Atmosphäre und Schematic zum Mitnehmen.'
+lore: |
+  Vor langer Zeit lebte hier ein Volk, dessen Namen niemand mehr kennt. Sie bauten den Tempel, um ein Tor zu einer anderen Welt zu öffnen – und verschwanden, sobald sie hindurchgingen.
+  Der Wald hat sich das Gebäude zurückgeholt. Wurzeln umschlingen die Säulen, Seelenfeuer beleuchtet die Pfade, und im Innersten pulsiert noch immer das aktivierte End-Portal.
+  Wer hier steht, kann den Sprung wagen – oder einfach einen Moment bleiben und der Stille zuhören.
 goal: 'Eine atmosphärische Ruine als würdige Kulisse für den Sprung in den End. Inkl. zugewachsener Pfade, verfallener Statuen und Beleuchtung mit Seelenfeuer.'
 currentState: 'Fertig. Portal ist aktiviert, Pfade beleuchtet, kleine Info-Tafel am Eingang erklärt die Story.'
 location: 'Wald-Biom, nördlich vom Spawn'
@@ -47,11 +54,22 @@ schematics:
     format: 'litematic'
     version: '1.20.4'
     sizeLabel: 'ca. 40 × 18 × 40'
+    origin:
+      x: -340
+      y: 60
+      z: -1120
+    facing: 'north'
+    setupNotes: 'Origin auf die Mitte der Eingangstreppe. Der Portal-Raum liegt 12 Blöcke nördlich.'
   - url: '/community-poi/end-portal-ruine/ruine-statue.litematic'
     name: 'Eingangs-Statue'
     format: 'litematic'
     version: '1.20.4'
     sizeLabel: '6 × 9 × 4'
+    origin:
+      x: -343
+      y: 62
+      z: -1118
+    facing: 'east'
 startedAt: '2025-03-04'
 updatedAt: '2025-08-18'
 alternates:

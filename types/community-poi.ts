@@ -11,6 +11,17 @@ export const COMMUNITY_POI_STATUSES = [
 ] as const
 export type CommunityPoiStatus = (typeof COMMUNITY_POI_STATUSES)[number]
 
+export const COMMUNITY_POI_CATEGORIES = ['team',
+'community',
+'collab'] as const
+export type CommunityPoiCategory = (typeof COMMUNITY_POI_CATEGORIES)[number]
+
+export const COMMUNITY_POI_FACINGS = ['north',
+'south',
+'east',
+'west'] as const
+export type CommunityPoiFacing = (typeof COMMUNITY_POI_FACINGS)[number]
+
 // Status order used for sorting on the overview page (in-progress first
 // because that's where the community can still help; completed last).
 export const COMMUNITY_POI_STATUS_ORDER: Record<CommunityPoiStatus, number> = {
@@ -34,12 +45,21 @@ export interface CommunityPoiImage {
   height?: number
 }
 
+export interface CommunityPoiSchematicOrigin {
+  x: number
+  y: number
+  z: number
+}
+
 export interface CommunityPoiSchematic {
   url: string
   name: string
   format?: 'litematic' | 'schem' | 'schematic' | 'nbt'
   version?: string
   sizeLabel?: string
+  origin?: CommunityPoiSchematicOrigin
+  facing?: CommunityPoiFacing
+  setupNotes?: string
 }
 
 export interface CommunityPoiCoordinates {
@@ -64,6 +84,10 @@ export type CommunityPoi = (
   summary: string
   status: CommunityPoiStatus
   progress: number
+  category?: CommunityPoiCategory
+  featured?: boolean
+  featuredCaption?: string
+  lore?: string
   goal?: string
   currentState?: string
   builders?: CommunityPoiBuilder[]

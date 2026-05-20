@@ -163,6 +163,14 @@ const communityPoiSchema = withI18nMeta(z.object({
       'completed'
     ]),
     progress: z.number().min(0).max(100).default(0),
+    category: z.enum([
+      'team',
+      'community',
+      'collab'
+    ]).default('community'),
+    featured: z.boolean().optional(),
+    featuredCaption: z.string().optional(),
+    lore: z.string().optional(),
     goal: z.string().optional(),
     currentState: z.string().optional(),
     location: z.string().optional(),
@@ -207,7 +215,19 @@ const communityPoiSchema = withI18nMeta(z.object({
             'nbt'
           ]).optional(),
           version: z.string().optional(),
-          sizeLabel: z.string().optional()
+          sizeLabel: z.string().optional(),
+          origin: z.object({
+            x: z.number(),
+            y: z.number(),
+            z: z.number()
+          }).optional(),
+          facing: z.enum([
+            'north',
+            'south',
+            'east',
+            'west'
+          ]).optional(),
+          setupNotes: z.string().optional()
         }))
       .optional(),
     startedAt: z.coerce.date().optional(),

@@ -28,6 +28,16 @@ const downloadClass = [
   'focus-visible:ring-[var(--color-brand-secondary,#6366f1)] focus-visible:ring-offset-2',
   'focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900'
 ].join(' ')
+
+const setupClass = [
+  'mt-3 rounded-md bg-neutral-50 p-3 text-xs', 'text-neutral-700 dark:bg-neutral-800/60 dark:text-neutral-300'
+].join(' ')
+
+const setupTitleClass = [
+  'font-semibold uppercase tracking-wide text-[10px]', 'text-neutral-500 dark:text-neutral-400'
+].join(' ')
+
+const facingLabel = (facing?: CommunityPoiSchematic['facing']) => facing ? t(`community_poi.facing.${facing}`) : ''
 </script>
 
 <template>
@@ -67,6 +77,33 @@ const downloadClass = [
               {{ t('community_poi.schematics.opens_external') }}
             </span>
           </a>
+        </div>
+
+        <div
+          v-if="schematic.origin || schematic.facing || schematic.setupNotes"
+          :class="setupClass"
+        >
+          <p :class="setupTitleClass">
+            {{ t('community_poi.schematics.setup.title') }}
+          </p>
+          <dl class="mt-1 grid grid-cols-1 gap-x-4 gap-y-1 sm:grid-cols-2">
+            <div v-if="schematic.origin" class="flex gap-1">
+              <dt class="font-medium">{{ t('community_poi.schematics.setup.origin') }}:</dt>
+              <dd class="font-mono">
+                {{ schematic.origin.x }} / {{ schematic.origin.y }} / {{ schematic.origin.z }}
+              </dd>
+            </div>
+            <div v-if="schematic.facing" class="flex gap-1">
+              <dt class="font-medium">{{ t('community_poi.schematics.setup.facing') }}:</dt>
+              <dd>{{ facingLabel(schematic.facing) }}</dd>
+            </div>
+          </dl>
+          <p
+            v-if="schematic.setupNotes"
+            class="mt-2 whitespace-pre-line leading-relaxed"
+          >
+            {{ schematic.setupNotes }}
+          </p>
         </div>
       </li>
     </ul>

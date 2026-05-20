@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, definePageMeta } from '#imports'
 import CommunityPoiStatusBadge from '~/components/features/community-poi/CommunityPoiStatusBadge.vue'
+import CommunityPoiCategoryBadge from '~/components/features/community-poi/CommunityPoiCategoryBadge.vue'
 import CommunityPoiProgressBar from '~/components/features/community-poi/CommunityPoiProgressBar.vue'
 import CommunityPoiMeta from '~/components/features/community-poi/CommunityPoiMeta.vue'
 import CommunityPoiGoalState from '~/components/features/community-poi/CommunityPoiGoalState.vue'
+import CommunityPoiLore from '~/components/features/community-poi/CommunityPoiLore.vue'
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()
@@ -16,6 +18,7 @@ const { poi } = await useCommunityPoiDetail()
 
 const LazyGallery = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiGallery.vue'))
 const LazySchematics = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiSchematicList.vue'))
+const LazyLitematicaHelp = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiLitematicaHelp.vue'))
 
 const title = computed(() => poi.value?.title || t('community_poi.overview.title'))
 const description = computed(() => poi.value?.summary || t('community_poi.overview.description'))
@@ -93,6 +96,7 @@ const progressSectionClass = [
         </p>
         <div class="flex flex-wrap items-center gap-3">
           <CommunityPoiStatusBadge :status="poi.status" />
+          <CommunityPoiCategoryBadge v-if="poi.category" :category="poi.category" />
           <span v-if="poi.location" class="text-sm text-neutral-600 dark:text-neutral-400">
             {{ poi.location }}
           </span>
@@ -120,6 +124,8 @@ const progressSectionClass = [
 
       <CommunityPoiGoalState :goal="poi.goal" :current-state="poi.currentState" />
 
+      <CommunityPoiLore v-if="poi.lore" :lore="poi.lore" />
+
       <section
         :aria-label="t('community_poi.meta.aria')"
         class="rounded-lg border border-neutral-200 p-5 dark:border-neutral-800"
@@ -138,11 +144,12 @@ const progressSectionClass = [
         <LazyGallery :images="poi.gallery" />
       </section>
 
-      <section v-if="poi.schematics?.length">
+      <section v-if="poi.schematics?.length" class="space-y-4">
         <h2 class="mb-3 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
           {{ t('community_poi.schematics.title') }}
         </h2>
         <LazySchematics :schematics="poi.schematics" />
+        <LazyLitematicaHelp />
       </section>
     </article>
   </main>

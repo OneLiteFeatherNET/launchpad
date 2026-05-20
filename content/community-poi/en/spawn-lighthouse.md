@@ -5,6 +5,9 @@ title: 'Spawn lighthouse'
 summary: 'An 80-block tall lighthouse in quartz and prismarine right at the main spawn — a landmark to orient newcomers from far away.'
 status: 'in-progress'
 progress: 65
+category: 'community'
+featured: true
+featuredCaption: 'Help us build the spawn landmark — quartz, prismarine, and a beacon that points the way home.'
 goal: 'A full lighthouse with a rotating lantern, beacon beam and walkable viewing platform at 70 blocks height. Inside: a spiral staircase plus a small gallery showcasing server milestones.'
 currentState: 'Base and lower third are complete, spiral staircase built up to block 30. We are currently cladding the middle floor with the gallery windows.'
 location: 'Spawn, eastern harbour'
@@ -42,11 +45,24 @@ schematics:
     format: 'litematic'
     version: '1.20.4'
     sizeLabel: 'approx. 30 × 30 × 15'
+    origin:
+      x: 120
+      y: 63
+      z: -480
+    facing: 'south'
+    setupNotes: |
+      Place the origin on the south-west corner block of the base. The bottom two rows sit in sand — adjust 1-2 blocks down if your terrain differs.
   - url: '/community-poi/spawn-leuchtturm/leuchtturm-treppe.litematic'
     name: 'Spiral staircase module'
     format: 'litematic'
     version: '1.20.4'
     sizeLabel: 'approx. 8 × 8 × 30'
+    origin:
+      x: 124
+      y: 70
+      z: -476
+    facing: 'south'
+    setupNotes: 'Stackable module — bump the origin Y by 30 per repetition.'
 startedAt: '2025-09-12'
 updatedAt: '2026-05-10'
 alternates:

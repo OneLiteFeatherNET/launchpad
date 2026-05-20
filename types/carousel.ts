@@ -44,6 +44,21 @@ export interface NewsSlide {
 }
 
 /**
+ * Community POI slide. `href` cross-links to the POI detail page.
+ */
+export interface PoiSlide {
+  type: 'poi'
+  title: string
+  href: string
+  caption?: string
+  image?: string
+  alt?: string
+  status?: 'planning' | 'in-progress' | 'paused' | 'completed'
+  progress?: number
+  category?: 'team' | 'community' | 'collab'
+}
+
+/**
  * Event slide
  */
 export interface EventSlide {
@@ -71,15 +86,21 @@ export interface LegacyImageSlide {
 /**
  * Union type of all supported slide types
  */
-export type AnySlide = ImageSlide | BlogSlide | NewsSlide | EventSlide | LegacyImageSlide
+export type AnySlide =
+  | ImageSlide
+  | BlogSlide
+  | NewsSlide
+  | EventSlide
+  | PoiSlide
+  | LegacyImageSlide
 
 /**
  * Union type of normalized slides (without legacy)
  */
-export type NormalizedSlide = ImageSlide | BlogSlide | NewsSlide | EventSlide
+export type NormalizedSlide = ImageSlide | BlogSlide | NewsSlide | EventSlide | PoiSlide
 
 /**
  * Slide type discriminator for type guards
  */
-export type SlideType = 'image' | 'blog' | 'news' | 'event'
+export type SlideType = 'image' | 'blog' | 'news' | 'event' | 'poi'
 
