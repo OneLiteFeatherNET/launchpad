@@ -52,6 +52,16 @@ const placeholderClass = [
 const footerClass = [
   'mt-auto flex flex-wrap items-center justify-between gap-2 pt-2 text-xs', 'text-neutral-600 dark:text-neutral-400'
 ].join(' ')
+
+const showcaseBadgeClass = [
+  'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium',
+  'ring-1 ring-inset',
+  'bg-[color-mix(in_oklab,var(--color-brand-orange)_15%,white)]',
+  'text-[color-mix(in_oklab,var(--color-brand-orange)_70%,black)]',
+  'ring-[color-mix(in_oklab,var(--color-brand-orange)_40%,transparent)]',
+  'dark:bg-[color-mix(in_oklab,var(--color-brand-orange)_22%,transparent)]',
+  'dark:text-[color-mix(in_oklab,var(--color-brand-orange)_30%,white)]'
+].join(' ')
 </script>
 
 <template>
@@ -76,6 +86,14 @@ const footerClass = [
       <div class="absolute left-3 top-3 flex flex-wrap items-center gap-2">
         <CommunityPoiStatusBadge :status="poi.status" />
         <CommunityPoiCategoryBadge v-if="poi.category" :category="poi.category" />
+        <span
+          v-if="poi.acceptsContributions === false"
+          :class="showcaseBadgeClass"
+          :title="t('community_poi.card.showcase_only')"
+        >
+          <span aria-hidden="true">🔒</span>
+          {{ t('community_poi.card.showcase_only') }}
+        </span>
       </div>
     </NuxtLink>
 

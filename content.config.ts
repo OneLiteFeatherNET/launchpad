@@ -239,7 +239,9 @@ const communityPoiSchema = withI18nMeta(z.object({
         }))
       .optional(),
     startedAt: z.coerce.date().optional(),
-    updatedAt: z.coerce.date().optional()
+    updatedAt: z.coerce.date().optional(),
+    forumUrl: z.string().url().optional(),
+    acceptsContributions: z.boolean().optional()
   }))
 
 export default defineContentConfig({

@@ -115,5 +115,22 @@ const builderLinkClass = [
         </time>
       </dd>
     </div>
+    <div v-if="poi.forumUrl" class="sm:col-span-2">
+      <dt class="font-medium text-neutral-600 dark:text-neutral-400">
+        {{ t('community_poi.meta.forum') }}
+      </dt>
+      <dd>
+        <a
+          :href="poi.forumUrl"
+          :class="builderLinkClass"
+          target="_blank"
+          rel="noopener noreferrer external"
+        >
+          <span aria-hidden="true">💬</span>
+          {{ t('community_poi.meta.forum_open') }}
+          <span class="sr-only">{{ t('community_poi.schematics.opens_external') }}</span>
+        </a>
+      </dd>
+    </div>
   </dl>
 </template>

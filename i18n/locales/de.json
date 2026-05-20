@@ -243,7 +243,9 @@
       "coordinates": "Koordinaten",
       "builders": "Beteiligte Builder",
       "started": "Begonnen",
-      "updated": "Zuletzt aktualisiert"
+      "updated": "Zuletzt aktualisiert",
+      "forum": "Forum-Channel",
+      "forum_open": "Im Forum-Channel öffnen"
     },
     "dimension": {
       "overworld": "Oberwelt",
@@ -308,6 +310,14 @@
       "body": "Bilder können per Discord nachgereicht oder direkt per Pull-Request auf GitHub eingebunden werden. Neue POIs landen als Markdown unter content/community-poi/.",
       "discord": "Im Discord melden",
       "github": "PR auf GitHub eröffnen"
+    },
+    "collaboration": {
+      "aria": "Zusammenarbeit und Forum-Channel",
+      "open_title": "Mitbauen & mitreden",
+      "open_body": "Dieses Projekt freut sich über Bilder, Material und Builder-Hände. Sprich dich im Forum-Channel oder Discord ab, bevor du loslegst.",
+      "closed_title": "Showcase – bitte nicht verändern",
+      "closed_body": "Dieses Projekt wird nicht von der Community gepflegt. Bewundern erlaubt, mitbauen oder umbauen bitte nicht – nutze den Forum-Channel für Feedback und Fragen.",
+      "forum_link": "Forum-Channel öffnen"
     },
     "category": {
       "team": "Team-Projekt",
@@ -378,7 +388,8 @@
       "builders_more": "{first} + {count} weitere",
       "open_detail": "Details zu {title} öffnen",
       "gallery_count_sr": "Bilder in der Galerie",
-      "schematic_count_sr": "Verfügbare Schematics"
+      "schematic_count_sr": "Verfügbare Schematics",
+      "showcase_only": "Nur Showcase"
     },
     "detail": {
       "back": "Zur POI-Übersicht"

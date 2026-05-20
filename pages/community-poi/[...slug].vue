@@ -20,7 +20,7 @@ const LazyGallery = defineAsyncComponent(() => import('~/components/features/com
 const LazySchematics = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiSchematicList.vue'))
 const LazyLitematicaHelp = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiLitematicaHelp.vue'))
 const LazyBluemap = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiBluemap.vue'))
-const LazyContribute = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiContributeInfo.vue'))
+const LazyCollaboration = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiCollaboration.vue'))
 
 const title = computed(() => poi.value?.title || t('community_poi.overview.title'))
 const description = computed(() => poi.value?.summary || t('community_poi.overview.description'))
@@ -183,7 +183,7 @@ const progressSectionClass = [
         <LazyLitematicaHelp />
       </section>
 
-      <LazyContribute />
+      <LazyCollaboration :poi="poi" />
     </article>
   </main>
 </template>

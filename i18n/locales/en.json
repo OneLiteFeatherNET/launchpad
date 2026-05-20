@@ -243,7 +243,9 @@
       "coordinates": "Coordinates",
       "builders": "Builders involved",
       "started": "Started",
-      "updated": "Last updated"
+      "updated": "Last updated",
+      "forum": "Forum channel",
+      "forum_open": "Open forum channel"
     },
     "dimension": {
       "overworld": "Overworld",
@@ -308,6 +310,14 @@
       "body": "Send images via Discord or open a pull request on GitHub. New POIs live as markdown under content/community-poi/.",
       "discord": "Ping us on Discord",
       "github": "Open a PR on GitHub"
+    },
+    "collaboration": {
+      "aria": "Collaboration and forum channel",
+      "open_title": "Build & discuss",
+      "open_body": "This project welcomes images, materials, and building hands. Coordinate on the forum channel or Discord before you start.",
+      "closed_title": "Showcase — please don't modify",
+      "closed_body": "This project is not maintained by the community. Admire it freely, but please don't build or change anything — use the forum channel for feedback and questions.",
+      "forum_link": "Open forum channel"
     },
     "category": {
       "team": "Team project",
@@ -378,7 +388,8 @@
       "builders_more": "{first} + {count} more",
       "open_detail": "Open details for {title}",
       "gallery_count_sr": "Images in gallery",
-      "schematic_count_sr": "Available schematics"
+      "schematic_count_sr": "Available schematics",
+      "showcase_only": "Showcase only"
     },
     "detail": {
       "back": "Back to POI overview"

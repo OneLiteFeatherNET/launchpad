@@ -112,6 +112,8 @@ export type CommunityPoi = (
   schematics?: CommunityPoiSchematic[]
   startedAt?: string | Date
   updatedAt?: string | Date
+  forumUrl?: string
+  acceptsContributions?: boolean
   canonical?: string
   alternates?: CommunityPoiAlternateHeader[]
   head?: Record<string, unknown>
