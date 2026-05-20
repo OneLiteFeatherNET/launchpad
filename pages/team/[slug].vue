@@ -79,7 +79,17 @@ useSchemaOrg(() => {
     </NuxtLink>
     <div v-if="member" class="mt-4 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-6 md:p-8">
       <div class="flex items-start gap-5">
-        <img :src="avatarSrc" :alt="t('team.avatar_alt', { name: member.name })" width="96" height="96" class="h-24 w-24 rounded-2xl ring-1 ring-black/5 dark:ring-white/5 object-cover" >
+        <NuxtImg
+          :src="avatarSrc"
+          :alt="t('team.avatar_alt', { name: member.name })"
+          width="96"
+          height="96"
+          fit="cover"
+          format="avif,webp"
+          quality="80"
+          densities="x1 x2"
+          class="h-24 w-24 rounded-2xl ring-1 ring-black/5 dark:ring-white/5 object-cover"
+        />
         <div>
           <div class="flex flex-wrap items-center gap-2">
             <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ member.name }}</h1>

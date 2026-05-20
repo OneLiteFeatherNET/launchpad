@@ -1,6 +1,7 @@
 import { useContentRepository } from '~/composables/useContentRepository'
 import type { Locale } from '~/utils/content/collections'
 import type { TeamDocument, TeamMember } from '~/types/team'
+import { teamAvatarUrl } from '~/utils/teamAvatar'
 
 export function useTeamProfile(slugOverride?: string) {
   const route = useRoute()
@@ -21,12 +22,13 @@ export function useTeamProfile(slugOverride?: string) {
     return (list as TeamMember[]).find((m) => m.slug === slug.value) || null
   })
 
+  // Profile hero renders the head at 96px in a 2x density box. Requesting
+  // a 256px upstream render leaves headroom for retina and lets the
+  // Cloudflare Images provider re-encode to AVIF/WebP at smaller sizes.
   const avatarSrc = computed(() => {
     const m = member.value
     if (!m) return '/favicon.svg'
-    if (m.avatarUrl) return m.avatarUrl
-    if (m.mcName) return `https://mc-heads.net/avatar/${encodeURIComponent(m.mcName)}/256`
-    return '/favicon.svg'
+    return teamAvatarUrl({ mcName: m.mcName, slug: m.slug, avatarUrl: m.avatarUrl }, 256)
   })
 
   return {

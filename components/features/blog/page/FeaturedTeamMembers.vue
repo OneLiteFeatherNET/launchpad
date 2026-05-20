@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
+import { teamAvatarUrl } from '~/utils/teamAvatar'
 
 const props = defineProps<{ slugs: string[] }>()
 
@@ -30,16 +31,19 @@ const members = computed(() => props.slugs
           :to="`/${locale}/team/${m.slug}`"
           class="inline-flex items-center gap-3 rounded-xl border border-neutral-200 dark:border-neutral-800 px-3 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
         >
-          <img
-            v-if="m.mcName || m.avatarUrl"
-            :src="m.avatarUrl || `https://mc-heads.net/avatar/${encodeURIComponent(m.mcName as string)}/64`"
+          <NuxtImg
+            :src="teamAvatarUrl({ mcName: m.mcName, slug: m.slug, avatarUrl: m.avatarUrl }, 64)"
             :alt="t('team.avatar_alt', { name: m.name })"
             width="32"
             height="32"
+            fit="cover"
+            format="avif,webp"
+            quality="80"
+            densities="x1 x2"
             class="h-8 w-8 rounded-lg object-cover"
             loading="lazy"
             decoding="async"
-          >
+          />
           <span class="min-w-0">
             <span class="block text-sm font-semibold text-neutral-900 dark:text-neutral-100">{{ m.name }}</span>
             <span v-if="m.role" class="block text-xs text-neutral-600 dark:text-neutral-400">{{ m.role }}</span>
