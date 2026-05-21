@@ -242,7 +242,10 @@ const communityPoiSchema = withI18nMeta(z.object({
     startedAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
     forumUrl: z.string().url().optional(),
-    acceptsContributions: z.boolean().optional()
+    // Defaults to true: a POI is community-contributable unless it explicitly
+    // opts out. An `.optional()` boolean gets stored as `false` when absent,
+    // which would wrongly flag every POI as showcase-only.
+    acceptsContributions: z.boolean().default(true)
   }))
 
 export default defineContentConfig({
