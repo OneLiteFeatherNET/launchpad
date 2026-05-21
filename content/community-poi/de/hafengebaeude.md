@@ -18,8 +18,6 @@ coordinates:
 builders:
   - name: 'B3nNy'
     mcName: 'B3nNy'
-thumbnail: '/community-poi/hafengebaeude/cover.webp'
-thumbnailAlt: 'Vorschaubild des Hafengebäude-Projekts (Platzhalter)'
 schematics:
   - url: '/community-poi/hafengebaeude/dockhafen.litematic'
     name: 'Dockhafen'

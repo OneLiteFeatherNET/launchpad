@@ -13,8 +13,6 @@ location: 'Vorbereitetes Bauareal'
 builders:
   - name: 'B3nNy'
     mcName: 'B3nNy'
-thumbnail: '/community-poi/uncensored-library/cover.webp'
-thumbnailAlt: 'Vorschaubild des Uncensored-Library-Projekts (Platzhalter)'
 lore: |
   Die Uncensored Library wurde 2020 von Reporter ohne Grenzen in Minecraft eröffnet, um zensierte journalistische Texte aus aller Welt frei zugänglich zu machen.
   Dieser Nachbau übernimmt die markante Architektur als Hommage und gibt dem Projekt auf OneLiteFeather einen festen Platz. Inhalte und Texte werden separat kuratiert.
