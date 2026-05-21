@@ -1,18 +1,50 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faGithub, faDiscord, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
-import { faGlobe, faLink } from '@fortawesome/free-solid-svg-icons'
+import {
+  faGithub,
+  faDiscord,
+  faLinkedinIn,
+  faXTwitter,
+  faTwitter,
+  faMastodon,
+  faBluesky,
+  faYoutube,
+  faTwitch,
+  faInstagram,
+  faTiktok
+} from '@fortawesome/free-brands-svg-icons'
+import { faGlobe, faLink, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import UiChip from '~/components/base/Chip.vue'
+import { toRoleList, toRoleString } from '~/utils/teamRoles'
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()
 
-const { member, avatarSrc } = useTeamProfile()
+const { member, avatarSrc } = await useTeamProfile()
 
+const memberRoles = computed(() => toRoleList(member.value?.role))
+const memberRoleText = computed(() => toRoleString(member.value?.role))
+
+// Free-form `links` keys map to recognised brand icons; anything unknown
+// falls back to a generic chain glyph. Keys are matched case-insensitively
+// so the team JSON can use "GitHub"/"github" interchangeably.
 const linkIcons: Record<string, typeof faLink> = {
   github: faGithub,
   discord: faDiscord,
   linkedin: faLinkedinIn,
-  website: faGlobe
+  twitter: faTwitter,
+  x: faXTwitter,
+  mastodon: faMastodon,
+  bluesky: faBluesky,
+  youtube: faYoutube,
+  twitch: faTwitch,
+  instagram: faInstagram,
+  tiktok: faTiktok,
+  website: faGlobe,
+  homepage: faGlobe,
+  blog: faGlobe,
+  email: faEnvelope,
+  mail: faEnvelope
 }
 
 const profileLinks = computed(() => {
@@ -28,11 +60,18 @@ const profileLinks = computed(() => {
 
 const rankLabel = computed(() => member.value?.rank ? t(`team.ranks.${member.value.rank}`) : null)
 
+// Bio first (full description), then slogan, then role list as fallback.
+// `image` uses the Cloudflare-rendered avatar so social previews show the
+// player's head instead of the synthetic OG fallback.
 usePageSeo({
-  title: member.value ? `${member.value.name} — OneLiteFeather` : t('team.profile_title_fallback'),
-  description: member.value?.slogan || member.value?.role || t('team.profile_description_fallback'),
-  image: member.value?.avatar || undefined,
+  title: member.value ? member.value.name : t('team.profile_title_fallback'),
+  description: member.value?.bio
+    || member.value?.slogan
+    || memberRoleText.value
+    || t('team.profile_description_fallback'),
+  image: avatarSrc.value && avatarSrc.value !== '/favicon.svg' ? avatarSrc.value : undefined,
   imageAlt: member.value ? t('team.avatar_alt', { name: member.value.name }) : undefined,
+  ogType: 'profile',
   schemaType: 'ProfilePage',
 })
 
@@ -60,12 +99,37 @@ useSchemaOrg(() => {
       name: member.value.name,
       url: profileUrl,
       image: avatar,
-      jobTitle: member.value.role || undefined,
-      description: member.value.slogan || member.value.role || undefined,
+      jobTitle: memberRoleText.value || undefined,
+      description: member.value.bio || member.value.slogan || memberRoleText.value || undefined,
+      sameAs: Object.values((member.value.links || {}) as Record<string, string>).filter(Boolean),
       worksFor: { '@id': organizationId(site.url) }
     }
   ]
 })
+
+// Custom OG image that puts the Minecraft head, the actual member name
+// and their bio into the social preview, instead of the generic NuxtSeo
+// banner that `usePageSeo` registers by default. Called after
+// `usePageSeo` so the second `defineOgImage` call wins.
+if (member.value) {
+  const ogDescription = member.value.bio
+    || member.value.slogan
+    || memberRoleText.value
+    || ''
+  // Use the 3D-rendered head from mc-heads.net for the OG image — it
+  // reads better at OG card sizes than the flat avatar. Satori fetches
+  // this absolute URL at render time.
+  const mcId = member.value.mcName || member.value.slug || 'Steve'
+  const ogAvatar = member.value.avatarUrl
+    || `https://mc-heads.net/head/${encodeURIComponent(mcId)}/256`
+  defineOgImage('TeamMember', {
+    name: member.value.name,
+    description: ogDescription,
+    roleText: memberRoleText.value || undefined,
+    rankLabel: rankLabel.value || undefined,
+    avatarUrl: ogAvatar
+  })
+}
 </script>
 
 <template>
@@ -98,7 +162,15 @@ useSchemaOrg(() => {
               class="rounded-full bg-brand-100 dark:bg-brand-900/40 px-2.5 py-0.5 text-xs font-semibold text-brand-700 dark:text-brand-300"
             >{{ rankLabel }}</span>
           </div>
-          <p class="text-sm md:text-base text-gray-600 dark:text-gray-400">{{ member.role }}</p>
+          <div v-if="memberRoles.length" class="mt-2 flex flex-wrap gap-2">
+            <UiChip
+              v-for="chip in memberRoles"
+              :key="chip"
+              :label="chip"
+              variant="outlined"
+              as="span"
+            />
+          </div>
           <p v-if="member.slogan" class="mt-2 text-gray-700 dark:text-gray-300">"{{ member.slogan }}"</p>
           <p v-if="member.since" class="mt-1 text-xs text-gray-500 dark:text-gray-500">
             {{ t('team.member_since', { year: member.since }) }}

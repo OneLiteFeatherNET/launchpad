@@ -7,6 +7,7 @@
       "slug": "themeinerlp",
       "rank": "admin",
       "slogan": "Just Sudo IT.",
+      "bio": "Handles Kubernetes, Proxmox, infrastructure, development, DevOps, strategy and technical interviews.",
       "href": "/en/team/themeinerlp"
     },
     {
@@ -15,12 +16,30 @@
       "slug": "selenretterin",
       "rank": "admin",
       "slogan": "aka OneLiteFeather",
+      "bio": "Owns strategy, marketing and social media.",
       "href": "/en/team/selenretterin"
+    },
+    {
+      "id": "theevilreaper",
+      "name": "theEvilReaper",
+      "slug": "theevilreaper",
+      "rank": "admin",
+      "bio": "Works on GitHub, Minestom development, everything around minigames, exotic development and technical interviews.",
+      "href": "/en/team/theevilreaper"
+    },
+    {
+      "id": "alex-m",
+      "name": "Alex M.",
+      "slug": "alex-m",
+      "role": "Team Assistance",
+      "rank": "teamassist",
+      "href": "/en/team/alex-m"
     },
     {
       "id": "joltra",
       "name": "Joltra",
       "slug": "joltra",
+      "role": "Development",
       "rank": "content",
       "href": "/en/team/joltra"
     },
@@ -28,65 +47,50 @@
       "id": "theshadowsdust",
       "name": "theShadowsDust",
       "slug": "theshadowsdust",
+      "role": "Development",
       "rank": "content",
       "slogan": "I feel like I'm upside down.",
       "href": "/en/team/theshadowsdust"
     },
     {
-      "id": "alex-m",
-      "name": "Alex M.",
-      "slug": "alex-m",
-      "rank": "content",
-      "href": "/en/team/alex-m"
-    },
-    {
-      "id": "bavariankingdom",
-      "name": "BavarianKingdom",
-      "slug": "bavariankingdom",
-      "rank": "content",
-      "href": "/en/team/bavariankingdom"
-    },
-    {
       "id": "mcmdev",
       "name": "mcmdev",
       "slug": "mcmdev",
+      "role": "Development",
       "rank": "content",
       "href": "/en/team/mcmdev"
-    },
-    {
-      "id": "pega",
-      "name": "Pega",
-      "slug": "pega",
-      "rank": "content",
-      "href": "/en/team/pega"
     },
     {
       "id": "random",
       "name": "Random",
       "slug": "random",
+      "role": "Development",
       "rank": "content",
       "href": "/en/team/random"
+    },
+    {
+      "id": "pega",
+      "name": "Pega",
+      "slug": "pega",
+      "role": "Building Team",
+      "rank": "content",
+      "href": "/en/team/pega"
+    },
+    {
+      "id": "weltspielt",
+      "name": "weltspielt",
+      "slug": "weltspielt",
+      "role": "Content & Concepts",
+      "rank": "content",
+      "href": "/en/team/weltspielt"
     },
     {
       "id": "saynax-jonas",
       "name": "Saynax | Jonas",
       "slug": "saynax-jonas",
       "rank": "content",
+      "bio": "Handles infra, DevOps and security.",
       "href": "/en/team/saynax-jonas"
-    },
-    {
-      "id": "theevilreaper",
-      "name": "theEvilReaper",
-      "slug": "theevilreaper",
-      "rank": "admin",
-      "href": "/en/team/theevilreaper"
-    },
-    {
-      "id": "weltspielt",
-      "name": "weltspielt",
-      "slug": "weltspielt",
-      "rank": "content",
-      "href": "/en/team/weltspielt"
     },
     {
       "id": "open-content",
@@ -96,6 +100,15 @@
       "slogan": "Create content, build worlds or write code with us.",
       "openPosition": true,
       "applyUrl": "https://1lf.link/discord"
+    },
+    {
+      "id": "bavariankingdom",
+      "name": "BavarianKingdom",
+      "slug": "bavariankingdom",
+      "role": "Moderation",
+      "rank": "moderation",
+      "mcName": "morelia0815",
+      "href": "/en/team/bavariankingdom"
     },
     {
       "id": "b3nny",
@@ -113,6 +126,25 @@
       "slogan": "Keep the community fair and friendly.",
       "openPosition": true,
       "applyUrl": "https://1lf.link/discord"
+    },
+    {
+      "id": "open-media",
+      "name": "Your seat?",
+      "role": "Media",
+      "rank": "media",
+      "slogan": "For YouTubers, streamers and anyone creating content around the server.",
+      "openPosition": true,
+      "applyUrl": "https://1lf.link/discord"
+    },
+    {
+      "id": "open-lite",
+      "name": "Lite Rank",
+      "role": "Lite",
+      "rank": "lite",
+      "slogan": "The Lite rank is granted only through voluntary donations via OpenCollective. Awarding it is not guaranteed.",
+      "openPosition": true,
+      "applyUrl": "https://opencollective.com/onelitefeather",
+      "applyVia": "opencollective"
     }
   ]
 }

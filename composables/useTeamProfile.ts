@@ -3,7 +3,14 @@ import type { Locale } from '~/utils/content/collections'
 import type { TeamDocument, TeamMember } from '~/types/team'
 import { teamAvatarUrl } from '~/utils/teamAvatar'
 
-export function useTeamProfile(slugOverride?: string) {
+/**
+ * Resolves the active team member synchronously on SSR by awaiting the
+ * underlying `useAsyncData` call. This is what lets `usePageSeo` see the
+ * real member name/bio when it runs in the page's setup — without the
+ * await, meta tags ship with the "Team" fallback because the member ref
+ * is still null at SSR render time.
+ */
+export async function useTeamProfile(slugOverride?: string) {
   const route = useRoute()
   const { locale } = useI18n()
   const repo = useContentRepository()
@@ -11,7 +18,7 @@ export function useTeamProfile(slugOverride?: string) {
 
   const slug = computed(() => slugOverride ?? (route.params.slug as string))
 
-  const { data: teamDoc } = useAsyncData<TeamDocument | null>(
+  const { data: teamDoc } = await useAsyncData<TeamDocument | null>(
     () => `team-profile-${activeLocale.value}`,
     () => repo.getTeamDocument(activeLocale.value),
     { watch: [activeLocale] }

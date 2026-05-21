@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
 import { teamAvatarUrl } from '~/utils/teamAvatar'
+import { toRoleString } from '~/utils/teamRoles'
 
 const props = defineProps<{ slugs: string[] }>()
 
@@ -46,7 +47,7 @@ const members = computed(() => props.slugs
           />
           <span class="min-w-0">
             <span class="block text-sm font-semibold text-neutral-900 dark:text-neutral-100">{{ m.name }}</span>
-            <span v-if="m.role" class="block text-xs text-neutral-600 dark:text-neutral-400">{{ m.role }}</span>
+            <span v-if="toRoleString(m.role)" class="block text-xs text-neutral-600 dark:text-neutral-400">{{ toRoleString(m.role) }}</span>
           </span>
         </NuxtLink>
       </li>

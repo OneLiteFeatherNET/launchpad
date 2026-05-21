@@ -67,7 +67,7 @@
   "team": {
     "title": "Team",
     "subtitle": "Lerne die Menschen hinter OneLiteFeather kennen.",
-    "profile_title_fallback": "Team — OneLiteFeather",
+    "profile_title_fallback": "Team",
     "profile_description_fallback": "Teammitglied-Profil bei OneLiteFeather.",
     "search_label": "Team durchsuchen",
     "search_placeholder": "Name suchen…",
@@ -84,8 +84,8 @@
     "member_since": "Teil des Teams seit {year}",
     "profile_link_aria": "{platform}-Profil von {name}",
     "index": {
-      "title": "Unser Team — OneLiteFeather",
-      "subtitle": "Die Menschen hinter dem Netzwerk – und die freien Plätze, die auf dich warten.",
+      "title": "Unser Team",
+      "subtitle": "Die Menschen hinter dem Netzwerk und die freien Plätze, die auf dich warten.",
       "description": "Lerne das OneLiteFeather-Team nach Rollen geordnet kennen und entdecke die offenen Stellen, auf die du dich bewerben kannst."
     },
     "ranks": {
@@ -93,13 +93,19 @@
       "teamassist": "Teamassistenz",
       "content": "Content",
       "moderation": "Moderation",
-      "media": "Social Media",
+      "media": "Media",
       "lite": "Lite"
     },
     "open_position": {
       "badge": "Offene Stelle",
       "apply": "Über Discord bewerben",
-      "apply_aria": "Für {role} über Discord bewerben"
+      "apply_aria": "Für {role} über Discord bewerben",
+      "apply_opencollective": "Über OpenCollective unterstützen",
+      "apply_aria_opencollective": "{role} über OpenCollective unterstützen"
+    },
+    "faq": {
+      "section_title": "Bewerbungen und Ränge",
+      "section_subtitle": "Antworten zu Ablauf, Anforderungen und dem Lite-Rang."
     }
   },
   "timeline": {

@@ -2,6 +2,7 @@
 import TeamMemberCard from './TeamMemberCard.vue'
 import { useI18n } from 'vue-i18n'
 import type { TeamMember } from '~/types/team'
+import { toRoleList } from '~/utils/teamRoles'
 
 type Props = {
   title?: string
@@ -23,7 +24,10 @@ const selectedRole = ref<string>('')
 const visibleCount = ref<number | null>(props.limit)
 
 const roles = computed(() => {
-  const set = new Set(props.members.map(m => m.role).filter(Boolean))
+  const set = new Set<string>()
+  for (const m of props.members) {
+    for (const r of toRoleList(m.role)) set.add(r)
+  }
   return Array.from(set)
 })
 
@@ -31,7 +35,7 @@ const filtered = computed(() => {
   const q = query.value.trim().toLowerCase()
   const r = selectedRole.value
   let list = props.members
-  if (r) list = list.filter(m => m.role === r)
+  if (r) list = list.filter(m => toRoleList(m.role).includes(r))
   if (q) list = list.filter(m => m.name.toLowerCase().includes(q))
   return list
 })

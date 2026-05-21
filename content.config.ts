@@ -86,9 +86,12 @@ const teamSchema = z
             id: z.union([z.string(), z.number()]),
             name: z.string(),
             slug: z.string().optional(),
-            role: z.string().optional(),
+            // Sub-role label(s). A single string keeps existing entries
+            // valid; an array renders one chip per discipline for members
+            // who wear several hats (e.g. development + building).
+            role: z.union([z.string(), z.array(z.string())]).optional(),
             // Coarse group for sectioning/ordering; specific job stays in `role`.
-            rank: z.enum(['admin', 'content', 'moderation']).optional(),
+            rank: z.enum(['admin', 'teamassist', 'content', 'moderation', 'media', 'lite']).optional(),
             slogan: z.string().optional(),
             bio: z.string().optional(),
             since: z.string().optional(),
@@ -98,7 +101,10 @@ const teamSchema = z
             avatarUrl: z.string().url().optional(),
             // Marks an entry as an open position rather than a real member.
             openPosition: z.boolean().optional(),
-            applyUrl: z.string().url().optional()
+            applyUrl: z.string().url().optional(),
+            // Channel for an open position: Discord (regular hiring) or
+            // OpenCollective (the donation-funded Lite rank).
+            applyVia: z.enum(['discord', 'opencollective']).optional()
           })
           .passthrough()
       )
@@ -198,6 +204,11 @@ export default defineContentConfig({
     ...defineLocalizedCollections('faq', (locale) => ({
       type: 'page',
       source: `faq/${locale}/*.md`,
+      schema: faqSchema
+    })),
+    ...defineLocalizedCollections('team_faq', (locale) => ({
+      type: 'page',
+      source: `team-faq/${locale}/*.md`,
       schema: faqSchema
     })),
     authors: defineCollection({

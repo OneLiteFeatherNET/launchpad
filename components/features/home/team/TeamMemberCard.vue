@@ -3,11 +3,13 @@ import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import UiChip from '~/components/base/Chip.vue'
 import { teamAvatarUrl } from '~/utils/teamAvatar'
+import { toRoleList, toRoleString } from '~/utils/teamRoles'
 
 type Props = {
   name: string
-  role: string
+  role?: string | string[]
   slogan?: string
   mcName?: string
   slug?: string
@@ -16,6 +18,7 @@ type Props = {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  role: undefined,
   slogan: undefined,
   mcName: undefined,
   slug: undefined,
@@ -35,7 +38,9 @@ const avatarSrc = computed(() => teamAvatarUrl({
   avatarUrl: props.avatarUrl
 }, 128))
 
-const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: props.role }))
+const roleChips = computed(() => toRoleList(props.role))
+const roleAriaText = computed(() => toRoleString(props.role))
+const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: roleAriaText.value }))
 </script>
 
 <template>
@@ -62,8 +67,16 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: p
         />
         <div class="min-w-0">
           <h3 class="truncate text-lg font-semibold text-gray-900 dark:text-gray-100">{{ name }}</h3>
-          <p class="truncate text-sm text-gray-600 dark:text-gray-400">{{ role }}</p>
         </div>
+      </div>
+      <div v-if="roleChips.length" class="mt-3 flex flex-wrap gap-2">
+        <UiChip
+          v-for="chip in roleChips"
+          :key="chip"
+          :label="chip"
+          variant="outlined"
+          as="span"
+        />
       </div>
       <p v-if="slogan" class="mt-3 line-clamp-3 text-sm text-gray-700 dark:text-gray-300">“{{ slogan }}”</p>
       <p v-if="profileHref" class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400">

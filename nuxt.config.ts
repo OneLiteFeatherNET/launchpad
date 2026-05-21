@@ -99,6 +99,12 @@ export default defineNuxtConfig({
             {label: 'Last Modified', select: 'sitemap:lastmod', width: '25%'},
             {label: 'Language', select: 'sitemap:hreflang', width: '25%'}
         ],
+        // Team profiles live in a data-type content collection so they're
+        // not auto-discovered. We materialise the per-member URLs through
+        // a Nitro endpoint that reads the same JSON the page uses.
+        sources: [
+            '/api/__sitemap__/team'
+        ],
         defaults: {
             changefreq: 'weekly',
             priority: 0.8

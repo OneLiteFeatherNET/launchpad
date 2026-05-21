@@ -2,19 +2,33 @@
 import { useI18n } from 'vue-i18n'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+import { faHandHoldingHeart } from '@fortawesome/free-solid-svg-icons'
+import { toRoleString } from '~/utils/teamRoles'
 
 type Props = {
-  role: string
+  role: string | string[]
   slogan?: string
   applyUrl?: string
+  applyVia?: 'discord' | 'opencollective'
 }
 
 const props = withDefaults(defineProps<Props>(), {
   slogan: undefined,
-  applyUrl: 'https://1lf.link/discord'
+  applyUrl: 'https://1lf.link/discord',
+  applyVia: 'discord'
 })
 
 const { t } = useI18n()
+
+const roleText = computed(() => toRoleString(props.role))
+const isOpenCollective = computed(() => props.applyVia === 'opencollective')
+const icon = computed(() => isOpenCollective.value ? faHandHoldingHeart : faDiscord)
+const applyLabel = computed(() => isOpenCollective.value
+  ? t('team.open_position.apply_opencollective')
+  : t('team.open_position.apply'))
+const applyAria = computed(() => isOpenCollective.value
+  ? t('team.open_position.apply_aria_opencollective', { role: roleText.value })
+  : t('team.open_position.apply_aria', { role: roleText.value }))
 </script>
 
 <template>
@@ -29,19 +43,19 @@ const { t } = useI18n()
           <p class="text-xs font-semibold uppercase tracking-wide text-primary dark:text-secondary">
             {{ t('team.open_position.badge') }}
           </p>
-          <h3 class="truncate text-lg font-semibold text-gray-900 dark:text-gray-100">{{ props.role }}</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 break-words">{{ roleText }}</h3>
         </div>
       </div>
-      <p v-if="props.slogan" class="mt-3 line-clamp-3 text-sm text-gray-700 dark:text-gray-300">{{ props.slogan }}</p>
+      <p v-if="props.slogan" class="mt-3 text-sm text-gray-700 dark:text-gray-300">{{ props.slogan }}</p>
       <a
         :href="props.applyUrl"
         target="_blank"
         rel="noopener noreferrer"
         class="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-        :aria-label="t('team.open_position.apply_aria', { role: props.role })"
+        :aria-label="applyAria"
       >
-        <FontAwesomeIcon :icon="faDiscord" class="h-4 w-4" aria-hidden="true" />
-        {{ t('team.open_position.apply') }}
+        <FontAwesomeIcon :icon="icon" class="h-4 w-4" aria-hidden="true" />
+        {{ applyLabel }}
       </a>
     </div>
   </li>

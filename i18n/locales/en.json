@@ -67,7 +67,7 @@
   "team": {
     "title": "Team",
     "subtitle": "Meet the people behind OneLiteFeather.",
-    "profile_title_fallback": "Team — OneLiteFeather",
+    "profile_title_fallback": "Team",
     "profile_description_fallback": "Team member profile on OneLiteFeather.",
     "search_label": "Search team",
     "search_placeholder": "Search name…",
@@ -84,8 +84,8 @@
     "member_since": "Part of the team since {year}",
     "profile_link_aria": "{platform} profile of {name}",
     "index": {
-      "title": "Our Team — OneLiteFeather",
-      "subtitle": "The people behind the network — and the open seats waiting for you.",
+      "title": "Our Team",
+      "subtitle": "The people behind the network, and the open seats waiting for you.",
       "description": "Meet the OneLiteFeather team, organised by role, and discover the open positions you can apply for."
     },
     "ranks": {
@@ -93,13 +93,19 @@
       "teamassist": "Team Assistance",
       "content": "Content",
       "moderation": "Moderation",
-      "media": "Social Media",
+      "media": "Media",
       "lite": "Lite"
     },
     "open_position": {
       "badge": "Open position",
       "apply": "Apply via Discord",
-      "apply_aria": "Apply for {role} via Discord"
+      "apply_aria": "Apply for {role} via Discord",
+      "apply_opencollective": "Support via OpenCollective",
+      "apply_aria_opencollective": "Support {role} via OpenCollective"
+    },
+    "faq": {
+      "section_title": "Applications and ranks",
+      "section_subtitle": "Answers on the process, requirements, and the Lite rank."
     }
   },
   "timeline": {
