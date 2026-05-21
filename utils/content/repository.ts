@@ -8,6 +8,7 @@ import type {
   HomeCarouselDocument
 } from '~/types/home'
 import type { SponsorsDocument } from '~/types/sponsoring'
+import type { CommunityPoi } from '~/types/community-poi'
 
 /**
  * Provider-agnostic content access layer.
@@ -54,4 +55,15 @@ export interface ContentRepository {
 
   // --- Sponsoring -----------------------------------------------------------
   getSponsorsDocument(locale: Locale): Promise<SponsorsDocument | null>
+
+  // --- Community POI --------------------------------------------------------
+  /** All community POIs for a locale (unfiltered, unsorted — caller decides). */
+  listCommunityPois(locale: Locale): Promise<CommunityPoi[]>
+  /** Single POI by its `slug` frontmatter field, or null. */
+  getCommunityPoiBySlug(locale: Locale, slug: string): Promise<CommunityPoi | null>
+  /** Single POI in `locale` sharing the given `translationKey`, or null. */
+  getCommunityPoiByTranslationKey(
+    locale: Locale,
+    translationKey: string
+  ): Promise<CommunityPoi | null>
 }
