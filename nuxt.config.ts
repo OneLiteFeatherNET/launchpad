@@ -3,6 +3,12 @@ import {defineOrganization} from 'nuxt-schema-org/schema'
 import tailwindcss from "@tailwindcss/vite";
 import pkg from './package.json' assert {type: 'json'}
 
+// Cloudflare Workers Builds deploys the `release` branch as production and
+// every other branch (incl. `main`) as a preview. The Cloudflare image proxy
+// (img.onelitefeather.net) only serves the live site, so preview deploys must
+// not route images through it — otherwise every branch-new asset 404s.
+const isProductionImageHost = process.env.WORKERS_CI_BRANCH === 'release'
+
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
     devtools: {
@@ -131,7 +137,10 @@ export default defineNuxtConfig({
         version: pkg.version
     },
     image: {
-        provider: 'cloudflare',
+        // Production routes images through the Cloudflare image proxy; preview
+        // and local builds use the `none` provider so originals are served
+        // straight from the deployment's own /public, which always exists.
+        provider: isProductionImageHost ? 'cloudflare' : 'none',
         // Prefer modern formats with automatic fallback for browsers that don't support them.
         format: ['avif', 'webp'],
         // Slightly lower default quality to trim payloads without obvious visual loss.
