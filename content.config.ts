@@ -88,7 +88,14 @@ const teamSchema = z
             // who wear several hats (e.g. development + building).
             role: z.union([z.string(), z.array(z.string())]).optional(),
             // Coarse group for sectioning/ordering; specific job stays in `role`.
-            rank: z.enum(['admin', 'teamassist', 'content', 'moderation', 'media', 'lite']).optional(),
+            rank: z.enum([
+              'admin',
+              'teamassist',
+              'content',
+              'moderation',
+              'media',
+              'lite'
+            ]).optional(),
             slogan: z.string().optional(),
             bio: z.string().optional(),
             since: z.string().optional(),
