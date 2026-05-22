@@ -63,7 +63,7 @@
     "remark-rehype": "^11.1.2",
     "satori": "0.26.0",
     "tailwindcss": "^4.1.17",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
     "unstorage": "^1.17.3",
