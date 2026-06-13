@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-label="Three eggs in one basket versus one egg in each of three baskets" content="&lt;mxfile host=&quot;app.diagrams.net&quot;&gt;  &lt;diagram name=&quot;analogy-eggs-baskets&quot;&gt;&lt;mxGraphModel dx=&quot;900&quot; dy=&quot;420&quot; grid=&quot;0&quot; gridSize=&quot;10&quot; guides=&quot;1&quot; tooltips=&quot;1&quot; connect=&quot;1&quot; arrows=&quot;1&quot; fold=&quot;1&quot; page=&quot;1&quot; pageScale=&quot;1&quot; pageWidth=&quot;900&quot; pageHeight=&quot;360&quot; math=&quot;0&quot; shadow=&quot;0&quot; background=&quot;#0b1020&quot;&gt;
+  &lt;root&gt;
+    &lt;mxCell id=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;1&quot; parent=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;cL&quot; value=&quot;1 basket — everything together&quot; style=&quot;text;html=1;align=left;fontSize=16;fontStyle=1;fontColor=#ef6a6a;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;40&quot; y=&quot;26&quot; width=&quot;360&quot; height=&quot;24&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;e1&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#f4ead0;strokeColor=#cdbb8f;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;144&quot; y=&quot;106&quot; width=&quot;52&quot; height=&quot;68&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;e2&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#f4ead0;strokeColor=#cdbb8f;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;189&quot; y=&quot;114&quot; width=&quot;52&quot; height=&quot;68&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;e3&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#f4ead0;strokeColor=#cdbb8f;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;234&quot; y=&quot;106&quot; width=&quot;52&quot; height=&quot;68&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;bk1&quot; value=&quot;&quot; style=&quot;shape=trapezoid;direction=south;fillColor=#8a5a2b;strokeColor=#5e3c1c;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;120&quot; y=&quot;170&quot; width=&quot;190&quot; height=&quot;100&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;xb&quot; value=&quot;X&quot; style=&quot;ellipse;fillColor=#2a1115;strokeColor=#ef4444;fontColor=#ef4444;fontSize=18;fontStyle=1;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;338&quot; y=&quot;90&quot; width=&quot;44&quot; height=&quot;44&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;cap1&quot; value=&quot;One stumble — and all three are gone.&quot; style=&quot;text;html=1;align=center;fontSize=12;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;80&quot; y=&quot;294&quot; width=&quot;280&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;div&quot; value=&quot;&quot; style=&quot;line;strokeColor=#2b3a73;dashed=1;direction=north;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;449&quot; y=&quot;52&quot; width=&quot;2&quot; height=&quot;268&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;cR&quot; value=&quot;3 baskets — spread out&quot; style=&quot;text;html=1;align=left;fontSize=16;fontStyle=1;fontColor=#46d39a;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;490&quot; y=&quot;26&quot; width=&quot;360&quot; height=&quot;24&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;re1&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#f4ead0;strokeColor=#cdbb8f;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;540&quot; y=&quot;114&quot; width=&quot;40&quot; height=&quot;52&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rb1&quot; value=&quot;&quot; style=&quot;shape=trapezoid;direction=south;fillColor=#8a5a2b;strokeColor=#5e3c1c;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;520&quot; y=&quot;158&quot; width=&quot;80&quot; height=&quot;64&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;re2&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#f4ead0;strokeColor=#cdbb8f;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;670&quot; y=&quot;114&quot; width=&quot;40&quot; height=&quot;52&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rb2&quot; value=&quot;&quot; style=&quot;shape=trapezoid;direction=south;fillColor=#8a5a2b;strokeColor=#5e3c1c;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;650&quot; y=&quot;158&quot; width=&quot;80&quot; height=&quot;64&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;re3&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#f4ead0;strokeColor=#cdbb8f;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;800&quot; y=&quot;114&quot; width=&quot;40&quot; height=&quot;52&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rb3&quot; value=&quot;&quot; style=&quot;shape=trapezoid;direction=south;fillColor=#8a5a2b;strokeColor=#5e3c1c;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;780&quot; y=&quot;158&quot; width=&quot;80&quot; height=&quot;64&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;vb&quot; value=&quot;✓&quot; style=&quot;ellipse;fillColor=#0d1a13;strokeColor=#34d399;fontColor=#34d399;fontSize=18;fontStyle=1;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;578&quot; y=&quot;86&quot; width=&quot;44&quot; height=&quot;44&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;cap2&quot; value=&quot;One basket tips over — only one egg is lost.&quot; style=&quot;text;html=1;align=center;fontSize=12;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;550&quot; y=&quot;294&quot; width=&quot;280&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+  &lt;/root&gt;
+&lt;/mxGraphModel&gt;&lt;/diagram&gt;&lt;/mxfile&gt;">
+  <defs>
+    <style>
+      .t{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+      .cap{font-size:16px;font-weight:700}
+      .mut{font-size:12.5px;fill:#9aa6c8}
+      .badge{font-size:18px;font-weight:800}
+    </style>
+  </defs>
+  <rect x="0" y="0" width="900" height="360" rx="18" fill="#0b1020"/>
+  <line x1="450" y1="52" x2="450" y2="320" stroke="#2b3a73" stroke-width="1.5" stroke-dasharray="5 6"/>
+
+  <text class="t cap" x="40" y="42" fill="#ef6a6a">1 basket — everything together</text>
+  <g>
+    <ellipse cx="170" cy="140" rx="26" ry="34" fill="#f4ead0" stroke="#cdbb8f"/>
+    <ellipse cx="215" cy="148" rx="26" ry="34" fill="#f4ead0" stroke="#cdbb8f"/>
+    <ellipse cx="260" cy="140" rx="26" ry="34" fill="#f4ead0" stroke="#cdbb8f"/>
+  </g>
+  <path d="M110 170 L320 170 L300 270 L130 270 Z" fill="#8a5a2b" stroke="#5e3c1c" stroke-width="2"/>
+  <ellipse cx="215" cy="170" rx="105" ry="16" fill="#a06a36" stroke="#5e3c1c" stroke-width="2"/>
+  <line x1="150" y1="173" x2="166" y2="267" stroke="#5e3c1c" stroke-width="1.5" opacity="0.6"/>
+  <line x1="190" y1="174" x2="198" y2="268" stroke="#5e3c1c" stroke-width="1.5" opacity="0.6"/>
+  <line x1="240" y1="174" x2="232" y2="268" stroke="#5e3c1c" stroke-width="1.5" opacity="0.6"/>
+  <line x1="280" y1="173" x2="264" y2="267" stroke="#5e3c1c" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="360" cy="112" r="22" fill="#2a1115" stroke="#ef4444" stroke-width="2"/>
+  <text class="t badge" x="360" y="120" fill="#ef4444" text-anchor="middle">✗</text>
+  <text class="t mut" x="215" y="306" text-anchor="middle">One stumble — and all three are gone.</text>
+
+  <text class="t cap" x="490" y="42" fill="#46d39a">3 baskets — spread out</text>
+  <g>
+    <ellipse cx="560" cy="140" rx="20" ry="26" fill="#f4ead0" stroke="#cdbb8f"/>
+    <path d="M520 158 L600 158 L590 222 L530 222 Z" fill="#8a5a2b" stroke="#5e3c1c" stroke-width="2"/>
+    <ellipse cx="560" cy="158" rx="40" ry="9" fill="#a06a36" stroke="#5e3c1c" stroke-width="2"/>
+    <ellipse cx="690" cy="140" rx="20" ry="26" fill="#f4ead0" stroke="#cdbb8f"/>
+    <path d="M650 158 L730 158 L720 222 L660 222 Z" fill="#8a5a2b" stroke="#5e3c1c" stroke-width="2"/>
+    <ellipse cx="690" cy="158" rx="40" ry="9" fill="#a06a36" stroke="#5e3c1c" stroke-width="2"/>
+    <ellipse cx="820" cy="140" rx="20" ry="26" fill="#f4ead0" stroke="#cdbb8f"/>
+    <path d="M780 158 L860 158 L850 222 L790 222 Z" fill="#8a5a2b" stroke="#5e3c1c" stroke-width="2"/>
+    <ellipse cx="820" cy="158" rx="40" ry="9" fill="#a06a36" stroke="#5e3c1c" stroke-width="2"/>
+  </g>
+  <circle cx="600" cy="108" r="22" fill="#0d1a13" stroke="#34d399" stroke-width="2"/>
+  <text class="t badge" x="600" y="116" fill="#34d399" text-anchor="middle">✓</text>
+  <text class="t mut" x="690" y="306" text-anchor="middle">One basket tips over — only one egg is lost.</text>
+</svg>

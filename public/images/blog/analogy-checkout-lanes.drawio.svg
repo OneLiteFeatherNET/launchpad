@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-label="Four supermarket checkout lanes, three open and one closed for a break" content="&lt;mxfile host=&quot;app.diagrams.net&quot;&gt;  &lt;diagram name=&quot;analogy-checkout-lanes&quot;&gt;&lt;mxGraphModel dx=&quot;900&quot; dy=&quot;420&quot; grid=&quot;0&quot; gridSize=&quot;10&quot; guides=&quot;1&quot; tooltips=&quot;1&quot; connect=&quot;1&quot; arrows=&quot;1&quot; fold=&quot;1&quot; page=&quot;1&quot; pageScale=&quot;1&quot; pageWidth=&quot;900&quot; pageHeight=&quot;360&quot; math=&quot;0&quot; shadow=&quot;0&quot; background=&quot;#0b1020&quot;&gt;
+  &lt;root&gt;
+    &lt;mxCell id=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;1&quot; parent=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;title&quot; value=&quot;Maintenance: only one lane closes at a time&quot; style=&quot;text;html=1;align=left;fontSize=20;fontStyle=1;fontColor=#eef2ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;40&quot; y=&quot;24&quot; width=&quot;700&quot; height=&quot;28&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;sub&quot; value=&quot;Never all of them — someone always stays open to serve.&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;40&quot; y=&quot;54&quot; width=&quot;700&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;o1&quot; value=&quot;OPEN&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#0d1a13;strokeColor=#27624a;fontColor=#34d399;fontStyle=1;verticalAlign=bottom;spacingBottom=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;48&quot; y=&quot;96&quot; width=&quot;180&quot; height=&quot;210&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;o1c&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#1f6f52;strokeColor=#34d399;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;116&quot; y=&quot;128&quot; width=&quot;44&quot; height=&quot;44&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;o2&quot; value=&quot;OPEN&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#0d1a13;strokeColor=#27624a;fontColor=#34d399;fontStyle=1;verticalAlign=bottom;spacingBottom=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;248&quot; y=&quot;96&quot; width=&quot;180&quot; height=&quot;210&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;o2c&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#1f6f52;strokeColor=#34d399;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;316&quot; y=&quot;128&quot; width=&quot;44&quot; height=&quot;44&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;o3&quot; value=&quot;OPEN&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#0d1a13;strokeColor=#27624a;fontColor=#34d399;fontStyle=1;verticalAlign=bottom;spacingBottom=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;448&quot; y=&quot;96&quot; width=&quot;180&quot; height=&quot;210&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;o3c&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#1f6f52;strokeColor=#34d399;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;516&quot; y=&quot;128&quot; width=&quot;44&quot; height=&quot;44&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;c1&quot; value=&quot;BREAK · 1x&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#241318;strokeColor=#7a3340;fontColor=#ef4444;fontStyle=1;verticalAlign=bottom;spacingBottom=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;648&quot; y=&quot;96&quot; width=&quot;180&quot; height=&quot;210&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;c1s&quot; value=&quot;II&quot; style=&quot;rounded=1;fillColor=#3a1c22;strokeColor=#ef4444;fontColor=#ef4444;fontStyle=1;fontSize=18;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;688&quot; y=&quot;138&quot; width=&quot;100&quot; height=&quot;40&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+  &lt;/root&gt;
+&lt;/mxGraphModel&gt;&lt;/diagram&gt;&lt;/mxfile&gt;">
+  <defs>
+    <style>
+      .t{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+      .title{font-size:20px;font-weight:700;fill:#eef2ff}
+      .sub{font-size:13px;fill:#9aa6c8}
+      .lbl{font-size:13px;font-weight:700}
+    </style>
+  </defs>
+  <rect x="0" y="0" width="900" height="360" rx="18" fill="#0b1020"/>
+  <text class="t title" x="40" y="44">Maintenance: only one lane closes at a time</text>
+  <text class="t sub" x="40" y="68">Never all of them — someone always stays open to serve.</text>
+
+  <!-- 3 open lanes -->
+  <g>
+    <!-- lane template -->
+    <rect x="48" y="96" width="180" height="210" rx="12" fill="#0d1a13" stroke="#27624a"/>
+    <circle cx="138" cy="150" r="22" fill="#1f6f52" stroke="#34d399"/>
+    <rect x="98" y="196" width="120" height="14" rx="7" fill="#16324a"/>
+    <rect x="98" y="220" width="120" height="48" rx="8" fill="#11324f" stroke="#2b6a9c"/>
+    <text class="t lbl" x="138" y="292" fill="#34d399" text-anchor="middle">OPEN</text>
+
+    <rect x="248" y="96" width="180" height="210" rx="12" fill="#0d1a13" stroke="#27624a"/>
+    <circle cx="338" cy="150" r="22" fill="#1f6f52" stroke="#34d399"/>
+    <rect x="298" y="196" width="120" height="14" rx="7" fill="#16324a"/>
+    <rect x="298" y="220" width="120" height="48" rx="8" fill="#11324f" stroke="#2b6a9c"/>
+    <text class="t lbl" x="338" y="292" fill="#34d399" text-anchor="middle">OPEN</text>
+
+    <rect x="448" y="96" width="180" height="210" rx="12" fill="#0d1a13" stroke="#27624a"/>
+    <circle cx="538" cy="150" r="22" fill="#1f6f52" stroke="#34d399"/>
+    <rect x="498" y="196" width="120" height="14" rx="7" fill="#16324a"/>
+    <rect x="498" y="220" width="120" height="48" rx="8" fill="#11324f" stroke="#2b6a9c"/>
+    <text class="t lbl" x="538" y="292" fill="#34d399" text-anchor="middle">OPEN</text>
+  </g>
+
+  <!-- 1 closed lane -->
+  <rect x="648" y="96" width="180" height="210" rx="12" fill="#241318" stroke="#7a3340"/>
+  <rect x="688" y="138" width="100" height="40" rx="8" fill="#3a1c22" stroke="#ef4444"/>
+  <rect x="724" y="150" width="9" height="18" rx="2" fill="#ef4444"/>
+  <rect x="742" y="150" width="9" height="18" rx="2" fill="#ef4444"/>
+  <rect x="698" y="220" width="120" height="48" rx="8" fill="#2a1a1e" stroke="#7a3340"/>
+  <text class="t lbl" x="738" y="292" fill="#ef4444" text-anchor="middle">BREAK · 1×</text>
+</svg>
