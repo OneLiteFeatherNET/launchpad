@@ -66,6 +66,8 @@ The third picture: imagine a power shortage at home, only a limited amount of ju
 
 That's exactly the pecking order I gave the cluster. When space runs short, the machine knows on its own what to protect: the storage that holds all the data, and the databases everything depends on. And what steps back first? The nice-but-optional things – like our Minecraft map viewer. Nobody has to get up at night and decide; the order is fixed in advance.
 
+> **A real example from our cluster.** When we recently pulled a server out for an update, our Minecraft map viewer (BlueMap) stayed reachable the whole time – because at least two copies kept running on other servers. Before the rework, it would have briefly vanished at exactly that moment.
+
 ## The highs – and the lows
 
 Honestly, this didn't happen in one clean sweep. There were lovely moments and grinding ones.

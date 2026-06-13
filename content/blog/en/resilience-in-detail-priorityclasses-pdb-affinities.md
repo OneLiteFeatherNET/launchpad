@@ -47,7 +47,9 @@ Our `feather-core` cluster runs in a single zone (`fr01`) with separated node ro
 
 ## Pillar 1: Resources – no more BestEffort
 
-Before you can talk about scheduling guarantees, pods need `requests` and `limits` in the first place. Pods without them land in the `BestEffort` QoS class and are the first the kubelet kills under memory pressure – no matter how critical they are.
+Before you can talk about scheduling guarantees, pods need [`requests` and `limits`](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) in the first place. Pods without them land in the [`BestEffort` QoS class](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/) and are the first the kubelet kills under [node memory pressure](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/) – no matter how critical they are.
+
+> **Case in point.** Our PostgreSQL cluster (CloudNativePG) ran for a while with no resource specs at all – i.e. `BestEffort`. The very pod you least want touched under memory pressure would have been the first to be evicted. Only explicit `requests`/`limits` lifted it into the `Guaranteed` class (commit `fix(cnpg): set resources on postgres cluster (was BestEffort)`).
 
 I went through the stack methodically and eliminated the last BestEffort workloads: Postgres, the MariaDB/MaxScale metrics exporters, MetalLB, the CNPG Barman plugin sidecar, Mimir, Loki, the Envoy data-plane and several more got explicit `requests`/`limits`. Where only memory limits existed, I added CPU limits – set generously above observed load to avoid throttling:
 
@@ -64,7 +66,7 @@ This pillar is unspectacular but a prerequisite for everything else: only with c
 
 ## Pillar 2: PodDisruptionBudgets against the "all-at-once" effect
 
-A node drain (update, maintenance) evicts every pod on that node. Without a guardrail, this can hit all replicas of a multi-replica service simultaneously – a brief total outage. A PodDisruptionBudget with `maxUnavailable: 1` forbids that:
+A [node drain](https://kubernetes.io/docs/tasks/administration-cluster/safely-drain-node/) (update, maintenance) evicts every pod on that node. Without a guardrail, this can hit all replicas of a multi-replica service simultaneously – a brief total outage. A [PodDisruptionBudget](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/) with `maxUnavailable: 1` forbids that:
 
 ```yaml
 apiVersion: policy/v1
@@ -82,14 +84,18 @@ spec:
 
 I added PDBs like this for every multi-replica service: BlueMap (3), Dependency-Track frontend (3), Harbor components core/registry/jobservice/portal (2 each), Reposilite (3) and the Prometheus agent (2). I deliberately gave single-replica workloads **no** PDB – a `maxUnavailable: 1` on a single replica would block node drains entirely. Because the underlying Helm charts often offer no native PDB, these live as standalone manifests next to the releases.
 
+> **Case in point.** Draining `fr01-wrk-xl-01` for maintenance could, without a PDB, have moved several BlueMap replicas at once – the map viewer gone for a beat. With `maxUnavailable: 1`, Kubernetes moves the replicas one after another; at least two stay reachable throughout.
+
 ## Pillar 3: A five-tier PriorityClass scheme
 
-When memory runs short cluster-wide, pod priority decides who stays and who yields to preemption/eviction. I defined five tiers below the built-in `system-*` classes:
+When memory runs short cluster-wide, [pod priority (PriorityClass & preemption)](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) decides who stays and who yields. I defined five tiers below the built-in `system-*` classes (`system-cluster-critical`/`system-node-critical`):
 
 ![Five PriorityClasses from feather-critical to feather-low, with eviction order](/images/blog/priority-tiers.drawio.svg)
 *Higher value wins. Storage sits at the top, the best-effort apps at the very bottom – those are evicted first under pressure.*
 
 Storage and databases are thereby structurally protected; expendable apps step back first. So much for the theory – now to the two spots where it hurt.
+
+> **Case in point.** When a worker comes under memory pressure, the kubelet evicts `feather-low` first – BlueMap, Node-RED, Uptime-Kuma. The Galera database (`feather-platform`) and Ceph (`feather-critical`) are left untouched. Before, that order was left to chance: it could just as easily have hit the database.
 
 ### Pitfall 1: the silent no-op
 
@@ -124,9 +130,9 @@ Lesson: in GitOps a single immutable field is not a local error – it can stall
 
 ## Affinities: topology as a resilience lever
 
-Priority and PDBs govern the *whether*; affinities govern the *where*.
+Priority and PDBs govern the *whether*; [affinities](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-to-node/) govern the *where*.
 
-**Node affinity (zone pinning):** all PVC-backed workloads belong on `fr01` nodes, where the `ceph-rbd-fr01` storage is local – otherwise I/O performance suffers. I hard-anchored this for Harbor-Trivy, step-ca and MariaDB, for example:
+**Node affinity (zone pinning):** all PVC-backed workloads belong on `fr01` nodes, where the `ceph-rbd-fr01` storage is local – otherwise I/O performance suffers. Using the [well-known label `topology.kubernetes.io/zone`](https://kubernetes.io/docs/reference/labels-annotations-taints/#topologykubernetesiozone) I hard-anchored this for Harbor-Trivy, step-ca and MariaDB, for example:
 
 ```yaml
 nodeAffinity:
@@ -137,6 +143,8 @@ nodeAffinity:
             operator: In
             values: ["fr01"]
 ```
+
+> **Case in point.** step-ca and Harbor-Trivy depend on `ceph-rbd-fr01` PVCs. Without zone pinning the scheduler could have placed them on a node with no local storage – with noticeably slower I/O over the network. The hard `requiredDuringScheduling` on the `fr01` zone prevents exactly that (commit `feat(affinity): enforce fr01 zone for harbor-trivy and step-ca`).
 
 **Pod anti-affinity (spreading):** multiple replicas on the same node aren't real redundancy. For BlueMap, Reposilite, Shlink and the Dependency-Track frontend I added a *soft* (preferred) anti-affinity so replicas prefer different nodes but don't block scheduling when nodes are scarce:
 
@@ -201,6 +209,16 @@ Result: two MaxScale pods, `1/1 Running`, on two different nodes, the LoadBalanc
 - **GitOps discipline as a safety net.** Every one of these changes is a reviewed commit; the reconcile immediately surfaces when something like an immutable field gets in the way – sometimes painful, but always transparent.
 
 The biggest lesson was less a single setting than a pattern: **written down is not applied.** A value nobody reads; a field that can't change; a hard rule without enough nodes – the trouble rarely sits in the idea, almost always in the interplay. That is exactly what our cluster is now a good deal more robust against.
+
+## Sources & Further Reading
+
+So the knowledge is traceable – the official Kubernetes docs for each building block:
+
+- **Resources & QoS:** [Managing resources for containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) · [Quality-of-Service classes](https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/) · [Node-pressure eviction](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+- **PodDisruptionBudgets:** [Disruptions (concept)](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/) · [Configure a PDB](https://kubernetes.io/docs/tasks/run-application/configure-pdb/) · [Safely drain a node](https://kubernetes.io/docs/tasks/administration-cluster/safely-drain-node/)
+- **Priority:** [Pod Priority & Preemption](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+- **Placement:** [Assigning Pods to Nodes (affinity & anti-affinity)](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-to-node/) · [Well-known labels (`topology.kubernetes.io/zone`)](https://kubernetes.io/docs/reference/labels-annotations-taints/#topologykubernetesiozone)
+- **Webhook immutability:** [Admission controllers (validating webhooks)](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) – why the MaxScale operator only accepts some fields on a fresh CR.
 
 ---
 

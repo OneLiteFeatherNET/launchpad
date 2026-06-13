@@ -71,6 +71,8 @@ Das dritte Bild: Stell dir einen Stromausfall zu Hause vor, und du hast nur noch
 
 Genau diese Rangordnung habe ich dem Cluster gegeben. Wird der Platz knapp, weiß die Maschine von selbst, was sie schützen muss: den Speicher, auf dem alle Daten liegen, und die Datenbanken, von denen alles abhängt. Und was tritt zuerst zurück? Die netten, aber verzichtbaren Dinge – etwa unsere Minecraft-Kartenansicht. Niemand muss nachts aufstehen und entscheiden; die Reihenfolge steht vorher fest.
 
+> **Ein echtes Beispiel aus unserem Cluster.** Als wir neulich einen Server für ein Update kurz herausgenommen haben, blieb unsere Minecraft-Kartenansicht (BlueMap) durchgehend erreichbar – weil immer mindestens zwei Kopien auf anderen Servern weiterliefen. Vor dem Umbau wäre sie in genau diesem Moment kurz verschwunden.
+
 ## Die Höhen – und die Tiefen
 
 Ehrlich gesagt lief das nicht in einem Rutsch. Es gab die schönen Momente und die zähen.
