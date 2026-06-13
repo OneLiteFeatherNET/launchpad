@@ -15,6 +15,16 @@
     },
     {
       "type": "blog",
+      "title": "Wenn ein Server ausfällt – und niemand merkt es",
+      "href": "/de/blog/wenn-ein-server-ausfaellt-cluster-resilienz",
+      "excerpt": "Wie wir unser Cluster Stück für Stück ausfallsicher gemacht haben – in Alltagsbildern erzählt.",
+      "image": "/images/blog/cluster-topology-social.png",
+      "author": "Phillipp Glanz",
+      "date": "2026-06-13",
+      "tag": "Blog"
+    },
+    {
+      "type": "blog",
       "title": "Otis: Zentrale Spielerstammdaten für Minecraft",
       "href": "/de/blog/otis-zentrale-spielerstammdaten-minecraft",
       "excerpt": "UUID v4/v7, Name und Sprache als verlässliche Basis für Services.",
