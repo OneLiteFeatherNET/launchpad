@@ -22,7 +22,23 @@ const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/fea
 // publishes via useSetI18nParams.
 const { title } = useArticleSeo(blog, authors)
 
-useHead(() => (blog.value as BlogArticle | null)?.head || {})
+// Force the per-article title + description into the document head so social
+// embeds (og:title / og:description) use the real article values — with
+// umlauts. Without this, @nuxtjs/seo's route-derived fallback wins and emits
+// an ASCII, slug-cased title (e.g. "Wenn Ein Server Ausfaellt …"). Any explicit
+// `head` frontmatter is merged on top.
+useHead(() => {
+  const b = blog.value as BlogArticle | null
+  if (!b) return {}
+  const meta = [
+    { name: 'description', content: b.description },
+    { property: 'og:title', content: b.title },
+    { property: 'og:description', content: b.description },
+    { name: 'twitter:title', content: b.title },
+    { name: 'twitter:description', content: b.description }
+  ].filter((m) => Boolean(m.content))
+  return { title: b.title, meta, ...(b.head || {}) }
+})
 </script>
 
 <template>
