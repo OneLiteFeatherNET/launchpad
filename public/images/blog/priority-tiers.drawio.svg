@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-label="Five-tier PriorityClass scheme and eviction order" content="&lt;mxfile host=&quot;app.diagrams.net&quot;&gt;  &lt;diagram name=&quot;priority-tiers&quot;&gt;&lt;mxGraphModel dx=&quot;900&quot; dy=&quot;520&quot; grid=&quot;0&quot; gridSize=&quot;10&quot; guides=&quot;1&quot; tooltips=&quot;1&quot; connect=&quot;1&quot; arrows=&quot;1&quot; fold=&quot;1&quot; page=&quot;1&quot; pageScale=&quot;1&quot; pageWidth=&quot;900&quot; pageHeight=&quot;470&quot; math=&quot;0&quot; shadow=&quot;0&quot; background=&quot;#0b1020&quot;&gt;
+  &lt;root&gt;
+    &lt;mxCell id=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;1&quot; parent=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;title&quot; value=&quot;PriorityClasses — who stays when the cluster runs tight&quot; style=&quot;text;html=1;align=left;fontSize=22;fontStyle=1;fontColor=#eef2ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;30&quot; y=&quot;20&quot; width=&quot;760&quot; height=&quot;32&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;sub&quot; value=&quot;Higher value wins. Under pressure, the lowest tier yields first.&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;30&quot; y=&quot;56&quot; width=&quot;760&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;b1&quot; value=&quot;feather-critical&amp;#10;Storage — Ceph OSD · MON · MGR · data availability&amp;#10;1 000 000 000&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#27A9E1;strokeColor=none;fontColor=#04263a;align=left;spacingLeft=16;fontSize=13;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;150&quot; y=&quot;96&quot; width=&quot;610&quot; height=&quot;56&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;b2&quot; value=&quot;feather-platform&amp;#10;Databases · Ingress (Envoy) · CA (step-ca)&amp;#10;900 000 000&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#2A388F;strokeColor=none;fontColor=#eef2ff;align=left;spacingLeft=16;fontSize=13;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;150&quot; y=&quot;160&quot; width=&quot;610&quot; height=&quot;56&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;b3&quot; value=&quot;feather-high&amp;#10;Observability · Registry (Harbor) · Redis · poolers&amp;#10;100 000&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#91268F;strokeColor=none;fontColor=#fbe9fb;align=left;spacingLeft=16;fontSize=13;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;150&quot; y=&quot;224&quot; width=&quot;610&quot; height=&quot;56&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;b4&quot; value=&quot;feather-standard&amp;#10;Standard apps — Outline · Leantime · Reposilite · …&amp;#10;1 000&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#F7931D;strokeColor=none;fontColor=#3a2305;align=left;spacingLeft=16;fontSize=13;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;150&quot; y=&quot;288&quot; width=&quot;610&quot; height=&quot;56&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;b5&quot; value=&quot;feather-low&amp;#10;Best-effort — BlueMap · Node-RED · Uptime-Kuma&amp;#10;-10&quot; style=&quot;rounded=1;whiteSpace=wrap;html=1;fillColor=#5b678f;strokeColor=none;fontColor=#f1f4ff;align=left;spacingLeft=16;fontSize=13;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;150&quot; y=&quot;352&quot; width=&quot;610&quot; height=&quot;56&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;aUp&quot; value=&quot;protected&quot; style=&quot;endArrow=classic;html=1;strokeColor=#34d399;strokeWidth=3;fontColor=#34d399;fontStyle=1;verticalAlign=bottom;&quot; edge=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry relative=&quot;1&quot; as=&quot;geometry&quot;&gt;&lt;mxPoint x=&quot;800&quot; y=&quot;150&quot; as=&quot;sourcePoint&quot;/&gt;&lt;mxPoint x=&quot;800&quot; y=&quot;100&quot; as=&quot;targetPoint&quot;/&gt;&lt;/mxGeometry&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;aDn&quot; value=&quot;evicted first&quot; style=&quot;endArrow=classic;html=1;strokeColor=#ef4444;strokeWidth=3;fontColor=#ef4444;fontStyle=1;verticalAlign=top;&quot; edge=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry relative=&quot;1&quot; as=&quot;geometry&quot;&gt;&lt;mxPoint x=&quot;800&quot; y=&quot;354&quot; as=&quot;sourcePoint&quot;/&gt;&lt;mxPoint x=&quot;800&quot; y=&quot;404&quot; as=&quot;targetPoint&quot;/&gt;&lt;/mxGeometry&gt;&lt;/mxCell&gt;
+  &lt;/root&gt;
+&lt;/mxGraphModel&gt;&lt;/diagram&gt;&lt;/mxfile&gt;">
+  <defs>
+    <style>
+      .t{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+      .title{font-size:24px;font-weight:700;fill:#eef2ff}
+      .sub{font-size:13px;fill:#9aa6c8}
+      .nm{font-size:16px;font-weight:700}
+      .sc{font-size:12.5px}
+      .val{font-size:13px;font-weight:700}
+    </style>
+    <marker id="ah" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+    <marker id="ag" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#34d399"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="470" rx="18" fill="#0b1020"/>
+  <text class="t title" x="36" y="46">PriorityClasses — who stays when the cluster runs tight</text>
+  <text class="t sub" x="36" y="70">Higher value wins. Under pressure, the lowest tier yields first.</text>
+
+  <!-- bars -->
+  <g>
+    <rect x="150" y="96" width="610" height="56" rx="10" fill="#27A9E1"/>
+    <text class="t nm" x="170" y="122" fill="#04263a">feather-critical</text>
+    <text class="t sc" x="170" y="142" fill="#073245">Storage — Ceph OSD · MON · MGR · data availability</text>
+    <text class="t val" x="744" y="130" fill="#04263a" text-anchor="end">1 000 000 000</text>
+
+    <rect x="150" y="160" width="610" height="56" rx="10" fill="#2A388F"/>
+    <text class="t nm" x="170" y="186" fill="#eef2ff">feather-platform</text>
+    <text class="t sc" x="170" y="206" fill="#c9d2ff">Databases · Ingress (Envoy) · CA (step-ca)</text>
+    <text class="t val" x="744" y="194" fill="#eef2ff" text-anchor="end">900 000 000</text>
+
+    <rect x="150" y="224" width="610" height="56" rx="10" fill="#91268F"/>
+    <text class="t nm" x="170" y="250" fill="#fbe9fb">feather-high</text>
+    <text class="t sc" x="170" y="270" fill="#f0d3f0">Observability · Registry (Harbor) · Redis · Pooler</text>
+    <text class="t val" x="744" y="258" fill="#fbe9fb" text-anchor="end">100 000</text>
+
+    <rect x="150" y="288" width="610" height="56" rx="10" fill="#F7931D"/>
+    <text class="t nm" x="170" y="314" fill="#3a2305">feather-standard</text>
+    <text class="t sc" x="170" y="334" fill="#5c3a0c">Standard apps — Outline · Leantime · Reposilite · …</text>
+    <text class="t val" x="744" y="322" fill="#3a2305" text-anchor="end">1 000</text>
+
+    <rect x="150" y="352" width="610" height="56" rx="10" fill="#5b678f"/>
+    <text class="t nm" x="170" y="378" fill="#f1f4ff">feather-low</text>
+    <text class="t sc" x="170" y="398" fill="#dde3f5">Best-effort — BlueMap · Node-RED · Uptime-Kuma</text>
+    <text class="t val" x="744" y="386" fill="#f1f4ff" text-anchor="end">−10</text>
+  </g>
+
+  <!-- side arrows -->
+  <line x1="800" y1="150" x2="800" y2="100" stroke="#34d399" stroke-width="3" marker-end="url(#ag)"/>
+  <text class="t" x="816" y="128" font-size="12" font-weight="700" fill="#34d399" transform="rotate(90 816 128)">protected</text>
+  <line x1="800" y1="354" x2="800" y2="404" stroke="#ef4444" stroke-width="3" marker-end="url(#ah)"/>
+  <text class="t" x="816" y="380" font-size="12" font-weight="700" fill="#ef4444" transform="rotate(90 816 380)">evicted first</text>
+</svg>

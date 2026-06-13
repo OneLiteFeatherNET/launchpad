@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" role="img" aria-label="A power strip: essential plugs stay in, the least important are pulled first when power runs short" content="&lt;mxfile host=&quot;app.diagrams.net&quot;&gt;  &lt;diagram name=&quot;analogy-power-strip&quot;&gt;&lt;mxGraphModel dx=&quot;900&quot; dy=&quot;440&quot; grid=&quot;0&quot; gridSize=&quot;10&quot; guides=&quot;1&quot; tooltips=&quot;1&quot; connect=&quot;1&quot; arrows=&quot;1&quot; fold=&quot;1&quot; page=&quot;1&quot; pageScale=&quot;1&quot; pageWidth=&quot;900&quot; pageHeight=&quot;380&quot; math=&quot;0&quot; shadow=&quot;0&quot; background=&quot;#0b1020&quot;&gt;
+  &lt;root&gt;
+    &lt;mxCell id=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;1&quot; parent=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;title&quot; value=&quot;When power runs short, the least important is unplugged first&quot; style=&quot;text;html=1;align=left;fontSize=20;fontStyle=1;fontColor=#eef2ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;40&quot; y=&quot;24&quot; width=&quot;760&quot; height=&quot;28&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;sub&quot; value=&quot;The fridge stays on. The fairy lights can wait.&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;40&quot; y=&quot;54&quot; width=&quot;760&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;strip&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=#161e3d;strokeColor=#2b3a73;strokeWidth=2;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;120&quot; y=&quot;96&quot; width=&quot;520&quot; height=&quot;248&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;s1&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#0d1a13;strokeColor=#34d399;strokeWidth=2;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;178&quot; y=&quot;124&quot; width=&quot;44&quot; height=&quot;44&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;t1&quot; value=&quot;Fridge · essential&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#dfe9f5;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;240&quot; y=&quot;136&quot; width=&quot;240&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;g1&quot; value=&quot;STAYS ON&quot; style=&quot;text;html=1;align=right;fontSize=12;fontStyle=1;fontColor=#34d399;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;440&quot; y=&quot;136&quot; width=&quot;120&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;s2&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#0d1a13;strokeColor=#34d399;strokeWidth=2;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;178&quot; y=&quot;174&quot; width=&quot;44&quot; height=&quot;44&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;t2&quot; value=&quot;Heating · router&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#dfe9f5;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;240&quot; y=&quot;186&quot; width=&quot;240&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;g2&quot; value=&quot;STAYS ON&quot; style=&quot;text;html=1;align=right;fontSize=12;fontStyle=1;fontColor=#34d399;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;440&quot; y=&quot;186&quot; width=&quot;120&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;s3&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#0b1020;strokeColor=#7f8bb0;strokeWidth=2;dashed=1;opacity=55;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;178&quot; y=&quot;230&quot; width=&quot;44&quot; height=&quot;44&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;t3&quot; value=&quot;TV · standby&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;240&quot; y=&quot;242&quot; width=&quot;240&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;g3&quot; value=&quot;UNPLUGGED&quot; style=&quot;text;html=1;align=right;fontSize=12;fontStyle=1;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;440&quot; y=&quot;242&quot; width=&quot;120&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;s4&quot; value=&quot;&quot; style=&quot;ellipse;fillColor=#0b1020;strokeColor=#7f8bb0;strokeWidth=2;dashed=1;opacity=55;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;178&quot; y=&quot;280&quot; width=&quot;44&quot; height=&quot;44&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;t4&quot; value=&quot;Fairy lights · decoration&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;240&quot; y=&quot;292&quot; width=&quot;240&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;g4&quot; value=&quot;UNPLUGGED&quot; style=&quot;text;html=1;align=right;fontSize=12;fontStyle=1;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;440&quot; y=&quot;292&quot; width=&quot;120&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;arr&quot; value=&quot;pulled first&quot; style=&quot;endArrow=classic;html=1;strokeColor=#ef4444;strokeWidth=3;fontColor=#ef4444;fontStyle=1;&quot; edge=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry relative=&quot;1&quot; as=&quot;geometry&quot;&gt;&lt;mxPoint x=&quot;690&quot; y=&quot;120&quot; as=&quot;sourcePoint&quot;/&gt;&lt;mxPoint x=&quot;690&quot; y=&quot;320&quot; as=&quot;targetPoint&quot;/&gt;&lt;/mxGeometry&gt;&lt;/mxCell&gt;
+  &lt;/root&gt;
+&lt;/mxGraphModel&gt;&lt;/diagram&gt;&lt;/mxfile&gt;">
+  <defs>
+    <style>
+      .t{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+      .title{font-size:20px;font-weight:700;fill:#eef2ff}
+      .sub{font-size:13px;fill:#9aa6c8}
+      .lbl{font-size:13px;fill:#dfe9f5}
+      .tag{font-size:12px;font-weight:700}
+    </style>
+    <marker id="dn" markerWidth="12" markerHeight="12" refX="6" refY="9" orient="auto"><path d="M0,0 L12,0 L6,10 z" fill="#ef4444"/></marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="380" rx="18" fill="#0b1020"/>
+  <text class="t title" x="40" y="44">When power runs short, the least important is unplugged first</text>
+  <text class="t sub" x="40" y="68">The fridge stays on. The fairy lights can wait.</text>
+
+  <!-- power strip body -->
+  <rect x="120" y="96" width="520" height="248" rx="16" fill="#161e3d" stroke="#2b3a73" stroke-width="2"/>
+
+  <!-- socket rows: top = stays (lit), bottom = pulled (dim) -->
+  <!-- row helper: outlet circle + two pins -->
+  <!-- STAYS -->
+  <g>
+    <circle cx="200" cy="146" r="22" fill="#0d1a13" stroke="#34d399" stroke-width="2"/><circle cx="192" cy="146" r="3.5" fill="#34d399"/><circle cx="208" cy="146" r="3.5" fill="#34d399"/>
+    <text class="t lbl" x="240" y="151">Fridge · essential</text>
+    <text class="t tag" x="560" y="151" fill="#34d399" text-anchor="end">STAYS ON</text>
+  </g>
+  <g>
+    <circle cx="200" cy="196" r="22" fill="#0d1a13" stroke="#34d399" stroke-width="2"/><circle cx="192" cy="196" r="3.5" fill="#34d399"/><circle cx="208" cy="196" r="3.5" fill="#34d399"/>
+    <text class="t lbl" x="240" y="201">Heating · router</text>
+    <text class="t tag" x="560" y="201" fill="#34d399" text-anchor="end">STAYS ON</text>
+  </g>
+  <!-- PULLED -->
+  <g opacity="0.55">
+    <circle cx="200" cy="252" r="22" fill="#0b1020" stroke="#7f8bb0" stroke-width="2" stroke-dasharray="4 3"/>
+    <text class="t lbl" x="240" y="257" fill="#9aa6c8">TV · standby</text>
+    <text class="t tag" x="560" y="257" fill="#9aa6c8" text-anchor="end">UNPLUGGED ✗</text>
+  </g>
+  <g opacity="0.55">
+    <circle cx="200" cy="302" r="22" fill="#0b1020" stroke="#7f8bb0" stroke-width="2" stroke-dasharray="4 3"/>
+    <text class="t lbl" x="240" y="307" fill="#9aa6c8">Fairy lights · decoration</text>
+    <text class="t tag" x="560" y="307" fill="#9aa6c8" text-anchor="end">UNPLUGGED ✗</text>
+  </g>
+
+  <!-- priority arrow -->
+  <line x1="690" y1="120" x2="690" y2="320" stroke="#ef4444" stroke-width="3" marker-end="url(#dn)"/>
+  <text class="t tag" x="712" y="150" fill="#46d39a" transform="rotate(90 712 150)">most important</text>
+  <text class="t tag" x="712" y="270" fill="#ef4444" transform="rotate(90 712 270)">pulled first</text>
+</svg>

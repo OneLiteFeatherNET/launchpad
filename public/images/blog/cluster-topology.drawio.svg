@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-label="feather-core cluster topology in zone fr01" content="&lt;mxfile host=&quot;app.diagrams.net&quot;&gt;  &lt;diagram name=&quot;cluster-topology&quot;&gt;&lt;mxGraphModel dx=&quot;900&quot; dy=&quot;560&quot; grid=&quot;0&quot; gridSize=&quot;10&quot; guides=&quot;1&quot; tooltips=&quot;1&quot; connect=&quot;1&quot; arrows=&quot;1&quot; fold=&quot;1&quot; page=&quot;1&quot; pageScale=&quot;1&quot; pageWidth=&quot;900&quot; pageHeight=&quot;520&quot; math=&quot;0&quot; shadow=&quot;0&quot; background=&quot;#0b1020&quot;&gt;
+  &lt;root&gt;
+    &lt;mxCell id=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;1&quot; parent=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;title&quot; value=&quot;feather-core — Kubernetes · Zone fr01&quot; style=&quot;text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#eef2ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;30&quot; y=&quot;14&quot; width=&quot;560&quot; height=&quot;36&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;cpBox&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=none;strokeColor=#2b3a73;dashed=1;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;36&quot; y=&quot;68&quot; width=&quot;252&quot; height=&quot;200&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;cpHdr&quot; value=&quot;CONTROL-PLANE x3&quot; style=&quot;text;html=1;align=left;fontSize=13;fontStyle=1;fontColor=#27A9E1;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;48&quot; y=&quot;78&quot; width=&quot;220&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;cp1&quot; value=&quot;fr01-cp-01&quot; style=&quot;rounded=1;fillColor=#161e3d;strokeColor=#2b3a73;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;48&quot; y=&quot;108&quot; width=&quot;228&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;cp2&quot; value=&quot;fr01-cp-02&quot; style=&quot;rounded=1;fillColor=#161e3d;strokeColor=#2b3a73;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;48&quot; y=&quot;146&quot; width=&quot;228&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;cp3&quot; value=&quot;fr01-cp-03&quot; style=&quot;rounded=1;fillColor=#161e3d;strokeColor=#2b3a73;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;48&quot; y=&quot;184&quot; width=&quot;228&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;stBox&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=none;strokeColor=#2f5b4b;dashed=1;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;316&quot; y=&quot;68&quot; width=&quot;252&quot; height=&quot;200&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;stHdr&quot; value=&quot;STORAGE · CEPH x3&quot; style=&quot;text;html=1;align=left;fontSize=13;fontStyle=1;fontColor=#34d399;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;328&quot; y=&quot;78&quot; width=&quot;220&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;st1&quot; value=&quot;fr01-str-01&quot; style=&quot;rounded=1;fillColor=#13241f;strokeColor=#2f5b4b;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;328&quot; y=&quot;108&quot; width=&quot;228&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;st2&quot; value=&quot;fr01-str-02&quot; style=&quot;rounded=1;fillColor=#13241f;strokeColor=#2f5b4b;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;328&quot; y=&quot;146&quot; width=&quot;228&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;st3&quot; value=&quot;fr01-str-03&quot; style=&quot;rounded=1;fillColor=#13241f;strokeColor=#2f5b4b;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;328&quot; y=&quot;184&quot; width=&quot;228&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;wkBox&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=none;strokeColor=#6b4a22;dashed=1;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;596&quot; y=&quot;68&quot; width=&quot;268&quot; height=&quot;200&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;wkHdr&quot; value=&quot;WORKER x4&quot; style=&quot;text;html=1;align=left;fontSize=13;fontStyle=1;fontColor=#F7931D;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;608&quot; y=&quot;78&quot; width=&quot;220&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;wk1&quot; value=&quot;fr01-wrk-g-01&quot; style=&quot;rounded=1;fillColor=#2a1f12;strokeColor=#6b4a22;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;608&quot; y=&quot;104&quot; width=&quot;244&quot; height=&quot;28&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;wk2&quot; value=&quot;fr01-wrk-g-02&quot; style=&quot;rounded=1;fillColor=#2a1f12;strokeColor=#6b4a22;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;608&quot; y=&quot;138&quot; width=&quot;244&quot; height=&quot;28&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;wk3&quot; value=&quot;fr01-wrk-xl-01&quot; style=&quot;rounded=1;fillColor=#2a1f12;strokeColor=#6b4a22;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;608&quot; y=&quot;172&quot; width=&quot;244&quot; height=&quot;28&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;wk4&quot; value=&quot;fr01-wrk-xl-02&quot; style=&quot;rounded=1;fillColor=#2a1f12;strokeColor=#6b4a22;fontColor=#eef2ff;align=left;spacingLeft=10;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;608&quot; y=&quot;206&quot; width=&quot;244&quot; height=&quot;28&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;ldBox&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=#0f1530;strokeColor=#2b3a73;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;36&quot; y=&quot;296&quot; width=&quot;828&quot; height=&quot;208&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;ldHdr&quot; value=&quot;WORKLOADS — stacked by importance&quot; style=&quot;text;html=1;align=left;fontSize=13;fontStyle=1;fontColor=#9aa6c8;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;52&quot; y=&quot;306&quot; width=&quot;500&quot; height=&quot;20&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;d1&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=#27A9E1;strokeColor=none;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;56&quot; y=&quot;338&quot; width=&quot;14&quot; height=&quot;14&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;l1&quot; value=&quot;critical — Ceph: OSD · MON · MGR&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#dfe9f5;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;82&quot; y=&quot;332&quot; width=&quot;700&quot; height=&quot;26&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;d2&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=#5163C6;strokeColor=none;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;56&quot; y=&quot;372&quot; width=&quot;14&quot; height=&quot;14&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;l2&quot; value=&quot;platform — MariaDB Galera x3 · MaxScale x2 · PostgreSQL · Envoy · step-ca&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#dfe9f5;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;82&quot; y=&quot;366&quot; width=&quot;760&quot; height=&quot;26&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;d3&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=#c05bd0;strokeColor=none;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;56&quot; y=&quot;406&quot; width=&quot;14&quot; height=&quot;14&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;l3&quot; value=&quot;high — Prometheus · Mimir · Loki · Grafana · Harbor · Redis&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#dfe9f5;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;82&quot; y=&quot;400&quot; width=&quot;760&quot; height=&quot;26&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;d4&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=#F7931D;strokeColor=none;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;56&quot; y=&quot;440&quot; width=&quot;14&quot; height=&quot;14&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;l4&quot; value=&quot;standard — Outline · Leantime · Shlink · Reposilite · Dependency-Track · Otis&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#dfe9f5;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;82&quot; y=&quot;434&quot; width=&quot;760&quot; height=&quot;26&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;d5&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=#7f8bb0;strokeColor=none;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;56&quot; y=&quot;474&quot; width=&quot;14&quot; height=&quot;14&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;l5&quot; value=&quot;low — BlueMap · Node-RED · Uptime-Kuma&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#dfe9f5;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;82&quot; y=&quot;468&quot; width=&quot;760&quot; height=&quot;26&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+  &lt;/root&gt;
+&lt;/mxGraphModel&gt;&lt;/diagram&gt;&lt;/mxfile&gt;">
+  <defs>
+    <style>
+      .t{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+      .title{font-size:27px;font-weight:700;fill:#eef2ff}
+      .sub{font-size:14px;fill:#9aa6c8}
+      .h{font-size:14px;font-weight:700;fill:#27A9E1;letter-spacing:.4px}
+      .chip{font-size:13px;fill:#eef2ff}
+      .tier{font-size:13px;font-weight:700}
+      .load{font-size:12.5px;fill:#cdd6f4}
+    </style>
+  </defs>
+  <rect x="0" y="0" width="900" height="520" rx="18" fill="#0b1020"/>
+  <rect x="26" y="74" width="848" height="190" rx="14" fill="none" stroke="#2b3a73" stroke-width="1.5" stroke-dasharray="6 6"/>
+  <text class="t title" x="36" y="46">feather-core</text>
+  <text class="t sub" x="190" y="46">· Kubernetes · one zone, shared load</text>
+  <text class="t sub" x="36" y="98" fill="#7f8bb0">Zone · fr01</text>
+
+  <!-- Control plane -->
+  <text class="t h" x="44" y="126">CONTROL-PLANE ×3</text>
+  <g>
+    <rect x="44" y="138" width="240" height="28" rx="8" fill="#161e3d" stroke="#2b3a73"/><text class="t chip" x="58" y="157">fr01-cp-01</text>
+    <rect x="44" y="172" width="240" height="28" rx="8" fill="#161e3d" stroke="#2b3a73"/><text class="t chip" x="58" y="191">fr01-cp-02</text>
+    <rect x="44" y="206" width="240" height="28" rx="8" fill="#161e3d" stroke="#2b3a73"/><text class="t chip" x="58" y="225">fr01-cp-03</text>
+  </g>
+
+  <!-- Storage -->
+  <text class="t h" x="330" y="126" fill="#34d399">STORAGE · CEPH ×3</text>
+  <g>
+    <rect x="330" y="138" width="240" height="28" rx="8" fill="#13241f" stroke="#2f5b4b"/><text class="t chip" x="344" y="157">fr01-str-01</text>
+    <rect x="330" y="172" width="240" height="28" rx="8" fill="#13241f" stroke="#2f5b4b"/><text class="t chip" x="344" y="191">fr01-str-02</text>
+    <rect x="330" y="206" width="240" height="28" rx="8" fill="#13241f" stroke="#2f5b4b"/><text class="t chip" x="344" y="225">fr01-str-03</text>
+  </g>
+
+  <!-- Workers -->
+  <text class="t h" x="616" y="126" fill="#F7931D">WORKER ×4</text>
+  <g>
+    <rect x="616" y="138" width="240" height="28" rx="8" fill="#2a1f12" stroke="#6b4a22"/><text class="t chip" x="630" y="157">fr01-wrk-g-01</text>
+    <rect x="616" y="172" width="240" height="28" rx="8" fill="#2a1f12" stroke="#6b4a22"/><text class="t chip" x="630" y="191">fr01-wrk-g-02</text>
+    <rect x="616" y="206" width="240" height="28" rx="8" fill="#2a1f12" stroke="#6b4a22"/><text class="t chip" x="630" y="225">fr01-wrk-xl-01</text>
+  </g>
+  <rect x="616" y="240" width="240" height="14" rx="7" fill="#2a1f12" stroke="#6b4a22"/><text class="t" x="630" y="251" font-size="11" fill="#cdd6f4">fr01-wrk-xl-02</text>
+
+  <!-- Workloads / tiers -->
+  <rect x="26" y="286" width="848" height="212" rx="14" fill="#0f1530" stroke="#2b3a73"/>
+  <text class="t h" x="44" y="312" fill="#9aa6c8">WORKLOADS — stacked by importance</text>
+
+  <circle cx="54" cy="344" r="6" fill="#27A9E1"/><text class="t tier" x="70" y="349" fill="#27A9E1">critical</text><text class="t load" x="150" y="349">Ceph — OSD · MON · MGR</text>
+  <circle cx="54" cy="378" r="6" fill="#5163C6"/><text class="t tier" x="70" y="383" fill="#7f8bff">platform</text><text class="t load" x="150" y="383">MariaDB Galera ×3 · MaxScale ×2 · PostgreSQL · Envoy · step-ca</text>
+  <circle cx="54" cy="412" r="6" fill="#c05bd0"/><text class="t tier" x="70" y="417" fill="#c05bd0">high</text><text class="t load" x="150" y="417">Prometheus · Mimir · Loki · Grafana · Harbor · Redis</text>
+  <circle cx="54" cy="446" r="6" fill="#F7931D"/><text class="t tier" x="70" y="451" fill="#F7931D">standard</text><text class="t load" x="150" y="451">Outline · Leantime · Shlink · Reposilite · Dependency-Track · Otis</text>
+  <circle cx="54" cy="480" r="6" fill="#7f8bb0"/><text class="t tier" x="70" y="485" fill="#9aa6c8">low</text><text class="t load" x="150" y="485">BlueMap · Node-RED · Uptime-Kuma</text>
+</svg>

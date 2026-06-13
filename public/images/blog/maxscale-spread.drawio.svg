@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" role="img" aria-label="MaxScale hard anti-affinity leaves a pod Pending versus soft anti-affinity spreading two pods" content="&lt;mxfile host=&quot;app.diagrams.net&quot;&gt;  &lt;diagram name=&quot;maxscale-spread&quot;&gt;&lt;mxGraphModel dx=&quot;900&quot; dy=&quot;520&quot; grid=&quot;0&quot; gridSize=&quot;10&quot; guides=&quot;1&quot; tooltips=&quot;1&quot; connect=&quot;1&quot; arrows=&quot;1&quot; fold=&quot;1&quot; page=&quot;1&quot; pageScale=&quot;1&quot; pageWidth=&quot;900&quot; pageHeight=&quot;480&quot; math=&quot;0&quot; shadow=&quot;0&quot; background=&quot;#0b1020&quot;&gt;
+  &lt;root&gt;
+    &lt;mxCell id=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;1&quot; parent=&quot;0&quot;/&gt;
+    &lt;mxCell id=&quot;title&quot; value=&quot;MaxScale redundancy — from hard to soft&quot; style=&quot;text;html=1;align=left;fontSize=22;fontStyle=1;fontColor=#eef2ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;30&quot; y=&quot;18&quot; width=&quot;700&quot; height=&quot;32&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;lp&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=#190f14;strokeColor=#5e2630;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;28&quot; y=&quot;74&quot; width=&quot;404&quot; height=&quot;372&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;lh&quot; value=&quot;HARD · required (antiAffinityEnabled)&amp;#10;vs MariaDB AND MaxScale → needs 5 nodes&quot; style=&quot;text;html=1;align=left;fontSize=13;fontStyle=1;fontColor=#ef4444;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;48&quot; y=&quot;92&quot; width=&quot;370&quot; height=&quot;40&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;ln1&quot; value=&quot;wrk-g-01&quot; style=&quot;rounded=1;fillColor=#11162b;strokeColor=#2b3a73;fontColor=#9aa6c8;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;48&quot; y=&quot;146&quot; width=&quot;170&quot; height=&quot;120&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;lp1&quot; value=&quot;mariadb-2&quot; style=&quot;rounded=1;fillColor=#2A388F;strokeColor=none;fontColor=#dfe6ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;62&quot; y=&quot;174&quot; width=&quot;142&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;ln2&quot; value=&quot;wrk-g-02&quot; style=&quot;rounded=1;fillColor=#11162b;strokeColor=#2b3a73;fontColor=#9aa6c8;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;242&quot; y=&quot;146&quot; width=&quot;170&quot; height=&quot;120&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;lp2&quot; value=&quot;mariadb-1&quot; style=&quot;rounded=1;fillColor=#2A388F;strokeColor=none;fontColor=#dfe6ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;256&quot; y=&quot;174&quot; width=&quot;142&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;ln3&quot; value=&quot;wrk-xl-01&quot; style=&quot;rounded=1;fillColor=#11162b;strokeColor=#2b3a73;fontColor=#9aa6c8;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;48&quot; y=&quot;286&quot; width=&quot;170&quot; height=&quot;120&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;lp3&quot; value=&quot;mariadb-0&quot; style=&quot;rounded=1;fillColor=#2A388F;strokeColor=none;fontColor=#dfe6ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;62&quot; y=&quot;314&quot; width=&quot;142&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;ln4&quot; value=&quot;wrk-xl-02&quot; style=&quot;rounded=1;fillColor=#11162b;strokeColor=#2b3a73;fontColor=#9aa6c8;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;242&quot; y=&quot;286&quot; width=&quot;170&quot; height=&quot;120&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;lp4&quot; value=&quot;maxscale-0&quot; style=&quot;rounded=1;fillColor=#1f6f52;strokeColor=#34d399;fontColor=#d7fbe9;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;256&quot; y=&quot;314&quot; width=&quot;142&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;lpend&quot; value=&quot;maxscale-1 · Pending&quot; style=&quot;rounded=1;fillColor=none;strokeColor=#ef4444;dashed=1;fontColor=#ef4444;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;150&quot; y=&quot;416&quot; width=&quot;160&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rp&quot; value=&quot;&quot; style=&quot;rounded=1;fillColor=#0d1a13;strokeColor=#27624a;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;468&quot; y=&quot;74&quot; width=&quot;404&quot; height=&quot;372&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rh&quot; value=&quot;SOFT · preferred (only vs MaxScale)&amp;#10;may share a node with MariaDB&quot; style=&quot;text;html=1;align=left;fontSize=13;fontStyle=1;fontColor=#34d399;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;488&quot; y=&quot;92&quot; width=&quot;370&quot; height=&quot;40&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rn1&quot; value=&quot;wrk-g-01&quot; style=&quot;rounded=1;fillColor=#11162b;strokeColor=#2b3a73;fontColor=#9aa6c8;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;488&quot; y=&quot;146&quot; width=&quot;170&quot; height=&quot;120&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rp1&quot; value=&quot;mariadb-2&quot; style=&quot;rounded=1;fillColor=#2A388F;strokeColor=none;fontColor=#dfe6ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;502&quot; y=&quot;174&quot; width=&quot;142&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rp1b&quot; value=&quot;maxscale-1&quot; style=&quot;rounded=1;fillColor=#1f6f52;strokeColor=#34d399;fontColor=#d7fbe9;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;502&quot; y=&quot;210&quot; width=&quot;142&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rn2&quot; value=&quot;wrk-g-02&quot; style=&quot;rounded=1;fillColor=#11162b;strokeColor=#2b3a73;fontColor=#9aa6c8;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;682&quot; y=&quot;146&quot; width=&quot;170&quot; height=&quot;120&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rp2&quot; value=&quot;mariadb-1&quot; style=&quot;rounded=1;fillColor=#2A388F;strokeColor=none;fontColor=#dfe6ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;696&quot; y=&quot;174&quot; width=&quot;142&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rn3&quot; value=&quot;wrk-xl-01&quot; style=&quot;rounded=1;fillColor=#11162b;strokeColor=#2b3a73;fontColor=#9aa6c8;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;488&quot; y=&quot;286&quot; width=&quot;170&quot; height=&quot;120&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rp3&quot; value=&quot;mariadb-0&quot; style=&quot;rounded=1;fillColor=#2A388F;strokeColor=none;fontColor=#dfe6ff;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;502&quot; y=&quot;314&quot; width=&quot;142&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rn4&quot; value=&quot;wrk-xl-02&quot; style=&quot;rounded=1;fillColor=#11162b;strokeColor=#2b3a73;fontColor=#9aa6c8;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;682&quot; y=&quot;286&quot; width=&quot;170&quot; height=&quot;120&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rp4&quot; value=&quot;maxscale-0&quot; style=&quot;rounded=1;fillColor=#1f6f52;strokeColor=#34d399;fontColor=#d7fbe9;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;696&quot; y=&quot;314&quot; width=&quot;142&quot; height=&quot;30&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+    &lt;mxCell id=&quot;rnote&quot; value=&quot;2x Running · 2 nodes · real redundancy&quot; style=&quot;text;html=1;align=left;fontSize=13;fontColor=#8fcfb2;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;488&quot; y=&quot;420&quot; width=&quot;360&quot; height=&quot;24&quot; as=&quot;geometry&quot;/&gt;&lt;/mxCell&gt;
+  &lt;/root&gt;
+&lt;/mxGraphModel&gt;&lt;/diagram&gt;&lt;/mxfile&gt;">
+  <defs>
+    <style>
+      .t{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
+      .title{font-size:24px;font-weight:700;fill:#eef2ff}
+      .panel{font-size:15px;font-weight:700}
+      .node{font-size:11.5px;fill:#9aa6c8}
+      .pod{font-size:12px;font-weight:700}
+      .note{font-size:12.5px}
+    </style>
+  </defs>
+  <rect x="0" y="0" width="900" height="480" rx="18" fill="#0b1020"/>
+  <text class="t title" x="36" y="46">MaxScale redundancy — from “hard” to “soft”</text>
+
+  <!-- LEFT: hard -->
+  <rect x="28" y="74" width="404" height="372" rx="14" fill="#190f14" stroke="#5e2630"/>
+  <text class="t panel" x="48" y="106" fill="#ef4444">HARD · required (antiAffinityEnabled)</text>
+  <text class="t note" x="48" y="128" fill="#c79aa2">vs MariaDB AND MaxScale → needs 5 nodes</text>
+
+  <!-- 4 nodes -->
+  <g>
+    <rect x="48" y="146" width="170" height="120" rx="10" fill="#11162b" stroke="#2b3a73"/><text class="t node" x="58" y="164">wrk-g-01</text>
+    <rect x="62" y="174" width="142" height="30" rx="7" fill="#2A388F"/><text class="t pod" x="74" y="194" fill="#dfe6ff">mariadb-2</text>
+
+    <rect x="242" y="146" width="170" height="120" rx="10" fill="#11162b" stroke="#2b3a73"/><text class="t node" x="252" y="164">wrk-g-02</text>
+    <rect x="256" y="174" width="142" height="30" rx="7" fill="#2A388F"/><text class="t pod" x="268" y="194" fill="#dfe6ff">mariadb-1</text>
+
+    <rect x="48" y="286" width="170" height="120" rx="10" fill="#11162b" stroke="#2b3a73"/><text class="t node" x="58" y="304">wrk-xl-01</text>
+    <rect x="62" y="314" width="142" height="30" rx="7" fill="#2A388F"/><text class="t pod" x="74" y="334" fill="#dfe6ff">mariadb-0</text>
+
+    <rect x="242" y="286" width="170" height="120" rx="10" fill="#11162b" stroke="#2b3a73"/><text class="t node" x="252" y="304">wrk-xl-02</text>
+    <rect x="256" y="314" width="142" height="30" rx="7" fill="#1f6f52" stroke="#34d399"/><text class="t pod" x="268" y="334" fill="#d7fbe9">maxscale-0</text>
+  </g>
+  <!-- pending pod -->
+  <rect x="150" y="416" width="160" height="30" rx="7" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 4"/>
+  <text class="t pod" x="162" y="436" fill="#ef4444">maxscale-1 · Pending</text>
+
+  <!-- RIGHT: soft -->
+  <rect x="468" y="74" width="404" height="372" rx="14" fill="#0d1a13" stroke="#27624a"/>
+  <text class="t panel" x="488" y="106" fill="#34d399">SOFT · preferred (only vs MaxScale)</text>
+  <text class="t note" x="488" y="128" fill="#8fcfb2">may share a node with MariaDB</text>
+
+  <g>
+    <rect x="488" y="146" width="170" height="120" rx="10" fill="#11162b" stroke="#2b3a73"/><text class="t node" x="498" y="164">wrk-g-01</text>
+    <rect x="502" y="174" width="142" height="30" rx="7" fill="#2A388F"/><text class="t pod" x="514" y="194" fill="#dfe6ff">mariadb-2</text>
+    <rect x="502" y="210" width="142" height="30" rx="7" fill="#1f6f52" stroke="#34d399"/><text class="t pod" x="514" y="230" fill="#d7fbe9">maxscale-1</text>
+
+    <rect x="682" y="146" width="170" height="120" rx="10" fill="#11162b" stroke="#2b3a73"/><text class="t node" x="692" y="164">wrk-g-02</text>
+    <rect x="696" y="174" width="142" height="30" rx="7" fill="#2A388F"/><text class="t pod" x="708" y="194" fill="#dfe6ff">mariadb-1</text>
+
+    <rect x="488" y="286" width="170" height="120" rx="10" fill="#11162b" stroke="#2b3a73"/><text class="t node" x="498" y="304">wrk-xl-01</text>
+    <rect x="502" y="314" width="142" height="30" rx="7" fill="#2A388F"/><text class="t pod" x="514" y="334" fill="#dfe6ff">mariadb-0</text>
+
+    <rect x="682" y="286" width="170" height="120" rx="10" fill="#11162b" stroke="#2b3a73"/><text class="t node" x="692" y="304">wrk-xl-02</text>
+    <rect x="696" y="314" width="142" height="30" rx="7" fill="#1f6f52" stroke="#34d399"/><text class="t pod" x="708" y="334" fill="#d7fbe9">maxscale-0</text>
+  </g>
+  <text class="t note" x="488" y="436" fill="#8fcfb2">2× Running · 2 nodes · real redundancy</text>
+</svg>
