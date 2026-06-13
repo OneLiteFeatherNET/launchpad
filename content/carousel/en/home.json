@@ -15,6 +15,16 @@
     },
     {
       "type": "blog",
+      "title": "When a Server Fails – and Nobody Notices",
+      "href": "/en/blog/when-a-server-fails-cluster-resilience",
+      "excerpt": "How we made our cluster resilient step by step – told in everyday images.",
+      "image": "/images/blog/cluster-topology-social.png",
+      "author": "Phillipp Glanz",
+      "date": "2026-06-13",
+      "tag": "Blog"
+    },
+    {
+      "type": "blog",
       "title": "DevBlog #1",
       "href": "/en/blog/dev-blog-1-what-we-using",
       "excerpt": "Overview of the technologies we use and why they benefit us.",
