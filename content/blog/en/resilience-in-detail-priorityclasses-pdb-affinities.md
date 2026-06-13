@@ -3,7 +3,7 @@ title: 'Resilience in Detail: PriorityClasses, PDBs and (Anti-)Affinities in Our
 alternativeTitle: 'Deep Dive: How I Hardened Our GitOps Cluster Against Failures'
 description: 'The technical long-form: how I made our Kubernetes cluster more failure-resistant across three hardening pillars – resources, PodDisruptionBudgets and a five-tier PriorityClass scheme – plus zone and pod anti-affinities. Including the pitfalls: silently ignored Helm values, webhook-immutable fields, and a MaxScale pod that stubbornly stayed Pending.'
 pubDate: '2026-06-13'
-headerImage: 'images/blog/cluster-topology.drawio.svg'
+headerImage: 'images/blog/cluster-topology-social.png'
 headerImageAlt: 'Topology of the feather-core cluster: control-plane, Ceph storage and workers in zone fr01'
 slug: 'resilience-in-detail-priorityclasses-pdb-affinities'
 translationKey: 'cluster-resilience-deep-dive'
