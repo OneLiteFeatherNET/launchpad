@@ -16,7 +16,8 @@
     "change_language": "Change language",
     "more": "More",
     "status": "Status",
-    "roadmap": "Roadmap"
+    "roadmap": "Roadmap",
+    "community_poi": "Community POIs"
   },
   "carousel": {
     "prev": "Previous",
@@ -212,5 +213,188 @@
     "message_404": "The page you are looking for doesn’t exist or may have moved to a new address.",
     "title_generic": "Something went wrong",
     "message_generic": "An unexpected error occurred. Please try again in a moment."
+  },
+  "community_poi": {
+    "overview": {
+      "title": "Community Points of Interest",
+      "description": "Building projects from our community: from concept to active build site to finished landmark — with progress, image galleries and Litematica schematics to rebuild them yourself.",
+      "count": "{count} POIs",
+      "empty": "No community POIs published yet. Check back soon — or submit your own project!"
+    },
+    "status": {
+      "planning": "Planned",
+      "in-progress": "In progress",
+      "paused": "Paused",
+      "completed": "Completed"
+    },
+    "progress": {
+      "label": "Progress",
+      "value_text": "{value} percent complete",
+      "aria": "Current build progress"
+    },
+    "goal_state": {
+      "aria": "Goal and current state",
+      "goal": "Goal",
+      "current": "Current state"
+    },
+    "meta": {
+      "aria": "Project metadata",
+      "location": "In-game location",
+      "coordinates": "BlueMap position",
+      "coordinates_hint": "For visiting on BlueMap — the Litematica origin lives on each schematic.",
+      "builders": "Builders involved",
+      "started": "Started",
+      "updated": "Last updated",
+      "forum": "Forum channel",
+      "forum_open": "Open forum channel"
+    },
+    "dimension": {
+      "overworld": "Overworld",
+      "nether": "Nether",
+      "end": "End"
+    },
+    "gallery": {
+      "title": "Image gallery",
+      "aria": "Project image gallery",
+      "open_at": "Open image {current} of {total}",
+      "prev": "Previous image",
+      "next": "Next image",
+      "close": "Close gallery"
+    },
+    "schematics": {
+      "title": "Litematica schematics",
+      "aria": "Available schematic downloads",
+      "download": "Download",
+      "opens_external": "(opens an external site)",
+      "hint": "Load the schematic with the Litematica mod in Minecraft to rebuild the project block by block.",
+      "litematica_version": "Litematica {version}",
+      "setup": {
+        "title": "Point / setup guide",
+        "origin": "Recommended origin (X/Y/Z)",
+        "facing": "Facing",
+        "rotation": "Rotation"
+      }
+    },
+    "bluemap": {
+      "title": "Find it on BlueMap",
+      "aria": "BlueMap link with coordinates",
+      "open": "Open on BlueMap",
+      "link_aria": "Open {title} on BlueMap (new tab)",
+      "show_preview": "Show mini preview",
+      "hide_preview": "Hide mini preview",
+      "iframe_title": "BlueMap preview for {title}",
+      "embed_note": "Preview loaded from {host}. Open the external site for full functionality."
+    },
+    "facing": {
+      "north": "North",
+      "south": "South",
+      "east": "East",
+      "west": "West"
+    },
+    "rotation": {
+      "none": "None",
+      "cw_90": "CW_90",
+      "cw_180": "CW_180",
+      "cw_270": "CW_270",
+      "ccw_90": "CCW_90"
+    },
+    "copy": {
+      "raw": "Copy coordinates",
+      "tp": "Copy /tp",
+      "copied": "Copied!",
+      "raw_aria": "Copy coordinates {value} to clipboard",
+      "tp_aria": "Copy {value} to clipboard"
+    },
+    "contribute": {
+      "aria": "How to contribute",
+      "title": "Submit images or a new POI",
+      "body": "Send images via Discord or open a pull request on GitHub. New POIs live as markdown under content/community-poi/.",
+      "discord": "Ping us on Discord",
+      "github": "Open a PR on GitHub"
+    },
+    "collaboration": {
+      "aria": "Collaboration and forum channel",
+      "open_title": "Build & discuss",
+      "open_body": "This project welcomes images, materials, and building hands. Coordinate on the forum channel or Discord before you start.",
+      "closed_title": "Showcase — please don't modify",
+      "closed_body": "This project is not maintained by the community. Admire it freely, but please don't build or change anything — use the forum channel for feedback and questions.",
+      "forum_link": "Open forum channel"
+    },
+    "category": {
+      "team": "Team project",
+      "community": "Community project",
+      "collab": "Team & community collab",
+      "farm": "Farm"
+    },
+    "lore": {
+      "title": "Story",
+      "aria": "Background story for this POI"
+    },
+    "carousel": {
+      "tag": "Featured POI",
+      "cta": "Open project",
+      "cta_aria": "Open project: {title}",
+      "title_aria": "Featured POI: {title}"
+    },
+    "litematica": {
+      "title": "Set up & use Litematica",
+      "intro": "Quick-start and FAQ around the Litematica mod so you can use the schematics from this overview right away.",
+      "aria": "Litematica help and FAQ",
+      "rule": {
+        "title": "Server rule — important!",
+        "body": "On OneLiteFeather, Litematica is only allowed as a blueprint (hologram view). Auto-place (Easy Place / Place Holder / any automated block-setting) is forbidden and will be punished with a permanent ban. Place the blocks yourself — the hologram is a guide, not a building tool."
+      },
+      "faq": {
+        "entries": [
+          {
+            "q": "What is Litematica?",
+            "a": "Litematica is a Minecraft client mod (Fabric) that displays schematic files (.litematic) as a hologram in-game. You can rebuild any project 1:1 without touching the server — other players don't see your hologram."
+          },
+          {
+            "q": "How do I install the mod?",
+            "a": "You need the Fabric loader for your Minecraft version and drop the Litematica JAR (plus its dependency MaLiLib) into the mods/ folder. After launch, check the mods menu to confirm both are active.",
+            "links": [
+              { "label": "Litematica on Modrinth", "href": "https://modrinth.com/mod/litematica" },
+              { "label": "MaLiLib on Modrinth", "href": "https://modrinth.com/mod/malilib" },
+              { "label": "Fabric Loader", "href": "https://modrinth.com/mod/fabric-api" }
+            ]
+          },
+          {
+            "q": "How do I load a schematic?",
+            "a": "Save the .litematic file in .minecraft/schematics/. In-game, open the Litematica menu (default: M), pick 'Load schematic' and set the position via 'Schematic placement'."
+          },
+          {
+            "q": "What's the point / setup guide for?",
+            "a": "Each schematic ships with a recommended origin and facing direction. Following them places the hologram in the intended spot and aligns it with neighbouring builds."
+          },
+          {
+            "q": "Which Litematica version do I need?",
+            "a": "Each schematic lists the recommended Litematica version (and matching Minecraft version) right next to the file. Stick to that combination — older or newer Litematica releases can serialise blocks differently, which shifts or breaks the hologram.",
+            "links": [
+              { "label": "All Litematica versions on Modrinth", "href": "https://modrinth.com/mod/litematica/versions" }
+            ]
+          },
+          {
+            "q": "Can I use auto-place / easy place?",
+            "a": "No. OneLiteFeather forbids any kind of auto-place — that includes Easy Place, Place Holder and similar features that set blocks automatically. Violations lead to a permanent ban. Litematica is only allowed as a visual blueprint; you place every block yourself."
+          },
+          {
+            "q": "Can I use the schematics on my own world?",
+            "a": "Yes, of course. The schematics in this overview are free to use privately and on your own servers. Please credit the original builders when sharing publicly."
+          }
+        ]
+      }
+    },
+    "card": {
+      "by": "by",
+      "builders_more": "{first} + {count} more",
+      "open_detail": "Open details for {title}",
+      "gallery_count_sr": "Images in gallery",
+      "schematic_count_sr": "Available schematics",
+      "showcase_only": "Showcase only"
+    },
+    "detail": {
+      "back": "Back to POI overview"
+    }
   }
 }
