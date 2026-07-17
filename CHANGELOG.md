@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.1.0...onelitefeather.net-v1.2.0) (2026-07-17)
+
+
+### Features
+
+* **home:** promote cluster-resilience post in the homepage carousel ([b523ec3](https://github.com/OneLiteFeatherNET/launchpad/commit/b523ec3c5f941282ccab407cb9811b76c4e6fa15))
+* **team:** roster refresh, application FAQ, role chips ([#157](https://github.com/OneLiteFeatherNET/launchpad/issues/157)) ([736981b](https://github.com/OneLiteFeatherNET/launchpad/commit/736981bf0732092855d16d1a2f501064b192f1d4))
+* **team:** ship Minecraft head avatars via Cloudflare Images ([bacfcc0](https://github.com/OneLiteFeatherNET/launchpad/commit/bacfcc048ccc791653bea3c1995482f237b75502))
+
 ## [1.1.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.0.0...onelitefeather.net-v1.1.0) (2026-05-16)
 
 
