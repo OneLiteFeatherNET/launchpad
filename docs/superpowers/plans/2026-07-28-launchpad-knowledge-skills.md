@@ -24,7 +24,7 @@ Every task's requirements implicitly include this section.
 - **Every SKILL.md ends with a `## Verify` section** that is a loop: run a command, read its output, fix, repeat.
 - **Repo pointers are integrated** into the section that needs them, not appended as a separate block.
 - **Version anchor**, stated once near the top of each SKILL.md: `Nuxt 4.2 · @nuxtjs/seo 5.1 · @nuxtjs/i18n 10.3 · @nuxt/content 3.14 · Tailwind 4.1 · Cloudflare Workers + D1`.
-- **No content that a competent current model produces unprompted.** If a baseline scenario did not surface it, it does not go in.
+- **No content that a competent current model produces unprompted.** A fired baseline marker is the strongest justification for a section, but it is a floor, not a ceiling — three scenarios cannot cover everything a skill legitimately needs. A section a task explicitly mandates may stay without a fired marker, provided it is cut to **10 lines or fewer**. Anything longer needs a marker behind it. Sections with neither a marker nor a mandate do not go in.
 - **Skills are written in English**, matching `AGENTS.md` and the rest of the repo.
 - **Do not fix the production defects** listed in spec §11. They are out of scope for this plan and tracked separately.
 
