@@ -142,7 +142,7 @@ Sections and line budgets per spec §7.3: `The repository boundary` (22), `The s
 Two content requirements that are easy to miss:
 
 - The `The schema is a DDL` section must use the live `releaseDate` case as its worked example: the field is used in `composables/useBlogContent.ts:12` and typed in `types/blog.ts:46` but absent from `blogSchema` in `content.config.ts`, so it lands in the `meta` column and reads `undefined`. Present it as an illustration of the rule. **Do not fix it** — that is spec §11, out of scope.
-- The `Verify` section is this loop: run `pnpm build`, read `dist/__nuxt_content/<collection>/sql_dump.txt`, confirm the expected columns, `path` values and `CREATE INDEX` statements appear, fix `content.config.ts`, rebuild.
+- The `Verify` section is this loop: run `pnpm build`, decode `.output/public/__nuxt_content/<collection>/sql_dump.txt` (it is gzip+base64, not plain text), confirm the expected columns, `path` values and `CREATE INDEX` statements appear, fix `content.config.ts`, rebuild. The stale `dist/` directory in the repo is from an older `nuxt generate` — do not read build output from it.
 
 - [ ] **Step 6: Write the three reference files**
 
@@ -303,7 +303,7 @@ Content requirements:
 - The token table is built from Step 1's actual output. Two columns: **use** (`bg-brand-primary`, `text-brand-accent`, `bg-secondary-cyan`, `bg-bg`, `bg-surface`, `text-text`, `text-muted`, `border-border`) and **never** (`*-primary`, `*-secondary`, `*-accent`, `*-brand-<number>`). State that existing usages in the repo are wrong and will reinforce the wrong answer if copied — with the count from Step 1.
 - `tailwind.config.mts` is inert: no `@config` references it. Never edit it to add a color.
 - The dark-mode section states that a class toggle needs **both** `@custom-variant dark (&:where(.dark, .dark *));` after the `@import` **and** every `light-dark()` token replaced. Half the migration is the failure mode.
-- The `Verify` loop: `pnpm build`, then grep the built stylesheet for the escaped full class name — `grep -o '\.ring-brand-500' dist/_nuxt/*.css` — because ESLint does not check class names and the build succeeds with dead classes in place. Nothing found means the class does not exist; fix the token or the class name and rebuild.
+- The `Verify` loop: `pnpm build`, then grep the built stylesheet for the escaped full class name in `.output/public/_nuxt/*.css` — not `dist/`, which is stale output from an older `nuxt generate` — because ESLint does not check class names and the build succeeds with dead classes in place. Nothing found means the class does not exist; fix the token or the class name and rebuild. Pick a worked example that does not appear as literal text in the skill itself: Tailwind v4 scans the whole non-gitignored project including Markdown, so a class named in the prose compiles into the build whether or not any component uses it.
 
 - [ ] **Step 7: Write the three reference files**
 
