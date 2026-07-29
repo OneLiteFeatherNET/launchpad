@@ -92,7 +92,7 @@ Using the app import on the server, or vice versa, fails or silently resolves no
 (this repo's `nuxt.config.ts` already orders it correctly). Reverse it and
 `@nuxtjs/sitemap` warns "you have loaded `@nuxt/content` before `@nuxtjs/sitemap`" and
 `asSitemapCollection`/`asSchemaOrgCollection` never get to extend the collection
-schema. Full module array: see the `nuxt-structure` skill.
+schema. Full module array: see the `nuxt-seo` skill.
 
 ## Indexes
 
