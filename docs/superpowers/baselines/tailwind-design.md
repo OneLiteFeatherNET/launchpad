@@ -202,8 +202,9 @@ names "adding that token to `@theme`" as an acceptable alternative to
 "switching to a defined token." But it's a broader change than the ticket
 asked for: defining a bare `--color-secondary` custom property also mints
 real `bg-secondary`/`text-secondary`/`ring-secondary`/`border-secondary`
-utilities — exactly the class family the token table (Step 1: 25 existing
-bad usages of `*-secondary` alone) says never to use — and does so silently,
+utilities — exactly the class family the token table (Step 1: 5 existing
+bad usages of `*-secondary` alone — `border-secondary` ×1, `ring-secondary`
+×2, `text-secondary` ×2) says never to use — and does so silently,
 resurrecting those call sites' appearance without anyone deciding that was
 correct. `SKILL.md`'s "Arbitrary var() classes must resolve" section was
 written to prefer the narrower fix (swap the call site to

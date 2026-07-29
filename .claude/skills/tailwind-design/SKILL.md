@@ -50,45 +50,50 @@ alias to `@theme`: that would also activate the whole discouraged bare
 ## Dark mode: two mechanisms, one OS signal
 
 Two independent things currently both track `prefers-color-scheme`, not a
-class: the `light-dark()` values in `--color-bg/surface/text/muted/border`,
-and every `dark:` utility, because Tailwind v4's default `dark` variant
-*is* `@media (prefers-color-scheme: dark)` — there is no
-`@custom-variant dark` in `tailwind.css` to override it. They only agree by
-coincidence.
+class: every `dark:` utility, because Tailwind v4's default `dark` variant
+*is* `@media (prefers-color-scheme: dark)` with no `@custom-variant dark`
+override in `tailwind.css`; and the `light-dark()` values in
+`--color-bg/surface/text/muted/border`, which per the CSS spec resolve
+against the element's computed `color-scheme` — currently `light dark` on
+`:root` (see `tailwind.css`), which is what makes them OS-driven. They only
+agree by coincidence.
 
 A class-based toggle (`<html class="dark">`) needs **both** halves changed, or
 half the site stops matching the toggle:
 
 1. `@custom-variant dark (&:where(.dark, .dark *));` right after
    `@import 'tailwindcss';` — this is what makes `dark:` respond to the class.
-2. Every `light-dark(a, b)` value in `@theme` rewritten as two rules, one
-   plain and one under `.dark`, since `light-dark()` itself only ever reads
-   the OS setting.
+2. `.dark { color-scheme: dark; }` — this alone makes every `light-dark()`
+   token follow the class instead of the OS; the `@theme` values themselves
+   don't need touching.
 
 Never wire the toggle through `tailwind.config.mts` — nothing loads it.
 
 ## Where custom CSS goes
 
-This repo has zero `@apply` and zero `@layer components` — utility classes are
+This repo has zero `@apply` and zero `@layer components` — utilities are
 written inline, and hand-written CSS (`assets/css/tokens.css`, imported from
 `app.vue`, not `nuxt.config.ts`) uses plain custom properties, not `@apply`.
-Keep it that way: `@apply` outside the file that has `@import 'tailwindcss'`
+Keep it that way: `@apply` outside the file with `@import 'tailwindcss'`
 needs its own `@reference "tailwindcss"` import, which re-resolves the whole
-theme per file — real cost for a repeated build, and easy to forget in a
-component's `<style scoped>` block, where it silently no-ops instead of erroring.
-For a genuinely reusable class, prefer `@utility name { ... }` in
-`tailwind.css` itself (participates in `@apply`/variants like a real utility,
-no `@reference` needed) over `@layer components`, which v4 keeps only for
-migration compatibility.
+theme per file — a real cost per build, easy to forget in a component's
+`<style scoped>` block, where it silently no-ops instead of erroring. For a
+reusable class, prefer `@utility name { ... }` in `tailwind.css` itself
+(participates in `@apply`/variants like a real utility, no `@reference`
+needed) over `@layer components`, kept only for v3 migration.
 
 ## Focus rings
 
 `focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]` is the
-pattern used across `NavigationItem.vue`, `NavigationBar.vue`, `Footer.vue`,
-and `error.vue` (24 call sites) — and it's invisible everywhere, for the same
-undefined-token reason as above. Use a defined ring color
-(`focus-visible:ring-brand-secondary`) and always pair `focus-visible:`, never
-bare `focus:`, so mouse users don't get a ring on click.
+pattern in `NavigationItem.vue`, `NavigationBar.vue`, `Footer.vue`,
+`error.vue`, and `LanguageSelector.vue` (14 call sites) — invisible for the
+same undefined-token reason as above. `SimpleNavButton.vue` carries the same
+undefined token on `bg-`/`text-`, not a ring, and `assets/css/tokens.css:34`
+sets `outline: 2px solid var(--color-secondary);` as plain CSS — six files
+total, and that last one won't show up in a Tailwind class grep, so "Verify"
+below can't catch it. Use a defined color (`focus-visible:ring-brand-secondary`)
+and always pair `focus-visible:`, never bare `focus:`, so mouse users don't
+get a ring on click.
 
 ## References
 
@@ -99,12 +104,17 @@ bare `focus:`, so mouse users don't get a ring on click.
 ## Verify
 
 A class can look right and still not exist in the compiled CSS — ESLint
-doesn't check Tailwind class names, and the build succeeds either way:
+doesn't check Tailwind class names, and the build succeeds either way. Trap:
+Tailwind v4's content scan reads every non-gitignored file, including this
+skill's own Markdown — grepping for a class name that's merely *quoted in
+this file's prose* (e.g. `ring-brand-secondary`, named above) finds it
+whether or not your component actually uses it. Only trust the grep for a
+class name that appears nowhere else in the project as literal text.
 
 1. `pnpm build`
-2. `grep -o '\.ring-brand-secondary{' .output/public/_nuxt/*.css` (swap in the
-   exact class you added, dot-prefixed, brace-terminated, no `.output/`
-   shortcuts — `dist/` doesn't exist for this Cloudflare build)
+2. `grep -o '\.<your-class>{' .output/public/_nuxt/*.css` (swap in the exact
+   class you added, dot-prefixed, brace-terminated, no `.output/` shortcuts —
+   `dist/` doesn't exist for this Cloudflare build)
 3. Nothing found means the class never compiled — the token isn't in `@theme`,
    or the class name doesn't match a real token. Fix one of those and rebuild.
 4. Repeat until the grep finds your class.
