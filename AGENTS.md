@@ -41,52 +41,56 @@
 - For neue Features zuerst Domain-Typen unter `types/` und Composables unter `composables/` anlegen, dann Sections/UI-Komponenten bauen und die Seite nur noch daraus zusammensetzen.
 - Do not introduce new dependencies or configuration presets without clear justification.
 - Respect the existing directory structure; extend rather than rearrange where possible.
+- **Never create a file under `app/`.** `srcDir` is auto-detected; this repo
+  keeps its sources at the root (no `app/` directory exists, no `srcDir`
+  override in `nuxt.config.ts`). One non-exempt file under `app/` flips
+  `srcDir` and silently unmounts every route and auto-import with no error.
+  Only `spa-loading-template.html` and `router.options.*` are exempt. Do not
+  run `npx codemod nuxt/4/file-structure`.
+- **Nitro cannot reliably reach app code.** Every existing `server/**` import
+  from `~/...` in this repo is `import type` only — nothing imports a runtime
+  value from `~/utils`, `~/composables` or `~/types` across the boundary.
+  Code needed on both sides belongs in `shared/utils` or `shared/types`, and
+  those two directories only: they are the ones Nuxt auto-imports on **both**
+  sides, and `#shared` is a real alias to them.
+  - **They are scanned top level only.** Nuxt globs them as `*.{ts,js,…}`,
+    never `**/*`, so `shared/utils/blogRelease.ts` is auto-imported and
+    `shared/utils/content/blogRelease.ts` is not — on either side, with no
+    error. This repo's own convention nests (`utils/content/*`); do not carry
+    that habit into `shared/`.
+  - Nuxt's import protection for `shared/` blocks `#app`, `#build`, `#server`
+    and `server/{api,routes,middleware,plugins}/` — not `vue` or `h3`. Keeping
+    Vue and H3 out is still the right instinct for genuinely shared code, but
+    nothing enforces it; don't expect a build error.
+  - Do not add a cross-boundary runtime import via `~/utils/...` re-exports as
+    a shortcut.
 
-## Reusable Agents & Skills (`.claude/`)
-These are checked in so every CLI/web session gets the same standards. Treat
-them as rules, not suggestions:
-**Atomic principle:** every skill addresses exactly one topic and has a
-matching single-topic reviewer agent named `<skill>-reviewer`. Apply the
-skill while making the change; delegate the matching reviewer before the
-PR. Use only the skills/agents the change actually touches.
+## Knowledge Skills (`.claude/skills/`)
 
-- **`.claude/skills/component-scaffold`** — MUST be followed when adding any
-  new feature/section/page (types → composables → sections → page); it
-  lists which atomic skills to bake in.
-- **Accessibility** (run the relevant ones on every changed
-  `components/`/`layouts/`/`pages/` file): `a11y-semantic-structure`,
-  `a11y-keyboard-focus`, `a11y-aria-dynamic`, `a11y-names-labels-i18n`,
-  `a11y-forms`, `a11y-contrast-motion`, `a11y-typography`.
-- **Performance**: `perf-defer-third-party-scripts`,
-  `perf-reduce-unused-js`, `perf-no-legacy-js`, `perf-minify-js`,
-  `perf-render-blocking-css`, `perf-lcp-element`,
-  `perf-cls-layout-stability`, `perf-image-delivery`,
-  `perf-main-thread-work` (INP/TBT). CI runs the **desktop** preset
-  only; mobile (TBT/CLS/TTI) is the known weak spot — check it manually.
-- **Best Practices**: `bp-clean-console`, `bp-no-hydration-mismatch`,
-  `bp-bfcache`, `bp-no-prod-source-maps`.
-- **Network/Loading**: `net-cache-lifetimes`, `net-resource-hints`,
-  `net-critical-request-chain`, `net-font-loading`,
-  `net-text-compression`.
-- **Security ("Safe")**: `sec-no-mixed-content`, `sec-response-headers`,
-  `sec-content-security-policy`, `sec-safe-links-embeds`,
-  `sec-dependency-safety`.
-- **SEO ("Discoverable")**: `seo-page-metadata`,
-  `seo-canonical-hreflang`, `seo-crawlable-content`, `seo-indexability`,
-  `seo-structured-data` (keep SEO ≥ 0.95).
-- **Privacy**: `privacy-consent-gating`, `privacy-data-minimisation`,
-  `privacy-transparency`.
-- Each of the above has a `<name>-reviewer` agent under
-  `.claude/agents/` for an independent single-topic pass before the PR.
-- **Source maps are never published to production.** The Lighthouse
-  `valid-source-maps` audit is an accepted trade-off; if symbolication is
-  needed, generate hidden maps in CI and upload them privately — never
-  deploy public `.map` files or a public `sourceMappingURL`.
-- Accessibility tooling is enforced in CI: `eslint-plugin-vuejs-accessibility`
-  via `pnpm lint`, and the Lighthouse `accessibility` gate
-  (error, minScore 0.9) via `pnpm seo:lighthouse`. Keep both green.
-- The Lighthouse `best-practices` gate is `warn` (minScore 0.9) and the
-  suite runs the desktop preset only — keep best-practices ≥ 0.9 and do
-  not regress mobile performance.
-- When adding new skills/agents, place them under `.claude/` and document
-  them here so they remain the single source of truth.
+These ship with the repo so every CLI, web and CI session gets the same
+standards. Each skill is a short `SKILL.md` plus `references/` files loaded
+only when needed. They carry the framework behaviour that is easy to get
+wrong here — not general Nuxt or Tailwind documentation.
+
+- **`nuxt-seo`** — canonical and hreflang ownership, i18n locale objects,
+  module version floors, site URL resolution, Schema.org, robots, sitemap
+  sources, OG images. Read it before touching `nuxt.config.ts`'s `i18n`,
+  `site`, `sitemap`, `robots`, `schemaOrg` or `ogImage` blocks, or any SEO
+  composable.
+- **`nuxt-content-cms`** — collections, zod schemas as SQL column
+  definitions, the `ContentRepository` boundary, derived `path` values,
+  Prose overrides. Read it before editing `content.config.ts`, a content
+  file, or a content query.
+- **`tailwind-design`** — the `@theme` token contract, which utility names
+  compile, the two dark-mode mechanisms, where custom CSS belongs. Read it
+  before adding utility classes or design tokens.
+
+Preserved from the previous skill set: source maps are never published to
+production, and the Lighthouse `valid-source-maps` audit is an accepted
+trade-off. Accessibility is enforced in CI through
+`eslint-plugin-vuejs-accessibility` (`pnpm lint`) and the Lighthouse
+accessibility gate (error, minScore 0.9). The `best-practices` gate is
+`warn` (minScore 0.9) and the suite runs the desktop preset only — mobile
+performance is the known weak spot; check it manually.
+
+When adding a skill, place it under `.claude/skills/` and list it here.
