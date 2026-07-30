@@ -24,9 +24,10 @@ Two further consequences:
   **ignored** with a console warning — move it into the specific child
   sitemap's config instead. This repo hasn't hit that yet because it never
   sets `sitemap.sitemaps`.
-- Every entry ends up tagged `_sitemap: '<locale code>'` (from
-  `locale._sitemap`), which is how the module knows which child sitemap file
-  an entry belongs to. It's an internal field — don't set it by hand.
+- Every entry ends up tagged `_sitemap: '<locale language tag>'` (e.g.
+  `de-DE`, from `locale._sitemap`), which is how the module knows which
+  child sitemap file an entry belongs to. It's an internal field — don't
+  set it by hand.
 
 ## `_i18nTransform`: how hreflang alternates get attached
 

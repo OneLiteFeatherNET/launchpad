@@ -85,9 +85,12 @@ written inline, and hand-written CSS (`assets/css/tokens.css`, imported from
 Keep it that way: `@apply` outside the file with `@import 'tailwindcss'`
 needs its own `@reference "tailwindcss"` import, which re-resolves the whole
 theme per file — a real cost per build. Forgetting it in a component's
-`<style scoped>` block does **not** silently no-op; Tailwind 4.3 throws and
-fails the build: ``Cannot apply unknown utility class `bg-brand-primary`. Are
-you using CSS modules or similar and missing `@reference`?`` Loud, but still a
+`<style scoped>` block does **not** always silently no-op: for any class that
+needs a theme token lookup (`bg-brand-primary`, spacing/color scales, …),
+Tailwind 4.3 throws and fails the build: ``Cannot apply unknown utility class
+`bg-brand-primary`. Are you using CSS modules or similar and missing
+`@reference`?`` A token-free utility like `flex` compiles fine without it, so
+the failure is per-class, not per-file. Loud when it hits, but still a
 build you have to unbreak. For a
 reusable class, prefer `@utility name { ... }` in `tailwind.css` itself
 (participates in `@apply`/variants like a real utility, no `@reference`

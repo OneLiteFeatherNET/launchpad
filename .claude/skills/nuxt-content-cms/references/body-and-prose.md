@@ -51,7 +51,7 @@ with the raw file content verbatim. No collection in this repo currently declare
 ## How a Prose override resolves
 
 `@nuxt/content` renders every markdown element (`<p>`, `<a>`, code fences, …)
-through a `Prose*` component. Ten real overrides of `@nuxtjs/mdc` components live
+through a `Prose*` component. Fourteen real overrides of `@nuxtjs/mdc` components live
 in `components/content/`: `ProseA.vue`, `ProseH1.vue`–`ProseH6.vue`,
 `ProseHr.vue`, `ProseImg.vue`, `ProseLi.vue`, `ProseOl.vue`, `ProsePre.vue`,
 `ProseP.vue` and `ProseUl.vue`. There is no `ProseCode.vue` override, so inline
