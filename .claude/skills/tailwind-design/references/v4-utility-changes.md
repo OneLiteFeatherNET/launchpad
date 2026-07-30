@@ -42,14 +42,19 @@ against the one real stylesheet.
 <details>
 <summary>Old patterns (Tailwind v3)</summary>
 
-| v3 | v4 |
-|---|---|
-| `flex-shrink-*` / `flex-grow-*` | `shrink-*` / `grow-*` |
-| `!text-center` | `text-center!` |
-| `bg-[--brand]` | `bg-(--brand)` |
-| `bg-opacity-50` | `bg-black/50` |
-| `outline outline-2` | `outline-2` |
-| `tailwind.config.js` | `@theme` in CSS |
-| `@tailwind base/components/utilities` | `@import "tailwindcss"` |
+Write the v4 column in new code. The `⚠` rows still compile on the installed
+4.3.0 — they are deprecated aliases, not removals, so a grep for them finds
+working code and the build stays green; that is not a reason to keep writing
+them. The unmarked rows genuinely stop working.
+
+| v3 | v4 | |
+|---|---|---|
+| `flex-shrink-*` / `flex-grow-*` | `shrink-*` / `grow-*` | ⚠ still compiles |
+| `!text-center` | `text-center!` | ⚠ still compiles |
+| `bg-[--brand]` | `bg-(--brand)` | compiles to the invalid value `--brand` |
+| `bg-opacity-50` | `bg-black/50` | removed — emits nothing |
+| `outline outline-2` | `outline-2` | `outline` alone now means width 1px |
+| `tailwind.config.js` | `@theme` in CSS | |
+| `@tailwind base/components/utilities` | `@import "tailwindcss"` | |
 
 </details>

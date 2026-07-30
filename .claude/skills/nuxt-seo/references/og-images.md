@@ -1,5 +1,13 @@
 # OG images with nuxt-og-image
 
+## Contents
+
+- [The island boundary](#the-island-boundary)
+- [`defineOgImage()` v6 signature](#defineogimage-v6-signature)
+- [Community templates must be ejected](#community-templates-must-be-ejected)
+- [Fonts](#fonts)
+- [The `zeroRuntime` prerender recipe](#the-zeroruntime-prerender-recipe)
+
 ## The island boundary
 
 An OG image template (`components/OgImage/*.satori.vue` or `*.takumi.vue`)
@@ -37,10 +45,11 @@ reliably work inside a `.satori.vue` template.
 defineOgImage(componentName: string, propsOrOptions?, options?)
 ```
 
-The component name is the **first positional argument**. The renderer
-(Satori vs. Takumi) is picked from the template file's suffix, not a
-`defaults.renderer` config key — a `.satori.vue` file always renders with
-Satori regardless of what else is configured.
+The component name is the **first positional argument**. The renderer is picked
+from the template file's suffix, not a `defaults.renderer` config key — the
+three suffixes are `.satori.vue`, `.takumi.vue` and `.browser.vue`
+(`RendererType = 'satori' | 'browser' | 'takumi'`, `dist/runtime/types.d.ts`),
+and a `.satori.vue` file always renders with Satori regardless of config.
 
 <details>
 <summary>Old patterns (nuxt-og-image v5)</summary>
@@ -54,9 +63,14 @@ automatically.
 
 ## Community templates must be ejected
 
-`nuxt-og-image` ships three ready-made templates outside this repo's
-`components/OgImage/`: `NuxtSeo`, `Brutalist`, `SimpleBlog`
-(`COMMUNITY_TEMPLATES` in `dist/cli.cjs`). Calling `defineOgImage('NuxtSeo', …)`
+`nuxt-og-image` ships **12** ready-made templates outside this repo's
+`components/OgImage/`, in `dist/runtime/app/components/Templates/Community/`:
+`BlogPost`, `Brutalist`, `Docs`, `Frame`, `Nuxt`, `NuxtSeo`, `Pergel`,
+`ProductCard`, `SaaS`, `SimpleBlog`, `UnJs`, `WithEmoji` (13 files —
+`NuxtSeo` ships both a `.satori.vue` and a `.takumi.vue`). Don't read the
+`COMMUNITY_TEMPLATES = ["NuxtSeo", "Brutalist", "SimpleBlog"]` constant in
+`dist/cli.cjs` as the full list: it is only the subset the v6 migration
+command scans for. Calling `defineOgImage('NuxtSeo', …)`
 works in dev because the dev server can render the module's own copy on
 demand, but the module's own CLI treats this as unfinished migration work —
 `npx nuxt-og-image eject <name>` copies the template source into

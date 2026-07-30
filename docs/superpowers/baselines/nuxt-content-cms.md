@@ -218,5 +218,23 @@ fix" patterns (per-file `sitemap:` frontmatter, hardcoded `sitemap.urls`, a new
 `server/api/__sitemap__/` endpoint) appear — the diff is entirely inside the
 `asSitemapCollection` call. The agent also independently flagged that the
 now-redundant German `sitemap:` frontmatter blocks become dead weight under this
-fix, without being asked. No further change needed; this is the version reflected
-in `SKILL.md`.
+fix, without being asked.
+
+> **Correction (added after the final whole-branch review — the run above is
+> left verbatim as the record of what the agent actually produced).**
+>
+> The `onUrl` body recorded here is **broken**, and the skill did not warn about
+> it at the time. `@nuxtjs/sitemap` serialises the callback with `fn.toString()`
+> into the Nitro virtual module `#sitemap/content-on-url`
+> (`dist/module.mjs`, the `nitro:config` hook), so the body is re-evaluated in a
+> scope containing nothing from `content.config.ts`. Closing over `locale` — the
+> `defineLocalizedCollections` callback parameter — compiles fine and then throws
+> `ReferenceError: locale is not defined` the first time
+> `/__sitemap__/nuxt-content-urls.json` renders. The `name:` line is fine; it is
+> evaluated at config time.
+>
+> The marker not firing was therefore a false pass: the agent avoided all three
+> wrong-fix patterns but shipped a fix that cannot run. `SKILL.md` now states the
+> self-containment constraint explicitly and shows the working form, which derives
+> the locale from `onUrl`'s third argument (the collection name) instead of
+> closing over it.

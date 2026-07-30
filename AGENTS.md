@@ -50,9 +50,20 @@
 - **Nitro cannot reliably reach app code.** Every existing `server/**` import
   from `~/...` in this repo is `import type` only — nothing imports a runtime
   value from `~/utils`, `~/composables` or `~/types` across the boundary.
-  Code needed on both sides belongs in `shared/utils` or `shared/types` —
-  those two directories only, with no `vue` or `h3` imports. Do not add a
-  cross-boundary runtime import via `~/utils/...` re-exports as a shortcut.
+  Code needed on both sides belongs in `shared/utils` or `shared/types`, and
+  those two directories only: they are the ones Nuxt auto-imports on **both**
+  sides, and `#shared` is a real alias to them.
+  - **They are scanned top level only.** Nuxt globs them as `*.{ts,js,…}`,
+    never `**/*`, so `shared/utils/blogRelease.ts` is auto-imported and
+    `shared/utils/content/blogRelease.ts` is not — on either side, with no
+    error. This repo's own convention nests (`utils/content/*`); do not carry
+    that habit into `shared/`.
+  - Nuxt's import protection for `shared/` blocks `#app`, `#build`, `#server`
+    and `server/{api,routes,middleware,plugins}/` — not `vue` or `h3`. Keeping
+    Vue and H3 out is still the right instinct for genuinely shared code, but
+    nothing enforces it; don't expect a build error.
+  - Do not add a cross-boundary runtime import via `~/utils/...` re-exports as
+    a shortcut.
 
 ## Knowledge Skills (`.claude/skills/`)
 

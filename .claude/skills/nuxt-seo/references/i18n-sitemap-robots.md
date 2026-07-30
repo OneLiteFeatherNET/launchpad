@@ -4,9 +4,20 @@
 
 Under `i18n.strategy: 'prefix'` (this repo's setting), `@nuxtjs/sitemap`
 detects `@nuxtjs/i18n` and — with no `sitemap.sitemaps` config at all, as in
-this repo — auto-splits the single sitemap into one child sitemap per locale
-(`/sitemap_de.xml`, `/sitemap_en.xml`, aggregated under `/sitemap.xml`), each
-internally flagged `includeAppSources: true`. Two consequences:
+this repo — auto-splits the single sitemap into one child sitemap per locale,
+each internally flagged `includeAppSources: true`.
+
+The children do **not** live at `/sitemap_<code>.xml`. They live under
+`sitemapsPathPrefix` (default `/__sitemap__/`), named from
+`_sitemap = locale.language || locale.code`. The module normalises a legacy
+`iso:` key into `language` itself (`dist/module.mjs`, `normalizeLocales`), so
+this repo's `iso: 'de-DE'` entries still yield `/__sitemap__/de-DE.xml` and
+`/__sitemap__/en-US.xml`. The index is `/sitemap_index.xml`; `/sitemap.xml`
+does not aggregate them — it gets a `routeRules` **redirect** to
+`/sitemap_index.xml`. Fetch `/sitemap_index.xml` when you want the list of
+children, and don't guess a child's filename from the locale `code` alone.
+
+Two further consequences:
 
 - If you ever add an explicit `sitemap.sitemaps` block yourself, a top-level
   `sitemap.sources` or `sitemap.includeAppSources` in `nuxt.config.ts` is
@@ -39,17 +50,24 @@ that needs sitemap URLs. See `nuxt-content-cms` for the split: page
 collections' own `path`/`loc` bugs are fixed in `content.config.ts`; sources
 like this one live in `nuxt.config.ts`/`server/api/__sitemap__/`.
 
-## The XSL viewer hides hreflang unless you ask
+## The XSL viewer hides hreflang, and this repo's column doesn't fix it
 
-`/sitemap.xml` embeds `<xhtml:link rel="alternate" hreflang="...">` entries
-per URL, but the human-readable XSL stylesheet
-(`runtime/server/routes/sitemap.xsl.js`) only renders whatever columns
-`sitemap.xslColumns` declares — it does not surface `xhtml:link` alternates
-as a column by default, so a browser view of `/sitemap.xml` looks like
-hreflang is missing even when it isn't. This repo's `nuxt.config.ts` already
-adds a `Language` column with `select: 'sitemap:hreflang'` for exactly this
-reason. Diagnostic: if hreflang looks wrong, don't trust the XSL-rendered
-table — view-source or `curl` the XML directly and grep for `hreflang=`.
+Each `<url>` embeds its alternates as `<xhtml:link rel="alternate"
+hreflang="…" />` (`runtime/server/sitemap/builder/xml.js`), but the
+human-readable XSL stylesheet (`runtime/server/routes/sitemap.xsl.js`) only
+renders the columns `sitemap.xslColumns` declares, emitting each one as
+`<xsl:value-of select="{c.select}"/>` inside a `for-each` over
+`sitemap:urlset/sitemap:url`.
+
+This repo's `nuxt.config.ts` adds a `Language` column with
+`select: 'sitemap:hreflang'` — that XPath asks for a child *element* named
+`hreflang` in the sitemap namespace, and no such element exists, so the column
+renders empty on every row. The alternates are an *attribute* on an element in
+the `xhtml` namespace (which the stylesheet does declare), so the expression
+would have to be something like `xhtml:link/@hreflang`. Fixing `nuxt.config.ts`
+is out of scope here — just don't read the empty column as "hreflang missing".
+Diagnostic: never trust the XSL-rendered table; view-source or `curl` the XML
+directly and grep for `hreflang=`.
 
 ## Robots: `routeRules` is not auto-translated per locale
 

@@ -29,9 +29,17 @@ use `extractPlainText` from `utils/content.ts`. It already walks both the minima
 one function that handles either without you needing to know which you have.
 
 For a short teaser instead of full plain text, `<ContentRenderer>` takes an
-`excerpt` prop that renders only the content before the `<!--more-->` marker (or
-the first paragraph if there is none) — see `components/features/blog/page/card/ArticleCard.vue`
-for `<ContentRenderer :value="blogArticle" :excerpt="true">`.
+`excerpt` prop that renders only the content before the `<!--more-->` marker —
+see `components/features/blog/page/card/ArticleCard.vue` for
+`<ContentRenderer :value="blogArticle" :excerpt="true">`.
+
+There is **no** implicit first-paragraph fallback. `@nuxtjs/mdc`'s compiler only
+sets `doc.excerpt` when it finds a `<!--more-->` comment node; with no marker the
+field is `undefined`, and `ContentRenderer`'s `if (props.excerpt && props.value.excerpt)`
+guard then falls through to rendering the **full body**. A post that forgets the
+marker silently dumps its whole article into the card. All 15 posts under
+`content/blog/` currently carry one, so this isn't biting today — check it when
+adding a post.
 
 ## The original markdown
 
@@ -43,11 +51,18 @@ with the raw file content verbatim. No collection in this repo currently declare
 ## How a Prose override resolves
 
 `@nuxt/content` renders every markdown element (`<p>`, `<a>`, code fences, …)
-through a `Prose*` component. `components/content/ProseA.vue`,
-`ProseH1.vue`–`ProseH6.vue`, `ProseHr.vue`, `ProseImg.vue`, `ProseList.vue`,
-`ProseLi.vue`, `ProseOl.vue`, `ProsePre.vue`, `ProseP.vue`, and `ProseUl.vue` are
-already overridden here. There is no `ProseCode.vue` override in this repo, so
-inline code still renders with `@nuxtjs/mdc`'s default.
+through a `Prose*` component. Ten real overrides of `@nuxtjs/mdc` components live
+in `components/content/`: `ProseA.vue`, `ProseH1.vue`–`ProseH6.vue`,
+`ProseHr.vue`, `ProseImg.vue`, `ProseLi.vue`, `ProseOl.vue`, `ProsePre.vue`,
+`ProseP.vue` and `ProseUl.vue`. There is no `ProseCode.vue` override, so inline
+code still renders with `@nuxtjs/mdc`'s default.
+
+`ProseHeading.vue` and `ProseList.vue` also sit in that directory but are **not**
+overrides — `@nuxtjs/mdc` ships no component of either name
+(`dist/runtime/components/prose/`), so nothing in the markdown pipeline resolves
+to them. They are local helpers the real overrides reuse — `ProseHeading` is
+imported by `ProseH1`–`ProseH6`, `ProseList` by `ProseOl`/`ProseUl`. Renaming or
+deleting one breaks those callers, not the renderer.
 
 To add or change one:
 

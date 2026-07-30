@@ -33,17 +33,22 @@ the low-priority fallback path above, not the tag that's actually live today.
 
 ## `redirectToCanonicalSiteUrl` (default: `false`)
 
-When `true` and not in dev, a Nitro middleware 302-redirects any request
-whose host doesn't match `site.url` to the canonical host. Off by default and
-not enabled in this repo's config — if a future incident involves an
-unexpected redirect on a non-primary domain, check for this flag before
-assuming it's a Cloudflare-side rule.
+When `true` and not in dev, a Nitro middleware **301**-redirects a request whose
+host doesn't match `site.url` to the canonical host — but only if
+`siteConfig.env === 'production'` and the request isn't a prerender, an asset
+path, or `/_nuxt`/`/api` (`runtime/server/middleware/redirectCanonical.js`).
+Off by default and not enabled in this repo — if a future incident involves an
+unexpected 301 on a non-primary domain, check this flag before assuming it's a
+Cloudflare-side rule.
 
 ## `fallbackTitle` (default: `true`)
 
 Provides the `%s %separator %siteName` title template and a document
-`description` fallback when nothing else sets one, wired to fire after i18n
-is ready (`defaultsWaitI18n` plugin, `dependsOn: ["nuxt-site-config:i18n"]`).
+`description` fallback when nothing else sets one. With `@nuxtjs/i18n` present
+it registers the `titlesWaitI18n` plugin (`titles` without i18n), which fires
+after i18n is ready via `dependsOn: ["nuxt-site-config:i18n"]`. The separate
+`automaticDefaults` option is what swaps `defaults` for `defaultsWaitI18n` —
+don't conflate the two plugins.
 `usePageSeo.ts` already supplies its own title/description fallbacks
 (`opts.title || site.name`, then `t('seo.default_description')`) at normal
 priority, so this default rarely surfaces — it's the last-resort net under a

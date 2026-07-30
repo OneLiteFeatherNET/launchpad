@@ -12,7 +12,7 @@ description: >-
   to have no effect.
 ---
 
-Nuxt 4.2 · @nuxtjs/seo 5.1 · @nuxtjs/i18n 10.3 · @nuxt/content 3.14 · Tailwind 4.1 · Cloudflare Workers + D1
+Nuxt 4.4 · @nuxtjs/seo 5.1 · @nuxtjs/i18n 10.3 · @nuxt/content 3.14 · Tailwind 4.3 · Cloudflare Workers + D1
 
 ## The token contract
 
@@ -29,12 +29,20 @@ Every `--color-*` custom property there mints a utility named after what follows
 
 There is no bare `primary`, `secondary`, or `accent` color, and no numeric
 `brand-*` scale — only `--color-brand-primary/secondary/accent/orange/purple`.
-33 existing class usages under `components/` and `pages/` already use the dead
-names (`bg-primary` ×11, `text-primary` ×8, `ring-primary` ×6, `border-primary`
-×3, `ring-secondary` ×2, `text-secondary` ×2, `border-secondary` ×1— e.g.
-`components/base/Chip.vue`'s default variant). They compile to nothing and ship
-invisible. Copying one of them reinforces the wrong answer — verify with the
-build (see "Verify"), don't pattern-match on-repo usage for color classes.
+Two families of dead names are already in the tree, under `components/` and
+`pages/`:
+
+- **32** bare-color usages: `bg-primary` ×11, `text-primary` ×8, `ring-primary`
+  ×4, `border-primary` ×3, `ring-secondary` ×2, `text-secondary` ×2,
+  `border-secondary` ×1, `outline-primary` ×1 (`pages/blog/[...slug].vue:48`) —
+  e.g. `components/base/Chip.vue`'s default variant. Plus `ring-primary-500` ×2
+  in `NavigationLanguageSelector.vue`, dead twice over.
+- **49** numeric `*-brand-<n>` usages (`ring-brand-500` ×10, `text-brand-900`
+  ×5, `text-brand-100` ×5, …) across seven files.
+
+All of them compile to nothing and ship invisible. Copying one reinforces the
+wrong answer — verify with the build (see "Verify"), don't pattern-match on-repo
+usage for color classes.
 
 ## Arbitrary var() classes must resolve
 
@@ -76,8 +84,11 @@ written inline, and hand-written CSS (`assets/css/tokens.css`, imported from
 `app.vue`, not `nuxt.config.ts`) uses plain custom properties, not `@apply`.
 Keep it that way: `@apply` outside the file with `@import 'tailwindcss'`
 needs its own `@reference "tailwindcss"` import, which re-resolves the whole
-theme per file — a real cost per build, easy to forget in a component's
-`<style scoped>` block, where it silently no-ops instead of erroring. For a
+theme per file — a real cost per build. Forgetting it in a component's
+`<style scoped>` block does **not** silently no-op; Tailwind 4.3 throws and
+fails the build: ``Cannot apply unknown utility class `bg-brand-primary`. Are
+you using CSS modules or similar and missing `@reference`?`` Loud, but still a
+build you have to unbreak. For a
 reusable class, prefer `@utility name { ... }` in `tailwind.css` itself
 (participates in `@apply`/variants like a real utility, no `@reference`
 needed) over `@layer components`, kept only for v3 migration.
@@ -85,15 +96,16 @@ needed) over `@layer components`, kept only for v3 migration.
 ## Focus rings
 
 `focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]` is the
-pattern in `NavigationItem.vue`, `NavigationBar.vue`, `Footer.vue`,
-`error.vue`, and `LanguageSelector.vue` (14 call sites) — invisible for the
-same undefined-token reason as above. `SimpleNavButton.vue` carries the same
-undefined token on `bg-`/`text-`, not a ring, and `assets/css/tokens.css:34`
-sets `outline: 2px solid var(--color-secondary);` as plain CSS — six files
-total, and that last one won't show up in a Tailwind class grep, so "Verify"
-below can't catch it. Use a defined color (`focus-visible:ring-brand-secondary`)
-and always pair `focus-visible:`, never bare `focus:`, so mouse users don't
-get a ring on click.
+pattern, at **14 call sites**: `NavigationItem.vue` ×6, `LanguageSelector.vue`
+×3, `Footer.vue` ×3, `NavigationBar.vue` ×1, `error.vue` ×1 — invisible for the
+same undefined-token reason as above. The same undefined token also appears on
+`bg-`/`text-` (not a ring) in `SimpleNavButton.vue`, `LanguageSelector.vue`,
+`NavigationItem.vue` and `error.vue`, and `assets/css/tokens.css:34` sets
+`outline: 2px solid var(--color-secondary);` as plain CSS. **Seven files** carry
+it in total, and the `tokens.css` one won't show up in a Tailwind class grep, so
+"Verify" below can't catch it. Use a defined color
+(`focus-visible:ring-brand-secondary`) and always pair `focus-visible:`, never
+bare `focus:`, so mouse users don't get a ring on click.
 
 ## References
 

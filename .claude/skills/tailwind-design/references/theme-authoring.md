@@ -3,14 +3,23 @@ plain form versus `@theme inline` or `@theme static`.
 
 ## `@theme` must be top level
 
-`@theme { ... }` only registers tokens when it appears at the root of the
-stylesheet, next to `@import 'tailwindcss'` — never nested inside a selector
-like `.dark { @theme { ... } }`. Nesting it doesn't error, it just doesn't
-register anything; Tailwind's build step looks for `@theme` blocks before any
-selector context exists. This repo's whole token set already lives in one
-top-level block in `assets/css/tailwind.css` — keep new tokens there, not in
-`tokens.css` (that file is hand-written CSS consumed via `app.vue`'s
-`<style>` import, not part of the `@theme` contract at all).
+Keep `@theme { ... }` at the root of the stylesheet, next to
+`@import 'tailwindcss'` — never nested inside a selector like
+`.dark { @theme { ... } }`.
+
+The reason is not that nesting fails to register. On the installed 4.3.0 it
+registers *and works*, which is worse: the token is hoisted into
+`@layer theme { :root, :host { … } }` and the utility compiles, while the
+`.dark` selector you wrapped it in is **silently discarded**. So
+`.dark { @theme { --color-x: … } }` gives you a global `--color-x`, not a
+dark-mode-scoped one, with no warning. To scope a value to a selector, write a
+plain CSS declaration in that selector (or use `light-dark()` — see
+`SKILL.md`'s dark-mode section), not a nested `@theme`.
+
+This repo's whole token set already lives in one top-level block in
+`assets/css/tailwind.css` — keep new tokens there, not in `tokens.css` (that
+file is hand-written CSS consumed via `app.vue`'s `<style>` import, not part of
+the `@theme` contract at all).
 
 ## Plain `@theme` — the default
 
@@ -22,16 +31,24 @@ right default for a new color or spacing token too.
 ## `@theme inline` — when the value is itself a `var()`
 
 If a token's value references another custom property —
-`--color-something: var(--some-other-var);` — declare it under `@theme inline`
-instead of plain `@theme`. Plain `@theme` copies the *reference* into every
-generated utility (`background-color: var(--color-something)`, which then
-re-resolves `--some-other-var` at paint time); `@theme inline` resolves it once
-at build time and inlines the result, which matters when `--some-other-var`
-is scoped somewhere Tailwind's utility output can't see it (e.g. supplied by
-a JS library or a `:root` block outside the `@theme` compilation unit).
-Nothing in this repo needs this today — the `light-dark()` neutrals
-(`--color-bg`, `--color-surface`, etc.) are plain `@theme` because
-`light-dark()` is a CSS function value, not a variable reference.
+`--color-something: var(--src);` — declare it under `@theme inline` instead of
+plain `@theme`. The difference is one level of indirection, not build-time
+resolution:
+
+| | emitted in `@layer theme` | emitted utility |
+|---|---|---|
+| `@theme` | `--color-something: var(--src)` | `background-color: var(--color-something)` |
+| `@theme inline` | *nothing* | `background-color: var(--src)` |
+
+`@theme inline` does **not** resolve `--src` to a literal at build time — it
+substitutes the raw `var(--src)` straight into the utility, so resolution still
+happens in the browser, per element, against whatever `--src` is in scope there.
+That is exactly what you want when `--src` is redefined per subtree (a `.dark`
+block, a component wrapper): the plain form would resolve `--color-something`
+once from wherever *it* was declared, flattening the override. Nothing in this
+repo needs it today — the `light-dark()` neutrals (`--color-bg`,
+`--color-surface`, …) are plain `@theme` because `light-dark()` is a CSS
+function value, not a variable reference.
 
 ## `@theme static` — force-keep an unreferenced token
 
@@ -68,10 +85,14 @@ the token.
 custom property is only ever consumed by hand through `var()` in bespoke CSS
 and never through a Tailwind class, it doesn't belong in `@theme` — a plain
 `:root { --my-value: ...; }` works identically without asking the scanner to
-track it. This repo's `--gradient-from`, `--gradient-via`, `--gradient-to`,
-and the four `--gradient-brand*`/`--gradient-accent*` entries are exactly
-this case: there is no `--gradient-*` utility namespace in Tailwind v4 (unlike
-`--color-*`), so none of them mint a class — they're read only by the
-hand-written `.text-gradient-brand` etc. rules in `tokens.css`. Don't copy
-this as the pattern for a new token; it works only because those rules exist
-by hand.
+track it. There is no `--gradient-*` utility namespace in Tailwind v4 (unlike `--color-*`),
+so none of this repo's seven `--gradient-*` entries mint a class. They split two
+ways, and the split matters:
+
+- `--gradient-brand`, `--gradient-accent`, `--gradient-brand-light`,
+  `--gradient-accent-light` are read by the hand-written `.text-gradient-brand`
+  etc. rules in `tokens.css`. They work, but only because those rules exist by
+  hand — don't copy this as the pattern for a new token.
+- `--gradient-from`, `--gradient-via`, `--gradient-to` are read by
+  **nothing at all**. No utility, no `tokens.css` rule, no component. They are
+  dead weight in `@theme`; deleting them changes no rendered output.
