@@ -77,7 +77,6 @@ export default defineNuxtConfig({
       'nuxt-og-image',
       '@nuxt/content',
       'nuxt-posthog',
-      'nuxt-gtag',
       'nuxt-vitalizer'
     ],
     robots: {
@@ -173,7 +172,13 @@ export default defineNuxtConfig({
         host: 'https://eu.i.posthog.com',
         proxy: true,
         clientOptions: {
-            person_profiles: 'always'
+            // No consent layer exists yet, so capture must not start on its own.
+            // `identified_only` stops a person profile (and its cookie) from being
+            // created for every anonymous visitor; `opt_out_capturing_by_default`
+            // holds all capture until something explicitly opts in. Remove both
+            // only together with a real consent mechanism.
+            person_profiles: 'identified_only',
+            opt_out_capturing_by_default: true
         }
     },
     content: {
@@ -284,18 +289,13 @@ export default defineNuxtConfig({
             host: 'https://eu.i.posthog.com',
             proxy: true,
             clientOptions: {
-                person_profiles: 'always'
+                // Mirrors the base config above; see the comment there.
+                person_profiles: 'identified_only',
+                opt_out_capturing_by_default: true
             }
         },
         site: {
             url: 'https://onelitefeather.net',
-        },
-        gtag: {
-            id: 'AW-16761048144',
-            config: {
-                anonymize_ip: true,
-                send_page_view: true
-            }
         },
         image: {
             format: ['avif', 'webp'],

@@ -112,9 +112,6 @@ importers:
       nuxt:
         specifier: ^4.2.1
         version: 4.4.8(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7))(@parcel/watcher@2.5.6)(@types/node@25.9.1)(@vue/compiler-sfc@3.5.40)(better-sqlite3@12.10.1)(cac@7.0.0)(db0@0.3.4(better-sqlite3@12.10.1))(esbuild@0.28.1)(eslint@10.8.0(jiti@2.7.0))(ioredis@5.11.1)(lightningcss@1.32.0)(magicast@0.5.3)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@7.0.1(rollup@4.62.2))(rollup@4.62.2)(srvx@0.11.21)(terser@5.49.0)(typescript@5.9.3)(vite@7.3.6(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.49.0)(yaml@2.9.0))(vue-tsc@3.3.9(typescript@5.9.3))(yaml@2.9.0)
-      nuxt-gtag:
-        specifier: 4.1.0
-        version: 4.1.0(magicast@0.5.3)
       nuxt-og-image:
         specifier: 6.5.3
         version: 6.5.3(57bf1ca252aeb71f83a79231760dd537)
@@ -6360,9 +6357,6 @@ packages:
 
   nuxt-define@1.0.0:
     resolution: {integrity: sha512-CYZ2WjU+KCyCDVzjYUM4eEpMF0rkPmkpiFrybTqqQCRpUbPt2h3snswWIpFPXTi+osRCY6Og0W/XLAQgDL4FfQ==}
-
-  nuxt-gtag@4.1.0:
-    resolution: {integrity: sha512-2TL7RUA8N8NYGbY4UZ9IqKyMZMgO9cCGu6yqadUU8RF+Y81PXI+k+1giIA11XXStaJoGXaXeNsBUIJXn1tUy3A==}
 
   nuxt-link-checker@5.0.10:
     resolution: {integrity: sha512-QHaFlfJFuqhBanW/B4eRHuQOOavV4LgXvtbRqG0jaLp5qd9MPFZFdc+aZ79HGElebQqdVBCToiB2zbjbWr8aZA==}
@@ -14956,15 +14950,6 @@ snapshots:
       - webpack
 
   nuxt-define@1.0.0: {}
-
-  nuxt-gtag@4.1.0(magicast@0.5.3):
-    dependencies:
-      '@nuxt/kit': 4.4.5(magicast@0.5.3)
-      defu: 6.1.7
-      pathe: 2.0.3
-      ufo: 1.6.4
-    transitivePeerDependencies:
-      - magicast
 
   nuxt-link-checker@5.0.10(7b5e736523b495a709afbe0f28e20ded):
     dependencies:
