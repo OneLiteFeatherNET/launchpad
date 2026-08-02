@@ -14,7 +14,6 @@ tags:
 author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/alles-was-man-ueber-ethanol-wissen-sollte'
 sitemap:
-  loc: '/de/blog/alles-was-man-ueber-ethanol-wissen-sollte'
   lastmod: '2024-07-23'
   changefreq: monthly
   priority: 0.8

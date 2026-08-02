@@ -15,7 +15,6 @@ tags:
 author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
 sitemap:
-  loc: '/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
   lastmod: '2024-09-29'
   changefreq: monthly
   priority: 0.8

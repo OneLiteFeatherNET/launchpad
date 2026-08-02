@@ -16,7 +16,6 @@ tags:
 author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/resilienz-im-detail-priorityclasses-pdb-affinitaeten'
 sitemap:
-  loc: '/de/blog/resilienz-im-detail-priorityclasses-pdb-affinitaeten'
   lastmod: '2026-06-13'
   changefreq: monthly
   priority: 0.8
