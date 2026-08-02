@@ -39,7 +39,7 @@
     "@resvg/resvg-wasm": "2.6.2",
     "@tailwindcss/postcss": "^4.1.17",
     "@tailwindcss/vite": "^4.1.17",
-    "@unhead/vue": "^2.0.19",
+    "@unhead/vue": "^3.0.0",
     "@vueuse/core": "^14.1.0",
     "@vueuse/nuxt": "14.3.0",
     "autoprefixer": "^10.4.22",
