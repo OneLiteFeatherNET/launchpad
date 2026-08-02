@@ -32,7 +32,7 @@
     "@nuxt/content": "3.15.2",
     "@nuxt/eslint": "1.16.0",
     "@nuxt/image": "2.1.0",
-    "@nuxtjs/i18n": "10.3.0",
+    "@nuxtjs/i18n": "10.6.0",
     "@nuxtjs/robots": "5.7.1",
     "@nuxtjs/seo": "5.1.4",
     "@nuxtjs/sitemap": "8.3.2",
