@@ -129,8 +129,13 @@ must precede `@nuxt/content`):
 ['@vueuse/nuxt', 'nuxt-link-checker', 'nuxt-site-config', '@nuxt/eslint',
  '@nuxtjs/i18n', '@nuxtjs/seo', '@nuxtjs/robots', '@nuxtjs/sitemap',
  '@nuxt/image', 'nuxt-og-image', '@nuxt/content', 'nuxt-posthog',
- 'nuxt-gtag', 'nuxt-vitalizer']
+ 'nuxt-vitalizer']
 ```
+
+`nuxt-gtag` was removed: it loaded a Google Ads tag with no consent layer in
+front of it. Do not add it — or any other analytics module — back without one.
+PostHog stays, but runs with `opt_out_capturing_by_default: true` until a
+consent mechanism exists.
 
 ## Verify
 
