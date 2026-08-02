@@ -4,8 +4,24 @@ on:
   push:
     branches: [main]
 
-# Release Please opens (or updates) a release PR. Once that PR is merged,
-# the same workflow run promotes the merge into a tag + GitHub Release.
+# Release Please opens (or updates) a release PR. Once that PR is merged, the
+# same workflow run tags the merge, publishes the GitHub Release, and
+# fast-forwards the `release` branch to it.
+#
+# The promotion lives in this job on purpose. It used to be a separate
+# workflow triggered by `push: tags: ['v*']`, which could never fire, for two
+# independent reasons:
+#
+#   1. The glob did not match. With `include-v-in-tag: true` and a
+#      `package-name`, release-please cuts `onelitefeather.net-v1.2.0`, and
+#      `v*` is anchored at the start of the tag name.
+#   2. Even a matching glob would not have run it. Tags pushed by the default
+#      GITHUB_TOKEN do not trigger further workflow runs — a GitHub design
+#      rule against recursive CI — so it would also have needed a PAT or app
+#      token.
+#
+# Doing it here sidesteps both: no tag trigger, no second workflow, no extra
+# secret to provision.
 permissions:
   contents: write
   pull-requests: write
@@ -22,6 +38,26 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      # Everything below runs only on the push that actually cut a release.
+      - uses: actions/checkout@v6
+        if: ${{ steps.release.outputs.release_created == 'true' }}
+        with:
+          ref: ${{ steps.release.outputs.sha }}
+          fetch-depth: 0
+
+      - name: Fast-forward release branch to the tagged commit
+        if: ${{ steps.release.outputs.release_created == 'true' }}
+        env:
+          # Passed via env rather than interpolated into the command itself.
+          TAG_NAME: ${{ steps.release.outputs.tag_name }}
+        run: |
+          set -euo pipefail
+          echo "Promoting $TAG_NAME ($(git rev-parse --short HEAD)) to release"
+          # release-please tags always sit on main's linear history, so the
+          # release branch only ever moves forward. No force push.
+          git push origin "HEAD:refs/heads/release"
