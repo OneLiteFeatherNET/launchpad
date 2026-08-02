@@ -17,20 +17,20 @@ coordinates:
 builders:
   - name: 'Svenko1'
     mcName: 'Svenko1'
-thumbnail: '/community-poi/yggdrasil/cover.webp'
+thumbnail: '/images/community-poi/yggdrasil/cover.webp'
 thumbnailAlt: 'Covered wooden bridge across a river, with the huge cherry blossom canopy of Yggdrasil behind it'
 gallery:
-  - src: '/community-poi/yggdrasil/cover.webp'
+  - src: '/images/community-poi/yggdrasil/cover.webp'
     alt: 'Covered wooden bridge across a river, with the huge cherry blossom canopy of Yggdrasil behind it'
     caption: 'The access bridge, canopy in view'
     width: 1600
     height: 841
-  - src: '/community-poi/yggdrasil/krone-uebersicht.webp'
+  - src: '/images/community-poi/yggdrasil/krone-uebersicht.webp'
     alt: 'View from inside the cherry blossom canopy across the landscape with a village and a river below'
     caption: 'From the canopy across the landscape'
     width: 1600
     height: 841
-  - src: '/community-poi/yggdrasil/krone-innen.webp'
+  - src: '/images/community-poi/yggdrasil/krone-innen.webp'
     alt: 'Platforms, walkways and lantern-lit huts inside the cherry blossom canopy'
     caption: 'Huts and walkways inside the canopy'
     width: 1600
