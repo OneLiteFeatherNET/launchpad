@@ -37,7 +37,6 @@ const headingId = computed(() => props.id)
 const textFromI18n = computed(() => {
   if (!props.i18nKey) return ''
   try {
-    // @ts-expect-error: t signature allows Record params
     return t(props.i18nKey, props.i18nParams || {}) as string
   } catch {
     return props.i18nKey

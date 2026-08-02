@@ -87,10 +87,26 @@ wrong here — not general Nuxt or Tailwind documentation.
 
 Preserved from the previous skill set: source maps are never published to
 production, and the Lighthouse `valid-source-maps` audit is an accepted
-trade-off. Accessibility is enforced in CI through
-`eslint-plugin-vuejs-accessibility` (`pnpm lint`) and the Lighthouse
-accessibility gate (error, minScore 0.9). The `best-practices` gate is
-`warn` (minScore 0.9) and the suite runs the desktop preset only — mobile
-performance is the known weak spot; check it manually.
+trade-off. Accessibility is checked in CI by the Lighthouse accessibility gate
+(error, minScore 0.9) and by `eslint-plugin-vuejs-accessibility` via the quality
+ratchet — note that the ratchet only blocks *new* violations, it does not
+enforce a clean tree (see below). The `best-practices` gate is `warn`
+(minScore 0.9) and the suite runs the desktop preset only — mobile performance
+is the known weak spot; check it manually.
+
+## Quality gate
+
+`ci.yml` runs two jobs on every pull request: a production build (hard gate) and
+a quality ratchet. The ratchet (`scripts/quality-gate.mjs`) compares ESLint and
+TypeScript error counts against `quality-baseline.json` and fails only when a
+count **rises**. The repository carries a backlog that accumulated while nothing
+measured it, so blocking on the absolute number would stall every pull request.
+
+- `pnpm quality` — check against the baseline
+- `pnpm quality:update` — lower the baseline after fixing something; commit the result
+- `pnpm typecheck` — the raw `vue-tsc` run
+
+Never raise a baseline number to make a change pass. Fix the errors, or explain
+in the pull request why the rise is unavoidable.
 
 When adding a skill, place it under `.claude/skills/` and list it here.

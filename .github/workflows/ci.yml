@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Nothing here writes to the repository.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Production build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # The only gate that runs against the $production config branch. Every
+      # other check in this repository measures the dev server, which leaves
+      # the whole `$production` block in nuxt.config.ts unexercised.
+      - name: Build
+        run: pnpm build
+        env:
+          NODE_ENV: production
+
+  quality:
+    name: Lint + typecheck (ratchet)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Compares ESLint and TypeScript error counts against
+      # quality-baseline.json and fails only when a count RISES. The repository
+      # carries a backlog that accumulated while nothing measured it; blocking
+      # on the absolute number would stall every pull request. See
+      # scripts/quality-gate.mjs.
+      - name: Quality ratchet
+        run: pnpm quality

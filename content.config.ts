@@ -99,7 +99,7 @@ const teamSchema = z
             slogan: z.string().optional(),
             bio: z.string().optional(),
             since: z.string().optional(),
-            links: z.record(z.string()).optional(),
+            links: z.record(z.string(), z.string()).optional(),
             mcName: z.string().optional(),
             href: z.string().optional(),
             avatarUrl: z.string().url().optional(),
@@ -317,7 +317,7 @@ export default defineContentConfig({
           role: z.string().optional(),
           avatar: z.string().optional(),
           bio: z.string().optional(),
-          links: z.record(z.string()).optional()
+          links: z.record(z.string(), z.string()).optional()
         })
         .passthrough()
     })
