@@ -6,6 +6,7 @@ import CarouselItemImage from '~/components/features/home/carousel/items/Carouse
 import CarouselItemBlog from '~/components/features/home/carousel/items/CarouselItemBlog.vue'
 import CarouselItemNews from '~/components/features/home/carousel/items/CarouselItemNews.vue'
 import CarouselItemEvent from '~/components/features/home/carousel/items/CarouselItemEvent.vue'
+import CarouselItemPoi from '~/components/features/home/carousel/items/CarouselItemPoi.vue'
 import type { AnySlide, NormalizedSlide } from '~/types/carousel'
 import { normalizeSlides, getSlideAriaText } from '~/composables/useCarousel'
 
@@ -59,10 +60,13 @@ const preloadLink = computed(() => {
   const slide = normalizedSlides.value[0]
   if (!slide) return null
 
-  const src =
-    slide.type === 'image'
+  const src
+    = slide.type === 'image'
       ? slide.src
-      : slide.type === 'blog' || slide.type === 'news' || slide.type === 'event'
+      : slide.type === 'blog'
+        || slide.type === 'news'
+        || slide.type === 'event'
+        || slide.type === 'poi'
         ? slide.image
         : undefined
 
@@ -136,7 +140,10 @@ const stop = () => {
 // Only watch and start autoplay on the client to avoid SSR interval usage
 if (import.meta.client) {
   watch(
-    () => [props.autoPlay, props.interval, slidesCount.value, prefersReducedMotion.value],
+    () => [props.autoPlay,
+props.interval,
+slidesCount.value,
+prefersReducedMotion.value],
     () => start(),
     { immediate: true }
   )
@@ -204,6 +211,7 @@ const componentFor = (slide: NormalizedSlide) => {
     case 'blog': return CarouselItemBlog
     case 'news': return CarouselItemNews
     case 'event': return CarouselItemEvent
+    case 'poi': return CarouselItemPoi
     default: return CarouselItemImage
   }
 }
@@ -246,6 +254,7 @@ function withAlpha(rgb: string, a: number) {
       <div
         class="group relative z-10 w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] touch-pan-y select-none min-h-[58svh] md:min-h-0"
         :style="{ paddingTop: aspectPercent }"
+        tabindex="0"
         @mouseenter="isHovering = true"
         @mouseleave="isHovering = false"
         @focusin="isHovering = true"
@@ -254,7 +263,6 @@ function withAlpha(rgb: string, a: number) {
         @pointerup.passive="onPointerUp"
         @touchstart.passive="onPointerDown"
         @touchend.passive="onPointerUp"
-        tabindex="0"
       >
       <!-- Slides track (below dots, below controls) -->
       <div
@@ -264,6 +272,7 @@ function withAlpha(rgb: string, a: number) {
       >
         <div
           v-for="(s, i) in normalizedSlides"
+          :id="`carousel-slide-${i}`"
           :key="i"
           class="relative h-full flex-shrink-0"
           :style="{ width: '100%', minWidth: '100%' }"
@@ -272,7 +281,6 @@ function withAlpha(rgb: string, a: number) {
           :aria-label="getSlideAriaText(s, i, slidesCount)"
           :aria-hidden="i !== current"
           :inert="i !== current ? true : undefined"
-          :id="`carousel-slide-${i}`"
         >
           <slot name="slide" :item="s" :index="i">
             <component
@@ -334,7 +342,7 @@ function withAlpha(rgb: string, a: number) {
       </div>
     </div>
   </section>
-  
+
 </template>
 
 <style scoped>

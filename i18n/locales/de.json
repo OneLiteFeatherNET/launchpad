@@ -16,7 +16,8 @@
     "change_language": "Sprache ändern",
     "more": "Mehr",
     "status": "Status",
-    "roadmap": "Roadmap"
+    "roadmap": "Roadmap",
+    "community_poi": "Community-POIs"
   },
   "carousel": {
     "prev": "Zurück",
@@ -212,5 +213,188 @@
     "message_404": "Die gesuchte Seite existiert nicht oder wurde möglicherweise an eine neue Adresse verschoben.",
     "title_generic": "Etwas ist schiefgelaufen",
     "message_generic": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es gleich noch einmal."
+  },
+  "community_poi": {
+    "overview": {
+      "title": "Community Points of Interest",
+      "description": "Bauprojekte aus unserer Community: Vom Konzept über laufende Baustellen bis zur fertigen Sehenswürdigkeit – mit Fortschritt, Galerie und Litematica-Schematics zum Nachbauen.",
+      "count": "{count} POIs",
+      "empty": "Aktuell sind noch keine Community-POIs veröffentlicht. Schau bald wieder rein – oder reiche dein Projekt ein!"
+    },
+    "status": {
+      "planning": "In Planung",
+      "in-progress": "Im Bau",
+      "paused": "Pausiert",
+      "completed": "Fertig"
+    },
+    "progress": {
+      "label": "Fortschritt",
+      "value_text": "{value} Prozent fertiggestellt",
+      "aria": "Aktueller Baufortschritt"
+    },
+    "goal_state": {
+      "aria": "Ziel und aktueller Zustand",
+      "goal": "Ziel",
+      "current": "Aktueller Zustand"
+    },
+    "meta": {
+      "aria": "Projekt-Metadaten",
+      "location": "Ort im Spiel",
+      "coordinates": "BlueMap-Position",
+      "coordinates_hint": "Zum Reinschauen auf der BlueMap – Litematica-Origin findest du pro Schematic.",
+      "builders": "Beteiligte Builder",
+      "started": "Begonnen",
+      "updated": "Zuletzt aktualisiert",
+      "forum": "Forum-Channel",
+      "forum_open": "Im Forum-Channel öffnen"
+    },
+    "dimension": {
+      "overworld": "Oberwelt",
+      "nether": "Nether",
+      "end": "End"
+    },
+    "gallery": {
+      "title": "Bildergalerie",
+      "aria": "Bildergalerie zum Projekt",
+      "open_at": "Bild {current} von {total} öffnen",
+      "prev": "Vorheriges Bild",
+      "next": "Nächstes Bild",
+      "close": "Galerie schließen"
+    },
+    "schematics": {
+      "title": "Litematica-Schematics",
+      "aria": "Verfügbare Schematics zum Download",
+      "download": "Herunterladen",
+      "opens_external": "(öffnet eine externe Seite)",
+      "hint": "Schematic mit dem Litematica-Mod in Minecraft laden, um den Bau Block für Block nachzubauen.",
+      "litematica_version": "Litematica {version}",
+      "setup": {
+        "title": "Point-/Setup-Guide",
+        "origin": "Empfohlener Origin (X/Y/Z)",
+        "facing": "Ausrichtung",
+        "rotation": "Rotation"
+      }
+    },
+    "bluemap": {
+      "title": "Auf der BlueMap finden",
+      "aria": "BlueMap-Link mit Koordinaten",
+      "open": "Auf BlueMap öffnen",
+      "link_aria": "{title} auf der BlueMap öffnen (neuer Tab)",
+      "show_preview": "Mini-Vorschau einblenden",
+      "hide_preview": "Mini-Vorschau ausblenden",
+      "iframe_title": "BlueMap-Vorschau für {title}",
+      "embed_note": "Vorschau geladen von {host}. Für volle Funktionen die externe Seite öffnen."
+    },
+    "facing": {
+      "north": "Norden",
+      "south": "Süden",
+      "east": "Osten",
+      "west": "Westen"
+    },
+    "rotation": {
+      "none": "Keine (NONE)",
+      "cw_90": "CW_90",
+      "cw_180": "CW_180",
+      "cw_270": "CW_270",
+      "ccw_90": "CCW_90"
+    },
+    "copy": {
+      "raw": "Koordinaten kopieren",
+      "tp": "/tp kopieren",
+      "copied": "Kopiert!",
+      "raw_aria": "Koordinaten {value} in die Zwischenablage kopieren",
+      "tp_aria": "{value} in die Zwischenablage kopieren"
+    },
+    "contribute": {
+      "aria": "Wie du Inhalte beisteuern kannst",
+      "title": "Bilder oder neuen POI beisteuern",
+      "body": "Bilder können per Discord nachgereicht oder direkt per Pull-Request auf GitHub eingebunden werden. Neue POIs landen als Markdown unter content/community-poi/.",
+      "discord": "Im Discord melden",
+      "github": "PR auf GitHub eröffnen"
+    },
+    "collaboration": {
+      "aria": "Zusammenarbeit und Forum-Channel",
+      "open_title": "Mitbauen & mitreden",
+      "open_body": "Dieses Projekt freut sich über Bilder, Material und Builder-Hände. Sprich dich im Forum-Channel oder Discord ab, bevor du loslegst.",
+      "closed_title": "Showcase – bitte nicht verändern",
+      "closed_body": "Dieses Projekt wird nicht von der Community gepflegt. Bewundern erlaubt, mitbauen oder umbauen bitte nicht – nutze den Forum-Channel für Feedback und Fragen.",
+      "forum_link": "Forum-Channel öffnen"
+    },
+    "category": {
+      "team": "Team-Projekt",
+      "community": "Community-Projekt",
+      "collab": "Gemeinschaftsprojekt",
+      "farm": "Farm"
+    },
+    "lore": {
+      "title": "Geschichte",
+      "aria": "Hintergrundgeschichte zum POI"
+    },
+    "carousel": {
+      "tag": "Featured POI",
+      "cta": "Projekt ansehen",
+      "cta_aria": "Zum Projekt: {title}",
+      "title_aria": "Featured POI: {title}"
+    },
+    "litematica": {
+      "title": "Litematica einrichten & verwenden",
+      "intro": "Kurzanleitung und FAQ rund um den Litematica-Mod, damit du Schematics aus der Übersicht direkt nutzen kannst.",
+      "aria": "Hilfe und FAQ zu Litematica",
+      "rule": {
+        "title": "Serverregel – wichtig!",
+        "body": "Litematica ist auf OneLiteFeather ausschließlich als Blaupause (Hologramm-Anzeige) erlaubt. Auto-Place (Easy Place / Place Holder / Tool-gestütztes automatisches Setzen) ist verboten und wird mit einem Permaban geahndet. Bau die Blöcke selbst – das Hologramm ist Vorlage, keine Bauhilfe."
+      },
+      "faq": {
+        "entries": [
+          {
+            "q": "Was ist Litematica überhaupt?",
+            "a": "Litematica ist ein Client-Mod für Minecraft (Fabric), der Schematic-Dateien (.litematic) als Hologramm im Spiel anzeigt. Damit baust du ein Projekt 1:1 nach, ohne den Server zu verändern – andere Spieler:innen sehen das Hologramm nicht."
+          },
+          {
+            "q": "Wie installiere ich den Mod?",
+            "a": "Du brauchst den Fabric-Loader passend zur Minecraft-Version und legst die Litematica-JAR (sowie die Abhängigkeit MaLiLib) in den mods/-Ordner. Beim Start in den Mods-Einstellungen prüfen, dass beide aktiv sind.",
+            "links": [
+              { "label": "Litematica auf Modrinth", "href": "https://modrinth.com/mod/litematica" },
+              { "label": "MaLiLib auf Modrinth", "href": "https://modrinth.com/mod/malilib" },
+              { "label": "Fabric Loader", "href": "https://modrinth.com/mod/fabric-api" }
+            ]
+          },
+          {
+            "q": "Wie lade ich eine Schematic?",
+            "a": "Speichere die .litematic-Datei in .minecraft/schematics/. Im Spiel öffnest du das Litematica-Menü (Standard: M), wählst 'Load schematic' und stellst die Position über 'Schematic placement' ein."
+          },
+          {
+            "q": "Wofür ist der Point-/Setup-Guide gut?",
+            "a": "Pro Schematic geben wir empfohlene Origin-Koordinaten und eine Ausrichtung an. Damit liegt das Hologramm an der vorgesehenen Stelle und passt zu den Nachbarbauten."
+          },
+          {
+            "q": "Welche Litematica-Version brauche ich?",
+            "a": "Pro Schematic geben wir die empfohlene Litematica-Version (und passende Minecraft-Version) direkt an der Datei an. Halte dich an diese Kombination – ältere oder neuere Litematica-Versionen können Blöcke unterschiedlich serialisieren und das Hologramm verschiebt sich oder fehlt komplett.",
+            "links": [
+              { "label": "Alle Litematica-Versionen auf Modrinth", "href": "https://modrinth.com/mod/litematica/versions" }
+            ]
+          },
+          {
+            "q": "Darf ich Auto-Place / Easy Place benutzen?",
+            "a": "Nein. Auf OneLiteFeather ist jede Form von Auto-Place verboten – das umfasst Easy Place, Place Holder und ähnliche Funktionen, die Blöcke automatisch setzen. Verstöße werden mit einem Permaban bestraft. Erlaubt ist Litematica nur als visuelle Blaupause; Blöcke setzt du selbst."
+          },
+          {
+            "q": "Darf ich die Schematics auf eigenen Welten nutzen?",
+            "a": "Ja, gerne. Die Schematics aus dieser Übersicht dürfen privat und auf eigenen Servern verwendet werden. Bitte gib die ursprünglichen Builder credit, wenn du sie öffentlich teilst."
+          }
+        ]
+      }
+    },
+    "card": {
+      "by": "von",
+      "builders_more": "{first} + {count} weitere",
+      "open_detail": "Details zu {title} öffnen",
+      "gallery_count_sr": "Bilder in der Galerie",
+      "schematic_count_sr": "Verfügbare Schematics",
+      "showcase_only": "Nur Showcase"
+    },
+    "detail": {
+      "back": "Zur POI-Übersicht"
+    }
   }
 }

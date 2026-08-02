@@ -3,6 +3,16 @@ import {defineOrganization} from 'nuxt-schema-org/schema'
 import tailwindcss from "@tailwindcss/vite";
 import pkg from './package.json' assert {type: 'json'}
 
+// Image provider is chosen at build time from the NUXT_IMAGE_PROVIDER build
+// variable, set per Wrangler environment in Cloudflare Workers Builds. The
+// `production` environment sets it to `cloudflare` to route images through
+// the img.onelitefeather.net proxy; preview/local builds leave it unset and
+// fall back to `none`, serving the originals straight from the deploy's own
+// /public — the proxy only knows the live site and would 404 branch assets.
+const imageProvider = process.env.NUXT_IMAGE_PROVIDER === 'cloudflare'
+  ? 'cloudflare'
+  : 'none'
+
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
     devtools: {
@@ -131,7 +141,10 @@ export default defineNuxtConfig({
         version: pkg.version
     },
     image: {
-        provider: 'cloudflare',
+        // Provider is resolved from the NUXT_IMAGE_PROVIDER build variable
+        // (see the note at the top of this file). `cloudflare` on production,
+        // `none` everywhere else.
+        provider: imageProvider,
         // Prefer modern formats with automatic fallback for browsers that don't support them.
         format: ['avif', 'webp'],
         // Slightly lower default quality to trim payloads without obvious visual loss.
@@ -307,10 +320,10 @@ export default defineNuxtConfig({
                             database_name: 'launchpad',
                             database_id: 'a92127c1-aaa3-4753-82ba-ea59fa9e7140'
                         }
-                    ],
-                    vars: {
-                        "NUXT_IMAGE_PROVIDER": "cloudflare",
-                    }
+                    ]
+                    // NUXT_IMAGE_PROVIDER is a Cloudflare Workers Builds build
+                    // variable (read at build time in nuxt.config, see top of
+                    // file) — not a runtime Worker var, so it is not in `vars`.
                 }
             }
         }
