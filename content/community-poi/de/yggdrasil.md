@@ -17,20 +17,20 @@ coordinates:
 builders:
   - name: 'Svenko1'
     mcName: 'Svenko1'
-thumbnail: '/community-poi/yggdrasil/cover.webp'
+thumbnail: '/images/community-poi/yggdrasil/cover.webp'
 thumbnailAlt: 'Überdachte Holzbrücke über einen Fluss, dahinter die gewaltige Kirschblütenkrone des Yggdrasil'
 gallery:
-  - src: '/community-poi/yggdrasil/cover.webp'
+  - src: '/images/community-poi/yggdrasil/cover.webp'
     alt: 'Überdachte Holzbrücke über einen Fluss, dahinter die gewaltige Kirschblütenkrone des Yggdrasil'
     caption: 'Zugangsbrücke mit Blick auf die Krone'
     width: 1600
     height: 841
-  - src: '/community-poi/yggdrasil/krone-uebersicht.webp'
+  - src: '/images/community-poi/yggdrasil/krone-uebersicht.webp'
     alt: 'Blick aus der Kirschblütenkrone über die darunterliegende Landschaft mit Dorf und Fluss'
     caption: 'Aus der Krone über die Landschaft'
     width: 1600
     height: 841
-  - src: '/community-poi/yggdrasil/krone-innen.webp'
+  - src: '/images/community-poi/yggdrasil/krone-innen.webp'
     alt: 'Plattformen, Stege und Hütten mit Laternen im Inneren der Kirschblütenkrone'
     caption: 'Hütten und Stege im Inneren der Krone'
     width: 1600
