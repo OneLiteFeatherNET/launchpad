@@ -3,13 +3,30 @@ import {defineOrganization} from 'nuxt-schema-org/schema'
 import tailwindcss from "@tailwindcss/vite";
 import pkg from './package.json' assert {type: 'json'}
 
-// Image provider is chosen at build time from the NUXT_IMAGE_PROVIDER build
-// variable, set per Wrangler environment in Cloudflare Workers Builds. The
-// `production` environment sets it to `cloudflare` to route images through
-// the img.onelitefeather.net proxy; preview/local builds leave it unset and
-// fall back to `none`, serving the originals straight from the deploy's own
-// /public — the proxy only knows the live site and would 404 branch assets.
-const imageProvider = process.env.NUXT_IMAGE_PROVIDER === 'cloudflare'
+// Image provider, chosen at build time.
+//
+// Most images referenced from content/ do NOT exist in this repository — they
+// live only behind the img.onelitefeather.net proxy (5 of the 6 paths under
+// /images/ referenced by content/ have no file in public/). With the `none`
+// provider those paths are emitted verbatim and 404 for every visitor.
+//
+// This used to depend solely on a NUXT_IMAGE_PROVIDER build variable
+// configured in the Cloudflare dashboard, outside version control. When that
+// variable is absent the fallback to `none` is silent, and the result is a
+// deploy that renders without images. That is exactly what happened once
+// Workers Builds rebuilt `main` after months without a deploy.
+//
+// So the default is now derived from the build context Cloudflare injects
+// itself (WORKERS_CI=1 on Workers Builds — see
+// developers.cloudflare.com/workers/ci-cd/builds/configuration/): anything
+// built by Cloudflare is published and must use the proxy. Local and
+// GitHub Actions builds keep `none`, which serves whatever is in public/.
+//
+// NUXT_IMAGE_PROVIDER still wins when set explicitly, so a Workers build can
+// be forced onto `none` — scripts/check-image-assets.mjs then refuses the
+// build unless every referenced image really is in public/.
+const isCloudflareBuild = process.env.WORKERS_CI === '1'
+const imageProvider = (process.env.NUXT_IMAGE_PROVIDER ?? (isCloudflareBuild ? 'cloudflare' : 'none')) === 'cloudflare'
   ? 'cloudflare'
   : 'none'
 

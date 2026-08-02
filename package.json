@@ -17,7 +17,8 @@
   "homepage": "https://github.com/TheMeinerLP/launchpad#readme",
   "license": "MIT",
   "scripts": {
-    "build": "nuxi build",
+    "build": "node scripts/check-image-assets.mjs && nuxi build",
+    "check:images": "node scripts/check-image-assets.mjs",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
