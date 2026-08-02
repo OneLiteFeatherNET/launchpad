@@ -6,6 +6,11 @@ on:
   push:
     branches: [main]
 
+# Nothing here writes to the repository; without this block the workflow
+# inherits the repository default, which may be read/write.
+permissions:
+  contents: read
+
 # Cancel superseded runs on the same ref to keep the queue tidy.
 concurrency:
   group: seo-${{ github.workflow }}-${{ github.ref }}
@@ -18,7 +23,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
       - uses: actions/setup-node@v6
         with:
           node-version: 24
@@ -53,7 +58,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
       - uses: actions/setup-node@v6
         with:
           node-version: 24
@@ -71,7 +76,7 @@ jobs:
         run: pnpm exec wait-on http://localhost:3000 --timeout 240000 --interval 2000
 
       - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v12
+        uses: treosh/lighthouse-ci-action@3e7e23fb74242897f95c0ba9cabad3d0227b9b18 # v12
         with:
           configPath: ./.lighthouserc.json
           uploadArtifacts: true

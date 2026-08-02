@@ -1,7 +1,8 @@
 // `#sitemap` is aliased to @nuxtjs/sitemap's runtime dir by the module
 // (nitro.alias["#sitemap"]). This is the same entrypoint the module's own
-// route handler uses internally.
-// @ts-expect-error - internal runtime entrypoint, no published types
+// route handler uses internally. Since @nuxtjs/sitemap v8 this path resolves
+// with published types, so no `@ts-expect-error` is needed (and one here would
+// itself be an error under `noUnusedTsExpectError`).
 import { sitemapChildXmlEventHandler } from '#sitemap/server/sitemap/event-handlers.js'
 
 /**
