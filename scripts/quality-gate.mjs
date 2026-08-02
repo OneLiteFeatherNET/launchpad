@@ -13,10 +13,20 @@
  *
  *   node scripts/quality-gate.mjs           # check against the baseline
  *   node scripts/quality-gate.mjs --update  # rewrite the baseline (only lowers)
+ *
+ * The gate deletes and regenerates `.nuxt/` before measuring. Both tools read
+ * generated files from there — ESLint imports `.nuxt/eslint.config.mjs`,
+ * vue-tsc resolves auto-imports and component types through
+ * `.nuxt/tsconfig.json` — so the counts describe whatever state that directory
+ * happens to be in. A working copy that has switched branches, run `pnpm dev`
+ * or built a few times can hold stale generated types and under-report: this
+ * was observed as 39 type errors locally against 41 in CI on the same commit,
+ * which cost a wrong baseline. CI starts from a clean checkout and would never
+ * reproduce it. Regenerating makes both sides measure the same thing.
  */
 
 import { execFileSync } from 'node:child_process'
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 
@@ -40,6 +50,12 @@ const TSC_ARGS = [
   'tsconfig.json',
 ]
 
+const PREPARE_ARGS = [
+  'exec',
+  'nuxt',
+  'prepare',
+]
+
 const METRICS = [
   ['eslintErrors', 'ESLint errors'],
   ['eslintWarnings', 'ESLint warnings'],
@@ -54,6 +70,15 @@ function run(args) {
     if (error.stdout !== undefined) return error.stdout
     throw error
   }
+}
+
+/**
+ * Rebuild `.nuxt/` from scratch so the counts do not depend on whatever a
+ * previous `pnpm build` or `pnpm dev` happened to leave behind.
+ */
+function prepare() {
+  rmSync(resolve(ROOT, '.nuxt'), { recursive: true, force: true })
+  run(PREPARE_ARGS)
 }
 
 function countEslint() {
@@ -71,6 +96,10 @@ function countTypes() {
 }
 
 const baseline = JSON.parse(readFileSync(BASELINE, 'utf8'))
+
+console.log('\nRegenerating .nuxt/ so the counts are reproducible...')
+prepare()
+
 const actual = { ...countEslint(), ...countTypes() }
 
 let regressed = false
