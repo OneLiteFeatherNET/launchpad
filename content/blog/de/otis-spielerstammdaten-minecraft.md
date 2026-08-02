@@ -15,7 +15,6 @@ author: phillipp-glanz
 
 canonical: 'https://onelitefeather.net/de/blog/otis-zentrale-spielerstammdaten-minecraft'
 sitemap:
-  loc: '/de/blog/otis-zentrale-spielerstammdaten-minecraft'
   lastmod: '2025-11-29'
   changefreq: monthly
   priority: 0.8

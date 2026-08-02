@@ -5,7 +5,7 @@ import {
   defineLocalizedCollections,
   withI18nMeta
 } from './utils/content/collections'
-import {asSitemapCollection} from "@nuxtjs/sitemap/content";
+import { defineSitemapSchema } from '@nuxtjs/sitemap/content'
 
 const blogSchema = withI18nMeta(z.object({
     title: z.string(),
@@ -257,11 +257,29 @@ const communityPoiSchema = withI18nMeta(z.object({
 
 export default defineContentConfig({
   collections: {
-    ...defineLocalizedCollections('blog', (locale) => asSitemapCollection(asSchemaOrgCollection({
-              type: 'page',
-              source: `blog/${locale}/**/*.md`,
-              schema: blogSchema
-          }))),
+    ...defineLocalizedCollections('blog', (locale) => asSchemaOrgCollection({
+      type: 'page',
+      source: `blog/${locale}/**/*.md`,
+      schema: blogSchema.extend({
+        // Without an `onUrl`, @nuxtjs/sitemap defaults every entry's `loc` to
+        // the content `path`, which is derived from the file location:
+        // `content/blog/en/dev-blog-1.md` becomes `/blog/en/dev-blog-1`. The
+        // real route is `/en/blog/<slug>` and two English slugs do not even
+        // match their filename, so those URLs 404.
+        //
+        // This body is serialised with `fn.toString()` into a Nitro virtual
+        // module and re-evaluated in a scope that holds nothing from this
+        // file — it must not close over `locale` or any import. The locale is
+        // therefore derived from the collection name argument instead.
+        sitemap: defineSitemapSchema({
+          name: `blog_${locale}`,
+          onUrl: (url, entry, collection) => {
+            const loc = collection.split('_').pop()
+            url.loc = `/${loc}/blog/${entry.slug}`
+          }
+        })
+      })
+    })),
     ...defineLocalizedCollections('home_carousel', (locale) => ({
       type: 'data',
       source: `carousel/${locale}/home.json`,
@@ -302,11 +320,21 @@ export default defineContentConfig({
       source: `team-faq/${locale}/*.md`,
       schema: faqSchema
     })),
-    ...defineLocalizedCollections('community_poi', (locale) => asSitemapCollection(asSchemaOrgCollection({
-          type: 'page',
-          source: `community-poi/${locale}/**/*.md`,
-          schema: communityPoiSchema
-        }))),
+    ...defineLocalizedCollections('community_poi', (locale) => asSchemaOrgCollection({
+      type: 'page',
+      source: `community-poi/${locale}/**/*.md`,
+      // Same derived-path problem as the blog collection above; see the
+      // comment there. The serialised body must not close over `locale`.
+      schema: communityPoiSchema.extend({
+        sitemap: defineSitemapSchema({
+          name: `community_poi_${locale}`,
+          onUrl: (url, entry, collection) => {
+            const loc = collection.split('_').pop()
+            url.loc = `/${loc}/community-poi/${entry.slug}`
+          }
+        })
+      })
+    })),
     authors: defineCollection({
       type: 'page',
       source: 'authors/**/*.md',

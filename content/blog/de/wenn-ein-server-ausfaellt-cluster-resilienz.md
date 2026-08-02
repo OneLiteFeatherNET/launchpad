@@ -15,7 +15,6 @@ tags:
 author: phillipp-glanz
 canonical: 'https://onelitefeather.net/de/blog/wenn-ein-server-ausfaellt-cluster-resilienz'
 sitemap:
-  loc: '/de/blog/wenn-ein-server-ausfaellt-cluster-resilienz'
   lastmod: '2026-06-13'
   changefreq: monthly
   priority: 0.8
