@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.2.0...onelitefeather.net-v1.2.1) (2026-08-02)
+
+
+### Bug Fixes
+
+* **image:** derive the provider from the build context instead of a dashboard variable ([#196](https://github.com/OneLiteFeatherNET/launchpad/issues/196)) ([7c1317a](https://github.com/OneLiteFeatherNET/launchpad/commit/7c1317a291dbf4afa19f3c98bc1d60e17163d5f0))
+* **privacy:** remove the Google Ads tag and stop PostHog capturing without consent ([#193](https://github.com/OneLiteFeatherNET/launchpad/issues/193)) ([a6dccaa](https://github.com/OneLiteFeatherNET/launchpad/commit/a6dccaa34873ba862692084a0d666d6eee8fbd01))
+* **sitemap:** derive blog and POI URLs from the slug instead of the file path ([#195](https://github.com/OneLiteFeatherNET/launchpad/issues/195)) ([3d646c1](https://github.com/OneLiteFeatherNET/launchpad/commit/3d646c1ab901d47bb4063af525934c7f19159c4d))
+
+
+### Continuous Integration
+
+* gate pull requests on build, lint and typecheck ([#191](https://github.com/OneLiteFeatherNET/launchpad/issues/191)) ([f73666c](https://github.com/OneLiteFeatherNET/launchpad/commit/f73666cce2d9044676930ea5e873611131645421))
+* make the quality ratchet measure a reproducible tree ([#194](https://github.com/OneLiteFeatherNET/launchpad/issues/194)) ([37f1c22](https://github.com/OneLiteFeatherNET/launchpad/commit/37f1c22cd9e3cbc8745cd76a188cf148b3c058bc))
+* promote the release branch from the release job instead of a tag trigger ([#197](https://github.com/OneLiteFeatherNET/launchpad/issues/197)) ([b11d364](https://github.com/OneLiteFeatherNET/launchpad/commit/b11d36419abc93fed084aa76b883e2867695cb12))
+
 ## [1.2.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.1.0...onelitefeather.net-v1.2.0) (2026-08-02)
 
 
