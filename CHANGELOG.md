@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.2.1...onelitefeather.net-v1.3.0) (2026-08-02)
+
+
+### Features
+
+* **community-poi:** replace the Uncensored Library POI with Yggdrasil ([#198](https://github.com/OneLiteFeatherNET/launchpad/issues/198)) ([9c58875](https://github.com/OneLiteFeatherNET/launchpad/commit/9c588753c9c1567c5c304c5ba43a08aab41384bf))
+
 ## [1.2.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.2.0...onelitefeather.net-v1.2.1) (2026-08-02)
 
 
