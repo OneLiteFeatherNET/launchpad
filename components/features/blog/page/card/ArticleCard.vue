@@ -24,7 +24,7 @@ const title = computed(() => {
     <NuxtLink
       :to="`/${locale}/blog/${blogArticle.slug}`"
       v-posthog-capture="'blog-article-card-click'"
-      class="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-xl">
+      class="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-xl">
       <div class="relative">
         <NuxtPicture
           v-if="blogArticle?.headerImage"

@@ -31,7 +31,7 @@ html { scroll-behavior: smooth; }
 
 .skip-link:focus {
   top: 0.5rem;
-  outline: 2px solid var(--color-secondary);
+  outline: 2px solid var(--color-brand-secondary);
   outline-offset: 2px;
 }
 

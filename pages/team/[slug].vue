@@ -136,7 +136,7 @@ if (member.value) {
   <main class="mx-auto max-w-4xl px-4 py-10">
     <NuxtLink
       :to="`/${locale}/team`"
-      class="text-sm text-primary dark:text-primary/80 hover:underline"
+      class="text-sm text-brand-primary dark:text-brand-primary/80 hover:underline"
       :aria-label="$t('navigation.back_team')"
     >
       ← {{ $t('navigation.team') }}

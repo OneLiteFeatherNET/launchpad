@@ -140,7 +140,7 @@ const onSelect = (localeCode: string) => {
       :aria-controls="dropdownId"
       ref="buttonRef"
       @keydown="onButtonKeydown"
-      class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
+      class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
     >
       <FontAwesomeIcon :icon="faLanguage" class="text-lg" />
       <span class="uppercase">{{ currentLocale?.code }}</span>
@@ -170,10 +170,10 @@ const onSelect = (localeCode: string) => {
           :key="loc.code"
           :locale="loc.code"
           role="menuitem"
-          class="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/85 dark:hover:bg-[var(--color-secondary)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]"
+          class="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-brand-secondary/10 dark:text-[var(--color-text)]/85 dark:hover:bg-brand-secondary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
           @click="onSelect(loc.code)"
         >
-          <span class="uppercase font-semibold text-[var(--color-secondary)]">{{ loc.code }}</span>
+          <span class="uppercase font-semibold text-brand-secondary">{{ loc.code }}</span>
           <span>{{ loc.name }}</span>
         </SwitchLocalePathLink>
       </div>
@@ -189,10 +189,10 @@ const onSelect = (localeCode: string) => {
       v-for="loc in availableLocales"
       :key="loc.code"
       :locale="loc.code"
-      class="ml-4 flex items-center gap-3 rounded-xl px-6 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-[var(--color-secondary)]/10 dark:text-[var(--color-text)]/85 dark:hover:bg-[var(--color-secondary)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)]"
+      class="ml-4 flex items-center gap-3 rounded-xl px-6 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-brand-secondary/10 dark:text-[var(--color-text)]/85 dark:hover:bg-brand-secondary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
       @click="onSelect(loc.code)"
     >
-      <span class="uppercase font-semibold text-[var(--color-secondary)]">{{ loc.code }}</span>
+      <span class="uppercase font-semibold text-brand-secondary">{{ loc.code }}</span>
       <span>{{ loc.name }}</span>
     </SwitchLocalePathLink>
   </div>

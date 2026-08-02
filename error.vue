@@ -19,7 +19,7 @@ const handleHome = () => clearError({ redirect: localePath('index') })
 <template>
   <NuxtLayout>
     <div class="container mx-auto flex min-h-[60vh] max-w-screen-md flex-col items-center justify-center px-4 py-16 text-center">
-      <p class="text-7xl font-extrabold tracking-tight text-[var(--color-secondary)]">
+      <p class="text-7xl font-extrabold tracking-tight text-brand-secondary">
         {{ error?.statusCode || 500 }}
       </p>
       <h1 class="mt-4 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
@@ -30,7 +30,7 @@ const handleHome = () => clearError({ redirect: localePath('index') })
       </p>
       <button
         type="button"
-        class="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--color-secondary)] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2"
+        class="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-secondary px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2"
         @click="handleHome"
       >
         {{ t('navigation.back_home') }}
