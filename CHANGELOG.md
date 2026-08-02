@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.0...onelitefeather.net-v1.3.1) (2026-08-02)
+
+
+### Bug Fixes
+
+* **community-poi:** serve the Yggdrasil images from R2 instead of public/ ([#200](https://github.com/OneLiteFeatherNET/launchpad/issues/200)) ([41f95d6](https://github.com/OneLiteFeatherNET/launchpad/commit/41f95d6e31efb504a960ba429659443e790a059b))
+
 ## [1.3.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.2.1...onelitefeather.net-v1.3.0) (2026-08-02)
 
 
