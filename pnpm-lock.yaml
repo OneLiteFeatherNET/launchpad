@@ -50,7 +50,7 @@ importers:
         version: 1.15.11
       posthog-js:
         specifier: ^1.298.1
-        version: 1.409.6
+        version: 1.410.2
     devDependencies:
       '@nuxt/content':
         specifier: 3.15.2
@@ -7053,8 +7053,8 @@ packages:
     resolution: {integrity: sha512-DTPx3RWSSnWyzLxQnlH0rJP+EW5ekl16ZU4/psbIhA0e53kJfdgaN5vKM+xP7yJtXVu+nfdVFmlgFDEKAe4Pyw==}
     engines: {node: ^10 || ^12 || >=14}
 
-  posthog-js@1.409.6:
-    resolution: {integrity: sha512-4GZfB4JpeCm5G6G2RatdNHsVgO0D3BZvfesEh2cfYz3rdiEY+K6vnmJiLRMnBenwZKndybzXiSAVAC0n2l9inQ==}
+  posthog-js@1.410.2:
+    resolution: {integrity: sha512-iwqd0CjdAbIKkA5PwQZTek8P3yKON3mVZs0zEXooxkqL1bHems7s5XBZ2kVue6IkK/kiZULYACjgqQRq+mOt1g==}
 
   posthog-node@5.34.2:
     resolution: {integrity: sha512-lGp7zyyvzNZqrto3CPq3nQzVn9ZUg5tApE8jNh12Cu8kOqT9KTABZ8kMgiybfzxVttSdE3m25RsBPLBHkxCWDg==}
@@ -15428,7 +15428,7 @@ snapshots:
     dependencies:
       '@nuxt/kit': 3.21.5(magicast@0.5.3)
       defu: 6.1.7
-      posthog-js: 1.409.6
+      posthog-js: 1.410.2
       posthog-node: 5.34.2(rxjs@7.8.2)
     transitivePeerDependencies:
       - magicast
@@ -16595,7 +16595,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  posthog-js@1.409.6:
+  posthog-js@1.410.2:
     dependencies:
       '@posthog/browser-common': 0.3.1
       '@posthog/core': 1.46.4
