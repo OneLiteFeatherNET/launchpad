@@ -22,6 +22,19 @@ const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/fea
 // publishes via useSetI18nParams.
 const { title } = useArticleSeo(blog, authors)
 
+// Absolute URL for the share buttons. Built here rather than inline in the
+// template: `locale` is a ref and a template auto-unwraps it, so the
+// `locale.value` this used to interpolate evaluated to `undefined` — every
+// share link and the copy button pointed at /undefined/blog/<slug>.
+// Base URL resolution mirrors useArticleSeo: runtimeConfig.public.siteUrl is
+// only set inside the $production block, so fall back to the site config,
+// which is populated in every environment.
+const site = useSiteConfig()
+const shareUrl = computed(() => {
+  const base = (config.public as { siteUrl?: string }).siteUrl || site.url
+  return `${base}/${locale.value}/blog/${blog.value?.slug ?? ''}`
+})
+
 // Force the per-article title + description into the document head so social
 // embeds (og:title / og:description) use the real article values — with
 // umlauts. Without this, @nuxtjs/seo's route-derived fallback wins and emits
@@ -121,7 +134,7 @@ useHead(() => {
         <section class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6" :aria-label="t('article.share')">
           <h2 class="sr-only">{{ t('article.share') }}</h2>
           <LazySocialMediaShare
-            :url="`${config.public.siteUrl}/${locale.value}/blog/${blog?.slug || ''}`"
+            :url="shareUrl"
             :title="blog?.title"
             :description="blog?.description || ''"
             :is-large-page="['alles-was-man-ueber-ethanol-wissen-sollte', 'riding-the-rollercoaster-of-automation-with-proxmox-and-ansible', 'plugins-open-for-adoption', 'effizientes-logging-in-paper-plugins', 'dev-blog-1'].includes(blog?.slug)"
