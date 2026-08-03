@@ -100,7 +100,9 @@ export default defineNuxtConfig({
         // Allow indexing for all crawlers by default. Per-route exclusions (legal pages, etc.)
         // are handled via routeRules. Blocking `/_nuxt/` would hide JS/CSS from crawlers and
         // break rendering for Googlebot, so we don't disallow anything globally here.
-        sitemap: ['/sitemap.xml']
+        // No `sitemap:` entry here. @nuxtjs/sitemap pushes the correct one
+        // itself (/sitemap_index.xml under the i18n prefix strategy); adding
+        // /sitemap.xml only announced a second URL that 307s to the first.
     },
     i18n: {
         strategy: 'prefix',

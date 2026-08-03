@@ -302,6 +302,34 @@ const expandSitemapUrls = async (path) => {
  * what stands in its place, so a regression upstream is reported rather than
  * absorbed.
  */
+/**
+ * Every sitemap robots.txt announces must be the real thing.
+ *
+ * A directive pointing at a redirect is not a second sitemap, it is a hop —
+ * and the two sources that write these lines (nuxt.config's `robots.sitemap`
+ * and @nuxtjs/sitemap's own hook) cannot see each other, so a duplicate is
+ * easy to reintroduce and invisible without asking the server.
+ */
+const checkRobotsSitemaps = async () => {
+  const robots = await fetchRaw('/robots.txt')
+  const declared = robots.body
+    .split('\n')
+    .map((line) => /^Sitemap:\s*(\S+)/i.exec(line)?.[1])
+    .filter(Boolean)
+
+  if (declared.length === 0) {
+    err('/robots.txt', 'robots.txt declares no sitemap')
+    return
+  }
+
+  for (const target of declared) {
+    const res = await fetchRaw(new URL(target).pathname)
+    if (res.status !== 200) {
+      err('/robots.txt', `Declared sitemap ${target} answered ${res.status}, expected 200`)
+    }
+  }
+}
+
 const checkSitemapAcceptsQueryString = async () => {
   const index = await fetchRaw('/sitemap_index.xml')
   const child = load(index.body, { xmlMode: true })('sitemap > loc').first().text().trim()
@@ -354,6 +382,7 @@ const main = async () => {
     checkRobots(),
     checkSitemap(STATIC_ROUTES, NOINDEX_ROUTES),
     checkSitemapAcceptsQueryString(),
+    checkRobotsSitemaps(),
     ...targets.map((t) => checkPage(t))
   ])
 
