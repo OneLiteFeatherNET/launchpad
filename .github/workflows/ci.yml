@@ -1,8 +1,12 @@
 name: CI
 
 on:
+  # Deliberately not filtered to `branches: [main]`. A stacked pull request
+  # targets the branch below it rather than main, and a base filter would skip
+  # CI on it entirely — the change would reach main unverified once the stack
+  # collapses. Running on every pull request costs a few extra minutes and
+  # keeps every link in a stack gated.
   pull_request:
-    branches: [main]
   push:
     branches: [main]
 
