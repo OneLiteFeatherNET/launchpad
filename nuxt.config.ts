@@ -108,8 +108,7 @@ export default defineNuxtConfig({
         strategy: 'prefix',
         defaultLocale: 'en',
         locales: [
-            {code: 'de', iso: 'de-DE', name: 'Deutsch', file: 'de.json'},
-            {code: 'en', iso: 'en-US', name: 'English', file: 'en.json'}
+            {code: 'de', iso: 'de-DE', name: 'Deutsch', file: 'de.json'}, {code: 'en', iso: 'en-US', name: 'English', file: 'en.json'}
         ],
         detectBrowserLanguage: {
             useCookie: true,
@@ -151,8 +150,7 @@ export default defineNuxtConfig({
     },
     // Include FontAwesome core styles (we set autoAddCss = false in the plugin)
     css: [
-        '@fortawesome/fontawesome-svg-core/styles.css',
-        '~/assets/css/tailwind.css'
+        '@fortawesome/fontawesome-svg-core/styles.css', '~/assets/css/tailwind.css'
     ],
     appConfig: {
         appId: 'OneLiteFeather',
@@ -204,7 +202,18 @@ export default defineNuxtConfig({
         build: {
             markdown: {
                 highlight: {
-                    langs: ['json', 'java', 'xml', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml'],
+                    langs: ['json',
+'java',
+'xml',
+'js',
+'ts',
+'html',
+'css',
+'vue',
+'shell',
+'mdc',
+'md',
+'yaml'],
                     theme: {
                         // Default theme (same as single string)
                         default: 'github-light',
@@ -236,20 +245,6 @@ export default defineNuxtConfig({
         }
     },
     $production: {
-        i18n: {
-            strategy: 'prefix',
-            defaultLocale: 'en',
-            locales: [
-                {code: 'de', iso: 'de-DE', name: 'Deutsch', file: 'de.json'},
-                {code: 'en', iso: 'en-US', name: 'English', file: 'en.json'}
-            ],
-            detectBrowserLanguage: {
-                useCookie: true,
-                cookieKey: 'i18n_redirected',
-                redirectOn: 'root' // recommended
-            },
-            baseUrl: 'https://onelitefeather.net',
-        },
         runtimeConfig: {
             public: {
                 siteUrl: 'https://onelitefeather.net',
@@ -268,57 +263,25 @@ export default defineNuxtConfig({
             }
         },
         schemaOrg: {
+            // Only the two absolute URLs differ from the base identity. The
+            // rest is merged in from there — repeating it would concatenate
+            // sameAs, contactPoint and availableLanguage rather than replace
+            // them, publishing each entry twice as schema.org fact.
             identity: defineOrganization({
+                // `name` only to satisfy defineOrganization's input type; it is
+                // a scalar, so defu replaces rather than appends it.
                 name: 'OneLiteFeather Network',
-                alternateName: 'OneLiteFeather.net',
-                description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers.',
                 url: 'https://onelitefeather.net',
-                logo: 'https://onelitefeather.net/images/logo.svg',
-                email: 'contact@onelitefeather.net',
-                foundingDate: '2019-09-01',
-                numberOfEmployees: {
-                    '@type': 'QuantitativeValue',
-                    'minValue': 1,
-                    'maxValue': 25
-                },
-                address: {
-                    '@type': 'PostalAddress',
-                    streetAddress: 'Geisinger Straße 6',
-                    postalCode: '71634',
-                    addressLocality: 'Ludwigsburg',
-                    addressCountry: 'DE'
-                },
-                contactPoint: [
-                    {
-                        '@type': 'ContactPoint',
-                        contactType: 'customer support',
-                        email: 'contact@onelitefeather.net',
-                        availableLanguage: ['en', 'de']
-                    }
-                ],
-                sameAs: [
-                    'https://github.com/OneLiteFeatherNET',
-                    'https://1lf.link/discord',
-                    'https://opencollective.com/onelitefeather'
-                ]
+                logo: 'https://onelitefeather.net/images/logo.svg'
             })
-        },
-        posthog: {
-            publicKey: 'phc_t9nBlYL9LcDj4LDKZfQ97m5nbvFDTugkdQqAAspfdI',
-            host: 'https://eu.i.posthog.com',
-            proxy: true,
-            clientOptions: {
-                // Mirrors the base config above; see the comment there.
-                person_profiles: 'identified_only',
-                opt_out_capturing_by_default: true
-            }
         },
         site: {
             url: 'https://onelitefeather.net',
         },
         image: {
-            format: ['avif', 'webp'],
-            domains: ['mc-heads.net'],
+            // Only the delivery host differs; `format` and `domains` are
+            // declared in the base config and would be concatenated, not
+            // replaced, if repeated here.
             cloudflare: {
                 baseURL: 'https://img.onelitefeather.net',
             }
