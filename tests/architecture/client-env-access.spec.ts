@@ -36,6 +36,12 @@ const CLIENT_DIRS = ['components',
 /** `process.env.X`, `process?.env?.X`, `process["env"]` — any of the spellings. */
 const PROCESS_ENV = /\bprocess\s*\??\.\s*env\b|\bprocess\s*\??\.\s*\[\s*['"]env['"]/
 
+/**
+ * A comment naming the thing is not a use of it — and this rule is one whose
+ * fix wants explaining at the call site, so the explanation must not trip it.
+ */
+const COMMENT_LINE = /^\s*(?:\/\/|\/\*|\*|<!--)/
+
 function offenders(): string[] {
   const found: string[] = []
   for (const file of collectSourceFiles(CLIENT_DIRS, ['.vue',
@@ -44,6 +50,7 @@ function offenders(): string[] {
     const relative = relativeToRepo(file)
     const text = readFileSync(file, 'utf8')
     text.split('\n').forEach((line, index) => {
+      if (COMMENT_LINE.test(line)) return
       if (PROCESS_ENV.test(line)) found.push(`${relative}:${index + 1}`)
     })
   }
@@ -61,6 +68,12 @@ describe('client-side environment access', () => {
     expect(PROCESS_ENV.test('const config = useRuntimeConfig().public')).toBe(false)
     // A different `process`-shaped identifier is not the global.
     expect(PROCESS_ENV.test('const processed = items.map(process)')).toBe(false)
+
+    // Comments are skipped, but only comments — a trailing one must not
+    // launder the code in front of it.
+    expect(COMMENT_LINE.test('// the former fallback read process.env')).toBe(true)
+    expect(COMMENT_LINE.test(' * it could only ever produce undefined')).toBe(true)
+    expect(COMMENT_LINE.test('const url = process.env.X // still a read')).toBe(false)
   })
 
   it('no browser-bound module reads process.env', () => {

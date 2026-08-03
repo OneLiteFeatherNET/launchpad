@@ -24,7 +24,10 @@ const openGroup = ref<string | null>(null);
 const mobileMenuId = 'mobile-menu-panel';
 // Verwende die reaktive i18n-Locale; localePath nutzt automatisch die aktuelle Sprache
 const localePath = useLocalePath();
-const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined) || (process?.env?.NUXT_PUBLIC_DISCORD_URL as string | undefined);
+// NUXT_PUBLIC_DISCORD_URL still overrides this — Nuxt folds it into the same
+// runtimeConfig key. The env fallback that used to follow ran in the browser
+// too, where Vite replaces process.env with `{}`, so it never fired.
+const discordUrl = runtimeConfig.public.discordUrl as string;
 
 type BuiltLink = NavLinkConfig & { path: string }
 type BuiltGroup = NavGroupConfig & { children: BuiltLink[] }
