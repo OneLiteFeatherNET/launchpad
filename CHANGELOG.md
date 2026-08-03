@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.3.5](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.4...onelitefeather.net-v1.3.5) (2026-08-03)
+
+
+### Bug Fixes
+
+* **a11y:** hand focus back to the toggle when the mobile menu closes ([#255](https://github.com/OneLiteFeatherNET/launchpad/issues/255)) ([ab72d82](https://github.com/OneLiteFeatherNET/launchpad/commit/ab72d82327a1737502a1db55740f8f498a1dcf42))
+* **a11y:** one carousel live region, silent while it rotates itself ([#254](https://github.com/OneLiteFeatherNET/launchpad/issues/254)) ([5297f27](https://github.com/OneLiteFeatherNET/launchpad/commit/5297f275808a44378b03d8b03cd5c2874083c8a6))
+* **security:** drop the vite override that only weakens the wider one ([#252](https://github.com/OneLiteFeatherNET/launchpad/issues/252)) ([4aeee87](https://github.com/OneLiteFeatherNET/launchpad/commit/4aeee870ba699f31e1e6ca5aaf39ca783d8f45fb))
+* **seo:** assert the sitemap query-string path instead of shimming it ([#253](https://github.com/OneLiteFeatherNET/launchpad/issues/253)) ([6ce5f10](https://github.com/OneLiteFeatherNET/launchpad/commit/6ce5f10f777109b185a523c205954294e085b2fd))
+* **seo:** declare one sitemap in robots.txt, not a redirect alongside it ([#257](https://github.com/OneLiteFeatherNET/launchpad/issues/257)) ([7e4e48b](https://github.com/OneLiteFeatherNET/launchpad/commit/7e4e48b5029239f92f10d7f9303f45a669934561))
+* **seo:** give the legal pages their own title ([#258](https://github.com/OneLiteFeatherNET/launchpad/issues/258)) ([8facc76](https://github.com/OneLiteFeatherNET/launchpad/commit/8facc76d71a76c37e419f9e5bdbc0aa2c45480b1))
+* **seo:** point the sitemap Language column at the node that exists ([#256](https://github.com/OneLiteFeatherNET/launchpad/issues/256)) ([9378c26](https://github.com/OneLiteFeatherNET/launchpad/commit/9378c26f2972a72cb905b748e8708d47002514ac))
+
+
+### Refactors
+
+* **content:** declare the locale list once ([#251](https://github.com/OneLiteFeatherNET/launchpad/issues/251)) ([db7f419](https://github.com/OneLiteFeatherNET/launchpad/commit/db7f4195bb8ceab556c3e285f50048a9e91d3c76))
+* **content:** stop the adapter sorting a list documented as unsorted ([#250](https://github.com/OneLiteFeatherNET/launchpad/issues/250)) ([34e69f8](https://github.com/OneLiteFeatherNET/launchpad/commit/34e69f858dec20cf5e96f9b216b8a4328db614ad))
+
 ## [1.3.4](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.3...onelitefeather.net-v1.3.4) (2026-08-03)
 
 
