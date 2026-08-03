@@ -2,6 +2,18 @@
 /* Global smooth scrolling for in-page anchors */
 html { scroll-behavior: smooth; }
 
+/*
+ * Keep the sticky navigation bar (h-16, so 4rem) from covering whatever the
+ * browser scrolls to. Without this, following an in-page link puts the target
+ * heading behind the header, and — the part that actually breaks — tabbing
+ * backwards scrolls the focused element to exactly where the header sits, so
+ * it has focus and is invisible.
+ *
+ * Deliberately outside the reduced-motion block: the offset is needed for
+ * instant jumps just as much as for smooth ones.
+ */
+html { scroll-padding-top: 4rem; }
+
 /* Respect user preference to reduce motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
