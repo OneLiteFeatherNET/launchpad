@@ -25,9 +25,16 @@ const SOURCE_DIRS = [
   'layouts',
 ]
 
+/** Byte offsets of r, g and b inside a #rrggbb string. */
+const CHANNEL_OFFSETS = [
+  1,
+  3,
+  5,
+]
+
 /** Relative luminance per WCAG, from a #rrggbb string. */
 function luminance(hex: string): number {
-  const channels = [1, 3, 5]
+  const channels = CHANNEL_OFFSETS
     .map((offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255)
     .map((value) => (value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4))
   return 0.2126 * (channels[0] ?? 0) + 0.7152 * (channels[1] ?? 0) + 0.0722 * (channels[2] ?? 0)
@@ -41,11 +48,13 @@ export function contrastRatio(a: string, b: string): number {
 
 /** Composites `fg` over `bg` at `alpha`, the way opacity renders. */
 function blend(fg: string, bg: string, alpha: number): string {
-  const parse = (hex: string) => [1, 3, 5].map((o) => parseInt(hex.slice(o, o + 2), 16))
+  const parse = (hex: string) => CHANNEL_OFFSETS.map((o) => parseInt(hex.slice(o, o + 2), 16))
   const front = parse(fg)
   const back = parse(bg)
-  const mixed = front.map((channel, index) =>
-    Math.round(channel * alpha + (back[index] ?? 0) * (1 - alpha)))
+  const mixed = front.map((channel, index) => {
+    const behind = back[index] ?? 0
+    return Math.round(channel * alpha + behind * (1 - alpha))
+  })
   return `#${mixed.map((c) => c.toString(16).padStart(2, '0')).join('')}`
 }
 
@@ -96,13 +105,18 @@ describe('interactive elements', () => {
     expect(files.length).toBeGreaterThan(30)
   })
 
-  it('never dim a muted control below the contrast floor', () => {
-    // `opacity-70` plus the muted token is the exact combination that renders
-    // at 2.76:1 in light mode.
+  it('never dim an active muted control below the contrast floor', () => {
+    // `opacity-70` plus the muted token renders at 2.76:1 in light mode.
+    //
+    // 1.4.11 exempts inactive components explicitly, and the footer has two
+    // genuine ones — `aria-disabled="true"` with `@click.prevent` on a
+    // "coming soon" placeholder. Dimming those is the correct way to show
+    // they do nothing, so they are skipped rather than "fixed".
     const offenders: string[] = []
     for (const file of files) {
       const text = readFileSync(file, 'utf8')
       for (const line of text.split('\n')) {
+        if (/aria-disabled="true"/.test(line)) continue
         if (/--color-muted/.test(line) && /\bopacity-(?:[1-8]?\d)\b/.test(line)) {
           offenders.push(relativeToRepo(file))
           break
