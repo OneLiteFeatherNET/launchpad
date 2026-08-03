@@ -43,7 +43,7 @@ const versionLabel = computed(() =>
               </a>
              </li>
             <li>
-             <NuxtLink to="https://github.com/OneLiteFeatherNET" @click.prevent class="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand-primary)] transition-colors" aria-disabled="true" title="Coming soon">
+             <NuxtLink to="https://github.com/OneLiteFeatherNET" @click.prevent class="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand-primary)] transition-colors" aria-disabled="true" :title="t('footer.coming_soon')">
                 {{ t('footer.services.github') }}
               </NuxtLink>
             </li>
@@ -58,13 +58,13 @@ const versionLabel = computed(() =>
            <ul class="space-y-3">
              <li>
              <!-- Placeholder: About (not available yet) -->
-             <NuxtLink to="#" @click.prevent class="text-sm text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" aria-disabled="true" title="Coming soon">
+             <NuxtLink to="#" @click.prevent class="text-sm text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" aria-disabled="true" :title="t('footer.coming_soon')">
                 {{ t('footer.organization.about') }}
               </NuxtLink>
              </li>
              <li>
              <!-- Placeholder: Contact (not available yet) -->
-             <NuxtLink to="#" @click.prevent class="text-sm text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" aria-disabled="true" title="Coming soon">
+             <NuxtLink to="#" @click.prevent class="text-sm text-[var(--color-muted)] transition-colors cursor-not-allowed opacity-70" aria-disabled="true" :title="t('footer.coming_soon')">
                 {{ t('footer.organization.contact') }}
               </NuxtLink>
              </li>

@@ -45,7 +45,7 @@ useBreadcrumbs(() => [
         -->
         <iframe
           :src="bluemapUrl"
-          title="BlueMap"
+          :title="t('bluemap.title')"
           class="w-full h-[75vh] sm:h-[80vh]"
           loading="lazy"
           allow="fullscreen"

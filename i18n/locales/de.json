@@ -59,7 +59,8 @@
     }
   },
   "index": {
-    "title": "Startseite"
+    "title": "Startseite",
+    "carousel_aria": "Startseiten-Highlight-Karussell"
   },
   "bluemap": {
     "title": "BlueMap",
@@ -172,7 +173,8 @@
       "title": "Social Media"
     },
     "privacy": "Datenschutz",
-    "terms": "Impressum"
+    "terms": "Impressum",
+    "coming_soon": "Demnächst verfügbar"
   },
   "social": {
     "twitch": "Twitch",
