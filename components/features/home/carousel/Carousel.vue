@@ -20,14 +20,24 @@ const props = withDefaults(defineProps<{
   loop?: boolean
   /** aspect in the form "16/9", "4/3", etc. Used for the container ratio */
   aspect?: string
+  /** Overrides the region name. Left out, the locale supplies one. */
   ariaLabel?: string
 }>(), {
   autoPlay: true,
   interval: 5000,
   loop: true,
   aspect: '16/9',
-  ariaLabel: 'Image Carousel'
+  // Deliberately undefined rather than a literal: a prop default is evaluated
+  // once, outside any locale, so the name has to come from `t()` below.
+  ariaLabel: undefined
 })
+
+const { t } = useI18n()
+
+// A prop default cannot be translated — it is evaluated once, outside any
+// locale. Falling back here instead means a caller that passes no name still
+// gets one in the reader's language.
+const resolvedAriaLabel = computed(() => props.ariaLabel || t('carousel.label'))
 
 const current = ref(0)
 const timer = ref<ReturnType<typeof setInterval> | null>(null)
@@ -191,7 +201,7 @@ const trackStyle = computed(() => ({
 const liveText = computed(() => {
   const slide = normalizedSlides.value[current.value]
   if (!slide) return ''
-  return getSlideAriaText(slide, current.value, slidesCount.value)
+  return getSlideAriaText(slide, current.value, slidesCount.value, t)
 })
 
 // Component mapping for dynamic rendering
@@ -214,7 +224,7 @@ const componentFor = (slide: NormalizedSlide) => {
   <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <section
     class="w-full"
-    :aria-label="ariaLabel"
+    :aria-label="resolvedAriaLabel"
     aria-roledescription="carousel"
     @keydown="onKeydown"
     @focusin="isHovering = true"
@@ -253,7 +263,7 @@ const componentFor = (slide: NormalizedSlide) => {
           :style="{ width: '100%', minWidth: '100%' }"
           role="group"
           aria-roledescription="slide"
-          :aria-label="getSlideAriaText(s, i, slidesCount)"
+          :aria-label="getSlideAriaText(s, i, slidesCount, t)"
           :aria-hidden="i !== current"
           :inert="i !== current ? true : undefined"
         >
@@ -271,7 +281,7 @@ const componentFor = (slide: NormalizedSlide) => {
       <!-- Controls -->
       <div class="absolute inset-x-0 top-0 bottom-10 z-50 flex items-center justify-between p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100" style="pointer-events: none;">
         <NavigationIconButton
-          :aria-label="'Previous slide'"
+          :aria-label="t('carousel.previous_slide')"
           :icon="['fas','chevron-left']"
           variant="filled"
           size="lg"
@@ -280,7 +290,7 @@ const componentFor = (slide: NormalizedSlide) => {
           @click="(e: MouseEvent) => { e.stopPropagation(); prev(); }"
         />
         <NavigationIconButton
-          :aria-label="'Next slide'"
+          :aria-label="t('carousel.next_slide')"
           :icon="['fas','chevron-right']"
           variant="filled"
           size="lg"
@@ -298,7 +308,7 @@ const componentFor = (slide: NormalizedSlide) => {
             :key="i"
             type="button"
             class="group grid h-6 w-6 place-items-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-            :aria-label="`Show slide ${i + 1}`"
+            :aria-label="t('carousel.show_slide', { index: i + 1 })"
             :aria-current="i === current ? 'true' : undefined"
             :aria-controls="`carousel-slide-${i}`"
             @click.stop="goTo(i)"

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {computed} from 'vue'
 
+const { t } = useI18n()
+
 interface BlogItem {
   type: 'blog'
   title: string
@@ -59,7 +61,11 @@ const dateLabel = computed(() => {
         </div>
 
         <h3 class="mb-2 text-xl font-semibold leading-snug sm:text-2xl">
-          <NuxtLink :to="item.href" class="hover:underline" :aria-label="`Blog: ${item.title}`">
+          <NuxtLink
+            :to="item.href"
+            class="hover:underline"
+            :aria-label="t('carousel.blog_link', { title: item.title })"
+          >
             {{ item.title }}
           </NuxtLink>
         </h3>
@@ -71,7 +77,7 @@ const dateLabel = computed(() => {
         <NuxtLink
           :to="item.href"
           class="inline-flex items-center gap-2 rounded-md bg-white/90 px-3 py-1.5 text-sm font-medium text-black transition hover:bg-white"
-          :aria-label="`Zum Artikel: ${item.title}`"
+          :aria-label="t('carousel.read_article', { title: item.title })"
         >
           Lesen
           <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" />
