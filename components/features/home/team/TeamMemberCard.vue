@@ -49,7 +49,7 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: r
       :is="profileHref ? NuxtLink : 'div'"
       :to="profileHref"
       :aria-label="profileHref ? ariaLabel : undefined"
-      class="group block h-full rounded-2xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-4 backdrop-blur supports-[backdrop-filter]:bg-white/70 supports-[backdrop-filter]:dark:bg-zinc-900/60 hover:shadow-lg transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+      class="group block h-full rounded-2xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-4 backdrop-blur supports-[backdrop-filter]:bg-white/70 supports-[backdrop-filter]:dark:bg-zinc-900/60 hover:shadow-lg transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
     >
       <div class="flex items-center gap-4">
         <NuxtImg

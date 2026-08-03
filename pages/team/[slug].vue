@@ -189,7 +189,7 @@ if (member.value) {
           :href="link.href"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-lg border border-zinc-200/70 dark:border-zinc-800/80 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          class="inline-flex items-center gap-2 rounded-lg border border-zinc-200/70 dark:border-zinc-800/80 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
           :aria-label="t('team.profile_link_aria', { name: member.name, platform: link.key })"
         >
           <FontAwesomeIcon :icon="link.icon" class="h-4 w-4" aria-hidden="true" />

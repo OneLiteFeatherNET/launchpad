@@ -39,7 +39,7 @@ const mobileMenuOpen = ref(false);
           <button
               id="mobile-menu-button"
               @click="mobileMenuOpen = !mobileMenuOpen"
-              class="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               :aria-label="t('navigation.toggle_mobile_menu')"
               :aria-expanded="mobileMenuOpen"
           >
