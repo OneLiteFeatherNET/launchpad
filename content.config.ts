@@ -50,30 +50,6 @@ const connectSchema = z
   })
   .passthrough()
 
-const timelineSchema = z
-  .object({
-    key: z.string().optional(),
-    events: z
-      .array(z
-          .object({
-            id: z.union([z.string(), z.number()]),
-            title: z.string(),
-            date: z.union([z.string(), z.coerce.date()]),
-            description: z.string().optional(),
-            href: z.string().optional(),
-            icon: z.string().optional(),
-            side: z.enum(['left', 'right']).optional(),
-            colorVariant: z.enum(['brand',
-'accent',
-'neutral',
-'orange',
-'purple']).optional()
-          })
-          .passthrough())
-      .default([])
-  })
-  .passthrough()
-
 const teamSchema = z
   .object({
     key: z.string().optional(),
@@ -289,11 +265,6 @@ export default defineContentConfig({
       type: 'data',
       source: `server/${locale}/connect.json`,
       schema: connectSchema
-    })),
-    ...defineLocalizedCollections('timeline', (locale) => ({
-      type: 'data',
-      source: `timeline/${locale}/home.json`,
-      schema: timelineSchema
     })),
     ...defineLocalizedCollections('team', (locale) => ({
       type: 'data',
