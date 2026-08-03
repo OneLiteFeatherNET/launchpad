@@ -106,7 +106,7 @@ const progressSectionClass = [
 </script>
 
 <template>
-  <main class="container mx-auto max-w-screen-lg px-4 py-6 md:px-6 md:py-10">
+  <div class="container mx-auto max-w-screen-lg px-4 py-6 md:px-6 md:py-10">
     <article v-if="poi" class="space-y-8">
       <header class="space-y-4">
         <p class="text-sm">
@@ -180,5 +180,5 @@ const progressSectionClass = [
 
       <LazyFeaturesCommunityPoiCollaboration :poi="poi" />
     </article>
-  </main>
+  </div>
 </template>
