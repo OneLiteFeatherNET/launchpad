@@ -2,6 +2,8 @@
 import {computed} from 'vue'
 import { NuxtLink } from '#components'
 
+const { t } = useI18n()
+
 interface EventItem {
   type: 'event'
   title: string
@@ -80,7 +82,7 @@ const timeRange = computed(() => {
             :is="item.href ? NuxtLink : 'div'"
             :to="item.href"
             class="hover:underline"
-            :aria-label="item.href ? `Event: ${item.title}` : undefined"
+            :aria-label="item.href ? t('carousel.event_link', { title: item.title }) : undefined"
           >
             {{ item.title }}
           </component>
@@ -94,7 +96,7 @@ const timeRange = computed(() => {
           v-if="item.href"
           :to="item.href"
           class="inline-flex items-center gap-2 rounded-md bg-white/90 px-3 py-1.5 text-sm font-medium text-black transition hover:bg-white"
-          :aria-label="`Zum Event: ${item.title}`"
+          :aria-label="t('carousel.to_event', { title: item.title })"
         >
           Details
           <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" />

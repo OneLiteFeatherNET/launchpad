@@ -21,7 +21,20 @@
   },
   "carousel": {
     "prev": "Zurück",
-    "next": "Weiter"
+    "next": "Weiter",
+    "label": "Bilderkarussell",
+    "previous_slide": "Vorheriges Bild",
+    "next_slide": "Nächstes Bild",
+    "show_slide": "Bild {index} anzeigen",
+    "slide_position": "Bild {index} von {total}: {label}",
+    "slide_fallback": "Bild",
+    "image_fallback": "Bild",
+    "blog_link": "Blog: {title}",
+    "read_article": "Zum Artikel: {title}",
+    "event_link": "Event: {title}",
+    "to_event": "Zum Event: {title}",
+    "news_link": "News: {title}",
+    "to_news": "Zur Meldung: {title}"
   },
   "layouts": {
     "title": "Titel"

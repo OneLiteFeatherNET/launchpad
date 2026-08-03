@@ -21,7 +21,20 @@
   },
   "carousel": {
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "label": "Image Carousel",
+    "previous_slide": "Previous slide",
+    "next_slide": "Next slide",
+    "show_slide": "Show slide {index}",
+    "slide_position": "Slide {index} of {total}: {label}",
+    "slide_fallback": "Slide",
+    "image_fallback": "Image",
+    "blog_link": "Blog: {title}",
+    "read_article": "Read article: {title}",
+    "event_link": "Event: {title}",
+    "to_event": "Go to event: {title}",
+    "news_link": "News: {title}",
+    "to_news": "Go to news item: {title}"
   },
   "layouts": {
     "title": "Title"

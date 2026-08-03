@@ -2,6 +2,8 @@
 import {computed, computed as vComputed} from 'vue'
 import { NuxtLink } from '#components'
 
+const { t } = useI18n()
+
 interface NewsItem {
   type: 'news'
   title: string
@@ -64,7 +66,7 @@ const isSvg = vComputed(() => props.item.image ? /\.svg(\?|$)/i.test(props.item.
             :is="item.href ? NuxtLink : 'div'"
             :to="item.href"
             class="hover:underline"
-            :aria-label="item.href ? `News: ${item.title}` : undefined"
+            :aria-label="item.href ? t('carousel.news_link', { title: item.title }) : undefined"
           >
             {{ item.title }}
           </component>
@@ -78,7 +80,7 @@ const isSvg = vComputed(() => props.item.image ? /\.svg(\?|$)/i.test(props.item.
           v-if="item.href"
           :to="item.href"
           class="mt-3 inline-flex items-center gap-2 rounded-md bg-white/90 px-3 py-1.5 text-sm font-medium text-black transition hover:bg-white"
-          :aria-label="`Zur Meldung: ${item.title}`"
+          :aria-label="t('carousel.to_news', { title: item.title })"
         >
           Mehr
           <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" />

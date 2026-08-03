@@ -95,12 +95,22 @@ export function isPoiSlide(slide: NormalizedSlide): slide is PoiSlide {
 }
 
 /**
+ * The subset of vue-i18n's `t` these helpers need.
+ *
+ * Passed in rather than reached for: `useI18n()` is only valid inside setup,
+ * and these are pure functions called from a template. Taking the translator
+ * as an argument keeps them testable without a Nuxt runtime and keeps the
+ * wording in the locale files where both languages can see it.
+ */
+export type TranslateSlideText = (key: string, named: Record<string, unknown>) => string
+
+/**
  * Extracts a label text from a slide for accessibility
  */
-export function getSlideLabel(slide: NormalizedSlide): string {
+export function getSlideLabel(slide: NormalizedSlide, t: TranslateSlideText): string {
   switch (slide.type) {
     case 'image':
-      return slide.alt || 'Image'
+      return slide.alt || t('carousel.image_fallback', {})
     case 'blog':
       return slide.title
     case 'news':
@@ -110,15 +120,26 @@ export function getSlideLabel(slide: NormalizedSlide): string {
     case 'poi':
       return slide.title
     default:
-      return 'Slide'
+      return t('carousel.slide_fallback', {})
   }
 }
 
 /**
- * Generates ARIA text for a slide including position
+ * Generates ARIA text for a slide including position.
+ *
+ * The carousel's live region reads this out on every rotation, so the position
+ * wording is the most-heard string in the component — and was hardcoded
+ * English regardless of locale.
  */
-export function getSlideAriaText(slide: NormalizedSlide, index: number, total: number): string {
-  const label = getSlideLabel(slide)
-  return `Slide ${index + 1} of ${total}: ${label}`
+export function getSlideAriaText(
+  slide: NormalizedSlide,
+  index: number,
+  total: number,
+  t: TranslateSlideText
+): string {
+  return t('carousel.slide_position', {
+    index: index + 1,
+    total,
+    label: getSlideLabel(slide, t)
+  })
 }
-

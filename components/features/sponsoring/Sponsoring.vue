@@ -113,7 +113,7 @@ watch(
                 <button
                   type="button"
                   class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
-                  :aria-label="t('carousel.prev') || 'Zurück'"
+                  :aria-label="t('carousel.prev')"
                   @click="prev"
                 >
                   ‹
@@ -121,7 +121,7 @@ watch(
                 <button
                   type="button"
                   class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
-                  :aria-label="t('carousel.next') || 'Weiter'"
+                  :aria-label="t('carousel.next')"
                   @click="next"
                 >
                   ›
