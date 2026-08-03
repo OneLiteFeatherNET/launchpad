@@ -38,7 +38,8 @@ const STRING_REFERENCE = /\[\s*'(fas|fab|far)'\s*,\s*'([a-z0-9-]+)'\s*\]/g
 const LIBRARY_CALL = /library\.add\(([\s\S]*?)\n\)/
 const ICON_IDENTIFIER = /\bfa[A-Z]\w*/g
 
-const definitions: Record<string, { prefix: string, iconName: string }> = { ...solid, ...brands } as never
+type IconEntry = { prefix: string, iconName: string }
+const definitions = { ...solid, ...brands } as unknown as Record<string, IconEntry>
 
 function registeredIdentifiers(): string[] {
   const source = readFileSync(`${repoRoot}/${PLUGIN}`, 'utf8')
