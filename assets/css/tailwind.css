@@ -18,6 +18,31 @@
     --color-brand-purple:   #91268F; /* violett */
     --color-white:          #FFFFFF;
 
+    /* Numeric brand ramp.
+       Components already addressed brand colours this way (text-brand-900,
+       bg-brand-100, from-brand-500) across 38 call sites, but no such scale
+       existed, so every one of them compiled to nothing.
+
+       Derived from --color-brand-primary rather than picked by eye: that
+       colour is hsl(232, 55%, 36%), and each step keeps hue and saturation
+       while moving lightness. Step 500 is the base value itself, so
+       `bg-brand-500` and `bg-brand-primary` render identically — a test
+       enforces that.
+
+       The lightness curve is conventional (96 / 91 / 82 / 70 / 54 / 36 / 30 /
+       24 / 19 / 14); if the brand guide specifies exact tints, replace these
+       values — the call sites and the test stay valid either way. */
+    --color-brand-50:       #EFF1FA;
+    --color-brand-100:      #DCDFF5;
+    --color-brand-200:      #B8BFEA;
+    --color-brand-300:      #8994DC;
+    --color-brand-400:      #4A5BCA;
+    --color-brand-500:      #2A388F;
+    --color-brand-600:      #232E76;
+    --color-brand-700:      #1C255F;
+    --color-brand-800:      #161D4B;
+    --color-brand-900:      #101637;
+
     /* Derived neutrals (UI) */
     --color-bg:             light-dark(#ffffff, #0b1020);
     --color-surface:        light-dark(#ffffff, #11162a);
