@@ -52,7 +52,7 @@ useSchemaOrg(() => {
 </script>
 
 <template>
-  <main class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+  <div class="mx-auto max-w-6xl px-4 py-10 md:py-14">
     <header class="mb-8 text-center">
       <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
         {{ t('team.index.title') }}
@@ -76,5 +76,5 @@ useSchemaOrg(() => {
     </p>
 
     <TeamFaqSection />
-  </main>
+  </div>
 </template>

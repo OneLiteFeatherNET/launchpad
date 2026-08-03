@@ -133,7 +133,7 @@ if (member.value) {
 </script>
 
 <template>
-  <main class="mx-auto max-w-4xl px-4 py-10">
+  <div class="mx-auto max-w-4xl px-4 py-10">
     <NuxtLink
       :to="`/${locale}/team`"
       class="text-sm text-brand-primary dark:text-brand-primary/80 hover:underline"
@@ -201,5 +201,5 @@ if (member.value) {
     <div v-else class="mt-10 text-center text-gray-700 dark:text-gray-300">
       <p>{{ $t('team.profile_not_found') }}</p>
     </div>
-  </main>
+  </div>
 </template>
