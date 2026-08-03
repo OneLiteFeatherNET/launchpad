@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import IconFa from '~/components/base/icons/IconFa.vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   icon: string | [string,string];
   ariaLabel?: string;
   variant?: 'standard' | 'filled' | 'tonal' | 'outlined';
@@ -10,14 +10,17 @@ const props = defineProps<{
    * Sichtbarkeit/Ergonomie: Größe des Buttons (und des Icons)
    */
   size?: 'sm' | 'md' | 'lg' | 'xl';
-}>();
+}>(), {
+  ariaLabel: undefined,
+  variant: 'standard',
+  size: 'md'
+});
 
 const emit = defineEmits<{
   click: [event: MouseEvent];
 }>();
 
-const variant = props.variant ?? 'standard';
-const size = computed(() => props.size ?? 'md');
+const size = computed(() => props.size);
 
 const btnSizeClass = computed(() => ({
   sm: 'h-8 w-8',

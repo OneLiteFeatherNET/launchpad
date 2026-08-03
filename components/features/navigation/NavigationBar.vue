@@ -11,13 +11,13 @@ const { t, locale } = useI18n();
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute()
 
-const props = defineProps<{
+withDefaults(defineProps<{
   elevation?: 0 | 1 | 2 | 3 | 4 | 5;
   variant?: 'top' | 'bottom';
-}>();
-
-const elevation = props.elevation ?? 2;
-const variant = props.variant ?? 'top';
+}>(), {
+  elevation: 2,
+  variant: 'top'
+});
 
 const mobileMenuOpen = ref(false);
 const openGroup = ref<string | null>(null);

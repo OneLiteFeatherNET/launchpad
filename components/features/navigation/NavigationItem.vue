@@ -3,19 +3,21 @@ import { computed } from '#imports';
 import IconFa from '~/components/base/icons/IconFa.vue';
 const { t } = useI18n();
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   textKey: string;
   path: string;
   icon?: string | [string, string];
   variant?: 'desktop' | 'mobile' | 'bottom';
-}>();
+}>(), {
+  icon: undefined,
+  variant: 'desktop'
+});
 
 const emit = defineEmits<{
   click: [];
 }>();
 
 const route = useRoute();
-const variant = props.variant ?? 'desktop';
 
 const isActive = computed(() => {
   return route.path === props.path || route.path.startsWith(props.path + '/');

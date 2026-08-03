@@ -4,18 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faLanguage, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 const { t } = useI18n();
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   variant?: 'desktop' | 'mobile';
-}>();
-
-const variant = props.variant ?? 'desktop';
+}>(), {
+  variant: 'desktop'
+});
 const { locale, locales } = useI18n();
 const isOpen = ref(false);
 const buttonRef = ref<HTMLButtonElement | null>(null);
 const menuRef = ref<HTMLElement | null>(null);
 const initialFocus = ref<'first' | 'last'>('first');
-const buttonId = computed(() => `lang-button-${variant}`);
-const dropdownId = computed(() => `lang-menu-${variant}`);
+const buttonId = computed(() => `lang-button-${props.variant}`);
+const dropdownId = computed(() => `lang-menu-${props.variant}`);
 
 const availableLocales = computed(() => locales.value.filter((i: any) => i.code !== locale.value));
 const currentLocale = computed(() => locales.value.find((i: any) => i.code === locale.value));
@@ -106,14 +106,14 @@ const onDocumentClick = (e: Event) => {
 };
 
 onMounted(() => {
-  if (variant === 'desktop') {
+  if (props.variant === 'desktop') {
     document.addEventListener('click', onDocumentClick);
     document.addEventListener('touchstart', onDocumentClick, { passive: true });
   }
 });
 
 onBeforeUnmount(() => {
-  if (variant === 'desktop') {
+  if (props.variant === 'desktop') {
     document.removeEventListener('click', onDocumentClick);
     document.removeEventListener('touchstart', onDocumentClick);
   }
