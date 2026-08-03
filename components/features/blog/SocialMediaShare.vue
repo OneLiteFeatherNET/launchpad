@@ -3,7 +3,7 @@ import { computed, ref, onMounted } from '#imports'
 import IconFa from '~/components/base/icons/IconFa.vue'
 import { useAnalytics } from '~/composables/useAnalytics'
 
-type PlatformKey = 'facebook' | 'twitter' | 'linkedin' | 'whatsapp' | 'telegram' | 'bluesky' | 'mastodon' | 'reddit' | 'email' | 'copy' | 'native'
+type PlatformKey = 'facebook' | 'twitter' | 'linkedin' | 'whatsapp' | 'telegram' | 'bluesky' | 'reddit' | 'email' | 'copy' | 'native'
 
 const props = defineProps({
   url: {
