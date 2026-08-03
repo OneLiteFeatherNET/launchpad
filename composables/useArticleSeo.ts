@@ -89,19 +89,30 @@ export function useArticleSeo(
   const isoDate = (value: Date | string | undefined) =>
     value ? new Date(value).toISOString() : undefined
 
+  // The title as it should reach <title> and the social cards: a per-article
+  // `seo.title` override wins, otherwise the A/B-flagged title above.
+  //
+  // Exported because pages/blog/[...slug].vue re-asserts the title through its
+  // own useHead — which runs after this and therefore wins. It used to pass
+  // the raw `blog.title`, discarding both the override and the A/B variant.
+  const metaTitle = computed(() => {
+    const seo = ((blog.value as { seo?: BlogSeoFrontmatter } | null)?.seo) || {}
+    return seo.title || title.value
+  })
+
   // Document-level meta + OG/Twitter cards.
   useSeoMeta(() => {
     const seo = ((blog.value as { seo?: BlogSeoFrontmatter } | null)?.seo) || {}
-    const metaTitle = seo.title || title.value
+    const resolvedTitle = metaTitle.value
     const metaDescription = seo.description
       || blog.value?.description
       || extractPlainText((blog.value as { excerpt?: unknown } | null)?.excerpt)
       || ''
     const headerAlt = blog.value?.headerImageAlt || blog.value?.title || ''
     return {
-      title: metaTitle,
-      ogTitle: seo.ogTitle || metaTitle,
-      twitterTitle: seo.twitterTitle || metaTitle,
+      title: resolvedTitle,
+      ogTitle: seo.ogTitle || resolvedTitle,
+      twitterTitle: seo.twitterTitle || resolvedTitle,
       description: metaDescription,
       ogDescription: seo.ogDescription || metaDescription,
       ogImage: previewSocial.value,
@@ -163,5 +174,5 @@ export function useArticleSeo(
     description: blog.value?.description || ''
   })
 
-  return { title, canonicalUrl, previewSocial }
+  return { title, metaTitle, canonicalUrl, previewSocial }
 }
