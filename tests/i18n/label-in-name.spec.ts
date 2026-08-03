@@ -24,13 +24,11 @@ import { repoRoot } from '../helpers/sources'
 
 /** [visible label key, accessible name key] — both must exist in each locale. */
 const LABEL_PAIRS: [string, string][] = [
-  ['server.connect.copy_address', 'server.connect.copy_aria'],
-  ['server.connect.copy_port', 'server.connect.copy_port_aria'],
+  ['server.connect.copy_address', 'server.connect.copy_aria'], ['server.connect.copy_port', 'server.connect.copy_port_aria'],
 ]
 
 const LOCALES = [
-  'de',
-  'en',
+  'de', 'en',
 ]
 
 function messages(locale: string): Record<string, unknown> {
