@@ -125,7 +125,11 @@ export default defineNuxtConfig({
         xslColumns: [
             {label: 'URL', width: '50%'},
             {label: 'Last Modified', select: 'sitemap:lastmod', width: '25%'},
-            {label: 'Language', select: 'sitemap:hreflang', width: '25%'}
+            // Alternates are attributes on <xhtml:link>, not children in the
+            // sitemap namespace — 'sitemap:hreflang' matched nothing and the
+            // column rendered empty in every row. The xhtml namespace is
+            // already declared by the stylesheet.
+            {label: 'Language', select: 'xhtml:link/@hreflang', width: '25%'}
         ],
         // Team profiles live in a data-type content collection so they're
         // not auto-discovered. We materialise the per-member URLs through
