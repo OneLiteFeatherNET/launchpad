@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
 import Carousel from "~/components/features/home/carousel/Carousel.vue";
 import {definePageMeta} from "#imports";
 
@@ -14,11 +13,6 @@ const { sponsors } = useSponsoring()
 const { data: collective } = useOpenCollective()
 useHomeSeo({ title: t('index.title') })
 
-const LazyServerConcept = defineAsyncComponent(() => import('~/components/features/home/server-concept/ServerConcept.vue'))
-const LazyServerAddresses = defineAsyncComponent(() => import('~/components/features/home/server-addresses/ServerAddresses.vue'))
-const LazySponsoring = defineAsyncComponent(() => import('~/components/features/sponsoring/Sponsoring.vue'))
-const LazyOpenCollective = defineAsyncComponent(() => import('~/components/features/opencollective/OpenCollectiveStats.vue'))
-const LazyFaqSection = defineAsyncComponent(() => import('~/components/features/home/faq/FaqSection.vue'))
 
 </script>
 
@@ -34,23 +28,28 @@ const LazyFaqSection = defineAsyncComponent(() => import('~/components/features/
   <div class="-mx-4 sm:-mx-6 px-0 py-6 md:py-10 md:mx-auto md:max-w-6xl md:px-4 lg:px-8">
     <Carousel :slides="slides" aspect="16/9" :aria-label="t('index.carousel_aria')" />
   </div>
+  <!-- Everything below the carousel is off-screen at load; hydrate-on-visible
+       is what turns the code split into a saving. See tests/architecture/lazy-components.spec.ts -->
   <!-- Server Concept Section -->
-  <LazyServerConcept
+  <LazyFeaturesHomeServerConcept
     v-if="concept"
+    hydrate-on-visible
     :title="concept.title"
     :subtitle="concept.subtitle"
     :points="concept.points || []"
   />
   <!-- Server Connect Section -->
-  <LazyServerAddresses
+  <LazyFeaturesHomeServerAddresses
     v-if="connect"
+    hydrate-on-visible
     :java-address="connect.javaAddress"
     :bedrock-host="connect.bedrockHost"
     :bedrock-port="connect.bedrockPort"
   />
-  <LazySponsoring v-if="sponsors?.length" :sponsors="sponsors" />
-  <LazyOpenCollective
+  <LazyFeaturesSponsoring v-if="sponsors?.length" hydrate-on-visible :sponsors="sponsors" />
+  <LazyFeaturesOpencollectiveOpenCollectiveStats
     v-if="collective"
+    hydrate-on-visible
     :total-raised="collective.totalRaised"
     :goal="collective.goal"
     :contributors="collective.contributors"
@@ -58,5 +57,5 @@ const LazyFaqSection = defineAsyncComponent(() => import('~/components/features/
     :link="collective.link"
     :updated-at="collective.updatedAt"
   />
-  <LazyFaqSection />
+  <LazyFeaturesHomeFaqSection hydrate-on-visible />
 </template>

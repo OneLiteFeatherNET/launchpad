@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
 import {definePageMeta} from "#imports";
 import type { BlogArticle } from "~/types/blog";
 import UiChip from '~/components/base/Chip.vue'
@@ -13,7 +12,6 @@ definePageMeta({
 });
 
 const { blog, authors } = await useBlogArticle()
-const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/features/blog/SocialMediaShare.vue'))
 
 // All Article-level SEO (meta tags, Article JSON-LD, breadcrumbs, OG
 // image) lives in useArticleSeo — keeps this page focused on view code.
@@ -137,7 +135,7 @@ useHead(() => {
         <!-- Social Media Sharing Buttons -->
         <section class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6" :aria-label="t('article.share')">
           <h2 class="sr-only">{{ t('article.share') }}</h2>
-          <LazySocialMediaShare
+          <LazyFeaturesBlogSocialMediaShare
             :url="shareUrl"
             :title="blog?.title"
             :description="blog?.description || ''"

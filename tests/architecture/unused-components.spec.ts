@@ -15,9 +15,13 @@ import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources
  *
  *   1. Auto-imported tag — `<TeamMembers>`, `<team-members>`, `<LazyTeamMembers>`.
  *      Nuxt needs no import statement, so the tag is the only signal.
- *   2. Explicit import by path, often under a different local name:
+ *   2. The same tag carrying Nuxt's directory prefix. `features/home/faq/
+ *      FaqSection.vue` is `<LazyFeaturesHomeFaqSection>` — the file name is a
+ *      suffix of the tag, not the whole of it. Only prefixes actually built
+ *      from that component's own directories count, so a dead `Card.vue`
+ *      cannot be kept alive by an unrelated `<SomeOtherCard>` elsewhere.
+ *   3. Explicit import by path, often under a different local name:
  *      `import UiChip from '~/components/base/Chip.vue'` renders as `<UiChip>`.
- *   3. Dynamic import by path: `defineAsyncComponent(() => import('…/X.vue'))`.
  *   4. Convention, never referenced in any template — see EXEMPT below.
  */
 
@@ -28,8 +32,7 @@ const CONSUMER_DIRS = [
 ]
 
 const ROOT_CONSUMERS = [
-  'app.vue',
-  'error.vue',
+  'app.vue', 'error.vue',
 ]
 
 /**
@@ -41,8 +44,7 @@ const ROOT_CONSUMERS = [
  *                              passed to defineOgImage('TeamMember').
  */
 const EXEMPT = [
-  /^components\/content\/Prose/,
-  /^components\/OgImage\//,
+  /^components\/content\/Prose/, /^components\/OgImage\//,
 ]
 
 function kebab(name: string): string {
@@ -59,12 +61,33 @@ function escape(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
+/**
+ * Every prefix Nuxt could put in front of this component's file name, built
+ * from its own directory chain. `features/home/faq/FaqSection.vue` yields
+ * `''`, `Features`, `FeaturesHome`, `FeaturesHomeFaq` — one of which, plus the
+ * file name, is the registered tag. Deriving them per component rather than
+ * accepting any PascalCase prefix is what keeps the check from excusing a dead
+ * component whose name merely ends another one.
+ */
+function directoryPrefixes(componentPath: string): string[] {
+  const segments = relativeToRepo(componentPath)
+    .replace(/^components\//, '')
+    .split('/')
+    .slice(0, -1)
+    .map((segment) => segment.split(/[-_]/).map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(''))
+
+  const prefixes = ['']
+  for (const segment of segments) prefixes.push(prefixes[prefixes.length - 1]! + segment)
+  return prefixes
+}
+
 function isReferenced(componentPath: string, corpus: Map<string, string>): boolean {
   const name = basename(componentPath, '.vue')
   const pathFromComponents = relativeToRepo(componentPath).replace(/^components\//, '')
+  const prefixes = directoryPrefixes(componentPath).map(escape).join('|')
   const patterns = [
-    // Tag, in either spelling, with or without Nuxt's Lazy prefix.
-    new RegExp(`<(?:Lazy)?${escape(name)}[\\s/>]`),
+    // Tag, in either spelling, with or without Nuxt's Lazy and directory prefixes.
+    new RegExp(`<(?:Lazy)?(?:${prefixes})${escape(name)}[\\s/>]`),
     new RegExp(`<(?:lazy-)?${escape(kebab(name))}[\\s/>]`),
     // Imported by path — catches renamed local bindings and async imports.
     new RegExp(`['"\`][^'"\`]*${escape(pathFromComponents)}['"\`]`),
@@ -95,11 +118,19 @@ describe('components', () => {
 
     const autoImported = byName('features/navigation/NavigationBar.vue')
     const renamedImport = byName('base/Chip.vue') //        imported as UiChip
-    const asyncImport = byName('community-poi/CommunityPoiGallery.vue')
+    const prefixedTag = byName('features/home/faq/FaqSection.vue') // <LazyFeaturesHomeFaqSection>
 
     expect(autoImported && isReferenced(autoImported, corpus)).toBe(true)
     expect(renamedImport && isReferenced(renamedImport, corpus)).toBe(true)
-    expect(asyncImport && isReferenced(asyncImport, corpus)).toBe(true)
+    expect(prefixedTag && isReferenced(prefixedTag, corpus)).toBe(true)
+
+    // The prefixes have to come from the component's own path, or the check
+    // stops being able to tell a used component from a dead one.
+    expect(directoryPrefixes(prefixedTag!)).toEqual(['',
+      'Features',
+      'FeaturesHome',
+      'FeaturesHomeFaq'])
+    expect(directoryPrefixes(byName('base/Chip.vue')!)).toEqual(['', 'Base'])
   })
 
   it('are all rendered somewhere', () => {
