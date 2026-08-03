@@ -44,7 +44,8 @@
     }
   },
   "index": {
-    "title": "Home"
+    "title": "Home",
+    "carousel_aria": "Homepage highlight carousel"
   },
   "bluemap": {
     "title": "BlueMap",
@@ -172,7 +173,8 @@
       "title": "Social Media"
     },
     "privacy": "Privacy",
-    "terms": "Imprint"
+    "terms": "Imprint",
+    "coming_soon": "Coming soon"
   },
   "social": {
     "twitch": "Twitch",
