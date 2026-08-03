@@ -132,7 +132,7 @@ onKeyStroke('Escape', () => closeMenus())
                 <!-- summary is the native disclosure button: Enter/Space fire a click natively, so keyboard parity exists -->
                 <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions, vuejs-accessibility/click-events-have-key-events -->
                 <summary
-                  class="flex items-center gap-2 px-3 py-2 rounded-full text-[var(--color-text)] no-underline transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-secondary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] cursor-pointer list-none"
+                  class="flex items-center gap-2 px-3 py-2 rounded-full text-[var(--color-text)] no-underline transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] cursor-pointer list-none"
                   :aria-expanded="openGroup === item.textKey ? 'true' : 'false'"
                   @click.prevent="toggleGroup(item.textKey)"
                 >

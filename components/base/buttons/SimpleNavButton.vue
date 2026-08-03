@@ -29,7 +29,7 @@ const isActive = computed(() => {
     :key="path"
     :to="path"
     class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-colors shadow-sm no-underline text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60"
-    :class="isActive ? 'bg-[var(--color-secondary)]/15 text-[var(--color-secondary)]' : ''"
+    :class="isActive ? 'bg-brand-secondary/15 text-brand-secondary' : ''"
     :aria-current="isActive ? 'page' : undefined"
   >
     {{ t(textKey) }}
@@ -39,8 +39,8 @@ const isActive = computed(() => {
     v-else
     :key="path"
     :to="path"
-    class="block px-3 py-2 text-base font-medium rounded-full transition-colors no-underline text-[var(--color-text)] hover:bg-[var(--color-secondary)]/10 dark:hover:bg-[var(--color-secondary)]/20"
-    :class="isActive ? 'bg-[var(--color-secondary)]/15 text-[var(--color-secondary)]' : ''"
+    class="block px-3 py-2 text-base font-medium rounded-full transition-colors no-underline text-[var(--color-text)] hover:bg-brand-secondary/10 dark:hover:bg-brand-secondary/20"
+    :class="isActive ? 'bg-brand-secondary/15 text-brand-secondary' : ''"
     :aria-current="isActive ? 'page' : undefined"
     @click="emit('click-mobile')"
     role="menuitem"

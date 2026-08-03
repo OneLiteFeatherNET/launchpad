@@ -13,7 +13,7 @@ const detailsClass = [
 const summaryClass = [
   'flex cursor-pointer list-none items-center justify-between gap-4',
   'text-base font-semibold text-neutral-900 dark:text-neutral-100',
-  'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md'
+  'focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded-md'
 ].join(' ')
 
 const toggleClass = [
@@ -23,7 +23,7 @@ const toggleClass = [
 ].join(' ')
 
 const proseClass = [
-  'prose prose-sm md:prose-base prose-neutral dark:prose-invert max-w-none mt-3', 'prose-a:text-primary prose-a:underline-offset-2 prose-a:hover:underline'
+  'prose prose-sm md:prose-base prose-neutral dark:prose-invert max-w-none mt-3', 'prose-a:text-brand-primary prose-a:underline-offset-2 prose-a:hover:underline'
 ].join(' ')
 
 // Extra FAQPage schema scoped to the team page; Google currently restricts

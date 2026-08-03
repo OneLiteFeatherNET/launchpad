@@ -114,7 +114,7 @@ const platforms = computed(() => {
 const copied = ref(false)
 const canNativeShare = ref(false)
 const copyButtonClass = 'bg-neutral-700 hover:bg-neutral-800 focus:ring-neutral-500'
-const nativeButtonClass = 'bg-primary hover:opacity-90 focus:ring-primary'
+const nativeButtonClass = 'bg-brand-primary hover:opacity-90 focus:ring-brand-primary'
 
 onMounted(() => {
   canNativeShare.value = typeof navigator !== 'undefined' && typeof navigator.share === 'function'

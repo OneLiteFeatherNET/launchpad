@@ -12,7 +12,7 @@ const {blogArticle} = defineProps<{
     class="bg-white dark:bg-gray-900/60 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow overflow-hidden xl:mx-80">
     <NuxtLink
       :to="`/${locale}/blog/${blogArticle.slug}`"
-      class="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-xl">
+      class="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-xl">
       <div class="relative">
         <NuxtPicture
           v-if="blogArticle.headerImage"

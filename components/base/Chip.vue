@@ -54,10 +54,10 @@ const variantClasses = computed(() => {
     case 'outlined':
       return 'bg-transparent border-border text-neutral-800 hover:bg-black/5 dark:text-white dark:border-white/25 dark:hover:bg-white/10'
     default:
-      return 'bg-primary/10 text-primary border-primary/20 hover:bg-primary/15 dark:bg-white/15 dark:text-white dark:border-white/25 dark:hover:bg-white/25'
+      return 'bg-brand-primary/10 text-brand-primary border-brand-primary/20 hover:bg-brand-primary/15 dark:bg-white/15 dark:text-white dark:border-white/25 dark:hover:bg-white/25'
   }
 })
 
 const selectedClasses =
-  'bg-primary/20 text-primary border-primary/40 shadow-sm hover:bg-primary/25 dark:bg-white/35 dark:text-black dark:border-white/45 dark:hover:bg-white/45'
+  'bg-brand-primary/20 text-brand-primary border-brand-primary/40 shadow-sm hover:bg-brand-primary/25 dark:bg-white/35 dark:text-black dark:border-white/45 dark:hover:bg-white/45'
 </script>

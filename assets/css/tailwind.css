@@ -25,13 +25,12 @@
     --color-muted:          light-dark(#6b7280, #9aa3b2);
     --color-border:         light-dark(#e5e7eb, #1f2743);
 
-    --gradient-from: var(--color-secondary-pink);
-    --gradient-via:  var(--color-secondary-purple);
-    --gradient-to:   var(--color-secondary-cyan);
-    /* Sekundärfarben aus dem Brand Guide */
-
-
-    /* Gradients */
+    /* Gradients.
+       Note there is deliberately no --gradient-from/via/to here: `gradient-*`
+       is not a utility namespace in Tailwind v4, so those custom properties
+       minted nothing and were read by no rule. The `from-*`/`via-*`/`to-*`
+       classes in components are plain Tailwind utilities and never referenced
+       them. */
     --gradient-brand: linear-gradient(90deg, #2A388F 0%, #27A9E1 100%);
     --gradient-accent: linear-gradient(90deg, #91268F 0%, #EC008B 60%, #F7931D 100%);
     /* Light variants (hellere Varianten) */
