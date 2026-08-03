@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, definePageMeta } from '#imports'
+import { computed, definePageMeta } from '#imports'
 import CommunityPoiStatusBadge from '~/components/features/community-poi/CommunityPoiStatusBadge.vue'
 import CommunityPoiCategoryBadge from '~/components/features/community-poi/CommunityPoiCategoryBadge.vue'
 import CommunityPoiProgressBar from '~/components/features/community-poi/CommunityPoiProgressBar.vue'
@@ -16,11 +16,6 @@ definePageMeta({
 
 const { poi } = await useCommunityPoiDetail()
 
-const LazyGallery = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiGallery.vue'))
-const LazySchematics = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiSchematicList.vue'))
-const LazyLitematicaHelp = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiLitematicaHelp.vue'))
-const LazyBluemap = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiBluemap.vue'))
-const LazyCollaboration = defineAsyncComponent(() => import('~/components/features/community-poi/CommunityPoiCollaboration.vue'))
 
 const title = computed(() => poi.value?.title || t('community_poi.overview.title'))
 const description = computed(() => poi.value?.summary || t('community_poi.overview.description'))
@@ -158,7 +153,7 @@ const progressSectionClass = [
         <CommunityPoiMeta :poi="poi" />
       </section>
 
-      <LazyBluemap
+      <LazyFeaturesCommunityPoiBluemap
         v-if="poi.coordinates"
         :title="poi.title"
         :coordinates="poi.coordinates"
@@ -172,18 +167,18 @@ const progressSectionClass = [
         <h2 class="mb-3 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
           {{ t('community_poi.gallery.title') }}
         </h2>
-        <LazyGallery :images="poi.gallery" />
+        <LazyFeaturesCommunityPoiGallery :images="poi.gallery" />
       </section>
 
       <section v-if="poi.schematics?.length" class="space-y-4">
         <h2 class="mb-3 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
           {{ t('community_poi.schematics.title') }}
         </h2>
-        <LazySchematics :schematics="poi.schematics" />
-        <LazyLitematicaHelp />
+        <LazyFeaturesCommunityPoiSchematicList :schematics="poi.schematics" />
+        <LazyFeaturesCommunityPoiLitematicaHelp />
       </section>
 
-      <LazyCollaboration :poi="poi" />
+      <LazyFeaturesCommunityPoiCollaboration :poi="poi" />
     </article>
   </main>
 </template>
