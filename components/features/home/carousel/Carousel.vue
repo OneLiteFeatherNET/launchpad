@@ -32,21 +32,11 @@ const props = withDefaults(defineProps<{
 const current = ref(0)
 const timer = ref<ReturnType<typeof setInterval> | null>(null)
 const isHovering = ref(false)
-const prefersReducedMotion = ref(false)
-
-// Aura color handling (outside glow)
-const auraColors = ref<Record<number, string>>({})
-const defaultAura = 'rgb(39, 169, 225)' // fallback: brand secondary-ish
-const activeAuraColor = computed(() => auraColors.value[current.value] || defaultAura)
-const outerAuraStyle = computed(() => {
-  const base = activeAuraColor.value
-  // Outside glow: larger radius, blurred, extends outside container
-  return {
-    background: `radial-gradient(60% 45% at 50% 50%, ${withAlpha(base, 0.32)} 0%, ${withAlpha(base, 0.16)} 40%, transparent 75%)`,
-    filter: 'blur(18px)',
-    opacity: '1'
-  }
-})
+// useMediaQuery rather than a hand-rolled matchMedia listener: it unregisters
+// with the effect scope. The previous version subscribed to the MediaQueryList
+// and never unsubscribed, so every visit to this page left another live
+// listener holding the whole component scope.
+const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
 // Normalization: Legacy → typed slides
 const normalizedSlides = computed<NormalizedSlide[]>(() => normalizeSlides(props.slides))
@@ -217,21 +207,6 @@ const componentFor = (slide: NormalizedSlide) => {
 }
 
 
-// Setup reduced motion preference (client only)
-if (import.meta.client) {
-  try {
-    const m = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const set = () => { prefersReducedMotion.value = !!m.matches }
-    set()
-    m.addEventListener?.('change', set)
-  } catch {}
-}
-
-function withAlpha(rgb: string, a: number) {
-  const m = rgb.match(/rgb\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\)/)
-  if (!m) return rgb
-  return `rgba(${m[1]}, ${m[2]}, ${m[3]}, ${a})`
-}
 </script>
 
 <template>
