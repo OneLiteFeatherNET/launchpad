@@ -31,8 +31,30 @@ const ROW_IDENTIFIERS = ['blogArticle',
   'entry',
   'article']
 
-const SELECT_CALL = /listBlogArticles\([\s\S]*?\.select\(([^)]*)\)/
+const SELECT_CALL = /listBlogArticles\([\s\S]*?\.select\(([\s\S]*?)\n\s*\)/
 const QUOTED = /'([a-zA-Z][\w]*)'/g
+
+/**
+ * Columns that reach a template without ever being named there.
+ *
+ * The field scan below looks for `blogArticle.x`, which finds everything a
+ * template *spells out* — and nothing a component receives whole. ArticleCard
+ * hands the entire row to `<ContentRenderer :value="blogArticle" :excerpt>`,
+ * so `excerpt` appears nowhere in its source, and a projection derived from
+ * the scan alone drops it. That is not hypothetical: the first version of this
+ * change did exactly that, the check stayed green, and the excerpt on all
+ * seven cards vanished. It was caught by diffing the rendered page, not here.
+ */
+const WHOLE_ROW_CONSUMERS = [
+  {
+    file: 'components/features/blog/page/card/ArticleCard.vue',
+    /** `<ContentRenderer :value="blogArticle" :excerpt="true">` */
+    hands_over: /<ContentRenderer[^>]*:value="blogArticle"[^>]*:excerpt="true"/,
+    // `excerpt` is what it renders; `id` becomes the data-content-id attribute
+    // and its absence changes the emitted markup.
+    requires: ['excerpt', 'id']
+  }
+]
 
 function read(file: string): string {
   return readFileSync(`${repoRoot}/${file}`, 'utf8')
@@ -92,6 +114,19 @@ describe('blog overview projection', () => {
   it('covers every field the overview reads', () => {
     const projected = new Set(projectedFields())
     const missing = requiredFields().filter((field) => !projected.has(field))
+    expect(missing).toEqual([])
+  })
+
+  it('covers the columns whole-row consumers read without naming them', () => {
+    const projected = new Set(projectedFields())
+    type Consumer = typeof WHOLE_ROW_CONSUMERS[number]
+    const stillHandsOver = (c: Consumer) => c.hands_over.test(read(c.file))
+    const checked = WHOLE_ROW_CONSUMERS.filter(stillHandsOver)
+
+    // If the pass-through is refactored away the entry is stale, not satisfied.
+    expect(checked).toHaveLength(WHOLE_ROW_CONSUMERS.length)
+
+    const missing = checked.flatMap((consumer) => consumer.requires.filter((field) => !projected.has(field)).map((field) => `${consumer.file} needs ${field}`))
     expect(missing).toEqual([])
   })
 
