@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, useRoute, onKeyStroke } from '#imports';
+import { ref, computed, watch, nextTick, useRoute, onKeyStroke } from '#imports';
 import NavigationItem from './NavigationItem.vue'
 import LanguageSelector from './LanguageSelector.vue'
 import NavigationIconButton from '~/components/base/buttons/NavigationIconButton.vue'
@@ -22,6 +22,10 @@ withDefaults(defineProps<{
 const mobileMenuOpen = ref(false);
 const openGroup = ref<string | null>(null);
 const mobileMenuId = 'mobile-menu-panel';
+// Closing the panel unmounts it. Without these, focus sitting inside it has
+// nowhere to go and lands on <body>.
+const mobileToggleRef = ref<{ $el?: HTMLElement } | null>(null);
+const mobileMenuRef = ref<HTMLElement | null>(null);
 // Verwende die reaktive i18n-Locale; localePath nutzt automatisch die aktuelle Sprache
 const localePath = useLocalePath();
 // NUXT_PUBLIC_DISCORD_URL still overrides this — Nuxt folds it into the same
@@ -90,8 +94,17 @@ const toggleGroup = (key: string) => {
 }
 
 const closeMenus = () => {
+  // Only reclaim focus if it was in the panel about to disappear. A route
+  // change closes the menu too, and there the user is already somewhere else.
+  const hadFocus = import.meta.client
+    && !!mobileMenuRef.value?.contains(document.activeElement)
+
   openGroup.value = null
   mobileMenuOpen.value = false
+
+  if (hadFocus) {
+    nextTick(() => mobileToggleRef.value?.$el?.focus())
+  }
 }
 
 watch(
@@ -161,6 +174,7 @@ onKeyStroke('Escape', () => closeMenus())
 
         <div class="lg:hidden">
           <NavigationIconButton
+            ref="mobileToggleRef"
             :icon="mobileMenuOpen ? ['fas','times'] : ['fas','bars']"
             :aria-label="t('navigation.toggle_mobile_menu')"
             :aria-controls="mobileMenuId"
@@ -189,6 +203,7 @@ onKeyStroke('Escape', () => closeMenus())
       >
         <nav
           :id="mobileMenuId"
+          ref="mobileMenuRef"
           class="absolute left-0 right-0 top-0 z-50 mx-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-lg dark:border-[var(--color-border)] dark:bg-[var(--color-surface)]"
           role="navigation"
           :aria-label="t('navigation.mobile')"
