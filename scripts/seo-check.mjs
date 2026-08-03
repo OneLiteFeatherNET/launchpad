@@ -76,8 +76,7 @@ const colorise = (level, text) => {
 // so the mock-prod query must not be appended to sitemap URLs. The sitemap is
 // environment-independent here anyway; only robots.txt and page meta need the
 // production mock.
-const isSitemapPath = (pathname) =>
-  /^\/(sitemap[^/]*\.xml|sitemap_index\.xml|__sitemap__\/)/i.test(pathname)
+const isSitemapPath = (pathname) => /^\/(sitemap[^/]*\.xml|sitemap_index\.xml|__sitemap__\/)/i.test(pathname)
 
 /**
  * Builds a URL relative to BASE and adds the dev mock-prod query when
@@ -168,12 +167,19 @@ const checkPage = async ({ route, mustIndex }) => {
 
   // hreflang — we expect at minimum en, de and x-default.
   const hreflangs = $('link[rel="alternate"][hreflang]').map((_, el) => $(el).attr('hreflang')).get()
-  for (const expected of ['en-US', 'de-DE', 'x-default']) {
+  for (const expected of ['en-US',
+'de-DE',
+'x-default']) {
     if (!hreflangs.includes(expected)) err(route, `Missing hreflang "${expected}"`)
   }
 
   // Open Graph
-  for (const tag of ['og:title', 'og:description', 'og:url', 'og:type', 'og:site_name', 'og:image']) {
+  for (const tag of ['og:title',
+'og:description',
+'og:url',
+'og:type',
+'og:site_name',
+'og:image']) {
     const value = headContent($, `meta[property="${tag}"]`)
     if (!value) err(route, `Missing meta property="${tag}"`)
     else flagSuspiciousI18n(route, tag, value)
@@ -181,7 +187,9 @@ const checkPage = async ({ route, mustIndex }) => {
 
   // Twitter cards
   if (!headContent($, 'meta[name="twitter:card"]')) err(route, 'Missing twitter:card')
-  for (const tag of ['twitter:title', 'twitter:description', 'twitter:image']) {
+  for (const tag of ['twitter:title',
+'twitter:description',
+'twitter:image']) {
     const value = headContent($, `meta[name="${tag}"]`)
     if (!value) err(route, `Missing meta name="${tag}"`)
     else flagSuspiciousI18n(route, tag, value)
@@ -284,6 +292,33 @@ const expandSitemapUrls = async (path) => {
   return urls
 }
 
+/**
+ * The one sitemap request the rest of this gate deliberately never makes.
+ *
+ * `buildUrl()` suppresses `?mockProductionEnv` on sitemap paths, so nothing
+ * here exercised a sitemap carrying a query string — the exact condition that
+ * once turned child sitemaps into `204 No Content` on @nuxtjs/sitemap 7.6.0
+ * and prompted a hand-written route shim. The shim is gone; this assertion is
+ * what stands in its place, so a regression upstream is reported rather than
+ * absorbed.
+ */
+const checkSitemapAcceptsQueryString = async () => {
+  const index = await fetchRaw('/sitemap_index.xml')
+  const child = load(index.body, { xmlMode: true })('sitemap > loc').first().text().trim()
+  if (!child) return
+
+  const path = `${new URL(child).pathname}?mockProductionEnv`
+  const res = await fetchRaw(path)
+
+  if (res.status !== 200) {
+    err(path, `Sitemap with a query string returned ${res.status}, expected 200`)
+    return
+  }
+  if (!res.body.includes('<loc>')) {
+    err(path, 'Sitemap with a query string came back without a single <loc>')
+  }
+}
+
 const checkSitemap = async (allowed, forbidden) => {
   const route = '/sitemap.xml'
   const paths = await expandSitemapUrls(route)
@@ -312,13 +347,13 @@ const main = async () => {
 
   /** @type {Array<{ route: string, mustIndex: boolean }>} */
   const targets = [
-    ...STATIC_ROUTES.map((r) => ({ route: r, mustIndex: true })),
-    ...NOINDEX_ROUTES.map((r) => ({ route: r, mustIndex: false }))
+    ...STATIC_ROUTES.map((r) => ({ route: r, mustIndex: true })), ...NOINDEX_ROUTES.map((r) => ({ route: r, mustIndex: false }))
   ]
 
   await Promise.all([
     checkRobots(),
     checkSitemap(STATIC_ROUTES, NOINDEX_ROUTES),
+    checkSitemapAcceptsQueryString(),
     ...targets.map((t) => checkPage(t))
   ])
 
@@ -342,11 +377,9 @@ const main = async () => {
     for (const target of targets) console.log(colorise('ok', `✓ ${target.route}`))
   }
 
-  console.log(
-    `\nSummary: ${colorise(errors.length ? 'error' : 'ok', `${errors.length} error(s)`)}` +
-    `, ${colorise(warnings.length ? 'warn' : 'dim', `${warnings.length} warning(s)`)}` +
-    `, ${targets.length} route(s) checked.`
-  )
+  console.log(`\nSummary: ${colorise(errors.length ? 'error' : 'ok', `${errors.length} error(s)`)}`
+    + `, ${colorise(warnings.length ? 'warn' : 'dim', `${warnings.length} warning(s)`)}`
+    + `, ${targets.length} route(s) checked.`)
 
   if (errors.length > 0) process.exit(1)
 }
