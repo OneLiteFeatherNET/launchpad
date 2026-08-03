@@ -33,7 +33,9 @@
     "event_link": "Event: {title}",
     "to_event": "Zum Event: {title}",
     "news_link": "News: {title}",
-    "to_news": "Zur Meldung: {title}"
+    "to_news": "Zur Meldung: {title}",
+    "pause": "Automatisches Weiterblättern pausieren",
+    "play": "Automatisches Weiterblättern fortsetzen"
   },
   "layouts": {
     "title": "Titel"

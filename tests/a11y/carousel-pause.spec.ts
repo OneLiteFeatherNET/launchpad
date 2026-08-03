@@ -48,12 +48,16 @@ describe('carousel pause control', () => {
     // The finding's sharpest point: a pause button inside the hover-revealed
     // bar is invisible on touch, which is the case it exists for.
     expect(hoverRevealedControls()).not.toContain('userPaused')
-    expect(carousel()).toMatch(/@click[^"]*userPaused/)
+    // `@click.stop="…"` — the modifier and the quote sit between the two.
+    expect(carousel()).toMatch(/@click[.\w]*="[^"]*userPaused/)
   })
 
   it('says what it does, in the language of the page', () => {
     const source = carousel()
-    expect(source).toMatch(/:aria-label="t\('carousel\.(pause|play)/)
+    // A toggle names its next action, so the binding is a ternary over both
+    // keys rather than a single call.
+    expect(source).toMatch(/:aria-label="[^"]*t\('carousel\.pause'\)/)
+    expect(source).toMatch(/:aria-label="[^"]*t\('carousel\.play'\)/)
     // A toggle should report its state, not just its action.
     expect(source).toMatch(/:aria-pressed=/)
   })
