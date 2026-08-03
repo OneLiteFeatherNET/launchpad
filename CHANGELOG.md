@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.3](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.2...onelitefeather.net-v1.3.3) (2026-08-03)
+
+
+### Bug Fixes
+
+* **components:** keep navigation props reactive via withDefaults ([#237](https://github.com/OneLiteFeatherNET/launchpad/issues/237)) ([7f0f2a6](https://github.com/OneLiteFeatherNET/launchpad/commit/7f0f2a6141fc6c99576166414b2c2ad33eb41ca3))
+* **config:** drop env fallbacks that never fire in the browser ([#239](https://github.com/OneLiteFeatherNET/launchpad/issues/239)) ([87c8c2e](https://github.com/OneLiteFeatherNET/launchpad/commit/87c8c2e019df973bb367fa1d89ca85d8b02fe66f))
+* **i18n:** route tooltips and accessible names through t() ([#234](https://github.com/OneLiteFeatherNET/launchpad/issues/234)) ([1c570a4](https://github.com/OneLiteFeatherNET/launchpad/commit/1c570a41ffd5ad1b3da1318a64383929aa376565))
+* **i18n:** translate the carousel's accessible names ([#236](https://github.com/OneLiteFeatherNET/launchpad/issues/236)) ([246dce6](https://github.com/OneLiteFeatherNET/launchpad/commit/246dce60eff4c7643fb381aaaf34b98c0fb3aea0))
+
+
+### Performance
+
+* **pages:** defer below-the-fold hydration through Nuxt's Lazy prefix ([#238](https://github.com/OneLiteFeatherNET/launchpad/issues/238)) ([566717f](https://github.com/OneLiteFeatherNET/launchpad/commit/566717f37e4bef992dd11bfb6410f790b0be450b))
+
 ## [1.3.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.1...onelitefeather.net-v1.3.2) (2026-08-03)
 
 
