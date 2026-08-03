@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.3.4](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.3...onelitefeather.net-v1.3.4) (2026-08-03)
+
+
+### Bug Fixes
+
+* **a11y:** stop pages from opening a second main landmark ([#242](https://github.com/OneLiteFeatherNET/launchpad/issues/242)) ([48c7167](https://github.com/OneLiteFeatherNET/launchpad/commit/48c71678685e3049e662c8d9177729641f1dd3cf))
+* **types:** type the fontawesome plugin and its global component ([#240](https://github.com/OneLiteFeatherNET/launchpad/issues/240)) ([4b354f4](https://github.com/OneLiteFeatherNET/launchpad/commit/4b354f495b68fcc2ed36a2f36e717658f3b199e6))
+
+
+### Performance
+
+* **content:** project the blog overview query instead of SELECT * ([#244](https://github.com/OneLiteFeatherNET/launchpad/issues/244)) ([1f02a27](https://github.com/OneLiteFeatherNET/launchpad/commit/1f02a2717e21d35dae0865fd6bcbea8b1f988453))
+
+
+### Continuous Integration
+
+* **seo:** read the node version from .nvmrc like the other workflows ([#247](https://github.com/OneLiteFeatherNET/launchpad/issues/247)) ([fad1804](https://github.com/OneLiteFeatherNET/launchpad/commit/fad1804040cd8bd3841d0921cd3b046d9747ae30))
+
 ## [1.3.3](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.2...onelitefeather.net-v1.3.3) (2026-08-03)
 
 
