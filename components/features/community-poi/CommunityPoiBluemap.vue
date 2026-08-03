@@ -99,12 +99,15 @@ const embedNoteClass = [
          fetch until the section is in view, which keeps initial page
          weight reasonable. -->
     <div class="overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-800">
+      <!-- Same sandbox as pages/bluemap.vue; see the comment there for why
+           allow-scripts and allow-same-origin are both needed. -->
       <iframe
         :src="deepLink"
         :title="t('community_poi.bluemap.iframe_title', { title: props.title })"
         class="block aspect-[16/9] w-full"
         loading="lazy"
         allow="fullscreen"
+        sandbox="allow-scripts allow-same-origin allow-popups"
         referrerpolicy="no-referrer"
       />
       <p :class="embedNoteClass">
