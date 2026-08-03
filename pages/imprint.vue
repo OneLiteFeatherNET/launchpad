@@ -7,6 +7,10 @@ definePageMeta({
 });
 
 usePageSeo({
+  // Without this, usePageSeo falls back to the site name and overwrites
+  // <title>, og:title and twitter:title with it — the definePageMeta title
+  // above never reaches any of the three.
+  title: t('blog.imprint.title'),
   description: t('blog.imprint.description'),
   robots: 'noindex, follow',
 })
