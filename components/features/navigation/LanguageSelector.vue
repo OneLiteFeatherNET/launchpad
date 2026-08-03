@@ -17,8 +17,23 @@ const initialFocus = ref<'first' | 'last'>('first');
 const buttonId = computed(() => `lang-button-${props.variant}`);
 const dropdownId = computed(() => `lang-menu-${props.variant}`);
 
-const availableLocales = computed(() => locales.value.filter((i: any) => i.code !== locale.value));
-const currentLocale = computed(() => locales.value.find((i: any) => i.code === locale.value));
+/**
+ * What this component needs from a locale entry.
+ *
+ * `locales` is typed `(string | LocaleObject)[]` because the shorthand form is
+ * legal in nuxt.config, though this project never uses it. Describing the
+ * shape here rather than importing `LocaleObject` is deliberate: the name is
+ * exported by more than one package and the one from `@nuxtjs/i18n` is not the
+ * member of that union, so a type predicate written against it does not narrow
+ * anything (`TS2677`) and every `loc.code` stays an error.
+ */
+type SwitchableLocale = { code: string, name: string }
+
+const localeObjects = computed<SwitchableLocale[]>(() => (locales.value as Array<string | { code: string, name?: string }>)
+    .filter((entry): entry is { code: string, name?: string } => typeof entry !== 'string')
+    .map(entry => ({ code: entry.code, name: entry.name ?? entry.code })));
+const availableLocales = computed(() => localeObjects.value.filter(l => l.code !== locale.value));
+const currentLocale = computed(() => localeObjects.value.find(l => l.code === locale.value));
 
 const focusMenuItem = (position: 'first' | 'last' | number = 'first') => {
   const container = menuRef.value;
@@ -134,16 +149,16 @@ const onSelect = (localeCode: string) => {
 <template>
   <div v-if="variant === 'desktop'" class="relative">
     <button
-      @click="toggleDropdown"
-      :aria-label="t('navigation.change_language')"
       :id="buttonId"
+      :aria-label="t('navigation.change_language')"
       type="button"
+      ref="buttonRef"
       aria-haspopup="menu"
       :aria-expanded="isOpen ? 'true' : 'false'"
       :aria-controls="dropdownId"
-      ref="buttonRef"
-      @keydown="onButtonKeydown"
       class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
+      @click="toggleDropdown"
+      @keydown="onButtonKeydown"
     >
       <FontAwesomeIcon :icon="faLanguage" class="text-lg" />
       <span class="uppercase">{{ currentLocale?.code }}</span>
@@ -161,23 +176,24 @@ const onSelect = (localeCode: string) => {
       <div
         v-if="isOpen"
         :id="dropdownId"
+        ref="menuRef"
         role="menu"
         :aria-labelledby="buttonId"
         tabindex="-1"
-        ref="menuRef"
-        @keydown="onMenuKeydown"
         class="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] py-1 shadow-lg ring-1 ring-black/5 dark:border-[var(--color-border)] dark:bg-[var(--color-surface)]"
+        @keydown="onMenuKeydown"
       >
         <SwitchLocalePathLink
           v-for="loc in availableLocales"
           :key="loc.code"
           :locale="loc.code"
+          :hreflang="loc.code"
           role="menuitem"
           class="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-brand-secondary/10 dark:text-[var(--color-text)]/85 dark:hover:bg-brand-secondary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
           @click="onSelect(loc.code)"
         >
           <span class="uppercase font-semibold text-brand-secondary">{{ loc.code }}</span>
-          <span>{{ loc.name }}</span>
+          <span :lang="loc.code">{{ loc.name }}</span>
         </SwitchLocalePathLink>
       </div>
     </Transition>
@@ -192,11 +208,12 @@ const onSelect = (localeCode: string) => {
       v-for="loc in availableLocales"
       :key="loc.code"
       :locale="loc.code"
+      :hreflang="loc.code"
       class="ml-4 flex items-center gap-3 rounded-xl px-6 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-brand-secondary/10 dark:text-[var(--color-text)]/85 dark:hover:bg-brand-secondary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
       @click="onSelect(loc.code)"
     >
       <span class="uppercase font-semibold text-brand-secondary">{{ loc.code }}</span>
-      <span>{{ loc.name }}</span>
+      <span :lang="loc.code">{{ loc.name }}</span>
     </SwitchLocalePathLink>
   </div>
 </template>
