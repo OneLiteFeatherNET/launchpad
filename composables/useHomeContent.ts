@@ -62,7 +62,7 @@ export function useHomeContent() {
   )
 
   const slides = computed<HomeCarouselSlide[]>(() => {
-    const base = (homeCarousel.value?.slides as HomeCarouselSlide[] | undefined) ?? []
+    const base = homeCarousel.value?.slides ?? []
     const featured = (featuredPois.value || []).filter((p) => p.featured)
     if (!featured.length) return base
     const ordered = [...featured].sort((a, b) => {

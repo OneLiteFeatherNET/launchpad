@@ -20,10 +20,7 @@ import { repoRoot } from '../helpers/sources'
  * actual content files, which is the thing that would have caught it.
  */
 
-const LOCALES = [
-  'de',
-  'en',
-]
+const LOCALES = ['de', 'en']
 
 interface Slide {
   type?: string
