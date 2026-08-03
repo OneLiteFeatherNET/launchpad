@@ -66,7 +66,6 @@ export function createNuxtContentAdapter(): ContentRepository {
           'releaseDate',
           'tags'
         )
-        .order('pubDate', 'DESC')
         .all() as Promise<BlogArticle[]>
     },
 
