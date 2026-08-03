@@ -26,7 +26,8 @@ jobs:
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
       - uses: actions/setup-node@v6
         with:
-          node-version: 24
+          # Same source as ci.yml, so a Node bump lands in one place.
+          node-version-file: .nvmrc
           cache: pnpm
 
       - name: Install dependencies
@@ -61,7 +62,8 @@ jobs:
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
       - uses: actions/setup-node@v6
         with:
-          node-version: 24
+          # Same source as ci.yml, so a Node bump lands in one place.
+          node-version-file: .nvmrc
           cache: pnpm
 
       - name: Install dependencies
