@@ -35,8 +35,37 @@ const communityPoiKey = (locale: Locale) => `community_poi_${locale}` as 'commun
  */
 export function createNuxtContentAdapter(): ContentRepository {
   return {
+    // Projected, not `SELECT *`. This feeds one screen — the overview's
+    // headline card and teaser grid — and without a projection every row
+    // carries `body`, the article's full minimark AST, all the way into the
+    // SSR payload.
+    //
+    // `excerpt` rather than `body` is the load-bearing choice. ArticleCard
+    // renders `<ContentRenderer :value="blogArticle" :excerpt="true">`, which
+    // needs a parsed tree — but @nuxt/content stores the excerpt as its own
+    // column, so the card gets what it draws and nothing else.
+    //
+    // `releaseDate` is in the list but on no card: the release gate in
+    // useBlogContent reads it. Trimming this to what the templates show would
+    // publish unreleased articles. The contract is asserted in
+    // tests/content/blog-list-projection.spec.ts.
     listBlogArticles(locale) {
       return queryCollection(blogKey(locale))
+        .select(
+          // ContentRenderer emits it as data-content-id; without it the
+          // rendered excerpt is identical but loses that attribute.
+          'id',
+          'slug',
+          'title',
+          'alternativeTitle',
+          'description',
+          'excerpt',
+          'headerImage',
+          'headerImageAlt',
+          'pubDate',
+          'releaseDate',
+          'tags'
+        )
         .order('pubDate', 'DESC')
         .all() as Promise<BlogArticle[]>
     },
