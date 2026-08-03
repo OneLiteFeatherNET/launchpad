@@ -21,7 +21,10 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
  * component that registered it.
  */
 
-const SOURCE_DIRS = ['components', 'pages', 'layouts', 'composables']
+const SOURCE_DIRS = ['components',
+'pages',
+'layouts',
+'composables']
 
 const REGISTRATION = /(?:add|remove)EventListener\(\s*['"]([a-z]+)['"]\s*,\s*([A-Za-z_$][\w$]*)/g
 /** A cast anywhere inside a listener call — on the handler or on the options. */
@@ -40,7 +43,8 @@ function overNarrowHandlers(): string[] {
   for (const file of collectSourceFiles(SOURCE_DIRS, ['.vue', '.ts'])) {
     const text = readFileSync(file, 'utf8')
     const events = new Map<string, Set<string>>()
-    for (const [, event, handler] of text.matchAll(REGISTRATION)) {
+    for (const [, event,
+handler] of text.matchAll(REGISTRATION)) {
       if (!events.has(handler!)) events.set(handler!, new Set())
       events.get(handler!)!.add(event!)
     }
@@ -75,7 +79,8 @@ describe('event handler parameter types', () => {
       "document.addEventListener('touchstart', onDocumentClick, { passive: true as any })",
     ].join('\n')
 
-    const pairs = [...sample.matchAll(REGISTRATION)].map(([, event, handler]) => `${event}:${handler}`)
+    const pairs = [...sample.matchAll(REGISTRATION)].map(([, event,
+handler]) => `${event}:${handler}`)
     expect(pairs).toEqual(['click:onDocumentClick', 'touchstart:onDocumentClick'])
     expect(parameterType(sample, 'onDocumentClick')).toBe('MouseEvent')
     expect(parameterType('function onKey(e: KeyboardEvent) {}', 'onKey')).toBe('KeyboardEvent')
