@@ -28,7 +28,15 @@ const blogSchema = withI18nMeta(z.object({
     excerpt: z.object({
       type: z.string(),
       children: z.any()
-    })
+    }),
+    // Publication gate: useBlogContent hides an article until this date and
+    // falls back to pubDate when unset. Without the column the field was
+    // always undefined, so the gate silently never applied.
+    //
+    // `seo` and `head` are deliberately NOT declared here: @nuxt/content
+    // provides both as built-in columns on every page collection. Redeclaring
+    // `seo` would replace that built-in shape with a narrower one.
+    releaseDate: z.coerce.date().optional()
   }))
 
 const carouselSchema = z.object({

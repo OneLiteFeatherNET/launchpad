@@ -24,13 +24,21 @@ import { repoRoot } from '../helpers/sources'
  */
 
 /**
- * Fields legitimately absent from the schema because they are attached at
- * runtime rather than parsed from frontmatter.
+ * Fields legitimately absent from the collection's own schema.
+ *
+ * Verified against the built SQL dump rather than assumed — `seo` and `head`
+ * look exactly like the broken cases in review, and an earlier revision of
+ * this change "fixed" them by declaring `seo` and deleting `head` from the
+ * type. Both were wrong: the dump shows the columns present on plain `main`.
  */
-const RUNTIME_ONLY = new Set([
-  // useBlogContent resolves author slugs against the authors collection and
-  // attaches the profiles; never present in a markdown file.
+const NOT_FROM_SCHEMA = new Set([
+  // Attached at runtime: useBlogContent resolves author slugs against the
+  // authors collection, so this is never in a markdown file.
   'authors',
+  // Built into every @nuxt/content page collection. Declaring `seo` here
+  // would replace the built-in shape with a narrower one.
+  'seo',
+  'head',
 ])
 
 function blogTypeFields(): string[] {
@@ -42,9 +50,11 @@ function blogTypeFields(): string[] {
     .filter((name): name is string => name !== undefined)
 }
 
+const BLOG_SCHEMA = /const blogSchema = withI18nMeta\(z\.object\(\{([\s\S]*?)\n {2}\}\)\)/
+
 function blogSchemaFields(): string[] {
   const text = readFileSync(join(repoRoot, 'content.config.ts'), 'utf8')
-  const block = /const blogSchema = withI18nMeta\(z\.object\(\{([\s\S]*?)\n {2}\}\)\)/.exec(text)?.[1]
+  const block = BLOG_SCHEMA.exec(text)?.[1]
   if (block === undefined) throw new Error('blogSchema not found in content.config.ts')
   const own = [...block.matchAll(/^\s{4}(\w+):/gm)]
     .map((match) => match[1])
@@ -67,7 +77,7 @@ describe('blog frontmatter columns', () => {
   it('every field BlogArticle promises exists as a column', () => {
     const columns = new Set(blogSchemaFields())
     const missing = blogTypeFields()
-      .filter((field) => !RUNTIME_ONLY.has(field))
+      .filter((field) => !NOT_FROM_SCHEMA.has(field))
       .filter((field) => !columns.has(field))
       .sort()
     expect(missing).toEqual([])

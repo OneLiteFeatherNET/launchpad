@@ -9,9 +9,11 @@ import type {
 } from '~/types/blog'
 
 const normalizeReleaseDate = (entry: BlogArticle): Date | null => {
+  // `releaseDate` and `pubDate` are schema columns now, so both arrive as
+  // the coerced value @nuxt/content stores rather than a hand-typed union.
   const raw = entry.releaseDate ?? entry.pubDate
   if (!raw) return null
-  const parsed = raw instanceof Date ? raw : new Date(raw)
+  const parsed = new Date(raw)
   return Number.isNaN(parsed.getTime()) ? null : parsed
 }
 

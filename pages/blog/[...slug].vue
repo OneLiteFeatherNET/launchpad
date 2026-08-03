@@ -20,7 +20,7 @@ const LazySocialMediaShare = defineAsyncComponent(() => import('~/components/fea
 // Canonical + hreflang are emitted app-wide by @nuxtjs/i18n
 // (layouts/default.vue), driven by the translated slugs useBlogArticle
 // publishes via useSetI18nParams.
-const { title } = useArticleSeo(blog, authors)
+const { title, metaTitle } = useArticleSeo(blog, authors)
 
 // Absolute URL for the share buttons. Built here rather than inline in the
 // template: `locale` is a ref and a template auto-unwraps it, so the
@@ -43,14 +43,18 @@ const shareUrl = computed(() => {
 useHead(() => {
   const b = blog.value as BlogArticle | null
   if (!b) return {}
+  // Uses metaTitle, not b.title. This block runs after useArticleSeo and wins,
+  // so passing the raw title discarded both the per-article `seo.title`
+  // override and the A/B-flagged `alternativeTitle` that composable resolves.
+  const resolved = metaTitle.value
   const meta = [
     { name: 'description', content: b.description },
-    { property: 'og:title', content: b.title },
+    { property: 'og:title', content: resolved },
     { property: 'og:description', content: b.description },
-    { name: 'twitter:title', content: b.title },
+    { name: 'twitter:title', content: resolved },
     { name: 'twitter:description', content: b.description }
   ].filter((m) => Boolean(m.content))
-  return { title: b.title, meta, ...(b.head || {}) }
+  return { title: resolved, meta }
 })
 </script>
 
