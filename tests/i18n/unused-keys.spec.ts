@@ -32,16 +32,30 @@ const ROOT_FILES = ['app.vue',
   'nuxt.config.ts']
 const LOCALES = ['de', 'en']
 
+/** Keys and values left over from scaffolding, e.g. `"TDB": "Zu erledigen"`. */
+const PLACEHOLDER_KEY = /^(TDB|TODO|TBD|FIXME)$/i
+const PLACEHOLDER_VALUE = /^(TODO|TBD|FIXME)\b/i
+
 /** ``t(`community_poi.status.${poi.status}`)`` — the part before the hole. */
 const DYNAMIC_PREFIX = /[`'"]([a-z][\w.]*)\.\$\{/g
 
 type Messages = Record<string, unknown>
 
+/**
+ * Objects are namespaces and get descended into; arrays are leaves and do not.
+ *
+ * A message array is read whole — `tm('community_poi.litematica.faq.entries')`
+ * — and its elements are consumed by position, so `entries.0.q` is a path no
+ * call site will ever contain. Descending into it manufactures 22 orphans that
+ * are nothing of the sort, which is exactly what the first version of this
+ * file did.
+ */
 function flatten(messages: Messages, prefix = ''): Record<string, string> {
   const flat: Record<string, string> = {}
   for (const [key, value] of Object.entries(messages)) {
     const path = `${prefix}${key}`
-    if (value !== null && typeof value === 'object') Object.assign(flat, flatten(value as Messages, `${path}.`))
+    const isNamespace = value !== null && typeof value === 'object' && !Array.isArray(value)
+    if (isNamespace) Object.assign(flat, flatten(value as Messages, `${path}.`))
     else flat[path] = String(value)
   }
   return flat
@@ -61,7 +75,8 @@ function corpus(): string {
 
 describe('translation keys', () => {
   const text = corpus()
-  const dynamicPrefixes = [...new Set([...text.matchAll(DYNAMIC_PREFIX)].map(([, prefix]) => prefix!))]
+  const prefixMatches = [...text.matchAll(DYNAMIC_PREFIX)].map(([, prefix]) => prefix!)
+  const dynamicPrefixes = [...new Set(prefixMatches)]
 
   it('reads the locale files and the call sites', () => {
     // Without this, an empty corpus would read as "everything is used".
@@ -70,6 +85,8 @@ describe('translation keys', () => {
     expect(dynamicPrefixes).toContain('team.ranks')
 
     expect(flatten({ a: { b: 'x' }, c: 1 })).toEqual({ 'a.b': 'x', c: '1' })
+    // An array is one key, not one key per element — see flatten's note.
+    expect(Object.keys(flatten({ faq: { entries: [{ q: 'a' }, { q: 'b' }] } }))).toEqual(['faq.entries'])
   })
 
   it('are declared in both locales', () => {
@@ -85,7 +102,7 @@ describe('translation keys', () => {
 
   it.each(LOCALES)('%s has no placeholder entries left', (code) => {
     const suspicious = Object.entries(locale(code))
-      .filter(([key, value]) => /^(TDB|TODO|TBD|FIXME)$/i.test(key) || /^(TODO|TBD|FIXME)\b/i.test(value))
+      .filter(([key, value]) => PLACEHOLDER_KEY.test(key) || PLACEHOLDER_VALUE.test(value))
       .map(([key]) => key)
     expect(suspicious).toEqual([])
   })

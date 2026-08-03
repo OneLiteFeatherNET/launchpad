@@ -16,7 +16,6 @@
     "change_language": "Sprache ändern",
     "more": "Mehr",
     "status": "Status",
-    "roadmap": "Roadmap",
     "community_poi": "Community-POIs"
   },
   "carousel": {
@@ -39,7 +38,6 @@
   "layouts": {
     "title": "Titel"
   },
-  "TDB": "Zu erledigen",
   "server": {
     "connect": {
       "title": "Mit dem Server verbinden",
@@ -81,16 +79,8 @@
   },
   "team": {
     "title": "Team",
-    "subtitle": "Lerne die Menschen hinter OneLiteFeather kennen.",
     "profile_title_fallback": "Team",
     "profile_description_fallback": "Teammitglied-Profil bei OneLiteFeather.",
-    "search_label": "Team durchsuchen",
-    "search_placeholder": "Name suchen…",
-    "filter_role": "Rolle",
-    "filter_role_all": "Alle",
-    "limit_label": "Anzahl",
-    "scroll_area_aria": "Horizontale Teamliste zum Scrollen",
-    "list_label": "Teammitglieder",
     "no_results": "Keine Ergebnisse gefunden",
     "card_aria": "Profil von {name}, {role}",
     "avatar_alt": "Avatar von {name}",
@@ -123,13 +113,6 @@
       "section_subtitle": "Antworten zu Ablauf, Anforderungen und dem Lite-Rang."
     }
   },
-  "timeline": {
-    "aria_label": "Zeitachse",
-    "show_all": "Alle anzeigen",
-    "show_all_aria": "Alle Ereignisse der Zeitachse anzeigen",
-    "more": "Mehr",
-    "more_aria": "Mehr zu {title}"
-  },
   "sponsor": {
     "title": "Sponsoring",
     "subtitle": "Partner, die unsere Infrastruktur ermöglichen",
@@ -156,21 +139,9 @@
     "brand": "OneLiteFeather",
     "description": "Ein Minecraft‑Netzwerk mit Fokus auf Community und Entwicklung",
     "copyright": "© {year} OneLiteFeather. Alle Rechte vorbehalten.",
-    "social_media": "Social Media",
-    "legal": "Rechtliches",
-    "github": "GitHub",
-    "github_aria": "GitHub (öffnet in einem neuen Tab)",
-    "opencollective": "OpenCollective",
-    "opencollective_aria": "OpenCollective (öffnet in einem neuen Tab)",
-    "imprint": "Impressum",
-    "privacy_policy": "Datenschutz",
-    "all_rights_reserved": "Alle Rechte vorbehalten",
-    "made_with_love": "Mit Liebe erstellt vom OneLiteFeather Team und Mitwirkenden",
-    "love": "Liebe",
     "aria_label": "Website‑Fußzeile",
     "services": {
       "title": "Dienste",
-      "minecraft": "Minecraft Server",
       "blogging": "Blog",
       "status": "Status",
       "github": "GitHub"
@@ -178,8 +149,7 @@
     "organization": {
       "title": "Organisation",
       "about": "Über uns",
-      "contact": "Kontakt",
-      "careers": "Karriere"
+      "contact": "Kontakt"
     },
     "version": "Version {version}",
     "social": {
@@ -216,7 +186,6 @@
     "share_on_whatsapp": "Auf WhatsApp teilen",
     "share_on_telegram": "Auf Telegram teilen",
     "share_on_bluesky": "Auf Bluesky teilen",
-    "share_on_mastodon": "Auf Mastodon teilen",
     "share_on_reddit": "Auf Reddit teilen",
     "share_by_email": "Per E-Mail teilen",
     "share_native": "Teilen…",
@@ -295,8 +264,6 @@
       "aria": "BlueMap-Link mit Koordinaten",
       "open": "Auf BlueMap öffnen",
       "link_aria": "{title} auf der BlueMap öffnen (neuer Tab)",
-      "show_preview": "Mini-Vorschau einblenden",
-      "hide_preview": "Mini-Vorschau ausblenden",
       "iframe_title": "BlueMap-Vorschau für {title}",
       "embed_note": "Vorschau geladen von {host}. Für volle Funktionen die externe Seite öffnen."
     },

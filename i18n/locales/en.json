@@ -16,7 +16,6 @@
     "change_language": "Change language",
     "more": "More",
     "status": "Status",
-    "roadmap": "Roadmap",
     "community_poi": "Community POIs"
   },
   "carousel": {
@@ -39,7 +38,6 @@
   "layouts": {
     "title": "Title"
   },
-  "TDB": "To Do",
   "server": {
     "connect": {
       "title": "Connect to the server",
@@ -81,16 +79,8 @@
   },
   "team": {
     "title": "Team",
-    "subtitle": "Meet the people behind OneLiteFeather.",
     "profile_title_fallback": "Team",
     "profile_description_fallback": "Team member profile on OneLiteFeather.",
-    "search_label": "Search team",
-    "search_placeholder": "Search name…",
-    "filter_role": "Role",
-    "filter_role_all": "All",
-    "limit_label": "Count",
-    "scroll_area_aria": "Horizontal scrollable team list",
-    "list_label": "Team members",
     "no_results": "No results found",
     "card_aria": "Profile of {name}, {role}",
     "avatar_alt": "Avatar of {name}",
@@ -123,13 +113,6 @@
       "section_subtitle": "Answers on the process, requirements, and the Lite rank."
     }
   },
-  "timeline": {
-    "aria_label": "Timeline",
-    "show_all": "Show all",
-    "show_all_aria": "Show all timeline events",
-    "more": "More",
-    "more_aria": "More about {title}"
-  },
   "sponsor": {
     "title": "Sponsoring",
     "subtitle": "Partners that power our infrastructure",
@@ -156,21 +139,9 @@
     "brand": "OneLiteFeather",
     "description": "A Minecraft network focused on community and development",
     "copyright": "© {year} OneLiteFeather. All rights reserved.",
-    "social_media": "Social Media",
-    "legal": "Legal",
-    "github": "GitHub",
-    "github_aria": "GitHub (opens in a new tab)",
-    "opencollective": "OpenCollective",
-    "opencollective_aria": "OpenCollective (opens in a new tab)",
-    "imprint": "Imprint",
-    "privacy_policy": "Privacy Policy",
-    "all_rights_reserved": "All rights reserved",
-    "made_with_love": "Made with love by the OneLiteFeather Team and contributors",
-    "love": "love",
     "aria_label": "Website footer",
     "services": {
       "title": "Services",
-      "minecraft": "Minecraft Server",
       "blogging": "Blog",
       "status": "Status",
       "github": "GitHub"
@@ -178,8 +149,7 @@
     "organization": {
       "title": "Organization",
       "about": "About us",
-      "contact": "Contact",
-      "careers": "Careers"
+      "contact": "Contact"
     },
     "version": "Version {version}",
     "social": {
@@ -216,7 +186,6 @@
     "share_on_whatsapp": "Share on WhatsApp",
     "share_on_telegram": "Share on Telegram",
     "share_on_bluesky": "Share on Bluesky",
-    "share_on_mastodon": "Share on Mastodon",
     "share_on_reddit": "Share on Reddit",
     "share_by_email": "Share by Email",
     "share_native": "Share…",
@@ -295,8 +264,6 @@
       "aria": "BlueMap link with coordinates",
       "open": "Open on BlueMap",
       "link_aria": "Open {title} on BlueMap (new tab)",
-      "show_preview": "Show mini preview",
-      "hide_preview": "Hide mini preview",
       "iframe_title": "BlueMap preview for {title}",
       "embed_note": "Preview loaded from {host}. Open the external site for full functionality."
     },
