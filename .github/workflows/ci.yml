@@ -60,3 +60,25 @@ jobs:
       # scripts/quality-gate.mjs.
       - name: Quality ratchet
         run: pnpm quality
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Unlike the ratchet, this is a hard gate: the suite is green today and
+      # must stay green. Guard tests assert rules that neither the compiler nor
+      # ESLint can see — a Tailwind class naming a token that does not exist is
+      # not a syntax error, it just renders nothing.
+      - name: Run tests
+        run: pnpm test
