@@ -1,3 +1,4 @@
+import { createError } from '#imports'
 import { useContentRepository } from '~/composables/useContentRepository'
 import type { Locale } from '~/utils/content/collections'
 import type { TeamDocument, TeamMember } from '~/types/team'
@@ -28,6 +29,19 @@ export async function useTeamProfile(slugOverride?: string) {
     const list = teamDoc.value?.members || []
     return (list as TeamMember[]).find((m) => m.slug === slug.value) || null
   })
+
+  // A slug matching no member has to surface a real 404. Rendering the
+  // placeholder answered HTTP 200 for every string anyone appended to /team/,
+  // an unbounded space of indexable thin pages.
+  //
+  // Thrown here rather than inside the fetcher, and after the await above, so
+  // the document is resolved and `member` is final — the ordering
+  // useBlogContent uses. `fatal: true` is what makes Nuxt replace the route
+  // with the error page; without it the response stays 200 and the soft 404
+  // survives.
+  if (slug.value && !member.value) {
+    throw createError({ statusCode: 404, statusMessage: 'Team member not found', fatal: true })
+  }
 
   // Profile hero renders the head at 96px in a 2x density box. Requesting
   // a 256px upstream render leaves headroom for retina and lets the
