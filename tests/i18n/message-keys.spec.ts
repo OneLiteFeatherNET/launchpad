@@ -24,11 +24,13 @@ const SOURCE_DIRS = [
   'composables',
 ]
 
-/** Dotted identifiers passed directly to t/$t/te. */
-const DIRECT_CALL = /\$?\b(?:t|te)\(\s*[`'"]([a-z][a-zA-Z0-9_]*(?:\.[a-zA-Z0-9_]+)+)[`'"]/g
+/** Dotted lower-camel identifier, e.g. `article.share_on_x`. */
+const DOTTED = `[a-z][a-zA-Z0-9_]*(?:\\.[a-zA-Z0-9_]+)+`
+
+const DIRECT_CALL = new RegExp(`\\$?\\b(?:t|te)\\(\\s*[\`'"](${DOTTED})[\`'"]`, 'g')
 
 /** `const key = 'a.b'` — captured so a later t(key) can be resolved. */
-const KEY_CONST = /\bconst\s+([A-Za-z_$][\w$]*)\s*=\s*[`'"]([a-z][a-zA-Z0-9_]*(?:\.[a-zA-Z0-9_]+)+)[`'"]/g
+const KEY_CONST = new RegExp(`\\bconst\\s+([A-Za-z_$][\\w$]*)\\s*=\\s*[\`'"](${DOTTED})[\`'"]`, 'g')
 
 /** t(identifier) / te(identifier) — the name is resolved against KEY_CONST. */
 const INDIRECT_CALL = /\$?\b(?:t|te)\(\s*([A-Za-z_$][\w$]*)\s*[,)]/g
@@ -58,7 +60,8 @@ function keysUsedIn(text: string): string[] {
   // fewer.
   const constants = new Map<string, Set<string>>()
   for (const match of text.matchAll(KEY_CONST)) {
-    const [, name, key] = match
+    const name = match[1]
+    const key = match[2]
     if (name === undefined || key === undefined) continue
     const bound = constants.get(name) ?? new Set<string>()
     bound.add(key)
@@ -99,7 +102,12 @@ describe('message keys', () => {
         const text = te(key) ? t(key, { language }) : 'Code in'
       }
     `
-    expect(keysUsedIn(sample).sort()).toEqual(['article.share', 'content.codeIn', 'content.file'])
+    const expected = [
+      'article.share',
+      'content.codeIn',
+      'content.file',
+    ]
+    expect(keysUsedIn(sample).sort()).toEqual(expected)
   })
 
   it('finds keys in use', () => {

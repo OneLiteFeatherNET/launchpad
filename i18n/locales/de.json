@@ -354,9 +354,18 @@
             "q": "Wie installiere ich den Mod?",
             "a": "Du brauchst den Fabric-Loader passend zur Minecraft-Version und legst die Litematica-JAR (sowie die Abhängigkeit MaLiLib) in den mods/-Ordner. Beim Start in den Mods-Einstellungen prüfen, dass beide aktiv sind.",
             "links": [
-              { "label": "Litematica auf Modrinth", "href": "https://modrinth.com/mod/litematica" },
-              { "label": "MaLiLib auf Modrinth", "href": "https://modrinth.com/mod/malilib" },
-              { "label": "Fabric Loader", "href": "https://modrinth.com/mod/fabric-api" }
+              {
+                "label": "Litematica auf Modrinth",
+                "href": "https://modrinth.com/mod/litematica"
+              },
+              {
+                "label": "MaLiLib auf Modrinth",
+                "href": "https://modrinth.com/mod/malilib"
+              },
+              {
+                "label": "Fabric Loader",
+                "href": "https://modrinth.com/mod/fabric-api"
+              }
             ]
           },
           {
@@ -371,7 +380,10 @@
             "q": "Welche Litematica-Version brauche ich?",
             "a": "Pro Schematic geben wir die empfohlene Litematica-Version (und passende Minecraft-Version) direkt an der Datei an. Halte dich an diese Kombination – ältere oder neuere Litematica-Versionen können Blöcke unterschiedlich serialisieren und das Hologramm verschiebt sich oder fehlt komplett.",
             "links": [
-              { "label": "Alle Litematica-Versionen auf Modrinth", "href": "https://modrinth.com/mod/litematica/versions" }
+              {
+                "label": "Alle Litematica-Versionen auf Modrinth",
+                "href": "https://modrinth.com/mod/litematica/versions"
+              }
             ]
           },
           {
@@ -396,5 +408,11 @@
     "detail": {
       "back": "Zur POI-Übersicht"
     }
+  },
+  "content": {
+    "file": "Datei {filename}",
+    "codeIn": "Code in {language}",
+    "codeblock": "Codeblock",
+    "permalinkToHeading": "Permalink zur Überschrift {id}"
   }
 }

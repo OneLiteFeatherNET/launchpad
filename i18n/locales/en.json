@@ -354,9 +354,18 @@
             "q": "How do I install the mod?",
             "a": "You need the Fabric loader for your Minecraft version and drop the Litematica JAR (plus its dependency MaLiLib) into the mods/ folder. After launch, check the mods menu to confirm both are active.",
             "links": [
-              { "label": "Litematica on Modrinth", "href": "https://modrinth.com/mod/litematica" },
-              { "label": "MaLiLib on Modrinth", "href": "https://modrinth.com/mod/malilib" },
-              { "label": "Fabric Loader", "href": "https://modrinth.com/mod/fabric-api" }
+              {
+                "label": "Litematica on Modrinth",
+                "href": "https://modrinth.com/mod/litematica"
+              },
+              {
+                "label": "MaLiLib on Modrinth",
+                "href": "https://modrinth.com/mod/malilib"
+              },
+              {
+                "label": "Fabric Loader",
+                "href": "https://modrinth.com/mod/fabric-api"
+              }
             ]
           },
           {
@@ -371,7 +380,10 @@
             "q": "Which Litematica version do I need?",
             "a": "Each schematic lists the recommended Litematica version (and matching Minecraft version) right next to the file. Stick to that combination — older or newer Litematica releases can serialise blocks differently, which shifts or breaks the hologram.",
             "links": [
-              { "label": "All Litematica versions on Modrinth", "href": "https://modrinth.com/mod/litematica/versions" }
+              {
+                "label": "All Litematica versions on Modrinth",
+                "href": "https://modrinth.com/mod/litematica/versions"
+              }
             ]
           },
           {
@@ -396,5 +408,11 @@
     "detail": {
       "back": "Back to POI overview"
     }
+  },
+  "content": {
+    "file": "File {filename}",
+    "codeIn": "Code in {language}",
+    "codeblock": "Code block",
+    "permalinkToHeading": "Permalink to heading {id}"
   }
 }
