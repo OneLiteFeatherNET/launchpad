@@ -17,7 +17,9 @@ useHead(() => {
   return { link: h?.link ?? [], meta: h?.meta ?? [] }
 })
 // Only set a static <Title> when the route explicitly provides one via meta.
-const routeTitle = computed(() => (route.meta?.title ? t(route.meta.title as string) : null))
+// `title` is declared in types/page-meta.d.ts, so the compiler holds the pages
+// that set it to the same string contract this line relies on.
+const routeTitle = computed(() => (route.meta?.title ? t(route.meta.title) : null))
 
 // Expose the main navigation as schema.org SiteNavigationElement so Google
 // has a structured signal when picking SERP sitelinks.
