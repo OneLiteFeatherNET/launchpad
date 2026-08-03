@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.3.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.1...onelitefeather.net-v1.3.2) (2026-08-03)
+
+
+### Bug Fixes
+
+* **a11y:** give every page a level-1 heading ([#223](https://github.com/OneLiteFeatherNET/launchpad/issues/223)) ([2bbb2b5](https://github.com/OneLiteFeatherNET/launchpad/commit/2bbb2b55be09c9468a84c6da7e87dcbb33419fe5))
+* **a11y:** make focus rings appear on keyboard focus, and make them visible ([#209](https://github.com/OneLiteFeatherNET/launchpad/issues/209)) ([2ff8b59](https://github.com/OneLiteFeatherNET/launchpad/commit/2ff8b59aaab29b16d9f1533377fe8f36df1707da))
+* **a11y:** put the visible button text inside its accessible name ([#220](https://github.com/OneLiteFeatherNET/launchpad/issues/220)) ([2e09452](https://github.com/OneLiteFeatherNET/launchpad/commit/2e09452858e38ddd4e9446cc859850c5c7df1b9c))
+* **a11y:** reserve room for the sticky header when scrolling ([#228](https://github.com/OneLiteFeatherNET/launchpad/issues/228)) ([fccb42c](https://github.com/OneLiteFeatherNET/launchpad/commit/fccb42cf8d408b41ac102736a74346a93c26f235))
+* **a11y:** restore contrast and remove the disabled look from working links ([#222](https://github.com/OneLiteFeatherNET/launchpad/issues/222)) ([d40b26d](https://github.com/OneLiteFeatherNET/launchpad/commit/d40b26d2f4f49e9a704b8317abe99cca8ff943fd))
+* **blog:** stop share links pointing at /undefined/blog/&lt;slug&gt; ([#205](https://github.com/OneLiteFeatherNET/launchpad/issues/205)) ([0bf1f7e](https://github.com/OneLiteFeatherNET/launchpad/commit/0bf1f7efe34559c814dcb427328feab87ff687a2))
+* **carousel:** drop the dead aura code and stop leaking a media-query listener ([#227](https://github.com/OneLiteFeatherNET/launchpad/issues/227)) ([291ab51](https://github.com/OneLiteFeatherNET/launchpad/commit/291ab5121f188b10b0e987a2d6df6e2d1b9cf504))
+* **content:** give releaseDate a column and stop the page overriding its own title ([#221](https://github.com/OneLiteFeatherNET/launchpad/issues/221)) ([1939384](https://github.com/OneLiteFeatherNET/launchpad/commit/193938415888e922620df00991bc26df8015f23e))
+* **i18n:** add the four message keys the Prose components ask for ([#219](https://github.com/OneLiteFeatherNET/launchpad/issues/219)) ([598bcd1](https://github.com/OneLiteFeatherNET/launchpad/commit/598bcd1f64b825a28d6d8a1a4b546fd312e97912))
+* **image:** stop asking the pipeline to re-encode an SVG ([#230](https://github.com/OneLiteFeatherNET/launchpad/issues/230)) ([7e6c426](https://github.com/OneLiteFeatherNET/launchpad/commit/7e6c426fdfc577725e27d557d0245c504bdb9d6b))
+* **security:** add rel=noopener noreferrer to two external links ([#225](https://github.com/OneLiteFeatherNET/launchpad/issues/225)) ([3ed5ef4](https://github.com/OneLiteFeatherNET/launchpad/commit/3ed5ef4b2b47548178ac26cd6718e2fb9bdc9202))
+* **security:** sandbox the BlueMap embeds ([#226](https://github.com/OneLiteFeatherNET/launchpad/issues/226)) ([33af147](https://github.com/OneLiteFeatherNET/launchpad/commit/33af147149b4121e9886c0df98fc91d2bbc60242))
+* **seo:** point breadcrumb ancestors at the canonical locale root ([#231](https://github.com/OneLiteFeatherNET/launchpad/issues/231)) ([5599a79](https://github.com/OneLiteFeatherNET/launchpad/commit/5599a79846c63257723e38850e46c9660d413957))
+* **styles:** point the design system at tokens that exist ([#202](https://github.com/OneLiteFeatherNET/launchpad/issues/202)) ([8385a94](https://github.com/OneLiteFeatherNET/launchpad/commit/8385a944590c0ac3a2bcd44d922c1387a311c332))
+* **styles:** remove utility classes that never resolved ([#229](https://github.com/OneLiteFeatherNET/launchpad/issues/229)) ([9da0323](https://github.com/OneLiteFeatherNET/launchpad/commit/9da0323772ba45a7669180a3c183638c61a9c16a))
+* **styles:** restore the brand scale and dead-code removal onto main ([#215](https://github.com/OneLiteFeatherNET/launchpad/issues/215)) ([5488e7b](https://github.com/OneLiteFeatherNET/launchpad/commit/5488e7b6e2ee406b59ea6f5ea29e03c059dbed6a))
+* **team:** return a real 404 for unknown profile slugs ([#216](https://github.com/OneLiteFeatherNET/launchpad/issues/216)) ([515e215](https://github.com/OneLiteFeatherNET/launchpad/commit/515e2154980bb81a7d750adae376c4d8d0a94ef4))
+* **types:** declare the page-meta title instead of asserting it at the reader ([#233](https://github.com/OneLiteFeatherNET/launchpad/issues/233)) ([2a90c4b](https://github.com/OneLiteFeatherNET/launchpad/commit/2a90c4b34276d926c5d543b1ebd6822f09f8c818))
+* **types:** type the outside-click handler to the events it actually receives ([#232](https://github.com/OneLiteFeatherNET/launchpad/issues/232)) ([0cd89ee](https://github.com/OneLiteFeatherNET/launchpad/commit/0cd89eea7d2d164e5a533ba535fe9f5b94723678))
+
 ## [1.3.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.0...onelitefeather.net-v1.3.1) (2026-08-02)
 
 
