@@ -18,6 +18,9 @@ useBreadcrumbs(() => [
 
 <template>
   <div class="container mx-auto py-4 dark:text-white">
+    <!-- Visible here: the page opened straight into an address block with no
+         heading at all, which is a gap for sighted readers too. -->
+    <h1 class="text-2xl font-bold mb-4">{{ t('blog.imprint.title') }}</h1>
     <div class="space-y-2">
       <p class="font-semibold">Phillipp Glanz</p>
       <p>Geisinger Straße 6</p>

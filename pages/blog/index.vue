@@ -52,6 +52,12 @@ useSchemaOrg(() => {
 
 <template>
   <div class="container mx-auto py-4">
+    <!--
+      Visually hidden: the featured article is the intended visual opening, so
+      a second heading above it would compete with the article's own title.
+      Screen readers still get one naming the page.
+    -->
+    <h1 class="sr-only">{{ t('blog.overview.title') }}</h1>
     <Top1
         v-if="top1Article"
         :blog-article="top1Article"

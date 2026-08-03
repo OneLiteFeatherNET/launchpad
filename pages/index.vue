@@ -23,6 +23,13 @@ const LazyFaqSection = defineAsyncComponent(() => import('~/components/features/
 </script>
 
 <template>
+  <!--
+    Visually hidden: the carousel is the page's visual opening and the design
+    leaves no room for a heading above it. Screen readers still get one, which
+    is what names the page in a heading list. Same string as the document
+    title, so the two agree.
+  -->
+  <h1 class="sr-only">{{ t('index.title') }}</h1>
   <!-- Full-bleed Carousel on mobile: remove outer padding and width limits; restore container on md+ -->
   <div class="-mx-4 sm:-mx-6 px-0 py-6 md:py-10 md:mx-auto md:max-w-6xl md:px-4 lg:px-8">
     <Carousel :slides="slides" aspect="16/9" aria-label="Startseiten-Highlight-Karussell" />
