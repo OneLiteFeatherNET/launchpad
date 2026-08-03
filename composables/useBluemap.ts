@@ -1,13 +1,14 @@
 // Simple composable to provide the BlueMap URL from runtime config
-// Falls back to environment variable NUXT_PUBLIC_BLUEMAP_URL if present
 // Usage: const bluemapUrl = useBluemapUrl()
+//
+// NUXT_PUBLIC_BLUEMAP_URL still overrides it — that is exactly the variable
+// Nuxt folds into runtimeConfig.public.bluemapUrl, so reading the key covers
+// the env case. The fallback that used to sit here read process.env from code
+// that also runs in the browser, where Vite replaces the expression with `{}`;
+// it could only ever produce undefined. The default lives in nuxt.config.ts.
 export const useBluemapUrl = (): string => {
   const runtimeConfig = useRuntimeConfig();
-  // Prefer runtimeConfig.public but allow an env override as safety net
-  const envUrl = (process?.env?.NUXT_PUBLIC_BLUEMAP_URL as string | undefined);
-  return (runtimeConfig.public?.bluemapUrl as string | undefined)
-    || envUrl
-    || 'https://bluemap.onelitefeather.dev/';
+  return runtimeConfig.public.bluemapUrl as string;
 };
 
 export type BluemapDimension = 'overworld' | 'nether' | 'end'
