@@ -91,8 +91,11 @@ const onMenuKeydown = (e: KeyboardEvent) => {
   }
 };
 
-// Close dropdown when clicking outside (desktop variant)
-const onDocumentClick = (e: MouseEvent) => {
+// Close dropdown when clicking outside (desktop variant).
+// Registered on click and on touchstart, so `Event` is the only type that
+// describes what actually arrives. `e.target` is all this needs, and both
+// events carry it.
+const onDocumentClick = (e: Event) => {
   if (!isOpen.value) return;
   const target = e.target as Node | null;
   const btn = buttonRef.value;
@@ -105,14 +108,14 @@ const onDocumentClick = (e: MouseEvent) => {
 onMounted(() => {
   if (variant === 'desktop') {
     document.addEventListener('click', onDocumentClick);
-    document.addEventListener('touchstart', onDocumentClick, { passive: true as any });
+    document.addEventListener('touchstart', onDocumentClick, { passive: true });
   }
 });
 
 onBeforeUnmount(() => {
   if (variant === 'desktop') {
     document.removeEventListener('click', onDocumentClick);
-    document.removeEventListener('touchstart', onDocumentClick as any);
+    document.removeEventListener('touchstart', onDocumentClick);
   }
 });
 
