@@ -1,5 +1,6 @@
 import { queryCollection } from '@nuxt/content/server'
 import type { TeamDocument, TeamMember } from '~/types/team'
+import { locales } from '~/utils/content/locales'
 
 /**
  * Sitemap source for individual team profile pages.
@@ -10,13 +11,10 @@ import type { TeamDocument, TeamMember } from '~/types/team'
  * here, one entry per locale × member, so both /de/team/<slug> and
  * /en/team/<slug> end up in the per-locale sitemaps.
  */
-type LocaleKey = 'de' | 'en'
-
-const LOCALES: ReadonlyArray<LocaleKey> = ['de', 'en']
 
 export default defineEventHandler(async (event) => {
   const out: { loc: string }[] = []
-  for (const locale of LOCALES) {
+  for (const locale of locales) {
     const key = `team_${locale}` as 'team_de' | 'team_en'
     const docs = (await queryCollection(event, key).all()) as TeamDocument[]
     const doc = docs[0]
