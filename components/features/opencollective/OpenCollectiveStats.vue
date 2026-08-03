@@ -131,7 +131,7 @@ const updatedLabel = computed(() => {
           :href="props.link"
           target="_blank"
           rel="noopener noreferrer"
-          class="group relative overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-white/95 dark:bg-zinc-900/90 text-brand-900 dark:text-brand-100 p-5 sm:p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 flex flex-col justify-between"
+          class="group relative overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-white/95 dark:bg-zinc-900/90 text-brand-900 dark:text-brand-100 p-5 sm:p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary flex flex-col justify-between"
           :aria-label="t('collective.cta')"
           data-ph-capture-attribute="cta"
           data-ph-capture-attribute-name="open-collective"

@@ -20,7 +20,7 @@ onClickOutside(dropdown, () => {
     <button
         v-if="!props.mobile"
         @click="isOpen = !isOpen"
-        class="flex items-center ml-4 bg-white text-gray-900 hover:bg-gray-50 px-4 py-2 rounded-full text-sm transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+        class="flex items-center ml-4 bg-white text-gray-900 hover:bg-gray-50 px-4 py-2 rounded-full text-sm transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
         aria-haspopup="true"
         :aria-expanded="isOpen"
         aria-label="Select language"
@@ -36,7 +36,7 @@ onClickOutside(dropdown, () => {
     <button
         v-else
         @click="isOpen = !isOpen"
-        class="flex items-center justify-between w-full bg-white text-gray-900 hover:bg-gray-50 px-4 py-3 rounded-full text-base transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+        class="flex items-center justify-between w-full bg-white text-gray-900 hover:bg-gray-50 px-4 py-3 rounded-full text-base transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
         aria-haspopup="true"
         :aria-expanded="isOpen"
         aria-label="Select language"

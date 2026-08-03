@@ -75,7 +75,7 @@ const onWheel = (e: WheelEvent) => {
           v-model="query"
           type="search"
           :placeholder="t('team.search_placeholder')"
-          class="w-64 rounded-lg border border-zinc-300/70 dark:border-zinc-700/80 bg-white/90 dark:bg-zinc-900/70 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          class="w-64 rounded-lg border border-zinc-300/70 dark:border-zinc-700/80 bg-white/90 dark:bg-zinc-900/70 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
         />
 
         <div class="flex items-center gap-2">
@@ -83,7 +83,7 @@ const onWheel = (e: WheelEvent) => {
           <select
             id="team-role"
             v-model="selectedRole"
-            class="rounded-lg border border-zinc-300/70 dark:border-zinc-700/80 bg-white/90 dark:bg-zinc-900/70 px-2 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
+            class="rounded-lg border border-zinc-300/70 dark:border-zinc-700/80 bg-white/90 dark:bg-zinc-900/70 px-2 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
           >
             <option value="">{{ t('team.filter_role_all') }}</option>
             <option v-for="role in roles" :key="role" :value="role">{{ role }}</option>
@@ -96,7 +96,7 @@ const onWheel = (e: WheelEvent) => {
         <select
           id="team-limit"
           v-model.number="visibleCount"
-          class="rounded-lg border border-zinc-300/70 dark:border-zinc-700/80 bg-white/90 dark:bg-zinc-900/70 px-2 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          class="rounded-lg border border-zinc-300/70 dark:border-zinc-700/80 bg-white/90 dark:bg-zinc-900/70 px-2 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
         >
           <option :value="null">∞</option>
           <option :value="5">5</option>

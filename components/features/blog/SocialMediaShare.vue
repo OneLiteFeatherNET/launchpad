@@ -54,7 +54,7 @@ const platforms = computed(() => {
       labelKey: 'article.share_on_facebook',
       href: buildShareUrl(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl.value}`, 'facebook'),
       icon: ['fab', 'facebook-f'] as const,
-      class: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
+      class: 'bg-blue-600 hover:bg-blue-700 focus-visible:ring-blue-500'
     },
     {
       key: 'twitter' as PlatformKey,
@@ -63,49 +63,49 @@ const platforms = computed(() => {
       // but x.com/intent/post is the canonical form and avoids an extra hop.
       href: buildShareUrl(`https://x.com/intent/post?url=${encodedUrl.value}&text=${encodedTitle.value}`, 'twitter'),
       icon: ['fab', 'x-twitter'] as const,
-      class: 'bg-black hover:bg-neutral-800 focus:ring-neutral-500'
+      class: 'bg-black hover:bg-neutral-800 focus-visible:ring-neutral-500'
     },
     {
       key: 'bluesky' as PlatformKey,
       labelKey: 'article.share_on_bluesky',
       href: buildShareUrl(`https://bsky.app/intent/compose?text=${encodedTitle.value}%20${encodedUrl.value}`, 'bluesky'),
       icon: ['fab', 'bluesky'] as const,
-      class: 'bg-sky-500 hover:bg-sky-600 focus:ring-sky-400'
+      class: 'bg-sky-500 hover:bg-sky-600 focus-visible:ring-sky-400'
     },
     {
       key: 'linkedin' as PlatformKey,
       labelKey: 'article.share_on_linkedin',
       href: buildShareUrl(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl.value}`, 'linkedin'),
       icon: ['fab', 'linkedin-in'] as const,
-      class: 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-600'
+      class: 'bg-blue-700 hover:bg-blue-800 focus-visible:ring-blue-600'
     },
     {
       key: 'telegram' as PlatformKey,
       labelKey: 'article.share_on_telegram',
       href: buildShareUrl(`https://t.me/share/url?url=${encodedUrl.value}&text=${encodedTitle.value}`, 'telegram'),
       icon: ['fab', 'telegram'] as const,
-      class: 'bg-sky-600 hover:bg-sky-700 focus:ring-sky-500'
+      class: 'bg-sky-600 hover:bg-sky-700 focus-visible:ring-sky-500'
     },
     {
       key: 'reddit' as PlatformKey,
       labelKey: 'article.share_on_reddit',
       href: buildShareUrl(`https://www.reddit.com/submit?url=${encodedUrl.value}&title=${encodedTitle.value}`, 'reddit'),
       icon: ['fab', 'reddit-alien'] as const,
-      class: 'bg-orange-600 hover:bg-orange-700 focus:ring-orange-500'
+      class: 'bg-orange-600 hover:bg-orange-700 focus-visible:ring-orange-500'
     },
     {
       key: 'whatsapp' as PlatformKey,
       labelKey: 'article.share_on_whatsapp',
       href: buildShareUrl(`https://wa.me/?text=${encodeURIComponent(`${props.title} ${props.url}`)}`, 'whatsapp'),
       icon: ['fab', 'whatsapp'] as const,
-      class: 'bg-green-500 hover:bg-green-600 focus:ring-green-400'
+      class: 'bg-green-500 hover:bg-green-600 focus-visible:ring-green-400'
     },
     {
       key: 'email' as PlatformKey,
       labelKey: 'article.share_by_email',
       href: `mailto:?subject=${encodedTitle.value}&body=${encodeURIComponent(`${props.description}\n\n${props.url}`)}`,
       icon: ['fas', 'envelope'] as const,
-      class: 'bg-gray-600 hover:bg-gray-700 focus:ring-gray-500'
+      class: 'bg-gray-600 hover:bg-gray-700 focus-visible:ring-gray-500'
     }
   ]
   return items
@@ -113,8 +113,8 @@ const platforms = computed(() => {
 
 const copied = ref(false)
 const canNativeShare = ref(false)
-const copyButtonClass = 'bg-neutral-700 hover:bg-neutral-800 focus:ring-neutral-500'
-const nativeButtonClass = 'bg-brand-primary hover:opacity-90 focus:ring-brand-primary'
+const copyButtonClass = 'bg-neutral-700 hover:bg-neutral-800 focus-visible:ring-neutral-500'
+const nativeButtonClass = 'bg-brand-primary hover:opacity-90 focus-visible:ring-brand-primary'
 
 onMounted(() => {
   canNativeShare.value = typeof navigator !== 'undefined' && typeof navigator.share === 'function'
@@ -167,7 +167,7 @@ const nativeShare = async () => {
         :href="platform.href"
         :target="platform.key === 'email' ? undefined : '_blank'"
         :rel="platform.key === 'email' ? undefined : 'noopener noreferrer'"
-        class="social-button focus:ring-2 focus:outline-none"
+        class="social-button focus-visible:ring-2 focus:outline-none"
         :class="platform.class"
         :aria-label="t(platform.labelKey)"
         :title="t(platform.labelKey)"
@@ -179,7 +179,7 @@ const nativeShare = async () => {
 
       <button
         type="button"
-        class="social-button focus:ring-2 focus:outline-none"
+        class="social-button focus-visible:ring-2 focus:outline-none"
         :class="copyButtonClass"
         :aria-label="copied ? t('article.copied') : t('article.copy_link')"
         :title="copied ? t('article.copied') : t('article.copy_link')"
@@ -196,7 +196,7 @@ const nativeShare = async () => {
       <button
         v-if="canNativeShare"
         type="button"
-        class="social-button focus:ring-2 focus:outline-none"
+        class="social-button focus-visible:ring-2 focus:outline-none"
         :class="nativeButtonClass"
         :aria-label="t('article.share_native')"
         :title="t('article.share_native')"

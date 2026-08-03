@@ -30,7 +30,7 @@ const members = computed(() => props.slugs
       <li v-for="m in members" :key="m.slug">
         <NuxtLink
           :to="`/${locale}/team/${m.slug}`"
-          class="inline-flex items-center gap-3 rounded-xl border border-neutral-200 dark:border-neutral-800 px-3 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          class="inline-flex items-center gap-3 rounded-xl border border-neutral-200 dark:border-neutral-800 px-3 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
         >
           <NuxtImg
             :src="teamAvatarUrl({ mcName: m.mcName, slug: m.slug, avatarUrl: m.avatarUrl }, 64)"

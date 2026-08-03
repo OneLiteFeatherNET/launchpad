@@ -112,7 +112,7 @@ watch(
               <div class="flex gap-2">
                 <button
                   type="button"
-                  class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                  class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
                   :aria-label="t('carousel.prev') || 'Zurück'"
                   @click="prev"
                 >
@@ -120,7 +120,7 @@ watch(
                 </button>
                 <button
                   type="button"
-                  class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                  class="rounded-full cursor-pointer p-2 text-neutral-600 dark:text-neutral-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
                   :aria-label="t('carousel.next') || 'Weiter'"
                   @click="next"
                 >
@@ -215,7 +215,7 @@ watch(
 
         <a
           :href="'mailto:sponsoring@onelitefeather.net'"
-          class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-white/95 dark:bg-zinc-900/90 text-brand-900 dark:text-brand-100 p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-white/95 dark:bg-zinc-900/90 text-brand-900 dark:text-brand-100 p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
           :aria-label="ariaLabelFor(t('sponsor.cta_title'))"
           data-ph-capture-attribute="cta"
           data-ph-capture-attribute-name="sponsor-contact"
