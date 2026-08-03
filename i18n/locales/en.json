@@ -33,12 +33,12 @@
       "subtitle": "Choose your platform and copy the address.",
       "java": "Java Edition",
       "bedrock": "Bedrock Edition",
-      "copy_aria": "Copy server address {address} to clipboard",
+      "copy_aria": "Copy address: {address}",
       "copy": "Copy",
       "copy_address": "Copy address",
       "copied": "Copied!",
       "copy_port": "Copy port",
-      "copy_port_aria": "Copy port {port} to clipboard",
+      "copy_port_aria": "Copy port: {port}",
       "port_label": "Port",
       "clipboard_note": "Your browser does not support copying to the clipboard. Please copy the address manually."
     }

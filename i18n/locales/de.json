@@ -33,12 +33,12 @@
       "subtitle": "Wähle deine Plattform und kopiere die Adresse.",
       "java": "Java Edition",
       "bedrock": "Bedrock Edition",
-      "copy_aria": "Serveradresse {address} in die Zwischenablage kopieren",
+      "copy_aria": "Adresse kopieren: {address}",
       "copy": "Kopieren",
       "copy_address": "Adresse kopieren",
       "copied": "Kopiert!",
       "copy_port": "Port kopieren",
-      "copy_port_aria": "Port {port} in die Zwischenablage kopieren",
+      "copy_port_aria": "Port kopieren: {port}",
       "port_label": "Port",
       "clipboard_note": "Dein Browser unterstützt das Kopieren in die Zwischenablage nicht. Bitte kopiere die Adresse manuell."
     }
