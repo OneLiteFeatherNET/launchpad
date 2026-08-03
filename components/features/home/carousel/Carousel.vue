@@ -100,8 +100,15 @@ useHead(() => {
   }
 })
 
-const goTo = (index: number) => {
+// Whether the slide showing now is the one the user asked for. The live
+// region reads it: the WAI-ARIA APG wants a carousel to announce changes the
+// user triggered, and to stay quiet while it rotates on its own — twelve
+// unprompted announcements a minute is what `aria-live` exists to avoid.
+const userInitiated = ref(false)
+
+const goTo = (index: number, byUser = true) => {
   if (slidesCount.value === 0) return
+  userInitiated.value = byUser
   if (props.loop) {
     current.value = (index + slidesCount.value) % slidesCount.value
   } else {
@@ -109,11 +116,11 @@ const goTo = (index: number) => {
   }
 }
 
-const next = () => {
-  goTo(current.value + 1)
+const next = (byUser = true) => {
+  goTo(current.value + 1, byUser)
 }
-const prev = () => {
-  goTo(current.value - 1)
+const prev = (byUser = true) => {
+  goTo(current.value - 1, byUser)
 }
 
 const start = () => {
@@ -126,7 +133,7 @@ const start = () => {
   // Respect prefers-reduced-motion
   if (prefersReducedMotion.value) return
   timer.value = setInterval(() => {
-    if (!isHovering.value) next()
+    if (!isHovering.value) next(false)
   }, props.interval)
 }
 
@@ -199,6 +206,7 @@ const trackStyle = computed(() => ({
 
 // Accessibility: Live text for current slide
 const liveText = computed(() => {
+  if (!userInitiated.value) return ''
   const slide = normalizedSlides.value[current.value]
   if (!slide) return ''
   return getSlideAriaText(slide, current.value, slidesCount.value, t)
@@ -253,7 +261,6 @@ const componentFor = (slide: NormalizedSlide) => {
       <div
         class="absolute inset-0 z-30 flex h-full transition-transform duration-500 ease-out"
         :style="trackStyle"
-        aria-live="polite"
       >
         <div
           v-for="(s, i) in normalizedSlides"
