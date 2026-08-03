@@ -35,7 +35,7 @@ usePageSeo({
 })
 
 useBreadcrumbs(() => [
-  { name: t('navigation.home'), url: `/${locale.value}/` },
+  { name: t('navigation.home'), url: `/${locale.value}` },
   { name: t('community_poi.overview.title'), url: `/${locale.value}/community-poi/` },
   { name: title.value }
 ])
