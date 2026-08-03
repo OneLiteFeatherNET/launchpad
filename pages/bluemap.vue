@@ -21,7 +21,7 @@ usePageSeo({
 })
 
 useBreadcrumbs(() => [
-  { name: t('navigation.home'), url: `/${locale.value}/` }, { name: t('bluemap.title') }
+  { name: t('navigation.home'), url: `/${locale.value}` }, { name: t('bluemap.title') }
 ])
 </script>
 

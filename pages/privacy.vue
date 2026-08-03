@@ -12,7 +12,7 @@ usePageSeo({
 })
 
 useBreadcrumbs(() => [
-  { name: t('navigation.home'), url: `/${locale.value}/` }, { name: t('blog.privacy.title') }
+  { name: t('navigation.home'), url: `/${locale.value}` }, { name: t('blog.privacy.title') }
 ])
 </script>
 

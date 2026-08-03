@@ -27,7 +27,7 @@ usePageSeo({
 })
 
 useBreadcrumbs(() => [
-  { name: t('navigation.home'), url: `/${locale.value}/` }, { name: t('blog.overview.title') }
+  { name: t('navigation.home'), url: `/${locale.value}` }, { name: t('blog.overview.title') }
 ])
 
 // Help Google identify the list of articles as a structured collection.

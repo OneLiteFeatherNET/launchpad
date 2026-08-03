@@ -76,7 +76,7 @@ usePageSeo({
 })
 
 useBreadcrumbs(() => [
-  { name: t('navigation.home'), url: `/${locale.value}/` },
+  { name: t('navigation.home'), url: `/${locale.value}` },
   { name: t('team.title'), url: `/${locale.value}/team` },
   { name: member.value?.name || t('team.title') }
 ])

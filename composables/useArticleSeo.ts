@@ -163,7 +163,7 @@ export function useArticleSeo(
   })
 
   useBreadcrumbs(() => [
-    { name: t('navigation.home'), url: `/${locale.value}/` },
+    { name: t('navigation.home'), url: `/${locale.value}` },
     { name: t('blog.overview.title'), url: `/${locale.value}/blog` },
     { name: blog.value?.title || '' }
   ])

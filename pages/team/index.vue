@@ -25,7 +25,7 @@ usePageSeo({
 })
 
 useBreadcrumbs(() => [
-  { name: t('navigation.home'), url: `/${locale.value}/` }, { name: t('team.title') }
+  { name: t('navigation.home'), url: `/${locale.value}` }, { name: t('team.title') }
 ])
 
 // Expose the roster as an ItemList of Person entities. The stable per-member
