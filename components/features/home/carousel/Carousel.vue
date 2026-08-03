@@ -275,7 +275,7 @@ const componentFor = (slide: NormalizedSlide) => {
           :icon="['fas','chevron-left']"
           variant="filled"
           size="lg"
-          class="shadow-xl shadow-black/40 ring-1 ring-black/20 cursor-pointer md:size-xl"
+          class="shadow-xl shadow-black/40 ring-1 ring-black/20 cursor-pointer"
           style="pointer-events: auto !important;"
           @click="(e: MouseEvent) => { e.stopPropagation(); prev(); }"
         />
@@ -284,7 +284,7 @@ const componentFor = (slide: NormalizedSlide) => {
           :icon="['fas','chevron-right']"
           variant="filled"
           size="lg"
-          class="shadow-xl shadow-black/40 ring-1 ring-black/20 cursor-pointer md:size-xl"
+          class="shadow-xl shadow-black/40 ring-1 ring-black/20 cursor-pointer"
           style="pointer-events: auto !important;"
           @click="(e: MouseEvent) => { e.stopPropagation(); next(); }"
         />
