@@ -22,7 +22,17 @@ useBreadcrumbs(() => [
 
 <template>
   <div class="container mx-auto py-4">
-    <div class="max-w-4xl mx-auto px-4 py-8 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <!--
+      The text below is German regardless of the route prefix, so it says so.
+      Under strategy: 'prefix' this page is also served at /en/privacy, where
+      the layout sets <html lang="en-US"> — without this, a screen reader
+      reads several thousand words of German with an English pronunciation
+      engine (WCAG 3.1.2).
+
+      This declares the language of the bytes being served; it does not decide
+      whether an English translation should exist. That is SEC-05 / PR-03.
+    -->
+    <div lang="de" class="max-w-4xl mx-auto px-4 py-8 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Datenschutzerklärung</h1>
       <p class="text-sm mb-6 text-gray-600 dark:text-gray-400">Stand: 31. Mai 2025</p>
 
