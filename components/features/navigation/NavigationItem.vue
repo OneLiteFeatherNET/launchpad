@@ -19,9 +19,7 @@ const emit = defineEmits<{
 
 const route = useRoute();
 
-const isActive = computed(() => {
-  return route.path === props.path || route.path.startsWith(props.path + '/');
-});
+const isActive = computed(() => isCurrentNavPath(route.path, props.path));
 
 const handleClick = () => emit('click');
 
