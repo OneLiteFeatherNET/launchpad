@@ -2,7 +2,10 @@
 import {computed, computed as vComputed} from 'vue'
 import { NuxtLink } from '#components'
 
-const { t } = useI18n()
+// `locale` because these format with explicit option objects that vue-i18n's
+// `d()` cannot express without named datetimeFormats entries — so the call
+// stays, and only the language stops being fixed.
+const { t, locale } = useI18n()
 
 interface NewsItem {
   type: 'news'
@@ -23,7 +26,7 @@ const dateLabel = computed(() => {
   const d = props.item.date ? new Date(props.item.date) : null
   if (!d || Number.isNaN(d.getTime())) return undefined
   try {
-    return d.toLocaleDateString('de-DE', { year: 'numeric', month: 'short', day: '2-digit' })
+    return d.toLocaleDateString(locale.value, { year: 'numeric', month: 'short', day: '2-digit' })
   } catch {
     return d.toISOString().slice(0, 10)
   }

@@ -2,7 +2,10 @@
 import {computed} from 'vue'
 import { NuxtLink } from '#components'
 
-const { t } = useI18n()
+// `locale` because these format with explicit option objects that vue-i18n's
+// `d()` cannot express without named datetimeFormats entries — so the call
+// stays, and only the language stops being fixed.
+const { t, locale } = useI18n()
 
 interface EventItem {
   type: 'event'
@@ -23,13 +26,13 @@ const props = withDefaults(defineProps<{ item: EventItem; priority?: boolean }>(
 const start = computed(() => new Date(props.item.dateStart))
 const end = computed(() => props.item.dateEnd ? new Date(props.item.dateEnd) : undefined)
 
-const day = computed(() => isNaN(start.value.getTime()) ? '' : start.value.toLocaleDateString('de-DE', { day: '2-digit' }))
-const month = computed(() => isNaN(start.value.getTime()) ? '' : start.value.toLocaleDateString('de-DE', { month: 'short' }))
+const day = computed(() => isNaN(start.value.getTime()) ? '' : start.value.toLocaleDateString(locale.value, { day: '2-digit' }))
+const month = computed(() => isNaN(start.value.getTime()) ? '' : start.value.toLocaleDateString(locale.value, { month: 'short' }))
 const timeRange = computed(() => {
   if (isNaN(start.value.getTime())) return ''
-  const startTime = start.value.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })
+  const startTime = start.value.toLocaleTimeString(locale.value, { hour: '2-digit', minute: '2-digit' })
   if (!end.value || isNaN(end.value.getTime())) return startTime
-  const endTime = end.value.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })
+  const endTime = end.value.toLocaleTimeString(locale.value, { hour: '2-digit', minute: '2-digit' })
   return `${startTime} – ${endTime}`
 })
 

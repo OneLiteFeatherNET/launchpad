@@ -41,5 +41,5 @@ const props = withDefaults(defineProps<Props>(), {
       </p>
     </div>
   </div>
-  
+
 </template>
