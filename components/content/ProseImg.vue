@@ -46,9 +46,12 @@ const isSvg = computed(() => {
   return pathOnly.toLowerCase().endsWith('.svg')
 })
 
+// Same reason as ProsePre: resolved during setup, not per getter evaluation.
+const runtimeConfig = useRuntimeConfig()
+
 const refinedSrc = computed(() => {
   if (isInternal.value) {
-    const _base = withLeadingSlash(withTrailingSlash(useRuntimeConfig().app.baseURL))
+    const _base = withLeadingSlash(withTrailingSlash(runtimeConfig.app.baseURL))
     if (_base !== '/' && !props.src.startsWith(_base)) {
       return joinURL(_base, props.src)
     }

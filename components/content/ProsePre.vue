@@ -35,8 +35,13 @@ const props = defineProps({
   }
 })
 
+// At setup level, not inside the getter below. A composable resolves its
+// component via getCurrentInstance(), which is only set during setup — inside
+// a computed it happens to work because Vue falls back to the *rendering*
+// instance, and only while that getter runs as part of a render.
+const { t, te } = useI18n()
+
 const ariaLabel = computed(() => {
-  const { t, te } = useI18n()
   const parts: string[] = []
 
   if (props.filename) {
