@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from '#imports'
+import { computed, ref, watch } from '#imports'
 import CommunityPoiStatusBadge from './CommunityPoiStatusBadge.vue'
 import CommunityPoiCategoryBadge from './CommunityPoiCategoryBadge.vue'
 import CommunityPoiProgressBar from './CommunityPoiProgressBar.vue'
@@ -9,6 +9,19 @@ import type { CommunityPoi } from '~/types/community-poi'
 const props = defineProps<{
   poi: CommunityPoi
 }>()
+
+// A thumbnail can be declared and still not arrive — the Cloudflare provider
+// fetches originals from the image origin, which does not hold every path that
+// exists in `public/`. Without this the browser draws its broken-image glyph
+// with the alt text spilled across the card; the placeholder below reads as a
+// missing picture, which is what it is.
+const thumbnailFailed = ref(false)
+
+// Cards are reused across list renders, so a stale flag would blank the next
+// POI shown in this slot.
+watch(() => props.poi.thumbnail, () => {
+  thumbnailFailed.value = false
+})
 
 const { locale, t } = useI18n()
 
@@ -69,7 +82,7 @@ const showcaseBadgeClass = [
   <article :class="articleClass">
     <NuxtLink :to="href" :aria-label="detailAria" :class="thumbLinkClass">
       <NuxtPicture
-        v-if="poi.thumbnail"
+        v-if="poi.thumbnail && !thumbnailFailed"
         :src="poi.thumbnail"
         :alt="poi.thumbnailAlt || poi.title"
         sizes="xs:300px sm:500px md:400px lg:500px"
@@ -80,6 +93,7 @@ const showcaseBadgeClass = [
         loading="lazy"
         :img-attrs="{ class: thumbImgClass }"
         format="avif,webp"
+        @error="thumbnailFailed = true"
       />
       <div v-else :class="placeholderClass">
         <IconFa :icon="['fas','image']" class="h-10 w-10" aria-hidden="true" />
