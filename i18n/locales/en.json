@@ -33,7 +33,9 @@
     "event_link": "Event: {title}",
     "to_event": "Go to event: {title}",
     "news_link": "News: {title}",
-    "to_news": "Go to news item: {title}"
+    "to_news": "Go to news item: {title}",
+    "pause": "Pause automatic slide rotation",
+    "play": "Resume automatic slide rotation"
   },
   "layouts": {
     "title": "Title"

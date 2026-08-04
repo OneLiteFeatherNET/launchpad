@@ -8,6 +8,8 @@ import CarouselItemNews from '~/components/features/home/carousel/items/Carousel
 import CarouselItemEvent from '~/components/features/home/carousel/items/CarouselItemEvent.vue'
 import CarouselItemPoi from '~/components/features/home/carousel/items/CarouselItemPoi.vue'
 import type { AnySlide, NormalizedSlide } from '~/types/carousel'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 import { normalizeSlides, getSlideAriaText } from '~/composables/useCarousel'
 
 const props = withDefaults(defineProps<{
@@ -106,6 +108,11 @@ useHead(() => {
 // unprompted announcements a minute is what `aria-live` exists to avoid.
 const userInitiated = ref(false)
 
+// WCAG 2.2.2: autoplay needs a control the user can reach. Hover- and
+// focus-pause are not that — neither exists on touch, and both require being
+// inside the component already.
+const userPaused = ref(false)
+
 const goTo = (index: number, byUser = true) => {
   if (slidesCount.value === 0) return
   userInitiated.value = byUser
@@ -132,8 +139,11 @@ const start = () => {
   if (import.meta.server) return
   // Respect prefers-reduced-motion
   if (prefersReducedMotion.value) return
+  // Paused by the user: clear the timer rather than let it fire into a
+  // no-op every interval. The watch below re-runs start() when this flips.
+  if (userPaused.value) return
   timer.value = setInterval(() => {
-    if (!isHovering.value) next(false)
+    if (!isHovering.value && !userPaused.value) next(false)
   }, props.interval)
 }
 
@@ -150,7 +160,8 @@ if (import.meta.client) {
     () => [props.autoPlay,
 props.interval,
 slidesCount.value,
-prefersReducedMotion.value],
+prefersReducedMotion.value,
+userPaused.value],
     () => start(),
     { immediate: true }
   )
@@ -191,6 +202,20 @@ const onPointerUp = (e: PointerEvent | TouchEvent) => {
   }
   startX.value = null
 }
+
+// Offering a pause button for a carousel that never moves would be a control
+// for nothing — and prefers-reduced-motion already stops it entirely.
+const canAutoPlay = computed(() => {
+  return props.autoPlay && slidesCount.value > 1 && !prefersReducedMotion.value
+})
+
+// Bound rather than inlined: the same utility list as the dot buttons, and
+// spelled out in the template it would be a 138-character attribute.
+const controlButtonClass = [
+  'grid h-6 w-6 place-items-center rounded-full text-white/90',
+  'transition hover:text-white',
+  'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80'
+].join(' ')
 
 const aspectPercent = computed(() => {
   const [w, h] = props.aspect.split('/').map(n => Number(n))
@@ -309,7 +334,26 @@ const componentFor = (slide: NormalizedSlide) => {
 
       <!-- Dots -->
       <div class="absolute bottom-2 left-1/2 z-40 -translate-x-1/2 transform">
-        <div class="flex gap-2 rounded-full bg-black/25 px-3 py-2 backdrop-blur-sm">
+        <div class="flex items-center gap-2 rounded-full bg-black/25 px-3 py-2 backdrop-blur-sm">
+          <!--
+            Deliberately here and not in the prev/next bar above: that one is
+            `opacity-0 group-hover:opacity-100`, so a pause button in it would
+            be invisible on touch — the case it exists for.
+          -->
+          <button
+            v-if="canAutoPlay"
+            type="button"
+            :class="controlButtonClass"
+            :aria-label="userPaused ? t('carousel.play') : t('carousel.pause')"
+            :aria-pressed="userPaused ? 'true' : 'false'"
+            @click.stop="userPaused = !userPaused"
+          >
+            <FontAwesomeIcon
+              :icon="userPaused ? faPlay : faPause"
+              class="h-3 w-3"
+              aria-hidden="true"
+            />
+          </button>
           <button
             v-for="(_s, i) in normalizedSlides"
             :key="i"
