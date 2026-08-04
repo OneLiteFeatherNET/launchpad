@@ -39,13 +39,74 @@ const blogSchema = withI18nMeta(z.object({
     releaseDate: z.coerce.date().optional()
   }))
 
+// Mirrors the discriminated union in types/carousel.ts. The previous shape
+// here was a flat `{ title, image }`, which described none of the slides that
+// exist: @nuxt/content derives columns from this rather than validating
+// against it, so `slides` landed in one JSON column regardless and only the
+// generated type was wrong — which useHomeContent then cast away.
 const carouselSchema = z.object({
   key: z.string().optional(),
   slides: z
-    .array(z.object({
+    .array(z.union([
+      z.object({
+        type: z.literal('image'),
+        src: z.string(),
+        alt: z.string(),
+        note: z.string().optional()
+      }),
+      z.object({
+        type: z.literal('blog'),
         title: z.string(),
-        image: z.string()
-      }))
+        href: z.string(),
+        excerpt: z.string().optional(),
+        image: z.string().optional(),
+        alt: z.string().optional(),
+        author: z.string().optional(),
+        date: z.union([z.string(), z.coerce.date()]).optional(),
+        tag: z.string().optional()
+      }),
+      z.object({
+        type: z.literal('news'),
+        title: z.string(),
+        href: z.string().optional(),
+        summary: z.string().optional(),
+        image: z.string().optional(),
+        alt: z.string().optional(),
+        date: z.union([z.string(), z.coerce.date()]).optional(),
+        tag: z.string().optional()
+      }),
+      z.object({
+        type: z.literal('poi'),
+        title: z.string(),
+        href: z.string(),
+        caption: z.string().optional(),
+        image: z.string().optional(),
+        alt: z.string().optional(),
+        status: z.enum([
+          'planning',
+          'in-progress',
+          'paused',
+          'completed'
+        ]).optional(),
+        progress: z.number().optional(),
+        category: z.enum([
+          'team',
+          'community',
+          'collab'
+        ]).optional()
+      }),
+      z.object({
+        type: z.literal('event'),
+        title: z.string(),
+        dateStart: z.union([z.string(), z.coerce.date()]),
+        dateEnd: z.union([z.string(), z.coerce.date()]).optional(),
+        location: z.string().optional(),
+        href: z.string().optional(),
+        image: z.string().optional(),
+        alt: z.string().optional(),
+        note: z.string().optional()
+      })
+    ]))
     .default([])
 })
 
