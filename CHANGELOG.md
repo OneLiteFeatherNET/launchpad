@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.7](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.6...onelitefeather.net-v1.3.7) (2026-08-04)
+
+
+### Bug Fixes
+
+* **community-poi:** fall back to the placeholder when a thumbnail fails ([#275](https://github.com/OneLiteFeatherNET/launchpad/issues/275)) ([94e07f2](https://github.com/OneLiteFeatherNET/launchpad/commit/94e07f2f57261fa183e64320e98b48b9307ae6e2))
+* **i18n:** format carousel dates in the reader's language ([#270](https://github.com/OneLiteFeatherNET/launchpad/issues/270)) ([efa4708](https://github.com/OneLiteFeatherNET/launchpad/commit/efa47085bc61b94f63bd3b657d4e2b297d276955))
+* **navigation:** stop the locale root marking every page as current ([#274](https://github.com/OneLiteFeatherNET/launchpad/issues/274)) ([3fedf6b](https://github.com/OneLiteFeatherNET/launchpad/commit/3fedf6b8065e38f27f2757058b12da379b7deeb4))
+
 ## [1.3.6](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.5...onelitefeather.net-v1.3.6) (2026-08-04)
 
 
