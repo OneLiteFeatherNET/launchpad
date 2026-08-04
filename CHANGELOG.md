@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.3.6](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.5...onelitefeather.net-v1.3.6) (2026-08-04)
+
+
+### Bug Fixes
+
+* **a11y:** declare the privacy policy's language ([#263](https://github.com/OneLiteFeatherNET/launchpad/issues/263)) ([cc451a6](https://github.com/OneLiteFeatherNET/launchpad/commit/cc451a6f292458fc526a3a2269edef3f5d888c89))
+* **a11y:** give the carousel a pause control ([#264](https://github.com/OneLiteFeatherNET/launchpad/issues/264)) ([187059d](https://github.com/OneLiteFeatherNET/launchpad/commit/187059d8039a3b55bad3714e88afe212634a1607))
+* **config:** stop $production concatenating arrays onto the base config ([#260](https://github.com/OneLiteFeatherNET/launchpad/issues/260)) ([e0719e9](https://github.com/OneLiteFeatherNET/launchpad/commit/e0719e92ecff6b39eef173fd30312431716d6359))
+* **content:** call composables in setup, not inside computed getters ([#261](https://github.com/OneLiteFeatherNET/launchpad/issues/261)) ([751daa2](https://github.com/OneLiteFeatherNET/launchpad/commit/751daa2e78cef88ec801803b2149856d7040224d))
+* **content:** describe the carousel slides the schema actually receives ([#224](https://github.com/OneLiteFeatherNET/launchpad/issues/224)) ([4332a0b](https://github.com/OneLiteFeatherNET/launchpad/commit/4332a0b6b9611bf685c83af25cf996c93981815e))
+* **security:** allow-list the schemes a team profile link may use ([#246](https://github.com/OneLiteFeatherNET/launchpad/issues/246)) ([2f008ed](https://github.com/OneLiteFeatherNET/launchpad/commit/2f008ed406b6d95e389d27eb53dd32bb1d9d5e69))
+
+
+### Performance
+
+* **blog:** size article card images to the grid and defer them ([#245](https://github.com/OneLiteFeatherNET/launchpad/issues/245)) ([853e994](https://github.com/OneLiteFeatherNET/launchpad/commit/853e994188ecc6c23441e5c62f98716c322b81ad))
+
 ## [1.3.5](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.4...onelitefeather.net-v1.3.5) (2026-08-03)
 
 
