@@ -47,11 +47,15 @@ const linkIcons: Record<string, typeof faLink> = {
   mail: faEnvelope
 }
 
+// Content URLs arrive unvalidated — @nuxt/content treats the zod schema as a
+// DDL, not a validator, so `links` really is any string. Anything outside
+// http/https/mailto is dropped rather than rendered as an href.
 const profileLinks = computed(() => {
   const links = (member.value?.links || {}) as Record<string, string>
   return Object.entries(links)
-    .filter(([, href]) => Boolean(href))
-    .map(([key, href]) => ({
+    .map(([key, href]) => ({ key, href: toSafeExternalUrl(href) }))
+    .filter((link): link is { key: string, href: string } => link.href !== null)
+    .map(({ key, href }) => ({
       key,
       href,
       icon: linkIcons[key.toLowerCase()] || faLink
@@ -101,7 +105,11 @@ useSchemaOrg(() => {
       image: avatar,
       jobTitle: memberRoleText.value || undefined,
       description: member.value.bio || member.value.slogan || memberRoleText.value || undefined,
-      sameAs: Object.values((member.value.links || {}) as Record<string, string>).filter(Boolean),
+      // Not executable here, but sameAs is published as fact about a person —
+      // the same filter keeps a junk scheme out of the structured data.
+      sameAs: Object.values((member.value.links || {}) as Record<string, string>)
+        .map(toSafeExternalUrl)
+        .filter((href): href is string => href !== null),
       worksFor: { '@id': organizationId(site.url) }
     }
   ]
