@@ -34,6 +34,10 @@ concurrency:
 
 jobs:
   release-please:
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      version: ${{ steps.release.outputs.version }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
