@@ -11,9 +11,9 @@ goal: 'Fertiges, begehbares Labyrinth mit klarem Eingang, mehreren Sackgassen un
 currentState: 'Etwa 40 % des Baus stehen. Außenmauern und das innere Wegenetz sind vorhanden, mehrere Gänge fehlen noch.'
 location: 'Welt – siehe Koordinaten'
 coordinates:
-  x: -1465
+  x: -2209
   y: 61
-  z: 792
+  z: 35
   dimension: 'overworld'
 builders:
   - name: 'B3nNy'
