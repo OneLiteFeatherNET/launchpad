@@ -11,9 +11,9 @@ goal: 'A finished, walkable maze with a clear entrance, several dead ends and a 
 currentState: 'Around 40 % of the build is done. The outer walls and the inner path network exist; several corridors are still missing.'
 location: 'Overworld — see coordinates'
 coordinates:
-  x: -1465
+  x: -2209
   y: 61
-  z: 792
+  z: 35
   dimension: 'overworld'
 builders:
   - name: 'B3nNy'
