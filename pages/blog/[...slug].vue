@@ -11,6 +11,21 @@ definePageMeta({
 
 const { blog, authors } = await useBlogArticle()
 
+const { bySlug } = useTeamRoster()
+
+// Resolves what FeaturedTeamMembers used to fetch for itself. The lookup
+// belongs here: this page is the root, so it may know both the blog and the
+// team layer, and neither layer learns about the other.
+const featuredMembers = computed(() => (blog.value?.teamMembers ?? [])
+  .map((slug: string) => bySlug.value[slug])
+  .filter((member): member is NonNullable<typeof member> => Boolean(member))
+  .map((member) => ({
+    slug: member.slug,
+    name: member.name,
+    avatarUrl: teamAvatarUrl({ mcName: member.mcName, slug: member.slug, avatarUrl: member.avatarUrl }, 64),
+    role: toRoleString(member.role) ?? ''
+  })))
+
 // All Article-level SEO (meta tags, Article JSON-LD, breadcrumbs, OG
 // image) lives in useArticleSeo — keeps this page focused on view code.
 // Canonical + hreflang are emitted app-wide by @nuxtjs/i18n
@@ -126,8 +141,8 @@ useHead(() => {
         </section>
 
         <FeaturedTeamMembers
-          v-if="blog?.teamMembers?.length"
-          :slugs="blog.teamMembers"
+          v-if="featuredMembers.length"
+          :members="featuredMembers"
         />
 
         <!-- Social Media Sharing Buttons -->

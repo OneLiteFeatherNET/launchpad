@@ -215,6 +215,16 @@ describe('layer boundaries', () => {
     expect(offenders.sort()).toEqual([])
   })
 
+  it('blog names nothing from the team domain', () => {
+    // Auto-imported composables and utils leave no import statement, so the
+    // path matcher above cannot see them. Named explicitly because this was
+    // the last cross-domain coupling in the tree, and the exception map above
+    // is only worth anything while it stays empty.
+    const file = join(repoRoot, 'layers/blog/components/FeaturedTeamMembers.vue')
+    const text = readFileSync(file, 'utf8')
+    expect(text).not.toMatch(/useTeamRoster|teamAvatarUrl|toRoleString|TeamMember\b/)
+  })
+
   it('reaches into no other layer past its index', () => {
     // `#layers/team` is the public API. `#layers/team/composables/useTeamRoster`
     // is someone's internals, and renaming that file then breaks a stranger —

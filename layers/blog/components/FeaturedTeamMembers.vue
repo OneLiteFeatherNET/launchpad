@@ -2,19 +2,30 @@
 import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
 
-const props = defineProps<{ slugs: string[] }>()
+/**
+ * One member as this component needs to draw it. Deliberately not the team
+ * layer's own domain type: importing that would put the blog layer back into
+ * a domain it must not know, and the component uses four fields of it.
+ *
+ * The page resolves slugs, avatars and role labels — it sits at the root and
+ * may know both layers. What arrives here is finished presentation data.
+ */
+export type FeaturedMember = {
+  slug: string
+  name: string
+  avatarUrl: string
+  /** Already formatted; empty string renders no role line. */
+  role: string
+}
+
+const props = defineProps<{ members: FeaturedMember[] }>()
 
 const { t, locale } = useI18n()
-const { bySlug } = useTeamRoster()
-
-const members = computed(() => props.slugs
-    .map((slug) => bySlug.value[slug])
-    .filter((m): m is NonNullable<typeof m> => Boolean(m)))
 </script>
 
 <template>
   <section
-    v-if="members.length"
+    v-if="props.members.length"
     class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6"
     :aria-labelledby="'featured-team-heading'"
   >
@@ -25,13 +36,13 @@ const members = computed(() => props.slugs
       {{ t('blog.featured_team') }}
     </h2>
     <ul class="mt-3 flex flex-wrap gap-3">
-      <li v-for="m in members" :key="m.slug">
+      <li v-for="m in props.members" :key="m.slug">
         <NuxtLink
           :to="`/${locale}/team/${m.slug}`"
           class="inline-flex items-center gap-3 rounded-xl border border-neutral-200 dark:border-neutral-800 px-3 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
         >
           <NuxtImg
-            :src="teamAvatarUrl({ mcName: m.mcName, slug: m.slug, avatarUrl: m.avatarUrl }, 64)"
+            :src="m.avatarUrl"
             :alt="t('team.avatar_alt', { name: m.name })"
             width="32"
             height="32"
@@ -45,7 +56,7 @@ const members = computed(() => props.slugs
           />
           <span class="min-w-0">
             <span class="block text-sm font-semibold text-neutral-900 dark:text-neutral-100">{{ m.name }}</span>
-            <span v-if="toRoleString(m.role)" class="block text-xs text-neutral-600 dark:text-neutral-400">{{ toRoleString(m.role) }}</span>
+            <span v-if="m.role" class="block text-xs text-neutral-600 dark:text-neutral-400">{{ m.role }}</span>
           </span>
         </NuxtLink>
       </li>
