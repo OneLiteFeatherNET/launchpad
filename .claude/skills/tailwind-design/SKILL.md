@@ -29,14 +29,15 @@ Every `--color-*` custom property there mints a utility named after what follows
 
 There is no bare `primary`, `secondary`, or `accent` color, and no numeric
 `brand-*` scale — only `--color-brand-primary/secondary/accent/orange/purple`.
-Two families of dead names are already in the tree, under `components/` and
-`pages/`:
+Two families of dead names are already in the tree, under `layers/*/components/`
+and `pages/`:
 
 - **32** bare-color usages: `bg-primary` ×11, `text-primary` ×8, `ring-primary`
   ×4, `border-primary` ×3, `ring-secondary` ×2, `text-secondary` ×2,
   `border-secondary` ×1, `outline-primary` ×1 (`pages/blog/[...slug].vue:48`) —
-  e.g. `components/base/Chip.vue`'s default variant. Plus `ring-primary-500` ×2
-  in `NavigationLanguageSelector.vue`, dead twice over.
+  e.g. `layers/base/components/Chip.vue`'s default variant. Plus
+  `ring-primary-500` ×2 in `layers/navigation/components/LanguageSelector.vue`,
+  dead twice over.
 - **49** numeric `*-brand-<n>` usages (`ring-brand-500` ×10, `text-brand-900`
   ×5, `text-brand-100` ×5, …) across seven files.
 

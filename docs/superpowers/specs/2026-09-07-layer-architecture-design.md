@@ -1,6 +1,6 @@
 # Layer architecture: domain boundaries as Nuxt layers
 
-Status: approved, not yet implemented
+Status: implemented (2026-09-07)
 Date: 2026-09-07
 Base: `origin/main` @ 7ac3174
 

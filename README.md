@@ -10,8 +10,10 @@ Multilingual (de/en) Nuxt site with @nuxt/content, SEO/i18n, and feature-based c
 
 ## Project Structure
 - `content/` — localized collections (`blog_{locale}`, `sponsors_{locale}`, etc.)
-- `components/features/` — navigation, footer, sponsoring, OpenCollective, home sections
-- `components/base/` — primitives (buttons, typography, icons)
+- `layers/<domain>/` — one Nuxt layer per domain: `base` (shared primitives —
+  buttons, typography, icons), `content-core`, `blog`, `community-poi`,
+  `team`, `home`, `sponsoring`, `opencollective`, `navigation`, `footer`. Each
+  layer holds its own `components/`, `composables/`, `utils/` and `types.ts`.
 - `layouts/` — shared layout chrome
 - `pages/` — route-driven pages
 - `i18n/locales/` — locale message files
@@ -39,5 +41,5 @@ Multilingual (de/en) Nuxt site with @nuxt/content, SEO/i18n, and feature-based c
 
 ## Contributing
 - Use 2-space indentation and `<script setup lang="ts">`.
-- Prefer feature components under `components/features/` and shared primitives in `components/base/`.
+- Prefer domain components under `layers/<domain>/components/` and shared primitives in `layers/base/components/`.
 - Keep diffs small; follow existing naming (`PascalCase.vue`, route-based pages).

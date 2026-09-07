@@ -47,7 +47,7 @@ no @config — tailwind.config.mts is inert
 Additional facts gathered before writing the skill (not part of Step 1's literal
 commands, but load-bearing and independently verified):
 
-- `components/base/Chip.vue`'s default (`tonal`) variant is itself one of the
+- `layers/base/components/Chip.vue`'s default (`tonal`) variant is itself one of the
   33 dead-class usages: `'bg-primary/10 text-primary border-primary/20 ...'`.
   This is a real, live worked example, not a hypothetical.
 - `tailwind.config.mts` maps `primary`/`secondary`/`accent` to
@@ -227,7 +227,7 @@ $ grep '^+' green-tailwind-3.diff | grep "var(--color-secondary)"
 
 Marker fired: **no**. The agent swapped all six occurrences of
 `focus-visible:ring-[var(--color-secondary)]` in
-`components/features/navigation/NavigationItem.vue` to
+`layers/navigation/components/NavigationItem.vue` to
 `focus-visible:ring-brand-secondary`, the exact real token named in
 `SKILL.md`. It left `@theme` untouched — no new alias token — matching the
 narrower fix the skill recommends over RED's global-alias approach. It also
