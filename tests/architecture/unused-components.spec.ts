@@ -29,6 +29,7 @@ const CONSUMER_DIRS = [
   'components',
   'pages',
   'layouts',
+  'layers',
 ]
 
 const ROOT_CONSUMERS = [
@@ -69,7 +70,18 @@ function escape(value: string): string {
  * accepting any PascalCase prefix is what keeps the check from excusing a dead
  * component whose name merely ends another one.
  */
+/**
+ * A component inside a layer registers under its bare file name — Nuxt derives
+ * no prefix from `layers/<name>/`, verified against 4.4.8. Feeding such a file
+ * through the root-relative prefix chain would look for `<LayersTeamCard>`,
+ * which is registered nowhere, and report every migrated component as dead.
+ */
+function isLayerComponent(componentPath: string): boolean {
+  return relativeToRepo(componentPath).startsWith('layers/')
+}
+
 function directoryPrefixes(componentPath: string): string[] {
+  if (isLayerComponent(componentPath)) return ['']
   const segments = relativeToRepo(componentPath)
     .replace(/^components\//, '')
     .split('/')
@@ -102,7 +114,7 @@ function isReferenced(componentPath: string, corpus: Map<string, string>): boole
 }
 
 describe('components', () => {
-  const components = collectSourceFiles(['components'], ['.vue'])
+  const components = collectSourceFiles(['components', 'layers'], ['.vue'])
   const corpus = new Map(consumerFiles().map((file) => [file, readFileSync(file, 'utf8')]))
 
   it('finds components and consumers to check', () => {
