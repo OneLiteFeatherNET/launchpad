@@ -40,7 +40,9 @@ function registeredNames(layer: string): { name: string, file: string }[] {
  * it must be checked against them, not just against itself.
  */
 function registeredRootNames(): { name: string, file: string }[] {
-  return registeredNamesIn(collectSourceFiles(['components', 'composables', 'utils'], ['.vue', '.ts']))
+  return registeredNamesIn(collectSourceFiles(['components',
+    'composables',
+    'utils'], ['.vue', '.ts']))
 }
 
 /**
@@ -61,9 +63,14 @@ function collisionsIn(entries: { name: string, file: string }[]): string[] {
     .sort()
 }
 
-/** Names claimed by more than one layer, or by root and a layer, as readable `name: fileA, fileB`. */
+/**
+ * Names claimed by more than one layer, or by root and a layer, as readable
+ * `name: fileA, fileB`.
+ */
 function collisions(layers: string[]): string[] {
-  return collisionsIn([...layers.flatMap((layer) => registeredNames(layer)), ...registeredRootNames()])
+  return collisionsIn([
+    ...layers.flatMap((layer) => registeredNames(layer)), ...registeredRootNames()
+  ])
 }
 
 describe('layer name collisions', () => {

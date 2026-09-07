@@ -119,7 +119,8 @@ function stripComments(text: string): string {
  * against comment-stripped text (see `stripComments` above) so a comment
  * naming one of these for documentation does not trip the check.
  */
-const CONTENT_QUERY_FUNCTION = /\bqueryCollection(?:Navigation|ItemSurroundings|SearchSections)?\s*\(/
+const CONTENT_QUERY_FUNCTION
+  = /\bqueryCollection(?:Navigation|ItemSurroundings|SearchSections)?\s*\(/
 
 /** Whether `text` actually calls one of the content module's query functions. */
 function namesContentQueryFunctionIn(text: string): boolean {
