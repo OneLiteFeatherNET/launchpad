@@ -20,9 +20,12 @@ import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources
  *      suffix of the tag, not the whole of it. Only prefixes actually built
  *      from that component's own directories count, so a dead `Card.vue`
  *      cannot be kept alive by an unrelated `<SomeOtherCard>` elsewhere.
- *   3. Explicit import by path, often under a different local name:
+ *   3. Explicit import by path, often under a different local name, e.g.
  *      `import LayoutFooter from '~/components/features/footer/Footer.vue'`
- *      renders as `<LayoutFooter>`.
+ *      rendering as `<LayoutFooter>`. Checked against a synthetic corpus
+ *      below rather than a real file — once every domain has migrated into a
+ *      layer, nothing in the tree is imported by path under an alias any
+ *      more, so a real-file anchor for this case has nowhere to live.
  *   4. Convention, never referenced in any template — see EXEMPT below.
  */
 
@@ -131,11 +134,9 @@ describe('components', () => {
     const byName = (needle: string) => components.find((file) => file.endsWith(needle))
 
     const autoImported = byName('features/navigation/NavigationBar.vue')
-    const renamedImport = byName('features/footer/Footer.vue') // imported as LayoutFooter
     const prefixedTag = byName('features/home/faq/FaqSection.vue') // <LazyFeaturesHomeFaqSection>
 
     expect(autoImported && isReferenced(autoImported, corpus)).toBe(true)
-    expect(renamedImport && isReferenced(renamedImport, corpus)).toBe(true)
     expect(prefixedTag && isReferenced(prefixedTag, corpus)).toBe(true)
 
     // The prefixes have to come from the component's own path, or the check
@@ -147,6 +148,22 @@ describe('components', () => {
     // A layer component gets no prefix at all — Nuxt derives none from
     // `layers/<name>/`, and `base/Chip.vue` is the first real one to prove it.
     expect(directoryPrefixes(byName('base/components/Chip.vue')!)).toEqual([''])
+  })
+
+  it('recognises a component imported by path under a renamed local binding', () => {
+    // Detection path 3 (see the file banner above) has no durable real-file
+    // anchor: this migration moves every alias-imported component into a
+    // layer sooner or later, at which point it is imported from the layer's
+    // `index.ts` instead — not by path — and any real file chosen to prove
+    // this case stops proving it a few tasks later. A hand-built corpus keeps
+    // the property under test without depending on which file in the tree
+    // happens to still be alias-imported this month.
+    const componentPath = join(repoRoot, 'components/features/synthetic/SyntheticWidget.vue')
+    const consumerPath = join(repoRoot, 'components/synthetic/SyntheticConsumer.vue')
+    const syntheticCorpus = new Map([
+      [consumerPath, `import RenamedWidget from '~/components/features/synthetic/SyntheticWidget.vue'`],
+    ])
+    expect(isReferenced(componentPath, syntheticCorpus)).toBe(true)
   })
 
   it('are all rendered somewhere', () => {
