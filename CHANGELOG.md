@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.8](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.7...onelitefeather.net-v1.3.8) (2026-09-07)
+
+
+### Bug Fixes
+
+* **community-poi:** point the maze BlueMap link at the actual build ([#325](https://github.com/OneLiteFeatherNET/launchpad/issues/325)) ([84963ad](https://github.com/OneLiteFeatherNET/launchpad/commit/84963adc9fc2f3ee6ea1183572999733e904c655))
+
+
+### Refactors
+
+* **architecture:** move every domain into its own Nuxt layer ([#330](https://github.com/OneLiteFeatherNET/launchpad/issues/330)) ([c922ba8](https://github.com/OneLiteFeatherNET/launchpad/commit/c922ba8c920544c386a353bbcb4b35a39a8e314c))
+
 ## [1.3.7](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.6...onelitefeather.net-v1.3.7) (2026-08-04)
 
 
