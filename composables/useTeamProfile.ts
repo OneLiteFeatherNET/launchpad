@@ -1,6 +1,5 @@
 import { createError } from '#imports'
-import { useContentRepository } from '~/composables/useContentRepository'
-import type { Locale } from '~/utils/content/collections'
+import type { Locale } from '#layers/content-core'
 import type { TeamDocument, TeamMember } from '~/types/team'
 import { teamAvatarUrl } from '~/utils/teamAvatar'
 

@@ -1,5 +1,4 @@
-import { useContentRepository } from '~/composables/useContentRepository'
-import type { Locale } from '~/utils/content/collections'
+import type { Locale } from '#layers/content-core'
 import type { SponsorEntry, SponsorsDocument } from '~/types/sponsoring'
 
 export function useSponsoring() {

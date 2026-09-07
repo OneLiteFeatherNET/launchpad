@@ -18,7 +18,7 @@ import { repoRoot } from '../helpers/sources'
  * projection to cover them — the two ends of the contract, compared.
  */
 
-const ADAPTER = 'utils/content/nuxtContentAdapter.ts'
+const ADAPTER = 'layers/content-core/utils/content/nuxtContentAdapter.ts'
 
 /** The files that consume a row from `listBlogArticles`. */
 const CONSUMERS = ['components/features/blog/page/card/ArticleCard.vue',

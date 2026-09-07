@@ -1,6 +1,4 @@
-import { useContentRepository } from '~/composables/useContentRepository'
-import type { Locale } from '~/utils/content/collections'
-import type { FaqEntry } from '~/types/faq'
+import type { Locale, FaqEntry } from '#layers/content-core'
 
 /**
  * Fetches all FAQ entries for the active locale, ordered by the optional

@@ -26,7 +26,8 @@ const CORPUS_DIRS = ['components',
   'utils',
   'plugins',
   'server',
-  'types']
+  'types',
+  'layers']
 const ROOT_FILES = ['app.vue',
   'error.vue',
   'nuxt.config.ts']

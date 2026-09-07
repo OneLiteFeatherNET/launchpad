@@ -1,5 +1,4 @@
-import type { PageSeoOptions } from '~/types/seo'
-import { usePageSeo } from './usePageSeo'
+import type { PageSeoOptions } from '#layers/content-core'
 
 export function useHomeSeo(opts: PageSeoOptions = {}) {
   const { t } = useI18n()

@@ -4,7 +4,7 @@ import { asSchemaOrgCollection } from 'nuxt-schema-org/content'
 import {
   defineLocalizedCollections,
   withI18nMeta
-} from './utils/content/collections'
+} from './layers/content-core/utils/content/collections'
 import { defineSitemapSchema } from '@nuxtjs/sitemap/content'
 
 const blogSchema = withI18nMeta(z.object({

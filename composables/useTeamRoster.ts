@@ -1,5 +1,4 @@
-import { useContentRepository } from '~/composables/useContentRepository'
-import type { Locale } from '~/utils/content/collections'
+import type { Locale } from '#layers/content-core'
 import type { TeamDocument, TeamMember, TeamRank } from '~/types/team'
 import { TEAM_RANK_ORDER } from '~/types/team'
 

@@ -1,6 +1,6 @@
 import { queryCollection } from '@nuxt/content/server'
 import type { TeamDocument, TeamMember } from '~/types/team'
-import { locales } from '~/utils/content/locales'
+import { locales } from '~/layers/content-core/utils/content/locales'
 
 /**
  * Sitemap source for individual team profile pages.

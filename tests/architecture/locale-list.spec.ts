@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources'
-import { locales } from '../../utils/content/locales'
+import { locales } from '../../layers/content-core/utils/content/locales'
 
 /**
  * Which languages this site has is one fact, and it decides several things
@@ -27,7 +27,7 @@ const SOURCE_DIRS = ['components',
   'server',
   'types']
 
-const CANONICAL = 'utils/content/locales.ts'
+const CANONICAL = 'layers/content-core/utils/content/locales.ts'
 
 /** An array or union that spells out every locale code. */
 function redeclarations(): string[] {

@@ -1,5 +1,5 @@
-import type { ContentRepository } from '~/utils/content/repository'
-import { createNuxtContentAdapter } from '~/utils/content/nuxtContentAdapter'
+import type { ContentRepository } from '../utils/content/repository'
+import { createNuxtContentAdapter } from '../utils/content/nuxtContentAdapter'
 
 let instance: ContentRepository | null = null
 

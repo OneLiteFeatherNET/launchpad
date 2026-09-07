@@ -21,8 +21,8 @@ import { repoRoot } from '../helpers/sources'
  * what a reader sees.
  */
 
-const CONTRACT = 'utils/content/repository.ts'
-const ADAPTER = 'utils/content/nuxtContentAdapter.ts'
+const CONTRACT = 'layers/content-core/utils/content/repository.ts'
+const ADAPTER = 'layers/content-core/utils/content/nuxtContentAdapter.ts'
 
 /** A doc comment immediately followed by a `listX(...)` signature. */
 const DOCUMENTED_METHOD = /\/\*\*([\s\S]*?)\*\/\s*(list\w+)\s*\(/g

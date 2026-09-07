@@ -1,6 +1,4 @@
-import { useContentRepository } from '~/composables/useContentRepository'
-import type { Locale } from '~/utils/content/collections'
-import type { TeamFaqEntry } from '~/types/faq'
+import type { Locale, TeamFaqEntry } from '#layers/content-core'
 
 /**
  * Fetches the application/rank-requirement FAQ for the active locale,

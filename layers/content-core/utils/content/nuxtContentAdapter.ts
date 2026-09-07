@@ -2,7 +2,7 @@ import { queryCollection } from '#imports'
 import type { Locale } from './collections'
 import type { ContentRepository } from './repository'
 import type { BlogArticle, BlogAuthorProfile } from '~/types/blog'
-import type { FaqEntry, TeamFaqEntry } from '~/types/faq'
+import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
 import type { TeamDocument } from '~/types/team'
 import type {
   ServerConceptDocument,

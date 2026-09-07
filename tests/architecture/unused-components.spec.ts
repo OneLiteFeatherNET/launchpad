@@ -40,13 +40,14 @@ const ROOT_CONSUMERS = [
 /**
  * Resolved by name at runtime, so no reference exists to find.
  *
- *   components/content/Prose*  @nuxt/content maps markdown nodes onto these
- *                              by filename; a `<ProseP>` tag never appears.
+ *   layers/content-core/components/Prose*  @nuxt/content maps markdown nodes
+ *                              onto these by filename; a `<ProseP>` tag never
+ *                              appears.
  *   components/OgImage/*       nuxt-og-image resolves them from the string
  *                              passed to defineOgImage('TeamMember').
  */
 const EXEMPT = [
-  /^components\/content\/Prose/, /^components\/OgImage\//,
+  /^layers\/content-core\/components\/Prose/, /^components\/OgImage\//,
 ]
 
 function kebab(name: string): string {

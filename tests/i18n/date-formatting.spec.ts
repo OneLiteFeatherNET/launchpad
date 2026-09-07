@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
-import { locales } from '../../utils/content/locales'
+import { locales } from '../../layers/content-core/utils/content/locales'
 
 /**
  * `toLocaleDateString('de-DE', …)` produces a German date whatever language

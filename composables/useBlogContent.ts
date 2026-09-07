@@ -1,7 +1,6 @@
 import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
-import { useContentRepository } from '~/composables/useContentRepository'
-import type { Locale } from '~/utils/content/collections'
+import type { Locale } from '#layers/content-core'
 import type {
   BlogArticle,
   BlogAlternateHeader,

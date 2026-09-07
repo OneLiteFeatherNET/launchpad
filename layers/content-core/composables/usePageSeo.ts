@@ -1,4 +1,4 @@
-import type { PageSeoOptions } from '~/types/seo'
+import type { PageSeoOptions } from '../types-seo'
 
 const DEFAULT_LOCALE = 'en'
 

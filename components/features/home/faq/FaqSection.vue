@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { extractPlainText } from '~/utils/content'
 
 const { t } = useI18n()
 const { items } = useFaqContent()
