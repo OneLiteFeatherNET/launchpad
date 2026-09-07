@@ -1,4 +1,5 @@
 import type { Locale, CommunityPoiDocument } from '#layers/content-core'
+import { COMMUNITY_POI_STATUS_ORDER } from '#layers/content-core'
 import type {
   HomeCarouselDocument,
   HomeCarouselSlide,
@@ -6,17 +7,6 @@ import type {
   ServerConnectDocument,
   PoiSlide
 } from '../types'
-
-// Mirrors the `community-poi` layer's own status ordering (in-progress first,
-// completed last). Inlined rather than imported from that layer: `home` may
-// depend on content-core, never on another domain layer
-// (module-boundaries.spec.ts), and `community-poi` is a domain.
-const POI_STATUS_ORDER: Record<string, number> = {
-  'in-progress': 0,
-  planning: 1,
-  paused: 2,
-  completed: 3
-}
 
 const updatedTs = (entry: CommunityPoiDocument): number => {
   const raw = entry.updatedAt ?? entry.startedAt
@@ -74,8 +64,8 @@ export function useHomeContent() {
     const featured = (featuredPois.value || []).filter((p) => p.featured)
     if (!featured.length) return base
     const ordered = [...featured].sort((a, b) => {
-      const sa = POI_STATUS_ORDER[a.status] ?? 99
-      const sb = POI_STATUS_ORDER[b.status] ?? 99
+      const sa = COMMUNITY_POI_STATUS_ORDER[a.status] ?? 99
+      const sb = COMMUNITY_POI_STATUS_ORDER[b.status] ?? 99
       if (sa !== sb) return sa - sb
       return updatedTs(b) - updatedTs(a)
     })

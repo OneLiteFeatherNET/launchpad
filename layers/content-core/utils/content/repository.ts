@@ -139,6 +139,24 @@ export type CommunityPoiDocument = (
 }
 
 /**
+ * Display order for `CommunityPoiDocument['status']` (in-progress first,
+ * because that's where the community can still help; completed last). A
+ * presentation ordering, not a CMS concept, but it lives beside the type it
+ * orders rather than in either domain that consumes it: both `community-poi`
+ * (its own overview page) and `home` (the featured-POI carousel) need the
+ * identical ordering for this one schema enum, and duplicating it per domain
+ * risks the two copies drifting — typed against `CommunityPoiDocument['status']`
+ * itself so adding a status here is a compile error at every use site, not a
+ * silent `?? 99` fallback in whichever copy someone forgot to update.
+ */
+export const COMMUNITY_POI_STATUS_ORDER: Record<CommunityPoiDocument['status'], number> = {
+  'in-progress': 0,
+  planning: 1,
+  paused: 2,
+  completed: 3
+}
+
+/**
  * Author profile returned by `getAuthorBySlug`. Not itself CMS-derived, but
  * it lives here rather than in the `blog` layer because it is both a
  * `ContentRepository` return type and a field of `BlogArticle` below.

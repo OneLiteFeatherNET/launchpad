@@ -4,8 +4,14 @@
 // layer's composable and components actually work with, via indexed access
 // against the document type rather than duplicating named sub-interfaces.
 import type { CommunityPoiDocument } from '#layers/content-core'
+import { COMMUNITY_POI_STATUS_ORDER } from '#layers/content-core'
 
 export type { CommunityPoiDocument }
+// Re-exported under its existing name rather than defined here: `home`'s
+// carousel needs the identical ordering for the same schema enum, so it
+// lives in content-core beside `CommunityPoiDocument.status` — see the
+// comment there.
+export { COMMUNITY_POI_STATUS_ORDER }
 
 /** A single community POI, as the composable and components consume it. */
 export type CommunityPoi = CommunityPoiDocument
@@ -40,15 +46,6 @@ export const COMMUNITY_POI_ROTATIONS = [
   'ccw_90'
 ] as const
 export type CommunityPoiRotation = (typeof COMMUNITY_POI_ROTATIONS)[number]
-
-// Status order used for sorting on the overview page (in-progress first
-// because that's where the community can still help; completed last).
-export const COMMUNITY_POI_STATUS_ORDER: Record<CommunityPoiStatus, number> = {
-  'in-progress': 0,
-  planning: 1,
-  paused: 2,
-  completed: 3
-}
 
 export type CommunityPoiBuilder = NonNullable<CommunityPoiDocument['builders']>[number]
 export type CommunityPoiImage = NonNullable<CommunityPoiDocument['gallery']>[number]
