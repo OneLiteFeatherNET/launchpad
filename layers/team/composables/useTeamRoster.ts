@@ -1,3 +1,5 @@
+import type { MaybeRefOrGetter } from 'vue'
+import { toValue } from 'vue'
 import type { Locale } from '#layers/content-core'
 import type { TeamDocument, TeamMember, TeamRank } from '../types'
 import { TEAM_RANK_ORDER } from '../types'
@@ -8,21 +10,34 @@ export interface TeamRankGroup {
   openPositions: TeamMember[]
 }
 
+export interface UseTeamRosterOptions {
+  /**
+   * Whether the roster should actually be fetched. Defaults to `true`, so
+   * every existing call site (the team page, which always needs the full
+   * roster) is unaffected. A caller that only conditionally needs the
+   * roster — e.g. a blog article that features specific members only when
+   * its frontmatter names them — passes a reactive `false` to skip both the
+   * content query and shipping the document in the SSR payload.
+   */
+  enabled?: MaybeRefOrGetter<boolean>
+}
+
 /**
  * Loads the team roster for the active locale and groups it by rank in the
  * fixed {@link TEAM_RANK_ORDER}. Open positions are kept separate from real
  * members so the page can render them as "join us" cards within each section.
  * Entries without a known rank fall back to the last section.
  */
-export function useTeamRoster() {
+export function useTeamRoster(options: UseTeamRosterOptions = {}) {
   const { locale } = useI18n()
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
+  const enabled = computed(() => toValue(options.enabled ?? true))
 
   const { data: teamDoc } = useAsyncData<TeamDocument | null>(
     () => `team-roster-${activeLocale.value}`,
-    () => repo.getTeamDocument(activeLocale.value),
-    { watch: [activeLocale] }
+    () => (enabled.value ? repo.getTeamDocument(activeLocale.value) : Promise.resolve(null)),
+    { watch: [activeLocale, enabled] }
   )
 
   const groups = computed<TeamRankGroup[]>(() => {

@@ -11,7 +11,12 @@ definePageMeta({
 
 const { blog, authors } = await useBlogArticle()
 
-const { bySlug } = useTeamRoster()
+// Only fetches the roster when the article actually names team members —
+// before this guard, every article page issued the content query and shipped
+// the whole team document in its SSR payload, even for the vast majority of
+// posts that never reference a member.
+const hasTeamMembers = computed(() => (blog.value?.teamMembers?.length ?? 0) > 0)
+const { bySlug } = useTeamRoster({ enabled: hasTeamMembers })
 
 // Resolves what FeaturedTeamMembers used to fetch for itself. The lookup
 // belongs here: this page is the root, so it may know both the blog and the
