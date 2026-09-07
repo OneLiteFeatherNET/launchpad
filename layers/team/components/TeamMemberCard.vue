@@ -3,8 +3,6 @@ import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
-import { teamAvatarUrl } from '~/utils/teamAvatar'
-import { toRoleList, toRoleString } from '~/utils/teamRoles'
 
 type Props = {
   name: string

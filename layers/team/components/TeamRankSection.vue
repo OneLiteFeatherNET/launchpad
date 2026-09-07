@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import TeamMemberCard from '~/components/features/home/team/TeamMemberCard.vue'
 import OpenPositionCard from './OpenPositionCard.vue'
-import type { TeamRankGroup } from '~/composables/useTeamRoster'
+import type { TeamRankGroup } from '../composables/useTeamRoster'
 
 const props = defineProps<{ group: TeamRankGroup }>()
 

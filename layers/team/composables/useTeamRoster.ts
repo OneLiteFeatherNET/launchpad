@@ -1,6 +1,6 @@
 import type { Locale } from '#layers/content-core'
-import type { TeamDocument, TeamMember, TeamRank } from '~/types/team'
-import { TEAM_RANK_ORDER } from '~/types/team'
+import type { TeamDocument, TeamMember, TeamRank } from '../types'
+import { TEAM_RANK_ORDER } from '../types'
 
 export interface TeamRankGroup {
   rank: TeamRank

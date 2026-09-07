@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
-import { teamAvatarUrl } from '~/utils/teamAvatar'
-import { toRoleString } from '~/utils/teamRoles'
 
 const props = defineProps<{ slugs: string[] }>()
 

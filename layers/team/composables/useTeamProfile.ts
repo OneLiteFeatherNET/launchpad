@@ -1,7 +1,7 @@
 import { createError } from '#imports'
 import type { Locale } from '#layers/content-core'
-import type { TeamDocument, TeamMember } from '~/types/team'
-import { teamAvatarUrl } from '~/utils/teamAvatar'
+import type { TeamDocument, TeamMember } from '../types'
+import { teamAvatarUrl } from '../utils/teamAvatar'
 
 /**
  * Resolves the active team member synchronously on SSR by awaiting the

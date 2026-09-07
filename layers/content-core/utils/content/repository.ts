@@ -2,11 +2,12 @@ import type {
   SponsorsDeCollectionItem,
   SponsorsEnCollectionItem,
   BlogDeCollectionItem,
-  BlogEnCollectionItem
+  BlogEnCollectionItem,
+  TeamDeCollectionItem,
+  TeamEnCollectionItem
 } from '@nuxt/content'
 import type { Locale } from './collections'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
-import type { TeamDocument } from '~/types/team'
 import type {
   ServerConceptDocument,
   ServerConnectDocument,
@@ -23,6 +24,16 @@ import type { CommunityPoi } from '~/types/community-poi'
  * plain `SponsorEntry` shape from it.
  */
 export type SponsorsDocument = SponsorsDeCollectionItem | SponsorsEnCollectionItem
+
+/**
+ * Shape of the `team` collection document, as @nuxt/content generates it.
+ * Lives here rather than in the `team` layer: it is the return type of this
+ * interface's `getTeamDocument`, and only content-core may name
+ * `@nuxt/content` (enforced by module-boundaries.spec.ts). The `team` layer
+ * imports this type from content-core's public API and derives its own
+ * plain `TeamMember`/`TeamRank` shapes from it.
+ */
+export type TeamDocument = TeamDeCollectionItem | TeamEnCollectionItem
 
 /**
  * Author profile returned by `getAuthorBySlug`. Not itself CMS-derived, but

@@ -5,6 +5,7 @@ export { useBreadcrumbs } from './composables/useBreadcrumbs'
 export type {
   ContentRepository,
   SponsorsDocument,
+  TeamDocument,
   BlogArticle,
   BlogAuthorProfile,
   BlogAlternateHeader

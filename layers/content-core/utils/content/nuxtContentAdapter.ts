@@ -1,8 +1,7 @@
 import { queryCollection } from '#imports'
 import type { Locale } from './collections'
-import type { ContentRepository, SponsorsDocument, BlogArticle, BlogAuthorProfile } from './repository'
+import type { ContentRepository, SponsorsDocument, TeamDocument, BlogArticle, BlogAuthorProfile } from './repository'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
-import type { TeamDocument } from '~/types/team'
 import type {
   ServerConceptDocument,
   ServerConnectDocument,

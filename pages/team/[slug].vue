@@ -14,7 +14,6 @@ import {
   faTiktok
 } from '@fortawesome/free-brands-svg-icons'
 import { faGlobe, faLink, faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { toRoleList, toRoleString } from '~/utils/teamRoles'
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()

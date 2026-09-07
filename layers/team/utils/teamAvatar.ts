@@ -1,4 +1,4 @@
-import type { TeamMember } from '~/types/team'
+import type { TeamMember } from '../types'
 
 /**
  * Source host for Minecraft head renders. Must be allow-listed in

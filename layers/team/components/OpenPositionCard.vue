@@ -3,7 +3,6 @@ import { useI18n } from 'vue-i18n'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { faHandHoldingHeart } from '@fortawesome/free-solid-svg-icons'
-import { toRoleString } from '~/utils/teamRoles'
 
 type Props = {
   role: string | string[]

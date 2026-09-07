@@ -1,8 +1,10 @@
-import type { TeamDeCollectionItem, TeamEnCollectionItem } from '@nuxt/content'
+// The CMS-derived document shape lives in content-core, the only layer
+// permitted to name @nuxt/content directly (module-boundaries.spec.ts).
+// This re-exports it under the same name and derives the plain shapes
+// this layer's composables actually work with.
+import type { TeamDocument } from '#layers/content-core'
 
-export type TeamDocument =
-  | TeamDeCollectionItem
-  | TeamEnCollectionItem
+export type { TeamDocument }
 
 export type TeamMember =
   NonNullable<TeamDocument['members']>[number]
@@ -29,4 +31,3 @@ export const TEAM_RANK_ORDER: TeamRank[] = [
   'media',
   'lite'
 ]
-
