@@ -39,12 +39,12 @@ const ALLOWED_CROSS_LAYER: Record<string, string> = {}
  * not resolve in this runtime, verified by building" is.
  */
 const ALLOWED_DEEP_IMPORTS: Record<string, string> = {
-  'server/api/__sitemap__/team.ts': 'Nitro does not participate in layer aliasing: ' +
-    '#layers/content-core pulls in useContentRepository, which imports ' +
-    '@nuxt/content directly, and Nitro\'s impound plugin refuses that outside ' +
-    'the Nuxt app bundle. Verified with `nuxi build`: the alias produces a ' +
-    'Rollup "Importing directly from module entry-points is not allowed" error ' +
-    'for this route.',
+  'server/api/__sitemap__/team.ts': 'Nitro does not participate in layer aliasing: '
+    + '#layers/content-core pulls in useContentRepository, which imports '
+    + '@nuxt/content directly, and Nitro\'s impound plugin refuses that outside '
+    + 'the Nuxt app bundle. Verified with `nuxi build`: the alias produces a '
+    + 'Rollup "Importing directly from module entry-points is not allowed" error '
+    + 'for this route.',
 }
 
 /** Layers that are domains: everything that is not foundation. */
@@ -63,7 +63,8 @@ function referencesIn(text: string): string[] {
     ...text.matchAll(/~~?\/layers\/([a-z0-9-]+)/g),
     ...text.matchAll(/\.\.\/\.\.\/([a-z0-9-]+)\//g),
   ]
-  return [...new Set(hits.map((match) => match[1]).filter((name): name is string => name !== undefined))]
+  const names = hits.map((match) => match[1]).filter((name): name is string => name !== undefined)
+  return [...new Set(names)]
 }
 
 /** Layer names referenced from inside `file`, via path or `#layers/` alias. */
@@ -85,7 +86,8 @@ function filesOf(layer: string): string[] {
  * must not trip this check. See the self-test below, which is what stops this
  * from regressing back into a string search.
  */
-const CONTENT_MODULE_IMPORT = /(?:\bfrom\s*|\brequire\s*\(\s*|\bimport\s*\(\s*)['"`]@nuxt\/content(?:\/[^'"`]*)?['"`]/
+const CONTENT_MODULE_IMPORT
+  = /(?:\bfrom\s*|\brequire\s*\(\s*|\bimport\s*\(\s*)['"`]@nuxt\/content(?:\/[^'"`]*)?['"`]/
 
 /** Whether `text` actually depends on `@nuxt/content`, as opposed to merely mentioning it. */
 function namesContentModuleIn(text: string): boolean {
@@ -117,7 +119,10 @@ function stripComments(text: string): string {
  */
 const TEAM_DOMAIN_NAME = /useTeamRoster|teamAvatarUrl|toRoleString|TeamMember\b/
 
-/** Whether `text` actually names something from the team domain, as opposed to merely mentioning it in prose. */
+/**
+ * Whether `text` actually names something from the team domain, as opposed
+ * to merely mentioning it in prose.
+ */
 function namesTeamDomainIn(text: string): boolean {
   return TEAM_DOMAIN_NAME.test(stripComments(text))
 }
@@ -137,7 +142,8 @@ const DEEP_IMPORT = /(?:#layers\/|~~?\/layers\/)([a-z0-9-]+)\/[^'"`]+/g
  */
 function deepImportsIn(text: string): string[] {
   const hits = [...text.matchAll(DEEP_IMPORT)]
-  return [...new Set(hits.map((match) => match[1]).filter((name): name is string => name !== undefined))]
+  const names = hits.map((match) => match[1]).filter((name): name is string => name !== undefined)
+  return [...new Set(names)]
 }
 
 /** Root-level code that may consume any layer's public API — never its internals. */
@@ -149,13 +155,15 @@ const ROOT_CONSUMER_DIRS = ['components',
   'plugins',
   'server',
   'types']
-const ROOT_CONSUMER_FILES = ['app.vue', 'error.vue', 'nuxt.config.ts', 'content.config.ts']
+const ROOT_CONSUMER_FILES = ['app.vue',
+'error.vue',
+'nuxt.config.ts',
+'content.config.ts']
 
 /** Every root-level file that is not part of any layer. */
 function rootConsumerFiles(): string[] {
   return [
-    ...collectSourceFiles(ROOT_CONSUMER_DIRS, ['.vue', '.ts']),
-    ...ROOT_CONSUMER_FILES.map((file) => join(repoRoot, file)),
+    ...collectSourceFiles(ROOT_CONSUMER_DIRS, ['.vue', '.ts']), ...ROOT_CONSUMER_FILES.map((file) => join(repoRoot, file)),
   ]
 }
 
@@ -218,9 +226,7 @@ describe('layer boundaries', () => {
     // Pins both directions: a comment describing the boundary must pass, and
     // every real way of pulling in the module (a static import, a subpath
     // import, and `require`) must be caught.
-    expect(namesContentModuleIn(
-      '// the coerced value @nuxt/content stores rather than a hand-typed union.'
-    )).toBe(false)
+    expect(namesContentModuleIn('// the coerced value @nuxt/content stores rather than a hand-typed union.')).toBe(false)
     expect(namesContentModuleIn(`import type { Foo } from '@nuxt/content'`)).toBe(true)
     expect(namesContentModuleIn(`import type { Foo } from '@nuxt/content/server'`)).toBe(true)
     expect(namesContentModuleIn(`const x = require('@nuxt/content')`)).toBe(true)
@@ -250,9 +256,7 @@ describe('layer boundaries', () => {
     // must pass, and real usage — a call or a type reference — must be
     // caught. The negative case is the whole point: without it, this
     // regresses silently back into a bare string search.
-    expect(namesTeamDomainIn(
-      '// Deliberately not the TeamMember type from the team layer.'
-    )).toBe(false)
+    expect(namesTeamDomainIn('// Deliberately not the TeamMember type from the team layer.')).toBe(false)
     expect(namesTeamDomainIn(`const { bySlug } = useTeamRoster()`)).toBe(true)
     expect(namesTeamDomainIn(`:src="teamAvatarUrl(m, 64)"`)).toBe(true)
     expect(namesTeamDomainIn(`{{ toRoleString(m.role) }}`)).toBe(true)

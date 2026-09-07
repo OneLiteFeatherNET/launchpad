@@ -18,11 +18,17 @@ const { bySlug } = useTeamRoster()
 // team layer, and neither layer learns about the other.
 const featuredMembers = computed(() => (blog.value?.teamMembers ?? [])
   .map((slug: string) => bySlug.value[slug])
-  .filter((member): member is NonNullable<typeof member> => Boolean(member))
+  // `bySlug` is only ever keyed by a member's own slug, so every entry it
+  // returns already has one — the `m.slug` half of this guard just narrows
+  // the type for FeaturedMember below, it drops nothing at runtime.
+  .filter((m): m is NonNullable<typeof m> & { slug: string } => Boolean(m?.slug))
   .map((member) => ({
     slug: member.slug,
     name: member.name,
-    avatarUrl: teamAvatarUrl({ mcName: member.mcName, slug: member.slug, avatarUrl: member.avatarUrl }, 64),
+    avatarUrl: teamAvatarUrl(
+      { mcName: member.mcName, slug: member.slug, avatarUrl: member.avatarUrl },
+      64
+    ),
     role: toRoleString(member.role) ?? ''
   })))
 

@@ -27,7 +27,8 @@ const SOURCE_DIRS = [
 ]
 
 /** Registrations on a target that outlives the component. */
-const LONG_LIVED_TARGET = /\b(?:window|document|m|mql|mediaQuery)(?:\?\.|\.)addEventListener(?:\?\.)?\(/g
+const LONG_LIVED_TARGET
+  = /\b(?:window|document|m|mql|mediaQuery)(?:\?\.|\.)addEventListener(?:\?\.)?\(/g
 const ANY_REMOVE = /removeEventListener/
 /** @vueuse composables tear down with the effect scope. */
 const VUEUSE_MANAGED = /\buse(?:EventListener|MediaQuery|WindowSize|Scroll|Intersection\w*)\s*\(/

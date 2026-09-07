@@ -151,7 +151,8 @@ function isReferenced(componentPath: string, corpus: Map<string, string>): boole
     // count it once the imported local name also appears outside that one
     // import statement — proof the binding is used, not just declared.
     for (const match of text.matchAll(RELATIVE_VUE_IMPORT)) {
-      const [whole, localName, , spec] = match
+      const [whole,
+localName, , spec] = match
       const resolved = resolve(dirname(file), spec!)
       if (resolved !== componentPath) continue
       const rest = text.slice(0, match.index) + text.slice(match.index + whole!.length)
@@ -235,9 +236,9 @@ describe('components', () => {
 
     const usedConsumer = join(repoRoot, 'layers/synthetic/components/SyntheticUser.vue')
     const usedCorpus = new Map([
-      [usedConsumer, [
-        `import SyntheticItem from './SyntheticItem.vue'`,
-        `const componentFor = () => SyntheticItem`,
+      [usedConsumer,
+[
+        `import SyntheticItem from './SyntheticItem.vue'`, `const componentFor = () => SyntheticItem`,
       ].join('\n')],
     ])
     expect(isReferenced(componentPath, usedCorpus)).toBe(true)

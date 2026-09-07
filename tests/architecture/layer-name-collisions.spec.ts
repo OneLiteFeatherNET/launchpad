@@ -17,8 +17,7 @@ import { layerFiles, layerNames, relativeToRepo } from '../helpers/sources'
 /** Component, composable and util names a layer registers globally. */
 function registeredNames(layer: string): { name: string, file: string }[] {
   return [
-    ...layerFiles(layer, ['.vue']),
-    ...layerFiles(layer, ['.ts']),
+    ...layerFiles(layer, ['.vue']), ...layerFiles(layer, ['.ts']),
   ]
     .filter((file) => /\/(components|composables|utils)\//.test(file))
     .filter((file) => !file.endsWith('index.ts'))
@@ -56,8 +55,7 @@ describe('layer name collisions', () => {
     // `collisionsIn()` the real check calls, so a regression there fails here
     // too instead of leaving a stale copy green.
     const found = collisionsIn([
-      { name: 'MemberCard', file: 'layers/team/components/MemberCard.vue' },
-      { name: 'MemberCard', file: 'layers/home/components/MemberCard.vue' },
+      { name: 'MemberCard', file: 'layers/team/components/MemberCard.vue' }, { name: 'MemberCard', file: 'layers/home/components/MemberCard.vue' },
     ])
     expect(found).toEqual([
       'MemberCard: layers/home/components/MemberCard.vue, layers/team/components/MemberCard.vue',
