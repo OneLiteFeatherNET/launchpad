@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { repoRoot } from '../helpers/sources'
-import { isCurrentNavPath } from '../../utils/navigation'
+import { isCurrentNavPath } from '../../layers/navigation/utils/navigation'
 
 /**
  * Two nav items were lit at once on every subpage.
@@ -25,7 +25,7 @@ import { isCurrentNavPath } from '../../utils/navigation'
  * when it has a segment of its own below the locale root.
  */
 
-const ITEM = 'components/features/navigation/NavigationItem.vue'
+const ITEM = 'layers/navigation/components/NavigationItem.vue'
 
 describe('navigation active state', () => {
   it('marks the exact page', () => {

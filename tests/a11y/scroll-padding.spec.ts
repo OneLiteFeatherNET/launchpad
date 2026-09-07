@@ -19,7 +19,7 @@ import { repoRoot } from '../helpers/sources'
  */
 
 const TOKENS = join(repoRoot, 'assets/css/tokens.css')
-const NAVBAR = join(repoRoot, 'components/features/navigation/NavigationBar.vue')
+const NAVBAR = join(repoRoot, 'layers/navigation/components/NavigationBar.vue')
 
 function tokens(): string {
   return readFileSync(TOKENS, 'utf8')

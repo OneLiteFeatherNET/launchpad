@@ -2,7 +2,7 @@
 import { ref, computed, watch, nextTick, useRoute, onKeyStroke } from '#imports';
 import NavigationItem from './NavigationItem.vue'
 import LanguageSelector from './LanguageSelector.vue'
-import { navConfig, type NavConfigEntry, type NavLinkConfig, type NavGroupConfig } from './navItems'
+import { navConfig, type NavConfigEntry, type NavLinkConfig, type NavGroupConfig } from '../navItems'
 
 const { t, locale } = useI18n();
 const runtimeConfig = useRuntimeConfig();

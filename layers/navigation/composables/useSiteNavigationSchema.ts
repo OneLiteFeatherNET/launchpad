@@ -1,4 +1,4 @@
-import { navConfig, type NavConfigEntry, type NavLinkConfig } from '~/components/features/navigation/navItems'
+import { navConfig, type NavConfigEntry, type NavLinkConfig } from '../navItems'
 
 /**
  * Emits a `SiteNavigationElement[]` JSON-LD payload describing the main

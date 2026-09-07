@@ -133,7 +133,7 @@ describe('components', () => {
     // dead" — the failure mode that makes such a test worse than none.
     const byName = (needle: string) => components.find((file) => file.endsWith(needle))
 
-    const autoImported = byName('features/navigation/NavigationBar.vue')
+    const autoImported = byName('layers/navigation/components/NavigationBar.vue')
     const prefixedTag = byName('features/home/faq/FaqSection.vue') // <LazyFeaturesHomeFaqSection>
 
     expect(autoImported && isReferenced(autoImported, corpus)).toBe(true)

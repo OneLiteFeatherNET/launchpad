@@ -24,7 +24,7 @@ import { repoRoot } from '../helpers/sources'
  * their own.
  */
 
-const SELECTOR = 'components/features/navigation/LanguageSelector.vue'
+const SELECTOR = 'layers/navigation/components/LanguageSelector.vue'
 
 /** An element whose entire content is the locale endonym. */
 const ENDONYM_ELEMENT = /<(\w+)([^>]*)>\{\{\s*loc\.name\s*\}\}<\/\1>/g

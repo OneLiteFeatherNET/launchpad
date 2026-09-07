@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { unref } from 'vue'
-import LayoutNavigationBar from '~/components/features/navigation/NavigationBar.vue'
 
 const route = useRoute()
 const { t } = useI18n()
@@ -34,7 +33,7 @@ useSiteNavigationSchema()
       <!-- Local wrapper ensures flex layout even if <Body> classes are not applied by the renderer -->
       <div class="min-h-screen flex flex-col">
         <a href="#main-content" class="skip-link">{{ t('accessibility.skip_to_content') }}</a>
-        <LayoutNavigationBar />
+        <NavigationBar />
         <main id="main-content" tabindex="-1" class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1 focus:outline-none">
           <slot/>
         </main>
