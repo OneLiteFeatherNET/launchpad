@@ -17,13 +17,13 @@ coordinates:
 builders:
   - name: 'B3nNy'
     mcName: 'B3nNy'
-thumbnail: '/images/community-poi/megabase/site_overview.webp'
+thumbnail: '/images/community-poi/megabase/site_overview.png'
 thumbnailAlt: 'Luftbild des ausgehobenen Megabase-Areals, ein riesiges V-förmiges Fundament im Gelände'
 gallery:
-  - src: '/images/community-poi/megabase/site_overview.webp'
+  - src: '/images/community-poi/megabase/site_overview.png'
     alt: 'Weites Luftbild des Baufelds: ein enormes V-förmiges Fundament aus dunklem Stein, daneben der cyanfarbene Litematica-Umriss'
     caption: 'Das abgesteckte Areal aus großer Höhe – rechts der Litematica-Umriss des geplanten Baus'
-  - src: '/images/community-poi/megabase/reference_uncensored_library.webp'
+  - src: '/images/community-poi/megabase/reference_uncensored_library.jpg'
     alt: 'Luftansicht der Uncensored Library, eines weißen Bibliothekskomplexes mit Kuppel und Gartenanlagen – fremder Bau, nicht auf unserem Server'
     caption: 'Vorbild (fremder Bau): „The Uncensored Library“ von BlockWorks für Reporter ohne Grenzen – dient hier nur als Maßstab und Stilreferenz'
 schematics:

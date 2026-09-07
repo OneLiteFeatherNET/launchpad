@@ -17,13 +17,13 @@ coordinates:
 builders:
   - name: 'B3nNy'
     mcName: 'B3nNy'
-thumbnail: '/images/community-poi/megabase/site_overview.webp'
+thumbnail: '/images/community-poi/megabase/site_overview.png'
 thumbnailAlt: 'Aerial view of the excavated megabase site, an enormous V-shaped foundation cut into the terrain'
 gallery:
-  - src: '/images/community-poi/megabase/site_overview.webp'
+  - src: '/images/community-poi/megabase/site_overview.png'
     alt: 'Wide aerial shot of the build site: an enormous V-shaped foundation of dark stone, with the cyan Litematica outline beside it'
     caption: 'The marked-out site from high above — the Litematica outline of the planned build sits to the right'
-  - src: '/images/community-poi/megabase/reference_uncensored_library.webp'
+  - src: '/images/community-poi/megabase/reference_uncensored_library.jpg'
     alt: 'Aerial view of the Uncensored Library, a white library complex with a dome and formal gardens — an external build, not on our server'
     caption: 'Reference (someone else\''s build): "The Uncensored Library" by BlockWorks for Reporters Without Borders — used here purely as a sense of scale and style'
 schematics:
