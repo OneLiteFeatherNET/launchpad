@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import SectionHeading from '~/components/base/typography/SectionHeading.vue'
 import type { ServerConceptPoint } from '~/types/home'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'

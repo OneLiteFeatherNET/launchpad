@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, nextTick, onBeforeUnmount, watch } from '#imports'
-import IconFa from '~/components/base/icons/IconFa.vue'
 import type { CommunityPoiImage } from '~/types/community-poi'
 
 const props = defineProps<{

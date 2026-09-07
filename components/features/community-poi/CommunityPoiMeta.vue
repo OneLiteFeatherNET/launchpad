@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
 import CommunityPoiCoordsCopy from './CommunityPoiCoordsCopy.vue'
-import IconFa from '~/components/base/icons/IconFa.vue'
 import type { CommunityPoi } from '~/types/community-poi'
 
 const props = defineProps<{

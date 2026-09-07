@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { BlogArticle } from '~/types/blog'
-import UiChip from '~/components/base/Chip.vue'
 const {locale, d} = useI18n();
 const {blogArticle} = defineProps<{
   blogArticle: BlogArticle;
@@ -37,7 +36,7 @@ const {blogArticle} = defineProps<{
           {{ d(new Date(blogArticle.pubDate as any)) }}
         </time>
         <div v-if="blogArticle.tags?.length" class="mt-2 flex flex-wrap gap-2">
-          <UiChip
+          <Chip
             v-for="tag in blogArticle.tags"
             :key="tag"
             :label="tag"

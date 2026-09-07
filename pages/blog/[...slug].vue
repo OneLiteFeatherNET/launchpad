@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
 import type { BlogArticle } from "~/types/blog";
-import UiChip from '~/components/base/Chip.vue'
 import FeaturedTeamMembers from '~/components/features/blog/page/FeaturedTeamMembers.vue'
 
 const { locale, t, d } = useI18n()
@@ -88,7 +87,7 @@ useHead(() => {
           v-if="blog?.tags?.length"
           class="mt-3 flex flex-wrap gap-2"
         >
-          <UiChip
+          <Chip
             v-for="tag in blog.tags"
             :key="tag"
             :label="tag"

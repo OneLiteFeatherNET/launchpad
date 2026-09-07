@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from '#imports'
-import IconFa from '~/components/base/icons/IconFa.vue'
 import type { CommunityPoiSchematic } from '~/types/community-poi'
 
 const props = defineProps<{

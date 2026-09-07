@@ -21,7 +21,8 @@ import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources
  *      from that component's own directories count, so a dead `Card.vue`
  *      cannot be kept alive by an unrelated `<SomeOtherCard>` elsewhere.
  *   3. Explicit import by path, often under a different local name:
- *      `import UiChip from '~/components/base/Chip.vue'` renders as `<UiChip>`.
+ *      `import LayoutFooter from '~/components/features/footer/Footer.vue'`
+ *      renders as `<LayoutFooter>`.
  *   4. Convention, never referenced in any template — see EXEMPT below.
  */
 
@@ -129,7 +130,7 @@ describe('components', () => {
     const byName = (needle: string) => components.find((file) => file.endsWith(needle))
 
     const autoImported = byName('features/navigation/NavigationBar.vue')
-    const renamedImport = byName('base/Chip.vue') //        imported as UiChip
+    const renamedImport = byName('features/footer/Footer.vue') // imported as LayoutFooter
     const prefixedTag = byName('features/home/faq/FaqSection.vue') // <LazyFeaturesHomeFaqSection>
 
     expect(autoImported && isReferenced(autoImported, corpus)).toBe(true)
@@ -142,7 +143,9 @@ describe('components', () => {
       'Features',
       'FeaturesHome',
       'FeaturesHomeFaq'])
-    expect(directoryPrefixes(byName('base/Chip.vue')!)).toEqual(['', 'Base'])
+    // A layer component gets no prefix at all — Nuxt derives none from
+    // `layers/<name>/`, and `base/Chip.vue` is the first real one to prove it.
+    expect(directoryPrefixes(byName('base/components/Chip.vue')!)).toEqual([''])
   })
 
   it('are all rendered somewhere', () => {

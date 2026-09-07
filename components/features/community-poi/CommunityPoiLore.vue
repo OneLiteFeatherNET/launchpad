@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import IconFa from '~/components/base/icons/IconFa.vue'
 
 defineProps<{
   lore: string

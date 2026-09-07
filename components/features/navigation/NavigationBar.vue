@@ -2,9 +2,6 @@
 import { ref, computed, watch, nextTick, useRoute, onKeyStroke } from '#imports';
 import NavigationItem from './NavigationItem.vue'
 import LanguageSelector from './LanguageSelector.vue'
-import NavigationIconButton from '~/components/base/buttons/NavigationIconButton.vue'
-import GradientText from '~/components/base/typography/GradientText.vue'
-import IconFa from '~/components/base/icons/IconFa.vue'
 import { navConfig, type NavConfigEntry, type NavLinkConfig, type NavGroupConfig } from './navItems'
 
 const { t, locale } = useI18n();

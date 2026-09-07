@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, useI18n } from '#imports'
-import SectionHeading from '~/components/base/typography/SectionHeading.vue'
 
 type Props = {
   title?: string

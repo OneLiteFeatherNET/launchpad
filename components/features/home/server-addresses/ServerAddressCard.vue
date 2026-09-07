@@ -4,7 +4,6 @@ import { useI18n } from 'vue-i18n'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faDesktop, faGamepad, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import CopyButton from '~/components/base/buttons/CopyButton.vue'
 
 type Props = {
   title: string

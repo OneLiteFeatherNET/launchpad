@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch, computed } from 'vue'
 import { useHead, useImage } from '#imports'
-import NavigationIconButton from '~/components/base/buttons/NavigationIconButton.vue'
 import CarouselItemImage from '~/components/features/home/carousel/items/CarouselItemImage.vue'
 import CarouselItemBlog from '~/components/features/home/carousel/items/CarouselItemBlog.vue'
 import CarouselItemNews from '~/components/features/home/carousel/items/CarouselItemNews.vue'

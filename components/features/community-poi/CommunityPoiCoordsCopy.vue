@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from '#imports'
 import { useClipboard } from '@vueuse/core'
-import IconFa from '~/components/base/icons/IconFa.vue'
 
 const props = defineProps<{
   x: number

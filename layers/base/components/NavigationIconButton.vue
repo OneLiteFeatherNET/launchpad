@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import IconFa from '~/components/base/icons/IconFa.vue';
 
 const props = withDefaults(defineProps<{
   icon: string | [string,string];

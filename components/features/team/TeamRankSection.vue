@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import SectionHeading from '~/components/base/typography/SectionHeading.vue'
 import TeamMemberCard from '~/components/features/home/team/TeamMemberCard.vue'
 import OpenPositionCard from './OpenPositionCard.vue'
 import type { TeamRankGroup } from '~/composables/useTeamRoster'

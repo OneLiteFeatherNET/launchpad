@@ -3,7 +3,6 @@ import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
-import UiChip from '~/components/base/Chip.vue'
 import { teamAvatarUrl } from '~/utils/teamAvatar'
 import { toRoleList, toRoleString } from '~/utils/teamRoles'
 
@@ -70,7 +69,7 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: r
         </div>
       </div>
       <div v-if="roleChips.length" class="mt-3 flex flex-wrap gap-2">
-        <UiChip
+        <Chip
           v-for="chip in roleChips"
           :key="chip"
           :label="chip"

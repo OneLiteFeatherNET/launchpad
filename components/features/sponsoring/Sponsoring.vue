@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { computed, ref, useI18n, watch } from '#imports'
-import SectionHeading from '~/components/base/typography/SectionHeading.vue'
-import IconFa from '~/components/base/icons/IconFa.vue'
 
 type Sponsor = {
   name: string

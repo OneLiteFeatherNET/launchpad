@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, onMounted } from '#imports'
-import IconFa from '~/components/base/icons/IconFa.vue'
-import { useAnalytics } from '~/composables/useAnalytics'
+import { useAnalytics } from '#layers/base'
 
 type PlatformKey = 'facebook' | 'twitter' | 'linkedin' | 'whatsapp' | 'telegram' | 'bluesky' | 'reddit' | 'email' | 'copy' | 'native'
 

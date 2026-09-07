@@ -12,7 +12,7 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
  * three open straight into content — a carousel, a card grid, an address block.
  *
  * Two spellings count, and checking only the literal one produces false
- * alarms: components/base/typography/SectionHeading.vue renders through
+ * alarms: layers/base/components/SectionHeading.vue renders through
  * `<component :is>`, so a section titled with `<SectionHeading :level="1">`
  * emits an h1 that no grep for `<h1` will find. That is exactly how the
  * ServerConcept section was misread as starting at h3 when it in fact renders

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { BlogArticle } from "~/types/blog";
-import UiChip from '~/components/base/Chip.vue'
 
 const {getFeatureFlag } = usePostHogFeatureFlag();
 const {locale, d} = useI18n();
@@ -56,7 +55,7 @@ const title = computed(() => {
         <!-- body-small for supporting text like dates -->
         <time class="block text-sm text-gray-600 dark:text-gray-400 mt-0.5">{{ d(new Date(blogArticle.pubDate as any)) }}</time>
         <div v-if="blogArticle.tags?.length" class="mt-2 flex flex-wrap gap-2">
-          <UiChip
+          <Chip
             v-for="tag in blogArticle.tags"
             :key="tag"
             :label="tag"
