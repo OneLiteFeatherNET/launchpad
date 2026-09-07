@@ -2,12 +2,12 @@
 slug: 'megabase'
 translationKey: 'megabase'
 title: 'Megabase'
-summary: 'TODO(B3nNy): Ein bis zwei Sätze, worum es bei der Megabase geht – dieser Text steht in der Übersicht unter der Kachel.'
+summary: 'B3nNys größtes Bauvorhaben: Ein Areal von mehreren hundert Blöcken Kantenlänge ist ausgehoben und abgesteckt, die Schematic für den Aufbau liegt bereit.'
 status: 'in-progress'
 progress: 5
 category: 'community'
-goal: 'TODO(B3nNy): Was soll am Ende dort stehen? Ein Satz zum Ziel des Projekts.'
-currentState: 'Das Areal ist ausgehoben und abgesteckt, die Schematic liegt bei. TODO(B3nNy): stimmt das, und wie weit ist der Bau wirklich?'
+goal: 'Ein Bauwerk in einer Größenordnung, für die das vorbereitete Fundament die Grundfläche vorgibt – geplant als Landmarke, die man schon aus der Ferne sieht.'
+currentState: 'Die Erdarbeiten sind durch: Das Gelände ist auf Höhe gebracht, die Grundfläche als V-förmiges Fundament aus dunklem Stein angelegt. Oberirdisch steht noch nichts.'
 location: 'Welt – siehe Koordinaten'
 coordinates:
   x: 2563
@@ -37,7 +37,7 @@ schematics:
       y: 56
       z: 20850
     rotation: 'none'
-    setupNotes: 'TODO(B3nNy): Origin und Rotation bestätigen – die Werte hier sind vom BlueMap-Standort übernommen und noch nicht vor Ort geprüft.'
+    setupNotes: 'Origin und Rotation vom BlueMap-Standort übernommen und noch nicht vor Ort gegengeprüft – vor dem Setzen bitte gegen die Markierung im Gelände abgleichen.'
 updatedAt: '2026-09-07'
 acceptsContributions: true
 alternates:
@@ -51,10 +51,20 @@ alternates:
 
 ## Worum geht's?
 
-TODO(B3nNy): Was ist die Megabase? Ein bis zwei Absätze – wofür sie gedacht ist, was sie von den anderen Projekten unterscheidet, warum sie so groß angelegt ist.
+Die Megabase ist B3nNys größtes Vorhaben und unterscheidet sich von den anderen Projekten vor allem durch den Maßstab. Wo Labyrinth und Hafen jeweils ein Bauwerk sind, geht es hier um eine Fläche, die man aus normaler Spielhöhe gar nicht mehr überblickt – das Übersichtsbild ist weit außerhalb der Renderdistanz aufgenommen.
 
-Bislang steht das Fundament: Ein riesiges Areal ist ausgehoben und abgesteckt, die Schematic für den Aufbau liegt bereit. Die Uncensored Library dient dabei als Größenvergleich – nicht als Bauvorlage.
+Der Aushub ist abgeschlossen. Das Gelände wurde auf eine einheitliche Höhe gebracht und die Grundfläche als V-förmiges Fundament aus dunklem Stein angelegt; daneben steht der Litematica-Umriss dessen, was darauf entstehen soll. Oberirdisch ist noch kein Block gesetzt.
+
+Zur Einordnung liegt in der Galerie ein Bild der „Uncensored Library“ – nicht als Vorlage, sondern als Größenvergleich: ein bekanntes Bauwerk, an dem sich abschätzen lässt, in welcher Liga das hier spielt.
+
+## Was dort schon zu sehen ist
+
+- Das ausgehobene Areal mit dem V-förmigen Fundament
+- Die abgesteckte Grundfläche, an der die Ausrichtung des Baus ablesbar ist
+- Der Litematica-Umriss neben dem Fundament, der den geplanten Aufbau zeigt
 
 ## Wie kannst du mithelfen?
 
-TODO(B3nNy): Was wird gebraucht? Materialien, Bauhelfer, Detailplanung? Und wo meldet man sich – Discord-Kanal wie bei den anderen Projekten?
+Bei einem Bau dieser Größe ist Material der Engpass, nicht die Idee. Wer mitmachen will, meldet sich am besten direkt bei B3nNy auf Discord – dort wird auch abgestimmt, welche Abschnitte als Nächstes drankommen.
+
+Zum Mitverfolgen: Lade dir die Schematic und lege sie im Spiel als Hologramm über das Fundament. Litematica bitte ausschließlich zur Ansicht verwenden, **kein Auto-Place** (siehe Serverregel unten).

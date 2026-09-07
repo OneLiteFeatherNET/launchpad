@@ -2,12 +2,12 @@
 slug: 'megabase'
 translationKey: 'megabase'
 title: 'Megabase'
-summary: 'TODO(B3nNy): One or two sentences on what the megabase is — this text appears under the tile on the overview page.'
+summary: 'B3nNy\'s largest undertaking: a site several hundred blocks across has been excavated and marked out, and the schematic for the build is ready.'
 status: 'in-progress'
 progress: 5
 category: 'community'
-goal: 'TODO(B3nNy): What should stand there in the end? One sentence on the goal of the project.'
-currentState: 'The site is excavated and marked out, and the schematic is attached. TODO(B3nNy): is that accurate, and how far along is the build really?'
+goal: 'A structure on the scale the prepared foundation sets out — planned as a landmark visible from a long way off.'
+currentState: 'Groundwork is done: the terrain has been levelled and the footprint laid out as a V-shaped foundation of dark stone. Nothing stands above ground yet.'
 location: 'Overworld — see coordinates'
 coordinates:
   x: 2563
@@ -37,7 +37,7 @@ schematics:
       y: 56
       z: 20850
     rotation: 'none'
-    setupNotes: 'TODO(B3nNy): confirm origin and rotation — these values are taken from the BlueMap location and have not been checked on site.'
+    setupNotes: 'Origin and rotation taken from the BlueMap location and not yet checked on site — please compare against the marker in the world before pasting.'
 updatedAt: '2026-09-07'
 acceptsContributions: true
 alternates:
@@ -51,10 +51,20 @@ alternates:
 
 ## What is it?
 
-TODO(B3nNy): What is the megabase? One or two paragraphs — what it is for, what sets it apart from the other projects, why it is laid out on this scale.
+The megabase is B3nNy's largest project, and what sets it apart from the others is sheer scale. Where the maze and the harbour are each a single structure, this one covers ground you cannot take in from normal play height — the overview shot was taken well beyond render distance.
 
-So far the groundwork is done: a vast area has been excavated and marked out, and the schematic for the build is ready. The Uncensored Library serves as a size comparison here, not as a blueprint.
+The excavation is finished. The terrain has been levelled to a single height and the footprint laid out as a V-shaped foundation of dark stone, with the Litematica outline of the planned build standing beside it. Not a block has gone up yet.
+
+For a sense of scale the gallery includes a picture of "The Uncensored Library" — not as a blueprint, but as a yardstick: a well-known build you can measure this one against.
+
+## What is there to see already
+
+- The excavated site with its V-shaped foundation
+- The marked-out footprint, which shows how the build will be oriented
+- The Litematica outline beside it, showing what is meant to go up
 
 ## How can you help?
 
-TODO(B3nNy): What is needed — materials, builders, detail planning? And where should people get in touch, the same Discord channel as the other projects?
+On a build this size, materials are the bottleneck, not ideas. If you want to pitch in, the best route is a message to B3nNy on Discord — that is also where the next sections get agreed.
+
+To follow along: download the schematic and lay it over the foundation in-game as a hologram. Use Litematica for viewing only, **no auto-place** (see the server rule below).

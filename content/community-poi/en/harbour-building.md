@@ -56,10 +56,20 @@ alternates:
     href: 'https://onelitefeather.net/en/community-poi/harbour-building'
 ---
 
-## What is this?
+## What is it?
 
-The harbour is B3nNy's next planned build — concept and schematic only, the first block is yet to be placed. Footprint and position are locked in, planning continues.
+The harbour building is B3nNy's next project: a covered dock hall on stilts reaching well out over the water. Nothing has been built yet — what exists is a finished schematic and a marked-out spot in the bay.
+
+The first two images show exactly that stage: the blue hologram is the Litematica preview of the schematic, projected over the still-empty site. It lets you judge how the building will sit in the landscape, and how far it will reach past the shoreline, before a single block goes down.
+
+## What the build is modelled on
+
+The two reference images in the gallery are **not** from our server — they are renders of the build the schematic follows. They show what matters for the finish: the curved roof, the stilt construction in shallow water, and the interior with its walkways and storage areas.
 
 ## How can you help?
 
-Material farming, detail ideas for warehouses and piers, or feedback on the concept — reach out to B3nNy on Discord.
+- Farming materials for timber, supports and roofing
+- Ideas for the warehouses and berths inside
+- Feedback on the placement before the first block goes down
+
+Get in touch with B3nNy on Discord.

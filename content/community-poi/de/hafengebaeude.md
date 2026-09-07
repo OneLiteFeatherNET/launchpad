@@ -58,8 +58,18 @@ alternates:
 
 ## Worum geht's?
 
-Das Hafengebäude ist B3nNys nächstes geplantes Projekt – aktuell nur Konzept und Schematic, der Spatenstich folgt. Vorlagen-Größe und Position stehen, jetzt geht's an die Bauplanung.
+Das Hafengebäude ist B3nNys nächstes Projekt: eine überdachte Dockhalle auf Stelzen, die weit ins Wasser hinausreicht. Gebaut ist noch nichts – was es gibt, ist die fertige Schematic und ein abgesteckter Platz in der Bucht.
+
+Die ersten beiden Bilder zeigen genau diesen Zwischenstand: Das blaue Hologramm ist die Litematica-Vorschau der Schematic, eingeblendet über dem noch leeren Bauplatz. So lässt sich schon vor dem ersten Block beurteilen, wie das Gebäude in der Landschaft sitzt und wie weit es über das Ufer hinausragt.
+
+## Woran sich der Bau orientiert
+
+Die beiden Referenzbilder in der Galerie stammen **nicht** von unserem Server – es sind Renders des Baus, an dem sich die Schematic orientiert. Sie zeigen, worauf es beim Ausbau ankommt: das geschwungene Dach, die Stelzenkonstruktion im flachen Wasser und die Innenräume mit Stegen und Lagerflächen.
 
 ## Wie kannst du mithelfen?
 
-Materialfarming, Detail-Vorschläge für Lagerhallen und Anlegestellen oder einfach Feedback zum Konzept – melde dich bei B3nNy auf Discord.
+- Materialfarming für Holz, Stützen und Dachdeckung
+- Vorschläge für Lagerhallen und Anlegestellen im Inneren
+- Feedback zur Platzierung, bevor der erste Block gesetzt wird
+
+Melde dich dafür bei B3nNy auf Discord.
