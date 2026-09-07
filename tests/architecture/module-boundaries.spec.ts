@@ -77,6 +77,22 @@ function filesOf(layer: string): string[] {
 }
 
 /**
+ * An actual dependency on `@nuxt/content` (or one of its subpaths, e.g.
+ * `@nuxt/content/server`): a `from`/`require(`/`import(` naming the module as
+ * a string literal. Deliberately narrower than a bare substring search — a
+ * comment explaining *why* a layer must not depend on the content module (this
+ * file's own header does exactly that) is documentation, not a dependency, and
+ * must not trip this check. See the self-test below, which is what stops this
+ * from regressing back into a string search.
+ */
+const CONTENT_MODULE_IMPORT = /(?:\bfrom\s*|\brequire\s*\(\s*|\bimport\s*\(\s*)['"`]@nuxt\/content(?:\/[^'"`]*)?['"`]/
+
+/** Whether `text` actually depends on `@nuxt/content`, as opposed to merely mentioning it. */
+function namesContentModuleIn(text: string): boolean {
+  return CONTENT_MODULE_IMPORT.test(text)
+}
+
+/**
  * A deep import into another layer's internals — anything past its
  * `index.ts` public API. All three ways a path can name a layer directory
  * count the same: the `#layers/` alias, and `~/layers/` / `~~/layers/`
@@ -168,15 +184,30 @@ describe('layer boundaries', () => {
     expect(violations.sort()).toEqual([])
   })
 
+  it('detects a dependency on @nuxt/content but not a comment naming it', () => {
+    // Pins both directions: a comment describing the boundary must pass, and
+    // every real way of pulling in the module (a static import, a subpath
+    // import, and `require`) must be caught.
+    expect(namesContentModuleIn(
+      '// the coerced value @nuxt/content stores rather than a hand-typed union.'
+    )).toBe(false)
+    expect(namesContentModuleIn(`import type { Foo } from '@nuxt/content'`)).toBe(true)
+    expect(namesContentModuleIn(`import type { Foo } from '@nuxt/content/server'`)).toBe(true)
+    expect(namesContentModuleIn(`const x = require('@nuxt/content')`)).toBe(true)
+  })
+
   it('only content-core names @nuxt/content', () => {
     // The ContentRepository interface exists so the rest of the app never
     // learns which CMS is underneath. Until now that was a comment; this is
-    // the first thing that actually holds it.
+    // the first thing that actually holds it. Checks for an actual
+    // dependency (see CONTENT_MODULE_IMPORT), not the bare substring — a
+    // layer is free to explain in prose why it must not depend on the
+    // content module.
     const offenders: string[] = []
     for (const layer of layerNames()) {
       if (layer === 'content-core') continue
       for (const file of filesOf(layer)) {
-        if (/@nuxt\/content/.test(readFileSync(file, 'utf8'))) {
+        if (namesContentModuleIn(readFileSync(file, 'utf8'))) {
           offenders.push(relativeToRepo(file))
         }
       }

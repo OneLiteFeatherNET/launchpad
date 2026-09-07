@@ -9,7 +9,7 @@ import type {
 
 const normalizeReleaseDate = (entry: BlogArticle): Date | null => {
   // `releaseDate` and `pubDate` are schema columns now, so both arrive as
-  // the coerced value the content repository stores rather than a hand-typed union.
+  // the coerced value @nuxt/content stores rather than a hand-typed union.
   const raw = entry.releaseDate ?? entry.pubDate
   if (!raw) return null
   const parsed = new Date(raw)
@@ -70,7 +70,7 @@ export interface BlogOverviewOptions {
 
 /**
  * Fetches blog overview data (top article + remaining posts) for the blog overview page.
- * Encapsulates i18n-aware content-repository queries.
+ * Encapsulates i18n-aware @nuxt/content queries.
  */
 export function useBlogOverview(options: BlogOverviewOptions = {}) {
   const { locale } = useI18n()
@@ -124,7 +124,7 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
 
 /**
  * Fetches a single blog article and its translations in other languages.
- * Uses i18n information together with the content repository.
+ * Uses i18n information together with @nuxt/content.
  */
 export async function useBlogArticle() {
   const { locale, locales } = useI18n()
