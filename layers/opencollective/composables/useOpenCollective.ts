@@ -1,5 +1,5 @@
 import { useRuntimeConfig } from '#imports'
-import type { CollectiveResponse, CollectiveStats } from '~/types/opencollective'
+import type { CollectiveResponse, CollectiveStats } from '../types'
 
 type PublicCollectiveConfig = {
   openCollectiveSlug?: string

@@ -47,7 +47,7 @@ useHomeSeo({ title: t('index.title') })
     :bedrock-port="connect.bedrockPort"
   />
   <LazyFeaturesSponsoring v-if="sponsors?.length" hydrate-on-visible :sponsors="sponsors" />
-  <LazyFeaturesOpencollectiveOpenCollectiveStats
+  <LazyOpenCollectiveStats
     v-if="collective"
     hydrate-on-visible
     :total-raised="collective.totalRaised"
