@@ -29,10 +29,10 @@ gallery:
     caption: 'Evening light over the future harbour basin'
   - src: '/images/community-poi/hafengebaeude/reference_exterior.png'
     alt: 'Five rendered exterior views of a wooden dock building on stilts — an external reference build, not on our server'
-    caption: 'Reference (someone else\'s build): exterior views the schematic is modelled on'
+    caption: 'Reference — not our build: exterior views the schematic is modelled on'
   - src: '/images/community-poi/hafengebaeude/reference_details.png'
     alt: 'Eight rendered detail views of the same dock building with vines and interiors — an external reference build, not on our server'
-    caption: 'Reference (someone else\'s build): detail and interior shots guiding the finish'
+    caption: 'Reference — not our build: detail and interior shots guiding the finish'
 schematics:
   - url: '/community-poi/hafengebaeude/dockhafen.litematic'
     name: 'Dockhafen'

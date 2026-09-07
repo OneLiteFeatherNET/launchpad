@@ -2,7 +2,7 @@
 slug: 'megabase'
 translationKey: 'megabase'
 title: 'Megabase'
-summary: 'B3nNy\'s largest undertaking: a site several hundred blocks across has been excavated and marked out, and the schematic for the build is ready.'
+summary: 'The largest undertaking by B3nNy: a site several hundred blocks across has been excavated and marked out, and the schematic for the build is ready.'
 status: 'in-progress'
 progress: 5
 category: 'community'
@@ -25,7 +25,7 @@ gallery:
     caption: 'The marked-out site from high above — the Litematica outline of the planned build sits to the right'
   - src: '/images/community-poi/megabase/reference_uncensored_library.jpg'
     alt: 'Aerial view of the Uncensored Library, a white library complex with a dome and formal gardens — an external build, not on our server'
-    caption: 'Reference (someone else\''s build): "The Uncensored Library" by BlockWorks for Reporters Without Borders — used here purely as a sense of scale and style'
+    caption: 'Reference — not our build: The Uncensored Library by BlockWorks for Reporters Without Borders, shown purely as a sense of scale and style'
 schematics:
   - url: '/community-poi/megabase/megabase.litematic'
     name: 'Megabase'
