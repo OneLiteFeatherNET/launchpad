@@ -3,8 +3,8 @@ import { useI18n } from 'vue-i18n'
 import { NuxtLink } from '#components'
 
 /**
- * One member as this component needs to draw it. Deliberately not the team
- * layer's own domain type: importing that would put the blog layer back into
+ * One member as this component needs to draw it. Deliberately not `TeamMember`
+ * from the team layer: importing that type would put the blog layer back into
  * a domain it must not know, and the component uses four fields of it.
  *
  * The page resolves slugs, avatars and role labels — it sits at the root and

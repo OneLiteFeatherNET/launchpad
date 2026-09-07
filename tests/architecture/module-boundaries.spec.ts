@@ -93,6 +93,36 @@ function namesContentModuleIn(text: string): boolean {
 }
 
 /**
+ * Strips `//` line comments, `/* *\/` block comments and `<!-- -->` HTML
+ * comments (the last because this runs against `.vue` templates too) from
+ * `text`. Deliberately simple regex passes rather than a parser: good enough
+ * to keep documentation prose from tripping a raw-text name match, which is
+ * the only thing this is for.
+ */
+function stripComments(text: string): string {
+  return text
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/\/\/.*$/gm, '')
+}
+
+/**
+ * The three composables/utils that are auto-imported from the team domain
+ * (no `from '...'` clause to anchor on, unlike `CONTENT_MODULE_IMPORT`
+ * above) plus the domain's own view type. Matched against comment-stripped
+ * text so a comment that merely names one of these — explaining why the file
+ * must not use it — does not trip the check. See the self-test below, which
+ * is what stops this from regressing into a bare string search the way
+ * `namesContentModuleIn` once did (see Task 8).
+ */
+const TEAM_DOMAIN_NAME = /useTeamRoster|teamAvatarUrl|toRoleString|TeamMember\b/
+
+/** Whether `text` actually names something from the team domain, as opposed to merely mentioning it in prose. */
+function namesTeamDomainIn(text: string): boolean {
+  return TEAM_DOMAIN_NAME.test(stripComments(text))
+}
+
+/**
  * A deep import into another layer's internals — anything past its
  * `index.ts` public API. All three ways a path can name a layer directory
  * count the same: the `#layers/` alias, and `~/layers/` / `~~/layers/`
@@ -215,14 +245,30 @@ describe('layer boundaries', () => {
     expect(offenders.sort()).toEqual([])
   })
 
+  it('detects team-domain names but not a comment naming them', () => {
+    // Pins both directions: a comment explaining why a name must not be used
+    // must pass, and real usage — a call or a type reference — must be
+    // caught. The negative case is the whole point: without it, this
+    // regresses silently back into a bare string search.
+    expect(namesTeamDomainIn(
+      '// Deliberately not the TeamMember type from the team layer.'
+    )).toBe(false)
+    expect(namesTeamDomainIn(`const { bySlug } = useTeamRoster()`)).toBe(true)
+    expect(namesTeamDomainIn(`:src="teamAvatarUrl(m, 64)"`)).toBe(true)
+    expect(namesTeamDomainIn(`{{ toRoleString(m.role) }}`)).toBe(true)
+    expect(namesTeamDomainIn(`function f(m: TeamMember) {}`)).toBe(true)
+  })
+
   it('blog names nothing from the team domain', () => {
     // Auto-imported composables and utils leave no import statement, so the
     // path matcher above cannot see them. Named explicitly because this was
     // the last cross-domain coupling in the tree, and the exception map above
-    // is only worth anything while it stays empty.
+    // is only worth anything while it stays empty. Matched on comment-stripped
+    // text (see namesTeamDomainIn) so an explanatory comment naming these for
+    // documentation purposes does not trip the check.
     const file = join(repoRoot, 'layers/blog/components/FeaturedTeamMembers.vue')
     const text = readFileSync(file, 'utf8')
-    expect(text).not.toMatch(/useTeamRoster|teamAvatarUrl|toRoleString|TeamMember\b/)
+    expect(namesTeamDomainIn(text)).toBe(false)
   })
 
   it('reaches into no other layer past its index', () => {
