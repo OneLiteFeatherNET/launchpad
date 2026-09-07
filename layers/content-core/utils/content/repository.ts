@@ -1,3 +1,4 @@
+import type { SponsorsDeCollectionItem, SponsorsEnCollectionItem } from '@nuxt/content'
 import type { Locale } from './collections'
 import type { BlogArticle, BlogAuthorProfile } from '~/types/blog'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
@@ -7,8 +8,17 @@ import type {
   ServerConnectDocument,
   HomeCarouselDocument
 } from '~/types/home'
-import type { SponsorsDocument } from '~/types/sponsoring'
 import type { CommunityPoi } from '~/types/community-poi'
+
+/**
+ * Shape of the `sponsors` collection document, as @nuxt/content generates it.
+ * Lives here rather than in the `sponsoring` layer: it is the return type of
+ * this interface's `getSponsorsDocument`, and only content-core may name
+ * `@nuxt/content` (enforced by module-boundaries.spec.ts). The `sponsoring`
+ * layer imports this type from content-core's public API and derives its own
+ * plain `SponsorEntry` shape from it.
+ */
+export type SponsorsDocument = SponsorsDeCollectionItem | SponsorsEnCollectionItem
 
 /**
  * Provider-agnostic content access layer.

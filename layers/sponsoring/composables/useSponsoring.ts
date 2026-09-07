@@ -1,5 +1,5 @@
 import type { Locale } from '#layers/content-core'
-import type { SponsorEntry, SponsorsDocument } from '~/types/sponsoring'
+import type { SponsorEntry, SponsorsDocument } from '../types'
 
 export function useSponsoring() {
   const { locale } = useI18n()

@@ -1,6 +1,6 @@
 import { queryCollection } from '#imports'
 import type { Locale } from './collections'
-import type { ContentRepository } from './repository'
+import type { ContentRepository, SponsorsDocument } from './repository'
 import type { BlogArticle, BlogAuthorProfile } from '~/types/blog'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
 import type { TeamDocument } from '~/types/team'
@@ -9,7 +9,6 @@ import type {
   ServerConnectDocument,
   HomeCarouselDocument
 } from '~/types/home'
-import type { SponsorsDocument } from '~/types/sponsoring'
 import type { CommunityPoi } from '~/types/community-poi'
 
 // The `authors` collection is declared in `content.config.ts`, so its types
