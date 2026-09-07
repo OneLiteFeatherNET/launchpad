@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 
-export interface SponsorEntry {
+export interface SponsorSchemaEntry {
   name: string
   url: string
   description?: string
@@ -14,7 +14,7 @@ export interface SponsorEntry {
  * focused on rendering and makes the schema reusable if another page ever
  * shows the same sponsor list.
  */
-export function useSponsorSchema(sponsors: Ref<readonly SponsorEntry[]>) {
+export function useSponsorSchema(sponsors: Ref<readonly SponsorSchemaEntry[]>) {
   const site = useSiteConfig()
 
   useSchemaOrg(() => {

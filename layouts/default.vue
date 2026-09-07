@@ -37,7 +37,7 @@ useSiteNavigationSchema()
         <main id="main-content" tabindex="-1" class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1 focus:outline-none">
           <slot/>
         </main>
-        <Footer />
+        <SiteFooter />
       </div>
     </Body>
   </Html>

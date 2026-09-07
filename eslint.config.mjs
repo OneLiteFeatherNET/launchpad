@@ -37,13 +37,15 @@ export default withNuxt(...a11yConfigs, {
 }, {
   // Components directly under `layers/<domain>/components/` get no
   // directory-derived name prefix (see AGENTS.md: "Layer names produce no
-  // auto-import prefix"). Before the layer migration these five lived a
-  // couple of directories deeper (e.g. `components/features/footer/Footer.vue`),
+  // auto-import prefix"). Before the layer migration these four lived a
+  // couple of directories deeper (e.g. `components/features/carousel/Carousel.vue`),
   // which happened to make their auto-registered name multi-word on its own
-  // (`FeaturesFooter`); flattening the tree removed that side effect. Renaming
+  // (`FeaturesCarousel`); flattening the tree removed that side effect. Renaming
   // the components to satisfy the rule would ripple into every call site for a
   // purely cosmetic reason, so the exception is scoped to the exact names this
-  // is true for today.
+  // is true for today. `Footer` was removed from this list and renamed to
+  // `SiteFooter` instead: colliding with the `<footer>` element is the exact
+  // hazard this rule exists to catch, so it does not get the cosmetic pass.
   files: ['layers/*/components/**/*.vue'],
   rules: {
     'vue/multi-word-component-names': [
@@ -52,7 +54,6 @@ export default withNuxt(...a11yConfigs, {
         ignores: [
           'Chip',
           'Top1',
-          'Footer',
           'Carousel',
           'Sponsoring'
         ]

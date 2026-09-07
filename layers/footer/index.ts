@@ -1,2 +1,2 @@
-// Public API of the footer layer. The component is auto-imported.
+// Public API of the footer layer. The component (SiteFooter) is auto-imported.
 export {}
