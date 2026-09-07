@@ -23,6 +23,7 @@ const SOURCE_DIRS = [
   'components',
   'pages',
   'layouts',
+  'layers',
 ]
 
 const IFRAME = /<iframe\b[^>]*>/gs

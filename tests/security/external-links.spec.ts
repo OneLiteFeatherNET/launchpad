@@ -23,6 +23,7 @@ const SOURCE_DIRS = [
   'components',
   'pages',
   'layouts',
+  'layers',
 ]
 
 /** Opening tags of anchors and NuxtLinks, attributes included. */

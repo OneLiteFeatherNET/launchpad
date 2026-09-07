@@ -31,7 +31,7 @@ const SLUG_LOOKUP = /route\.params\.slug/
 const NOT_FOUND_THROW = /createError\(\{[^}]*statusCode:\s*404/s
 
 describe('slug-resolving composables', () => {
-  const composables = collectSourceFiles(['composables'], ['.ts'])
+  const composables = collectSourceFiles(['composables', 'layers'], ['.ts'])
     .filter((file) => SLUG_LOOKUP.test(readFileSync(file, 'utf8')))
 
   it('finds the composables that resolve a slug', () => {
@@ -65,7 +65,7 @@ describe('the pattern this copies', () => {
   it('matches how useBlogContent already does it', () => {
     // Pins the reference implementation: if the blog guard is ever removed,
     // this test should fail rather than quietly lower the bar for everyone.
-    const blog = collectSourceFiles(['composables'], ['.ts'])
+    const blog = collectSourceFiles(['composables', 'layers'], ['.ts'])
       .find((file) => basename(file) === 'useBlogContent.ts')
     expect(blog).toBeDefined()
     const text = readFileSync(blog as string, 'utf8')

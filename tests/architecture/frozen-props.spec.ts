@@ -25,7 +25,8 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
 
 const SOURCE_DIRS = ['components',
   'pages',
-  'layouts']
+  'layouts',
+  'layers']
 
 /** Top-level (unindented, so outside any function) reads of a prop. */
 const FROZEN_PROP = /^const\s+(\w+)\s*=\s*props\.(\w+)/

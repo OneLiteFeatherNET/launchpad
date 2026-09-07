@@ -23,6 +23,7 @@ const SOURCE_DIRS = [
   'components',
   'pages',
   'layouts',
+  'layers',
 ]
 
 /** Byte offsets of r, g and b inside a #rrggbb string. */

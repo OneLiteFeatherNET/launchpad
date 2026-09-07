@@ -24,7 +24,8 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
 const SOURCE_DIRS = ['components',
 'pages',
 'layouts',
-'composables']
+'composables',
+'layers']
 
 const REGISTRATION = /(?:add|remove)EventListener\(\s*['"]([a-z]+)['"]\s*,\s*([A-Za-z_$][\w$]*)/g
 /** A cast anywhere inside a listener call — on the handler or on the options. */

@@ -25,7 +25,8 @@ const SOURCE_DIRS = ['components',
   'utils',
   'plugins',
   'server',
-  'types']
+  'types',
+  'layers']
 
 const CANONICAL = 'layers/content-core/utils/content/locales.ts'
 

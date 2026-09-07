@@ -22,7 +22,8 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
 const SOURCE_DIRS = ['components',
   'pages',
   'layouts',
-  'composables']
+  'composables',
+  'layers']
 const TYPE_DIRS = ['types']
 
 /** `route.meta.title`, `route.meta?.title` — the read side. */

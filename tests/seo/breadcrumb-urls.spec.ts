@@ -22,7 +22,7 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
  * of repetition that drifts.
  */
 
-const SOURCE_DIRS = ['pages', 'composables']
+const SOURCE_DIRS = ['pages', 'composables', 'layers']
 
 /** `url: \`/${locale.value}/\`` — a locale root with a trailing slash. */
 const LOCALE_ROOT_WITH_SLASH = /url:\s*`\/\$\{locale\.value\}\/`/

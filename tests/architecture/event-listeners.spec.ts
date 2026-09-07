@@ -23,6 +23,7 @@ const SOURCE_DIRS = [
   'components',
   'pages',
   'layouts',
+  'layers',
 ]
 
 /** Registrations on a target that outlives the component. */

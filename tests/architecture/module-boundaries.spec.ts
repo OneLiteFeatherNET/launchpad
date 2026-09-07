@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { layerFiles, layerNames, relativeToRepo } from '../helpers/sources'
+import { collectSourceFiles, layerFiles, layerNames, relativeToRepo, repoRoot } from '../helpers/sources'
 
 /**
  * The dependency rule this repository's code already follows, written down so
@@ -29,6 +30,22 @@ const FOUNDATION = ['base', 'content-core']
  * that would orchestrate it is inconvenient" is not one.
  */
 const ALLOWED_CROSS_LAYER: Record<string, string> = {}
+
+/**
+ * NAMED EXCEPTIONS TO "reaches into no other layer past its index".
+ *
+ * Keyed by the file's path relative to the repo root. Adding an entry needs a
+ * reason that survives review — "it was easier" is not one; "the alias does
+ * not resolve in this runtime, verified by building" is.
+ */
+const ALLOWED_DEEP_IMPORTS: Record<string, string> = {
+  'server/api/__sitemap__/team.ts': 'Nitro does not participate in layer aliasing: ' +
+    '#layers/content-core pulls in useContentRepository, which imports ' +
+    '@nuxt/content directly, and Nitro\'s impound plugin refuses that outside ' +
+    'the Nuxt app bundle. Verified with `nuxi build`: the alias produces a ' +
+    'Rollup "Importing directly from module entry-points is not allowed" error ' +
+    'for this route.',
+}
 
 /** Layers that are domains: everything that is not foundation. */
 function domainLayers(): string[] {
@@ -59,6 +76,43 @@ function filesOf(layer: string): string[] {
   return [...layerFiles(layer, ['.vue']), ...layerFiles(layer, ['.ts'])]
 }
 
+/**
+ * A deep import into another layer's internals — anything past its
+ * `index.ts` public API. All three ways a path can name a layer directory
+ * count the same: the `#layers/` alias, and `~/layers/` / `~~/layers/`
+ * (Nuxt's srcDir- and rootDir-relative forms).
+ */
+const DEEP_IMPORT = /(?:#layers\/|~~?\/layers\/)([a-z0-9-]+)\/[^'"`]+/g
+
+/**
+ * Layer names deep-imported (past their index) anywhere in `text`. Kept
+ * separate from file access so the self-test below exercises the exact same
+ * pattern the real check runs.
+ */
+function deepImportsIn(text: string): string[] {
+  const hits = [...text.matchAll(DEEP_IMPORT)]
+  return [...new Set(hits.map((match) => match[1]).filter((name): name is string => name !== undefined))]
+}
+
+/** Root-level code that may consume any layer's public API — never its internals. */
+const ROOT_CONSUMER_DIRS = ['components',
+  'pages',
+  'layouts',
+  'composables',
+  'utils',
+  'plugins',
+  'server',
+  'types']
+const ROOT_CONSUMER_FILES = ['app.vue', 'error.vue', 'nuxt.config.ts', 'content.config.ts']
+
+/** Every root-level file that is not part of any layer. */
+function rootConsumerFiles(): string[] {
+  return [
+    ...collectSourceFiles(ROOT_CONSUMER_DIRS, ['.vue', '.ts']),
+    ...ROOT_CONSUMER_FILES.map((file) => join(repoRoot, file)),
+  ]
+}
+
 describe('layer boundaries', () => {
   it('detects a cross-domain import', () => {
     // Same guard as in the collision suite: while `layers/` is empty every
@@ -69,6 +123,17 @@ describe('layer boundaries', () => {
     expect(referencesIn(`import { useTeamRoster } from '#layers/team'`)).toEqual(['team'])
     expect(referencesIn(`import { useTeamRoster } from '~~/layers/team'`)).toEqual(['team'])
     expect(referencesIn(`import { useTeamRoster } from '../../team/composables/useTeamRoster'`)).toEqual(['team'])
+  })
+
+  it('detects a deep import past a layer index, in every alias spelling', () => {
+    // The hole this pins: rule 5 below used to match only `#layers/`, so
+    // `~/layers/content-core/utils/content/locales` reached straight into a
+    // layer's internals and stayed invisible to the check.
+    expect(deepImportsIn(`import { useTeamRoster } from '#layers/team/composables/useTeamRoster'`)).toEqual(['team'])
+    expect(deepImportsIn(`import { locales } from '~/layers/content-core/utils/content/locales'`)).toEqual(['content-core'])
+    expect(deepImportsIn(`import { locales } from '~~/layers/content-core/utils/content/locales'`)).toEqual(['content-core'])
+    // The layer's own public entry point is not a deep import.
+    expect(deepImportsIn(`import { useTeamRoster } from '#layers/team'`)).toEqual([])
   })
 
   it('no domain layer imports from another domain layer', () => {
@@ -121,15 +186,28 @@ describe('layer boundaries', () => {
 
   it('reaches into no other layer past its index', () => {
     // `#layers/team` is the public API. `#layers/team/composables/useTeamRoster`
-    // is someone's internals, and renaming that file then breaks a stranger.
+    // is someone's internals, and renaming that file then breaks a stranger —
+    // whether the stranger is another layer or root app code. Checked via
+    // every alias spelling (`#layers/`, `~/layers/`, `~~/layers/`), not just
+    // `#layers/`, and across root consumer code as well as layer-internal
+    // files, since a root file reaching past a layer's index is the same
+    // defect as a layer doing it to another layer.
     const offenders: string[] = []
     for (const layer of layerNames()) {
       for (const file of filesOf(layer)) {
         const text = readFileSync(file, 'utf8')
-        for (const match of text.matchAll(/#layers\/([a-z0-9-]+)\/[^'"`]+/g)) {
+        for (const match of text.matchAll(DEEP_IMPORT)) {
           if (match[1] === layer) continue
           offenders.push(`${relativeToRepo(file)}: ${match[0]}`)
         }
+      }
+    }
+    for (const file of rootConsumerFiles()) {
+      const relative = relativeToRepo(file)
+      if (ALLOWED_DEEP_IMPORTS[relative]) continue
+      const text = readFileSync(file, 'utf8')
+      for (const match of text.matchAll(DEEP_IMPORT)) {
+        offenders.push(`${relative}: ${match[0]}`)
       }
     }
     expect(offenders.sort()).toEqual([])

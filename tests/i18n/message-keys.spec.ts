@@ -22,6 +22,7 @@ const SOURCE_DIRS = [
   'pages',
   'layouts',
   'composables',
+  'layers',
 ]
 
 /** Dotted lower-camel identifier, e.g. `article.share_on_x`. */

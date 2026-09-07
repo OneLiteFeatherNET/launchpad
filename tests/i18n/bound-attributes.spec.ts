@@ -22,7 +22,8 @@ import { getSlideAriaText } from '../../composables/useCarousel'
 
 const SOURCE_DIRS = ['components',
   'pages',
-  'layouts']
+  'layouts',
+  'layers']
 
 /** The bound form: `:aria-label="…"`, `:title="…"`. */
 const BOUND_TEXT_ATTRIBUTE = /(?<![\w.@-]):(aria-label|title)="([^"]*)"/g

@@ -20,7 +20,8 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
 
 const SOURCE_DIRS = ['components',
   'pages',
-  'layouts']
+  'layouts',
+  'layers']
 
 /**
  * `title="…"` / `aria-label="…"` with at least one letter, but not the bound

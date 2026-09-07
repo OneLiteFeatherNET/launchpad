@@ -22,7 +22,8 @@ import { locales } from '../../layers/content-core/utils/content/locales'
 const SOURCE_DIRS = ['components',
   'pages',
   'layouts',
-  'composables']
+  'composables',
+  'layers']
 
 /** `toLocaleDateString('de-DE'` / `toLocaleTimeString("en-US"` … */
 const FIXED_LOCALE_FORMAT = /toLocale(?:Date|Time|)String\(\s*['"]([a-z]{2}(?:-[A-Z]{2})?)['"]/g
