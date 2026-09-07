@@ -1,6 +1,10 @@
-import type { SponsorsDeCollectionItem, SponsorsEnCollectionItem } from '@nuxt/content'
+import type {
+  SponsorsDeCollectionItem,
+  SponsorsEnCollectionItem,
+  BlogDeCollectionItem,
+  BlogEnCollectionItem
+} from '@nuxt/content'
 import type { Locale } from './collections'
-import type { BlogArticle, BlogAuthorProfile } from '~/types/blog'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
 import type { TeamDocument } from '~/types/team'
 import type {
@@ -19,6 +23,64 @@ import type { CommunityPoi } from '~/types/community-poi'
  * plain `SponsorEntry` shape from it.
  */
 export type SponsorsDocument = SponsorsDeCollectionItem | SponsorsEnCollectionItem
+
+/**
+ * Author profile returned by `getAuthorBySlug`. Not itself CMS-derived, but
+ * it lives here rather than in the `blog` layer because it is both a
+ * `ContentRepository` return type and a field of `BlogArticle` below.
+ */
+export interface BlogAuthorProfile {
+  slug: string
+  name: string
+  role?: string
+  avatar?: string
+  bio?: string
+  links?: {
+    website?: string
+    github?: string
+    twitter?: string
+    linkedin?: string
+    mastodon?: string
+    discord?: string
+  }
+}
+
+/** A single `hreflang`/`href` pair from an article's `alternates` frontmatter. */
+export interface BlogAlternateHeader {
+  hreflang: string
+  href: string
+}
+
+interface BlogSeoOverrides {
+  title?: string
+  description?: string
+  ogTitle?: string
+  ogDescription?: string
+  twitterTitle?: string
+  twitterDescription?: string
+}
+
+/**
+ * Shape of the `blog` collection document, as @nuxt/content generates it,
+ * widened with hand-written fields. Lives here rather than in the `blog`
+ * layer: it is the return type of this interface's blog methods, and only
+ * content-core may name `@nuxt/content` (enforced by module-boundaries.spec.ts).
+ * The `blog` layer imports this type from content-core's public API and
+ * derives whatever plain shapes its composables actually work with.
+ */
+export type BlogArticle = (
+  | BlogDeCollectionItem
+  | BlogEnCollectionItem
+) & {
+  author?: string | string[]
+  authors?: BlogAuthorProfile[]
+  teamMembers?: string[]
+  canonical?: string
+  alternates?: BlogAlternateHeader[]
+  seo?: BlogSeoOverrides
+  head?: Record<string, any>
+  tags?: string[]
+}
 
 /**
  * Provider-agnostic content access layer.

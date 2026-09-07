@@ -9,9 +9,10 @@ import { repoRoot } from '../helpers/sources'
  * not type-checked — it lands in the catch-all `meta` JSON blob, so reading it
  * yields `undefined` and filtering on it fails with "no such column".
  *
- * types/blog.ts widens the generated collection type with hand-written fields.
- * That compiles and type-checks whether or not the schema declares them, which
- * is how three of them ended up always undefined at runtime:
+ * layers/content-core/utils/content/repository.ts widens the generated
+ * collection type with hand-written fields. That compiles and type-checks
+ * whether or not the schema declares them, which is how three of them ended
+ * up always undefined at runtime:
  *
  *   releaseDate  read by useBlogContent for release gating, which therefore
  *                always fell through to pubDate
@@ -41,10 +42,12 @@ const NOT_FROM_SCHEMA = new Set([
   'head',
 ])
 
+const BLOG_ARTICLE_TYPE_FILE = 'layers/content-core/utils/content/repository.ts'
+
 function blogTypeFields(): string[] {
-  const text = readFileSync(join(repoRoot, 'types/blog.ts'), 'utf8')
+  const text = readFileSync(join(repoRoot, BLOG_ARTICLE_TYPE_FILE), 'utf8')
   const block = /export type BlogArticle =[\s\S]*?\)\s*&\s*\{([\s\S]*?)\n\}/.exec(text)?.[1]
-  if (block === undefined) throw new Error('BlogArticle shape not found in types/blog.ts')
+  if (block === undefined) throw new Error(`BlogArticle shape not found in ${BLOG_ARTICLE_TYPE_FILE}`)
   return [...block.matchAll(/^\s{2}(\w+)\??:/gm)]
     .map((match) => match[1])
     .filter((name): name is string => name !== undefined)

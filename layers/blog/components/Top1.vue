@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { BlogArticle } from '~/types/blog'
+import type { BlogArticle } from '../types'
 const {locale, d} = useI18n();
 const {blogArticle} = defineProps<{
   blogArticle: BlogArticle;

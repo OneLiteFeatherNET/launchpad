@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { BlogArticle, BlogAuthorProfile } from '~/types/blog'
+import type { BlogArticle, BlogAuthorProfile } from '../types'
 
 interface BlogSeoFrontmatter {
   title?: string

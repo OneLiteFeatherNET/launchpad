@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
-import type { BlogArticle } from "~/types/blog";
-import FeaturedTeamMembers from '~/components/features/blog/page/FeaturedTeamMembers.vue'
+import type { BlogArticle } from "#layers/blog";
 
 const { locale, t, d } = useI18n()
 const config = useRuntimeConfig()
@@ -134,7 +133,7 @@ useHead(() => {
         <!-- Social Media Sharing Buttons -->
         <section class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6" :aria-label="t('article.share')">
           <h2 class="sr-only">{{ t('article.share') }}</h2>
-          <LazyFeaturesBlogSocialMediaShare
+          <LazySocialMediaShare
             :url="shareUrl"
             :title="blog?.title"
             :description="blog?.description || ''"

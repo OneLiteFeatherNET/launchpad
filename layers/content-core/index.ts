@@ -2,7 +2,13 @@
 export { useContentRepository } from './composables/useContentRepository'
 export { usePageSeo } from './composables/usePageSeo'
 export { useBreadcrumbs } from './composables/useBreadcrumbs'
-export type { ContentRepository, SponsorsDocument } from './utils/content/repository'
+export type {
+  ContentRepository,
+  SponsorsDocument,
+  BlogArticle,
+  BlogAuthorProfile,
+  BlogAlternateHeader
+} from './utils/content/repository'
 export { locales } from './utils/content/collections'
 export type { Locale } from './utils/content/collections'
 export type * from './types'

@@ -22,7 +22,7 @@ import { repoRoot } from '../helpers/sources'
  * one someone measured.
  */
 
-const CARD = 'components/features/blog/page/card/ArticleCard.vue'
+const CARD = 'layers/blog/components/ArticleCard.vue'
 const OVERVIEW = 'pages/blog/index.vue'
 
 /** `grid-cols-1 sm:grid-cols-2 md:grid-cols-3` → { xs: 1, sm: 2, md: 3 } */

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import ArticleCard from "~/components/features/blog/page/card/ArticleCard.vue";
 import {definePageMeta} from "#imports";
-import Top1 from "~/components/features/blog/page/top1/Top1.vue";
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()

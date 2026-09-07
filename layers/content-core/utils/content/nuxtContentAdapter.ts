@@ -1,7 +1,6 @@
 import { queryCollection } from '#imports'
 import type { Locale } from './collections'
-import type { ContentRepository, SponsorsDocument } from './repository'
-import type { BlogArticle, BlogAuthorProfile } from '~/types/blog'
+import type { ContentRepository, SponsorsDocument, BlogArticle, BlogAuthorProfile } from './repository'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
 import type { TeamDocument } from '~/types/team'
 import type {
