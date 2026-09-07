@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
-import { getSlideAriaText } from '../../composables/useCarousel'
+import { getSlideAriaText } from '../../layers/home/composables/useCarousel'
 
 /**
  * The bound form of a text attribute is an expression, so a string literal

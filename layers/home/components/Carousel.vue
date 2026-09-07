@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch, computed } from 'vue'
 import { useHead, useImage } from '#imports'
-import CarouselItemImage from '~/components/features/home/carousel/items/CarouselItemImage.vue'
-import CarouselItemBlog from '~/components/features/home/carousel/items/CarouselItemBlog.vue'
-import CarouselItemNews from '~/components/features/home/carousel/items/CarouselItemNews.vue'
-import CarouselItemEvent from '~/components/features/home/carousel/items/CarouselItemEvent.vue'
-import CarouselItemPoi from '~/components/features/home/carousel/items/CarouselItemPoi.vue'
-import type { AnySlide, NormalizedSlide } from '~/types/carousel'
+import CarouselItemImage from './CarouselItemImage.vue'
+import CarouselItemBlog from './CarouselItemBlog.vue'
+import CarouselItemNews from './CarouselItemNews.vue'
+import CarouselItemEvent from './CarouselItemEvent.vue'
+import CarouselItemPoi from './CarouselItemPoi.vue'
+import type { AnySlide, NormalizedSlide } from '../types'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
-import { normalizeSlides, getSlideAriaText } from '~/composables/useCarousel'
+import { normalizeSlides, getSlideAriaText } from '../composables/useCarousel'
 
 const props = withDefaults(defineProps<{
   /**

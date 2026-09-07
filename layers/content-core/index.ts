@@ -8,7 +8,10 @@ export type {
   TeamDocument,
   BlogArticle,
   BlogAuthorProfile,
-  BlogAlternateHeader
+  BlogAlternateHeader,
+  ServerConceptDocument,
+  ServerConnectDocument,
+  HomeCarouselDocument
 } from './utils/content/repository'
 export { locales } from './utils/content/collections'
 export type { Locale } from './utils/content/collections'

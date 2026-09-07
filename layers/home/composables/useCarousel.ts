@@ -7,7 +7,7 @@ import type {
   PoiSlide,
   NormalizedSlide,
   LegacyImageSlide
-} from '~/types/carousel'
+} from '../types'
 
 /**
  * Normalizes a slide to a typed format

@@ -4,15 +4,16 @@ import type {
   BlogDeCollectionItem,
   BlogEnCollectionItem,
   TeamDeCollectionItem,
-  TeamEnCollectionItem
+  TeamEnCollectionItem,
+  ServerConceptDeCollectionItem,
+  ServerConceptEnCollectionItem,
+  ServerConnectDeCollectionItem,
+  ServerConnectEnCollectionItem,
+  HomeCarouselDeCollectionItem,
+  HomeCarouselEnCollectionItem
 } from '@nuxt/content'
 import type { Locale } from './collections'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
-import type {
-  ServerConceptDocument,
-  ServerConnectDocument,
-  HomeCarouselDocument
-} from '~/types/home'
 import type { CommunityPoi } from '~/types/community-poi'
 
 /**
@@ -34,6 +35,31 @@ export type SponsorsDocument = SponsorsDeCollectionItem | SponsorsEnCollectionIt
  * plain `TeamMember`/`TeamRank` shapes from it.
  */
 export type TeamDocument = TeamDeCollectionItem | TeamEnCollectionItem
+
+/**
+ * Shape of the `server_concept` collection document, as @nuxt/content
+ * generates it. Lives here rather than in the `home` layer: it is the return
+ * type of this interface's `getServerConcept`, and only content-core may name
+ * `@nuxt/content` (enforced by module-boundaries.spec.ts). The `home` layer
+ * imports this type from content-core's public API and derives its own plain
+ * `ServerConceptPoint` shape from it.
+ */
+export type ServerConceptDocument = ServerConceptDeCollectionItem | ServerConceptEnCollectionItem
+
+/**
+ * Shape of the `server_connect` collection document, as @nuxt/content
+ * generates it. Lives here rather than in the `home` layer for the same
+ * reason as {@link ServerConceptDocument}: only content-core may name
+ * `@nuxt/content`.
+ */
+export type ServerConnectDocument = ServerConnectDeCollectionItem | ServerConnectEnCollectionItem
+
+/**
+ * Shape of the `home_carousel` collection document, as @nuxt/content
+ * generates it. Lives here rather than in the `home` layer for the same
+ * reason as {@link ServerConceptDocument}.
+ */
+export type HomeCarouselDocument = HomeCarouselDeCollectionItem | HomeCarouselEnCollectionItem
 
 /**
  * Author profile returned by `getAuthorBySlug`. Not itself CMS-derived, but

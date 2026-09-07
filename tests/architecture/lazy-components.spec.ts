@@ -46,7 +46,7 @@ describe('lazy components in pages', () => {
     expect(HAND_ROLLED_ASYNC.test("const X = defineAsyncComponent(() => import('~/c.vue'))")).toBe(true)
     // The import of the helper is not a use of it; only the call is.
     expect(HAND_ROLLED_ASYNC.test("import { computed } from 'vue'")).toBe(false)
-    expect(HAND_ROLLED_ASYNC.test('<LazyFeaturesHomeFaqSection hydrate-on-visible />')).toBe(false)
+    expect(HAND_ROLLED_ASYNC.test('<LazyFaqSection hydrate-on-visible />')).toBe(false)
   })
 
   it('pages defer through the Lazy prefix, not the Vue primitive', () => {

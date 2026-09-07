@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ServerConceptPoint } from '~/types/home'
+import type { ServerConceptPoint } from '../types'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faUsers, faGamepad, faHandshake, faCircleInfo } from '@fortawesome/free-solid-svg-icons'

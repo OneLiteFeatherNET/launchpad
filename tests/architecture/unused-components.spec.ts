@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs'
-import { basename, join } from 'node:path'
+import { basename, dirname, join, resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources'
 
@@ -15,11 +15,12 @@ import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources
  *
  *   1. Auto-imported tag — `<TeamMembers>`, `<team-members>`, `<LazyTeamMembers>`.
  *      Nuxt needs no import statement, so the tag is the only signal.
- *   2. The same tag carrying Nuxt's directory prefix. `features/home/faq/
- *      FaqSection.vue` is `<LazyFeaturesHomeFaqSection>` — the file name is a
- *      suffix of the tag, not the whole of it. Only prefixes actually built
- *      from that component's own directories count, so a dead `Card.vue`
- *      cannot be kept alive by an unrelated `<SomeOtherCard>` elsewhere.
+ *   2. The same tag carrying Nuxt's directory prefix. `features/community-poi/
+ *      CommunityPoiBluemap.vue` is `<LazyFeaturesCommunityPoiBluemap>` — the
+ *      file name is a suffix of the tag, not the whole of it. Only prefixes
+ *      actually built from that component's own directories count, so a dead
+ *      `Card.vue` cannot be kept alive by an unrelated `<SomeOtherCard>`
+ *      elsewhere.
  *   3. Explicit import by path, often under a different local name, e.g.
  *      `import LayoutFooter from '~/components/features/footer/Footer.vue'`
  *      rendering as `<LayoutFooter>`. Checked against a synthetic corpus
@@ -27,6 +28,14 @@ import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources
  *      layer, nothing in the tree is imported by path under an alias any
  *      more, so a real-file anchor for this case has nowhere to live.
  *   4. Convention, never referenced in any template — see EXEMPT below.
+ *   5. Imported by a same-directory relative path (`./Foo.vue`) and handed
+ *      to `<component :is="...">` under its own identifier, never written as
+ *      a literal tag — Carousel.vue's item components work this way. A bare
+ *      relative specifier carries none of the path pattern 3 matches on, so
+ *      this is checked by resolving the specifier against the *consuming*
+ *      file's real directory and comparing it to the candidate component's
+ *      real path — an unrelated component sharing the same file name cannot
+ *      satisfy it, because resolution lands on a different file.
  */
 
 const CONSUMER_DIRS = [
@@ -79,8 +88,8 @@ function isLayerComponent(componentPath: string): boolean {
 
 /**
  * Every prefix Nuxt could put in front of this component's file name, built
- * from its own directory chain. `features/home/faq/FaqSection.vue` yields
- * `''`, `Features`, `FeaturesHome`, `FeaturesHomeFaq` — one of which, plus the
+ * from its own directory chain. `features/community-poi/CommunityPoiBluemap.vue`
+ * yields `''`, `Features`, `FeaturesCommunityPoi` — one of which, plus the
  * file name, is the registered tag. Deriving them per component rather than
  * accepting any PascalCase prefix is what keeps the check from excusing a dead
  * component whose name merely ends another one.
@@ -98,6 +107,9 @@ function directoryPrefixes(componentPath: string): string[] {
   return prefixes
 }
 
+/** A relative `from './x'`-style import specifier, captured for resolution. */
+const RELATIVE_IMPORT = /from\s+['"`](\.[^'"`]+)['"`]/g
+
 function isReferenced(componentPath: string, corpus: Map<string, string>): boolean {
   const name = basename(componentPath, '.vue')
   const pathFromComponents = relativeToRepo(componentPath).replace(/^components\//, '')
@@ -114,6 +126,14 @@ function isReferenced(componentPath: string, corpus: Map<string, string>): boole
   for (const [file, text] of corpus) {
     if (file === componentPath) continue
     if (patterns.some((pattern) => pattern.test(text))) return true
+    // Detection path 5 (see the file banner above): a relative specifier is
+    // resolved against the consuming file's own directory, not matched as
+    // text, so it only ever lands on the file it actually imports.
+    for (const match of text.matchAll(RELATIVE_IMPORT)) {
+      const spec = match[1]!
+      const resolved = resolve(dirname(file), spec.endsWith('.vue') ? spec : `${spec}.vue`)
+      if (resolved === componentPath) return true
+    }
   }
   return false
 }
@@ -134,7 +154,7 @@ describe('components', () => {
     const byName = (needle: string) => components.find((file) => file.endsWith(needle))
 
     const autoImported = byName('layers/navigation/components/NavigationBar.vue')
-    const prefixedTag = byName('features/home/faq/FaqSection.vue') // <LazyFeaturesHomeFaqSection>
+    const prefixedTag = byName('features/community-poi/CommunityPoiBluemap.vue') // <LazyFeaturesCommunityPoiBluemap>
 
     expect(autoImported && isReferenced(autoImported, corpus)).toBe(true)
     expect(prefixedTag && isReferenced(prefixedTag, corpus)).toBe(true)
@@ -143,8 +163,7 @@ describe('components', () => {
     // stops being able to tell a used component from a dead one.
     expect(directoryPrefixes(prefixedTag!)).toEqual(['',
       'Features',
-      'FeaturesHome',
-      'FeaturesHomeFaq'])
+      'FeaturesCommunityPoi'])
     // A layer component gets no prefix at all — Nuxt derives none from
     // `layers/<name>/`, and `base/Chip.vue` is the first real one to prove it.
     expect(directoryPrefixes(byName('base/components/Chip.vue')!)).toEqual([''])

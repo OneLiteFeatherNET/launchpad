@@ -4,10 +4,10 @@ import type {
   HomeCarouselSlide,
   ServerConceptDocument,
   ServerConnectDocument
-} from '~/types/home'
+} from '../types'
 import type { CommunityPoi } from '~/types/community-poi'
 import { COMMUNITY_POI_STATUS_ORDER } from '~/types/community-poi'
-import type { PoiSlide } from '~/types/carousel'
+import type { PoiSlide } from '../types'
 
 const updatedTs = (entry: CommunityPoi): number => {
   const raw = entry.updatedAt ?? entry.startedAt
