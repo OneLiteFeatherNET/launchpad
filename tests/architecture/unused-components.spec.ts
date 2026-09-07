@@ -35,7 +35,15 @@ import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources
  *      this is checked by resolving the specifier against the *consuming*
  *      file's real directory and comparing it to the candidate component's
  *      real path — an unrelated component sharing the same file name cannot
- *      satisfy it, because resolution lands on a different file.
+ *      satisfy it, because resolution lands on a different file. Resolution
+ *      alone is not enough, though: it only proves the file is imported, not
+ *      that the binding is used, so a stale unused import would otherwise
+ *      keep a dead component alive — exactly what this suite exists to catch.
+ *      Path 5 therefore also requires the imported local name to appear
+ *      somewhere in the file outside the import statement itself. It does not
+ *      attempt to trace *how* — e.g. into a `:is` binding — that is a
+ *      dependency analyser this check has no business building; "referenced
+ *      again after the import" is what it can honestly prove.
  */
 
 const CONSUMER_DIRS = [
@@ -107,8 +115,15 @@ function directoryPrefixes(componentPath: string): string[] {
   return prefixes
 }
 
-/** A relative `from './x'`-style import specifier, captured for resolution. */
-const RELATIVE_IMPORT = /from\s+['"`](\.[^'"`]+)['"`]/g
+/**
+ * A relative default import of a `.vue` file: `import Name from './x.vue'`.
+ * Captures the local binding alongside the specifier, both needed by
+ * detection path 5. Restricted to specifiers already ending in `.vue` —
+ * component imports in this codebase always do — rather than guessing at a
+ * missing extension, which would turn e.g. `'../types'` into a nonexistent
+ * `'../types.vue'` and resolve to nothing real.
+ */
+const RELATIVE_VUE_IMPORT = /import\s+(\w+)\s+from\s+(['"`])(\.[^'"`]+\.vue)\2/g
 
 function isReferenced(componentPath: string, corpus: Map<string, string>): boolean {
   const name = basename(componentPath, '.vue')
@@ -126,13 +141,16 @@ function isReferenced(componentPath: string, corpus: Map<string, string>): boole
   for (const [file, text] of corpus) {
     if (file === componentPath) continue
     if (patterns.some((pattern) => pattern.test(text))) return true
-    // Detection path 5 (see the file banner above): a relative specifier is
-    // resolved against the consuming file's own directory, not matched as
-    // text, so it only ever lands on the file it actually imports.
-    for (const match of text.matchAll(RELATIVE_IMPORT)) {
-      const spec = match[1]!
-      const resolved = resolve(dirname(file), spec.endsWith('.vue') ? spec : `${spec}.vue`)
-      if (resolved === componentPath) return true
+    // Detection path 5 (see the file banner above): resolve every relative
+    // `.vue` import against the consuming file's own directory, and only
+    // count it once the imported local name also appears outside that one
+    // import statement — proof the binding is used, not just declared.
+    for (const match of text.matchAll(RELATIVE_VUE_IMPORT)) {
+      const [whole, localName, , spec] = match
+      const resolved = resolve(dirname(file), spec!)
+      if (resolved !== componentPath) continue
+      const rest = text.slice(0, match.index) + text.slice(match.index + whole!.length)
+      if (new RegExp(`\\b${escape(localName!)}\\b`).test(rest)) return true
     }
   }
   return false
@@ -183,6 +201,35 @@ describe('components', () => {
       [consumerPath, `import RenamedWidget from '~/components/features/synthetic/SyntheticWidget.vue'`],
     ])
     expect(isReferenced(componentPath, syntheticCorpus)).toBe(true)
+  })
+
+  it('recognises a same-directory relative import only when the binding is actually used', () => {
+    // Detection path 5 (see the file banner above): Carousel.vue's item
+    // components are never written as a literal tag, only handed to
+    // `<component :is="...">` under their imported identifier. Resolving the
+    // specifier proves the file is imported; it does not by itself prove the
+    // binding is used — a stale import left behind by a refactor would
+    // otherwise satisfy it. Both cases below share one componentPath so only
+    // the consumer's body differs.
+    const componentPath = join(repoRoot, 'layers/synthetic/components/SyntheticItem.vue')
+
+    const usedConsumer = join(repoRoot, 'layers/synthetic/components/SyntheticUser.vue')
+    const usedCorpus = new Map([
+      [usedConsumer, [
+        `import SyntheticItem from './SyntheticItem.vue'`,
+        `const componentFor = () => SyntheticItem`,
+      ].join('\n')],
+    ])
+    expect(isReferenced(componentPath, usedCorpus)).toBe(true)
+
+    // Same import, but the binding is never mentioned again — the stale-import
+    // case this fix closes. Without the "used elsewhere" requirement this
+    // would wrongly come back `true` too.
+    const staleConsumer = join(repoRoot, 'layers/synthetic/components/SyntheticStale.vue')
+    const staleCorpus = new Map([
+      [staleConsumer, `import SyntheticItem from './SyntheticItem.vue'`],
+    ])
+    expect(isReferenced(componentPath, staleCorpus)).toBe(false)
   })
 
   it('are all rendered somewhere', () => {
