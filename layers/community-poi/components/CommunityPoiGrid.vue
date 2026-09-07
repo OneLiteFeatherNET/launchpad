@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CommunityPoiCard from './CommunityPoiCard.vue'
-import type { CommunityPoi } from '~/types/community-poi'
+import type { CommunityPoi } from '../types'
 
 defineProps<{
   pois: CommunityPoi[]

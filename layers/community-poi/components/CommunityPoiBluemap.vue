@@ -2,7 +2,7 @@
 import { computed } from '#imports'
 import CommunityPoiCoordsCopy from './CommunityPoiCoordsCopy.vue'
 import { useBluemapDeepLink, useBluemapUrl } from '~/composables/useBluemap'
-import type { CommunityPoiCoordinates } from '~/types/community-poi'
+import type { CommunityPoiCoordinates } from '../types'
 
 const props = defineProps<{
   title: string

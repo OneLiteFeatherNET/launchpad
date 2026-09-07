@@ -11,7 +11,8 @@ export type {
   BlogAlternateHeader,
   ServerConceptDocument,
   ServerConnectDocument,
-  HomeCarouselDocument
+  HomeCarouselDocument,
+  CommunityPoiDocument
 } from './utils/content/repository'
 export { locales } from './utils/content/collections'
 export type { Locale } from './utils/content/collections'

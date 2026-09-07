@@ -3,7 +3,7 @@ import { computed, ref, watch } from '#imports'
 import CommunityPoiStatusBadge from './CommunityPoiStatusBadge.vue'
 import CommunityPoiCategoryBadge from './CommunityPoiCategoryBadge.vue'
 import CommunityPoiProgressBar from './CommunityPoiProgressBar.vue'
-import type { CommunityPoi } from '~/types/community-poi'
+import type { CommunityPoi } from '../types'
 
 const props = defineProps<{
   poi: CommunityPoi

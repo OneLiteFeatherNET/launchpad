@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
-import type { CommunityPoiSchematic } from '~/types/community-poi'
+import type { CommunityPoiSchematic } from '../types'
 
 const props = defineProps<{
   schematics: CommunityPoiSchematic[]

@@ -1,22 +1,31 @@
-import type { Locale } from '#layers/content-core'
+import type { Locale, CommunityPoiDocument } from '#layers/content-core'
 import type {
   HomeCarouselDocument,
   HomeCarouselSlide,
   ServerConceptDocument,
-  ServerConnectDocument
+  ServerConnectDocument,
+  PoiSlide
 } from '../types'
-import type { CommunityPoi } from '~/types/community-poi'
-import { COMMUNITY_POI_STATUS_ORDER } from '~/types/community-poi'
-import type { PoiSlide } from '../types'
 
-const updatedTs = (entry: CommunityPoi): number => {
+// Mirrors the `community-poi` layer's own status ordering (in-progress first,
+// completed last). Inlined rather than imported from that layer: `home` may
+// depend on content-core, never on another domain layer
+// (module-boundaries.spec.ts), and `community-poi` is a domain.
+const POI_STATUS_ORDER: Record<string, number> = {
+  'in-progress': 0,
+  planning: 1,
+  paused: 2,
+  completed: 3
+}
+
+const updatedTs = (entry: CommunityPoiDocument): number => {
   const raw = entry.updatedAt ?? entry.startedAt
   if (!raw) return 0
   const parsed = raw instanceof Date ? raw : new Date(raw)
   return Number.isNaN(parsed.getTime()) ? 0 : parsed.getTime()
 }
 
-const poiToSlide = (poi: CommunityPoi, localeCode: string): PoiSlide => ({
+const poiToSlide = (poi: CommunityPoiDocument, localeCode: string): PoiSlide => ({
   type: 'poi',
   title: poi.title,
   href: `/${localeCode}/community-poi/${poi.slug}`,
@@ -54,7 +63,7 @@ export function useHomeContent() {
   // Featured POIs surface on the home carousel without anyone touching the
   // carousel JSON: maintainers just flip `featured: true` in the POI's
   // frontmatter and the next build picks it up.
-  const { data: featuredPois } = useAsyncData<CommunityPoi[]>(
+  const { data: featuredPois } = useAsyncData<CommunityPoiDocument[]>(
     () => `featured-community-pois-${activeLocale.value}`,
     () => repo.listCommunityPois(activeLocale.value),
     { watch: [activeLocale] }
@@ -65,8 +74,8 @@ export function useHomeContent() {
     const featured = (featuredPois.value || []).filter((p) => p.featured)
     if (!featured.length) return base
     const ordered = [...featured].sort((a, b) => {
-      const sa = COMMUNITY_POI_STATUS_ORDER[a.status] ?? 99
-      const sb = COMMUNITY_POI_STATUS_ORDER[b.status] ?? 99
+      const sa = POI_STATUS_ORDER[a.status] ?? 99
+      const sb = POI_STATUS_ORDER[b.status] ?? 99
       if (sa !== sb) return sa - sb
       return updatedTs(b) - updatedTs(a)
     })

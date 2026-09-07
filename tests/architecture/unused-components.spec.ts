@@ -15,12 +15,16 @@ import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources
  *
  *   1. Auto-imported tag — `<TeamMembers>`, `<team-members>`, `<LazyTeamMembers>`.
  *      Nuxt needs no import statement, so the tag is the only signal.
- *   2. The same tag carrying Nuxt's directory prefix. `features/community-poi/
- *      CommunityPoiBluemap.vue` is `<LazyFeaturesCommunityPoiBluemap>` — the
- *      file name is a suffix of the tag, not the whole of it. Only prefixes
- *      actually built from that component's own directories count, so a dead
- *      `Card.vue` cannot be kept alive by an unrelated `<SomeOtherCard>`
- *      elsewhere.
+ *   2. The same tag carrying Nuxt's directory prefix — a component at
+ *      `features/community-poi/CommunityPoiBluemap.vue` registered as
+ *      `<LazyFeaturesCommunityPoiBluemap>`, the file name a suffix of the tag
+ *      rather than the whole of it. Only prefixes actually built from that
+ *      component's own directories count, so a dead `Card.vue` cannot be kept
+ *      alive by an unrelated `<SomeOtherCard>` elsewhere. Checked against a
+ *      synthetic corpus below rather than a real file — once every domain has
+ *      migrated into a layer, no component left under `components/` carries a
+ *      directory prefix any more, so a real-file anchor for this case has
+ *      nowhere to live.
  *   3. Explicit import by path, often under a different local name, e.g.
  *      `import LayoutFooter from '~/components/features/footer/Footer.vue'`
  *      rendering as `<LayoutFooter>`. Checked against a synthetic corpus
@@ -96,11 +100,12 @@ function isLayerComponent(componentPath: string): boolean {
 
 /**
  * Every prefix Nuxt could put in front of this component's file name, built
- * from its own directory chain. `features/community-poi/CommunityPoiBluemap.vue`
- * yields `''`, `Features`, `FeaturesCommunityPoi` — one of which, plus the
- * file name, is the registered tag. Deriving them per component rather than
- * accepting any PascalCase prefix is what keeps the check from excusing a dead
- * component whose name merely ends another one.
+ * from its own directory chain. A component at `features/community-poi/
+ * CommunityPoiBluemap.vue` would have yielded `''`, `Features`,
+ * `FeaturesCommunityPoi` — one of which, plus the file name, is the
+ * registered tag. Deriving them per component rather than accepting any
+ * PascalCase prefix is what keeps the check from excusing a dead component
+ * whose name merely ends another one.
  */
 function directoryPrefixes(componentPath: string): string[] {
   if (isLayerComponent(componentPath)) return ['']
@@ -172,19 +177,34 @@ describe('components', () => {
     const byName = (needle: string) => components.find((file) => file.endsWith(needle))
 
     const autoImported = byName('layers/navigation/components/NavigationBar.vue')
-    const prefixedTag = byName('features/community-poi/CommunityPoiBluemap.vue') // <LazyFeaturesCommunityPoiBluemap>
-
     expect(autoImported && isReferenced(autoImported, corpus)).toBe(true)
-    expect(prefixedTag && isReferenced(prefixedTag, corpus)).toBe(true)
 
-    // The prefixes have to come from the component's own path, or the check
-    // stops being able to tell a used component from a dead one.
-    expect(directoryPrefixes(prefixedTag!)).toEqual(['',
-      'Features',
-      'FeaturesCommunityPoi'])
     // A layer component gets no prefix at all — Nuxt derives none from
     // `layers/<name>/`, and `base/Chip.vue` is the first real one to prove it.
     expect(directoryPrefixes(byName('base/components/Chip.vue')!)).toEqual([''])
+  })
+
+  it('recognises a tag carrying Nuxt\'s directory prefix', () => {
+    // Detection path 2 (see the file banner above) has no durable real-file
+    // anchor: this migration moves every domain into a layer, and a layer
+    // component carries no directory prefix at all (see `isLayerComponent`
+    // above). Once `community-poi` — the last domain — moved, nothing left
+    // under `components/` carries a prefix for a real file to anchor this on.
+    // A hand-built corpus keeps the property under test — a tag carrying the
+    // prefix built from the component's own directory chain — without
+    // depending on a real file that no longer exists.
+    const prefixedPath = join(repoRoot, 'components/features/synthetic-domain/SyntheticDomainWidget.vue')
+    const prefixedConsumer = join(repoRoot, 'components/synthetic/SyntheticPrefixedConsumer.vue')
+    const prefixedCorpus = new Map([
+      [prefixedConsumer, '<LazyFeaturesSyntheticDomainWidget />'],
+    ])
+    expect(isReferenced(prefixedPath, prefixedCorpus)).toBe(true)
+
+    // The prefixes have to come from the component's own path, or the check
+    // stops being able to tell a used component from a dead one.
+    expect(directoryPrefixes(prefixedPath)).toEqual(['',
+      'Features',
+      'FeaturesSyntheticDomain'])
   })
 
   it('recognises a component imported by path under a renamed local binding', () => {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
-import type { CommunityPoiStatus } from '~/types/community-poi'
+import type { CommunityPoiStatus } from '../types'
 
 const props = defineProps<{
   status: CommunityPoiStatus

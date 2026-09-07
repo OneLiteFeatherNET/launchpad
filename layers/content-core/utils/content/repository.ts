@@ -10,11 +10,12 @@ import type {
   ServerConnectDeCollectionItem,
   ServerConnectEnCollectionItem,
   HomeCarouselDeCollectionItem,
-  HomeCarouselEnCollectionItem
+  HomeCarouselEnCollectionItem,
+  CommunityPoiDeCollectionItem,
+  CommunityPoiEnCollectionItem
 } from '@nuxt/content'
 import type { Locale } from './collections'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
-import type { CommunityPoi } from '~/types/community-poi'
 
 /**
  * Shape of the `sponsors` collection document, as @nuxt/content generates it.
@@ -60,6 +61,82 @@ export type ServerConnectDocument = ServerConnectDeCollectionItem | ServerConnec
  * reason as {@link ServerConceptDocument}.
  */
 export type HomeCarouselDocument = HomeCarouselDeCollectionItem | HomeCarouselEnCollectionItem
+
+/**
+ * Shape of the `community_poi` collection document, as @nuxt/content
+ * generates it, widened with hand-written fields. Lives here rather than in
+ * the `community-poi` layer: it is the return type of this interface's
+ * community-POI methods, and only content-core may name `@nuxt/content`
+ * (enforced by module-boundaries.spec.ts). The `community-poi` layer imports
+ * this type from content-core's public API and derives the plain shapes its
+ * composable and components actually work with, via indexed access (e.g.
+ * `NonNullable<CommunityPoiDocument['gallery']>[number]`) rather than
+ * duplicating named sub-interfaces here.
+ */
+export type CommunityPoiDocument = (
+  | CommunityPoiDeCollectionItem
+  | CommunityPoiEnCollectionItem
+) & {
+  slug: string
+  translationKey?: string
+  title: string
+  summary: string
+  status: 'planning' | 'in-progress' | 'paused' | 'completed'
+  progress: number
+  category?: 'team' | 'community' | 'collab' | 'farm'
+  featured?: boolean
+  featuredCaption?: string
+  lore?: string
+  goal?: string
+  currentState?: string
+  builders?: {
+    name: string
+    mcName?: string
+    link?: string
+  }[]
+  location?: string
+  coordinates?: {
+    x: number
+    y?: number
+    z: number
+    dimension?: 'overworld' | 'nether' | 'end'
+  }
+  thumbnail?: string
+  thumbnailAlt?: string
+  gallery?: {
+    src: string
+    alt: string
+    caption?: string
+    width?: number
+    height?: number
+  }[]
+  schematics?: {
+    url: string
+    name: string
+    format?: 'litematic' | 'schem' | 'schematic' | 'nbt'
+    version?: string
+    litematicaVersion?: string
+    sizeLabel?: string
+    origin?: {
+      x: number
+      y: number
+      z: number
+    }
+    facing?: 'north' | 'south' | 'east' | 'west'
+    rotation?: 'none' | 'cw_90' | 'cw_180' | 'cw_270' | 'ccw_90'
+    setupNotes?: string
+  }[]
+  startedAt?: string | Date
+  updatedAt?: string | Date
+  forumUrl?: string
+  acceptsContributions?: boolean
+  canonical?: string
+  alternates?: {
+    hreflang: string
+    href: string
+  }[]
+  head?: Record<string, unknown>
+}
 
 /**
  * Author profile returned by `getAuthorBySlug`. Not itself CMS-derived, but
@@ -167,12 +244,12 @@ export interface ContentRepository {
 
   // --- Community POI --------------------------------------------------------
   /** All community POIs for a locale (unfiltered, unsorted — caller decides). */
-  listCommunityPois(locale: Locale): Promise<CommunityPoi[]>
+  listCommunityPois(locale: Locale): Promise<CommunityPoiDocument[]>
   /** Single POI by its `slug` frontmatter field, or null. */
-  getCommunityPoiBySlug(locale: Locale, slug: string): Promise<CommunityPoi | null>
+  getCommunityPoiBySlug(locale: Locale, slug: string): Promise<CommunityPoiDocument | null>
   /** Single POI in `locale` sharing the given `translationKey`, or null. */
   getCommunityPoiByTranslationKey(
     locale: Locale,
     translationKey: string
-  ): Promise<CommunityPoi | null>
+  ): Promise<CommunityPoiDocument | null>
 }

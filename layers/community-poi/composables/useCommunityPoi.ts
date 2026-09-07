@@ -6,7 +6,7 @@ import {
   type CommunityPoi,
   type CommunityPoiAlternateHeader,
   type CommunityPoiStatus
-} from '~/types/community-poi'
+} from '../types'
 
 const updatedTimestamp = (entry: CommunityPoi): number => {
   const raw = entry.updatedAt ?? entry.startedAt

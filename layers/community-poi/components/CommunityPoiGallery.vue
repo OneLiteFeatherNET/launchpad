@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, nextTick, onBeforeUnmount, watch } from '#imports'
-import type { CommunityPoiImage } from '~/types/community-poi'
+import type { CommunityPoiImage } from '../types'
 
 const props = defineProps<{
   images: CommunityPoiImage[]

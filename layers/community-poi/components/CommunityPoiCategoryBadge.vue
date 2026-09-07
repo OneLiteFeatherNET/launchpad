@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
-import type { CommunityPoiCategory } from '~/types/community-poi'
+import type { CommunityPoiCategory } from '../types'
 
 const props = defineProps<{
   category: CommunityPoiCategory

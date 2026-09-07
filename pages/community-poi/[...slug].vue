@@ -1,11 +1,5 @@
 <script setup lang="ts">
 import { computed, definePageMeta } from '#imports'
-import CommunityPoiStatusBadge from '~/components/features/community-poi/CommunityPoiStatusBadge.vue'
-import CommunityPoiCategoryBadge from '~/components/features/community-poi/CommunityPoiCategoryBadge.vue'
-import CommunityPoiProgressBar from '~/components/features/community-poi/CommunityPoiProgressBar.vue'
-import CommunityPoiMeta from '~/components/features/community-poi/CommunityPoiMeta.vue'
-import CommunityPoiGoalState from '~/components/features/community-poi/CommunityPoiGoalState.vue'
-import CommunityPoiLore from '~/components/features/community-poi/CommunityPoiLore.vue'
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()
@@ -153,7 +147,7 @@ const progressSectionClass = [
         <CommunityPoiMeta :poi="poi" />
       </section>
 
-      <LazyFeaturesCommunityPoiBluemap
+      <LazyCommunityPoiBluemap
         v-if="poi.coordinates"
         :title="poi.title"
         :coordinates="poi.coordinates"
@@ -167,18 +161,18 @@ const progressSectionClass = [
         <h2 class="mb-3 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
           {{ t('community_poi.gallery.title') }}
         </h2>
-        <LazyFeaturesCommunityPoiGallery :images="poi.gallery" />
+        <LazyCommunityPoiGallery :images="poi.gallery" />
       </section>
 
       <section v-if="poi.schematics?.length" class="space-y-4">
         <h2 class="mb-3 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
           {{ t('community_poi.schematics.title') }}
         </h2>
-        <LazyFeaturesCommunityPoiSchematicList :schematics="poi.schematics" />
-        <LazyFeaturesCommunityPoiLitematicaHelp />
+        <LazyCommunityPoiSchematicList :schematics="poi.schematics" />
+        <LazyCommunityPoiLitematicaHelp />
       </section>
 
-      <LazyFeaturesCommunityPoiCollaboration :poi="poi" />
+      <LazyCommunityPoiCollaboration :poi="poi" />
     </article>
   </div>
 </template>
