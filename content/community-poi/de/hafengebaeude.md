@@ -8,30 +8,45 @@ progress: 0
 category: 'community'
 forumUrl: 'https://discord.com/channels/752527676903784518/1192098359452909678'
 goal: 'Großes Hafengebäude mit Anlegestellen, Lagerhallen und Steg – als belebter Knotenpunkt für Schiffsverkehr und Handel.'
-currentState: 'Konzept steht, der Bau wurde noch nicht gestartet. Die Schematic ist als verbindliche Vorlage gedacht.'
+currentState: 'Konzept und Schematic stehen, der Standort ist abgesteckt – gebaut wurde noch nichts. Die Litematica-Vorschau zeigt, wie das Gebäude in der Bucht sitzen wird.'
 location: 'Welt – siehe Koordinaten'
 coordinates:
-  x: -660
-  y: 44
-  z: -320
+  x: -574
+  y: 9
+  z: -239
   dimension: 'overworld'
 builders:
   - name: 'B3nNy'
     mcName: 'B3nNy'
+thumbnail: '/images/community-poi/hafengebaeude/litematica_day.webp'
+thumbnailAlt: 'Litematica-Vorschau des Hafengebäudes als blaues Hologramm über dem noch leeren Bauplatz'
+gallery:
+  - src: '/images/community-poi/hafengebaeude/litematica_day.webp'
+    alt: 'Blaues Litematica-Hologramm des Hafengebäudes über der Bucht, daneben das planierte Baufeld'
+    caption: 'Die Schematic als Hologramm über dem Bauplatz – so soll der Dockhafen stehen'
+  - src: '/images/community-poi/hafengebaeude/litematica_sunset.webp'
+    alt: 'Dasselbe Hologramm im Abendlicht, die Umrisse des geplanten Dachs zeichnen sich gegen den Sonnenuntergang ab'
+    caption: 'Abendstimmung am künftigen Hafenbecken'
+  - src: '/images/community-poi/hafengebaeude/reference_exterior.webp'
+    alt: 'Fünf gerenderte Außenansichten eines hölzernen Dockgebäudes auf Stelzen im Wasser – fremde Bauvorlage, nicht auf unserem Server'
+    caption: 'Vorbild (fremder Bau): Außenansichten der Dockhalle, an denen sich die Schematic orientiert'
+  - src: '/images/community-poi/hafengebaeude/reference_details.webp'
+    alt: 'Acht gerenderte Detailansichten desselben Dockgebäudes mit Ranken und Innenräumen – fremde Bauvorlage, nicht auf unserem Server'
+    caption: 'Vorbild (fremder Bau): Detail- und Innenansichten als Referenz für die Ausgestaltung'
 schematics:
   - url: '/community-poi/hafengebaeude/dockhafen.litematic'
     name: 'Dockhafen'
     format: 'litematic'
     version: '1.20.4'
     litematicaVersion: '0.16.0'
-    sizeLabel: 'ca. 190 KB'
+    sizeLabel: 'ca. 359 KB'
     origin:
-      x: -660
-      y: 44
-      z: -320
+      x: -574
+      y: 9
+      z: -239
     rotation: 'none'
-    setupNotes: 'Origin laut Builder: -660 / 44 / -320, keine Rotation.'
-updatedAt: '2026-05-20'
+    setupNotes: 'Aktualisierte Schematic (Stand 09/2026). Origin auf den neuen Standort -574 / 9 / -239 gesetzt, keine Rotation – vor dem Setzen bitte gegen die Markierung vor Ort prüfen.'
+updatedAt: '2026-09-07'
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/community-poi/hafengebaeude'

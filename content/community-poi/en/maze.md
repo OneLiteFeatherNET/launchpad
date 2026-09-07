@@ -11,9 +11,9 @@ goal: 'A finished, walkable maze with a clear entrance, several dead ends and a 
 currentState: 'Around 40 % of the build is done. The outer walls and the inner path network exist; several corridors are still missing.'
 location: 'Overworld — see coordinates'
 coordinates:
-  x: -2209
-  y: 61
-  z: 35
+  x: -2234
+  y: 85
+  z: 33
   dimension: 'overworld'
 builders:
   - name: 'B3nNy'
@@ -48,6 +48,15 @@ gallery:
   - src: '/community-poi/labyrinth/result.webp'
     alt: 'Render of the planned final shape of the maze'
     caption: 'Target state — finished maze'
+  - src: '/images/community-poi/labyrinth/progress_inner_walls.webp'
+    alt: 'View from below between two massive stone walls of the maze, a red marker line running along the edge'
+    caption: 'Down between the walls — the marker shows the next section to build'
+  - src: '/images/community-poi/labyrinth/progress_night_overview.webp'
+    alt: 'Night-time overview of the circular maze, enclosed by the cyan Litematica bounding box'
+    caption: 'Night view with the Litematica frame around the whole structure'
+  - src: '/images/community-poi/labyrinth/progress_aerial.webp'
+    alt: 'Aerial view of the circular structure with its red and grey floor pattern, spoke paths and the maze core at the centre'
+    caption: 'From above: floor pattern, access paths and the core at the centre'
 schematics:
   - url: '/community-poi/labyrinth/labyrinth.schem'
     name: 'Maze (WorldEdit schematic)'
@@ -62,7 +71,7 @@ schematics:
     setupNotes: |
       Origin as provided by the builder: -1465 / 61 / 792, rotation CW_180.
       The file is a WorldEdit .schem — load via //schem load labyrinth in WorldEdit, or import it into Litematica via 'Schematic placement'.
-updatedAt: '2026-04-26'
+updatedAt: '2026-09-07'
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/community-poi/labyrinth'

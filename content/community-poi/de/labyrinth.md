@@ -11,9 +11,9 @@ goal: 'Fertiges, begehbares Labyrinth mit klarem Eingang, mehreren Sackgassen un
 currentState: 'Etwa 40 % des Baus stehen. Außenmauern und das innere Wegenetz sind vorhanden, mehrere Gänge fehlen noch.'
 location: 'Welt – siehe Koordinaten'
 coordinates:
-  x: -2209
-  y: 61
-  z: 35
+  x: -2234
+  y: 85
+  z: 33
   dimension: 'overworld'
 builders:
   - name: 'B3nNy'
@@ -48,6 +48,15 @@ gallery:
   - src: '/community-poi/labyrinth/result.webp'
     alt: 'Render der angedachten finalen Form des Labyrinths'
     caption: 'Zielzustand – fertiges Labyrinth'
+  - src: '/images/community-poi/labyrinth/progress_inner_walls.webp'
+    alt: 'Blick aus der Tiefe zwischen zwei massiven Steinmauern des Labyrinths, eine rote Markierungslinie zieht sich am Rand entlang'
+    caption: 'Von unten zwischen den Wänden: die Markierung zeigt den nächsten Bauabschnitt'
+  - src: '/images/community-poi/labyrinth/progress_night_overview.webp'
+    alt: 'Nächtliche Gesamtansicht der runden Labyrinth-Anlage, umschlossen von der cyanfarbenen Litematica-Box'
+    caption: 'Nachtansicht mit Litematica-Rahmen um die gesamte Anlage'
+  - src: '/images/community-poi/labyrinth/progress_aerial.webp'
+    alt: 'Luftbild der kreisrunden Anlage mit rot-grauem Bodenmuster, den Speichenwegen und dem Labyrinthkern in der Mitte'
+    caption: 'Aus der Luft: Bodenmuster, Zugangswege und der Kern in der Mitte'
 schematics:
   - url: '/community-poi/labyrinth/labyrinth.schem'
     name: 'Labyrinth (WorldEdit-Schematic)'
@@ -62,7 +71,7 @@ schematics:
     setupNotes: |
       Origin laut Builder: -1465 / 61 / 792, Rotation CW_180.
       Die Datei ist eine WorldEdit .schem – per //schem load labyrinth in WorldEdit laden oder in Litematica über 'Schematic placement' importieren.
-updatedAt: '2026-04-26'
+updatedAt: '2026-09-07'
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/community-poi/labyrinth'
