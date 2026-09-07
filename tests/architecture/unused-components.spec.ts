@@ -63,14 +63,6 @@ function escape(value: string): string {
 }
 
 /**
- * Every prefix Nuxt could put in front of this component's file name, built
- * from its own directory chain. `features/home/faq/FaqSection.vue` yields
- * `''`, `Features`, `FeaturesHome`, `FeaturesHomeFaq` — one of which, plus the
- * file name, is the registered tag. Deriving them per component rather than
- * accepting any PascalCase prefix is what keeps the check from excusing a dead
- * component whose name merely ends another one.
- */
-/**
  * A component inside a layer registers under its bare file name — Nuxt derives
  * no prefix from `layers/<name>/`, verified against 4.4.8. Feeding such a file
  * through the root-relative prefix chain would look for `<LayersTeamCard>`,
@@ -80,6 +72,14 @@ function isLayerComponent(componentPath: string): boolean {
   return relativeToRepo(componentPath).startsWith('layers/')
 }
 
+/**
+ * Every prefix Nuxt could put in front of this component's file name, built
+ * from its own directory chain. `features/home/faq/FaqSection.vue` yields
+ * `''`, `Features`, `FeaturesHome`, `FeaturesHomeFaq` — one of which, plus the
+ * file name, is the registered tag. Deriving them per component rather than
+ * accepting any PascalCase prefix is what keeps the check from excusing a dead
+ * component whose name merely ends another one.
+ */
 function directoryPrefixes(componentPath: string): string[] {
   if (isLayerComponent(componentPath)) return ['']
   const segments = relativeToRepo(componentPath)

@@ -35,15 +35,23 @@ function domainLayers(): string[] {
   return layerNames().filter((layer) => !FOUNDATION.includes(layer))
 }
 
-/** Layer names referenced from inside `file`, via path or `#layers/` alias. */
-function referencedLayers(file: string): string[] {
-  const text = readFileSync(file, 'utf8')
+/**
+ * Layer names referenced anywhere in `text`, via path or `#layers/` alias.
+ * Pure string matching, kept separate from file access so the self-test below
+ * exercises the exact same code the real check runs.
+ */
+function referencesIn(text: string): string[] {
   const hits = [
     ...text.matchAll(/#layers\/([a-z0-9-]+)/g),
     ...text.matchAll(/~~?\/layers\/([a-z0-9-]+)/g),
     ...text.matchAll(/\.\.\/\.\.\/([a-z0-9-]+)\//g),
   ]
   return [...new Set(hits.map((match) => match[1]).filter((name): name is string => name !== undefined))]
+}
+
+/** Layer names referenced from inside `file`, via path or `#layers/` alias. */
+function referencedLayers(file: string): string[] {
+  return referencesIn(readFileSync(file, 'utf8'))
 }
 
 /** Every source file of one layer. */
@@ -55,9 +63,12 @@ describe('layer boundaries', () => {
   it('detects a cross-domain import', () => {
     // Same guard as in the collision suite: while `layers/` is empty every
     // assertion below is vacuous, and a check that cannot fail is worse than
-    // no check. This pins the matcher itself.
-    const sample = `import { useTeamRoster } from '#layers/team'`
-    expect(/#layers\/([a-z0-9-]+)/.exec(sample)?.[1]).toBe('team')
+    // no check. Calls the same `referencesIn()` the real checks call, and
+    // covers all three patterns it matches, so a regression in any one of
+    // them fails here instead of leaving a stale copy green.
+    expect(referencesIn(`import { useTeamRoster } from '#layers/team'`)).toEqual(['team'])
+    expect(referencesIn(`import { useTeamRoster } from '~~/layers/team'`)).toEqual(['team'])
+    expect(referencesIn(`import { useTeamRoster } from '../../team/composables/useTeamRoster'`)).toEqual(['team'])
   })
 
   it('no domain layer imports from another domain layer', () => {
