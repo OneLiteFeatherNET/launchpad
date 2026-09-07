@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { definePageMeta } from '#imports'
-import TeamRankSection from '~/components/features/team/TeamRankSection.vue'
-import TeamFaqSection from '~/components/features/team/TeamFaqSection.vue'
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()

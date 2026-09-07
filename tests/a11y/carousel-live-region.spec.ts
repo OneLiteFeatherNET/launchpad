@@ -22,7 +22,7 @@ import { repoRoot } from '../helpers/sources'
  * So: one region, and it stays silent while the carousel rotates on its own.
  */
 
-const CAROUSEL = 'components/features/home/carousel/Carousel.vue'
+const CAROUSEL = 'layers/home/components/Carousel.vue'
 
 function carousel(): string {
   return readFileSync(`${repoRoot}/${CAROUSEL}`, 'utf8')

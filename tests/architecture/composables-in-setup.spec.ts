@@ -24,7 +24,8 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
 const SOURCE_DIRS = ['components',
   'pages',
   'layouts',
-  'composables']
+  'composables',
+  'layers']
 
 /** The body of a `computed(() => { … })` block. */
 const COMPUTED_BODY = /computed(?:<[^>]*>)?\(\(\) => \{(.*?)\n\}\)/gs

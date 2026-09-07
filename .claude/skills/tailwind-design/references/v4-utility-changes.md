@@ -5,7 +5,7 @@ paste from muscle memory.
 
 This repo has zero `@apply`, zero `@layer components`, and zero `@utility`
 today — every class is written inline as Tailwind utilities, including in
-long `computed()` class strings like `components/base/Chip.vue`'s
+long `computed()` class strings like `layers/base/components/Chip.vue`'s
 `variantClasses`. That's deliberate, not an oversight: keep doing it for new
 components.
 

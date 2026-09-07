@@ -28,7 +28,8 @@ const SOURCE_DIRS = ['components',
   'pages',
   'layouts',
   'composables',
-  'utils']
+  'utils',
+  'layers']
 
 const PLUGIN = 'plugins/fontawesome.ts'
 

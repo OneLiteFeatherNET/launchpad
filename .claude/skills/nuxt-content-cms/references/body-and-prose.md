@@ -24,13 +24,13 @@ article — see `pages/blog/[...slug].vue`. Don't hand-roll a renderer or assume
 ## Getting plain text out of it
 
 For anything that needs plain text (meta descriptions, card excerpts, word counts),
-use `extractPlainText` from `utils/content.ts`. It already walks both the minimark
+use `extractPlainText` from `layers/content-core/utils/content.ts`. It already walks both the minimark
 `body` shape and the older `excerpt` AST shape (`{ type, children }`), so it's the
 one function that handles either without you needing to know which you have.
 
 For a short teaser instead of full plain text, `<ContentRenderer>` takes an
 `excerpt` prop that renders only the content before the `<!--more-->` marker —
-see `components/features/blog/page/card/ArticleCard.vue` for
+see `layers/blog/components/ArticleCard.vue` for
 `<ContentRenderer :value="blogArticle" :excerpt="true">`.
 
 There is **no** implicit first-paragraph fallback. `@nuxtjs/mdc`'s compiler only
@@ -52,7 +52,7 @@ with the raw file content verbatim. No collection in this repo currently declare
 
 `@nuxt/content` renders every markdown element (`<p>`, `<a>`, code fences, …)
 through a `Prose*` component. Fourteen real overrides of `@nuxtjs/mdc` components live
-in `components/content/`: `ProseA.vue`, `ProseH1.vue`–`ProseH6.vue`,
+in `layers/content-core/components/`: `ProseA.vue`, `ProseH1.vue`–`ProseH6.vue`,
 `ProseHr.vue`, `ProseImg.vue`, `ProseLi.vue`, `ProseOl.vue`, `ProsePre.vue`,
 `ProseP.vue` and `ProseUl.vue`. There is no `ProseCode.vue` override, so inline
 code still renders with `@nuxtjs/mdc`'s default.
@@ -70,9 +70,9 @@ To add or change one:
    scratch — copy its `<script setup>` props verbatim (e.g. `ProseA`'s original
    takes only `href` and `target`; the override here still does).
 2. Keep the exact same filename (`ProseA.vue`, `ProseCode.vue`, …) in
-   `components/content/` — `@nuxt/content` matches overrides by filename.
-3. Don't register it with `global: true`; the `components/content/` directory is
-   already scanned by convention.
+   `layers/content-core/components/` — `@nuxt/content` matches overrides by filename.
+3. Don't register it with `global: true`; the `layers/content-core/components/`
+   directory is already scanned by convention.
 
 For what Tailwind classes actually belong inside a Prose override, and why code
 blocks stay light-themed, see the `tailwind-design` skill.

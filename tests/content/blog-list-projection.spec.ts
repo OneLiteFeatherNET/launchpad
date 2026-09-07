@@ -18,13 +18,13 @@ import { repoRoot } from '../helpers/sources'
  * projection to cover them — the two ends of the contract, compared.
  */
 
-const ADAPTER = 'utils/content/nuxtContentAdapter.ts'
+const ADAPTER = 'layers/content-core/utils/content/nuxtContentAdapter.ts'
 
 /** The files that consume a row from `listBlogArticles`. */
-const CONSUMERS = ['components/features/blog/page/card/ArticleCard.vue',
-  'components/features/blog/page/top1/Top1.vue',
+const CONSUMERS = ['layers/blog/components/ArticleCard.vue',
+  'layers/blog/components/Top1.vue',
   'pages/blog/index.vue',
-  'composables/useBlogContent.ts']
+  'layers/blog/composables/useBlogContent.ts']
 
 /** The names an article row goes by in those files. */
 const ROW_IDENTIFIERS = ['blogArticle',
@@ -47,7 +47,7 @@ const QUOTED = /'([a-zA-Z][\w]*)'/g
  */
 const WHOLE_ROW_CONSUMERS = [
   {
-    file: 'components/features/blog/page/card/ArticleCard.vue',
+    file: 'layers/blog/components/ArticleCard.vue',
     /** `<ContentRenderer :value="blogArticle" :excerpt="true">` */
     hands_over: /<ContentRenderer[^>]*:value="blogArticle"[^>]*:excerpt="true"/,
     // `excerpt` is what it renders; `id` becomes the data-content-id attribute

@@ -2,7 +2,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { repoRoot } from '../helpers/sources'
-import { locales } from '../../utils/content/locales'
+import { locales } from '../../layers/content-core/utils/content/locales'
 
 /**
  * With its own `content.config.ts`, @nuxt/content v3 creates no implicit

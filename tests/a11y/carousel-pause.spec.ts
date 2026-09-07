@@ -21,7 +21,7 @@ import { repoRoot } from '../helpers/sources'
  *  - It needs a translated accessible name, like every other control here.
  */
 
-const CAROUSEL = 'components/features/home/carousel/Carousel.vue'
+const CAROUSEL = 'layers/home/components/Carousel.vue'
 
 function carousel(): string {
   return readFileSync(`${repoRoot}/${CAROUSEL}`, 'utf8')

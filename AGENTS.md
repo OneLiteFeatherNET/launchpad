@@ -1,13 +1,52 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `pages/`: Route-driven Vue pages (e.g. `index.vue`, `blog/[...slug].vue`).
-- `components/`: Reusable UI, grouped by domain (e.g. `components/blog`, `components/ui`, `components/sections`).
-- `layouts/`: Shared page layouts and chrome.
-- `content/`: Markdown/content files used by `@nuxt/content`.
-- `server/`: Nitro server routes and backend utilities.
-- `composables/` & `utils/`: Shared logic and helpers in TypeScript (e.g. `useHomeContent`, `useBlogOverview`, `useTeamProfile`).
-- `assets/` & `public/`: Styles (Tailwind) and static assets.
+- `layers/<domain>/`: one Nuxt layer per domain — `base`, `content-core`,
+  `blog`, `community-poi`, `team`, `home`, `sponsoring`, `opencollective`,
+  `navigation`, `footer`. Each holds its own `components/`, `composables/`,
+  `utils/`, `types.ts` and an `index.ts` that is its public surface.
+- `pages/`, `layouts/`, `app.vue`: the orchestrator. These know every layer and
+  are the only place allowed to combine two domains.
+- `content/`, `content.config.ts`: markdown and data for `@nuxt/content`,
+  deliberately kept at the root — collections are generated across locales.
+- `server/`: Nitro routes not owned by a domain.
+- `tests/`: mirrors the tree; `tests/architecture/` holds the rules below.
+
+### The dependency rule
+Domains do not import from each other. Both `base` and `content-core` are
+available to everyone; `content-core` may use `base`; `base` uses nothing. Only
+`content-core` names `@nuxt/content`.
+
+Nuxt enforces none of this — layers auto-import each other freely — so
+`tests/architecture/module-boundaries.spec.ts` is the enforcement. A red
+assertion there means the architecture broke, not that the test needs relaxing.
+
+Layer names produce no auto-import prefix: `layers/team/components/Card.vue` is
+`<Card>`, so two layers cannot define the same component name.
+`tests/architecture/layer-name-collisions.spec.ts` catches that, because Nuxt
+resolves such a collision silently by priority.
+
+### A layer's `index.ts` may only export values it can afford in the client bundle
+A value export from `layers/content-core/index.ts` that transitively imports
+`utils/content/collections.ts` breaks the client build: Rollup's `impound`
+plugin refuses it, because `collections.ts` imports `defineCollection` from
+`@nuxt/content`. `export type` is always safe — type-only exports are erased —
+but a real value export pulls in everything its module graph touches. This is
+why `locales` is re-exported from `utils/content/locales.ts` rather than
+`utils/content/collections.ts`, even though both define it (see the comment in
+`layers/content-core/index.ts`). Nothing structurally prevents this from
+happening again to a different export; verify with `nuxi build` whenever a
+layer's `index.ts` gains a new value export.
+
+### Nitro does not resolve `#layers/<name>` value imports
+`#layers/<name>` works for `import type` inside `server/`, but a value import
+through it fails to build — confirmed by building `server/api/__sitemap__/team.ts`
+against `#layers/content-core`. That is why the sitemap route for team members
+stays at the repository root, importing `#layers/team` as a type only and
+`~/layers/content-core/utils/content/locales` directly for the runtime value,
+instead of living inside the `team` layer. It is a registered, named exception
+in `tests/architecture/module-boundaries.spec.ts` — not a pattern to repeat
+without checking a real build first.
 
 ## Build, Test, and Development Commands
 - Install dependencies: `pnpm install`

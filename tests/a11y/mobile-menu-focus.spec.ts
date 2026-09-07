@@ -26,7 +26,7 @@ import { repoRoot } from '../helpers/sources'
  * the wiring in place; it does not claim to have watched it work.
  */
 
-const NAVBAR = 'components/features/navigation/NavigationBar.vue'
+const NAVBAR = 'layers/navigation/components/NavigationBar.vue'
 
 function navbar(): string {
   return readFileSync(`${repoRoot}/${NAVBAR}`, 'utf8')

@@ -14,8 +14,6 @@ import {
   faTiktok
 } from '@fortawesome/free-brands-svg-icons'
 import { faGlobe, faLink, faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import UiChip from '~/components/base/Chip.vue'
-import { toRoleList, toRoleString } from '~/utils/teamRoles'
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()
@@ -171,7 +169,7 @@ if (member.value) {
             >{{ rankLabel }}</span>
           </div>
           <div v-if="memberRoles.length" class="mt-2 flex flex-wrap gap-2">
-            <UiChip
+            <Chip
               v-for="chip in memberRoles"
               :key="chip"
               :label="chip"

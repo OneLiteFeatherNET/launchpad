@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import NavigationIconButton from '../../components/base/buttons/NavigationIconButton.vue'
+import NavigationIconButton from '../../layers/base/components/NavigationIconButton.vue'
 
 /**
  * The static check in `frozen-props.spec.ts` says the pattern is gone. This

@@ -1,0 +1,86 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { NuxtLink } from '#components'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+
+type Props = {
+  name: string
+  role?: string | string[]
+  slogan?: string
+  mcName?: string
+  slug?: string
+  avatarUrl?: string
+  href?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  role: undefined,
+  slogan: undefined,
+  mcName: undefined,
+  slug: undefined,
+  avatarUrl: undefined,
+  href: undefined
+})
+
+const { t } = useI18n()
+
+const profileHref = computed(() => props.href || (props.mcName ? `/team/${encodeURIComponent(props.mcName.toLowerCase())}` : undefined))
+
+// Upstream PNG (mc-heads.net at 128px) is routed through the Cloudflare
+// Images provider, which reships it as AVIF/WebP at the displayed 64px box.
+const avatarSrc = computed(() => teamAvatarUrl({
+  mcName: props.mcName,
+  slug: props.slug,
+  avatarUrl: props.avatarUrl
+}, 128))
+
+const roleChips = computed(() => toRoleList(props.role))
+const roleAriaText = computed(() => toRoleString(props.role))
+const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: roleAriaText.value }))
+</script>
+
+<template>
+  <li class="snap-start shrink-0 w-72">
+    <component
+      :is="profileHref ? NuxtLink : 'div'"
+      :to="profileHref"
+      :aria-label="profileHref ? ariaLabel : undefined"
+      class="group block h-full rounded-2xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-4 backdrop-blur supports-[backdrop-filter]:bg-white/70 supports-[backdrop-filter]:dark:bg-zinc-900/60 hover:shadow-lg transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
+    >
+      <div class="flex items-center gap-4">
+        <NuxtImg
+          :src="avatarSrc"
+          :alt="t('team.avatar_alt', { name })"
+          width="64"
+          height="64"
+          fit="cover"
+          format="avif,webp"
+          quality="80"
+          densities="x1 x2"
+          class="h-16 w-16 rounded-xl ring-1 ring-black/5 dark:ring-white/5 object-cover bg-zinc-100 dark:bg-zinc-800"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="min-w-0">
+          <h3 class="truncate text-lg font-semibold text-gray-900 dark:text-gray-100">{{ name }}</h3>
+        </div>
+      </div>
+      <div v-if="roleChips.length" class="mt-3 flex flex-wrap gap-2">
+        <Chip
+          v-for="chip in roleChips"
+          :key="chip"
+          :label="chip"
+          variant="outlined"
+          as="span"
+        />
+      </div>
+      <p v-if="slogan" class="mt-3 line-clamp-3 text-sm text-gray-700 dark:text-gray-300">“{{ slogan }}”</p>
+      <p v-if="profileHref" class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400">
+        {{ t('team.view_profile') }}
+        <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="h-3.5 w-3.5" aria-hidden="true" />
+      </p>
+    </component>
+  </li>
+  
+</template>

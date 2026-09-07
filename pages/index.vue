@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Carousel from "~/components/features/home/carousel/Carousel.vue";
 import {definePageMeta} from "#imports";
 
 definePageMeta({
@@ -31,7 +30,7 @@ useHomeSeo({ title: t('index.title') })
   <!-- Everything below the carousel is off-screen at load; hydrate-on-visible
        is what turns the code split into a saving. See tests/architecture/lazy-components.spec.ts -->
   <!-- Server Concept Section -->
-  <LazyFeaturesHomeServerConcept
+  <LazyServerConcept
     v-if="concept"
     hydrate-on-visible
     :title="concept.title"
@@ -39,15 +38,15 @@ useHomeSeo({ title: t('index.title') })
     :points="concept.points || []"
   />
   <!-- Server Connect Section -->
-  <LazyFeaturesHomeServerAddresses
+  <LazyServerAddresses
     v-if="connect"
     hydrate-on-visible
     :java-address="connect.javaAddress"
     :bedrock-host="connect.bedrockHost"
     :bedrock-port="connect.bedrockPort"
   />
-  <LazyFeaturesSponsoring v-if="sponsors?.length" hydrate-on-visible :sponsors="sponsors" />
-  <LazyFeaturesOpencollectiveOpenCollectiveStats
+  <LazySponsoring v-if="sponsors?.length" hydrate-on-visible :sponsors="sponsors" />
+  <LazyOpenCollectiveStats
     v-if="collective"
     hydrate-on-visible
     :total-raised="collective.totalRaised"
@@ -57,5 +56,5 @@ useHomeSeo({ title: t('index.title') })
     :link="collective.link"
     :updated-at="collective.updatedAt"
   />
-  <LazyFeaturesHomeFaqSection hydrate-on-visible />
+  <LazyFaqSection hydrate-on-visible />
 </template>

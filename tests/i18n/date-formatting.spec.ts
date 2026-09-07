@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
-import { locales } from '../../utils/content/locales'
+import { locales } from '../../layers/content-core/utils/content/locales'
 
 /**
  * `toLocaleDateString('de-DE', …)` produces a German date whatever language
@@ -22,7 +22,8 @@ import { locales } from '../../utils/content/locales'
 const SOURCE_DIRS = ['components',
   'pages',
   'layouts',
-  'composables']
+  'composables',
+  'layers']
 
 /** `toLocaleDateString('de-DE'` / `toLocaleTimeString("en-US"` … */
 const FIXED_LOCALE_FORMAT = /toLocale(?:Date|Time|)String\(\s*['"]([a-z]{2}(?:-[A-Z]{2})?)['"]/g

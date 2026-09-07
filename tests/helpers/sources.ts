@@ -37,3 +37,27 @@ function walk(dir: string, extensions: string[], found: string[]): void {
     if (extensions.some((ext) => entry.endsWith(ext))) found.push(full)
   }
 }
+
+/**
+ * Directory names under `layers/`, or an empty array while none exist.
+ *
+ * Every boundary check reads this rather than a hard-coded list: during the
+ * migration the set grows one layer per commit, and a hand-maintained list
+ * would have to be edited in lockstep or would silently stop checking.
+ */
+export function layerNames(): string[] {
+  try {
+    return readdirSync(join(repoRoot, 'layers'))
+      .filter((entry) => statSync(join(repoRoot, 'layers', entry)).isDirectory())
+      .sort()
+  } catch {
+    return []
+  }
+}
+
+/** Absolute paths of files inside one layer, filtered by extension. */
+export function layerFiles(layer: string, extensions: string[]): string[] {
+  const found: string[] = []
+  walk(join(repoRoot, 'layers', layer), extensions, found)
+  return found.sort()
+}

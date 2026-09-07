@@ -2,8 +2,8 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { createI18n } from 'vue-i18n'
-import CommunityPoiCard from '../../components/features/community-poi/CommunityPoiCard.vue'
-import type { CommunityPoi } from '../../types/community-poi'
+import CommunityPoiCard from '../../layers/community-poi/components/CommunityPoiCard.vue'
+import type { CommunityPoi } from '../../layers/community-poi/types'
 
 /**
  * The static check in `poi-card-image-fallback.spec.ts` says the wiring is

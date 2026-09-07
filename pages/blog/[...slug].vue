@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import {definePageMeta} from "#imports";
-import type { BlogArticle } from "~/types/blog";
-import UiChip from '~/components/base/Chip.vue'
-import FeaturedTeamMembers from '~/components/features/blog/page/FeaturedTeamMembers.vue'
+import type { BlogArticle } from "#layers/blog";
 
 const { locale, t, d } = useI18n()
 const config = useRuntimeConfig()
@@ -12,6 +10,32 @@ definePageMeta({
 });
 
 const { blog, authors } = await useBlogArticle()
+
+// Only fetches the roster when the article actually names team members —
+// before this guard, every article page issued the content query and shipped
+// the whole team document in its SSR payload, even for the vast majority of
+// posts that never reference a member.
+const hasTeamMembers = computed(() => (blog.value?.teamMembers?.length ?? 0) > 0)
+const { bySlug } = useTeamRoster({ enabled: hasTeamMembers })
+
+// Resolves what FeaturedTeamMembers used to fetch for itself. The lookup
+// belongs here: this page is the root, so it may know both the blog and the
+// team layer, and neither layer learns about the other.
+const featuredMembers = computed(() => (blog.value?.teamMembers ?? [])
+  .map((slug: string) => bySlug.value[slug])
+  // `bySlug` is only ever keyed by a member's own slug, so every entry it
+  // returns already has one — the `m.slug` half of this guard just narrows
+  // the type for FeaturedMember below, it drops nothing at runtime.
+  .filter((m): m is NonNullable<typeof m> & { slug: string } => Boolean(m?.slug))
+  .map((member) => ({
+    slug: member.slug,
+    name: member.name,
+    avatarUrl: teamAvatarUrl(
+      { mcName: member.mcName, slug: member.slug, avatarUrl: member.avatarUrl },
+      64
+    ),
+    role: toRoleString(member.role) ?? ''
+  })))
 
 // All Article-level SEO (meta tags, Article JSON-LD, breadcrumbs, OG
 // image) lives in useArticleSeo — keeps this page focused on view code.
@@ -88,7 +112,7 @@ useHead(() => {
           v-if="blog?.tags?.length"
           class="mt-3 flex flex-wrap gap-2"
         >
-          <UiChip
+          <Chip
             v-for="tag in blog.tags"
             :key="tag"
             :label="tag"
@@ -128,14 +152,14 @@ useHead(() => {
         </section>
 
         <FeaturedTeamMembers
-          v-if="blog?.teamMembers?.length"
-          :slugs="blog.teamMembers"
+          v-if="featuredMembers.length"
+          :members="featuredMembers"
         />
 
         <!-- Social Media Sharing Buttons -->
         <section class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6" :aria-label="t('article.share')">
           <h2 class="sr-only">{{ t('article.share') }}</h2>
-          <LazyFeaturesBlogSocialMediaShare
+          <LazySocialMediaShare
             :url="shareUrl"
             :title="blog?.title"
             :description="blog?.description || ''"

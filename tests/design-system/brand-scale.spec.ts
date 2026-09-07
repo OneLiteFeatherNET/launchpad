@@ -19,6 +19,7 @@ const SOURCE_DIRS = [
   'components',
   'pages',
   'layouts',
+  'layers',
 ]
 
 /** Utility prefixes that resolve against the colour namespace. */

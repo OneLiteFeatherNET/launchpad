@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { definePageMeta } from '#imports'
-import CommunityPoiGrid from '~/components/features/community-poi/CommunityPoiGrid.vue'
-
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()
@@ -66,7 +64,7 @@ useSchemaOrg(() => {
     <CommunityPoiGrid :pois="pois" />
 
     <div class="mt-10">
-      <LazyFeaturesCommunityPoiContributeInfo />
+      <LazyCommunityPoiContributeInfo />
     </div>
   </div>
 </template>

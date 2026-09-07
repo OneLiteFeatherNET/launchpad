@@ -23,6 +23,7 @@ const SOURCE_DIRS = [
   'components',
   'pages',
   'layouts',
+  'layers',
 ]
 
 const THEME_TOKEN = /--color-([a-z0-9-]+)\s*:/g

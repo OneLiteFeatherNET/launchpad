@@ -22,7 +22,7 @@ import { repoRoot } from '../helpers/sources'
  * without that check would make the next broken path invisible.
  */
 
-const CARD = 'components/features/community-poi/CommunityPoiCard.vue'
+const CARD = 'layers/community-poi/components/CommunityPoiCard.vue'
 
 function card(): string {
   return readFileSync(`${repoRoot}/${CARD}`, 'utf8')

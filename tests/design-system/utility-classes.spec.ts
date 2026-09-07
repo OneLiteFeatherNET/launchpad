@@ -27,6 +27,7 @@ const SOURCE_DIRS = [
   'components',
   'pages',
   'layouts',
+  'layers',
 ]
 
 /** Animation utilities Tailwind ships without any theme entry. */

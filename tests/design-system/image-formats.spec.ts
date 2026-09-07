@@ -21,6 +21,7 @@ const SOURCE_DIRS = [
   'components',
   'pages',
   'layouts',
+  'layers',
 ]
 
 /** `<NuxtImg …>` and `<NuxtPicture …>` opening tags, attributes included. */

@@ -16,7 +16,8 @@ const SOURCE_DIRS = ['components',
   'plugins',
   'server',
   'middleware',
-  'types']
+  'types',
+  'layers']
 
 function untypedSources(): string[] {
   return collectSourceFiles(SOURCE_DIRS, ['.js', '.jsx']).map(relativeToRepo)

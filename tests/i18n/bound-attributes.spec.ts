@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
-import { getSlideAriaText } from '../../composables/useCarousel'
+import { getSlideAriaText } from '../../layers/home/composables/useCarousel'
 
 /**
  * The bound form of a text attribute is an expression, so a string literal
@@ -22,7 +22,8 @@ import { getSlideAriaText } from '../../composables/useCarousel'
 
 const SOURCE_DIRS = ['components',
   'pages',
-  'layouts']
+  'layouts',
+  'layers']
 
 /** The bound form: `:aria-label="…"`, `:title="…"`. */
 const BOUND_TEXT_ATTRIBUTE = /(?<![\w.@-]):(aria-label|title)="([^"]*)"/g
