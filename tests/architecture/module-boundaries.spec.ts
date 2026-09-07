@@ -61,7 +61,7 @@ function referencesIn(text: string): string[] {
   const hits = [
     ...text.matchAll(/#layers\/([a-z0-9-]+)/g),
     ...text.matchAll(/~~?\/layers\/([a-z0-9-]+)/g),
-    ...text.matchAll(/\.\.\/\.\.\/([a-z0-9-]+)\//g),
+    ...text.matchAll(/(?:\.\.\/)+([a-z0-9-]+)\//g),
   ]
   const names = hits.map((match) => match[1]).filter((name): name is string => name !== undefined)
   return [...new Set(names)]
@@ -106,6 +106,24 @@ function stripComments(text: string): string {
     .replace(/\/\*[\s\S]*?\*\//g, '')
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/\/\/.*$/gm, '')
+}
+
+/**
+ * The content module's own query functions — `queryCollection` and its three
+ * siblings — auto-imported via `#imports`, with no `from '@nuxt/content'` to
+ * anchor on the way `CONTENT_MODULE_IMPORT` above does. content-core's own
+ * adapter is written exactly this way
+ * (`layers/content-core/utils/content/nuxtContentAdapter.ts`), so anchoring
+ * only on the module specifier left this the one spelling nobody in the repo
+ * actually needs, and every other layer free to call it undetected. Matched
+ * against comment-stripped text (see `stripComments` above) so a comment
+ * naming one of these for documentation does not trip the check.
+ */
+const CONTENT_QUERY_FUNCTION = /\bqueryCollection(?:Navigation|ItemSurroundings|SearchSections)?\s*\(/
+
+/** Whether `text` actually calls one of the content module's query functions. */
+function namesContentQueryFunctionIn(text: string): boolean {
+  return CONTENT_QUERY_FUNCTION.test(stripComments(text))
 }
 
 /**
@@ -177,6 +195,10 @@ describe('layer boundaries', () => {
     expect(referencesIn(`import { useTeamRoster } from '#layers/team'`)).toEqual(['team'])
     expect(referencesIn(`import { useTeamRoster } from '~~/layers/team'`)).toEqual(['team'])
     expect(referencesIn(`import { useTeamRoster } from '../../team/composables/useTeamRoster'`)).toEqual(['team'])
+    // A layer's root files (index.ts, types.ts) naturally spell a sibling
+    // layer with a single `../`, not two — the two-level-only pattern this
+    // pins against used to leave that spelling invisible to every check below.
+    expect(referencesIn(`import type { TeamMember } from '../team/types'`)).toEqual(['team'])
   })
 
   it('detects a deep import past a layer index, in every alias spelling', () => {
@@ -207,14 +229,23 @@ describe('layer boundaries', () => {
   })
 
   it('base depends on no layer, content-core on base only', () => {
+    // Only a real layer name counts as crossing a boundary. Since the widened
+    // `(?:\.\.\/)+` pattern also matches a single `../` into a sibling
+    // directory *inside* the same layer (e.g. `composables/x.ts` importing
+    // `../utils/y`), the captured name must be checked against the actual
+    // layer list — otherwise `../utils/...` reads as a dependency on a layer
+    // called "utils", which does not exist.
+    const knownLayers = layerNames()
     const violations: string[] = []
     for (const file of filesOf('base')) {
       for (const target of referencedLayers(file)) {
+        if (!knownLayers.includes(target)) continue
         violations.push(`base -> ${target} (${relativeToRepo(file)})`)
       }
     }
     for (const file of filesOf('content-core')) {
       for (const target of referencedLayers(file)) {
+        if (!knownLayers.includes(target)) continue
         if (target === 'base' || target === 'content-core') continue
         violations.push(`content-core -> ${target} (${relativeToRepo(file)})`)
       }
@@ -232,18 +263,31 @@ describe('layer boundaries', () => {
     expect(namesContentModuleIn(`const x = require('@nuxt/content')`)).toBe(true)
   })
 
+  it('detects a call to a content-module query function but not a comment naming it', () => {
+    // Pins both directions for the auto-import spelling `CONTENT_MODULE_IMPORT`
+    // cannot see: a comment naming the function must pass, and a real call to
+    // any of the four must be caught.
+    expect(namesContentQueryFunctionIn('// queryCollection is confined to content-core.')).toBe(false)
+    expect(namesContentQueryFunctionIn(`export const leak = () => queryCollection('blog_de').all()`)).toBe(true)
+    expect(namesContentQueryFunctionIn(`queryCollectionNavigation('/docs')`)).toBe(true)
+    expect(namesContentQueryFunctionIn(`queryCollectionItemSurroundings('docs', '/a')`)).toBe(true)
+    expect(namesContentQueryFunctionIn(`queryCollectionSearchSections('docs')`)).toBe(true)
+  })
+
   it('only content-core names @nuxt/content', () => {
     // The ContentRepository interface exists so the rest of the app never
     // learns which CMS is underneath. Until now that was a comment; this is
     // the first thing that actually holds it. Checks for an actual
-    // dependency (see CONTENT_MODULE_IMPORT), not the bare substring — a
-    // layer is free to explain in prose why it must not depend on the
-    // content module.
+    // dependency (see CONTENT_MODULE_IMPORT) or a real call to one of its
+    // auto-imported query functions (see CONTENT_QUERY_FUNCTION) — not the
+    // bare substring — a layer is free to explain in prose why it must not
+    // depend on the content module.
     const offenders: string[] = []
     for (const layer of layerNames()) {
       if (layer === 'content-core') continue
       for (const file of filesOf(layer)) {
-        if (namesContentModuleIn(readFileSync(file, 'utf8'))) {
+        const text = readFileSync(file, 'utf8')
+        if (namesContentModuleIn(text) || namesContentQueryFunctionIn(text)) {
           offenders.push(relativeToRepo(file))
         }
       }

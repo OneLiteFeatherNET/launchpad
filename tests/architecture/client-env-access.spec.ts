@@ -31,7 +31,8 @@ const CLIENT_DIRS = ['components',
   'layouts',
   'composables',
   'utils',
-  'plugins']
+  'plugins',
+  'layers']
 
 /** `process.env.X`, `process?.env?.X`, `process["env"]` — any of the spellings. */
 const PROCESS_ENV = /\bprocess\s*\??\.\s*env\b|\bprocess\s*\??\.\s*\[\s*['"]env['"]/
