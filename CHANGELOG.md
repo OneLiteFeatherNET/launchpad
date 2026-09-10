@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.8...onelitefeather.net-v1.4.0) (2026-09-10)
+
+
+### Features
+
+* **community-poi:** galleries for harbour and maze, scaffold the megabase ([#331](https://github.com/OneLiteFeatherNET/launchpad/issues/331)) ([140f2c6](https://github.com/OneLiteFeatherNET/launchpad/commit/140f2c644ff242cc5691bec84dd0e81d2de827d6))
+
 ## [1.3.8](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.7...onelitefeather.net-v1.3.8) (2026-09-07)
 
 
