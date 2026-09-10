@@ -81,6 +81,7 @@
     "vue-router": "^5.0.0",
     "vue-tsc": "^3.3.9",
     "wait-on": "^9.0.0",
+    "yaml": "^2.9.0",
     "zod": "^4.1.13"
   },
   "dependencies": {
