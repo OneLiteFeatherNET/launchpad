@@ -33,7 +33,7 @@
     "seo:check": "node scripts/seo-check.mjs",
     "seo:lighthouse": "lhci autorun --config=./.lighthouserc.json"
   },
-  "packageManager": "pnpm@10.34.5",
+  "packageManager": "pnpm@12.3.4",
   "devDependencies": {
     "@nuxt/content": "3.16.0",
     "@nuxt/eslint": "1.16.0",
