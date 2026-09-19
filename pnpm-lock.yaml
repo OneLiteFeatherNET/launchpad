@@ -49,7 +49,7 @@ importers:
         version: 1.15.11
       posthog-js:
         specifier: ^1.298.1
-        version: 1.425.1
+        version: 1.433.6
     devDependencies:
       '@nuxt/content':
         specifier: 3.16.0
@@ -2779,20 +2779,20 @@ packages:
   '@poppinss/exception@1.2.3':
     resolution: {integrity: sha512-dCED+QRChTVatE9ibtoaxc+WkdzOSjYTKi/+uacHWIsfodVfpsueo3+DKpgU5Px8qXjgmXkSvhXvSCz3fnP9lw==}
 
-  '@posthog/browser-common@0.7.2':
-    resolution: {integrity: sha512-ukDmETXy6fTBE4ZpaO8ccscrNz5SvTaUnhQ0Ze2JX/oYILa89rrNwqUH7lDAuhFKa+NY6EoJ9kZMuOvuu4WwLQ==}
+  '@posthog/browser-common@0.8.3':
+    resolution: {integrity: sha512-4Hlbwyn+Hioc2+pjqSGWMTDrA5XsDshssPnGfv34khPKoJaeBe2YvPvsEPoH78jezOS6Wo3LJvCPhqyolg3S8w==}
 
   '@posthog/core@1.29.2':
     resolution: {integrity: sha512-DYhR0Sl7pVdUXa+C9poCVjTj3D6SI9P7RLhIhr74YyHeHuCGL/MZsDEWcz3ul3qHDIhZU9myIUjID890QiQw+g==}
 
-  '@posthog/core@1.50.5':
-    resolution: {integrity: sha512-afEchuShDaVIoxAIj76kDZQ1DhfesDmgfVp+mtTzsA3wlc8DF5uoz8YjuTjnxOicWkpP5HCDqYidK/1kT125Cg==}
+  '@posthog/core@1.55.0':
+    resolution: {integrity: sha512-x+0FR+uHsK3uJeofd5X4S2YS7hjaWkzkPN0X1GROHm9SvKw2RJ91kfQ7gT1bPtFwZSHNiRtteB7fX/xEMRN0IQ==}
 
   '@posthog/types@1.373.5':
     resolution: {integrity: sha512-K7STCnRG/WBE1q0BwEkIcrJB5OqECaymsQj6Hp4Ntvaek4dqHkZGfp6hxwIPqQPjlOXwidwPLo+XGsn+CoZUyw==}
 
-  '@posthog/types@1.409.0':
-    resolution: {integrity: sha512-239umoaZVb2GBaXeEyJpwFvjhrrChJH8NHCwiao23EBSu3NA6EN0MTMoaHSmMEf4yjiXEFFoYJA6FjJAXF5HGA==}
+  '@posthog/types@1.412.2':
+    resolution: {integrity: sha512-taxTh8o6n7ZVlC8qBypZvF+6w7/18yNkS9XDiGCbutGTKqIljfzYi/7pumgwN3mcnl/n0e9A+JhF05+nLd4Xaw==}
 
   '@quansync/fs@1.1.0':
     resolution: {integrity: sha512-qAPG/t3HqML1TlN7sY/pTbEjzFVAKsMjNNMGheyDosro+kT4iw2KCUoHcVdmliwWjorm4elZbgNQyU2eD97eDg==}
@@ -4574,8 +4574,8 @@ packages:
     resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
     engines: {node: '>= 4'}
 
-  dompurify@3.4.14:
-    resolution: {integrity: sha512-dVoH9z+MY+C9IilgGCk3YfFqjLi3fChm2OiKJMzh6axrJ5qwxqWaZamgmHrpv22CN/KdbZJuGEGgfQoL00LTdg==}
+  dompurify@3.4.15:
+    resolution: {integrity: sha512-EUBjM+B+lkDE41iE82DDSCfkoPGfXx8IxFxPMjNzm/Uk4xDet77rTN9wqlxlVg71kK7XGuUMv6wUxJUwwv+Xyw==}
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
@@ -4989,9 +4989,6 @@ packages:
 
   fflate@0.7.3:
     resolution: {integrity: sha512-0Zz1jOzJWERhyhsimS54VTqOteCNwRtIlh8isdL0AXLo0g7xNTfTL7oWrkmCnPhZGocKIkWHBistBrrpoNH3aw==}
-
-  fflate@0.7.5:
-    resolution: {integrity: sha512-QieYf//cis6ywHNi5qW1+PXPQ4bC+XVJAtS4AXIML8P76GroEiOxm/oQtn1f02UkJY1+KsXMJcC+R2v/Eg4G3g==}
 
   file-entry-cache@8.0.0:
     resolution: {integrity: sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ==}
@@ -6795,8 +6792,8 @@ packages:
     resolution: {integrity: sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==}
     engines: {node: ^10 || ^12 || >=14}
 
-  posthog-js@1.425.1:
-    resolution: {integrity: sha512-GfdAUf402Prjt3ofkj4dh4k/m1SkYvgCeASyWj1xxcIVT7QnB9gGsslDwAZBZ6Wrtwxkq91gFbpSo/v633Q+1w==}
+  posthog-js@1.433.6:
+    resolution: {integrity: sha512-wGCGLHTDxwwWefyJ02tZaw3zVOURqidzGL9Ytv4MTbNuCo12X511TvLV1k+QLiohsB+aZ0c84K5o0clGqn0qgA==}
     peerDependencies:
       '@types/react': '>=16.8.0'
       react: '>=16.8.0'
@@ -8144,6 +8141,9 @@ packages:
 
   web-vitals@6.2.1:
     resolution: {integrity: sha512-rLcLXA2sx6+9dE88NHFubwTtGxpK4yYBLj6qHPdFoCaLr0cXGb4efOqtKLlm4loGA4OEKHIQKMKzZkKyOh5ctw==}
+
+  web-vitals@6.2.2:
+    resolution: {integrity: sha512-oto5x6dLEgrRqfcWed+pZEUb2q6ikbFmqF54CRDhI/QGbn+qxC49b4C4OkbH+kb9C3a8shpFD3SgR9kRcs80ZQ==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -11007,22 +11007,22 @@ snapshots:
 
   '@poppinss/exception@1.2.3': {}
 
-  '@posthog/browser-common@0.7.2':
+  '@posthog/browser-common@0.8.3':
     dependencies:
-      '@posthog/core': 1.50.5
-      '@posthog/types': 1.409.0
+      '@posthog/core': 1.55.0
+      '@posthog/types': 1.412.2
 
   '@posthog/core@1.29.2':
     dependencies:
       '@posthog/types': 1.373.5
 
-  '@posthog/core@1.50.5':
+  '@posthog/core@1.55.0':
     dependencies:
-      '@posthog/types': 1.409.0
+      '@posthog/types': 1.412.2
 
   '@posthog/types@1.373.5': {}
 
-  '@posthog/types@1.409.0': {}
+  '@posthog/types@1.412.2': {}
 
   '@quansync/fs@1.1.0':
     dependencies:
@@ -11327,7 +11327,7 @@ snapshots:
 
   '@shuding/opentype.js@1.4.0-beta.0':
     dependencies:
-      fflate: 0.7.5
+      fflate: 0.7.3
       string.prototype.codepointat: 0.2.1
 
   '@simple-git/args-pathspec@1.0.3': {}
@@ -12728,7 +12728,7 @@ snapshots:
     dependencies:
       domelementtype: 2.3.0
 
-  dompurify@3.4.14:
+  dompurify@3.4.15:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
@@ -13257,8 +13257,6 @@ snapshots:
   fflate@0.4.9: {}
 
   fflate@0.7.3: {}
-
-  fflate@0.7.5: {}
 
   file-entry-cache@8.0.0:
     dependencies:
@@ -15070,7 +15068,7 @@ snapshots:
     dependencies:
       '@nuxt/kit': 3.21.5(magicast@0.5.4)
       defu: 6.1.7
-      posthog-js: 1.425.1
+      posthog-js: 1.433.6
       posthog-node: 5.34.2(rxjs@7.8.2)
     transitivePeerDependencies:
       - '@types/react'
@@ -16195,17 +16193,17 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  posthog-js@1.425.1:
+  posthog-js@1.433.6:
     dependencies:
-      '@posthog/browser-common': 0.7.2
-      '@posthog/core': 1.50.5
-      '@posthog/types': 1.409.0
+      '@posthog/browser-common': 0.8.3
+      '@posthog/core': 1.55.0
+      '@posthog/types': 1.412.2
       core-js: 3.50.0
-      dompurify: 3.4.14
+      dompurify: 3.4.15
       fflate: 0.4.9
       preact: 10.29.8
       query-selector-shadow-dom: 1.0.1
-      web-vitals: 6.2.1
+      web-vitals: 6.2.2
       web-vitals-soft-navs: web-vitals@6.2.1
     transitivePeerDependencies:
       - preact-render-to-string
@@ -17744,6 +17742,8 @@ snapshots:
   web-namespaces@2.0.1: {}
 
   web-vitals@6.2.1: {}
+
+  web-vitals@6.2.2: {}
 
   webidl-conversions@3.0.1: {}
 
