@@ -46,12 +46,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'elevation',
     'button',
   ],
-  'layers/blog/components/ArticleCard.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
   'layers/blog/components/FeaturedTeamMembers.vue': [
     'palette',
     'dark-colour',
@@ -117,7 +111,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'shape',
   ],
   'layers/community-poi/components/CommunityPoiMeta.vue': ['palette', 'dark-colour'],
-  'layers/community-poi/components/CommunityPoiProgressBar.vue': ['palette', 'dark-colour'],
   'layers/community-poi/components/CommunityPoiSchematicList.vue': [
     'palette',
     'dark-colour',
@@ -136,7 +129,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'dark-colour',
     'shape',
   ],
-  'layers/content-core/components/ProseHr.vue': ['palette', 'dark-colour'],
   'layers/content-core/components/ProseLi.vue': ['palette', 'dark-colour'],
   'layers/content-core/components/ProseList.vue': ['palette', 'dark-colour'],
   'layers/content-core/components/ProseP.vue': ['palette', 'dark-colour'],

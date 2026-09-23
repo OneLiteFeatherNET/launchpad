@@ -43,6 +43,20 @@ const textFromI18n = computed(() => {
   }
 })
 
+/**
+ * MD3 type style per heading level: headlines for h1–h3, titles below.
+ * `font-bold` stays on top of the scale's regular weight — the site's
+ * headings have always been bold, and the scale fixes size and rhythm only.
+ */
+const TYPE_BY_LEVEL: Record<Level, string> = {
+  1: 'text-headline-large',
+  2: 'text-headline-medium',
+  3: 'text-headline-small',
+  4: 'text-title-large',
+  5: 'text-title-medium',
+  6: 'text-title-small',
+}
+
 const hasDefaultSlot = useSlots()?.default != null
 const headingText = computed(() => hasDefaultSlot ? '' : textFromI18n.value)
 
@@ -61,7 +75,7 @@ const headingText = computed(() => hasDefaultSlot ? '' : textFromI18n.value)
     :aria-level="!isSemanticHeading ? (level as number) : undefined"
     :aria-describedby="$slots.description && props.descriptionId ? props.descriptionId : undefined"
     :aria-label="ariaLabel || undefined"
-    class="font-bold tracking-tight text-neutral-900 dark:text-neutral-100 text-2xl md:text-3xl group/heading"
+    :class="[TYPE_BY_LEVEL[level], 'font-bold text-on-surface group/heading']"
   >
     <!-- Content: prefer slot, otherwise i18n text -->
     <slot v-if="$slots.default" />
@@ -80,7 +94,11 @@ const headingText = computed(() => hasDefaultSlot ? '' : textFromI18n.value)
   </component>
 
   <!-- Optional: description slot (subtitle) - intentionally generic styling -->
-  <p v-if="$slots.description" :id="props.descriptionId || undefined" class="mt-2 text-base text-neutral-600 dark:text-neutral-300 md:text-lg">
+  <p
+    v-if="$slots.description"
+    :id="props.descriptionId || undefined"
+    class="mt-2 text-body-large text-on-surface-variant"
+  >
     <slot name="description" />
   </p>
 </template>

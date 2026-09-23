@@ -4,8 +4,12 @@ import { describe, expect, it } from 'vitest'
 import { defineComponent, h } from 'vue'
 import { generateTokens } from '../../scripts/md3-tokens.mjs'
 import M3Button from '../../layers/base/components/M3Button.vue'
+import M3Card from '../../layers/base/components/M3Card.vue'
+import M3CardLink from '../../layers/base/components/M3CardLink.vue'
 import M3Chip from '../../layers/base/components/M3Chip.vue'
+import M3Divider from '../../layers/base/components/M3Divider.vue'
 import M3IconButton from '../../layers/base/components/M3IconButton.vue'
+import M3LinearProgress from '../../layers/base/components/M3LinearProgress.vue'
 import { useInteractiveTag } from '../../layers/base/composables/useInteractiveTag'
 import * as variants from '../../layers/base/utils/m3Variants'
 import { findViolations } from '../helpers/md3-rules'
@@ -242,5 +246,108 @@ describe('M3Chip', () => {
   it('renders a neutral outlined label without a colour', () => {
     const wrapper = mount(M3Chip, { props: { kind: 'label', label: 'nuxt' }, global })
     expect(wrapper.get('span').classes()).toContain('border-outline-variant')
+  })
+})
+
+describe('M3Card', () => {
+  /** A clickable post card with a share action, as the blog uses it. */
+  const card = () => mount(M3Card, {
+    props: { interactive: true, as: 'article' },
+    slots: {
+      default: () => {
+        const title = h('h2', [h(M3CardLink, { to: '/de/blog/otis' }, () => 'Otis')])
+        const excerptLink = h('a', { href: 'https://micronaut.io' }, 'Micronaut')
+        return [title, h('p', ['Mehr zu ', excerptLink])]
+      },
+      actions: () => h(M3Button, { variant: 'text' }, () => 'Teilen'),
+    },
+    global,
+  })
+
+  /** Elements a keyboard user reaches with Tab, in document order. */
+  function tabStops(root: Element): Element[] {
+    return [...root.querySelectorAll('a[href], button:not([disabled])')]
+      .filter((element) => element.getAttribute('tabindex') !== '-1')
+  }
+
+  it('has exactly one link to the article, named by the title', () => {
+    const wrapper = card()
+    const articleLinks = wrapper.findAll('a[href="/de/blog/otis"]')
+    expect(articleLinks).toHaveLength(1)
+    expect(articleLinks[0]?.text()).toBe('Otis')
+    expect(articleLinks[0]?.classes()).toContain('after:inset-0')
+  })
+
+  it('is one tab stop for the article, with its own action reachable separately', () => {
+    const wrapper = card()
+    const stops = tabStops(wrapper.element).map((element) => element.textContent?.trim())
+    expect(stops.filter((text) => text === 'Otis')).toHaveLength(1)
+    expect(stops).toContain('Teilen')
+    // The action row sits above the stretched link, so a click reaches it.
+    expect(wrapper.get('button').element.closest('.z-10')).not.toBeNull()
+  })
+
+  it('never nests a link inside the card link', () => {
+    const wrapper = card()
+    expect(wrapper.findAll('a a')).toHaveLength(0)
+  })
+
+  it('shows a state layer and a focus ring only when interactive', () => {
+    const interactive = card()
+    expect(interactive.classes()).toEqual(expect.arrayContaining(['state-layer', 'has-[a:focus-visible]:outline-secondary']))
+    const plain = mount(M3Card, { slots: { default: 'Text' }, global })
+    expect(plain.classes()).not.toContain('state-layer')
+  })
+
+  it('lays the state layer under the media, never over it', () => {
+    // The layer is the card's background image; the media paints on top.
+    const wrapper = mount(M3Card, {
+      props: { interactive: true },
+      slots: { media: () => h('img', { alt: '' }), default: 'Text' },
+      global,
+    })
+    expect(wrapper.get('img').classes()).not.toContain('state-layer')
+    expect(wrapper.find('[aria-hidden="true"].absolute').exists()).toBe(false)
+  })
+})
+
+describe('M3Divider', () => {
+  it('is announced as a separator', () => {
+    const wrapper = mount(M3Divider, { global })
+    expect(wrapper.element.tagName).toBe('HR')
+    expect(wrapper.classes()).toContain('border-outline-variant')
+  })
+
+  it('is skipped by assistive technology when decorative', () => {
+    const wrapper = mount(M3Divider, { props: { decorative: true }, global })
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.attributes('role')).toBeUndefined()
+    expect(wrapper.attributes('aria-hidden')).toBe('true')
+  })
+})
+
+describe('M3LinearProgress', () => {
+  it('exposes its value and name to assistive technology', () => {
+    const wrapper = mount(M3LinearProgress, {
+      props: { value: 40, label: 'Baufortschritt' },
+      global,
+    })
+    expect(wrapper.attributes()).toMatchObject({
+      'role': 'progressbar',
+      'aria-label': 'Baufortschritt',
+      'aria-valuenow': '40',
+      'aria-valuemin': '0',
+      'aria-valuemax': '100',
+    })
+  })
+
+  it('clamps and rounds the value it draws and announces', () => {
+    const wrapper = mount(M3LinearProgress, {
+      props: { value: 140.6, label: 'Baufortschritt' },
+      global,
+    })
+    expect(wrapper.attributes('aria-valuenow')).toBe('100')
+    const indicator = wrapper.element.firstElementChild as HTMLElement
+    expect(indicator.style.width).toBe('100%')
   })
 })
