@@ -133,24 +133,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'elevation',
     'button',
   ],
-  'layers/team/components/OpenPositionCard.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'button',
-  ],
-  'layers/team/components/TeamFaqSection.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
-  'layers/team/components/TeamMemberCard.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
   'layouts/default.vue': ['palette', 'dark-colour'],
   'pages/bluemap.vue': ['palette', 'shape'],
   'pages/community-poi/[...slug].vue': [
@@ -166,13 +148,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'shape',
   ],
   'pages/privacy.vue': ['palette', 'dark-colour'],
-  'pages/team/[slug].vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'button',
-  ],
-  'pages/team/index.vue': ['palette', 'dark-colour'],
 }
 
 /**

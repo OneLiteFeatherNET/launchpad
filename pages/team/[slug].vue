@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faGithub,
   faDiscord,
@@ -138,18 +137,21 @@ if (member.value) {
     avatarUrl: ogAvatar
   })
 }
+
+const profileClass
+  = 'mt-4 rounded-extra-large border border-outline-variant bg-surface-container-low p-6 md:p-8'
 </script>
 
 <template>
   <div class="mx-auto max-w-4xl px-4 py-10">
     <NuxtLink
       :to="`/${locale}/team`"
-      class="text-sm text-brand-primary dark:text-brand-primary/80 hover:underline"
+      class="rounded-extra-small text-label-large text-primary hover:underline focus-ring"
       :aria-label="$t('navigation.back_team')"
     >
       ← {{ $t('navigation.team') }}
     </NuxtLink>
-    <div v-if="member" class="mt-4 rounded-2xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-6 md:p-8">
+    <div v-if="member" :class="profileClass">
       <div class="flex items-start gap-5">
         <NuxtImg
           :src="avatarSrc"
@@ -160,15 +162,12 @@ if (member.value) {
           format="avif,webp"
           quality="80"
           densities="x1 x2"
-          class="h-24 w-24 rounded-2xl ring-1 ring-black/5 dark:ring-white/5 object-cover"
+          class="h-24 w-24 rounded-large object-cover"
         />
         <div>
           <div class="flex flex-wrap items-center gap-2">
-            <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">{{ member.name }}</h1>
-            <span
-              v-if="rankLabel"
-              class="rounded-full bg-brand-100 dark:bg-brand-900/40 px-2.5 py-0.5 text-xs font-semibold text-brand-700 dark:text-brand-300"
-            >{{ rankLabel }}</span>
+            <h1 class="text-headline-medium font-bold text-on-surface">{{ member.name }}</h1>
+            <M3Chip v-if="rankLabel" kind="label" color="primary" :label="rankLabel" />
           </div>
           <div v-if="memberRoles.length" class="mt-2 flex flex-wrap gap-2">
             <M3Chip
@@ -178,34 +177,35 @@ if (member.value) {
               kind="label"
             />
           </div>
-          <p v-if="member.slogan" class="mt-2 text-gray-700 dark:text-gray-300">"{{ member.slogan }}"</p>
-          <p v-if="member.since" class="mt-1 text-xs text-gray-500 dark:text-gray-500">
+          <p v-if="member.slogan" class="mt-2 text-body-large text-on-surface-variant">
+            "{{ member.slogan }}"
+          </p>
+          <p v-if="member.since" class="mt-1 text-body-small text-on-surface-variant">
             {{ t('team.member_since', { year: member.since }) }}
           </p>
         </div>
       </div>
 
-      <div v-if="member.bio" class="mt-6 prose dark:prose-invert max-w-none">
+      <div v-if="member.bio" class="mt-6 text-body-large text-on-surface">
         <p>{{ member.bio }}</p>
       </div>
 
       <div v-if="profileLinks.length" class="mt-6 flex flex-wrap gap-3">
-        <a
+        <M3Button
           v-for="link in profileLinks"
           :key="link.key"
+          variant="outlined"
           :href="link.href"
           target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-lg border border-zinc-200/70 dark:border-zinc-800/80 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
+          :icon="link.icon"
           :aria-label="t('team.profile_link_aria', { name: member.name, platform: link.key })"
         >
-          <FontAwesomeIcon :icon="link.icon" class="h-4 w-4" aria-hidden="true" />
           <span class="capitalize">{{ link.key }}</span>
-        </a>
+        </M3Button>
       </div>
     </div>
 
-    <div v-else class="mt-10 text-center text-gray-700 dark:text-gray-300">
+    <div v-else class="mt-10 text-center text-body-large text-on-surface-variant">
       <p>{{ $t('team.profile_not_found') }}</p>
     </div>
   </div>

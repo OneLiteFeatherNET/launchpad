@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { NuxtLink } from '#components'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
@@ -42,12 +41,11 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: r
 
 <template>
   <li class="snap-start shrink-0 w-72">
-    <component
-      :is="profileHref ? NuxtLink : 'div'"
-      :to="profileHref"
-      :aria-label="profileHref ? ariaLabel : undefined"
-      class="group block h-full rounded-2xl border border-zinc-200/70 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-900/80 p-4 backdrop-blur supports-[backdrop-filter]:bg-white/70 supports-[backdrop-filter]:dark:bg-zinc-900/60 hover:shadow-lg transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
-    >
+    <!--
+      With a profile the card links as a whole: the name carries the one
+      link, stretched over the card, and keeps the full "name, role" label.
+    -->
+    <M3Card variant="outlined" :interactive="Boolean(profileHref)" class="h-full">
       <div class="flex items-center gap-4">
         <NuxtImg
           :src="avatarSrc"
@@ -58,12 +56,17 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: r
           format="avif,webp"
           quality="80"
           densities="x1 x2"
-          class="h-16 w-16 rounded-xl ring-1 ring-black/5 dark:ring-white/5 object-cover bg-zinc-100 dark:bg-zinc-800"
+          class="h-16 w-16 rounded-medium bg-surface-container-highest object-cover"
           loading="lazy"
           decoding="async"
         />
         <div class="min-w-0">
-          <h3 class="truncate text-lg font-semibold text-gray-900 dark:text-gray-100">{{ name }}</h3>
+          <h3 class="truncate text-title-large text-on-surface">
+            <M3CardLink v-if="profileHref" :to="profileHref" :aria-label="ariaLabel">
+              {{ name }}
+            </M3CardLink>
+            <template v-else>{{ name }}</template>
+          </h3>
         </div>
       </div>
       <div v-if="roleChips.length" class="mt-3 flex flex-wrap gap-2">
@@ -74,12 +77,17 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: r
           kind="label"
         />
       </div>
-      <p v-if="slogan" class="mt-3 line-clamp-3 text-sm text-gray-700 dark:text-gray-300">“{{ slogan }}”</p>
-      <p v-if="profileHref" class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400">
-        {{ t('team.view_profile') }}
-        <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="h-3.5 w-3.5" aria-hidden="true" />
+      <p v-if="slogan" class="mt-3 line-clamp-3 text-body-medium text-on-surface-variant">
+        “{{ slogan }}”
       </p>
-    </component>
+      <p
+        v-if="profileHref"
+        class="mt-3 inline-flex items-center gap-1 text-label-large text-primary"
+        aria-hidden="true"
+      >
+        {{ t('team.view_profile') }}
+        <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="h-3.5 w-3.5" />
+      </p>
+    </M3Card>
   </li>
-  
 </template>

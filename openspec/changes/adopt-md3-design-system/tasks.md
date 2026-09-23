@@ -59,7 +59,7 @@ Migration Plan). Vor jedem PR gilt: `pnpm test`, `pnpm build` und
 ## 9. Migration blog, team (PR 6, PR 7)
 
 - [x] 9.1 `Top1`, `FeaturedTeamMembers`, `SocialMediaShare` sowie `pages/blog/**` umstellen; verifiziert durch Governance-Test und Screenshots Blog-Übersicht/-Artikel
-- [ ] 9.2 `TeamMemberCard`, `OpenPositionCard` (Bewerben-Link → `M3Button`), `TeamRankSection`, `TeamFaqSection` sowie `pages/team/**` umstellen; verifiziert durch Governance-Test und Screenshots Team-Übersicht/-Profil
+- [x] 9.2 `TeamMemberCard`, `OpenPositionCard` (Bewerben-Link → `M3Button`), `TeamRankSection`, `TeamFaqSection` sowie `pages/team/**` umstellen; verifiziert durch Governance-Test und Screenshots Team-Übersicht/-Profil
 
 ## 10. Migration community-poi (PR 8)
 

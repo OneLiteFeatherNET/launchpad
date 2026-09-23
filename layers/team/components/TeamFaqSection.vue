@@ -3,26 +3,28 @@
 const { t } = useI18n()
 const { items } = useTeamFaqContent()
 
-const detailsClass = [
-  'group rounded-xl border border-neutral-200 dark:border-neutral-800',
-  'bg-white dark:bg-neutral-900/60 px-4 py-3 open:shadow-sm',
-  'transition-shadow'
-].join(' ')
+const detailsClass
+  = 'group rounded-medium border border-outline-variant bg-surface-container-low px-4 py-3 '
+    + 'open:shadow-elevation-1 transition-shadow duration-150 ease-standard'
 
 const summaryClass = [
   'flex cursor-pointer list-none items-center justify-between gap-4',
-  'text-base font-semibold text-neutral-900 dark:text-neutral-100',
-  'focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary rounded-md'
+  'text-title-medium text-on-surface rounded-small focus-ring'
 ].join(' ')
 
 const toggleClass = [
   'inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full',
-  'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300',
+  'bg-surface-container-highest text-on-surface-variant',
   'transition-transform group-open:rotate-45'
 ].join(' ')
 
-const proseClass = [
-  'prose prose-sm md:prose-base prose-neutral dark:prose-invert max-w-none mt-3', '[&_a]:text-brand-primary [&_a]:underline-offset-2 [&_a:hover]:underline'
+// Answers are rendered markdown. The `prose` classes this used compiled to
+// nothing — the typography plugin is not installed — so the few elements an
+// answer uses are styled here directly.
+const answerClass = [
+  'mt-3 space-y-2 text-body-large text-on-surface-variant',
+  '[&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',
+  '[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2'
 ].join(' ')
 
 // Extra FAQPage schema scoped to the team page; Google currently restricts
@@ -56,11 +58,11 @@ useSchemaOrg(() => {
     <header class="mb-6 text-center">
       <h2
         id="team-faq-heading"
-        class="text-2xl md:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100"
+        class="text-headline-medium font-bold text-on-surface"
       >
         {{ t('team.faq.section_title') }}
       </h2>
-      <p class="mt-2 text-sm md:text-base text-neutral-600 dark:text-neutral-400">
+      <p class="mt-2 text-body-large text-on-surface-variant">
         {{ t('team.faq.section_subtitle') }}
       </p>
     </header>
@@ -75,7 +77,7 @@ useSchemaOrg(() => {
           <span>{{ entry.question }}</span>
           <span :class="toggleClass" aria-hidden="true">+</span>
         </summary>
-        <div :class="proseClass">
+        <div :class="answerClass">
           <ContentRenderer :value="entry" />
         </div>
       </details>
