@@ -13,6 +13,7 @@ import {
   CAROUSEL_DOT,
   CAROUSEL_DOT_CURRENT,
   CAROUSEL_DOT_OTHER,
+  CAROUSEL_DOTS_SPACE,
   CAROUSEL_INDICATOR_BAR,
   CAROUSEL_INDICATOR_BUTTON,
 } from '../utils/carouselClasses'
@@ -219,7 +220,8 @@ const canAutoPlay = computed(() => {
 /** The slide frame; `group` reveals the prev/next buttons on hover and focus. */
 const frameClass
   = 'group relative z-10 w-full overflow-hidden rounded-large border border-outline-variant '
-    + 'bg-surface-container touch-pan-y select-none min-h-[58svh] md:min-h-0'
+    + 'bg-surface-container touch-pan-y select-none min-h-[58svh] md:min-h-0 '
+    + CAROUSEL_DOTS_SPACE
 
 const aspectPercent = computed(() => {
   const [w, h] = props.aspect.split('/').map(n => Number(n))
