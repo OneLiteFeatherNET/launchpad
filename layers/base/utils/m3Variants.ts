@@ -1,4 +1,11 @@
-import type { ButtonVariant, ChipKind, IconButtonSize, IconButtonVariant, M3Color } from '../types'
+import type {
+  ButtonVariant,
+  CardVariant,
+  ChipKind,
+  IconButtonSize,
+  IconButtonVariant,
+  M3Color,
+} from '../types'
 
 // Class lists of the M3* primitives, one complete string per variant.
 //
@@ -110,4 +117,49 @@ export const M3_CHIP_LABEL_COLORS: Record<M3Color, string> = {
   'error': 'border-transparent bg-error-container text-on-error-container px-3',
   'brand-orange': 'border-transparent bg-brand-orange-container text-on-brand-orange-container px-3',
   'brand-purple': 'border-transparent bg-brand-purple-container text-on-brand-purple-container px-3',
+}
+
+export const M3_CARD_BASE = 'relative flex flex-col overflow-hidden rounded-medium text-on-surface'
+
+export const M3_CARD_VARIANTS: Record<CardVariant, string> = {
+  elevated: 'bg-surface-container-low shadow-elevation-1',
+  filled: 'bg-surface-container-highest',
+  outlined: 'border border-outline-variant bg-surface',
+}
+
+/**
+ * A card that is one link as a whole: state layer on the card, the focus
+ * ring drawn around the card while its link has keyboard focus, and a
+ * raised elevation on hover for the elevated variant.
+ */
+export const M3_CARD_INTERACTIVE
+  = 'state-layer cursor-pointer transition-shadow duration-150 ease-standard '
+    + 'has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-2 '
+    + 'has-[a:focus-visible]:outline-secondary'
+
+export const M3_CARD_INTERACTIVE_ELEVATED = 'hover:shadow-elevation-2'
+
+/**
+ * The card's one link. Its ::after stretches over the whole card, so a click
+ * anywhere follows it while the link's accessible name stays the title only.
+ * The ring is drawn on the card instead (M3_CARD_INTERACTIVE).
+ */
+export const M3_CARD_LINK
+  = 'after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none'
+
+export const M3_DIVIDER = 'border-0 border-t border-outline-variant'
+
+/**
+ * Track in surface-container-highest, not secondary-container: with this
+ * brand's saturated secondary, the dark secondary-container sits at 1.87:1
+ * against the primary indicator — below the 3:1 a progress bar needs.
+ */
+export const M3_LINEAR_PROGRESS_TRACK
+  = 'w-full overflow-hidden rounded-full bg-surface-container-highest'
+export const M3_LINEAR_PROGRESS_INDICATOR
+  = 'h-full rounded-full bg-primary transition-[width] duration-300 ease-standard '
+    + 'motion-reduce:transition-none'
+export const M3_LINEAR_PROGRESS_SIZES: Record<'sm' | 'md', string> = {
+  sm: 'h-1',
+  md: 'h-2',
 }

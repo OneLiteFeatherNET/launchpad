@@ -42,11 +42,11 @@ Migration Plan). Vor jedem PR gilt: `pnpm test`, `pnpm build` und
 
 ## 6. Struktur-Primitives (PR 3)
 
-- [ ] 6.1 `M3Card` (elevated/filled/outlined, Medien-/Inhalt-/Aktionsbereich, stretched link, State Layer ohne Bildüberdeckung) bauen und `ArticleCard` darauf umstellen; verifiziert durch Komponententest „ein Tab-Stopp, eigene Aktion separat erreichbar“ und `article-card-image.spec.ts` grün
-- [ ] 6.2 `M3Divider` bauen und `ProseHr` darauf umstellen; verifiziert durch Komponententest (Rolle `separator`, dekorativ ohne Rolle)
-- [ ] 6.3 `M3LinearProgress` bauen und `CommunityPoiProgressBar` darauf umstellen; verifiziert durch Komponententest zu `role`/`aria-valuenow`/Pflicht-Label
-- [ ] 6.4 `SectionHeading` auf Typo-Tokens pro `level` und Rollenfarben umstellen; verifiziert durch `heading-structure.spec.ts` und Screenshots
-- [ ] 6.5 Migrierte Dateien aus `PENDING_MIGRATION` entfernen; verifiziert durch grünen Governance-Test
+- [x] 6.1 `M3Card` (elevated/filled/outlined, Medien-/Inhalt-/Aktionsbereich, stretched link, State Layer ohne Bildüberdeckung) bauen und `ArticleCard` darauf umstellen; verifiziert durch Komponententest „ein Tab-Stopp, eigene Aktion separat erreichbar“ und `article-card-image.spec.ts` grün
+- [x] 6.2 `M3Divider` bauen und `ProseHr` darauf umstellen; verifiziert durch Komponententest (Rolle `separator`, dekorativ ohne Rolle)
+- [x] 6.3 `M3LinearProgress` bauen und `CommunityPoiProgressBar` darauf umstellen; verifiziert durch Komponententest zu `role`/`aria-valuenow`/Pflicht-Label
+- [x] 6.4 `SectionHeading` auf Typo-Tokens pro `level` und Rollenfarben umstellen; verifiziert durch `heading-structure.spec.ts` und Screenshots
+- [x] 6.5 Migrierte Dateien aus `PENDING_MIGRATION` entfernen; verifiziert durch grünen Governance-Test
 
 ## 7. Migration navigation + footer (PR 4)
 
