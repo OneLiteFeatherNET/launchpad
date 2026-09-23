@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.4.0...onelitefeather.net-v1.4.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* stop CPU-limit aborts from poisoning Worker isolates ([#348](https://github.com/OneLiteFeatherNET/launchpad/issues/348)) ([b29f461](https://github.com/OneLiteFeatherNET/launchpad/commit/b29f461cdef4f5d50f44a896d2c1205419c9dc24))
+
 ## [1.4.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.3.8...onelitefeather.net-v1.4.0) (2026-09-10)
 
 
