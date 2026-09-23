@@ -2,8 +2,8 @@
 
 ## Project Structure & Module Organization
 - `layers/<domain>/`: one Nuxt layer per domain — `base`, `content-core`,
-  `blog`, `community-poi`, `team`, `home`, `sponsoring`, `opencollective`,
-  `navigation`, `footer`. Each holds its own `components/`, `composables/`,
+  `blog`, `community-poi`, `events`, `team`, `home`, `sponsoring`,
+  `opencollective`, `navigation`, `footer`. Each holds its own `components/`, `composables/`,
   `utils/`, `types.ts` and an `index.ts` that is its public surface.
 - `pages/`, `layouts/`, `app.vue`: the orchestrator. These know every layer and
   are the only place allowed to combine two domains.
@@ -130,6 +130,11 @@ own components — no component library. Details: skill `tailwind-design`.
     nothing enforces it; don't expect a build error.
   - Do not add a cross-boundary runtime import via `~/utils/...` re-exports as
     a shortcut.
+  - First real use: `shared/utils/eventPhase.ts` and `eventRoutes.ts` hold the
+    event visibility rule that both the `events` pages and the Nitro sitemap
+    source `server/api/__sitemap__/events.ts` apply — verified by `nuxi build`
+    that Nitro auto-imports them. Code outside `server/` may also import them
+    explicitly through `#shared/utils/...`, which Vitest resolves as well.
 
 ## Knowledge Skills (`.claude/skills/`)
 

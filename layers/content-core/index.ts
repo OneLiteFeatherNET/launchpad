@@ -13,7 +13,8 @@ export type {
   ServerConceptDocument,
   ServerConnectDocument,
   HomeCarouselDocument,
-  CommunityPoiDocument
+  CommunityPoiDocument,
+  EventDocument
 } from './utils/content/repository'
 // From `./utils/content/locales`, not `./utils/content/collections`: the
 // latter also imports `defineCollection` from `@nuxt/content` for its

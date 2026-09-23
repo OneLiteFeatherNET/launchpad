@@ -65,11 +65,13 @@ describe('repository sort contract', () => {
     expect(promises.get('listFaqEntries')).toBe('ordered')
     expect(promises.get('listBlogArticles')).toBe('unsorted')
     expect(promises.get('listCommunityPois')).toBe('unsorted')
+    expect(promises.get('listEvents')).toBe('unsorted')
 
     const orders = ordersInAdapter()
     expect(orders.size).toBeGreaterThan(3)
     expect(orders.get('listFaqEntries')).toBe(true)
     expect(orders.get('listCommunityPois')).toBe(false)
+    expect(orders.get('listEvents')).toBe(false)
   })
 
   it('sorts exactly where the contract says it will', () => {

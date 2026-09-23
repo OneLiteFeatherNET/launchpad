@@ -69,9 +69,16 @@ const ROOT_CONSUMERS = [
  *                              appears.
  *   components/OgImage/*       nuxt-og-image resolves them from the string
  *                              passed to defineOgImage('TeamMember').
+ *   layers/events/components/EventGuide{,s}
+ *                              authoring blocks for event markdown
+ *                              (`::event-guides` / `:::event-guide{role=…}`);
+ *                              @nuxt/content resolves them by name, and no
+ *                              template ever names them.
  */
 const EXEMPT = [
-  /^layers\/content-core\/components\/Prose/, /^components\/OgImage\//,
+  /^layers\/content-core\/components\/Prose/,
+/^components\/OgImage\//,
+  /^layers\/events\/components\/EventGuides?\.vue$/,
 ]
 
 function kebab(name: string): string {

@@ -150,8 +150,10 @@ export default defineNuxtConfig({
         // Team profiles live in a data-type content collection so they're
         // not auto-discovered. We materialise the per-member URLs through
         // a Nitro endpoint that reads the same JSON the page uses.
+        // Event detail pages are listed per request, because whether an
+        // event is visible depends on the time — see the route's comment.
         sources: [
-            '/api/__sitemap__/team'
+            '/api/__sitemap__/team', '/api/__sitemap__/events'
         ],
         // No changefreq/priority defaults: Google ignores both. lastmod comes
         // from real content dates only (content.config.ts), never the build.

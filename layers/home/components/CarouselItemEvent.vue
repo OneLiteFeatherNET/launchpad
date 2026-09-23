@@ -31,16 +31,21 @@ const props = withDefaults(defineProps<{ item: EventItem; priority?: boolean }>(
   priority: false
 })
 
+// Pinned to the server's zone: without it the Worker (UTC) and a visitor's
+// browser format the same instant differently, which is both a wrong time
+// and a hydration mismatch.
+const timeZone = 'Europe/Berlin'
+
 const start = computed(() => new Date(props.item.dateStart))
 const end = computed(() => props.item.dateEnd ? new Date(props.item.dateEnd) : undefined)
 
-const day = computed(() => isNaN(start.value.getTime()) ? '' : start.value.toLocaleDateString(locale.value, { day: '2-digit' }))
-const month = computed(() => isNaN(start.value.getTime()) ? '' : start.value.toLocaleDateString(locale.value, { month: 'short' }))
+const day = computed(() => isNaN(start.value.getTime()) ? '' : start.value.toLocaleDateString(locale.value, { day: '2-digit', timeZone }))
+const month = computed(() => isNaN(start.value.getTime()) ? '' : start.value.toLocaleDateString(locale.value, { month: 'short', timeZone }))
 const timeRange = computed(() => {
   if (isNaN(start.value.getTime())) return ''
-  const startTime = start.value.toLocaleTimeString(locale.value, { hour: '2-digit', minute: '2-digit' })
+  const startTime = start.value.toLocaleTimeString(locale.value, { hour: '2-digit', minute: '2-digit', timeZone })
   if (!end.value || isNaN(end.value.getTime())) return startTime
-  const endTime = end.value.toLocaleTimeString(locale.value, { hour: '2-digit', minute: '2-digit' })
+  const endTime = end.value.toLocaleTimeString(locale.value, { hour: '2-digit', minute: '2-digit', timeZone })
   return `${startTime} – ${endTime}`
 })
 

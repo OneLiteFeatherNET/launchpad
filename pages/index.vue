@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {definePageMeta} from "#imports";
+import {computed, definePageMeta} from "#imports";
+import type { EventSlide } from '#layers/home'
 
 definePageMeta({
   title: 'index.title',
@@ -8,6 +9,24 @@ definePageMeta({
 
 const { t } = useI18n()
 const { concept, connect, slides } = useHomeContent()
+const { promoted } = useEventPromotions()
+
+// Promoted events lead the carousel, ahead of the curated slides. Mapped here
+// because this page is the one place allowed to know both the events and the
+// home layer; neither of them knows the other.
+const carouselSlides = computed(() => [
+  ...promoted.value.map((card): EventSlide => ({
+    type: 'event',
+    title: card.title,
+    dateStart: card.startsAt,
+    dateEnd: card.endsAt,
+    href: card.path,
+    image: card.thumbnail,
+    alt: card.thumbnailAlt,
+    note: card.summary
+  })),
+  ...(slides.value ?? [])
+])
 const { sponsors } = useSponsoring()
 const { data: collective } = useOpenCollective()
 useHomeSeo({ title: t('index.title') })
@@ -25,7 +44,7 @@ useHomeSeo({ title: t('index.title') })
   <h1 class="sr-only">{{ t('index.title') }}</h1>
   <!-- Full-bleed Carousel on mobile: remove outer padding and width limits; restore container on md+ -->
   <div class="-mx-4 sm:-mx-6 px-0 py-6 md:py-10 md:mx-auto md:max-w-6xl md:px-4 lg:px-8">
-    <Carousel :slides="slides" aspect="16/9" :aria-label="t('index.carousel_aria')" />
+    <Carousel :slides="carouselSlides" aspect="16/9" :aria-label="t('index.carousel_aria')" />
   </div>
   <!-- Everything below the carousel is off-screen at load; hydrate-on-visible
        is what turns the code split into a saving. See tests/architecture/lazy-components.spec.ts -->

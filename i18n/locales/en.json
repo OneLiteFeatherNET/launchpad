@@ -16,7 +16,8 @@
     "change_language": "Change language",
     "more": "More",
     "status": "Status",
-    "community_poi": "Community POIs"
+    "community_poi": "Community POIs",
+    "events": "Events"
   },
   "carousel": {
     "prev": "Previous",
@@ -404,5 +405,93 @@
     "download": "Download",
     "open": "Open",
     "opens_new_tab": "(opens in a new tab)"
+  },
+  "events": {
+    "title": "Events",
+    "description": "Build events, game events, adventures and betas on OneLiteFeather – what is on now, what is coming and what has been.",
+    "intro": "What is on now, what is coming and what has been.",
+    "sections": {
+      "current": "Now on",
+      "upcoming": "Coming up",
+      "past": "Past events"
+    },
+    "empty_current": "No event is running right now. Announcements reach our Discord first.",
+    "empty_action": "Go to Discord",
+    "type": {
+      "build": "Build event",
+      "play": "Game event",
+      "adventure": "Adventure",
+      "beta": "Beta"
+    },
+    "phase": {
+      "announced": "Announced",
+      "running": "Running",
+      "past": "Ended"
+    },
+    "phase_hint": {
+      "announced": "Starts on",
+      "running": "Running now",
+      "past": "This event has ended."
+    },
+    "access": {
+      "signup": "Sign-up",
+      "application": "Application",
+      "invite": "Invite only"
+    },
+    "join": {
+      "title": "How to take part",
+      "requirements": "Requirements",
+      "server": "Connect to",
+      "discord": "Join Discord",
+      "signup": "Sign up",
+      "apply": "Apply",
+      "invite": "Taking part is by invitation only.",
+      "window": "Sign-up period:",
+      "window_closed": "Sign-up is not open right now."
+    },
+    "build": {
+      "theme": "Theme",
+      "deadline": "Submission deadline"
+    },
+    "play": {
+      "mode": "Mode",
+      "team_size": "Team size"
+    },
+    "adventure": {
+      "map_version": "Map version",
+      "minecraft_version": "Minecraft version"
+    },
+    "beta": {
+      "stage": "Kind",
+      "open": "Open beta",
+      "closed": "Closed beta",
+      "subject": "Being tested",
+      "kind": {
+        "gamemode": "Game mode",
+        "feature": "Feature",
+        "offer": "Offer"
+      }
+    },
+    "details": "Details",
+    "gallery": "Images",
+    "gallery_aria": "Event image gallery",
+    "resources": "Resources",
+    "resources_aria": "Event resources",
+    "results": {
+      "title": "Results",
+      "pending": "Results will follow shortly.",
+      "place": "Place {place}",
+      "winner": "Winner: {name}",
+      "outcome": "What happens next"
+    },
+    "testing": {
+      "title": "About the test",
+      "focus": "What we are testing",
+      "known_issues": "Known issues",
+      "feedback": "Report feedback"
+    },
+    "guides": {
+      "title": "Guide"
+    }
   }
 }

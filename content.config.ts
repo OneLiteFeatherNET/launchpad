@@ -300,6 +300,147 @@ const communityPoiSchema = withI18nMeta(z.object({
     acceptsContributions: z.boolean().default(true)
   }))
 
+// Timestamps stay strings on purpose. They sit inside JSON columns, where a
+// coerced Date would be re-serialised as UTC and lose the offset the author
+// wrote — and tests/content/events-frontmatter.spec.ts has to see that offset
+// to require it. shared/utils/eventPhase.ts parses them at request time.
+const eventTimestamp = z.string()
+
+const eventsSchema = withI18nMeta(z.object({
+    slug: z.string(),
+    title: z.string(),
+    summary: z.string(),
+    type: z.enum([
+      'build',
+      'play',
+      'adventure',
+      'beta'
+    ]),
+    thumbnail: z.string().optional(),
+    thumbnailAlt: z.string().optional(),
+    event: z.object({
+      announceAt: eventTimestamp.optional(),
+      startsAt: eventTimestamp,
+      endsAt: eventTimestamp.optional()
+    }),
+    access: z
+      .object({
+        mode: z.enum([
+          'open',
+          'signup',
+          'application',
+          'invite'
+        ]),
+        requirements: z.array(z.string()).optional(),
+        opens: eventTimestamp.optional(),
+        closes: eventTimestamp.optional(),
+        url: z.string().url().optional(),
+        note: z.string().optional()
+      })
+      .optional(),
+    join: z
+      .object({
+        server: z.boolean().optional(),
+        discord: z.string().url().optional()
+      })
+      .optional(),
+    // `false` switches promotion off; an object narrows or widens the
+    // window. A union becomes a JSON column, so `false` survives as `false`.
+    promote: z
+      .union([
+        z.literal(false),
+        z.object({
+          from: eventTimestamp.optional(),
+          until: eventTimestamp.optional()
+        })
+      ])
+      .optional(),
+    subject: z
+      .object({
+        kind: z.enum([
+          'gamemode',
+          'feature',
+          'offer'
+        ]),
+        name: z.string()
+      })
+      .optional(),
+    build: z
+      .object({
+        theme: z.string().optional(),
+        submissionDeadline: eventTimestamp.optional()
+      })
+      .optional(),
+    // Beta only: what the test looks at and where feedback goes.
+    testing: z
+      .object({
+        focus: z.array(z.string()).optional(),
+        knownIssues: z.array(z.string()).optional(),
+        feedbackUrl: z.string().url().optional()
+      })
+      .optional(),
+    // Any format; shown only once the event is past. `value` is a string so
+    // "42", "3 h" and "> 100" all fit.
+    results: z
+      .object({
+        summary: z.string().optional(),
+        placements: z
+          .array(z.object({
+            place: z.number().int().positive(),
+            name: z.string(),
+            mcName: z.string().optional(),
+            image: z.string().optional(),
+            imageAlt: z.string().optional()
+          }))
+          .optional(),
+        stats: z
+          .array(z.object({
+            label: z.string(),
+            value: z.string()
+          }))
+          .optional(),
+        outcome: z.array(z.string()).optional()
+      })
+      .optional(),
+    play: z
+      .object({
+        teamSize: z.string().optional(),
+        modeSummary: z.string().optional()
+      })
+      .optional(),
+    adventure: z
+      .object({
+        mapVersion: z.string().optional(),
+        minecraftVersion: z.string().optional()
+      })
+      .optional(),
+    gallery: z
+      .array(z.object({
+        src: z.string(),
+        alt: z.string(),
+        caption: z.string().optional(),
+        width: z.number().int().positive().optional(),
+        height: z.number().int().positive().optional()
+      }))
+      .optional(),
+    resources: z
+      .array(z.object({
+        kind: z.enum([
+          'download',
+          'link',
+          'discord',
+          'schematic'
+        ]),
+        name: z.string(),
+        url: z.string(),
+        description: z.string().optional(),
+        format: z.string().optional(),
+        version: z.string().optional(),
+        sizeLabel: z.string().optional()
+      }))
+      .optional()
+  }))
+
 export default defineContentConfig({
   collections: {
     ...defineLocalizedCollections('blog', (locale) => asSchemaOrgCollection({
@@ -416,6 +557,14 @@ export default defineContentConfig({
           }
         })
       })
+    })),
+    // Deliberately no `defineSitemapSchema`: whether an event is visible
+    // depends on the time of the request, which a build-time sitemap entry
+    // cannot know. server/api/__sitemap__/events.ts lists them instead.
+    ...defineLocalizedCollections('events', (locale) => ({
+      type: 'page',
+      source: `events/${locale}/**/*.md`,
+      schema: eventsSchema
     })),
     authors: defineCollection({
       type: 'page',

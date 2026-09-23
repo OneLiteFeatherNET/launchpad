@@ -45,6 +45,9 @@ const ALLOWED_DEEP_IMPORTS: Record<string, string> = {
     + 'the Nuxt app bundle. Verified with `nuxi build`: the alias produces a '
     + 'Rollup "Importing directly from module entry-points is not allowed" error '
     + 'for this route.',
+  'server/api/__sitemap__/events.ts': 'Same Nitro limitation as the team route above: '
+    + 'it needs `locales` at runtime and cannot take it through #layers/content-core. '
+    + 'The event visibility rule itself comes from shared/utils, not from a layer.',
 }
 
 /** Layers that are domains: everything that is not foundation. */
