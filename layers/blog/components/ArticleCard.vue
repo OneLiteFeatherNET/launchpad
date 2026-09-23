@@ -55,12 +55,11 @@ const title = computed(() => {
         <!-- body-small for supporting text like dates -->
         <time class="block text-sm text-gray-600 dark:text-gray-400 mt-0.5">{{ d(new Date(blogArticle.pubDate as any)) }}</time>
         <div v-if="blogArticle.tags?.length" class="mt-2 flex flex-wrap gap-2">
-          <Chip
+          <M3Chip
             v-for="tag in blogArticle.tags"
             :key="tag"
             :label="tag"
-            variant="outlined"
-            as="span"
+            kind="label"
           />
         </div>
         <!-- body-medium content excerpt -->

@@ -112,12 +112,12 @@ useHead(() => {
           v-if="blog?.tags?.length"
           class="mt-3 flex flex-wrap gap-2"
         >
-          <Chip
+          <M3Chip
             v-for="tag in blog.tags"
             :key="tag"
             :label="tag"
-            variant="tonal"
-            as="span"
+            kind="label"
+            color="secondary"
           />
         </div>
         <div

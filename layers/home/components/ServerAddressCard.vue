@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faDesktop, faGamepad, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import type { ButtonVariant } from '#layers/base'
 
 type Props = {
   title: string
@@ -12,7 +13,7 @@ type Props = {
   secondaryValue?: string
   icon: string
   iconClass?: string
-  buttonClass?: string
+  buttonVariant?: ButtonVariant
   copied: boolean
   copiedSecondary?: boolean
   onCopy: () => void | Promise<void>
@@ -23,7 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
   secondaryLabel: undefined,
   secondaryValue: undefined,
   iconClass: '',
-  buttonClass: '',
+  buttonVariant: 'filled',
   copiedSecondary: false,
   onCopySecondary: undefined
 })
@@ -57,8 +58,8 @@ const mainIcon = computed<IconDefinition>(() => iconMap[props.icon] ?? faCircleI
     </p>
     <div class="mt-auto flex flex-wrap items-center gap-3">
       <CopyButton
-        :aria-label="t('server.connect.copy_aria', { address })"
-        :button-class="buttonClass || 'relative overflow-hidden bg-gradient-to-r from-brand-500 via-sky-500 to-brand-600 text-white shadow-lg shadow-brand-500/20 hover:shadow-xl focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-secondary animate-[pulse_2.8s_ease-in-out_infinite] before:absolute before:inset-[-2px] before:rounded-full before:border before:border-white/25 before:opacity-50 before:pointer-events-none after:absolute after:inset-[1px] after:rounded-full after:border after:border-brand-200/40 after:opacity-50 after:pointer-events-none'"
+        :accessible-label="t('server.connect.copy_aria', { address })"
+        :variant="buttonVariant"
         :copied="copied"
         label-key="server.connect.copy_address"
         :on-copy="onCopy"
@@ -66,8 +67,8 @@ const mainIcon = computed<IconDefinition>(() => iconMap[props.icon] ?? faCircleI
       />
       <CopyButton
         v-if="secondaryValue && onCopySecondary"
-        :aria-label="t('server.connect.copy_port_aria', { port: secondaryValue })"
-        :button-class="buttonClass"
+        :accessible-label="t('server.connect.copy_port_aria', { port: secondaryValue })"
+        variant="tonal"
         :copied="copiedSecondary"
         label-key="server.connect.copy_port"
         :on-copy="onCopySecondary"

@@ -20,12 +20,11 @@ useHead({
   meta: [
     { name: 'application-name', content: 'OneLiteFeather' },
     { name: 'apple-mobile-web-app-title', content: 'OneLiteFeather' },
-    // Both values mirror --color-bg in assets/css/tailwind.css, which is
-    // light-dark(#ffffff, #0b1020). Previously a single #0b1220 — one digit
-    // off the dark token, and applied in light mode too, so the browser chrome
-    // went dark on a white page.
-    { name: 'theme-color', media: '(prefers-color-scheme: light)', content: '#ffffff' },
-    { name: 'theme-color', media: '(prefers-color-scheme: dark)', content: '#0b1020' },
+    // Both values mirror the MD3 --color-surface role in
+    // assets/css/tailwind.css; tests/design-system/md3-tokens.spec.ts keeps
+    // them in step when the generated roles change.
+    { name: 'theme-color', media: '(prefers-color-scheme: light)', content: '#fbf8ff' },
+    { name: 'theme-color', media: '(prefers-color-scheme: dark)', content: '#121319' },
     { name: 'color-scheme', content: 'light dark' },
     { name: 'format-detection', content: 'telephone=no' }
   ]

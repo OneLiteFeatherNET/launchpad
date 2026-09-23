@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources'
+import { schemeColors, themeCss, type SchemeColor } from '../helpers/theme'
 
 /**
  * WCAG 1.4.11 (Non-text Contrast, AA) asks for 3:1 between an interactive
@@ -80,6 +81,97 @@ describe('contrast helper', () => {
   it('composites opacity the way the browser does', () => {
     // 70% of muted over white is what the footer actually rendered.
     expect(blend('#6b7280', '#ffffff', 0.7)).toBe('#979ca6')
+  })
+})
+
+/**
+ * MD3 promises contrast between every role and its on-role; the algorithm
+ * picks tones for exactly that. Checked here against the values actually
+ * checked in, in both schemes, because the generator's promise is only as
+ * good as the file it wrote.
+ */
+const ROLE_PAIRS: [string, string][] = [
+  'primary',
+'secondary',
+'tertiary',
+'error',
+'brand-orange',
+'brand-purple',
+].flatMap((role): [string, string][] => [
+  [`on-${role}`, role], [`on-${role}-container`, `${role}-container`],
+])
+
+const SURFACES = [
+  'surface',
+'surface-dim',
+'surface-bright',
+  'surface-container-lowest',
+'surface-container-low',
+'surface-container',
+  'surface-container-high',
+'surface-container-highest',
+]
+
+/** [foreground, background, minimum ratio] for every pair the spec names. */
+const REQUIRED_CONTRAST: [string, string, number][] = [
+  ...ROLE_PAIRS.map(([fg, bg]): [string, string, number] => [fg,
+bg,
+4.5]),
+  ['inverse-on-surface',
+'inverse-surface',
+4.5],
+  ...SURFACES.flatMap((surface): [string, string, number][] => [
+    ['on-surface',
+surface,
+4.5],
+    ['on-surface-variant',
+surface,
+4.5],
+    ['outline',
+surface,
+3],
+    // The focus ring is drawn in `secondary`; 1.4.11 asks 3:1 of it.
+    ['secondary',
+surface,
+3],
+  ]),
+]
+
+/** Every pair below its minimum, as `fg on bg (scheme): ratio < min`. */
+function contrastFailures(colors: Map<string, SchemeColor>): string[] {
+  const failures: string[] = []
+  for (const [fg,
+bg,
+minimum] of REQUIRED_CONTRAST) {
+    const front = colors.get(fg)
+    const back = colors.get(bg)
+    if (!front || !back) {
+      failures.push(`${fg} on ${bg}: token missing`)
+      continue
+    }
+    for (const scheme of ['light', 'dark'] as const) {
+      const ratio = contrastRatio(front[scheme], back[scheme])
+      if (ratio < minimum) {
+        failures.push(`${fg} on ${bg} (${scheme}): ${ratio.toFixed(2)} < ${minimum}`)
+      }
+    }
+  }
+  return failures
+}
+
+describe('MD3 colour roles', () => {
+  it('meet their contrast minimum in both schemes', () => {
+    expect(contrastFailures(schemeColors())).toEqual([])
+  })
+
+  it('name the pair, scheme and ratio of a failing value', () => {
+    const tampered = themeCss().replace(
+      /--color-on-primary: light-dark\(#[0-9a-f]{6}/,
+      '--color-on-primary: light-dark(#1a2a80',
+    )
+    const failures = contrastFailures(schemeColors(tampered))
+    expect(failures).toHaveLength(1)
+    expect(failures[0]).toMatch(/^on-primary on primary \(light\): \d\.\d{2} < 4\.5$/)
   })
 })
 

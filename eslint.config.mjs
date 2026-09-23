@@ -37,7 +37,7 @@ export default withNuxt(...a11yConfigs, {
 }, {
   // Components directly under `layers/<domain>/components/` get no
   // directory-derived name prefix (see AGENTS.md: "Layer names produce no
-  // auto-import prefix"). Before the layer migration these four lived a
+  // auto-import prefix"). Before the layer migration these three lived a
   // couple of directories deeper (e.g. `components/features/carousel/Carousel.vue`),
   // which happened to make their auto-registered name multi-word on its own
   // (`FeaturesCarousel`); flattening the tree removed that side effect. Renaming
@@ -52,7 +52,6 @@ export default withNuxt(...a11yConfigs, {
       'error',
       {
         ignores: [
-          'Chip',
           'Top1',
           'Carousel',
           'Sponsoring'

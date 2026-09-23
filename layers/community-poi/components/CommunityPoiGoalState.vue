@@ -20,14 +20,14 @@ const goalHeading = [
 
 const currentCard = [
   'rounded-lg border-l-4 p-4',
-  'border-[var(--color-brand-orange)]',
-  'bg-[color-mix(in_oklab,var(--color-brand-orange)_8%,transparent)]'
+  'border-[var(--color-secondary-orange)]',
+  'bg-[color-mix(in_oklab,var(--color-secondary-orange)_8%,transparent)]'
 ].join(' ')
 
 const currentHeading = [
   'text-sm font-semibold uppercase tracking-wide',
-  'text-[color-mix(in_oklab,var(--color-brand-orange)_70%,black)]',
-  'dark:text-[color-mix(in_oklab,var(--color-brand-orange)_30%,white)]'
+  'text-[color-mix(in_oklab,var(--color-secondary-orange)_70%,black)]',
+  'dark:text-[color-mix(in_oklab,var(--color-secondary-orange)_30%,white)]'
 ].join(' ')
 
 const bodyClass = 'mt-1 whitespace-pre-line text-sm text-neutral-800 dark:text-neutral-100'

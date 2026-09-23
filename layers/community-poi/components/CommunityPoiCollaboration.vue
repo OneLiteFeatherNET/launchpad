@@ -19,7 +19,7 @@ const githubUrl = 'https://github.com/OneLiteFeatherNET/launchpad/tree/main/cont
 const isOpen = computed(() => props.poi.acceptsContributions !== false)
 const forumUrl = computed(() => props.poi.forumUrl)
 
-const accent = computed(() => isOpen.value ? 'var(--color-brand-secondary)' : 'var(--color-brand-orange)')
+const accent = computed(() => isOpen.value ? 'var(--color-brand-secondary)' : 'var(--color-secondary-orange)')
 
 const wrapperStyle = computed(() => ({
   borderLeftColor: accent.value,

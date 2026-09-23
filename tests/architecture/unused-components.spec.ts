@@ -181,8 +181,8 @@ describe('components', () => {
     expect(autoImported && isReferenced(autoImported, corpus)).toBe(true)
 
     // A layer component gets no prefix at all — Nuxt derives none from
-    // `layers/<name>/`, and `base/Chip.vue` is the first real one to prove it.
-    expect(directoryPrefixes(byName('base/components/Chip.vue')!)).toEqual([''])
+    // `layers/<name>/`, and `base/M3Chip.vue` proves it.
+    expect(directoryPrefixes(byName('base/components/M3Chip.vue')!)).toEqual([''])
   })
 
   it('recognises a tag carrying Nuxt\'s directory prefix', () => {

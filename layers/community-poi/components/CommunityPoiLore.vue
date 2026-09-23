@@ -8,14 +8,14 @@ const { t } = useI18n()
 
 const cardClass = [
   'rounded-lg border-l-4 p-5',
-  'border-[var(--color-brand-purple)]',
-  'bg-[color-mix(in_oklab,var(--color-brand-purple)_8%,transparent)]'
+  'border-[var(--color-secondary-purple)]',
+  'bg-[color-mix(in_oklab,var(--color-secondary-purple)_8%,transparent)]'
 ].join(' ')
 
 const headingClass = [
   'text-sm font-semibold uppercase tracking-wide',
-  'text-[color-mix(in_oklab,var(--color-brand-purple)_75%,black)]',
-  'dark:text-[color-mix(in_oklab,var(--color-brand-purple)_30%,white)]'
+  'text-[color-mix(in_oklab,var(--color-secondary-purple)_75%,black)]',
+  'dark:text-[color-mix(in_oklab,var(--color-secondary-purple)_30%,white)]'
 ].join(' ')
 
 const bodyClass = [

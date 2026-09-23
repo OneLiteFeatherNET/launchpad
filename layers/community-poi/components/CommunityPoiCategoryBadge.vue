@@ -17,11 +17,11 @@ const tone = computed(() => {
   switch (props.category) {
     case 'team':
       return [
-        'bg-[color-mix(in_oklab,var(--color-brand-purple)_15%,white)]',
-        'text-[color-mix(in_oklab,var(--color-brand-purple)_75%,black)]',
-        'ring-[color-mix(in_oklab,var(--color-brand-purple)_40%,transparent)]',
-        'dark:bg-[color-mix(in_oklab,var(--color-brand-purple)_28%,transparent)]',
-        'dark:text-[color-mix(in_oklab,var(--color-brand-purple)_30%,white)]'
+        'bg-[color-mix(in_oklab,var(--color-secondary-purple)_15%,white)]',
+        'text-[color-mix(in_oklab,var(--color-secondary-purple)_75%,black)]',
+        'ring-[color-mix(in_oklab,var(--color-secondary-purple)_40%,transparent)]',
+        'dark:bg-[color-mix(in_oklab,var(--color-secondary-purple)_28%,transparent)]',
+        'dark:text-[color-mix(in_oklab,var(--color-secondary-purple)_30%,white)]'
       ].join(' ')
     case 'collab':
       return [

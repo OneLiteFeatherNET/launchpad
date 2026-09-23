@@ -171,12 +171,11 @@ if (member.value) {
             >{{ rankLabel }}</span>
           </div>
           <div v-if="memberRoles.length" class="mt-2 flex flex-wrap gap-2">
-            <Chip
+            <M3Chip
               v-for="chip in memberRoles"
               :key="chip"
               :label="chip"
-              variant="outlined"
-              as="span"
+              kind="label"
             />
           </div>
           <p v-if="member.slogan" class="mt-2 text-gray-700 dark:text-gray-300">"{{ member.slogan }}"</p>
