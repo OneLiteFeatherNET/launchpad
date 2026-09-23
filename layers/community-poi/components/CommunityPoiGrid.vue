@@ -8,9 +8,9 @@ defineProps<{
 
 const { t } = useI18n()
 
-const emptyClass = [
-  'rounded-lg border border-dashed border-neutral-300 p-8 text-center text-sm', 'text-neutral-600 dark:border-neutral-700 dark:text-neutral-400'
-].join(' ')
+const emptyClass
+  = 'rounded-large border border-dashed border-outline-variant p-8 text-center '
+    + 'text-body-medium text-on-surface-variant'
 </script>
 
 <template>

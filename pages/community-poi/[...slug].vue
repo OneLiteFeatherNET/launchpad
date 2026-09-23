@@ -82,23 +82,14 @@ useSchemaOrg(() => {
 
 useHead(() => (poi.value as { head?: Record<string, unknown> } | null)?.head || {})
 
-const backLinkClass = [
-  'text-[var(--color-brand-secondary)] underline-offset-2 hover:underline',
-  'focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary)]'
-].join(' ')
+const backLinkClass
+  = 'rounded-extra-small text-label-large text-primary underline-offset-2 hover:underline focus-ring'
 
-const heroImgClass = [
-  'aspect-[16/9] w-full rounded-xl object-cover shadow-sm', 'ring-1 ring-black/5 dark:ring-white/10'
-].join(' ')
+const heroImgClass = 'aspect-[16/9] w-full rounded-large object-cover shadow-elevation-1'
 
-const titleClass = [
-  'text-3xl font-bold tracking-tight md:text-4xl', 'text-neutral-900 dark:text-neutral-50'
-].join(' ')
+const titleClass = 'text-display-small font-bold text-on-surface'
 
-const progressSectionClass = [
-  'rounded-lg bg-neutral-50 p-5 ring-1 ring-black/5', 'dark:bg-neutral-900 dark:ring-white/10'
-].join(' ')
+const progressSectionClass = 'rounded-large bg-surface-container-low p-5'
 </script>
 
 <template>
@@ -113,12 +104,12 @@ const progressSectionClass = [
         <div class="flex flex-wrap items-center gap-3">
           <CommunityPoiStatusBadge :status="poi.status" />
           <CommunityPoiCategoryBadge v-if="poi.category" :category="poi.category" />
-          <span v-if="poi.location" class="text-sm text-neutral-600 dark:text-neutral-400">
+          <span v-if="poi.location" class="text-body-medium text-on-surface-variant">
             {{ poi.location }}
           </span>
         </div>
         <h1 :class="titleClass">{{ poi.title }}</h1>
-        <p class="text-base text-neutral-700 dark:text-neutral-300">{{ poi.summary }}</p>
+        <p class="text-body-large text-on-surface-variant">{{ poi.summary }}</p>
       </header>
 
       <NuxtPicture
@@ -144,7 +135,7 @@ const progressSectionClass = [
 
       <section
         :aria-label="t('community_poi.meta.aria')"
-        class="rounded-lg border border-neutral-200 p-5 dark:border-neutral-800"
+        class="rounded-large border border-outline-variant p-5"
       >
         <CommunityPoiMeta :poi="poi" />
       </section>
@@ -155,19 +146,23 @@ const progressSectionClass = [
         :coordinates="poi.coordinates"
       />
 
-      <section v-if="poi.body" class="prose prose-neutral max-w-none dark:prose-invert">
+      <!--
+        Rendered by the content-core Prose* components; the `prose` classes
+        this carried compiled to nothing (no typography plugin).
+      -->
+      <section v-if="poi.body">
         <ContentRenderer :value="poi" />
       </section>
 
       <section v-if="poi.gallery?.length">
-        <h2 class="mb-3 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+        <h2 class="mb-3 text-title-large text-on-surface">
           {{ t('community_poi.gallery.title') }}
         </h2>
         <LazyCommunityPoiGallery :images="poi.gallery" />
       </section>
 
       <section v-if="poi.schematics?.length" class="space-y-4">
-        <h2 class="mb-3 text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+        <h2 class="mb-3 text-title-large text-on-surface">
           {{ t('community_poi.schematics.title') }}
         </h2>
         <LazyCommunityPoiSchematicList :schematics="poi.schematics" />

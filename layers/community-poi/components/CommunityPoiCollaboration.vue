@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import {
+  POI_CALLOUT,
+  POI_CALLOUT_BODY,
+  POI_CALLOUT_LINK,
+  POI_CALLOUT_TITLE,
+  type PoiCalloutTone,
+} from '../utils/poiCalloutClasses'
 import { computed } from '#imports'
 import type { CommunityPoi } from '../types'
 
@@ -19,51 +26,37 @@ const githubUrl = 'https://github.com/OneLiteFeatherNET/launchpad/tree/main/cont
 const isOpen = computed(() => props.poi.acceptsContributions !== false)
 const forumUrl = computed(() => props.poi.forumUrl)
 
-const accent = computed(() => isOpen.value ? 'var(--color-brand-secondary)' : 'var(--color-secondary-orange)')
-
-const wrapperStyle = computed(() => ({
-  borderLeftColor: accent.value,
-  background: `color-mix(in oklab, ${accent.value} 6%, transparent)`
-}))
-
-const headingClass = 'text-base font-semibold text-[var(--color-text)]'
-
-const linkClass = [
-  'inline-flex items-center gap-1 underline underline-offset-2',
-  'text-[var(--color-brand-secondary)] hover:text-[var(--color-brand-primary)]',
-  'focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary)] rounded'
-].join(' ')
+// Open for contributions reads as an invitation (secondary); showcase-only
+// as a notice (brand orange).
+const tone = computed<PoiCalloutTone>(() => (isOpen.value ? 'secondary' : 'brand-orange'))
 </script>
 
 <template>
   <aside
-    class="rounded-lg border-l-4 p-5"
-    :style="wrapperStyle"
+    :class="POI_CALLOUT[tone]"
     :aria-label="t('community_poi.collaboration.aria')"
   >
-    <h2 :class="['inline-flex items-center gap-2', headingClass]">
+    <h2 :class="POI_CALLOUT_TITLE">
       <IconFa
         :icon="['fas', isOpen ? 'handshake' : 'lock']"
         class="h-4 w-4"
-        :style="{ color: accent }"
         aria-hidden="true"
       />
       {{ isOpen
         ? t('community_poi.collaboration.open_title')
         : t('community_poi.collaboration.closed_title') }}
     </h2>
-    <p class="mt-1 text-sm text-[var(--color-muted)]">
+    <p :class="POI_CALLOUT_BODY">
       {{ isOpen
         ? t('community_poi.collaboration.open_body')
         : t('community_poi.collaboration.closed_body') }}
     </p>
 
-    <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+    <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-body-medium">
       <li v-if="forumUrl">
         <a
           :href="forumUrl"
-          :class="linkClass"
+          :class="POI_CALLOUT_LINK"
           target="_blank"
           rel="noopener noreferrer external"
         >
@@ -75,7 +68,7 @@ const linkClass = [
       <li v-if="isOpen">
         <a
           :href="discordUrl"
-          :class="linkClass"
+          :class="POI_CALLOUT_LINK"
           target="_blank"
           rel="noopener noreferrer external"
         >
@@ -87,7 +80,7 @@ const linkClass = [
       <li v-if="isOpen">
         <a
           :href="githubUrl"
-          :class="linkClass"
+          :class="POI_CALLOUT_LINK"
           target="_blank"
           rel="noopener noreferrer external"
         >

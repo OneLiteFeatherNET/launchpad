@@ -26,6 +26,12 @@ export type ChipKind = 'assist' | 'filter' | 'suggestion' | 'label'
 export type M3Color = 'primary' | 'secondary' | 'tertiary' | 'error' | 'brand-orange' | 'brand-purple'
 
 /**
+ * Colours of a non-interactive chip label: any role above, or `neutral` — a
+ * filled surface for labels that must stay legible over an image.
+ */
+export type ChipLabelColor = M3Color | 'neutral'
+
+/**
  * A Font Awesome icon as `IconFa` takes it: `'home'` or `['fas', 'home']`
  * for an icon registered in plugins/fontawesome.ts, or an imported icon
  * definition such as `faGithub` for one used in a single place.

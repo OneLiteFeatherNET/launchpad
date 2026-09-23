@@ -27,6 +27,10 @@ const poi = {
 const stubs = {
   NuxtPicture: { name: 'NuxtPicture', template: '<picture data-test="thumb" />' },
   NuxtLink: { name: 'NuxtLink', template: '<a><slot /></a>' },
+  // Auto-imported base primitives: rendered as plain wrappers for their slots.
+  M3Card: { name: 'M3Card', template: '<article><slot name="media" /><slot /></article>' },
+  M3CardLink: { name: 'M3CardLink', template: '<a><slot /></a>' },
+  M3Chip: true,
   IconFa: { name: 'IconFa', template: '<i data-test="placeholder" />' },
   CommunityPoiStatusBadge: true,
   CommunityPoiCategoryBadge: true,

@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import {
+  POI_CALLOUT,
+  POI_CALLOUT_BODY,
+  POI_CALLOUT_LINK,
+  POI_CALLOUT_TITLE,
+} from '../utils/poiCalloutClasses'
 
 const { t } = useI18n()
 const runtimeConfig = useRuntimeConfig()
@@ -9,42 +15,22 @@ const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined)
 // Edit-on-GitHub link points at the content folder so contributors can open a
 // PR directly with a new POI markdown or extra gallery images.
 const githubUrl = 'https://github.com/OneLiteFeatherNET/launchpad/tree/main/content/community-poi'
-
-const wrapperClass = [
-  'rounded-lg border-l-4 p-5',
-  'border-[var(--color-brand-secondary)]',
-  'bg-[color-mix(in_oklab,var(--color-brand-secondary)_6%,transparent)]'
-].join(' ')
-
-const linkClass = [
-  'inline-flex items-center gap-1.5 underline underline-offset-2',
-  'text-[var(--color-brand-secondary)]',
-  'hover:text-[var(--color-brand-primary)]',
-  'focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary)] rounded'
-].join(' ')
-
-const titleClass = [
-  'inline-flex items-center gap-2 text-base font-semibold', 'text-[var(--color-text)]'
-].join(' ')
-
-const iconClass = 'h-4 w-4 text-[var(--color-brand-secondary)]'
 </script>
 
 <template>
-  <aside :class="wrapperClass" :aria-label="t('community_poi.contribute.aria')">
-    <h2 :class="titleClass">
-      <IconFa :icon="['fas','image']" :class="iconClass" aria-hidden="true" />
+  <aside :class="POI_CALLOUT.secondary" :aria-label="t('community_poi.contribute.aria')">
+    <h2 :class="POI_CALLOUT_TITLE">
+      <IconFa :icon="['fas','image']" class="h-4 w-4" aria-hidden="true" />
       {{ t('community_poi.contribute.title') }}
     </h2>
-    <p class="mt-1 text-sm text-[var(--color-muted)]">
+    <p :class="POI_CALLOUT_BODY">
       {{ t('community_poi.contribute.body') }}
     </p>
-    <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+    <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-body-medium">
       <li>
         <a
           :href="discordUrl"
-          :class="linkClass"
+          :class="POI_CALLOUT_LINK"
           target="_blank"
           rel="noopener noreferrer external"
         >
@@ -56,7 +42,7 @@ const iconClass = 'h-4 w-4 text-[var(--color-brand-secondary)]'
       <li>
         <a
           :href="githubUrl"
-          :class="linkClass"
+          :class="POI_CALLOUT_LINK"
           target="_blank"
           rel="noopener noreferrer external"
         >

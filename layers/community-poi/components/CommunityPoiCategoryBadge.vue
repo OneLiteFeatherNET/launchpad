@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
+import type { ChipLabelColor } from '#layers/base'
 import type { CommunityPoiCategory } from '../types'
 
 const props = defineProps<{
@@ -10,53 +11,18 @@ const { t } = useI18n()
 
 const label = computed(() => t(`community_poi.category.${props.category}`))
 
-// Brand-aligned palette: team uses brand purple, community uses brand
-// secondary (cyan-blue), collab uses brand accent (magenta), farm uses
-// brand primary (green) since farms are typically green-themed.
-const tone = computed(() => {
-  switch (props.category) {
-    case 'team':
-      return [
-        'bg-[color-mix(in_oklab,var(--color-secondary-purple)_15%,white)]',
-        'text-[color-mix(in_oklab,var(--color-secondary-purple)_75%,black)]',
-        'ring-[color-mix(in_oklab,var(--color-secondary-purple)_40%,transparent)]',
-        'dark:bg-[color-mix(in_oklab,var(--color-secondary-purple)_28%,transparent)]',
-        'dark:text-[color-mix(in_oklab,var(--color-secondary-purple)_30%,white)]'
-      ].join(' ')
-    case 'collab':
-      return [
-        'bg-[color-mix(in_oklab,var(--color-brand-accent)_15%,white)]',
-        'text-[color-mix(in_oklab,var(--color-brand-accent)_70%,black)]',
-        'ring-[color-mix(in_oklab,var(--color-brand-accent)_40%,transparent)]',
-        'dark:bg-[color-mix(in_oklab,var(--color-brand-accent)_28%,transparent)]',
-        'dark:text-[color-mix(in_oklab,var(--color-brand-accent)_30%,white)]'
-      ].join(' ')
-    case 'farm':
-      return [
-        'bg-[color-mix(in_oklab,var(--color-brand-primary)_15%,white)]',
-        'text-[color-mix(in_oklab,var(--color-brand-primary)_75%,black)]',
-        'ring-[color-mix(in_oklab,var(--color-brand-primary)_40%,transparent)]',
-        'dark:bg-[color-mix(in_oklab,var(--color-brand-primary)_28%,transparent)]',
-        'dark:text-[color-mix(in_oklab,var(--color-brand-primary)_30%,white)]'
-      ].join(' ')
-    case 'community':
-    default:
-      return [
-        'bg-[color-mix(in_oklab,var(--color-brand-secondary)_15%,white)]',
-        'text-[color-mix(in_oklab,var(--color-brand-secondary)_75%,black)]',
-        'ring-[color-mix(in_oklab,var(--color-brand-secondary)_40%,transparent)]',
-        'dark:bg-[color-mix(in_oklab,var(--color-brand-secondary)_25%,transparent)]',
-        'dark:text-[color-mix(in_oklab,var(--color-brand-secondary)_30%,white)]'
-      ].join(' ')
-  }
-})
+// Brand-aligned, now as role containers: team in brand purple, collab in the
+// tertiary magenta, farm in primary, community in secondary.
+const COLOR_BY_CATEGORY: Record<CommunityPoiCategory, ChipLabelColor> = {
+  team: 'brand-purple',
+  collab: 'tertiary',
+  farm: 'primary',
+  community: 'secondary',
+}
 
-const sizing = 'px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset'
+const color = computed<ChipLabelColor>(() => COLOR_BY_CATEGORY[props.category] ?? 'secondary')
 </script>
 
 <template>
-  <span :class="['inline-flex items-center gap-1.5 rounded-full', sizing, tone]">
-    <span class="size-1.5 rounded-full bg-current" aria-hidden="true" />
-    {{ label }}
-  </span>
+  <M3Chip kind="label" :color="color" :label="label" />
 </template>

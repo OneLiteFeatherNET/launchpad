@@ -45,51 +45,30 @@ const handleCopy = async (kind: 'raw' | 'tp', value: string) => {
   }
 }
 
-const buttonBase = [
-  'inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs',
-  'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)]',
-  'transition hover:bg-[color-mix(in_oklab,var(--color-brand-secondary)_10%,transparent)]',
-  'focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-secondary)]'
-].join(' ')
+const rawIcon = computed<[string, string]>(() => ['fas', recentlyCopied.value === 'raw' ? 'check' : 'copy'])
+const rawLabel = computed(() => t(recentlyCopied.value === 'raw' ? 'community_poi.copy.copied' : 'community_poi.copy.raw'))
+const tpLabel = computed(() => t(recentlyCopied.value === 'tp' ? 'community_poi.copy.copied' : 'community_poi.copy.tp'))
+const tpIcon = computed<[string, string]>(() => ['fas', recentlyCopied.value === 'tp' ? 'check' : 'terminal'])
 </script>
 
 <template>
+  <!-- Copy actions: MD3 assist chips, the leading icon flipping to a check once copied. -->
   <div class="inline-flex flex-wrap items-center gap-2">
-    <button
-      type="button"
-      :class="buttonBase"
+    <M3Chip
+      kind="assist"
+      :icon="rawIcon"
+      :label="rawLabel"
       :aria-label="t('community_poi.copy.raw_aria', { value: rawValue })"
       :title="rawValue"
       @click="handleCopy('raw', rawValue)"
-    >
-      <IconFa
-        :icon="['fas', recentlyCopied === 'raw' ? 'check' : 'copy']"
-        class="h-3 w-3"
-        aria-hidden="true"
-      />
-      <span>{{
-        recentlyCopied === 'raw'
-          ? t('community_poi.copy.copied')
-          : t('community_poi.copy.raw')
-      }}</span>
-    </button>
-    <button
-      type="button"
-      :class="buttonBase"
+    />
+    <M3Chip
+      kind="assist"
+      :icon="tpIcon"
+      :label="tpLabel"
       :aria-label="t('community_poi.copy.tp_aria', { value: tpValue })"
       :title="tpValue"
       @click="handleCopy('tp', tpValue)"
-    >
-      <IconFa
-        :icon="['fas', recentlyCopied === 'tp' ? 'check' : 'terminal']"
-        class="h-3 w-3"
-        aria-hidden="true"
-      />
-      <span>{{
-        recentlyCopied === 'tp'
-          ? t('community_poi.copy.copied')
-          : t('community_poi.copy.tp')
-      }}</span>
-    </button>
+    />
   </div>
 </template>

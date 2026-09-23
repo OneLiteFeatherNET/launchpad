@@ -29,9 +29,11 @@ useBreadcrumbs(() => [
   <section class="py-6 sm:py-8">
     <div class="mx-auto max-w-screen-2xl">
       <div class="mb-4">
-        <h1 class="text-2xl font-semibold text-[var(--color-text)]">BlueMap</h1>
+        <h1 class="text-headline-small text-on-surface">BlueMap</h1>
       </div>
-      <div class="rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)]">
+      <div
+        class="overflow-hidden rounded-large border border-outline-variant bg-surface-container-low"
+      >
         <!--
           The embed is third-party by origin and its URL comes from runtime
           config, so this page cannot assume the content stays what it is.

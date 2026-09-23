@@ -41,16 +41,7 @@ const galleryCount = computed(() => (props.poi.gallery ?? []).length)
 const schematicCount = computed(() => (props.poi.schematics ?? []).length)
 const detailAria = computed(() => t('community_poi.card.open_detail', { title: props.poi.title }))
 
-const articleClass = [
-  'group flex h-full flex-col overflow-hidden rounded-xl shadow-sm',
-  'bg-[var(--color-surface)] ring-1 ring-[var(--color-border)]',
-  'transition hover:shadow-md',
-  'focus-within:ring-2 focus-within:ring-[var(--color-brand-secondary)]'
-].join(' ')
-
-const thumbLinkClass = [
-  'relative block aspect-[16/9] w-full overflow-hidden', 'bg-neutral-100 dark:bg-neutral-800 focus:outline-none'
-].join(' ')
+const mediaClass = 'relative aspect-[16/9] w-full overflow-hidden bg-surface-container-highest'
 
 const thumbImgClass = [
   'h-full w-full object-cover transition-transform duration-500',
@@ -58,75 +49,67 @@ const thumbImgClass = [
   'motion-reduce:transition-none'
 ].join(' ')
 
-const placeholderClass = [
-  'flex h-full w-full items-center justify-center', 'text-neutral-400 dark:text-neutral-600'
-].join(' ')
+const placeholderClass = 'flex h-full w-full items-center justify-center text-on-surface-variant'
 
-const footerClass = [
-  'mt-auto flex flex-wrap items-center justify-between gap-2 pt-2 text-xs', 'text-neutral-600 dark:text-neutral-400'
-].join(' ')
-
-const showcaseBadgeClass = [
-  'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium',
-  'ring-1 ring-inset',
-  'bg-[color-mix(in_oklab,var(--color-secondary-orange)_15%,white)]',
-  'text-[color-mix(in_oklab,var(--color-secondary-orange)_70%,black)]',
-  'ring-[color-mix(in_oklab,var(--color-secondary-orange)_40%,transparent)]',
-  'dark:bg-[color-mix(in_oklab,var(--color-secondary-orange)_22%,transparent)]',
-  'dark:text-[color-mix(in_oklab,var(--color-secondary-orange)_30%,white)]'
-].join(' ')
+const footerClass
+  = 'mt-auto flex flex-wrap items-center justify-between gap-2 pt-2 text-label-medium '
+    + 'text-on-surface-variant'
 </script>
 
 <template>
-  <article :class="articleClass">
-    <NuxtLink :to="href" :aria-label="detailAria" :class="thumbLinkClass">
-      <NuxtPicture
-        v-if="poi.thumbnail && !thumbnailFailed"
-        :src="poi.thumbnail"
-        :alt="poi.thumbnailAlt || poi.title"
-        sizes="xs:300px sm:500px md:400px lg:500px"
-        width="800"
-        height="450"
-        fit="cover"
-        quality="75"
-        loading="lazy"
-        :img-attrs="{ class: thumbImgClass }"
-        format="avif,webp"
-        @error="thumbnailFailed = true"
-      />
-      <div v-else :class="placeholderClass">
-        <IconFa :icon="['fas','image']" class="h-10 w-10" aria-hidden="true" />
+  <!--
+    One link per card: the title's, stretched over the whole card. The
+    thumbnail used to be a second link to the same page — a second tab stop
+    for nothing.
+  -->
+  <M3Card as="article" variant="outlined" interactive class="group h-full">
+    <template #media>
+      <div :class="mediaClass">
+        <NuxtPicture
+          v-if="poi.thumbnail && !thumbnailFailed"
+          :src="poi.thumbnail"
+          :alt="poi.thumbnailAlt || poi.title"
+          sizes="xs:300px sm:500px md:400px lg:500px"
+          width="800"
+          height="450"
+          fit="cover"
+          quality="75"
+          loading="lazy"
+          :img-attrs="{ class: thumbImgClass }"
+          format="avif,webp"
+          @error="thumbnailFailed = true"
+        />
+        <div v-else :class="placeholderClass">
+          <IconFa :icon="['fas','image']" class="h-10 w-10" aria-hidden="true" />
+        </div>
+        <div class="absolute left-3 top-3 flex flex-wrap items-center gap-2">
+          <CommunityPoiStatusBadge :status="poi.status" />
+          <CommunityPoiCategoryBadge v-if="poi.category" :category="poi.category" />
+          <M3Chip
+            v-if="poi.acceptsContributions === false"
+            kind="label"
+            color="brand-orange"
+            :icon="['fas','lock']"
+            :label="t('community_poi.card.showcase_only')"
+            :title="t('community_poi.card.showcase_only')"
+          />
+        </div>
       </div>
-      <div class="absolute left-3 top-3 flex flex-wrap items-center gap-2">
-        <CommunityPoiStatusBadge :status="poi.status" />
-        <CommunityPoiCategoryBadge v-if="poi.category" :category="poi.category" />
-        <span
-          v-if="poi.acceptsContributions === false"
-          :class="showcaseBadgeClass"
-          :title="t('community_poi.card.showcase_only')"
-        >
-          <IconFa :icon="['fas','lock']" class="h-2.5 w-2.5" aria-hidden="true" />
-          {{ t('community_poi.card.showcase_only') }}
-        </span>
-      </div>
-    </NuxtLink>
+    </template>
 
-    <div class="flex flex-1 flex-col gap-3 p-5">
+    <div class="flex flex-1 flex-col gap-3">
       <header>
-        <h3 class="text-lg font-semibold leading-snug text-neutral-900 dark:text-neutral-50">
-          <NuxtLink
-            :to="href"
-            class="after:absolute after:inset-0 after:content-[''] focus:outline-none"
-          >
+        <h3 class="text-title-large text-on-surface">
+          <M3CardLink :to="href" :aria-label="detailAria">
             {{ poi.title }}
-          </NuxtLink>
+          </M3CardLink>
         </h3>
-        <p v-if="poi.location" class="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+        <p v-if="poi.location" class="mt-0.5 text-body-small text-on-surface-variant">
           {{ poi.location }}
         </p>
       </header>
 
-      <p class="line-clamp-3 text-sm text-neutral-700 dark:text-neutral-300">
+      <p class="line-clamp-3 text-body-medium text-on-surface-variant">
         {{ poi.summary }}
       </p>
 
@@ -150,5 +133,5 @@ const showcaseBadgeClass = [
         </span>
       </footer>
     </div>
-  </article>
+  </M3Card>
 </template>

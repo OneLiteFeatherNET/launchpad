@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import {
+  POI_CALLOUT,
+  POI_CALLOUT_BODY,
+  POI_CALLOUT_LABEL,
+} from '../utils/poiCalloutClasses'
 
 defineProps<{
   lore: string
@@ -6,29 +11,14 @@ defineProps<{
 
 const { t } = useI18n()
 
-const cardClass = [
-  'rounded-lg border-l-4 p-5',
-  'border-[var(--color-secondary-purple)]',
-  'bg-[color-mix(in_oklab,var(--color-secondary-purple)_8%,transparent)]'
-].join(' ')
-
-const headingClass = [
-  'text-sm font-semibold uppercase tracking-wide',
-  'text-[color-mix(in_oklab,var(--color-secondary-purple)_75%,black)]',
-  'dark:text-[color-mix(in_oklab,var(--color-secondary-purple)_30%,white)]'
-].join(' ')
-
-const bodyClass = [
-  'mt-2 whitespace-pre-line text-sm leading-relaxed', 'text-neutral-800 dark:text-neutral-100'
-].join(' ')
 </script>
 
 <template>
-  <article :class="cardClass" :aria-label="t('community_poi.lore.aria')">
-    <h3 :class="['inline-flex items-center gap-2', headingClass]">
+  <article :class="POI_CALLOUT['brand-purple']" :aria-label="t('community_poi.lore.aria')">
+    <h3 :class="POI_CALLOUT_LABEL">
       <IconFa :icon="['fas','book-open']" class="h-3.5 w-3.5" aria-hidden="true" />
       {{ t('community_poi.lore.title') }}
     </h3>
-    <p :class="bodyClass">{{ lore }}</p>
+    <p :class="POI_CALLOUT_BODY">{{ lore }}</p>
   </article>
 </template>

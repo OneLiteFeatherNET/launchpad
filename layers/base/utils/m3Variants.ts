@@ -2,9 +2,9 @@ import type {
   ButtonVariant,
   CardVariant,
   ChipKind,
+  ChipLabelColor,
   IconButtonSize,
   IconButtonVariant,
-  M3Color,
 } from '../types'
 
 // Class lists of the M3* primitives, one complete string per variant.
@@ -109,8 +109,9 @@ export const M3_CHIP_KINDS: Record<Exclude<ChipKind, 'label'>, { plain: string, 
 /** A non-interactive label without a colour: outlined and neutral. */
 export const M3_CHIP_LABEL_NEUTRAL = 'border-outline-variant text-on-surface-variant px-3'
 
-/** A non-interactive label tinted with a role: its container colours. */
-export const M3_CHIP_LABEL_COLORS: Record<M3Color, string> = {
+/** A non-interactive label: a role's container colours, or a neutral fill. */
+export const M3_CHIP_LABEL_COLORS: Record<ChipLabelColor, string> = {
+  'neutral': 'border-transparent bg-surface-container-highest text-on-surface-variant px-3',
   'primary': 'border-transparent bg-primary-container text-on-primary-container px-3',
   'secondary': 'border-transparent bg-secondary-container text-on-secondary-container px-3',
   'tertiary': 'border-transparent bg-tertiary-container text-on-tertiary-container px-3',

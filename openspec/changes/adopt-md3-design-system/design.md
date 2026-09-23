@@ -170,6 +170,10 @@ Klassen für einen Konflikt, der nach der Migration nicht mehr existiert.
 - **Fortschrittsspur:** `M3LinearProgress` nutzt `surface-container-highest`
   als Spur statt `secondary-container`: Mit der gesättigten Sekundärfarbe
   käme der dunkle Container nur auf 1,87:1 gegen den `primary`-Balken.
+- **Neutrales Label:** `M3Chip kind="label"` kennt neben den Rollen die Farbe
+  `neutral` (gefülltes `surface-container-highest`). Ein farbloses Label ist
+  transparent und hätte über einem Vorschaubild keinen gesicherten Kontrast
+  (POI-Status „pausiert“).
 - **Ablösung:** `Chip` → `M3Chip`, `NavigationIconButton` → `M3IconButton`;
   `CopyButton` bleibt als Komposition auf `M3IconButton`/`M3Button`,
   `SectionHeading`/`GradientText` bleiben und nutzen Typo-Tokens.
