@@ -108,3 +108,29 @@ jobs:
       # not a syntax error, it just renders nothing.
       - name: Run tests
         run: pnpm test
+
+  cross-browser:
+    name: Colour roles across browsers
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Every MD3 colour role is a light-dark() pair and an opacity modifier
+      # wraps it in color-mix(). Whether an engine resolves that per colour
+      # scheme — and whether the state layer stays invisible at rest instead
+      # of falling back to a solid fill — is a rendering question no unit test
+      # answers. Rendered pixels, in all three engines, light and dark.
+      - name: Install browsers
+        run: pnpm exec playwright install --with-deps chromium firefox webkit
+
+      - name: Check colour roles
+        run: pnpm check:colors

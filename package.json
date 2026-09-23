@@ -19,6 +19,7 @@
   "scripts": {
     "build": "node scripts/check-image-assets.mjs && nuxi build",
     "check:images": "node scripts/check-image-assets.mjs",
+    "check:colors": "node scripts/cross-browser-colors.mjs",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -65,6 +66,7 @@
     "nuxt-schema-org": "6.3.2",
     "nuxt-vitalizer": "3.0.0",
     "parse5": "^8.0.0",
+    "playwright": "1.63.0",
     "postcss": "^8.5.6",
     "rehype-raw": "^7.0.0",
     "remark-emoji": "^5.0.2",

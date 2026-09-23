@@ -230,8 +230,10 @@ mit `--color-surface`. `app.vue` bekommt die neuen Werte im Token-PR.
 
 - [Opazitäts-Modifikator auf `light-dark()`-Token (`bg-primary/10`) –
   Tailwind erzeugt `color-mix(… var(--color-primary) 10%, transparent)`] →
-  Im Token-PR in Chromium, Firefox und WebKit (Playwright) prüfen; der Bestand
-  nutzt dieselbe Kombination bereits mit `--color-surface`.
+  Der CI-Job `Colour roles across browsers` rendert Rolle, Tönung und State
+  Layer in Chromium, Firefox und WebKit, hell und dunkel, und vergleicht
+  Pixel (`scripts/cross-browser-colors.mjs`). Lokal lassen sich Firefox und
+  WebKit nicht installieren; die Prüfung lebt deshalb in der CI.
 - [Optik verschiebt sich sichtbar, v. a. Flächen und Grautöne] → Jeder PR mit
   Screenshots hell/dunkel vorher/nachher; Rückfragen zur Markenwirkung vor dem
   Merge des Token-PRs klären.
