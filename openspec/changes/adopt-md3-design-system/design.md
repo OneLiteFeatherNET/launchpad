@@ -154,11 +154,22 @@ Klassen für einen Konflikt, der nach der Migration nicht mehr existiert.
   ohne Label. Nicht `ariaLabel`: `vue-tsc` liest `aria-label="…"` an der
   Aufrufstelle als HTML-Attribut, eine Pflicht-Prop `ariaLabel` wäre in
   Kebab-Case nie erfüllbar (in der Umsetzung festgestellt).
-- **Klickbare Karte:** Link auf dem Titel mit „stretched link“
-  (`after:absolute after:inset-0`), weitere Aktionen mit `relative z-10`.
-  So bleibt ein einziger Tab-Stopp für die Karte und der Kartentext bleibt
-  kein riesiger Link-Name. Ersetzt die heutigen, je Karte verschiedenen
-  Lösungen.
+- **Klickbare Karte:** `M3Card` mit `interactive` plus genau ein
+  `M3CardLink` um den Titel. Dessen `::after` spannt sich über die ganze
+  Karte (stretched link); Fokusring und State Layer sitzen auf der Karte.
+  So bleibt ein einziger Tab-Stopp, der Link-Name ist nur der Titel, und
+  Links im Inhalt (Blog-Auszüge) werden nicht mehr in einen Link
+  verschachtelt – das war die Ursache der Hydration-Mismatches auf
+  `/de/blog`. Solche Inhaltslinks und die `actions`-Zeile liegen mit
+  `relative z-10` über dem Overlay und bleiben einzeln bedienbar.
+- **NuxtLink auflösen:** `useInteractiveTag` bekommt die Link-Komponente
+  von der aufrufenden SFC (`resolveComponent('NuxtLink')`). Nuxt registriert
+  `NuxtLink` nicht global, sondern transformiert diesen Aufruf; der blanke
+  String in `:is` rendert ein wirkungsloses `<nuxtlink>` (in der Umsetzung
+  festgestellt).
+- **Fortschrittsspur:** `M3LinearProgress` nutzt `surface-container-highest`
+  als Spur statt `secondary-container`: Mit der gesättigten Sekundärfarbe
+  käme der dunkle Container nur auf 1,87:1 gegen den `primary`-Balken.
 - **Ablösung:** `Chip` → `M3Chip`, `NavigationIconButton` → `M3IconButton`;
   `CopyButton` bleibt als Komposition auf `M3IconButton`/`M3Button`,
   `SectionHeading`/`GradientText` bleiben und nutzen Typo-Tokens.
