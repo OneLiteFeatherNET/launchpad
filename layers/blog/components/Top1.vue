@@ -36,12 +36,11 @@ const {blogArticle} = defineProps<{
           {{ d(new Date(blogArticle.pubDate as any)) }}
         </time>
         <div v-if="blogArticle.tags?.length" class="mt-2 flex flex-wrap gap-2">
-          <Chip
+          <M3Chip
             v-for="tag in blogArticle.tags"
             :key="tag"
             :label="tag"
-            variant="outlined"
-            as="span"
+            kind="label"
           />
         </div>
         <!-- body-medium description -->

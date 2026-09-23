@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import NavigationIconButton from '../../layers/base/components/NavigationIconButton.vue'
+import M3IconButton from '../../layers/base/components/M3IconButton.vue'
 
 /**
  * The static check in `frozen-props.spec.ts` says the pattern is gone. This
@@ -13,19 +13,19 @@ import NavigationIconButton from '../../layers/base/components/NavigationIconBut
  * rendering what it was handed first. A grep can prove the shape of the code;
  * only a re-render can prove the shape was the thing that mattered.
  *
- * `NavigationIconButton` is the subject because its `variant` drives a class
+ * `M3IconButton` is the subject because its `variant` drives a class
  * binding directly, so one assertion covers the whole path from prop to DOM.
  * Its sibling components freeze the same prop behind a `v-if`, which fails the
  * same way for the same reason.
  */
 
-const FILLED = 'bg-[var(--color-brand-secondary)]'
-const OUTLINED = 'border-[var(--color-border)]'
+const FILLED = 'bg-primary'
+const OUTLINED = 'border-outline'
 
 describe('prop changes reach the DOM', () => {
   it('re-renders when variant changes after mount', async () => {
-    const wrapper = mount(NavigationIconButton, {
-      props: { icon: ['fas', 'chevron-left'], variant: 'filled' },
+    const wrapper = mount(M3IconButton, {
+      props: { icon: ['fas', 'chevron-left'], label: 'Back', variant: 'filled' },
       global: { stubs: { IconFa: true } }
     })
 
@@ -41,8 +41,8 @@ describe('prop changes reach the DOM', () => {
   })
 
   it('falls back to the declared default when the prop is omitted', async () => {
-    const wrapper = mount(NavigationIconButton, {
-      props: { icon: ['fas', 'chevron-left'] },
+    const wrapper = mount(M3IconButton, {
+      props: { icon: ['fas', 'chevron-left'], label: 'Back' },
       global: { stubs: { IconFa: true } }
     })
 
@@ -51,6 +51,6 @@ describe('prop changes reach the DOM', () => {
     expect(wrapper.html()).not.toContain(OUTLINED)
 
     await wrapper.setProps({ variant: 'tonal' })
-    expect(wrapper.html()).toContain('bg-[var(--color-surface)]/60')
+    expect(wrapper.html()).toContain('bg-secondary-container')
   })
 })

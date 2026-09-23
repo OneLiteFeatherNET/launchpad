@@ -150,7 +150,10 @@ Klassen für einen Konflikt, der nach der Migration nicht mehr existiert.
   setzt Farbe) verhindert die Governance-Regel statt einer Laufzeit-Merge-
   Bibliothek.
 - **Pflicht-Label:** `M3IconButton` und `M3LinearProgress` deklarieren
-  `ariaLabel` als nicht-optionale Prop → Typfehler ohne Label.
+  `label` als nicht-optionale Prop und setzen daraus `aria-label` → Typfehler
+  ohne Label. Nicht `ariaLabel`: `vue-tsc` liest `aria-label="…"` an der
+  Aufrufstelle als HTML-Attribut, eine Pflicht-Prop `ariaLabel` wäre in
+  Kebab-Case nie erfüllbar (in der Umsetzung festgestellt).
 - **Klickbare Karte:** Link auf dem Titel mit „stretched link“
   (`after:absolute after:inset-0`), weitere Aktionen mit `relative z-10`.
   So bleibt ein einziger Tab-Stopp für die Karte und der Kartentext bleibt

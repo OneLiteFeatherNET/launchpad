@@ -311,21 +311,21 @@ const componentFor = (slide: NormalizedSlide) => {
 
       <!-- Controls -->
       <div class="absolute inset-x-0 top-0 bottom-10 z-50 flex items-center justify-between p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100" style="pointer-events: none;">
-        <NavigationIconButton
-          :aria-label="t('carousel.previous_slide')"
+        <M3IconButton
+          :label="t('carousel.previous_slide')"
           :icon="['fas','chevron-left']"
           variant="filled"
           size="lg"
-          class="shadow-xl shadow-black/40 ring-1 ring-black/20 cursor-pointer"
+          class="shadow-elevation-3"
           style="pointer-events: auto !important;"
           @click="(e: MouseEvent) => { e.stopPropagation(); prev(); }"
         />
-        <NavigationIconButton
-          :aria-label="t('carousel.next_slide')"
+        <M3IconButton
+          :label="t('carousel.next_slide')"
           :icon="['fas','chevron-right']"
           variant="filled"
           size="lg"
-          class="shadow-xl shadow-black/40 ring-1 ring-black/20 cursor-pointer"
+          class="shadow-elevation-3"
           style="pointer-events: auto !important;"
           @click="(e: MouseEvent) => { e.stopPropagation(); next(); }"
         />

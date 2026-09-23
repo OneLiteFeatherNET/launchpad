@@ -67,12 +67,11 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: r
         </div>
       </div>
       <div v-if="roleChips.length" class="mt-3 flex flex-wrap gap-2">
-        <Chip
+        <M3Chip
           v-for="chip in roleChips"
           :key="chip"
           :label="chip"
-          variant="outlined"
-          as="span"
+          kind="label"
         />
       </div>
       <p v-if="slogan" class="mt-3 line-clamp-3 text-sm text-gray-700 dark:text-gray-300">“{{ slogan }}”</p>

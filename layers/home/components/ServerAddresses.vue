@@ -108,7 +108,6 @@ const onCopyBedrockPort = async () => {
             :address="props.javaAddress"
             icon="desktop_windows"
             iconClass="text-emerald-700 dark:text-emerald-400"
-            buttonClass="bg-emerald-700"
             :copied="copiedJava"
             :onCopy="onCopyJava"
           />
@@ -121,7 +120,6 @@ const onCopyBedrockPort = async () => {
             :secondary-label="bedrockPort ? t('server.connect.port_label') : ''"
             icon="stadia_controller"
             iconClass="text-indigo-600 dark:text-indigo-400"
-            buttonClass="bg-indigo-600"
             :copied="copiedBedrock"
             :onCopy="onCopyBedrock"
             :copied-secondary="copiedBedrockPort"

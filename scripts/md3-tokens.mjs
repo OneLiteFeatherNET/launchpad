@@ -72,7 +72,11 @@ export const SCHEME_ROLES = {
 export const START_MARKER = '/* md3:generated:start */'
 export const END_MARKER = '/* md3:generated:end */'
 
-const THEME_FILE = fileURLToPath(new URL('../assets/css/tailwind.css', import.meta.url))
+/** Resolved on use, not on import: under a DOM test environment the module
+    URL is not a file: URL and resolving it at load time throws. */
+function themeFile() {
+  return fileURLToPath(new URL('../assets/css/tailwind.css', import.meta.url))
+}
 
 function scheme(isDark) {
   const source = Hct.fromInt(argbFromHex(CORE_COLORS.primary))
@@ -131,7 +135,7 @@ export function renderBlock(tokens = generateTokens()) {
 }
 
 /** The generated block as it currently stands in tailwind.css, or null. */
-export function currentBlock(css = readFileSync(THEME_FILE, 'utf8')) {
+export function currentBlock(css = readFileSync(themeFile(), 'utf8')) {
   const start = css.indexOf(START_MARKER)
   const end = css.indexOf(END_MARKER)
   if (start === -1 || end === -1) return null
@@ -140,7 +144,7 @@ export function currentBlock(css = readFileSync(THEME_FILE, 'utf8')) {
 }
 
 function main() {
-  const css = readFileSync(THEME_FILE, 'utf8')
+  const css = readFileSync(themeFile(), 'utf8')
   const existing = currentBlock(css)
   const next = renderBlock()
   if (process.argv.includes('--check')) {
@@ -152,10 +156,10 @@ function main() {
     return
   }
   if (existing === null) {
-    console.error(`Markers ${START_MARKER} / ${END_MARKER} not found in ${THEME_FILE}.`)
+    console.error(`Markers ${START_MARKER} / ${END_MARKER} not found in ${themeFile()}.`)
     process.exit(1)
   }
-  writeFileSync(THEME_FILE, css.replace(existing, next))
+  writeFileSync(themeFile(), css.replace(existing, next))
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) main()

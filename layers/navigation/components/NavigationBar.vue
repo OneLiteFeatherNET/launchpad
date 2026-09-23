@@ -170,10 +170,10 @@ onKeyStroke('Escape', () => closeMenus())
         </nav>
 
         <div class="lg:hidden">
-          <NavigationIconButton
+          <M3IconButton
             ref="mobileToggleRef"
             :icon="mobileMenuOpen ? ['fas','times'] : ['fas','bars']"
-            :aria-label="t('navigation.toggle_mobile_menu')"
+            :label="t('navigation.toggle_mobile_menu')"
             :aria-controls="mobileMenuId"
             :aria-expanded="mobileMenuOpen ? 'true' : 'false'"
             @click="mobileMenuOpen = !mobileMenuOpen"

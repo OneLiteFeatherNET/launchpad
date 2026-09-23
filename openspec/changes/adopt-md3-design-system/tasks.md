@@ -32,13 +32,13 @@ Migration Plan). Vor jedem PR gilt: `pnpm test`, `pnpm build` und
 
 ## 5. Interaktive Primitives (PR 2)
 
-- [ ] 5.1 `layers/base/types.ts` mit `ButtonVariant`, `IconButtonVariant`, `CardVariant`, `ChipKind`, `M3Color` anlegen und Typ-Exporte in `layers/base/index.ts` aufnehmen; verifiziert durch `pnpm typecheck` ohne neue Fehler
-- [ ] 5.2 `layers/base/composables/useInteractiveTag.ts` aus der Tag-Logik von `Chip.vue` extrahieren (NuxtLink/a/button, `type="button"`, `rel="noopener noreferrer"` bei `target="_blank"`); verifiziert durch Unit-Test aller drei Fälle
-- [ ] 5.3 Varianten-Klassen-Maps in `layers/base/utils/` mit vollständigen Klassen-Strings anlegen; verifiziert durch Test, dass jede Variante nur Rollen-, Shape-, Elevation- und Typo-Tokens nennt
-- [ ] 5.4 `M3Button` (filled/tonal/outlined/text/elevated, Icon-Slot, disabled, Link-Modus, 40 px Höhe, Touch Target) bauen; verifiziert durch Komponententests zu Standardvariante, externem Link, disabled und Tastaturauslösung
-- [ ] 5.5 `M3IconButton` (standard/filled/tonal/outlined, Pflicht-`ariaLabel`, Toggle mit `aria-pressed`, Größen) bauen; verifiziert durch Komponententest und einen `vue-tsc`-Fall ohne Label, der scheitert
-- [ ] 5.6 `M3Chip` (assist/filter/suggestion + nicht interaktive Kennzeichnung, Häkchen bei Auswahl, `color`-Prop) bauen; verifiziert durch Komponententests zu Filter-Auswahl und Status-Kennzeichnung ohne Button-Rolle
-- [ ] 5.7 Alle Nutzer von `Chip` und `NavigationIconButton` (u. a. `ArticleCard`, `Top1`, `TeamMemberCard`, `NavigationBar`, `ServerAddressCard`, `Carousel`, `pages/team/[slug].vue`, `pages/blog/[...slug].vue`) umstellen, `CopyButton` auf `M3IconButton` aufbauen, `Chip.vue` und `NavigationIconButton.vue` löschen; verifiziert durch `unused-components.spec.ts`, `layer-name-collisions.spec.ts`, die a11y-Tests (`carousel-*`, `mobile-menu-focus`) und Screenshots
+- [x] 5.1 `layers/base/types.ts` mit `ButtonVariant`, `IconButtonVariant`, `CardVariant`, `ChipKind`, `M3Color` anlegen und Typ-Exporte in `layers/base/index.ts` aufnehmen; verifiziert durch `pnpm typecheck` ohne neue Fehler
+- [x] 5.2 `layers/base/composables/useInteractiveTag.ts` aus der Tag-Logik von `Chip.vue` extrahieren (NuxtLink/a/button, `type="button"`, `rel="noopener noreferrer"` bei `target="_blank"`); verifiziert durch Unit-Test aller drei Fälle
+- [x] 5.3 Varianten-Klassen-Maps in `layers/base/utils/` mit vollständigen Klassen-Strings anlegen; verifiziert durch Test, dass jede Variante nur Rollen-, Shape-, Elevation- und Typo-Tokens nennt
+- [x] 5.4 `M3Button` (filled/tonal/outlined/text/elevated, Icon-Slot, disabled, Link-Modus, 40 px Höhe, Touch Target) bauen; verifiziert durch Komponententests zu Standardvariante, externem Link, disabled und Tastaturauslösung
+- [x] 5.5 `M3IconButton` (standard/filled/tonal/outlined, Pflicht-`label` (siehe design.md D5), Toggle mit `aria-pressed`, Größen) bauen; verifiziert durch Komponententest und einen `vue-tsc`-Fall ohne Label, der scheitert
+- [x] 5.6 `M3Chip` (assist/filter/suggestion + nicht interaktive Kennzeichnung, Häkchen bei Auswahl, `color`-Prop) bauen; verifiziert durch Komponententests zu Filter-Auswahl und Status-Kennzeichnung ohne Button-Rolle
+- [x] 5.7 Alle Nutzer von `Chip` und `NavigationIconButton` (u. a. `ArticleCard`, `Top1`, `TeamMemberCard`, `NavigationBar`, `ServerAddressCard`, `Carousel`, `pages/team/[slug].vue`, `pages/blog/[...slug].vue`) umstellen, `CopyButton` auf `M3IconButton` aufbauen, `Chip.vue` und `NavigationIconButton.vue` löschen; verifiziert durch `unused-components.spec.ts`, `layer-name-collisions.spec.ts`, die a11y-Tests (`carousel-*`, `mobile-menu-focus`) und Screenshots
 
 ## 6. Struktur-Primitives (PR 3)
 
