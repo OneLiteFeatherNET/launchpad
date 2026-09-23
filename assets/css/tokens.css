@@ -34,16 +34,17 @@ html { scroll-padding-top: 4rem; }
   top: -3rem;
   z-index: 100;
   padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background: var(--color-surface);
-  color: var(--color-text);
-  box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
+  border-radius: var(--radius-small);
+  background: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+  box-shadow: var(--shadow-elevation-2);
   transition: top 0.15s ease-in-out;
 }
 
 .skip-link:focus {
   top: 0.5rem;
-  outline: 2px solid var(--color-brand-secondary);
+  /* The design system's focus indicator (the focus-ring utility). */
+  outline: 3px solid var(--color-secondary);
   outline-offset: 2px;
 }
 

@@ -7,7 +7,7 @@ import {
   renderBlock,
 } from '../../scripts/md3-tokens.mjs'
 import { repoRoot } from '../helpers/sources'
-import { schemeColors, themeCss } from '../helpers/theme'
+import { resolveCandidates, schemeColors, themeCss } from '../helpers/theme'
 
 /**
  * The MD3 colour roles are generated from the brand's core colours and then
@@ -115,5 +115,24 @@ describe('browser chrome colour', () => {
     const surface = schemeColors().get('surface')
     expect(themeColor('light')).toBe(surface?.light)
     expect(themeColor('dark')).toBe(surface?.dark)
+  })
+})
+
+describe('legacy colour tokens', () => {
+  it('are gone, so their classes resolve to nothing', async () => {
+    // The pre-MD3 names: neutrals, the numeric brand ramp, the secondary-*
+    // brand colours. A component still naming one would ship invisible, and
+    // dead-color-tokens.spec.ts would catch it; this pins that they are gone.
+    const legacy = [
+      'text-muted',
+      'bg-bg',
+      'text-text',
+      'border-border',
+      'bg-brand-500',
+      'text-brand-primary',
+      'bg-secondary-cyan',
+    ]
+    const resolved = await resolveCandidates(legacy)
+    expect(legacy.filter((_, index) => resolved[index] !== null)).toEqual([])
   })
 })

@@ -14,14 +14,20 @@ template gets unreadable, reach for `@utility` in `tailwind.css`, not
 `@layer components`:
 
 ```css
-@utility btn-brand {
-  @apply rounded-full bg-brand-primary px-4 py-2 text-white;
+@utility focus-ring {
+  &:focus-visible {
+    outline: 3px solid var(--color-secondary);
+    outline-offset: 2px;
+  }
 }
 ```
 
+(That one is real — see `tailwind.css`. For a button, card or chip look, use
+the M3* primitives in `layers/base` instead of a new utility.)
+
 `@utility` classes are real utilities as far as the rest of Tailwind is
 concerned — they sort correctly with other utilities and compose with
-variants (`hover:btn-brand`, `dark:btn-brand`) the way `@layer components`
+variants (`hover:focus-ring`, `md:focus-ring`) the way `@layer components`
 classes never reliably did. `@layer components` still works in v4 but exists
 for migrating v3 projects, not for writing new CSS.
 
