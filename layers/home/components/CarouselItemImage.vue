@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { CAROUSEL_SCRIM } from '../utils/carouselClasses'
 // Image slide: full-bleed image with optional overlay text (note)
 
 interface Props {
@@ -15,6 +16,10 @@ const props = withDefaults(defineProps<Props>(), {
   priority: false
 })
 
+
+const noteClass
+  = 'inline-block max-w-3xl rounded-small bg-surface-container-high/90 px-3 py-1.5 '
+    + 'text-body-medium text-on-surface backdrop-blur-sm'
 </script>
 
 <template>
@@ -35,9 +40,13 @@ const props = withDefaults(defineProps<Props>(), {
         fetchpriority: props.priority ? 'high' : undefined
       }"
     />
-    <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent md:from-black/80 md:via-black/40 p-3 md:p-4 pb-8 md:pb-12">
-      <p v-if="props.item.note" class="max-w-3xl text-sm md:text-base text-white drop-shadow-md">
-        <span class="inline-block rounded-md bg-black/50 md:bg-black/60 px-2.5 py-1 md:px-3 md:py-1.5 backdrop-blur-[2px]">{{ props.item.note }}</span>
+    <div :class="CAROUSEL_SCRIM" class="pointer-events-none" />
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 p-3 pb-8 md:p-4 md:pb-12">
+      <p
+        v-if="props.item.note"
+        :class="noteClass"
+      >
+        {{ props.item.note }}
       </p>
     </div>
   </div>

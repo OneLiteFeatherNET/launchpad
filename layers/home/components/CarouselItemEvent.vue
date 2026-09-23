@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import {
+  CAROUSEL_CAPTION,
+  CAROUSEL_CAPTION_POSITION,
+  CAROUSEL_SCRIM,
+  CAROUSEL_TEXT,
+  CAROUSEL_TITLE,
+  CAROUSEL_TITLE_LINK,
+} from '../utils/carouselClasses'
 import {computed} from 'vue'
 import { NuxtLink } from '#components'
 
@@ -36,6 +44,10 @@ const timeRange = computed(() => {
   return `${startTime} – ${endTime}`
 })
 
+
+const dateBadgeClass
+  = 'flex items-center gap-2 rounded-small bg-secondary-container px-3 py-2 '
+    + 'text-on-secondary-container'
 </script>
 
 <template>
@@ -57,53 +69,55 @@ const timeRange = computed(() => {
     />
 
     <!-- Gradient overlay for readability -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+    <div :class="CAROUSEL_SCRIM" />
 
     <!-- Content card: extra bottom padding to avoid overlapping the carousel dots -->
-    <div class="absolute inset-x-0 bottom-0 p-5 pb-14 sm:p-6 sm:pb-16">
-      <div class="max-w-3xl rounded-lg bg-black/45 p-4 text-white backdrop-blur-sm">
-        <div class="mb-3 flex items-center gap-3">
+    <div :class="CAROUSEL_CAPTION_POSITION">
+      <div :class="CAROUSEL_CAPTION">
+        <div class="mb-3 flex flex-wrap items-center gap-3 text-on-surface-variant">
           <!-- Date badge -->
-          <div class="flex items-center gap-2 rounded-md bg-white/15 px-3 py-2">
+          <div :class="dateBadgeClass">
             <div class="text-center leading-none">
-              <div class="text-lg font-bold">{{ day }}</div>
-              <div class="text-xs uppercase tracking-wide">{{ month }}</div>
+              <div class="text-title-large font-bold">{{ day }}</div>
+              <div class="text-label-small uppercase">{{ month }}</div>
             </div>
-            <div class="ml-1 text-xs opacity-90">
+            <div class="ml-1 text-label-medium">
               {{ timeRange }}
             </div>
           </div>
           <!-- Location chip -->
-          <div v-if="item.location" class="rounded-full bg-white/15 px-3 py-1 text-xs">
-            <font-awesome-icon :icon="['fas','location-dot']" class="mr-1 h-3 w-3" />
-            {{ item.location }}
-          </div>
+          <M3Chip
+            v-if="item.location"
+            kind="label"
+            :icon="['fas','location-dot']"
+            :label="item.location"
+          />
         </div>
 
-        <h3 class="mb-2 text-xl font-semibold leading-snug sm:text-2xl">
+        <h3 :class="CAROUSEL_TITLE">
           <component
             :is="item.href ? NuxtLink : 'div'"
             :to="item.href"
-            class="hover:underline"
+            :class="CAROUSEL_TITLE_LINK"
             :aria-label="item.href ? t('carousel.event_link', { title: item.title }) : undefined"
           >
             {{ item.title }}
           </component>
         </h3>
 
-        <p v-if="item.note" class="mb-3 text-white/90">
+        <p v-if="item.note" :class="CAROUSEL_TEXT">
           {{ item.note }}
         </p>
 
-        <NuxtLink
+        <M3Button
           v-if="item.href"
+          variant="tonal"
           :to="item.href"
-          class="inline-flex items-center gap-2 rounded-md bg-white/90 px-3 py-1.5 text-sm font-medium text-black transition hover:bg-white"
           :aria-label="t('carousel.to_event', { title: item.title })"
         >
           Details
-          <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" />
-        </NuxtLink>
+          <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
+        </M3Button>
       </div>
     </div>
   </section>

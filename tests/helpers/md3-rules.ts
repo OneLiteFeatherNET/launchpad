@@ -247,8 +247,23 @@ function isStyledAsButton(tag: string, context: RuleContext, isLink: boolean): b
   return hasBackground && hasShape && hasInlinePadding
 }
 
+/**
+ * The text with HTML, block and line comments blanked out, newlines kept so
+ * line numbers stay true. Prose in a comment ("the rounded container") is
+ * not a class list. `//` only counts at a line start or after whitespace, so
+ * a URL such as `https://…` inside a string stays intact.
+ */
+function withoutComments(text: string): string {
+  const blank = (match: string) => match.replace(/[^\n]/g, ' ')
+  return text
+    .replace(/<!--[\s\S]*?-->/g, blank)
+    .replace(/\/\*[\s\S]*?\*\//g, blank)
+    .replace(/(^|\s)\/\/[^\n]*/g, blank)
+}
+
 /** Every rule violation in one file's text, with 1-based line numbers. */
-export function findViolations(text: string, context: RuleContext): Violation[] {
+export function findViolations(source: string, context: RuleContext): Violation[] {
+  const text = withoutComments(source)
   const violations: Violation[] = []
   text.split('\n').forEach((line, index) => {
     for (const token of line.split(TOKEN_SPLIT)) {
