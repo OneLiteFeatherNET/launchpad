@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.4.1...onelitefeather.net-v1.5.0) (2026-09-23)
+
+
+### Features
+
+* accurate sitemap, strict hreflang and SEO gates on the prod build ([#351](https://github.com/OneLiteFeatherNET/launchpad/issues/351)) ([8d18db4](https://github.com/OneLiteFeatherNET/launchpad/commit/8d18db48aea89a3de3c8a70b1cb1c827758e446f))
+* make pages edge-cacheable and fix SEO signals ([#350](https://github.com/OneLiteFeatherNET/launchpad/issues/350)) ([ccac10a](https://github.com/OneLiteFeatherNET/launchpad/commit/ccac10a5699fa149b41560a2fd1e549ffe92a1b9))
+
 ## [1.4.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.4.0...onelitefeather.net-v1.4.1) (2026-09-23)
 
 
