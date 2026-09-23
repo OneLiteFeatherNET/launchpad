@@ -78,13 +78,20 @@ useHead(() => {
   ].filter((m) => Boolean(m.content))
   return { title: resolved, meta }
 })
+
+// The body is rendered by the content-core Prose* components, which style
+// themselves; the `prose` classes this wrapper used compiled to nothing,
+// because the typography plugin is not installed.
+const articleClass
+  = 'overflow-hidden rounded-large bg-surface-container-low shadow-elevation-1 '
+    + 'focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-secondary'
 </script>
 
 <template>
   <div class="container mx-auto max-w-screen-lg px-4 md:px-6 py-6 md:py-8">
     <article
       v-if="blog"
-      class="bg-white dark:bg-neutral-900 rounded-xl shadow-md overflow-hidden ring-1 ring-black/5 dark:ring-white/10 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-brand-primary"
+      :class="articleClass"
       aria-labelledby="article-title"
     >
       <NuxtPicture
@@ -100,10 +107,10 @@ useHead(() => {
         format="avif,webp"
       />
       <div class="p-6 md:p-8">
-        <h1 id="article-title" class="text-4xl/10 font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">{{ title }}</h1>
+        <h1 id="article-title" class="text-display-small font-bold text-on-surface">{{ title }}</h1>
         <time
           v-if="blog?.pubDate"
-          class="mt-1 block text-sm text-neutral-600 dark:text-neutral-400"
+          class="mt-1 block text-body-medium text-on-surface-variant"
           :datetime="new Date(blog?.pubDate).toISOString()"
         >
           {{ d(new Date(blog?.pubDate as any)) }}
@@ -122,7 +129,7 @@ useHead(() => {
         </div>
         <div
           v-if="authors?.length"
-          class="mt-3 flex flex-wrap items-center gap-4 text-neutral-800 dark:text-neutral-200"
+          class="mt-3 flex flex-wrap items-center gap-4 text-on-surface"
         >
           <div v-for="author in authors" :key="author.slug" class="flex items-center gap-3">
             <NuxtImg
@@ -131,12 +138,12 @@ useHead(() => {
               :alt="author.name"
               width="48"
               height="48"
-              class="h-12 w-12 rounded-full border border-neutral-200 object-cover dark:border-neutral-700"
+              class="h-12 w-12 rounded-full border border-outline-variant object-cover"
               format="webp"
             />
             <div>
-              <p class="text-sm font-semibold">{{ author.name }}</p>
-              <p v-if="author.role" class="text-xs text-neutral-600 dark:text-neutral-400">
+              <p class="text-label-large">{{ author.name }}</p>
+              <p v-if="author.role" class="text-label-small text-on-surface-variant">
                 {{ author.role }}
               </p>
             </div>
@@ -144,7 +151,7 @@ useHead(() => {
         </div>
 
         <section
-          class="prose prose-neutral dark:prose-invert mt-4 md:mt-6 max-w-none"
+          class="mt-4 md:mt-6"
           :aria-labelledby="'article-content-heading'"
         >
           <h2 id="article-content-heading" class="sr-only">{{ title }}</h2>
@@ -157,7 +164,7 @@ useHead(() => {
         />
 
         <!-- Social Media Sharing Buttons -->
-        <section class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6" :aria-label="t('article.share')">
+        <section class="mt-8 border-t border-outline-variant pt-6" :aria-label="t('article.share')">
           <h2 class="sr-only">{{ t('article.share') }}</h2>
           <LazySocialMediaShare
             :url="shareUrl"
