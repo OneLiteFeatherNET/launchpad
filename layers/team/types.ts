@@ -2,7 +2,7 @@
 // permitted to name @nuxt/content directly (module-boundaries.spec.ts).
 // This re-exports it under the same name and derives the plain shapes
 // this layer's composables actually work with.
-import type { TeamDocument } from '#layers/content-core'
+import type { TeamDocument } from '#layers/content-core/types'
 
 export type { TeamDocument }
 

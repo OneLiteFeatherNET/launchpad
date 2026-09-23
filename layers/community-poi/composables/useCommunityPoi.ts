@@ -1,11 +1,15 @@
 import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale } from '#layers/content-core'
-import {
-  COMMUNITY_POI_STATUS_ORDER,
-  type CommunityPoi,
-  type CommunityPoiAlternateHeader,
-  type CommunityPoiStatus
+// The ordering lives in content-core beside `CommunityPoiDocument.status`,
+// because `home`'s carousel needs the identical ordering — see the comment
+// there. Taken from the barrel, not from `../types`: a layer's `types.ts` is
+// its type-only entry point and carries no value imports.
+import { COMMUNITY_POI_STATUS_ORDER } from '#layers/content-core'
+import type {
+  CommunityPoi,
+  CommunityPoiAlternateHeader,
+  CommunityPoiStatus
 } from '../types'
 
 const updatedTimestamp = (entry: CommunityPoi): number => {

@@ -47,7 +47,7 @@ const ariaLabel = computed(() => {
   if (props.filename) {
     const key = 'content.file'
     const text = te(key)
-      ? (t as any)(key, { filename: props.filename }) as string
+      ? t(key, { filename: props.filename })
       : `File ${props.filename}`
     parts.push(text)
   }
@@ -55,14 +55,14 @@ const ariaLabel = computed(() => {
   if (props.language) {
     const key = 'content.codeIn'
     const text = te(key)
-      ? (t as any)(key, { language: props.language }) as string
+      ? t(key, { language: props.language })
       : `Code in ${props.language}`
     parts.push(text)
   }
 
   if (parts.length === 0) {
     const key = 'content.codeblock'
-    return te(key) ? (t as any)(key) as string : 'Code block'
+    return te(key) ? t(key) : 'Code block'
   }
   return parts.join(', ')
 })

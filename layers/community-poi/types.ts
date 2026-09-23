@@ -3,15 +3,9 @@
 // This re-exports it under the same name and derives the plain shapes this
 // layer's composable and components actually work with, via indexed access
 // against the document type rather than duplicating named sub-interfaces.
-import type { CommunityPoiDocument } from '#layers/content-core'
-import { COMMUNITY_POI_STATUS_ORDER } from '#layers/content-core'
+import type { CommunityPoiDocument } from '#layers/content-core/types'
 
 export type { CommunityPoiDocument }
-// Re-exported under its existing name rather than defined here: `home`'s
-// carousel needs the identical ordering for the same schema enum, so it
-// lives in content-core beside `CommunityPoiDocument.status` — see the
-// comment there.
-export { COMMUNITY_POI_STATUS_ORDER }
 
 /** A single community POI, as the composable and components consume it. */
 export type CommunityPoi = CommunityPoiDocument

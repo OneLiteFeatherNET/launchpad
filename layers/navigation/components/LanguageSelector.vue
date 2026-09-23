@@ -34,10 +34,11 @@ const dropdownId = computed(() => `lang-menu-${props.variant}`);
  * member of that union, so a type predicate written against it does not narrow
  * anything (`TS2677`) and every `loc.code` stays an error.
  */
-type SwitchableLocale = { code: string, name: string }
+type LocaleCode = typeof locale.value
+type SwitchableLocale = { code: LocaleCode, name: string }
 
-const localeObjects = computed<SwitchableLocale[]>(() => (locales.value as Array<string | { code: string, name?: string }>)
-    .filter((entry): entry is { code: string, name?: string } => typeof entry !== 'string')
+const localeObjects = computed<SwitchableLocale[]>(() => (locales.value as Array<LocaleCode | { code: LocaleCode, name?: string }>)
+    .filter((entry): entry is { code: LocaleCode, name?: string } => typeof entry !== 'string')
     .map(entry => ({ code: entry.code, name: entry.name ?? entry.code })));
 const availableLocales = computed(() => localeObjects.value.filter(l => l.code !== locale.value));
 const currentLocale = computed(() => localeObjects.value.find(l => l.code === locale.value));
@@ -47,9 +48,9 @@ const focusMenuItem = (position: 'first' | 'last' | number = 'first') => {
   if (!container) return;
   const items = Array.from(container.querySelectorAll('a, [role="menuitem"], button')) as HTMLElement[];
   if (items.length === 0) return;
-  if (position === 'first') items[0].focus();
-  else if (position === 'last') items[items.length - 1].focus();
-  else if (typeof position === 'number' && items[position]) items[position].focus();
+  if (position === 'first') items[0]?.focus();
+  else if (position === 'last') items.at(-1)?.focus();
+  else if (typeof position === 'number') items[position]?.focus();
 };
 
 const openDropdown = async (focus: 'first' | 'last' = 'first') => {
@@ -88,11 +89,11 @@ const onMenuKeydown = (e: KeyboardEvent) => {
   switch (e.key) {
     case 'ArrowDown':
       e.preventDefault();
-      if (items.length) items[(currentIndex + 1) % items.length].focus();
+      if (items.length) items[(currentIndex + 1) % items.length]?.focus();
       break;
     case 'ArrowUp':
       e.preventDefault();
-      if (items.length) items[(currentIndex - 1 + items.length) % items.length].focus();
+      if (items.length) items[(currentIndex - 1 + items.length) % items.length]?.focus();
       break;
     case 'Home':
       e.preventDefault();
@@ -147,7 +148,7 @@ const emit = defineEmits<{ (e: 'selected', locale: string): void }>();
 // Navigation is handled by <SwitchLocalePathLink>, which resolves the
 // correct localized path (including translated blog slugs via
 // useSetI18nParams). We only handle the UI side-effects here.
-const onSelect = (localeCode: string) => {
+const onSelect = (localeCode: LocaleCode) => {
   emit('selected', localeCode);
   closeDropdown(false);
 };

@@ -1,9 +1,9 @@
 import { queryCollection } from '@nuxt/content/server'
-import type { EventDocument } from '#layers/events'
+// Type-only entry point, not the barrel — see team.ts next to it.
+import type { EventDocument } from '#layers/events/types'
 // Reaches past content-core's public index for the same reason as team.ts
 // next to it: Nitro's `impound` plugin refuses `#layers/content-core`, whose
-// index pulls in `@nuxt/content` through `useContentRepository`. The
-// `#layers/events` import above is `import type` and adds no runtime edge.
+// index pulls in `@nuxt/content` through `useContentRepository`.
 import { locales } from '~/layers/content-core/utils/content/locales'
 
 /**

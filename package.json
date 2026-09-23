@@ -28,7 +28,7 @@
     "test:watch": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "typecheck": "vue-tsc -b --noEmit",
     "quality": "node scripts/quality-gate.mjs",
     "quality:update": "node scripts/quality-gate.mjs --update",
     "postinstall": "nuxt prepare",
@@ -97,6 +97,7 @@
     "@fortawesome/vue-fontawesome": "^3.1.2",
     "better-sqlite3": "^13.0.0",
     "h3": "1.15.11",
-    "posthog-js": "^1.298.1"
+    "posthog-js": "^1.298.1",
+    "ufo": "^1.6.4"
   }
 }

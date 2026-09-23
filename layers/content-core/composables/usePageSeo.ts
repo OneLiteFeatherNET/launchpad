@@ -104,8 +104,10 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   // Auto-generate OG image via nuxt-og-image. v6 of the module changed
   // `defineOgImage` so the component name is the first positional argument;
   // passing an options object there crashes head rendering with
-  // "originalName.split is not a function".
-  defineOgImage('NuxtSeo', {
+  // "originalName.split is not a function". The renderer suffix is spelled
+  // out because the bare name is ambiguous in the module's generated types
+  // (a takumi variant exists too), and satori is the renderer installed here.
+  defineOgImage('NuxtSeo.satori', {
     title: opts.title || site.name || 'OneLiteFeather',
     description: pageDescription.value
   })

@@ -2,7 +2,7 @@
 // layer permitted to name @nuxt/content directly (module-boundaries.spec.ts).
 // This re-exports them under the same names and adds the one plain shape
 // that is specific to this layer.
-import type { BlogArticle, BlogAuthorProfile, BlogAlternateHeader } from '#layers/content-core'
+import type { BlogArticle, BlogAuthorProfile, BlogAlternateHeader } from '#layers/content-core/types'
 
 export type { BlogArticle, BlogAuthorProfile, BlogAlternateHeader }
 

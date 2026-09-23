@@ -2,11 +2,13 @@
 import vuejsAccessibility from 'eslint-plugin-vuejs-accessibility'
 import withNuxt from './.nuxt/eslint.config.mjs'
 
+/** @type {import('eslint').Linter.Config[]} */
 const a11yConfigs = vuejsAccessibility.configs['flat/recommended'].map(config => ({
   ...config,
   files: ['**/*.vue'],
   rules: {
-    ...config.rules,
+    // The preset's first entry only registers the plugin and has no `rules`.
+    ...('rules' in config ? config.rules : {}),
     // Labels associated via `for`/`id` are valid; do not also require nesting.
     'vuejs-accessibility/label-has-for': [
       'error', { required: { some: ['nesting', 'id'] }, allowChildren: false }

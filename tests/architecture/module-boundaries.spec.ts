@@ -40,11 +40,12 @@ const ALLOWED_CROSS_LAYER: Record<string, string> = {}
  */
 const ALLOWED_DEEP_IMPORTS: Record<string, string> = {
   'server/api/__sitemap__/team.ts': 'Nitro does not participate in layer aliasing: '
-    + '#layers/content-core pulls in useContentRepository, which imports '
-    + '@nuxt/content directly, and Nitro\'s impound plugin refuses that outside '
-    + 'the Nuxt app bundle. Verified with `nuxi build`: the alias produces a '
-    + 'Rollup "Importing directly from module entry-points is not allowed" error '
-    + 'for this route.',
+    + 'the route needs `locales` at runtime, and #layers/content-core pulls in '
+    + 'useContentRepository, which imports @nuxt/content directly, and Nitro\'s '
+    + 'impound plugin refuses that outside the Nuxt app bundle. Verified with '
+    + '`nuxi build`: the alias produces a Rollup "Importing directly from module '
+    + 'entry-points is not allowed" error for this route. Its types come through '
+    + '#layers/team/types, which needs no exception.',
   'server/api/__sitemap__/events.ts': 'Same Nitro limitation as the team route above: '
     + 'it needs `locales` at runtime and cannot take it through #layers/content-core. '
     + 'The event visibility rule itself comes from shared/utils, not from a layer.',
@@ -158,14 +159,91 @@ function namesTeamDomainIn(text: string): boolean {
 const DEEP_IMPORT = /(?:#layers\/|~~?\/layers\/)([a-z0-9-]+)\/[^'"`]+/g
 
 /**
- * Layer names deep-imported (past their index) anywhere in `text`. Kept
- * separate from file access so the self-test below exercises the exact same
- * pattern the real check runs.
+ * An `import … from '…'` or `export … from '…'` statement. Group 2 is the
+ * `type ` keyword of a type-only statement (`import type`, `export type`),
+ * group 3 the module specifier.
  */
+const FROM_STATEMENT = /\b(import|export)\s+(type\s+)?[^;'"`]*?\bfrom\s*['"`]([^'"`]+)['"`]/g
+
+/** Every `… from '…'` statement in `text`, with whether it is type-only. */
+function fromStatementsIn(text: string): { specifier: string, typeOnly: boolean }[] {
+  return [...text.matchAll(FROM_STATEMENT)].map((match) => ({
+    specifier: match[3] ?? '',
+    typeOnly: match[2] !== undefined,
+  }))
+}
+
+/**
+ * A layer's type-only entry point, `#layers/<name>/types`. Importing it with
+ * `import type` is the one sanctioned way past a layer's index: unlike the
+ * barrel, it loads no composable into the importer's type program.
+ */
+const TYPE_ENTRY = /^#layers\/[a-z0-9-]+\/types$/
+
+/** A layer's barrel (`index.ts`), in every alias spelling. */
+const BARREL = /^(?:#layers\/|~~?\/layers\/)([a-z0-9-]+)\/?$/
+
+/**
+ * `text` with every type-only import of a type entry point removed — those
+ * are the sanctioned exception to "no deep imports", and a value import of the
+ * same path stays a deep import.
+ */
+function withoutTypeEntryImports(text: string): string {
+  return text.replace(FROM_STATEMENT, (statement, _keyword, type, specifier) => {
+    return type !== undefined && TYPE_ENTRY.test(specifier) ? '' : statement
+  })
+}
+
+/**
+ * Deep imports (past a layer's index) in `text`, as `[matched path, layer]`.
+ * Kept separate from file access so the self-test below exercises the exact
+ * same code the real check runs.
+ */
+function deepImportMatchesIn(text: string): [string, string][] {
+  return [...withoutTypeEntryImports(text).matchAll(DEEP_IMPORT)]
+    .map((match): [string, string] => [match[0], match[1] ?? ''])
+}
+
+/** Layer names deep-imported (past their index) anywhere in `text`. */
 function deepImportsIn(text: string): string[] {
-  const hits = [...text.matchAll(DEEP_IMPORT)]
-  const names = hits.map((match) => match[1]).filter((name): name is string => name !== undefined)
-  return [...new Set(names)]
+  return [...new Set(deepImportMatchesIn(text).map(([, layer]) => layer))]
+}
+
+/**
+ * Why a layer's type file (`layers/<name>/types*.ts`) breaks the type-entry
+ * contract: every import in it must be `import type`/`export type`, and none
+ * may name a barrel — through `import type` or not, a barrel loads every
+ * composable it re-exports into the importer's type program. Locally defined
+ * literal constants (`export const EVENT_PHASES = [...] as const`) load no
+ * module and stay allowed.
+ */
+function typeFileViolationsIn(text: string): string[] {
+  const violations: string[] = []
+  for (const { specifier, typeOnly } of fromStatementsIn(stripComments(text))) {
+    if (!typeOnly) violations.push(`value import of '${specifier}'`)
+    const barrel = BARREL.exec(specifier)
+    if (barrel) violations.push(`barrel '${specifier}', use '#layers/${barrel[1]}/types'`)
+  }
+  return violations
+}
+
+/**
+ * Barrels imported from server code, each with the type entry point to use
+ * instead. Nitro's type program has none of the app's auto-imports, so a
+ * barrel — even through `import type` — fills it with composables that cannot
+ * type-check there.
+ */
+function serverBarrelImportsIn(text: string): string[] {
+  return fromStatementsIn(stripComments(text)).flatMap(({ specifier }) => {
+    const barrel = BARREL.exec(specifier)
+    return barrel ? [`'${specifier}', use '#layers/${barrel[1]}/types'`] : []
+  })
+}
+
+/** Every layer's type files: `layers/<name>/types.ts` and `types-*.ts`. */
+function layerTypeFiles(): string[] {
+  return layerNames().flatMap((layer) => layerFiles(layer, ['.ts'])
+    .filter((file) => /^layers\/[a-z0-9-]+\/types(?:-[a-z0-9-]+)?\.ts$/.test(relativeToRepo(file))))
 }
 
 /** Root-level code that may consume any layer's public API — never its internals. */
@@ -214,6 +292,56 @@ describe('layer boundaries', () => {
     expect(deepImportsIn(`import { locales } from '~~/layers/content-core/utils/content/locales'`)).toEqual(['content-core'])
     // The layer's own public entry point is not a deep import.
     expect(deepImportsIn(`import { useTeamRoster } from '#layers/team'`)).toEqual([])
+  })
+
+  it('allows the type entry point past a layer index, but only type-only', () => {
+    expect(deepImportsIn(`import type { TeamMember } from '#layers/team/types'`)).toEqual([])
+    expect(deepImportsIn(`export type { TeamMember } from '#layers/team/types'`)).toEqual([])
+    expect(deepImportsIn(`import type {\n  TeamMember,\n  TeamRank\n} from '#layers/team/types'`)).toEqual([])
+    // A value import loads the module for real; it stays a deep import.
+    expect(deepImportsIn(`import { TEAM_RANK_ORDER } from '#layers/team/types'`)).toEqual(['team'])
+    // Only the entry point itself, not a file that happens to sit beside it.
+    expect(deepImportsIn(`import type { X } from '#layers/team/types/rank'`)).toEqual(['team'])
+  })
+
+  it('detects a layer type file that imports a value or a barrel', () => {
+    expect(typeFileViolationsIn(`import type { EventDocument } from '#layers/content-core/types'`)).toEqual([])
+    expect(typeFileViolationsIn(`export type * from './types-seo'`)).toEqual([])
+    expect(typeFileViolationsIn(`export const EVENT_PHASES = ['hidden', 'announced'] as const`)).toEqual([])
+    expect(typeFileViolationsIn(`// import { x } from '#layers/content-core'`)).toEqual([])
+    expect(typeFileViolationsIn(`import type { TeamDocument } from '#layers/content-core'`))
+      .toEqual([`barrel '#layers/content-core', use '#layers/content-core/types'`])
+    expect(typeFileViolationsIn(`import { ORDER } from './utils/order'`))
+      .toEqual([`value import of './utils/order'`])
+    const valueFromBarrel = `export { ORDER } from '#layers/content-core'`
+    const expected = [`value import of '#layers/content-core'`, `barrel '#layers/content-core', use '#layers/content-core/types'`]
+    expect(typeFileViolationsIn(valueFromBarrel)).toEqual(expected)
+  })
+
+  it('detects a barrel imported from server code, even type-only', () => {
+    expect(serverBarrelImportsIn(`import type { EventDocument } from '#layers/events/types'`)).toEqual([])
+    expect(serverBarrelImportsIn(`// never the \`#layers/team\` barrel`)).toEqual([])
+    expect(serverBarrelImportsIn(`import type { EventDocument } from '#layers/events'`))
+      .toEqual([`'#layers/events', use '#layers/events/types'`])
+    expect(serverBarrelImportsIn(`import { locales } from '~/layers/content-core'`))
+      .toEqual([`'~/layers/content-core', use '#layers/content-core/types'`])
+  })
+
+  it('every layer type file imports types only, and never a barrel', () => {
+    const files = layerTypeFiles()
+    // Guard against a vacuous pass if the file pattern ever stops matching.
+    expect(files.length).toBeGreaterThan(0)
+    const offenders = files.flatMap((file) => typeFileViolationsIn(readFileSync(file, 'utf8'))
+      .map((violation) => `${relativeToRepo(file)}: ${violation}`))
+    expect(offenders.sort()).toEqual([])
+  })
+
+  it('server code imports no layer barrel, not even for types', () => {
+    const offenders = collectSourceFiles(['server'], ['.ts']).flatMap((file) => {
+      return serverBarrelImportsIn(readFileSync(file, 'utf8'))
+        .map((hit) => `${relativeToRepo(file)}: ${hit}`)
+    })
+    expect(offenders.sort()).toEqual([])
   })
 
   it('no domain layer imports from another domain layer', () => {
@@ -335,9 +463,9 @@ describe('layer boundaries', () => {
     for (const layer of layerNames()) {
       for (const file of filesOf(layer)) {
         const text = readFileSync(file, 'utf8')
-        for (const match of text.matchAll(DEEP_IMPORT)) {
-          if (match[1] === layer) continue
-          offenders.push(`${relativeToRepo(file)}: ${match[0]}`)
+        for (const [path, target] of deepImportMatchesIn(text)) {
+          if (target === layer) continue
+          offenders.push(`${relativeToRepo(file)}: ${path}`)
         }
       }
     }
@@ -345,8 +473,8 @@ describe('layer boundaries', () => {
       const relative = relativeToRepo(file)
       if (ALLOWED_DEEP_IMPORTS[relative]) continue
       const text = readFileSync(file, 'utf8')
-      for (const match of text.matchAll(DEEP_IMPORT)) {
-        offenders.push(`${relative}: ${match[0]}`)
+      for (const [path] of deepImportMatchesIn(text)) {
+        offenders.push(`${relative}: ${path}`)
       }
     }
     expect(offenders.sort()).toEqual([])

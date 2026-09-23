@@ -42,11 +42,27 @@ layer's `index.ts` gains a new value export.
 `#layers/<name>` works for `import type` inside `server/`, but a value import
 through it fails to build — confirmed by building `server/api/__sitemap__/team.ts`
 against `#layers/content-core`. That is why the sitemap route for team members
-stays at the repository root, importing `#layers/team` as a type only and
-`~/layers/content-core/utils/content/locales` directly for the runtime value,
-instead of living inside the `team` layer. It is a registered, named exception
-in `tests/architecture/module-boundaries.spec.ts` — not a pattern to repeat
-without checking a real build first.
+stays at the repository root, importing its types from `#layers/team/types`
+and `~/layers/content-core/utils/content/locales` directly for the runtime
+value, instead of living inside the `team` layer. The `locales` import is a
+registered, named exception in `tests/architecture/module-boundaries.spec.ts`
+— not a pattern to repeat without checking a real build first.
+
+### Types cross a layer boundary through `#layers/<name>/types`
+Every layer's `types.ts` is its type-only entry point. Import it with
+`import type` from server code and from another layer's `types*.ts` — never
+the barrel `#layers/<name>`. Even as `import type`, a barrel loads every
+composable it re-exports into the importer's type program, and in Nitro's
+program the app's auto-imports do not exist: two `import type` lines from
+barrels once put 78 errors into the server check. A `types*.ts` file itself
+imports only with `import type`; literal constants it derives types from
+(`EVENT_PHASES`) may stay in it. `module-boundaries.spec.ts` enforces all of
+this. App code (composables, components, pages) keeps using the barrel.
+
+`pnpm typecheck` runs `vue-tsc -b --noEmit` over the four projects Nuxt
+generates (`app`, `server`, `shared`, `node`); the root `tsconfig.json` only
+references them. Do not add `compilerOptions` there — they would not reach the
+referenced projects.
 
 ## Build, Test, and Development Commands
 - Install dependencies: `pnpm install`
@@ -119,6 +135,11 @@ own components — no component library. Details: skill `tailwind-design`.
   Code needed on both sides belongs in `shared/utils` or `shared/types`, and
   those two directories only: they are the ones Nuxt auto-imports on **both**
   sides, and `#shared` is a real alias to them.
+  - **The compiler now enforces this.** `server/` is type-checked in its own
+    project, without the app's auto-imports or DOM globals, so calling
+    `useI18n()` or touching `window` there is a type error. Layer types reach
+    `server/` only through `#layers/<name>/types` (see "Types cross a layer
+    boundary" above).
   - **They are scanned top level only.** Nuxt globs them as `*.{ts,js,…}`,
     never `**/*`, so `shared/utils/blogRelease.ts` is auto-imported and
     `shared/utils/content/blogRelease.ts` is not — on either side, with no
