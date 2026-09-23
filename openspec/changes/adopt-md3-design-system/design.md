@@ -185,6 +185,16 @@ wenn (a) eine nicht gelistete Datei verletzt, (b) eine gelistete Datei eine
 gelistete Regel nicht mehr verletzt. Damit ist die Liste der Fortschrittsbalken
 und kann nur schrumpfen.
 
+Grenze (in der Umsetzung festgestellt): Die Button-Regel löst `:class`-
+Bezeichner nur zu Konstanten derselben Datei auf. Kommen die Klassen aus
+einer importierten Konstante, sieht sie sie nicht. Bewusste Fälle werden
+deshalb trotzdem in `BUTTON_EXCEPTIONS` eingetragen – so der
+Sprachwähler-Auslöser, der wie die Navigationseinträge aussieht
+(`layers/navigation/utils/navItemClasses.ts`) und nicht wie ein
+`M3Button`. Navigationseinträge sind keine Buttons: aktiver Indikator in
+`secondary-container`, genau eine Textfarbe je Zustand
+(`tests/design-system/navigation-classes.spec.ts`).
+
 Alternative: ESLint-Regel (z. B. `eslint-plugin-tailwindcss`). Verworfen: neue
 Dependency, v4-Unterstützung unsicher, und die Quality-Ratchet blockiert nur
 *steigende* Zahlen – ein Rückfall in einer Datei ließe sich durch eine

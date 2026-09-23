@@ -3,6 +3,7 @@ import { ref, computed, watch, nextTick, useRoute, onKeyStroke } from '#imports'
 import NavigationItem from './NavigationItem.vue'
 import LanguageSelector from './LanguageSelector.vue'
 import { navConfig, type NavConfigEntry, type NavLinkConfig, type NavGroupConfig } from '../navItems'
+import { NAV_ITEM_DESKTOP, NAV_ITEM_INACTIVE, NAV_MENU_SURFACE } from '../utils/navItemClasses'
 
 const { t, locale } = useI18n();
 const runtimeConfig = useRuntimeConfig();
@@ -77,13 +78,24 @@ const bottomNavLinks = computed<BuiltLink[]>(() => {
   return links
 })
 
+const headerClass = 'sticky top-0 z-50 w-full bg-surface-container/95 backdrop-blur'
+const bottomBarClass = 'fixed bottom-0 inset-x-0 z-50 bg-surface-container'
+const logoLinkClass
+  = 'flex items-center gap-2 rounded-small text-on-surface no-underline hover:opacity-90 focus-ring'
+const mobilePanelClass
+  = 'absolute left-0 right-0 top-0 z-50 mx-4 rounded-large bg-surface-container-high p-4 '
+    + 'shadow-elevation-3'
+const mobileSummaryClass
+  = 'flex cursor-pointer select-none items-center gap-2 rounded-full px-2 py-1 '
+    + 'text-label-large text-on-surface focus-ring'
+
 const elevationClasses = {
   0: 'shadow-none',
-  1: 'shadow-sm',
-  2: 'shadow-md',
-  3: 'shadow-lg',
-  4: 'shadow-xl',
-  5: 'shadow-2xl'
+  1: 'shadow-elevation-1',
+  2: 'shadow-elevation-2',
+  3: 'shadow-elevation-3',
+  4: 'shadow-elevation-4',
+  5: 'shadow-elevation-5'
 };
 
 const toggleGroup = (key: string) => {
@@ -116,12 +128,12 @@ onKeyStroke('Escape', () => closeMenus())
   <!-- Top Navigation for desktop/tablet -->
   <header
     v-if="variant === 'top'"
-    :class="['sticky top-0 z-50 w-full bg-[var(--color-surface)]/90 dark:bg-[var(--color-surface)]/95 backdrop-blur', elevationClasses[elevation]]"
+    :class="[headerClass, elevationClasses[elevation]]"
   >
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
-          <NuxtLinkLocale to="/" :aria-label="t('navigation.overview')" class="flex items-center gap-2 text-[var(--color-text)] no-underline hover:opacity-90 dark:text-[var(--color-text)]">
+          <NuxtLinkLocale to="/" :aria-label="t('navigation.overview')" :class="logoLinkClass">
             <NuxtImg src="images/logo.svg" :alt="t('accessibility.logo_alt')" width="40" height="40" class="h-10 w-10" />
             <GradientText variant="accent" tone="light" class="text-lg font-semibold">OneLiteFeather</GradientText>
           </NuxtLinkLocale>
@@ -145,15 +157,15 @@ onKeyStroke('Escape', () => closeMenus())
                 <!-- summary is the native disclosure button: Enter/Space fire a click natively, so keyboard parity exists -->
                 <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions, vuejs-accessibility/click-events-have-key-events -->
                 <summary
-                  class="flex items-center gap-2 px-3 py-2 rounded-full text-[var(--color-text)] no-underline transition-colors hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] cursor-pointer list-none"
+                  :class="[NAV_ITEM_DESKTOP, NAV_ITEM_INACTIVE, 'list-none']"
                   :aria-expanded="openGroup === item.textKey ? 'true' : 'false'"
                   @click.prevent="toggleGroup(item.textKey)"
                 >
                   <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
-                  <span class="text-sm font-medium">{{ t(item.textKey) }}</span>
+                  <span>{{ t(item.textKey) }}</span>
                   <IconFa :icon="['fas','chevron-down']" class="h-3 w-3" />
                 </summary>
-                <div class="absolute right-0 mt-2 w-56 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] shadow-lg ring-1 ring-black/5 dark:border-[var(--color-border)] dark:bg-[var(--color-surface)] py-2 z-20">
+                <div :class="[NAV_MENU_SURFACE, 'z-20 flex w-56 flex-col gap-1 px-2']">
                   <NavigationItem
                     v-for="child in item.children"
                     :key="child.path"
@@ -195,13 +207,13 @@ onKeyStroke('Escape', () => closeMenus())
       <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions, vuejs-accessibility/click-events-have-key-events -->
       <div
         v-if="mobileMenuOpen"
-        class="fixed inset-0 top-16 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
+        class="fixed inset-0 top-16 z-40 bg-scrim/40 backdrop-blur-sm lg:hidden"
         @click.self="mobileMenuOpen = false"
       >
         <nav
           :id="mobileMenuId"
           ref="mobileMenuRef"
-          class="absolute left-0 right-0 top-0 z-50 mx-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-lg dark:border-[var(--color-border)] dark:bg-[var(--color-surface)]"
+          :class="mobilePanelClass"
           role="navigation"
           :aria-label="t('navigation.mobile')"
         >
@@ -216,11 +228,13 @@ onKeyStroke('Escape', () => closeMenus())
             />
             <details
               v-else
-              class="rounded-xl border border-[var(--color-border)]/60 bg-[var(--color-surface)]/70 p-2 mb-2"
+              class="mb-2 rounded-large bg-surface-container-highest p-2"
             >
-              <summary class="flex items-center gap-2 px-2 py-1 text-[var(--color-text)] cursor-pointer select-none">
+              <summary
+                :class="mobileSummaryClass"
+              >
                 <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
-                <span class="text-sm font-medium">{{ t(item.textKey) }}</span>
+                <span>{{ t(item.textKey) }}</span>
               </summary>
               <div class="mt-2 space-y-1">
                 <NavigationItem
@@ -235,7 +249,8 @@ onKeyStroke('Escape', () => closeMenus())
               </div>
             </details>
           </template>
-          <div class="my-2 border-t border-[var(--color-border)] pt-2 dark:border-[var(--color-border)]">
+          <M3Divider decorative class="my-2" />
+          <div>
             <LanguageSelector variant="mobile" @selected="mobileMenuOpen = false" />
           </div>
         </nav>
@@ -244,7 +259,12 @@ onKeyStroke('Escape', () => closeMenus())
   </header>
 
   <!-- Bottom navigation for mobile -->
-  <nav v-else :class="['fixed bottom-0 inset-x-0 z-50 bg-[var(--color-surface)] dark:bg-[var(--color-surface)]', elevationClasses[elevation]]" role="navigation" :aria-label="t('navigation.bottom')">
+  <nav
+    v-else
+    :class="[bottomBarClass, elevationClasses[elevation]]"
+    role="navigation"
+    :aria-label="t('navigation.bottom')"
+  >
     <div class="grid [grid-template-columns:repeat(auto-fit,minmax(5rem,1fr))] gap-1 p-2 lg:hidden">
       <NavigationItem
         v-for="item in bottomNavLinks"

@@ -50,7 +50,7 @@ Migration Plan). Vor jedem PR gilt: `pnpm test`, `pnpm build` und
 
 ## 7. Migration navigation + footer (PR 4)
 
-- [ ] 7.1 `NavigationBar`, `NavigationItem`, `LanguageSelector`, `SiteFooter` auf Rollen-Tokens, `focus-ring`, Shape/Elevation und Primitives umstellen, alle `dark:`-Farben entfernen; verifiziert durch Governance-Test ohne diese Dateien in der Liste, `nav-active-state.spec.ts`, `mobile-menu-focus.spec.ts`, `landmarks.spec.ts` und Screenshots
+- [x] 7.1 `NavigationBar`, `NavigationItem`, `LanguageSelector`, `SiteFooter` auf Rollen-Tokens, `focus-ring`, Shape/Elevation und Primitives umstellen, alle `dark:`-Farben entfernen; verifiziert durch Governance-Test ohne diese Dateien in der Liste, `nav-active-state.spec.ts`, `mobile-menu-focus.spec.ts`, `landmarks.spec.ts` und Screenshots
 
 ## 8. Migration home (PR 5)
 
