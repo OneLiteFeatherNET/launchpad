@@ -16,7 +16,8 @@ Migration Plan). Vor jedem PR gilt: `pnpm test`, `pnpm build` und
 - [x] 2.1 MD3-Typeskala als `--text-*` mit `--line-height`/`--font-weight`/`--letter-spacing` in `@theme` ergänzen; verifiziert durch Test, dass `text-title-medium` alle vier Eigenschaften im Build-CSS setzt
 - [x] 2.2 Shape-Tokens `--radius-extra-small` … `--radius-extra-large`, `--shadow-elevation-1…5` und `--ease-standard`/`--ease-emphasized` (+ accelerate/decelerate) ergänzen; verifiziert durch Test, dass `rounded-md`/`rounded-lg` weiterhin Tailwinds Standardwerte haben und `rounded-medium` 12 px ist
 - [x] 2.3 `@utility state-layer`, `@utility focus-ring` und `@utility touch-target` gemäß design.md D4 anlegen; verifiziert durch Komponententest an einem Testelement (Hover-Opazität 8 %, disabled 0 %) und `utility-classes.spec.ts` grün
-- [ ] 2.4 Opazitäts-Modifikator auf Rollen-Tokens (`bg-primary/10`) in Chromium, Firefox und WebKit per Playwright gegen `pnpm preview` prüfen; Ergebnis im PR dokumentieren
+- [x] 2.4 Opazitäts-Modifikator auf Rollen-Tokens (`bg-primary/10`) und State Layer in Chromium, Firefox und WebKit, hell und dunkel, per Playwright prüfen – als CI-Job `Colour roles across browsers` (`scripts/cross-browser-colors.mjs`, gerenderte Pixel), weil sich Firefox und WebKit lokal nicht installieren lassen; verifiziert durch grünen CI-Lauf und einen absichtlich roten Lauf (State Layer als Vollfläche)
+  - Ergebnis (2026-09-23, CI-Lauf von #374): 24/24 grün – Chromium, Firefox, WebKit, je hell und dunkel: Rolle, 10-%-Tönung, State Layer in Ruhe und bei Hover; Abweichung ≤ 1 pro Kanal.
 
 ## 3. Umgebaute Farb- und Kontrasttests, theme-color (PR 1)
 
