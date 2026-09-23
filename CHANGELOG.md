@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.6.0...onelitefeather.net-v1.7.0) (2026-09-23)
+
+
+### Features
+
+* **events:** events section with phases, access, guides and results ([#375](https://github.com/OneLiteFeatherNET/launchpad/issues/375)) ([788193d](https://github.com/OneLiteFeatherNET/launchpad/commit/788193daa5986a38b8c45ee326666bde2a7012ab))
+
 ## [1.6.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.5.0...onelitefeather.net-v1.6.0) (2026-09-23)
 
 
