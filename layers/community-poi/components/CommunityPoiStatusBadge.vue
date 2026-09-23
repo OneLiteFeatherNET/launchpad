@@ -16,11 +16,11 @@ const tone = computed(() => {
   switch (props.status) {
     case 'in-progress':
       return [
-        'bg-[color-mix(in_oklab,var(--color-brand-orange)_18%,white)]',
-        'text-[color-mix(in_oklab,var(--color-brand-orange)_70%,black)]',
-        'ring-[color-mix(in_oklab,var(--color-brand-orange)_40%,transparent)]',
-        'dark:bg-[color-mix(in_oklab,var(--color-brand-orange)_22%,transparent)]',
-        'dark:text-[color-mix(in_oklab,var(--color-brand-orange)_30%,white)]'
+        'bg-[color-mix(in_oklab,var(--color-secondary-orange)_18%,white)]',
+        'text-[color-mix(in_oklab,var(--color-secondary-orange)_70%,black)]',
+        'ring-[color-mix(in_oklab,var(--color-secondary-orange)_40%,transparent)]',
+        'dark:bg-[color-mix(in_oklab,var(--color-secondary-orange)_22%,transparent)]',
+        'dark:text-[color-mix(in_oklab,var(--color-secondary-orange)_30%,white)]'
       ].join(' ')
     case 'planning':
       return [

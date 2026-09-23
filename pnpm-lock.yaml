@@ -56,6 +56,9 @@ importers:
         specifier: ^1.298.1
         version: 1.425.1
     devDependencies:
+      '@material/material-color-utilities':
+        specifier: 0.3.0
+        version: 0.3.0
       '@nuxt/content':
         specifier: 3.16.1
         version: 3.16.1(@oxc-project/types@0.149.0)(@valibot/to-json-schema@1.7.1(valibot@1.4.2(typescript@5.9.3)))(better-sqlite3@12.11.1)(esbuild@0.28.1)(magic-string@1.4.1)(magicast@0.5.5)(oxc-parser@0.149.0)(rollup@4.62.2)(valibot@1.4.2(typescript@5.9.3))(vite@7.3.6(@types/node@26.4.0)(jiti@2.7.0)(lightningcss@1.33.0)(terser@5.49.0)(yaml@2.9.1))
@@ -1565,6 +1568,9 @@ packages:
     resolution: {integrity: sha512-uwPAhccfFJlsfCxMYTwOdVfOz3xqyj8xYL3zJj8f0pb30tLohnnFPhLuqp4/qoEz8sNxe4SESZedcBojRefIzg==}
     engines: {node: '>=18'}
     hasBin: true
+
+  '@material/material-color-utilities@0.3.0':
+    resolution: {integrity: sha512-ztmtTd6xwnuh2/xu+Vb01btgV8SQWYCaK56CkRK8gEkWe5TuDyBcYJ0wgkMRn+2VcE9KUmhvkz+N9GHrqw/C0g==}
 
   '@miyaneee/rollup-plugin-json5@1.2.0':
     resolution: {integrity: sha512-JjTIaXZp9WzhUHpElrqPnl1AzBi/rvRs065F71+aTmlqvTMVkdbjZ8vfFl4nRlgJy+TPBw69ZK4pwFdmOAt4aA==}
@@ -9478,6 +9484,8 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  '@material/material-color-utilities@0.3.0': {}
 
   '@miyaneee/rollup-plugin-json5@1.2.0(rollup@4.62.2)':
     dependencies:

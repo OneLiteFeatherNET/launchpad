@@ -69,11 +69,11 @@ const footerClass = [
 const showcaseBadgeClass = [
   'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium',
   'ring-1 ring-inset',
-  'bg-[color-mix(in_oklab,var(--color-brand-orange)_15%,white)]',
-  'text-[color-mix(in_oklab,var(--color-brand-orange)_70%,black)]',
-  'ring-[color-mix(in_oklab,var(--color-brand-orange)_40%,transparent)]',
-  'dark:bg-[color-mix(in_oklab,var(--color-brand-orange)_22%,transparent)]',
-  'dark:text-[color-mix(in_oklab,var(--color-brand-orange)_30%,white)]'
+  'bg-[color-mix(in_oklab,var(--color-secondary-orange)_15%,white)]',
+  'text-[color-mix(in_oklab,var(--color-secondary-orange)_70%,black)]',
+  'ring-[color-mix(in_oklab,var(--color-secondary-orange)_40%,transparent)]',
+  'dark:bg-[color-mix(in_oklab,var(--color-secondary-orange)_22%,transparent)]',
+  'dark:text-[color-mix(in_oklab,var(--color-secondary-orange)_30%,white)]'
 ].join(' ')
 </script>
 

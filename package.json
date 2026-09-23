@@ -36,6 +36,7 @@
   },
   "packageManager": "pnpm@10.34.5",
   "devDependencies": {
+    "@material/material-color-utilities": "0.3.0",
     "@nuxt/content": "3.16.1",
     "@nuxt/eslint": "1.16.0",
     "@nuxt/image": "2.1.0",

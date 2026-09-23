@@ -22,7 +22,7 @@ const toggleClass = [
 ].join(' ')
 
 const proseClass = [
-  'prose prose-sm md:prose-base prose-neutral dark:prose-invert max-w-none mt-3', 'prose-a:text-brand-primary prose-a:underline-offset-2 prose-a:hover:underline'
+  'prose prose-sm md:prose-base prose-neutral dark:prose-invert max-w-none mt-3', '[&_a]:text-brand-primary [&_a]:underline-offset-2 [&_a:hover]:underline'
 ].join(' ')
 
 // FAQPage schema mirrors the visible content. Google currently restricts FAQ

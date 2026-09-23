@@ -5,6 +5,151 @@
 }
 
 @theme {
+    /* Material Design 3 colour roles (bg-primary, text-on-surface,
+       bg-surface-container-high, …). Generated from the brand's core colours
+       by scripts/md3-tokens.mjs; `--check` verifies them. Each is a
+       light-dark() pair, so the roles follow color-scheme without any `dark:`
+       variant at the call site. */
+    /* md3:generated:start */
+    /* Written by scripts/md3-tokens.mjs — do not edit by hand. */
+    --color-primary: light-dark(#0e1f79, #bbc3ff);
+    --color-on-primary: light-dark(#ffffff, #16257e);
+    --color-primary-container: light-dark(#2a388f, #2a388f);
+    --color-on-primary-container: light-dark(#9ba7ff, #9ba7ff);
+    --color-secondary: light-dark(#00658b, #7dd0ff);
+    --color-on-secondary: light-dark(#ffffff, #00344a);
+    --color-secondary-container: light-dark(#50c4fd, #009bd2);
+    --color-on-secondary-container: light-dark(#004f6d, #002d40);
+    --color-tertiary: light-dark(#5b0032, #ffb0cc);
+    --color-on-tertiary: light-dark(#ffffff, #640038);
+    --color-tertiary-container: light-dark(#83004b, #83004b);
+    --color-on-tertiary-container: light-dark(#ff87b7, #ff87b7);
+    --color-error: light-dark(#ba1a1a, #ffb4ab);
+    --color-on-error: light-dark(#ffffff, #690005);
+    --color-error-container: light-dark(#ffdad6, #93000a);
+    --color-on-error-container: light-dark(#93000a, #ffdad6);
+    --color-surface: light-dark(#fbf8ff, #121319);
+    --color-on-surface: light-dark(#1b1b21, #e4e1e9);
+    --color-on-surface-variant: light-dark(#454652, #c6c5d3);
+    --color-surface-dim: light-dark(#dbd9e1, #121319);
+    --color-surface-bright: light-dark(#fbf8ff, #39393f);
+    --color-surface-container-lowest: light-dark(#ffffff, #0d0e13);
+    --color-surface-container-low: light-dark(#f5f2fb, #1b1b21);
+    --color-surface-container: light-dark(#efedf5, #1f1f25);
+    --color-surface-container-high: light-dark(#e9e7ef, #292930);
+    --color-surface-container-highest: light-dark(#e4e1e9, #34343a);
+    --color-outline: light-dark(#767683, #90909d);
+    --color-outline-variant: light-dark(#c6c5d3, #454652);
+    --color-inverse-surface: light-dark(#303036, #e4e1e9);
+    --color-inverse-on-surface: light-dark(#f2eff8, #303036);
+    --color-inverse-primary: light-dark(#bbc3ff, #4957ae);
+    --color-scrim: light-dark(#000000, #000000);
+    --color-shadow: light-dark(#000000, #000000);
+    --color-brand-orange: light-dark(#8d4f00, #ffb875);
+    --color-on-brand-orange: light-dark(#ffffff, #4b2800);
+    --color-brand-orange-container: light-dark(#ffdcc0, #6b3b00);
+    --color-on-brand-orange-container: light-dark(#2d1600, #ffdcc0);
+    --color-brand-purple: light-dark(#9a3098, #ffaaf4);
+    --color-on-brand-purple: light-dark(#ffffff, #5b005b);
+    --color-brand-purple-container: light-dark(#ffd7f5, #7e0e7e);
+    --color-on-brand-purple-container: light-dark(#380038, #ffd7f5);
+    /* md3:generated:end */
+
+    /* MD3 type scale (text-display-large … text-label-small). Each style sets
+       size, line height, weight and tracking together; the family stays the
+       system font stack — no web font is loaded. */
+    --text-display-large: 3.5625rem;
+    --text-display-large--line-height: 4rem;
+    --text-display-large--font-weight: 400;
+    --text-display-large--letter-spacing: -0.015625rem;
+    --text-display-medium: 2.8125rem;
+    --text-display-medium--line-height: 3.25rem;
+    --text-display-medium--font-weight: 400;
+    --text-display-medium--letter-spacing: 0;
+    --text-display-small: 2.25rem;
+    --text-display-small--line-height: 2.75rem;
+    --text-display-small--font-weight: 400;
+    --text-display-small--letter-spacing: 0;
+    --text-headline-large: 2rem;
+    --text-headline-large--line-height: 2.5rem;
+    --text-headline-large--font-weight: 400;
+    --text-headline-large--letter-spacing: 0;
+    --text-headline-medium: 1.75rem;
+    --text-headline-medium--line-height: 2.25rem;
+    --text-headline-medium--font-weight: 400;
+    --text-headline-medium--letter-spacing: 0;
+    --text-headline-small: 1.5rem;
+    --text-headline-small--line-height: 2rem;
+    --text-headline-small--font-weight: 400;
+    --text-headline-small--letter-spacing: 0;
+    --text-title-large: 1.375rem;
+    --text-title-large--line-height: 1.75rem;
+    --text-title-large--font-weight: 400;
+    --text-title-large--letter-spacing: 0;
+    --text-title-medium: 1rem;
+    --text-title-medium--line-height: 1.5rem;
+    --text-title-medium--font-weight: 500;
+    --text-title-medium--letter-spacing: 0.009375rem;
+    --text-title-small: 0.875rem;
+    --text-title-small--line-height: 1.25rem;
+    --text-title-small--font-weight: 500;
+    --text-title-small--letter-spacing: 0.00625rem;
+    --text-body-large: 1rem;
+    --text-body-large--line-height: 1.5rem;
+    --text-body-large--font-weight: 400;
+    --text-body-large--letter-spacing: 0.03125rem;
+    --text-body-medium: 0.875rem;
+    --text-body-medium--line-height: 1.25rem;
+    --text-body-medium--font-weight: 400;
+    --text-body-medium--letter-spacing: 0.015625rem;
+    --text-body-small: 0.75rem;
+    --text-body-small--line-height: 1rem;
+    --text-body-small--font-weight: 400;
+    --text-body-small--letter-spacing: 0.025rem;
+    --text-label-large: 0.875rem;
+    --text-label-large--line-height: 1.25rem;
+    --text-label-large--font-weight: 500;
+    --text-label-large--letter-spacing: 0.00625rem;
+    --text-label-medium: 0.75rem;
+    --text-label-medium--line-height: 1rem;
+    --text-label-medium--font-weight: 500;
+    --text-label-medium--letter-spacing: 0.03125rem;
+    --text-label-small: 0.6875rem;
+    --text-label-small--line-height: 1rem;
+    --text-label-small--font-weight: 500;
+    --text-label-small--letter-spacing: 0.03125rem;
+
+    /* MD3 shape scale (rounded-extra-small … rounded-extra-large). Named apart
+       from Tailwind's own xs/sm/md/lg/xl on purpose: redefining those would
+       silently resize every corner not yet migrated. `rounded-none` and
+       `rounded-full` are the MD3 `none` and `full` steps already. */
+    --radius-extra-small: 0.25rem;
+    --radius-small: 0.5rem;
+    --radius-medium: 0.75rem;
+    --radius-large: 1rem;
+    --radius-extra-large: 1.75rem;
+
+    /* MD3 elevation levels 0–5 (shadow-elevation-1 …). Hierarchy between
+       surfaces comes from the surface-container roles; shadows belong to
+       elevated variants only. */
+    --shadow-elevation-0: 0 0 #0000;
+    --shadow-elevation-1: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+    --shadow-elevation-2: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+    --shadow-elevation-3: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
+    --shadow-elevation-4: 0 2px 3px 0 rgb(0 0 0 / 0.3), 0 6px 10px 4px rgb(0 0 0 / 0.15);
+    --shadow-elevation-5: 0 4px 4px 0 rgb(0 0 0 / 0.3), 0 8px 12px 6px rgb(0 0 0 / 0.15);
+
+    /* MD3 easing (ease-standard, ease-emphasized-decelerate, …). Durations
+       have no theme namespace in Tailwind v4; use duration-150 for small
+       state changes and duration-300 for larger ones. The reduced-motion rule
+       in tokens.css covers every transition either way. */
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --ease-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+    --ease-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+    --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+    --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+    --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+
     --color-secondary-pink: #EC008B;
     --color-secondary-orange: #F7931D;
     --color-secondary-purple: #91268F;
@@ -14,8 +159,6 @@
     --color-brand-primary:  #2A388F; /* tiefes Blau */
     --color-brand-secondary:#27A9E1; /* helleres Blau */
     --color-brand-accent:   #EC008B; /* magenta */
-    --color-brand-orange:   #F7931D; /* orange */
-    --color-brand-purple:   #91268F; /* violett */
     --color-white:          #FFFFFF;
 
     /* Numeric brand ramp.
@@ -45,7 +188,6 @@
 
     /* Derived neutrals (UI) */
     --color-bg:             light-dark(#ffffff, #0b1020);
-    --color-surface:        light-dark(#ffffff, #11162a);
     --color-text:           light-dark(#111827, #e5e7eb);
     --color-muted:          light-dark(#6b7280, #9aa3b2);
     --color-border:         light-dark(#e5e7eb, #1f2743);
@@ -62,3 +204,61 @@
     --gradient-brand-light: linear-gradient(90deg, #5163C6 0%, #7FD3F4 100%);
     --gradient-accent-light: linear-gradient(90deg, #B35DB2 0%, #FF4FAE 60%, #FFB866 100%);
 }
+
+/*
+ * MD3 state layer: the element's content colour laid over its own background
+ * at 8 % (hover) or 10 % (focus, pressed). Drawn as a background-image, so no
+ * pseudo-element or `position: relative` is taken from the component. Do not
+ * put it on an element that already has a background image.
+ */
+@utility state-layer {
+  /* Wrapped in @supports on purpose: written plainly, Tailwind's color-mix()
+     polyfill emits a fallback of `currentColor`, which would paint the whole
+     element in its text colour wherever color-mix() is unsupported. Without
+     support there is simply no state layer. */
+  --state-layer-opacity: 0%;
+
+  @supports (color: color-mix(in srgb, red, red)) {
+    background-image: linear-gradient(
+      color-mix(in srgb, currentColor var(--state-layer-opacity), transparent),
+      color-mix(in srgb, currentColor var(--state-layer-opacity), transparent)
+    );
+  }
+
+  &:hover { --state-layer-opacity: 8%; }
+  &:focus-visible { --state-layer-opacity: 10%; }
+  &:active { --state-layer-opacity: 10%; }
+  &:disabled,
+  &[aria-disabled='true'] { --state-layer-opacity: 0%; }
+}
+
+/*
+ * MD3 focus indicator: 3px in the secondary role, 2px away from the element,
+ * keyboard focus only. Replaces the per-component
+ * `focus-visible:ring-2 focus-visible:ring-…` combinations.
+ */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 3px solid var(--color-secondary);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Extends the hit area to at least 48 × 48 px without changing the visible
+ * size, as MD3 asks of every interactive element.
+ */
+@utility touch-target {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 48px);
+    height: max(100%, 48px);
+    transform: translate(-50%, -50%);
+  }
+}
+

@@ -75,7 +75,7 @@ const onCopyBedrockPort = async () => {
         <!-- Decorative aura background (now via Tailwind utilities, incl. motion-reduce) -->
         <div
           aria-hidden="true"
-          class="pointer-events-none absolute inset-2 md:inset-1 lg:-inset-2 -z-10 rounded-3xl opacity-[0.52] lg:opacity-[0.58] blur-[22px] md:blur-[28px] lg:blur-[38px] [background:conic-gradient(from_180deg_at_50%_50%,var(--color-brand-accent)_0deg,var(--color-brand-secondary)_120deg,var(--color-brand-orange)_240deg,var(--color-brand-accent)_360deg)]"
+          class="pointer-events-none absolute inset-2 md:inset-1 lg:-inset-2 -z-10 rounded-3xl opacity-[0.52] lg:opacity-[0.58] blur-[22px] md:blur-[28px] lg:blur-[38px] [background:conic-gradient(from_180deg_at_50%_50%,var(--color-brand-accent)_0deg,var(--color-brand-secondary)_120deg,var(--color-secondary-orange)_240deg,var(--color-brand-accent)_360deg)]"
         >
           <!-- Blob 1 -->
           <div
