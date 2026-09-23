@@ -306,7 +306,20 @@ export default defineNuxtConfig({
                             database_name: 'launchpad',
                             database_id: 'a92127c1-aaa3-4753-82ba-ea59fa9e7140'
                         }
-                    ]
+                    ],
+                    // Requires Workers Paid — the Free plan rejects `limits`
+                    // and caps every request at 10 ms CPU. That cap aborted
+                    // renders midway (error 1102), which left Vue's global
+                    // current instance pointing at the dead request; every
+                    // later request in that isolate then failed with
+                    // "Cannot redefine property: $i18n". The ceiling here is
+                    // only a guard against runaway renders and must stay far
+                    // above a normal render: ten times the measured p99, at
+                    // least 1000 ms. 5000 is the placeholder until that
+                    // measurement exists.
+                    limits: {
+                        cpu_ms: 5000
+                    }
                     // NUXT_IMAGE_PROVIDER is a Cloudflare Workers Builds build
                     // variable (read at build time in nuxt.config, see top of
                     // file) — not a runtime Worker var, so it is not in `vars`.

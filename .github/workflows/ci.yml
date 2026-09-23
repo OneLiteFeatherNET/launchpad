@@ -42,6 +42,28 @@ jobs:
         env:
           NODE_ENV: production
 
+      # Serves the build in workerd, where one isolate handles many requests
+      # at once — the condition every other check here, all sequential, never
+      # creates. This catches per-request state leaking into module scope. It
+      # cannot catch CPU-limit aborts: wrangler dev enforces no CPU limit, so
+      # those are verified against production after a deploy (see AGENTS.md).
+      - name: Start production preview
+        run: pnpm preview:prod > wrangler-preview.log 2>&1 &
+
+      - name: Wait for preview
+        run: pnpm exec wait-on http-get://localhost:8787/robots.txt --timeout 120000 --interval 2000
+
+      - name: Concurrency check
+        run: node scripts/concurrency-check.mjs --base http://localhost:8787
+
+      - name: Upload preview log on failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: wrangler-preview-log
+          path: wrangler-preview.log
+          if-no-files-found: ignore
+
   quality:
     name: Lint + typecheck (ratchet)
     runs-on: ubuntu-latest
