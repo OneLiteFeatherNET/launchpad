@@ -54,7 +54,7 @@ Migration Plan). Vor jedem PR gilt: `pnpm test`, `pnpm build` und
 
 ## 8. Migration home (PR 5)
 
-- [ ] 8.1 `Carousel` und alle `CarouselItem*`, `FaqSection`, `ServerAddresses`, `ServerAddressCard`, `ServerConcept` auf Tokens und Primitives (`M3Card`, `M3IconButton`, `M3Button`) umstellen; verifiziert durch Governance-Test, `carousel-live-region.spec.ts`, `carousel-pause.spec.ts` und Screenshots der Startseite
+- [x] 8.1 `Carousel` und alle `CarouselItem*`, `FaqSection`, `ServerAddresses`, `ServerAddressCard`, `ServerConcept` auf Tokens und Primitives (`M3Card`, `M3IconButton`, `M3Button`) umstellen; verifiziert durch Governance-Test, `carousel-live-region.spec.ts`, `carousel-pause.spec.ts` und Screenshots der Startseite
 
 ## 9. Migration blog, team (PR 6, PR 7)
 

@@ -9,6 +9,13 @@ import CarouselItemPoi from './CarouselItemPoi.vue'
 import type { AnySlide, NormalizedSlide } from '../types'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
+import {
+  CAROUSEL_DOT,
+  CAROUSEL_DOT_CURRENT,
+  CAROUSEL_DOT_OTHER,
+  CAROUSEL_INDICATOR_BAR,
+  CAROUSEL_INDICATOR_BUTTON,
+} from '../utils/carouselClasses'
 import { normalizeSlides, getSlideAriaText } from '../composables/useCarousel'
 
 const props = withDefaults(defineProps<{
@@ -208,13 +215,11 @@ const canAutoPlay = computed(() => {
   return props.autoPlay && slidesCount.value > 1 && !prefersReducedMotion.value
 })
 
-// Bound rather than inlined: the same utility list as the dot buttons, and
-// spelled out in the template it would be a 138-character attribute.
-const controlButtonClass = [
-  'grid h-6 w-6 place-items-center rounded-full text-white/90',
-  'transition hover:text-white',
-  'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80'
-].join(' ')
+
+/** The slide frame; `group` reveals the prev/next buttons on hover and focus. */
+const frameClass
+  = 'group relative z-10 w-full overflow-hidden rounded-large border border-outline-variant '
+    + 'bg-surface-container touch-pan-y select-none min-h-[58svh] md:min-h-0'
 
 const aspectPercent = computed(() => {
   const [w, h] = props.aspect.split('/').map(n => Number(n))
@@ -269,7 +274,7 @@ const componentFor = (slide: NormalizedSlide) => {
       <!-- focusable swipe surface; pointer/touch gestures have keyboard parity via the section keydown handler -->
       <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
       <div
-        class="group relative z-10 w-full overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] touch-pan-y select-none min-h-[58svh] md:min-h-0"
+        :class="frameClass"
         :style="{ paddingTop: aspectPercent }"
         tabindex="0"
         @mouseenter="isHovering = true"
@@ -333,7 +338,7 @@ const componentFor = (slide: NormalizedSlide) => {
 
       <!-- Dots -->
       <div class="absolute bottom-2 left-1/2 z-40 -translate-x-1/2 transform">
-        <div class="flex items-center gap-2 rounded-full bg-black/25 px-3 py-2 backdrop-blur-sm">
+        <div :class="CAROUSEL_INDICATOR_BAR">
           <!--
             Deliberately here and not in the prev/next bar above: that one is
             `opacity-0 group-hover:opacity-100`, so a pause button in it would
@@ -342,7 +347,7 @@ const componentFor = (slide: NormalizedSlide) => {
           <button
             v-if="canAutoPlay"
             type="button"
-            :class="controlButtonClass"
+            :class="CAROUSEL_INDICATOR_BUTTON"
             :aria-label="userPaused ? t('carousel.play') : t('carousel.pause')"
             :aria-pressed="userPaused ? 'true' : 'false'"
             @click.stop="userPaused = !userPaused"
@@ -357,7 +362,7 @@ const componentFor = (slide: NormalizedSlide) => {
             v-for="(_s, i) in normalizedSlides"
             :key="i"
             type="button"
-            class="group grid h-6 w-6 place-items-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+            :class="CAROUSEL_INDICATOR_BUTTON"
             :aria-label="t('carousel.show_slide', { index: i + 1 })"
             :aria-current="i === current ? 'true' : undefined"
             :aria-controls="`carousel-slide-${i}`"
@@ -365,8 +370,7 @@ const componentFor = (slide: NormalizedSlide) => {
           >
             <span
               aria-hidden="true"
-              class="h-3.5 w-3.5 rounded-full transition ring-1 ring-white/60"
-              :class="i === current ? 'bg-[var(--color-brand-accent,#38bdf8)] ring-2 ring-offset-1 ring-offset-black/20' : 'bg-white/50 group-hover:bg-white/80'"
+              :class="[CAROUSEL_DOT, i === current ? CAROUSEL_DOT_CURRENT : CAROUSEL_DOT_OTHER]"
             />
           </button>
         </div>

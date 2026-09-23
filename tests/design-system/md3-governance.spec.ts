@@ -137,56 +137,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'dark-colour',
     'shape',
   ],
-  'layers/home/components/Carousel.vue': [
-    'palette',
-    'shape',
-    'button',
-  ],
-  'layers/home/components/CarouselItemBlog.vue': [
-    'palette',
-    'shape',
-    'button',
-  ],
-  'layers/home/components/CarouselItemEvent.vue': [
-    'palette',
-    'shape',
-    'button',
-  ],
-  'layers/home/components/CarouselItemImage.vue': ['palette', 'shape'],
-  'layers/home/components/CarouselItemNews.vue': [
-    'palette',
-    'shape',
-    'button',
-  ],
-  'layers/home/components/CarouselItemPoi.vue': [
-    'palette',
-    'shape',
-    'button',
-  ],
-  'layers/home/components/FaqSection.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
-  'layers/home/components/ServerAddressCard.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
-  'layers/home/components/ServerAddresses.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
-  'layers/home/components/ServerConcept.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
   'layers/opencollective/components/OpenCollectiveStats.vue': [
     'palette',
     'dark-colour',
@@ -253,6 +203,8 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
  * with the reason. Printed as test names so every exception stays visible.
  */
 const BUTTON_EXCEPTIONS: Record<string, string> = {
+  'layers/home/components/Carousel.vue':
+    'pause toggle and slide dots on the indicator bar over the image; MD3 has no carousel indicator',
   'layers/navigation/components/LanguageSelector.vue':
     'menu trigger among the navigation links; shares their look (NAV_ITEM_DESKTOP), not a button\'s',
 }
@@ -346,6 +298,18 @@ describe('MD3 governance rules', () => {
     expect(rulesIn('<div class="ring-[var(--color-brand-secondary)] text-[#fff]">'))
       .toEqual(['palette', 'palette'])
     expect(rulesIn('<p class="text-muted">')).toEqual(['palette'])
+  })
+
+  it('ignores class names that only appear in comments', () => {
+    const text = [
+      '<!-- the rounded container, text-gray-600 -->',
+      '<script setup lang="ts">',
+      '// shadow-lg would be too much here',
+      '/* bg-white */',
+      "const url = 'https://example.org'",
+      '</script>',
+    ].join('\n')
+    expect(rulesIn(text)).toEqual([])
   })
 
   it('ignores utilities that only look like colours', () => {

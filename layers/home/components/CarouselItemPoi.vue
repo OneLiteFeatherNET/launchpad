@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import {
+  CAROUSEL_CAPTION,
+  CAROUSEL_CAPTION_POSITION,
+  CAROUSEL_SCRIM,
+  CAROUSEL_TEXT,
+  CAROUSEL_TITLE,
+  CAROUSEL_TITLE_LINK,
+} from '../utils/carouselClasses'
 import { computed } from '#imports'
 
 interface PoiItem {
@@ -32,13 +40,10 @@ const ctaLabel = computed(() => t('community_poi.carousel.cta'))
 const ctaAria = computed(() => t('community_poi.carousel.cta_aria', { title: props.item.title }))
 const titleAria = computed(() => t('community_poi.carousel.title_aria', { title: props.item.title }))
 
-const chipRowClass = [
-  'mb-2 flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide', 'text-white/85'
-].join(' ')
 
-const ctaClass = [
-  'inline-flex items-center gap-2 rounded-md bg-white/90 px-3 py-1.5', 'text-sm font-medium text-black transition hover:bg-white'
-].join(' ')
+/** Shown when the POI has no image yet. */
+const fallbackClass
+  = 'absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-container-lowest'
 </script>
 
 <template>
@@ -61,47 +66,37 @@ const ctaClass = [
     />
     <div
       v-else
-      class="absolute inset-0 bg-gradient-to-br from-neutral-800 to-neutral-950"
+      :class="fallbackClass"
       aria-hidden="true"
     />
 
-    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+    <div :class="CAROUSEL_SCRIM" />
 
-    <div class="absolute inset-x-0 bottom-0 p-5 pb-14 sm:p-6 sm:pb-16">
-      <div class="max-w-3xl rounded-lg bg-black/45 p-4 text-white backdrop-blur-sm">
-        <div :class="chipRowClass">
-          <span class="rounded-full bg-white/15 px-3 py-1">
-            {{ t('community_poi.carousel.tag') }}
-          </span>
-          <span v-if="categoryLabel" class="rounded-full bg-white/15 px-3 py-1">
-            {{ categoryLabel }}
-          </span>
-          <span v-if="statusLabel" class="rounded-full bg-white/15 px-3 py-1">
-            {{ statusLabel }}
-          </span>
-          <span v-if="progressValue !== null" class="tabular-nums text-white/80">
+    <div :class="CAROUSEL_CAPTION_POSITION">
+      <div :class="CAROUSEL_CAPTION">
+        <div :class="CAROUSEL_META">
+          <M3Chip kind="label" color="secondary" :label="t('community_poi.carousel.tag')" />
+          <M3Chip v-if="categoryLabel" kind="label" :label="categoryLabel" />
+          <M3Chip v-if="statusLabel" kind="label" :label="statusLabel" />
+          <span v-if="progressValue !== null" class="tabular-nums">
             {{ progressValue }}%
           </span>
         </div>
 
-        <h3 class="mb-2 text-xl font-semibold leading-snug sm:text-2xl">
-          <NuxtLink :to="item.href" class="hover:underline" :aria-label="titleAria">
+        <h3 :class="CAROUSEL_TITLE">
+          <NuxtLink :to="item.href" :class="CAROUSEL_TITLE_LINK" :aria-label="titleAria">
             {{ item.title }}
           </NuxtLink>
         </h3>
 
-        <p v-if="item.caption" class="mb-3 line-clamp-3 text-white/90">
+        <p v-if="item.caption" :class="CAROUSEL_TEXT">
           {{ item.caption }}
         </p>
 
-        <NuxtLink
-          :to="item.href"
-          :class="ctaClass"
-          :aria-label="ctaAria"
-        >
+        <M3Button variant="tonal" :to="item.href" :aria-label="ctaAria">
           {{ ctaLabel }}
-          <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" />
-        </NuxtLink>
+          <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
+        </M3Button>
       </div>
     </div>
   </article>

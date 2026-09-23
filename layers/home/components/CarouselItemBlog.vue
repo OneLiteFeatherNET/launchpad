@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import {
+  CAROUSEL_CAPTION,
+  CAROUSEL_CAPTION_POSITION,
+  CAROUSEL_META,
+  CAROUSEL_SCRIM,
+  CAROUSEL_TEXT,
+  CAROUSEL_TITLE,
+  CAROUSEL_TITLE_LINK,
+} from '../utils/carouselClasses'
 import {computed} from 'vue'
 
 // `locale` because these format with explicit option objects that vue-i18n's
@@ -52,39 +61,39 @@ const dateLabel = computed(() => {
     />
 
     <!-- Gradient overlay for readability -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+    <div :class="CAROUSEL_SCRIM" />
 
     <!-- Content card: add extra bottom padding so it doesn't overlap with the carousel dots/indicators -->
-    <div class="absolute inset-x-0 bottom-0 p-5 pb-14 sm:p-6 sm:pb-16">
-      <div class="max-w-3xl rounded-lg bg-black/45 p-4 text-white backdrop-blur-sm">
-        <div class="mb-2 flex items-center gap-3 text-xs uppercase tracking-wide text-white/80">
-          <span v-if="item.tag" class="rounded-full bg-white/15 px-3 py-1">{{ item.tag }}</span>
+    <div :class="CAROUSEL_CAPTION_POSITION">
+      <div :class="CAROUSEL_CAPTION">
+        <div :class="CAROUSEL_META">
+          <M3Chip v-if="item.tag" kind="label" color="secondary" :label="item.tag" />
           <span v-if="dateLabel">{{ dateLabel }}</span>
           <span v-if="item.author" class="truncate">von {{ item.author }}</span>
         </div>
 
-        <h3 class="mb-2 text-xl font-semibold leading-snug sm:text-2xl">
+        <h3 :class="CAROUSEL_TITLE">
           <NuxtLink
             :to="item.href"
-            class="hover:underline"
+            :class="CAROUSEL_TITLE_LINK"
             :aria-label="t('carousel.blog_link', { title: item.title })"
           >
             {{ item.title }}
           </NuxtLink>
         </h3>
 
-        <p v-if="item.excerpt" class="mb-3 line-clamp-3 text-white/90">
+        <p v-if="item.excerpt" :class="CAROUSEL_TEXT">
           {{ item.excerpt }}
         </p>
 
-        <NuxtLink
+        <M3Button
+          variant="tonal"
           :to="item.href"
-          class="inline-flex items-center gap-2 rounded-md bg-white/90 px-3 py-1.5 text-sm font-medium text-black transition hover:bg-white"
           :aria-label="t('carousel.read_article', { title: item.title })"
         >
           Lesen
-          <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" />
-        </NuxtLink>
+          <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
+        </M3Button>
       </div>
     </div>
   </article>

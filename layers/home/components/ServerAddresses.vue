@@ -62,6 +62,10 @@ const onCopyBedrockPort = async () => {
     // no-op
   }
 }
+
+const panelClass
+  = 'w-full rounded-extra-large bg-surface-container-low/95 p-6 shadow-elevation-4 '
+    + 'backdrop-blur-md md:mx-0 md:max-w-full md:p-10 lg:mx-[-2.5%] lg:max-w-[105%]'
 </script>
 
 <template>
@@ -75,28 +79,28 @@ const onCopyBedrockPort = async () => {
         <!-- Decorative aura background (now via Tailwind utilities, incl. motion-reduce) -->
         <div
           aria-hidden="true"
-          class="pointer-events-none absolute inset-2 md:inset-1 lg:-inset-2 -z-10 rounded-3xl opacity-[0.52] lg:opacity-[0.58] blur-[22px] md:blur-[28px] lg:blur-[38px] [background:conic-gradient(from_180deg_at_50%_50%,var(--color-brand-accent)_0deg,var(--color-brand-secondary)_120deg,var(--color-secondary-orange)_240deg,var(--color-brand-accent)_360deg)]"
+          class="pointer-events-none absolute inset-2 md:inset-1 lg:-inset-2 -z-10 rounded-extra-large opacity-[0.52] lg:opacity-[0.58] blur-[22px] md:blur-[28px] lg:blur-[38px] [background:conic-gradient(from_180deg_at_50%_50%,var(--color-brand-accent)_0deg,var(--color-brand-secondary)_120deg,var(--color-brand-orange)_240deg,var(--color-brand-accent)_360deg)]"
         >
           <!-- Blob 1 -->
           <div
-            class="absolute inset-[-4%] md:inset-[-6%] lg:inset-[-12%] rounded-[inherit] pointer-events-none mix-blend-screen opacity-[0.24] translate-x-[-6%] translate-y-[-5%] scale-[0.98] md:scale-[1.02] lg:scale-[1.05] [background:radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-accent)_60%,white_40%)_0%,transparent_70%)]"
+            class="absolute inset-[-4%] md:inset-[-6%] lg:inset-[-12%] rounded-extra-large pointer-events-none mix-blend-screen opacity-[0.24] translate-x-[-6%] translate-y-[-5%] scale-[0.98] md:scale-[1.02] lg:scale-[1.05] [background:radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-accent)_60%,white_40%)_0%,transparent_70%)]"
           />
           <!-- Blob 2 -->
           <div
-            class="absolute inset-[-4%] md:inset-[-6%] lg:inset-[-12%] rounded-[inherit] pointer-events-none mix-blend-screen opacity-[0.22] translate-x-[5%] translate-y-[3%] scale-[0.9] md:scale-[0.95] lg:scale-[0.98] [background:radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-secondary)_60%,white_40%)_0%,transparent_70%)]"
+            class="absolute inset-[-4%] md:inset-[-6%] lg:inset-[-12%] rounded-extra-large pointer-events-none mix-blend-screen opacity-[0.22] translate-x-[5%] translate-y-[3%] scale-[0.9] md:scale-[0.95] lg:scale-[0.98] [background:radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-secondary)_60%,white_40%)_0%,transparent_70%)]"
           />
         </div>
         <div
-          class="rounded-3xl border border-zinc-200/80 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-900/90 p-6 shadow-2xl shadow-black/20 backdrop-blur-md md:p-10 md:max-w-full md:mx-0 lg:max-w-[105%] lg:mx-[-2.5%] w-full"
+          :class="panelClass"
           role="region"
           :aria-labelledby="'server-connect-title'"
           :aria-describedby="'server-connect-subtitle'"
         >
         <div class="mb-6 text-center md:mb-8">
-          <h2 id="server-connect-title" class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 md:text-3xl">
+          <h2 id="server-connect-title" class="text-headline-medium font-bold text-on-surface">
             {{ displayTitle }}
           </h2>
-          <p id="server-connect-subtitle" class="mt-2 text-base text-gray-600 dark:text-gray-400 md:text-lg">
+          <p id="server-connect-subtitle" class="mt-2 text-body-large text-on-surface-variant">
             {{ displaySubtitle }}
           </p>
         </div>
@@ -107,7 +111,6 @@ const onCopyBedrockPort = async () => {
             :title="t('server.connect.java')"
             :address="props.javaAddress"
             icon="desktop_windows"
-            iconClass="text-emerald-700 dark:text-emerald-400"
             :copied="copiedJava"
             :onCopy="onCopyJava"
           />
@@ -119,7 +122,6 @@ const onCopyBedrockPort = async () => {
             :secondary-value="bedrockPort || ''"
             :secondary-label="bedrockPort ? t('server.connect.port_label') : ''"
             icon="stadia_controller"
-            iconClass="text-indigo-600 dark:text-indigo-400"
             :copied="copiedBedrock"
             :onCopy="onCopyBedrock"
             :copied-secondary="copiedBedrockPort"
@@ -128,7 +130,7 @@ const onCopyBedrockPort = async () => {
         </div>
 
         <ClientOnly>
-          <p v-if="!isSupported" class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+          <p v-if="!isSupported" class="mt-4 text-center text-body-medium text-on-surface-variant">
             {{ t('server.connect.clipboard_note') }}
           </p>
         </ClientOnly>

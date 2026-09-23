@@ -195,6 +195,12 @@ Sprachwähler-Auslöser, der wie die Navigationseinträge aussieht
 `secondary-container`, genau eine Textfarbe je Zustand
 (`tests/design-system/navigation-classes.spec.ts`).
 
+Die Regeln blenden HTML-, Block- und Zeilenkommentare vor dem Scannen aus:
+Prosa wie „the rounded container“ ist keine Klassenliste (in der Umsetzung
+als Fehlalarm aufgefallen). Pause-Schalter und Punkte des Karussells sind
+eine weitere Ausnahme: Mini-Steuerelemente auf der Indikatorleiste über dem
+Bild, für die MD3 keine Komponente hat.
+
 Alternative: ESLint-Regel (z. B. `eslint-plugin-tailwindcss`). Verworfen: neue
 Dependency, v4-Unterstützung unsicher, und die Quality-Ratchet blockiert nur
 *steigende* Zahlen – ein Rückfall in einer Datei ließe sich durch eine
