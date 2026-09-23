@@ -49,14 +49,14 @@ useSchemaOrg(() => {
   <div class="container mx-auto max-w-screen-xl px-4 py-8 md:px-6 md:py-12">
     <header class="mb-8 max-w-3xl">
       <h1
-        class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 md:text-4xl"
+        class="text-display-small font-bold text-on-surface"
       >
         {{ t('community_poi.overview.title') }}
       </h1>
-      <p class="mt-3 text-base text-neutral-700 dark:text-neutral-300">
+      <p class="mt-3 text-body-large text-on-surface-variant">
         {{ t('community_poi.overview.description') }}
       </p>
-      <p v-if="total" class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+      <p v-if="total" class="mt-2 text-body-medium text-on-surface-variant">
         {{ t('community_poi.overview.count', { count: total }) }}
       </p>
     </header>

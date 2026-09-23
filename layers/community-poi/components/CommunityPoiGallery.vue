@@ -10,7 +10,8 @@ const { t } = useI18n()
 
 const open = ref(false)
 const activeIndex = ref(0)
-const closeButtonRef = ref<HTMLButtonElement | null>(null)
+// M3IconButton renders the <button>; its root element is what takes focus.
+const closeButtonRef = ref<{ $el?: HTMLElement } | null>(null)
 const lastTrigger = ref<HTMLElement | null>(null)
 
 const activeImage = computed(() => props.images[activeIndex.value] || null)
@@ -20,7 +21,7 @@ const openAt = async (index: number, trigger: HTMLElement | null) => {
   lastTrigger.value = trigger
   open.value = true
   await nextTick()
-  closeButtonRef.value?.focus()
+  closeButtonRef.value?.$el?.focus()
 }
 
 const close = () => {
@@ -70,23 +71,17 @@ onBeforeUnmount(() => {
   }
 })
 
-const tileButtonClass = [
-  'group block aspect-[4/3] w-full overflow-hidden',
-  'focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary)]'
-].join(' ')
+const tileButtonClass = 'group block aspect-[4/3] w-full cursor-pointer overflow-hidden focus-ring'
 
 const tileImgClass = [
   'h-full w-full object-cover transition-transform duration-300', 'motion-reduce:transition-none group-hover:scale-[1.03]'
 ].join(' ')
 
-const navButtonClass = [
-  'rounded-full bg-white/10 px-3 py-2 text-white hover:bg-white/20', 'focus:outline-none focus-visible:ring-2 focus-visible:ring-white'
-].join(' ')
-
-const closeButtonClass = [
-  'rounded-md px-2 py-1 text-sm hover:bg-white/10', 'focus:outline-none focus-visible:ring-2 focus-visible:ring-white'
-].join(' ')
+// The lightbox sits on a dark scrim in both schemes. Its controls bring
+// their own containers and its text sits on a surface pill, so contrast
+// comes from the roles rather than from white-on-black.
+const lightboxPillClass
+  = 'rounded-full bg-surface-container-high px-3 py-1 text-body-medium text-on-surface'
 </script>
 
 <template>
@@ -95,7 +90,7 @@ const closeButtonClass = [
       <li
         v-for="(img, index) in images"
         :key="img.src"
-        class="overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-800"
+        class="overflow-hidden rounded-medium bg-surface-container-highest"
       >
         <button
           type="button"
@@ -119,7 +114,7 @@ const closeButtonClass = [
             format="avif,webp"
           />
         </button>
-        <p v-if="img.caption" class="px-2 py-1 text-xs text-neutral-600 dark:text-neutral-400">
+        <p v-if="img.caption" class="px-2 py-1 text-body-small text-on-surface-variant">
           {{ img.caption }}
         </p>
       </li>
@@ -130,7 +125,7 @@ const closeButtonClass = [
         role="dialog"
         aria-modal="true"
         :aria-label="t('community_poi.gallery.aria')"
-        class="fixed inset-0 z-50 flex flex-col bg-black/85 p-4 backdrop-blur-sm"
+        class="fixed inset-0 z-50 flex flex-col bg-scrim/85 p-4 backdrop-blur-sm"
       >
         <button
           type="button"
@@ -139,29 +134,27 @@ const closeButtonClass = [
           tabindex="-1"
           @click="close"
         />
-        <div class="flex items-center justify-between text-white">
-          <span class="text-sm tabular-nums">{{ activeIndex + 1 }} / {{ images.length }}</span>
-          <button
+        <div class="flex items-center justify-between">
+          <span :class="lightboxPillClass" class="tabular-nums">
+            {{ activeIndex + 1 }} / {{ images.length }}
+          </span>
+          <M3IconButton
             ref="closeButtonRef"
-            type="button"
-            :class="closeButtonClass"
-            :aria-label="t('community_poi.gallery.close')"
+            variant="tonal"
+            :icon="['fas','times']"
+            :label="t('community_poi.gallery.close')"
             @click="close"
-          >
-            <IconFa :icon="['fas','times']" class="h-4 w-4" aria-hidden="true" />
-          </button>
+          />
         </div>
         <div class="relative flex flex-1 items-center justify-center">
-          <button
+          <M3IconButton
             v-if="images.length > 1"
-            type="button"
+            variant="tonal"
             class="absolute left-2"
-            :class="navButtonClass"
-            :aria-label="t('community_poi.gallery.prev')"
+            :icon="['fas','chevron-left']"
+            :label="t('community_poi.gallery.prev')"
             @click="showPrev"
-          >
-            <IconFa :icon="['fas','chevron-left']" class="h-4 w-4" aria-hidden="true" />
-          </button>
+          />
           <figure v-if="activeImage" class="max-h-full max-w-full">
             <NuxtPicture
               :src="activeImage.src"
@@ -171,26 +164,23 @@ const closeButtonClass = [
               sizes="xs:90vw sm:90vw md:80vw lg:1200px"
               fit="contain"
               quality="80"
-              :img-attrs="{ class: 'max-h-[80vh] w-auto rounded-md object-contain' }"
+              :img-attrs="{ class: 'max-h-[80vh] w-auto rounded-medium object-contain' }"
               format="avif,webp"
             />
-            <figcaption
-              v-if="activeImage.caption"
-              class="mt-2 text-center text-sm text-white/80"
-            >
-              {{ activeImage.caption }}
+            <figcaption v-if="activeImage.caption" class="mt-2 text-center">
+              <span :class="lightboxPillClass">
+                {{ activeImage.caption }}
+              </span>
             </figcaption>
           </figure>
-          <button
+          <M3IconButton
             v-if="images.length > 1"
-            type="button"
+            variant="tonal"
             class="absolute right-2"
-            :class="navButtonClass"
-            :aria-label="t('community_poi.gallery.next')"
+            :icon="['fas','chevron-right']"
+            :label="t('community_poi.gallery.next')"
             @click="showNext"
-          >
-            <IconFa :icon="['fas','chevron-right']" class="h-4 w-4" aria-hidden="true" />
-          </button>
+          />
         </div>
       </div>
     </Teleport>

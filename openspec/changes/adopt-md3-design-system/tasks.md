@@ -63,9 +63,9 @@ Migration Plan). Vor jedem PR gilt: `pnpm test`, `pnpm build` und
 
 ## 10. Migration community-poi (PR 8)
 
-- [ ] 10.1 `CommunityPoiCard`, `CommunityPoiGrid`, `CommunityPoiGallery` (Buttons → `M3IconButton`), `CommunityPoiCoordsCopy` umstellen; verifiziert durch Governance-Test, `poi-card-image-*.spec.ts` und Screenshots
-- [ ] 10.2 `CommunityPoiStatusBadge` und `CommunityPoiCategoryBadge` als `M3Chip`-Kennzeichnung mit Rollen-/Custom-Color-Zuordnung umsetzen; verifiziert durch Komponententest (keine Button-Rolle) und Kontrast der gewählten Farbpaare
-- [ ] 10.3 Übrige POI-Komponenten (`Collaboration`, `ContributeInfo`, `GoalState`, `LitematicaHelp`, `Lore`, `Meta`, `SchematicList`, `Bluemap`) sowie `pages/community-poi/**` und `pages/bluemap.vue` umstellen; verifiziert durch Governance-Test und Screenshots
+- [x] 10.1 `CommunityPoiCard`, `CommunityPoiGrid`, `CommunityPoiGallery` (Buttons → `M3IconButton`), `CommunityPoiCoordsCopy` umstellen; verifiziert durch Governance-Test, `poi-card-image-*.spec.ts` und Screenshots
+- [x] 10.2 `CommunityPoiStatusBadge` und `CommunityPoiCategoryBadge` als `M3Chip`-Kennzeichnung mit Rollen-/Custom-Color-Zuordnung umsetzen; verifiziert durch Komponententest (keine Button-Rolle) und Kontrast der gewählten Farbpaare
+- [x] 10.3 Übrige POI-Komponenten (`Collaboration`, `ContributeInfo`, `GoalState`, `LitematicaHelp`, `Lore`, `Meta`, `SchematicList`, `Bluemap`) sowie `pages/community-poi/**` und `pages/bluemap.vue` umstellen; verifiziert durch Governance-Test und Screenshots
 
 ## 11. Migration sponsoring, opencollective, content-core, Rest (PR 9, PR 10)
 

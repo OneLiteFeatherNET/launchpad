@@ -34,27 +34,14 @@ c.z] : [c.x, c.z]
 
 const linkAria = computed(() => t('community_poi.bluemap.link_aria', { title: props.title }))
 
-const wrapperClass = [
-  'rounded-lg border p-5', 'border-[var(--color-border)] bg-[var(--color-surface)]'
-].join(' ')
+const wrapperClass = 'rounded-large border border-outline-variant bg-surface-container-low p-5'
 
-const titleClass = [
-  'inline-flex items-center gap-2 text-base font-semibold', 'text-neutral-900 dark:text-neutral-50'
-].join(' ')
+const titleClass = 'inline-flex items-center gap-2 text-title-medium text-on-surface'
 
-const iconClass = 'h-4 w-4 text-[var(--color-brand-secondary)]'
+const iconClass = 'h-4 w-4 text-primary'
 
-const linkClass = [
-  'inline-flex items-center gap-2 rounded-md',
-  'bg-[var(--color-brand-secondary)] px-3 py-1.5 text-sm font-medium text-white shadow-sm',
-  'hover:opacity-90 focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary)] focus-visible:ring-offset-2',
-  'focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900'
-].join(' ')
-
-const embedNoteClass = [
-  'bg-neutral-50 px-3 py-2 text-xs text-neutral-600', 'dark:bg-neutral-800 dark:text-neutral-400'
-].join(' ')
+const embedNoteClass
+  = 'bg-surface-container-highest px-3 py-2 text-body-small text-on-surface-variant'
 </script>
 
 <template>
@@ -65,25 +52,20 @@ const embedNoteClass = [
           <IconFa :icon="['fas','map']" :class="iconClass" aria-hidden="true" />
           {{ t('community_poi.bluemap.title') }}
         </h3>
-        <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+        <p class="mt-1 text-body-medium text-on-surface-variant">
           <span class="font-mono">{{ coordsLabel }}</span>
           <span v-if="dimensionLabel" class="ml-1">({{ dimensionLabel }})</span>
         </p>
       </div>
-      <a
+      <M3Button
         :href="deepLink"
         target="_blank"
         rel="noopener noreferrer external"
-        :class="linkClass"
+        :icon="['fas','arrow-up-right-from-square']"
         :aria-label="linkAria"
       >
-        <IconFa
-          :icon="['fas','arrow-up-right-from-square']"
-          class="h-3.5 w-3.5"
-          aria-hidden="true"
-        />
         {{ t('community_poi.bluemap.open') }}
-      </a>
+      </M3Button>
     </header>
 
     <CommunityPoiCoordsCopy
@@ -97,7 +79,7 @@ const embedNoteClass = [
          in-world position immediately. `loading="lazy"` still defers the
          fetch until the section is in view, which keeps initial page
          weight reasonable. -->
-    <div class="overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-800">
+    <div class="overflow-hidden rounded-medium border border-outline-variant">
       <!-- Same sandbox as pages/bluemap.vue; see the comment there for why
            allow-scripts and allow-same-origin are both needed. -->
       <iframe

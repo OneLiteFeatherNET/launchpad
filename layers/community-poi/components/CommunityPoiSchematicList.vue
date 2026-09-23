@@ -13,29 +13,15 @@ const items = computed(() => props.schematics ?? [])
 const isExternal = (url: string) => /^https?:\/\//i.test(url)
 const formatLabel = (format?: string) => (format ? `.${format}` : '')
 
-const cardClass = [
-  'rounded-lg border p-4', 'border-[var(--color-border)] bg-[var(--color-surface)]'
-].join(' ')
+const cardClass = 'rounded-medium border border-outline-variant bg-surface-container-low p-4'
 
-const metaClass = [
-  'mt-1 flex flex-wrap items-center gap-2 text-xs', 'text-neutral-600 dark:text-neutral-400'
-].join(' ')
+const metaClass
+  = 'mt-1 flex flex-wrap items-center gap-2 text-body-small text-on-surface-variant'
 
-const downloadClass = [
-  'inline-flex shrink-0 items-center gap-1 rounded-md',
-  'bg-[var(--color-brand-secondary)] px-3 py-1.5 text-sm font-medium text-white shadow-sm',
-  'hover:opacity-90 focus:outline-none focus-visible:ring-2',
-  'focus-visible:ring-[var(--color-brand-secondary)] focus-visible:ring-offset-2',
-  'focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900'
-].join(' ')
+const setupClass
+  = 'mt-3 rounded-small bg-surface-container-highest p-3 text-body-small text-on-surface-variant'
 
-const setupClass = [
-  'mt-3 rounded-md bg-neutral-50 p-3 text-xs', 'text-neutral-700 dark:bg-neutral-800/60 dark:text-neutral-300'
-].join(' ')
-
-const setupTitleClass = [
-  'font-semibold uppercase tracking-wide text-[10px]', 'text-neutral-500 dark:text-neutral-400'
-].join(' ')
+const setupTitleClass = 'text-label-small uppercase text-on-surface-variant'
 
 const facingLabel = (facing?: CommunityPoiSchematic['facing']) => facing ? t(`community_poi.facing.${facing}`) : ''
 const rotationLabel = (rotation?: CommunityPoiSchematic['rotation']) => rotation ? t(`community_poi.rotation.${rotation}`) : ''
@@ -51,13 +37,13 @@ const rotationLabel = (rotation?: CommunityPoiSchematic['rotation']) => rotation
       >
         <div class="flex items-start justify-between gap-3">
           <div class="min-w-0">
-            <p class="truncate font-medium text-neutral-900 dark:text-neutral-100">
+            <p class="truncate text-title-small text-on-surface">
               {{ schematic.name }}
             </p>
             <p :class="metaClass">
               <span
                 v-if="schematic.format"
-                class="rounded bg-neutral-100 px-1.5 py-0.5 font-mono dark:bg-neutral-800"
+                class="rounded-extra-small bg-surface-container-highest px-1.5 py-0.5 font-mono"
               >
                 {{ formatLabel(schematic.format) }}
               </span>
@@ -70,19 +56,20 @@ const rotationLabel = (rotation?: CommunityPoiSchematic['rotation']) => rotation
               <span v-if="schematic.sizeLabel">{{ schematic.sizeLabel }}</span>
             </p>
           </div>
-          <a
+          <M3Button
+            variant="tonal"
+            class="shrink-0"
             :href="schematic.url"
             :download="!isExternal(schematic.url) ? schematic.name : undefined"
             :target="isExternal(schematic.url) ? '_blank' : undefined"
             :rel="isExternal(schematic.url) ? 'noopener noreferrer external' : undefined"
-            :class="downloadClass"
+            :icon="['fas','download']"
           >
-            <IconFa :icon="['fas','download']" class="h-3.5 w-3.5" aria-hidden="true" />
             <span>{{ t('community_poi.schematics.download') }}</span>
             <span v-if="isExternal(schematic.url)" class="sr-only">
               {{ t('community_poi.schematics.opens_external') }}
             </span>
-          </a>
+          </M3Button>
         </div>
 
         <div
@@ -117,7 +104,7 @@ const rotationLabel = (rotation?: CommunityPoiSchematic['rotation']) => rotation
         </div>
       </li>
     </ul>
-    <p class="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
+    <p class="mt-3 text-body-small text-on-surface-variant">
       {{ t('community_poi.schematics.hint') }}
     </p>
   </section>

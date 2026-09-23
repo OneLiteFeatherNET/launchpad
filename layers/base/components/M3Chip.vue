@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, resolveComponent, useSlots } from 'vue'
 import { useInteractiveTag } from '../composables/useInteractiveTag'
-import type { ChipKind, IconName, M3Color } from '../types'
+import type { ChipKind, ChipLabelColor, IconName } from '../types'
 import {
   M3_CHIP_BASE,
   M3_CHIP_INTERACTIVE,
@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<{
   label?: string
   kind?: ChipKind
   selected?: boolean
-  color?: M3Color
+  color?: ChipLabelColor
   icon?: IconName
   to?: string
   href?: string

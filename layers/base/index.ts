@@ -4,6 +4,7 @@ export { useAnalytics } from './composables/useAnalytics'
 export type {
   ButtonVariant,
   CardVariant,
+  ChipLabelColor,
   ChipKind,
   IconButtonSize,
   IconButtonVariant,
