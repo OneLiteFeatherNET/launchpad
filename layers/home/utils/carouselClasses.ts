@@ -12,8 +12,17 @@
 export const CAROUSEL_SCRIM
   = 'absolute inset-0 bg-gradient-to-t from-scrim/60 via-scrim/20 to-transparent'
 
+/**
+ * What a slide keeps free at its bottom edge, set once on the carousel frame:
+ * the indicator bar (bottom-2 + py-2 + size-6 = 3.5rem) plus a gap. Slides
+ * read it rather than guessing their own padding — the image slide's guess
+ * used to sit level with the dots.
+ */
+export const CAROUSEL_DOTS_SPACE = '[--carousel-dots-space:4.5rem] sm:[--carousel-dots-space:5rem]'
+
 /** Positions the caption above the dots. */
-export const CAROUSEL_CAPTION_POSITION = 'absolute inset-x-0 bottom-0 p-5 pb-14 sm:p-6 sm:pb-16'
+export const CAROUSEL_CAPTION_POSITION
+  = 'absolute inset-x-0 bottom-0 p-5 pb-(--carousel-dots-space) sm:p-6 sm:pb-(--carousel-dots-space)'
 
 /** The caption card itself. */
 export const CAROUSEL_CAPTION

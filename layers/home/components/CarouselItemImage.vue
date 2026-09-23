@@ -20,6 +20,11 @@ const props = withDefaults(defineProps<Props>(), {
 const noteClass
   = 'inline-block max-w-3xl rounded-small bg-surface-container-high/90 px-3 py-1.5 '
     + 'text-body-medium text-on-surface backdrop-blur-sm'
+
+// md:p-4 would reset the bottom padding, so md: repeats it.
+const notePositionClass
+  = 'pointer-events-none absolute inset-x-0 bottom-0 p-3 pb-(--carousel-dots-space) '
+    + 'md:p-4 md:pb-(--carousel-dots-space)'
 </script>
 
 <template>
@@ -41,7 +46,7 @@ const noteClass
       }"
     />
     <div :class="CAROUSEL_SCRIM" class="pointer-events-none" />
-    <div class="pointer-events-none absolute inset-x-0 bottom-0 p-3 pb-8 md:p-4 md:pb-12">
+    <div :class="notePositionClass">
       <p
         v-if="props.item.note"
         :class="noteClass"
