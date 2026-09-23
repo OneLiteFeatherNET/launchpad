@@ -241,16 +241,11 @@
     },
     "gallery": {
       "title": "Image gallery",
-      "aria": "Project image gallery",
-      "open_at": "Open image {current} of {total}",
-      "prev": "Previous image",
-      "next": "Next image",
-      "close": "Close gallery"
+      "aria": "Project image gallery"
     },
     "schematics": {
       "title": "Litematica schematics",
       "aria": "Available schematic downloads",
-      "download": "Download",
       "opens_external": "(opens an external site)",
       "hint": "Load the schematic with the Litematica mod in Minecraft to rebuild the project block by block.",
       "litematica_version": "Litematica {version}",
@@ -398,5 +393,16 @@
     "codeIn": "Code in {language}",
     "codeblock": "Code block",
     "permalinkToHeading": "Permalink to heading {id}"
+  },
+  "media_gallery": {
+    "open_at": "Open image {current} of {total}",
+    "prev": "Previous image",
+    "next": "Next image",
+    "close": "Close gallery"
+  },
+  "resources": {
+    "download": "Download",
+    "open": "Open",
+    "opens_new_tab": "(opens in a new tab)"
   }
 }
