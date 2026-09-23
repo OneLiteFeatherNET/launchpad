@@ -158,14 +158,14 @@ const progressSectionClass = 'rounded-large bg-surface-container-low p-5'
         <h2 class="mb-3 text-title-large text-on-surface">
           {{ t('community_poi.gallery.title') }}
         </h2>
-        <LazyCommunityPoiGallery :images="poi.gallery" />
+        <LazyMediaGallery :images="poi.gallery" :label="t('community_poi.gallery.aria')" />
       </section>
 
       <section v-if="poi.schematics?.length" class="space-y-4">
         <h2 class="mb-3 text-title-large text-on-surface">
           {{ t('community_poi.schematics.title') }}
         </h2>
-        <LazyCommunityPoiSchematicList :schematics="poi.schematics" />
+        <LazyCommunityPoiSchematics :schematics="poi.schematics" />
         <LazyCommunityPoiLitematicaHelp />
       </section>
 

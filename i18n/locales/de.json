@@ -16,7 +16,8 @@
     "change_language": "Sprache ändern",
     "more": "Mehr",
     "status": "Status",
-    "community_poi": "Community-POIs"
+    "community_poi": "Community-POIs",
+    "events": "Events"
   },
   "carousel": {
     "prev": "Zurück",
@@ -241,16 +242,11 @@
     },
     "gallery": {
       "title": "Bildergalerie",
-      "aria": "Bildergalerie zum Projekt",
-      "open_at": "Bild {current} von {total} öffnen",
-      "prev": "Vorheriges Bild",
-      "next": "Nächstes Bild",
-      "close": "Galerie schließen"
+      "aria": "Bildergalerie zum Projekt"
     },
     "schematics": {
       "title": "Litematica-Schematics",
       "aria": "Verfügbare Schematics zum Download",
-      "download": "Herunterladen",
       "opens_external": "(öffnet eine externe Seite)",
       "hint": "Schematic mit dem Litematica-Mod in Minecraft laden, um den Bau Block für Block nachzubauen.",
       "litematica_version": "Litematica {version}",
@@ -398,5 +394,104 @@
     "codeIn": "Code in {language}",
     "codeblock": "Codeblock",
     "permalinkToHeading": "Permalink zur Überschrift {id}"
+  },
+  "media_gallery": {
+    "open_at": "Bild {current} von {total} öffnen",
+    "prev": "Vorheriges Bild",
+    "next": "Nächstes Bild",
+    "close": "Galerie schließen"
+  },
+  "resources": {
+    "download": "Herunterladen",
+    "open": "Öffnen",
+    "opens_new_tab": "(öffnet in neuem Tab)"
+  },
+  "events": {
+    "title": "Events",
+    "description": "Bau-Events, Spiel-Events, Adventures und Betas auf OneLiteFeather – was gerade läuft, was ansteht und was schon war.",
+    "intro": "Was gerade läuft, was ansteht und was schon war.",
+    "sections": {
+      "current": "Aktuell",
+      "upcoming": "Demnächst",
+      "past": "Vergangen"
+    },
+    "empty_current": "Gerade läuft kein Event. Ankündigungen gibt es zuerst auf unserem Discord.",
+    "empty_action": "Zum Discord",
+    "type": {
+      "build": "Bau-Event",
+      "play": "Spiel-Event",
+      "adventure": "Adventure",
+      "beta": "Beta"
+    },
+    "phase": {
+      "announced": "Angekündigt",
+      "running": "Läuft",
+      "past": "Beendet"
+    },
+    "phase_hint": {
+      "announced": "Startet am",
+      "running": "Läuft gerade",
+      "past": "Dieses Event ist beendet."
+    },
+    "access": {
+      "signup": "Anmeldung",
+      "application": "Bewerbung",
+      "invite": "Auf Einladung"
+    },
+    "join": {
+      "title": "So nimmst du teil",
+      "requirements": "Voraussetzungen",
+      "server": "Verbinde dich mit",
+      "discord": "Discord beitreten",
+      "signup": "Anmelden",
+      "apply": "Bewerben",
+      "invite": "Die Teilnahme ist nur auf Einladung möglich.",
+      "window": "Anmeldezeitraum:",
+      "window_closed": "Die Anmeldung ist gerade nicht geöffnet."
+    },
+    "build": {
+      "theme": "Thema",
+      "deadline": "Abgabeschluss"
+    },
+    "play": {
+      "mode": "Modus",
+      "team_size": "Teamgröße"
+    },
+    "adventure": {
+      "map_version": "Map-Version",
+      "minecraft_version": "Minecraft-Version"
+    },
+    "beta": {
+      "stage": "Art",
+      "open": "Open Beta",
+      "closed": "Closed Beta",
+      "subject": "Getestet wird",
+      "kind": {
+        "gamemode": "Spielmodus",
+        "feature": "Funktion",
+        "offer": "Angebot"
+      }
+    },
+    "details": "Details",
+    "gallery": "Bilder",
+    "gallery_aria": "Bildergalerie zum Event",
+    "resources": "Ressourcen",
+    "resources_aria": "Ressourcen zum Event",
+    "results": {
+      "title": "Ergebnis",
+      "pending": "Die Ergebnisse folgen in Kürze.",
+      "place": "Platz {place}",
+      "winner": "Sieger: {name}",
+      "outcome": "Wie geht es weiter"
+    },
+    "testing": {
+      "title": "Zum Test",
+      "focus": "Was wir testen",
+      "known_issues": "Bekannte Probleme",
+      "feedback": "Feedback melden"
+    },
+    "guides": {
+      "title": "Anleitung"
+    }
   }
 }

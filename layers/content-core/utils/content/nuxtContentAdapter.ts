@@ -9,7 +9,8 @@ import type {
   ServerConceptDocument,
   ServerConnectDocument,
   HomeCarouselDocument,
-  CommunityPoiDocument
+  CommunityPoiDocument,
+  EventDocument
 } from './repository'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
 
@@ -27,6 +28,7 @@ const serverConceptKey = (locale: Locale) => `server_concept_${locale}` as 'serv
 const serverConnectKey = (locale: Locale) => `server_connect_${locale}` as 'server_connect_de' | 'server_connect_en'
 const homeCarouselKey = (locale: Locale) => `home_carousel_${locale}` as 'home_carousel_de' | 'home_carousel_en'
 const communityPoiKey = (locale: Locale) => `community_poi_${locale}` as 'community_poi_de' | 'community_poi_en'
+const eventsKey = (locale: Locale) => `events_${locale}` as 'events_de' | 'events_en'
 
 /**
  * The @nuxt/content-backed {@link ContentRepository} implementation. Every
@@ -140,6 +142,23 @@ export function createNuxtContentAdapter(): ContentRepository {
       return queryCollection(communityPoiKey(locale))
         .where('translationKey', '=', translationKey)
         .first() as Promise<CommunityPoiDocument | null>
+    },
+
+    listEvents(locale) {
+      return queryCollection(eventsKey(locale))
+        .all() as Promise<EventDocument[]>
+    },
+
+    getEventBySlug(locale, slug) {
+      return queryCollection(eventsKey(locale))
+        .where('slug', '=', slug)
+        .first() as Promise<EventDocument | null>
+    },
+
+    getEventByTranslationKey(locale, translationKey) {
+      return queryCollection(eventsKey(locale))
+        .where('translationKey', '=', translationKey)
+        .first() as Promise<EventDocument | null>
     }
   }
 }

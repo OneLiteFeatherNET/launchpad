@@ -12,7 +12,9 @@ import type {
   HomeCarouselDeCollectionItem,
   HomeCarouselEnCollectionItem,
   CommunityPoiDeCollectionItem,
-  CommunityPoiEnCollectionItem
+  CommunityPoiEnCollectionItem,
+  EventsDeCollectionItem,
+  EventsEnCollectionItem
 } from '@nuxt/content'
 import type { Locale } from './collections'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
@@ -137,6 +139,14 @@ export type CommunityPoiDocument = (
   }[]
   head?: Record<string, unknown>
 }
+
+/**
+ * Shape of the `events` collection document, as @nuxt/content generates it.
+ * Lives here rather than in the `events` layer for the same reason as
+ * {@link CommunityPoiDocument}: only content-core may name `@nuxt/content`.
+ * The `events` layer derives its plain shapes from this by indexed access.
+ */
+export type EventDocument = EventsDeCollectionItem | EventsEnCollectionItem
 
 /**
  * Display order for `CommunityPoiDocument['status']` (in-progress first,
@@ -270,4 +280,15 @@ export interface ContentRepository {
     locale: Locale,
     translationKey: string
   ): Promise<CommunityPoiDocument | null>
+
+  // --- Events ---------------------------------------------------------------
+  /** All events for a locale (unfiltered, unsorted — caller decides). */
+  listEvents(locale: Locale): Promise<EventDocument[]>
+  /** Single event by its `slug` frontmatter field, or null. */
+  getEventBySlug(locale: Locale, slug: string): Promise<EventDocument | null>
+  /** Single event in `locale` sharing the given `translationKey`, or null. */
+  getEventByTranslationKey(
+    locale: Locale,
+    translationKey: string
+  ): Promise<EventDocument | null>
 }

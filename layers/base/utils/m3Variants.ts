@@ -164,3 +164,15 @@ export const M3_LINEAR_PROGRESS_SIZES: Record<'sm' | 'md', string> = {
   sm: 'h-1',
   md: 'h-2',
 }
+
+/** MD3 secondary tabs: a row on a divider, the active tab underlined in primary. */
+export const M3_TABS_LIST = 'flex gap-1 overflow-x-auto border-b border-outline-variant'
+
+export const M3_TAB_BASE
+  = 'inline-flex h-12 shrink-0 cursor-pointer items-center gap-2 border-b-2 px-4 '
+    + 'text-title-small transition-colors duration-150 ease-standard state-layer focus-ring'
+
+export const M3_TAB_STATES = {
+  selected: 'border-primary text-primary',
+  unselected: 'border-transparent text-on-surface-variant',
+}

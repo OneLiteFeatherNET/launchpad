@@ -39,6 +39,7 @@ describe('navigation active state', () => {
     expect(isCurrentNavPath('/de/team/themeinerlp', '/de/team')).toBe(true)
     expect(isCurrentNavPath('/de/blog/some-article', '/de/blog')).toBe(true)
     expect(isCurrentNavPath('/de/community-poi/yggdrasil', '/de/community-poi')).toBe(true)
+    expect(isCurrentNavPath('/de/events/herbst-bauevent', '/de/events')).toBe(true)
   })
 
   it('is a different answer than the rule it replaces', () => {
