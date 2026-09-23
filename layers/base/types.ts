@@ -1,3 +1,5 @@
+import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+
 // Types of the base layer's Material Design 3 primitives (M3*). Kept apart
 // from the components so a domain can type a prop it passes through without
 // importing a .vue file.
@@ -23,8 +25,12 @@ export type ChipKind = 'assist' | 'filter' | 'suggestion' | 'label'
 /** Colour roles a primitive may be tinted with: MD3 accents and brand customs. */
 export type M3Color = 'primary' | 'secondary' | 'tertiary' | 'error' | 'brand-orange' | 'brand-purple'
 
-/** A Font Awesome icon as `IconFa` takes it: `'home'` or `['fas', 'home']`. */
-export type IconName = string | [string, string]
+/**
+ * A Font Awesome icon as `IconFa` takes it: `'home'` or `['fas', 'home']`
+ * for an icon registered in plugins/fontawesome.ts, or an imported icon
+ * definition such as `faGithub` for one used in a single place.
+ */
+export type IconName = string | [string, string] | IconDefinition
 
 /** What decides whether an interactive primitive renders a link or a button. */
 export interface InteractiveTagOptions {

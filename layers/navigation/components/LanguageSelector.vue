@@ -2,6 +2,13 @@
 import { ref, computed, nextTick, onMounted, onBeforeUnmount, onKeyStroke } from '#imports';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faLanguage, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import {
+  NAV_ITEM_DESKTOP,
+  NAV_ITEM_INACTIVE,
+  NAV_ITEM_MOBILE,
+  NAV_MENU_ITEM,
+  NAV_MENU_SURFACE,
+} from '../utils/navItemClasses'
 const { t } = useI18n();
 
 const props = withDefaults(defineProps<{
@@ -156,7 +163,7 @@ const onSelect = (localeCode: string) => {
       aria-haspopup="menu"
       :aria-expanded="isOpen ? 'true' : 'false'"
       :aria-controls="dropdownId"
-      class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface)]/70 dark:hover:bg-[var(--color-surface)]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
+      :class="[NAV_ITEM_DESKTOP, NAV_ITEM_INACTIVE]"
       @click="toggleDropdown"
       @keydown="onButtonKeydown"
     >
@@ -180,7 +187,7 @@ const onSelect = (localeCode: string) => {
         role="menu"
         :aria-labelledby="buttonId"
         tabindex="-1"
-        class="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] py-1 shadow-lg ring-1 ring-black/5 dark:border-[var(--color-border)] dark:bg-[var(--color-surface)]"
+        :class="[NAV_MENU_SURFACE, 'w-48']"
         @keydown="onMenuKeydown"
       >
         <SwitchLocalePathLink
@@ -189,10 +196,10 @@ const onSelect = (localeCode: string) => {
           :locale="loc.code"
           :hreflang="loc.code"
           role="menuitem"
-          class="flex items-center gap-3 px-4 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-brand-secondary/10 dark:text-[var(--color-text)]/85 dark:hover:bg-brand-secondary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
+          :class="NAV_MENU_ITEM"
           @click="onSelect(loc.code)"
         >
-          <span class="uppercase font-semibold text-brand-secondary">{{ loc.code }}</span>
+          <span class="font-semibold uppercase text-primary">{{ loc.code }}</span>
           <span :lang="loc.code">{{ loc.name }}</span>
         </SwitchLocalePathLink>
       </div>
@@ -200,7 +207,9 @@ const onSelect = (localeCode: string) => {
   </div>
 
   <div v-else class="flex flex-col">
-    <div class="flex items-center gap-3 px-4 py-3 text-base font-medium text-[var(--color-text)]/70 dark:text-[var(--color-text)]/85">
+    <div
+      class="flex items-center gap-3 px-4 py-3 text-body-large font-medium text-on-surface-variant"
+    >
       <FontAwesomeIcon :icon="faLanguage" class="text-xl" />
       {{ t('navigation.change_language') }}
     </div>
@@ -209,10 +218,10 @@ const onSelect = (localeCode: string) => {
       :key="loc.code"
       :locale="loc.code"
       :hreflang="loc.code"
-      class="ml-4 flex items-center gap-3 rounded-xl px-6 py-2 text-sm font-medium text-[var(--color-text)]/70 transition-colors hover:bg-brand-secondary/10 dark:text-[var(--color-text)]/85 dark:hover:bg-brand-secondary/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
+      :class="[NAV_ITEM_MOBILE, NAV_ITEM_INACTIVE, 'ml-4']"
       @click="onSelect(loc.code)"
     >
-      <span class="uppercase font-semibold text-brand-secondary">{{ loc.code }}</span>
+      <span class="font-semibold uppercase text-primary">{{ loc.code }}</span>
       <span :lang="loc.code">{{ loc.name }}</span>
     </SwitchLocalePathLink>
   </div>

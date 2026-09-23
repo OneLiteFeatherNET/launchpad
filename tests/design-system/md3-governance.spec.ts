@@ -137,7 +137,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'dark-colour',
     'shape',
   ],
-  'layers/footer/components/SiteFooter.vue': ['palette', 'dark-colour'],
   'layers/home/components/Carousel.vue': [
     'palette',
     'shape',
@@ -187,25 +186,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'dark-colour',
     'shape',
     'elevation',
-  ],
-  'layers/navigation/components/LanguageSelector.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-    'button',
-  ],
-  'layers/navigation/components/NavigationBar.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
-  'layers/navigation/components/NavigationItem.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'button',
   ],
   'layers/opencollective/components/OpenCollectiveStats.vue': [
     'palette',
@@ -272,7 +252,10 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
  * Raw <button>s or button-styled links that are deliberately not primitives,
  * with the reason. Printed as test names so every exception stays visible.
  */
-const BUTTON_EXCEPTIONS: Record<string, string> = {}
+const BUTTON_EXCEPTIONS: Record<string, string> = {
+  'layers/navigation/components/LanguageSelector.vue':
+    'menu trigger among the navigation links; shares their look (NAV_ITEM_DESKTOP), not a button\'s',
+}
 
 function checkedFiles(): string[] {
   return collectSourceFiles(SOURCE_DIRS, ['.vue'])
