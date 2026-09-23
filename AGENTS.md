@@ -54,6 +54,8 @@ without checking a real build first.
 - Production build: `pnpm build`
 - Static generation: `pnpm generate`
 - Preview production build: `pnpm preview`
+- Serve the production build in workerd (after `NODE_ENV=production pnpm build`): `pnpm preview:prod` (port 8787)
+- Concurrency check against it (or `--base https://onelitefeather.net --concurrency 5 --requests 100`): `node scripts/concurrency-check.mjs`
 - Lint on demand (no script): `pnpm exec eslint .`
 
 ## Coding Style & Naming Conventions
@@ -149,3 +151,30 @@ Never raise a baseline number to make a change pass. Fix the errors, or explain
 in the pull request why the rise is unavoidable.
 
 When adding a skill, place it under `.claude/skills/` and list it here.
+
+## Deploy
+
+Cloudflare Workers Builds deploys the `launchpad` Worker. Its configuration
+lives in the dashboard, not in this repository, so this is the record of what
+it must be:
+
+- **Production branch `main`, deploy command `npx wrangler deploy`.** A check
+  run on a `main` commit that reports a "Preview Alias URL" means `main` is
+  being treated as a preview branch: the build succeeds, a version is
+  uploaded, and nothing reaches onelitefeather.net. That happened in September
+  2026 — production kept serving Vue 3.5.42 while `main` had long moved on.
+  Confirm a deploy by checking the Vue version in the entry bundle of
+  `https://onelitefeather.net/en` against `pnpm-lock.yaml`.
+- **Workers Paid plan.** On Free, a request gets 10 ms CPU. A server render
+  here needs more, so Cloudflare aborted renders midway (error 1102). The abort
+  left Vue's module-global current instance pointing at the dead request, and
+  every later request in that isolate failed with
+  `Cannot redefine property: $i18n` until Cloudflare recycled it — 40–60 % of
+  all requests. `limits.cpu_ms` in `nuxt.config.ts` only guards against
+  runaway renders; keep it at ten times the measured p99 CPU time or more,
+  never near a normal render, or the same failure returns.
+- **The concurrency check has two jobs.** In CI it runs against
+  `pnpm preview:prod` and catches per-request state leaking into module scope.
+  It cannot catch CPU-limit aborts there — `wrangler dev` enforces no CPU
+  limit — so run it against production after a deploy that changes
+  dependencies, with low concurrency.
