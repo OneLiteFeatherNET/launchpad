@@ -20,8 +20,6 @@ sitemap:
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'
-  - hreflang: 'x-default'
-    href: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'
 schemaOrg:
   - type: 'BlogPosting'
     headline: 'Wer möchte "Plugins" adoptieren ?'

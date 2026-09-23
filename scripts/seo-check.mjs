@@ -50,6 +50,20 @@ const NOINDEX_ROUTES = [
   '/de/privacy'
 ]
 
+/** The canonical origin every absolute SEO URL is written against. */
+const SITE_ORIGIN = 'https://onelitefeather.net'
+
+/**
+ * Routes whose og:image is the site default served from public/, so the image
+ * itself can be fetched from any build (see checkSocialImage).
+ */
+const FETCH_IMAGE_ROUTES = new Set([
+  '/en',
+  '/de',
+  '/en/blog',
+  '/de/blog'
+])
+
 const TITLE_MIN = 10
 const TITLE_MAX = 70
 const DESCRIPTION_MIN = 50
@@ -235,6 +249,158 @@ const checkPage = async ({ route, mustIndex }) => {
     return graph.map((g) => g?.['@type']).filter(Boolean).flat()
   })
   if (!flatTypes.length) err(route, 'No usable @type entries inside JSON-LD')
+
+  // One WebSite, every node typed, every @id once. nuxt-schema-org and page
+  // code both add nodes; a raw object next to a define*() helper used to
+  // yield a second WebSite and an untyped WebPage on every page.
+  const nodes = parsed.flatMap((node) => {
+    /** @type {any} */
+    const obj = node
+    return Array.isArray(obj?.['@graph']) ? obj['@graph'] : [obj]
+  }).filter((n) => n && typeof n === 'object')
+  const webSites = nodes.filter((n) => [n['@type']].flat().includes('WebSite')).length
+  if (webSites > 1) err(route, `JSON-LD has ${webSites} WebSite nodes, expected one`)
+  for (const n of nodes.filter((n) => !n['@type'])) err(route, `JSON-LD node without @type: ${n['@id'] || JSON.stringify(n).slice(0, 80)}`)
+  const ids = nodes.map((n) => n['@id']).filter(Boolean)
+  for (const id of new Set(ids.filter((id, i) => ids.indexOf(id) !== i))) err(route, `JSON-LD @id appears twice: ${id}`)
+
+  await checkSocialImage(route, $, { fetchImage: FETCH_IMAGE_ROUTES.has(route) })
+}
+
+/** Width and height of a PNG, read from its IHDR chunk. */
+const pngSize = (bytes) => {
+  const signature = [0x89,
+0x50,
+0x4E,
+0x47]
+  if (!signature.every((b, i) => bytes[i] === b)) return null
+  const view = new DataView(bytes.buffer, bytes.byteOffset)
+  return { width: view.getUint32(16), height: view.getUint32(20) }
+}
+
+/**
+ * og:image must be absolute, and a large card needs a large image. The image
+ * itself is fetched only for routes that use the site default from public/:
+ * article and build images live behind the production image proxy and are
+ * absent from a local build, so fetching them here would test the proxy, not
+ * this repository.
+ */
+const checkSocialImage = async (route, $, { fetchImage }) => {
+  const image = headContent($, 'meta[property="og:image"]')
+  if (!image) return // missing tag is already reported above
+  if (!/^https?:\/\//.test(image)) {
+    err(route, `og:image is not absolute: ${image}`)
+    return
+  }
+  const card = headContent($, 'meta[name="twitter:card"]')
+  const declaredWidth = Number(headContent($, 'meta[property="og:image:width"]'))
+  if (card === 'summary_large_image' && declaredWidth && declaredWidth < 1200) {
+    err(route, `twitter:card summary_large_image with a ${declaredWidth}px wide og:image`)
+  }
+  if (!fetchImage) return
+
+  const imageUrl = new URL(image)
+  const servedLocally = IS_LOCAL && imageUrl.origin === SITE_ORIGIN
+  const target = servedLocally ? new URL(imageUrl.pathname, BASE) : imageUrl
+  const res = await fetch(target)
+  if (res.status !== 200) {
+    err(route, `og:image ${image} answered ${res.status}`)
+    return
+  }
+  if (!(res.headers.get('content-type') || '').startsWith('image/')) {
+    err(route, `og:image ${image} is served as ${res.headers.get('content-type')}`)
+    return
+  }
+  const size = pngSize(new Uint8Array(await res.arrayBuffer()))
+  if (size && card === 'summary_large_image' && (size.width < 1200 || size.height < 630)) {
+    err(route, `og:image is ${size.width}×${size.height}, too small for summary_large_image`)
+  }
+}
+
+/** A blog article must describe itself as one to social cards. */
+const checkArticle = async () => {
+  const overview = await fetchFollow('/en/blog')
+  const path = load(overview.body)('a[href^="/en/blog/"]').first().attr('href')
+  if (!path) {
+    err('/en/blog', 'No article link found to check')
+    return
+  }
+  await checkPage({ route: path, mustIndex: true })
+  const $ = load((await fetchFollow(path)).body)
+  const type = headContent($, 'meta[property="og:type"]')
+  if (type !== 'article') err(path, `og:type is "${type}", expected "article"`)
+  for (const tag of ['article:published_time', 'article:modified_time']) {
+    if (!headContent($, `meta[property="${tag}"]`)) err(path, `Missing meta property="${tag}"`)
+  }
+}
+
+/** An error page is not a version of any URL and must not be indexed. */
+const checkErrorPage = async () => {
+  const route = '/en/blog/does-not-exist-seo-check'
+  const target = buildUrl(route).toString()
+  const res = await fetch(target, { redirect: 'manual', headers: { accept: 'text/html' } })
+  const $ = load(await res.text())
+  if (res.status !== 404) err(route, `HTTP ${res.status} (expected 404)`)
+  if (!/noindex/i.test(res.headers.get('x-robots-tag') || '')) err(route, 'Error response without X-Robots-Tag: noindex')
+  if (!/noindex/i.test($('meta[name="robots"]').attr('content') || '')) err(route, 'Error page without <meta name="robots" content="noindex">')
+  if ($('link[rel="canonical"]').length) err(route, 'Error page carries a canonical link')
+  if ($('link[rel="alternate"][hreflang]').length) err(route, 'Error page carries hreflang links')
+}
+
+/** Tracking parameters must not leak into canonical, hreflang or og:url. */
+const checkQueryVariant = async () => {
+  const route = '/de/team?utm_source=seo-check&fbclid=abc'
+  const res = await fetchFollow(route)
+  const $ = load(res.body)
+  const canonical = $('link[rel="canonical"]').attr('href') || ''
+  if (canonical !== `${SITE_ORIGIN}/de/team`) err(route, `Canonical is "${canonical}", expected ${SITE_ORIGIN}/de/team`)
+  const leaks = [
+    ...$('link[rel="alternate"][hreflang]').map((_, el) => $(el).attr('href')).get(), headContent($, 'meta[property="og:url"]') || ''
+  ].filter((href) => /utm_|fbclid/.test(href))
+  for (const href of leaks) err(route, `Query string leaked into ${href}`)
+}
+
+/**
+ * Every sitemap URL answers 200, and its alternates name the same URL per
+ * language as the page's own hreflang links. Compared by primary language
+ * (`de`, `en`, `x-default`): the page announces both `de` and `de-DE`, the
+ * sitemap uses the region tags only, and both point at the same URL.
+ */
+const checkSitemapEntries = async () => {
+  const index = load((await fetchRaw('/sitemap_index.xml')).body, { xmlMode: true })
+  const children = index('sitemap > loc').map((_, el) => new URL(index(el).text().trim()).pathname).get()
+  const primary = (tag) => tag.toLowerCase() === 'x-default' ? 'x-default' : tag.split('-')[0].toLowerCase()
+  const byLanguage = (pairs) => Object.fromEntries(pairs.map(([tag, href]) => [primary(tag), href]))
+
+  for (const child of children) {
+    const xml = load((await fetchRaw(child)).body, { xmlMode: true })
+    const entries = xml('url').map((_, el) => {
+      const node = xml(el)
+      return {
+        loc: node.find('loc').first().text().trim(),
+        alternates: node.find('xhtml\\:link').map((__, link) => [[xml(link).attr('hreflang'), xml(link).attr('href')]]).get()
+      }
+    }).get()
+
+    await Promise.all(entries.map(async ({ loc, alternates }) => {
+      const path = new URL(loc).pathname
+      const res = await fetchRaw(path)
+      if (res.status !== 200) {
+        err(child, `${path} is in the sitemap but answered ${res.status}`)
+        return
+      }
+      if (!alternates.length) return
+      const $ = load(res.body)
+      const page = byLanguage($('link[rel="alternate"][hreflang]').map((_, el) => [[$(el).attr('hreflang'), $(el).attr('href')]]).get())
+      const listed = byLanguage(alternates)
+      const languages = new Set([...Object.keys(page), ...Object.keys(listed)])
+      for (const language of languages) {
+        if (page[language] !== listed[language]) {
+          err(child, `${path}: hreflang "${language}" is ${listed[language] || 'missing'} in the sitemap but ${page[language] || 'missing'} on the page`)
+        }
+      }
+    }))
+  }
 }
 
 const checkRobots = async () => {
@@ -383,6 +549,10 @@ const main = async () => {
     checkSitemap(STATIC_ROUTES, NOINDEX_ROUTES),
     checkSitemapAcceptsQueryString(),
     checkRobotsSitemaps(),
+    checkSitemapEntries(),
+    checkArticle(),
+    checkErrorPage(),
+    checkQueryVariant(),
     ...targets.map((t) => checkPage(t))
   ])
 

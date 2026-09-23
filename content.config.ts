@@ -318,9 +318,37 @@ export default defineContentConfig({
         // therefore derived from the collection name argument instead.
         sitemap: defineSitemapSchema({
           name: `blog_${locale}`,
+          // Evaluated per sitemap request, not at build time, so a scheduled
+          // article appears once its release date passes. It 404s until then
+          // (useBlogContent), and a sitemap must not announce a 404.
+          filter: (entry) => {
+            const release = entry.releaseDate ?? entry.pubDate
+            return !release || new Date(release as string | Date).getTime() <= Date.now()
+          },
           onUrl: (url, entry, collection) => {
             const loc = collection.split('_').pop()
             url.loc = `/${loc}/blog/${entry.slug}`
+            // A real content date, never the build or request time: Google
+            // only uses lastmod when it is consistently accurate. It also
+            // replaces the hand-kept `sitemap.lastmod` some German articles
+            // carry; their `changefreq`/`priority` go, since Google ignores both.
+            delete url.changefreq
+            delete url.priority
+            const modified = entry.updatedDate ?? entry.releaseDate ?? entry.pubDate
+            if (modified) url.lastmod = new Date(modified as string | Date)
+            // Translations have different slugs, so the module cannot pair
+            // them by path. Front-matter `alternates` is the pairing the page's
+            // hreflang links use too (held symmetric by
+            // tests/content/translation-alternates.spec.ts); the region tags
+            // match what the module emits for every other URL.
+            const regions: Record<string, string> = { de: 'de-DE', en: 'en-US' }
+            const alternates = (entry.alternates ?? []) as { hreflang: string, href: string }[]
+            if (alternates.length) {
+              url.alternatives = alternates.map(alt => ({
+                hreflang: regions[alt.hreflang] ?? alt.hreflang,
+                href: alt.href
+              }))
+            }
           }
         })
       })
@@ -371,6 +399,20 @@ export default defineContentConfig({
           onUrl: (url, entry, collection) => {
             const loc = collection.split('_').pop()
             url.loc = `/${loc}/community-poi/${entry.slug}`
+            // Same rules as the blog collection above: a real content date or
+            // none, and translations paired through front-matter `alternates`.
+            delete url.changefreq
+            delete url.priority
+            const modified = entry.updatedAt ?? entry.startedAt
+            if (modified) url.lastmod = new Date(modified as string | Date)
+            const regions: Record<string, string> = { de: 'de-DE', en: 'en-US' }
+            const alternates = (entry.alternates ?? []) as { hreflang: string, href: string }[]
+            if (alternates.length) {
+              url.alternatives = alternates.map(alt => ({
+                hreflang: regions[alt.hreflang] ?? alt.hreflang,
+                href: alt.href
+              }))
+            }
           }
         })
       })
