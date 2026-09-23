@@ -52,10 +52,10 @@ useSchemaOrg(() => {
 <template>
   <div class="mx-auto max-w-6xl px-4 py-10 md:py-14">
     <header class="mb-8 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+      <h1 class="text-display-small font-bold text-on-surface">
         {{ t('team.index.title') }}
       </h1>
-      <p class="mx-auto mt-3 max-w-2xl text-base md:text-lg text-gray-600 dark:text-gray-400">
+      <p class="mx-auto mt-3 max-w-2xl text-body-large text-on-surface-variant">
         {{ t('team.index.subtitle') }}
       </p>
     </header>
@@ -68,7 +68,7 @@ useSchemaOrg(() => {
 
     <p
       v-if="memberCount === 0"
-      class="mt-10 text-center text-gray-600 dark:text-gray-400"
+      class="mt-10 text-center text-body-large text-on-surface-variant"
     >
       {{ t('team.no_results') }}
     </p>
