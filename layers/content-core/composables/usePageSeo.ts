@@ -1,4 +1,5 @@
 import type { PageSeoOptions } from '../types-seo'
+import { resolveSocialImage } from '../utils/socialImage'
 
 const DEFAULT_LOCALE = 'en'
 
@@ -57,10 +58,13 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     return { meta }
   })
 
-  // Social preview image for OG/Twitter
-  const socialImage = computed(() => opts.image
-      ? img(opts.image, { width: 1200, height: 630, format: 'webp', quality: 80 })
-      : undefined)
+  // Social preview image for OG/Twitter: the page's own image, or the site
+  // default — every indexable page carries one.
+  const socialImage = computed(() => resolveSocialImage(
+    opts.image,
+    site.url,
+    (src) => img(src, { width: 1200, height: 630, format: 'webp', quality: 80 })
+  ))
 
   const pageTitle = computed(() => opts.title || site.name)
   const pageDescription = computed(() => {
@@ -82,17 +86,16 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     ogDescription: pageDescription,
     ogType: opts.ogType || 'website',
     ogUrl: canonicalUrl,
-    ogImage: socialImage,
+    ogImage: () => socialImage.value.url,
     ogImageAlt: opts.imageAlt || pageTitle,
-    ogImageWidth: opts.imageWidth || (socialImage.value ? 1200 : undefined),
-    ogImageHeight: opts.imageHeight || (socialImage.value ? 630 : undefined),
-    ogImageType: opts.imageType || (socialImage.value ? 'image/webp' : undefined),
+    ogImageWidth: opts.imageWidth || socialImage.value.width,
+    ogImageHeight: opts.imageHeight || socialImage.value.height,
     ogSiteName: site.name,
     // og:locale + og:locale:alternate are emitted by @nuxtjs/i18n.
     twitterCard: opts.twitterCard || 'summary_large_image',
     twitterTitle: pageTitle,
     twitterDescription: pageDescription,
-    twitterImage: socialImage,
+    twitterImage: () => socialImage.value.url,
     twitterImageAlt: opts.imageAlt || pageTitle,
     twitterSite,
     twitterCreator
@@ -107,11 +110,17 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     description: pageDescription.value
   })
 
-  useSchemaOrg(() => ({
-    '@type': opts.schemaType || 'WebPage',
-    name: pageTitle.value,
-    description: pageDescription.value,
-    url: canonicalUrl.value,
-    inLanguage: locale?.value || DEFAULT_LOCALE
-  }))
+  // Refines the WebPage node nuxt-schema-org adds to every page (#webpage)
+  // rather than adding a second one. A plain `{ '@type': … }` object here
+  // used to become a separate node next to it, and the module's own WebPage
+  // was left without a type — two page nodes per URL, one of them untyped.
+  useSchemaOrg(() => [
+    defineWebPage({
+      '@type': opts.schemaType || 'WebPage',
+      name: pageTitle.value,
+      description: pageDescription.value,
+      url: canonicalUrl.value,
+      inLanguage: locale?.value || DEFAULT_LOCALE
+    })
+  ])
 }

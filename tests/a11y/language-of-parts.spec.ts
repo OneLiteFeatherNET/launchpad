@@ -18,10 +18,9 @@ import { repoRoot } from '../helpers/sources'
  * assistive technology, and anything else reading the markup, what language
  * lies on the other side before following it.
  *
- * The locale `code` is used rather than `iso`. @nuxtjs/i18n v10 dropped `iso`
- * in favour of `language`, so the `iso: 'de-DE'` still written in nuxt.config
- * is not something to depend on here; `de` and `en` are valid BCP 47 tags on
- * their own.
+ * The locale `code` is used rather than its `language` (`de-DE`): `de` and
+ * `en` are valid BCP 47 tags on their own, and the link announces a language,
+ * not a region.
  */
 
 const SELECTOR = 'layers/navigation/components/LanguageSelector.vue'

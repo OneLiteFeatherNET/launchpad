@@ -12,6 +12,10 @@ const title = computed(() => (isNotFound.value ? t('error.title_404') : t('error
 const message = computed(() => (isNotFound.value ? t('error.message_404') : t('error.message_generic')))
 
 useHead(() => ({ title: title.value }))
+// Error responses already carry `X-Robots-Tag: noindex` from
+// server/plugins/error-response-headers.ts; the meta tag says the same to
+// anything that reads only the HTML.
+useSeoMeta({ robots: 'noindex, follow' })
 
 const handleHome = () => clearError({ redirect: localePath('index') })
 </script>

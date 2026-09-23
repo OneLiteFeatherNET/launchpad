@@ -1,13 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 /**
- * Server errors must not be indexable. @nuxtjs/robots stamps
- * `X-Robots-Tag: index, follow` on the request before rendering, so a render
- * that fails afterwards would otherwise ship a 500 marked indexable — which
- * is what production served during the `$i18n` outage.
+ * Error responses must be neither indexable nor cacheable. @nuxtjs/robots
+ * stamps `X-Robots-Tag: index, follow` and the route rules stamp an
+ * edge-cache directive on the request before rendering, so a render that
+ * fails afterwards would otherwise ship an error marked indexable and
+ * cacheable — production served exactly that during the `$i18n` outage, and
+ * on every 404.
  *
  * The plugin is loaded with Nitro's auto-imports stubbed, so both hook paths
- * (thrown error, returned 5xx) are exercised without booting a server.
+ * (thrown error, returned error status) are exercised without booting a
+ * server.
  */
 
 type Hook = (...args: unknown[]) => void
@@ -39,24 +42,44 @@ const loadHooks = async () => {
 
 const event = { path: '/en' }
 
-describe('error response robots header', () => {
-  it('marks a thrown 500 as noindex', async () => {
+const expectMarkedAsError = () => {
+  expect(setResponseHeader).toHaveBeenCalledWith(event, 'X-Robots-Tag', 'noindex')
+  expect(setResponseHeader).toHaveBeenCalledWith(event, 'cloudflare-cdn-cache-control', 'no-store')
+  expect(setResponseHeader).toHaveBeenCalledWith(event, 'Cache-Control', 'no-store')
+}
+
+describe('error response headers', () => {
+  it('marks a thrown 500 as noindex and no-store', async () => {
     const hooks = await loadHooks()
     hooks.error!(new Error('Cannot redefine property: $i18n'), { event })
-    expect(setResponseHeader).toHaveBeenCalledWith(event, 'X-Robots-Tag', 'noindex')
+    expectMarkedAsError()
   })
 
-  it('leaves a thrown 404 to the page', async () => {
+  it('marks a thrown 404 as noindex and no-store', async () => {
     const hooks = await loadHooks()
-    hooks.error!(Object.assign(new Error('Not found'), { statusCode: 404 }), { event })
-    expect(setResponseHeader).not.toHaveBeenCalled()
+    hooks.error!(Object.assign(new Error('Article not found'), { statusCode: 404 }), { event })
+    expectMarkedAsError()
   })
 
-  it('marks a returned 5xx as noindex', async () => {
+  it('marks a returned 404 as noindex and no-store', async () => {
+    const hooks = await loadHooks()
+    status = 404
+    hooks.beforeResponse!(event)
+    expectMarkedAsError()
+  })
+
+  it('marks a returned 5xx as noindex and no-store', async () => {
     const hooks = await loadHooks()
     status = 503
     hooks.beforeResponse!(event)
-    expect(setResponseHeader).toHaveBeenCalledWith(event, 'X-Robots-Tag', 'noindex')
+    expectMarkedAsError()
+  })
+
+  it('leaves redirects alone', async () => {
+    const hooks = await loadHooks()
+    status = 302
+    hooks.beforeResponse!(event)
+    expect(setResponseHeader).not.toHaveBeenCalled()
   })
 
   it('leaves successful responses alone', async () => {

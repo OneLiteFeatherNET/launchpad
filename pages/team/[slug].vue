@@ -73,6 +73,8 @@ usePageSeo({
     || t('team.profile_description_fallback'),
   image: avatarSrc.value && avatarSrc.value !== '/favicon.svg' ? avatarSrc.value : undefined,
   imageAlt: member.value ? t('team.avatar_alt', { name: member.value.name }) : undefined,
+  // The avatar is 256×256 — too small for a large card, so the small one.
+  twitterCard: 'summary',
   ogType: 'profile',
   schemaType: 'ProfilePage',
 })

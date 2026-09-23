@@ -20,7 +20,9 @@ usePageSeo({
   image: poi.value?.thumbnail,
   imageAlt: poi.value?.thumbnailAlt,
   ogType: 'article',
-  schemaType: 'CreativeWork'
+  // The build itself is the CreativeWork node defined below; the page is the
+  // page about it.
+  schemaType: 'ItemPage'
 })
 
 useBreadcrumbs(() => [

@@ -10,7 +10,6 @@ export function useHomeSeo(opts: PageSeoOptions = {}) {
   return usePageSeo({
     description: opts.description || t('seo.default_description'),
     keywords: opts.keywords || defaultKeywords,
-    schemaType: opts.schemaType || 'WebSite',
     ...opts
   })
 }
