@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.6.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.5.0...onelitefeather.net-v1.6.0) (2026-09-23)
+
+
+### Features
+
+* **blog:** move the blog overview and article page to MD3 ([#366](https://github.com/OneLiteFeatherNET/launchpad/issues/366)) ([f6c3acb](https://github.com/OneLiteFeatherNET/launchpad/commit/f6c3acbb4f0efa528387b2791f48ef2c35ec862e))
+* **community-poi:** move the community POI pages to MD3 ([#368](https://github.com/OneLiteFeatherNET/launchpad/issues/368)) ([6df57bb](https://github.com/OneLiteFeatherNET/launchpad/commit/6df57bb9b3dcf89b85970dada646e31a320963f6))
+* **content:** move markdown content, legal pages and the layout to MD3 ([#370](https://github.com/OneLiteFeatherNET/launchpad/issues/370)) ([353edfe](https://github.com/OneLiteFeatherNET/launchpad/commit/353edfe5b9ca32444f561455e598518ad42e860f))
+* **design-system:** M3Card, M3Divider, M3LinearProgress and the NuxtLink fix ([#363](https://github.com/OneLiteFeatherNET/launchpad/issues/363)) ([084d520](https://github.com/OneLiteFeatherNET/launchpad/commit/084d520c0fdc2a723159b19c3490677959cdc2d2))
+* **design-system:** MD3 tokens, governance tests and interactive primitives ([#358](https://github.com/OneLiteFeatherNET/launchpad/issues/358)) ([76a474b](https://github.com/OneLiteFeatherNET/launchpad/commit/76a474bf55c810d7d8e0319c7940c33d7f2bbcc2))
+* **home:** move the home page to MD3 ([#365](https://github.com/OneLiteFeatherNET/launchpad/issues/365)) ([34b436d](https://github.com/OneLiteFeatherNET/launchpad/commit/34b436df605538d596f72fcc2c5362f8ce01bec7))
+* **navigation:** move the navigation bar and footer to MD3 ([#364](https://github.com/OneLiteFeatherNET/launchpad/issues/364)) ([703ff9b](https://github.com/OneLiteFeatherNET/launchpad/commit/703ff9ba7c9bda645c80c21251a8599a22cb84e4))
+* **sponsoring:** move sponsoring and OpenCollective to MD3 ([#369](https://github.com/OneLiteFeatherNET/launchpad/issues/369)) ([49c6339](https://github.com/OneLiteFeatherNET/launchpad/commit/49c6339c3dcb6061d65d32ac4d06d37c2559ec8a))
+* **team:** move the team overview and profile page to MD3 ([#367](https://github.com/OneLiteFeatherNET/launchpad/issues/367)) ([5a6d72e](https://github.com/OneLiteFeatherNET/launchpad/commit/5a6d72e1deeb4d0feaf5f89e05762df43fa1521b))
+
+
+### Bug Fixes
+
+* **deps:** update dependency better-sqlite3 to v13 ([#311](https://github.com/OneLiteFeatherNET/launchpad/issues/311)) ([45aae74](https://github.com/OneLiteFeatherNET/launchpad/commit/45aae74ee5d7f46c62ea84a1ec3d0fb627496956))
+
+
+### Continuous Integration
+
+* check the MD3 colour roles in Chromium, Firefox and WebKit ([#374](https://github.com/OneLiteFeatherNET/launchpad/issues/374)) ([a093876](https://github.com/OneLiteFeatherNET/launchpad/commit/a093876243f469eb167aefe957398397d4ee26f4))
+
 ## [1.5.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.4.1...onelitefeather.net-v1.5.0) (2026-09-23)
 
 
