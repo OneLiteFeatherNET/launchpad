@@ -50,7 +50,7 @@
     "@tailwindcss/vite": "^4.1.17",
     "@unhead/vue": "^3.0.0",
     "@vue/test-utils": "^2.4.11",
-    "@vueuse/core": "^14.1.0",
+    "@vueuse/core": "^15.0.0",
     "@vueuse/nuxt": "15.0.0",
     "autoprefixer": "^10.4.22",
     "cheerio": "^1.0.0",
