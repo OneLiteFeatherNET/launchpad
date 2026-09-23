@@ -13,8 +13,7 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
  *   /images/blog/dev-blog-1.webp                      200
  *   /images/community-poi/yggdrasil/krone-innen.webp  200
  *   /community-poi/labyrinth/cover.webp               404
- *   /community-poi/labyrinth/result.webp              404
- *   /community-poi/labyrinth/progress_1.webp          404
+ *   /images/community-poi/labyrinth/cover.webp        200
  *
  * A file in `public/` is therefore not enough. `public/community-poi/labyrinth/
  * cover.webp` exists in this repository and resolves on the site origin — and
@@ -25,8 +24,8 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
  * file is there, the path is spelled right, the build passes. Only the browser
  * finds out.
  *
- * Ten content images follow the convention. The ten that do not are all one
- * POI, listed below until its images reach the origin.
+ * The maze's older images sat on that prefix until they were uploaded under
+ * `/images/community-poi/labyrinth/`; no exemption remains.
  */
 
 const CONTENT_DIRS = ['content']
@@ -34,22 +33,12 @@ const CONTENT_DIRS = ['content']
 /** `thumbnail: '/x.webp'`, `headerImage: 'images/y.png'`, gallery `src:` … */
 const IMAGE_REFERENCE = /(?:headerImage|thumbnail|image|src):\s*'([^']+\.(?:webp|png|jpe?g|svg))'/g
 
-/**
- * Known offenders, pending upload of `public/community-poi/labyrinth/**` to
- * the image origin (or a move under `/images/`).
- *
- * Listed rather than silently skipped: whoever fixes the origin deletes this
- * entry, and until then these paths cannot be mistaken for working ones.
- */
-const AWAITING_UPLOAD = /^\/community-poi\/labyrinth\//
-
 function offenders(): string[] {
   const found: string[] = []
   for (const file of collectSourceFiles(CONTENT_DIRS, ['.md', '.json'])) {
     const text = readFileSync(file, 'utf8')
     IMAGE_REFERENCE.lastIndex = 0
     for (const [, path] of text.matchAll(IMAGE_REFERENCE)) {
-      if (AWAITING_UPLOAD.test(path!)) continue
       // Both `/images/…` and `images/…` reach the same origin path.
       if (/^\/?images\//.test(path!)) continue
       found.push(`${relativeToRepo(file)} — ${path}`)
@@ -68,9 +57,6 @@ describe('content image paths', () => {
     }
     expect(all.length).toBeGreaterThan(15)
     expect(all.some((p) => /^\/?images\//.test(p))).toBe(true)
-
-    // And the exemption must still be describing something real.
-    expect(all.some((p) => AWAITING_UPLOAD.test(p))).toBe(true)
   })
 
   it('are all under the prefix the image origin serves', () => {

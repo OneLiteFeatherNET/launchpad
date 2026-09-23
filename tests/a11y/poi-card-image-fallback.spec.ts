@@ -9,8 +9,8 @@ import { repoRoot } from '../helpers/sources'
  * glyph with the alt text spilled across the card, which reads as a rendering
  * fault rather than a missing picture.
  *
- * That is not hypothetical. `/community-poi/labyrinth/cover.webp` is declared,
- * exists in `public/`, and 404s on the image origin the Cloudflare provider
+ * That is not hypothetical. `/community-poi/labyrinth/cover.webp` was declared,
+ * existed in `public/`, and 404ed on the image origin the Cloudflare provider
  * fetches from — see `tests/content/image-paths.spec.ts` for the measurements.
  *
  * So the same placeholder now covers both cases: nothing declared, and
