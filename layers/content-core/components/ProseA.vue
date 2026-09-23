@@ -3,7 +3,7 @@
       :href="props.href"
       :target="props.target"
       :rel="props.target === '_blank' ? 'noopener noreferrer' : undefined"
-      class="text-blue-600 dark:text-blue-400 hover:underline underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-sm break-words transition-colors"
+      :class="linkClass"
   >
     <slot />
   </NuxtLink>
@@ -11,6 +11,12 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
+
+// Always underlined: in running text the link colour alone is not a
+// guaranteed 3:1 against the body colour (WCAG 1.4.1).
+const linkClass
+  = 'rounded-extra-small break-words text-primary underline underline-offset-4 '
+    + 'transition-colors hover:decoration-2 focus-ring'
 
 const props = defineProps({
   href: {

@@ -32,44 +32,44 @@ useBreadcrumbs(() => [
       This declares the language of the bytes being served; it does not decide
       whether an English translation should exist. That is SEC-05 / PR-03.
     -->
-    <div lang="de" class="max-w-4xl mx-auto px-4 py-8 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-      <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Datenschutzerklärung</h1>
-      <p class="text-sm mb-6 text-gray-600 dark:text-gray-400">Stand: 31. Mai 2025</p>
+    <div lang="de" class="mx-auto max-w-4xl px-4 py-8 text-body-large text-on-surface">
+      <h1 class="mb-2 text-display-small font-bold text-on-surface">Datenschutzerklärung</h1>
+      <p class="mb-6 text-body-medium text-on-surface-variant">Stand: 31. Mai 2025</p>
 
-      <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-300">Inhaltsübersicht</h2>
+      <h2 class="mb-4 text-title-large text-on-surface">Inhaltsübersicht</h2>
       <ul class="index mb-8 space-y-1">
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m3">Verantwortlicher</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#mOverview">Übersicht der Verarbeitungen</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m2427">Maßgebliche Rechtsgrundlagen</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m27">Sicherheitsmaßnahmen</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m25">Übermittlung von personenbezogenen Daten</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m24">Internationale Datentransfers</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m12">Allgemeine Informationen zur Datenspeicherung und Löschung</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m10">Rechte der betroffenen Personen</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m225">Bereitstellung des Onlineangebots und Webhosting</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m134">Einsatz von Cookies</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m104">Blogs und Publikationsmedien</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m182">Kontakt- und Anfrageverwaltung</a></li>
-        <li><a class="index-link text-blue-600 dark:text-blue-400 hover:underline" href="#m263">Webanalyse, Monitoring und Optimierung</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m3">Verantwortlicher</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#mOverview">Übersicht der Verarbeitungen</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m2427">Maßgebliche Rechtsgrundlagen</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m27">Sicherheitsmaßnahmen</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m25">Übermittlung von personenbezogenen Daten</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m24">Internationale Datentransfers</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m12">Allgemeine Informationen zur Datenspeicherung und Löschung</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m10">Rechte der betroffenen Personen</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m225">Bereitstellung des Onlineangebots und Webhosting</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m134">Einsatz von Cookies</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m104">Blogs und Publikationsmedien</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m182">Kontakt- und Anfrageverwaltung</a></li>
+        <li><a class="index-link text-primary underline underline-offset-2 hover:decoration-2" href="#m263">Webanalyse, Monitoring und Optimierung</a></li>
       </ul>
 
       <section class="mb-10">
-        <h2 id="m3" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Verantwortlicher</h2>
+        <h2 id="m3" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Verantwortlicher</h2>
         <p class="mb-3 leading-relaxed">
           Phillipp Glanz<br>
           Geisinger Straße, 6<br>
           71634, Ludwigsburg, Deutschland
         </p>
         <p class="mb-3 leading-relaxed">
-          E-Mail-Adresse: <a href="mailto:contact@onelitefeather.net" class="text-blue-600 dark:text-blue-400 hover:underline">contact@onelitefeather.net</a>
+          E-Mail-Adresse: <a href="mailto:contact@onelitefeather.net" class="text-primary underline underline-offset-2 hover:decoration-2">contact@onelitefeather.net</a>
         </p>
       </section>
 
       <section class="mb-10">
-        <h2 id="mOverview" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Übersicht der Verarbeitungen</h2>
+        <h2 id="mOverview" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Übersicht der Verarbeitungen</h2>
         <p class="mb-4 leading-relaxed">Die nachfolgende Übersicht fasst die Arten der verarbeiteten Daten und die Zwecke ihrer Verarbeitung zusammen und verweist auf die betroffenen Personen.</p>
 
-        <h3 class="text-lg font-medium mb-2 text-gray-700 dark:text-gray-400">Arten der verarbeiteten Daten</h3>
+        <h3 class="mb-2 text-title-medium text-on-surface-variant">Arten der verarbeiteten Daten</h3>
         <ul class="list-disc pl-5 mb-4 space-y-1">
           <li>Bestandsdaten.</li>
           <li>Kontaktdaten.</li>
@@ -79,13 +79,13 @@ useBreadcrumbs(() => [
           <li>Protokolldaten.</li>
         </ul>
 
-        <h3 class="text-lg font-medium mb-2 text-gray-700 dark:text-gray-400">Kategorien betroffener Personen</h3>
+        <h3 class="mb-2 text-title-medium text-on-surface-variant">Kategorien betroffener Personen</h3>
         <ul class="list-disc pl-5 mb-4 space-y-1">
           <li>Kommunikationspartner.</li>
           <li>Nutzer.</li>
         </ul>
 
-        <h3 class="text-lg font-medium mb-2 text-gray-700 dark:text-gray-400">Zwecke der Verarbeitung</h3>
+        <h3 class="mb-2 text-title-medium text-on-surface-variant">Zwecke der Verarbeitung</h3>
         <ul class="list-disc pl-5 mb-4 space-y-1">
           <li>Kommunikation.</li>
           <li>Sicherheitsmaßnahmen.</li>
@@ -98,7 +98,7 @@ useBreadcrumbs(() => [
         </ul>
       </section>
       <section class="mb-10">
-        <h2 id="m2427" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Maßgebliche Rechtsgrundlagen</h2>
+        <h2 id="m2427" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Maßgebliche Rechtsgrundlagen</h2>
         <p class="mb-4 leading-relaxed"><strong class="font-medium">Maßgebliche Rechtsgrundlagen nach der DSGVO: </strong>Im Folgenden erhalten Sie eine Übersicht der Rechtsgrundlagen der DSGVO, auf deren Basis wir personenbezogene Daten verarbeiten. Bitte nehmen Sie zur Kenntnis, dass neben den Regelungen der DSGVO nationale Datenschutzvorgaben in Ihrem bzw. unserem Wohn- oder Sitzland gelten können. Sollten ferner im Einzelfall speziellere Rechtsgrundlagen maßgeblich sein, teilen wir Ihnen diese in der Datenschutzerklärung mit.</p>
 
         <ul class="mb-4 space-y-3">
@@ -114,26 +114,26 @@ useBreadcrumbs(() => [
 
 
       <section class="mb-10">
-        <h2 id="m27" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Sicherheitsmaßnahmen</h2>
+        <h2 id="m27" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Sicherheitsmaßnahmen</h2>
         <p class="mb-4 leading-relaxed">Wir treffen nach Maßgabe der gesetzlichen Vorgaben unter Berücksichtigung des Stands der Technik, der Implementierungskosten und der Art, des Umfangs, der Umstände und der Zwecke der Verarbeitung sowie der unterschiedlichen Eintrittswahrscheinlichkeiten und des Ausmaßes der Bedrohung der Rechte und Freiheiten natürlicher Personen geeignete technische und organisatorische Maßnahmen, um ein dem Risiko angemessenes Schutzniveau zu gewährleisten.</p>
         <p class="mb-4 leading-relaxed">Zu den Maßnahmen gehören insbesondere die Sicherung der Vertraulichkeit, Integrität und Verfügbarkeit von Daten durch Kontrolle des physischen und elektronischen Zugangs zu den Daten als auch des sie betreffenden Zugriffs, der Eingabe, der Weitergabe, der Sicherung der Verfügbarkeit und ihrer Trennung. Des Weiteren haben wir Verfahren eingerichtet, die eine Wahrnehmung von Betroffenenrechten, die Löschung von Daten und Reaktionen auf die Gefährdung der Daten gewährleisten. Ferner berücksichtigen wir den Schutz personenbezogener Daten bereits bei der Entwicklung bzw. Auswahl von Hardware, Software sowie Verfahren entsprechend dem Prinzip des Datenschutzes, durch Technikgestaltung und durch datenschutzfreundliche Voreinstellungen.</p>
       </section>
       <section class="mb-10">
-        <h2 id="m25" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Übermittlung von personenbezogenen Daten</h2>
+        <h2 id="m25" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Übermittlung von personenbezogenen Daten</h2>
         <p class="mb-4 leading-relaxed">Im Rahmen unserer Verarbeitung von personenbezogenen Daten kommt es vor, dass diese an andere Stellen, Unternehmen, rechtlich selbstständige Organisationseinheiten oder Personen übermittelt beziehungsweise ihnen gegenüber offengelegt werden. Zu den Empfängern dieser Daten können z. B. mit IT-Aufgaben beauftragte Dienstleister gehören oder Anbieter von Diensten und Inhalten, die in eine Website eingebunden sind. In solchen Fällen beachten wir die gesetzlichen Vorgaben und schließen insbesondere entsprechende Verträge bzw. Vereinbarungen, die dem Schutz Ihrer Daten dienen, mit den Empfängern Ihrer Daten ab.</p>
       </section>
 
       <section class="mb-10">
-        <h2 id="m24" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Internationale Datentransfers</h2>
+        <h2 id="m24" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Internationale Datentransfers</h2>
         <p class="mb-4 leading-relaxed">Datenverarbeitung in Drittländern: Sofern wir Daten in ein Drittland (d. h. außerhalb der Europäischen Union (EU) oder des Europäischen Wirtschaftsraums (EWR)) übermitteln oder dies im Rahmen der Nutzung von Diensten Dritter oder der Offenlegung bzw. Übermittlung von Daten an andere Personen, Stellen oder Unternehmen geschieht (was erkennbar wird anhand der Postadresse des jeweiligen Anbieters oder wenn in der Datenschutzerklärung ausdrücklich auf den Datentransfer in Drittländer hingewiesen wird), erfolgt dies stets im Einklang mit den gesetzlichen Vorgaben.</p>
         <p class="mb-4 leading-relaxed">Für Datenübermittlungen in die USA stützen wir uns vorrangig auf das Data Privacy Framework (DPF), welches durch einen Angemessenheitsbeschluss der EU-Kommission vom 10.07.2023 als sicherer Rechtsrahmen anerkannt wurde. Zusätzlich haben wir mit den jeweiligen Anbietern Standardvertragsklauseln abgeschlossen, die den Vorgaben der EU-Kommission entsprechen und vertragliche Verpflichtungen zum Schutz Ihrer Daten festlegen.</p>
         <p class="mb-4 leading-relaxed">Diese zweifache Absicherung gewährleistet einen umfassenden Schutz Ihrer Daten: Das DPF bildet die primäre Schutzebene, während die Standardvertragsklauseln als zusätzliche Sicherheit dienen. Sollten sich Änderungen im Rahmen des DPF ergeben, greifen die Standardvertragsklauseln als zuverlässige Rückfalloption ein. So stellen wir sicher, dass Ihre Daten auch bei etwaigen politischen oder rechtlichen Veränderungen stets angemessen geschützt bleiben.</p>
-        <p class="mb-4 leading-relaxed">Bei den einzelnen Diensteanbietern informieren wir Sie darüber, ob sie nach dem DPF zertifiziert sind und ob Standardvertragsklauseln vorliegen. Weitere Informationen zum DPF und eine Liste der zertifizierten Unternehmen finden Sie auf der Website des US-Handelsministeriums unter <a href="https://www.dataprivacyframework.gov/" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">https://www.dataprivacyframework.gov/</a> (in englischer Sprache).</p>
-        <p class="mb-4 leading-relaxed">Für Datenübermittlungen in andere Drittländer gelten entsprechende Sicherheitsmaßnahmen, insbesondere Standardvertragsklauseln, ausdrückliche Einwilligungen oder gesetzlich erforderliche Übermittlungen. Informationen zu Drittlandtransfers und geltenden Angemessenheitsbeschlüssen können Sie dem Informationsangebot der EU-Kommission entnehmen: <a href="https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection_en?prefLang=de" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection_en?prefLang=de.</a></p>
+        <p class="mb-4 leading-relaxed">Bei den einzelnen Diensteanbietern informieren wir Sie darüber, ob sie nach dem DPF zertifiziert sind und ob Standardvertragsklauseln vorliegen. Weitere Informationen zum DPF und eine Liste der zertifizierten Unternehmen finden Sie auf der Website des US-Handelsministeriums unter <a href="https://www.dataprivacyframework.gov/" target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2 hover:decoration-2">https://www.dataprivacyframework.gov/</a> (in englischer Sprache).</p>
+        <p class="mb-4 leading-relaxed">Für Datenübermittlungen in andere Drittländer gelten entsprechende Sicherheitsmaßnahmen, insbesondere Standardvertragsklauseln, ausdrückliche Einwilligungen oder gesetzlich erforderliche Übermittlungen. Informationen zu Drittlandtransfers und geltenden Angemessenheitsbeschlüssen können Sie dem Informationsangebot der EU-Kommission entnehmen: <a href="https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection_en?prefLang=de" target="_blank" rel="noopener noreferrer" class="text-primary underline underline-offset-2 hover:decoration-2">https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection_en?prefLang=de.</a></p>
       </section>
 
       <section class="mb-10">
-        <h2 id="m12" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Allgemeine Informationen zur Datenspeicherung und Löschung</h2>
+        <h2 id="m12" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Allgemeine Informationen zur Datenspeicherung und Löschung</h2>
         <p class="mb-4 leading-relaxed">Wir löschen personenbezogene Daten, die wir verarbeiten, gemäß den gesetzlichen Bestimmungen, sobald die zugrundeliegenden Einwilligungen widerrufen werden oder keine weiteren rechtlichen Grundlagen für die Verarbeitung bestehen. Dies betrifft Fälle, in denen der ursprüngliche Verarbeitungszweck entfällt oder die Daten nicht mehr benötigt werden. Ausnahmen von dieser Regelung bestehen, wenn gesetzliche Pflichten oder besondere Interessen eine längere Aufbewahrung oder Archivierung der Daten erfordern.</p>
         <p class="mb-4 leading-relaxed">Insbesondere müssen Daten, die aus handels- oder steuerrechtlichen Gründen aufbewahrt werden müssen oder deren Speicherung notwendig ist zur Rechtsverfolgung oder zum Schutz der Rechte anderer natürlicher oder juristischer Personen, entsprechend archiviert werden.</p>
         <p class="mb-4 leading-relaxed">Unsere Datenschutzhinweise enthalten zusätzliche Informationen zur Aufbewahrung und Löschung von Daten, die speziell für bestimmte Verarbeitungsprozesse gelten.</p>
@@ -144,7 +144,7 @@ useBreadcrumbs(() => [
         <ul class="list-disc pl-5 mb-6 space-y-2">
           <li>
             <strong class="font-medium">Aufbewahrung und Löschung von Daten: </strong>Die folgenden allgemeinen Fristen gelten für die Aufbewahrung und Archivierung nach deutschem Recht:
-            <ul class="list-disc pl-5 mt-2 mb-2 space-y-1 text-gray-700 dark:text-gray-300">
+            <ul class="list-disc pl-5 mt-2 mb-2 space-y-1 text-on-surface-variant">
               <li>10 Jahre - Aufbewahrungsfrist für Bücher und Aufzeichnungen, Jahresabschlüsse, Inventare, Lageberichte, Eröffnungsbilanz sowie die zu ihrem Verständnis erforderlichen Arbeitsanweisungen und sonstigen Organisationsunterlagen (§ 147 Abs. 1 Nr. 1 i.V.m. Abs. 3 AO, § 14b Abs. 1 UStG, § 257 Abs. 1 Nr. 1 i.V.m. Abs. 4 HGB).</li>
               <li>8 Jahre - Buchungsbelege, wie z. B. Rechnungen und Kostenbelege (§ 147 Abs. 1 Nr. 4 und 4a i.V.m. Abs. 3 Satz 1 AO sowie § 257 Abs. 1 Nr. 4 i.V.m. Abs. 4 HGB).</li>
               <li>6 Jahre - Übrige Geschäftsunterlagen: empfangene Handels- oder Geschäftsbriefe, Wiedergaben der abgesandten Handels- oder Geschäftsbriefe, sonstige Unterlagen, soweit sie für die Besteuerung von Bedeutung sind, z. B. Stundenlohnzettel, Betriebsabrechnungsbögen, Kalkulationsunterlagen, Preisauszeichnungen, aber auch Lohnabrechnungsunterlagen, soweit sie nicht bereits Buchungsbelege sind und Kassenstreifen (§ 147 Abs. 1 Nr. 2, 3, 5 i.V.m. Abs. 3 AO, § 257 Abs. 1 Nr. 2 u. 3 i.V.m. Abs. 4 HGB).</li>
@@ -155,7 +155,7 @@ useBreadcrumbs(() => [
       </section>
 
       <section class="mb-10">
-        <h2 id="m10" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Rechte der betroffenen Personen</h2>
+        <h2 id="m10" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Rechte der betroffenen Personen</h2>
         <p class="mb-4 leading-relaxed">Rechte der betroffenen Personen aus der DSGVO: Ihnen stehen als Betroffene nach der DSGVO verschiedene Rechte zu, die sich insbesondere aus Art. 15 bis 21 DSGVO ergeben:</p>
         <ul class="list-disc pl-5 mb-4 space-y-2">
           <li class="mb-2"><strong class="font-medium">Widerspruchsrecht: </strong>Sie haben das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung der Sie betreffenden personenbezogenen Daten, die aufgrund von Art. 6 Abs. 1 lit. e oder f DSGVO erfolgt, Widerspruch einzulegen; dies gilt auch für ein auf diese Bestimmungen gestütztes Profiling. Werden die Sie betreffenden personenbezogenen Daten verarbeitet, um Direktwerbung zu betreiben, haben Sie das Recht, jederzeit Widerspruch gegen die Verarbeitung der Sie betreffenden personenbezogenen Daten zum Zwecke derartiger Werbung einzulegen; dies gilt auch für das Profiling, soweit es mit solcher Direktwerbung in Verbindung steht.</li>
@@ -169,7 +169,7 @@ useBreadcrumbs(() => [
       </section>
 
       <section class="mb-10">
-        <h2 id="m225" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Bereitstellung des Onlineangebots und Webhosting</h2>
+        <h2 id="m225" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Bereitstellung des Onlineangebots und Webhosting</h2>
         <p class="mb-4 leading-relaxed">Wir verarbeiten die Daten der Nutzer, um ihnen unsere Online-Dienste zur Verfügung stellen zu können. Zu diesem Zweck verarbeiten wir die IP-Adresse des Nutzers, die notwendig ist, um die Inhalte und Funktionen unserer Online-Dienste an den Browser oder das Endgerät der Nutzer zu übermitteln.</p>
         <ul class="mb-4 space-y-2">
           <li><strong class="font-medium">Verarbeitete Datenarten:</strong> Nutzungsdaten (z. B. Seitenaufrufe und Verweildauer, Klickpfade, Nutzungsintensität und -frequenz, verwendete Gerätetypen und Betriebssysteme, Interaktionen mit Inhalten und Funktionen); Meta-, Kommunikations- und Verfahrensdaten (z. B. IP-Adressen, Zeitangaben, Identifikationsnummern, beteiligte Personen). Protokolldaten (z. B. Logfiles betreffend Logins oder den Abruf von Daten oder Zugriffszeiten.).</li>
@@ -185,7 +185,7 @@ useBreadcrumbs(() => [
         </ul>
       </section>
       <section class="mb-10">
-        <h2 id="m134" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Einsatz von Cookies</h2>
+        <h2 id="m134" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Einsatz von Cookies</h2>
         <p class="mb-4 leading-relaxed">Unter dem Begriff „Cookies" werden Funktionen, die Informationen auf Endgeräten der Nutzer speichern und aus ihnen auslesen, verstanden. Cookies können ferner in Bezug auf unterschiedliche Anliegen Einsatz finden, etwa zu Zwecken der Funktionsfähigkeit, der Sicherheit und des Komforts von Onlineangeboten sowie der Erstellung von Analysen der Besucherströme. Wir verwenden Cookies gemäß den gesetzlichen Vorschriften. Dazu holen wir, wenn erforderlich, vorab die Zustimmung der Nutzer ein. Ist eine Zustimmung nicht notwendig, setzen wir auf unsere berechtigten Interessen. Dies gilt, wenn das Speichern und Auslesen von Informationen unerlässlich ist, um ausdrücklich angeforderte Inhalte und Funktionen bereitstellen zu können. Dazu zählen etwa die Speicherung von Einstellungen sowie die Sicherstellung der Funktionalität und Sicherheit unseres Onlineangebots. Die Einwilligung kann jederzeit widerrufen werden. Wir informieren klar über deren Umfang und welche Cookies genutzt werden.</p>
 
         <p class="mb-4 leading-relaxed"><strong class="font-medium">Hinweise zu datenschutzrechtlichen Rechtsgrundlagen: </strong>Ob wir personenbezogene Daten mithilfe von Cookies verarbeiten, hängt von einer Einwilligung ab. Liegt eine Einwilligung vor, dient sie als Rechtsgrundlage. Ohne Einwilligung stützen wir uns auf unsere berechtigten Interessen, die vorstehend in diesem Abschnitt und im Kontext der jeweiligen Dienste und Verfahren erläutert sind.</p>
@@ -212,7 +212,7 @@ useBreadcrumbs(() => [
         </ul>
       </section>
       <section class="mb-10">
-        <h2 id="m104" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Blogs und Publikationsmedien</h2>
+        <h2 id="m104" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Blogs und Publikationsmedien</h2>
         <p class="mb-4 leading-relaxed">Wir nutzen Blogs oder vergleichbare Mittel der Onlinekommunikation und Publikation (nachfolgend "Publikationsmedium"). Die Daten der Leser werden für die Zwecke des Publikationsmediums nur insoweit verarbeitet, als es für dessen Darstellung und die Kommunikation zwischen Autoren und Lesern oder aus Gründen der Sicherheit erforderlich ist. Im Übrigen verweisen wir auf die Informationen zur Verarbeitung der Besucher unseres Publikationsmediums im Rahmen dieser Datenschutzhinweise.</p>
 
         <ul class="mb-4 space-y-2">
@@ -239,7 +239,7 @@ useBreadcrumbs(() => [
       </section>
 
       <section class="mb-10">
-        <h2 id="m182" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">Kontakt- und Anfrageverwaltung</h2>
+        <h2 id="m182" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">Kontakt- und Anfrageverwaltung</h2>
         <p class="mb-4 leading-relaxed">Bei der Kontaktaufnahme mit uns (z. B. per Post, Kontaktformular, E-Mail, Telefon oder via soziale Medien) sowie im Rahmen bestehender Nutzer- und Geschäftsbeziehungen werden die Angaben der anfragenden Personen verarbeitet, soweit dies zur Beantwortung der Kontaktanfragen und etwaiger angefragter Maßnahmen erforderlich ist.</p>
         <ul class="mb-4 space-y-3">
           <li>
@@ -276,7 +276,7 @@ useBreadcrumbs(() => [
         </ul>
       </section>
       <section class="mb-10">
-        <h2 id="m263" class="text-2xl font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-300">
+        <h2 id="m263" class="mb-4 border-b border-outline-variant pb-2 text-headline-small text-on-surface">
           Webanalyse, Monitoring und Optimierung
         </h2>
         <p class="mb-4 leading-relaxed">
@@ -308,11 +308,11 @@ useBreadcrumbs(() => [
           <li><span class="font-semibold">Rechtsgrundlagen:</span> Einwilligung <span class="italic">(Art. 6 Abs. 1 S. 1 lit. a) DSGVO)</span>. Berechtigte Interessen <span class="italic">(Art. 6 Abs. 1 S. 1 lit. f) DSGVO)</span>.</li>
         </ul>
       </div>
-      <p class="text-sm mt-10 pt-4 border-t border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">
+      <p class="mt-10 border-t border-outline-variant pt-4 text-body-medium text-on-surface-variant">
         <a
 href="https://datenschutz-generator.de/" title="Rechtstext von Dr. Schwenke - für weitere Informationen bitte anklicken."
            target="_blank" rel="noopener noreferrer nofollow"
-           class="text-blue-600 dark:text-blue-400 hover:underline">
+           class="text-primary underline underline-offset-2 hover:decoration-2">
           Erstellt mit kostenlosem Datenschutz-Generator.de von Dr. Thomas Schwenke
         </a>
       </p>

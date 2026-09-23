@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <p class="mb-4 leading-relaxed dark:text-white"><slot /></p>
+  <p class="mb-4 text-body-large text-on-surface"><slot /></p>
 </template>
 
 <style scoped>

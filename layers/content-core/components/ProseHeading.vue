@@ -11,17 +11,21 @@ const props = withDefaults(defineProps<{
 const tag = computed(() => `h${props.level}`)
 
 const headingClass = computed(() => {
-  const base = 'mb-4 scroll-mt-24 break-words dark:text-white'
+  const base = 'mb-4 scroll-mt-24 break-words text-on-surface'
+  // MD3 type scale per level; the weights keep the article's bold hierarchy.
   const sizeMap: Record<number, string> = {
-    1: 'text-3xl font-bold',
-    2: 'text-2xl font-semibold',
-    3: 'text-xl font-semibold',
-    4: 'text-lg font-semibold',
-    5: 'text-base font-semibold',
-    6: 'text-base font-semibold'
+    1: 'text-headline-large font-bold',
+    2: 'text-headline-small font-semibold',
+    3: 'text-title-large font-semibold',
+    4: 'text-title-medium font-semibold',
+    5: 'text-title-small font-semibold',
+    6: 'text-title-small font-semibold'
   }
   return `${sizeMap[props.level] ?? sizeMap[2]} ${base}`
 })
+
+const anchorClass
+  = 'rounded-extra-small break-words underline-offset-4 transition-colors hover:underline focus-ring'
 
 const { headings } = useRuntimeConfig().public.mdc
 const shouldGenerateAnchor = computed(() => {
@@ -51,7 +55,7 @@ const permalinkLabel = computed(() => {
       v-if="shouldGenerateAnchor"
       :href="`#${props.id}`"
       :aria-label="permalinkLabel"
-      class="hover:underline underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-sm break-words transition-colors"
+      :class="anchorClass"
     >
       <slot />
     </a>
