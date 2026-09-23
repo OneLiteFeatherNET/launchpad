@@ -1,8 +1,10 @@
 name: SEO
 
 on:
+  # Not filtered to main, for the same reason as ci.yml: a stacked pull
+  # request targets the branch below it and would otherwise reach main
+  # without these gates ever running on it.
   pull_request:
-    branches: [main]
   push:
     branches: [main]
 

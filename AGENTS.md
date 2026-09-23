@@ -56,6 +56,7 @@ without checking a real build first.
 - Preview production build: `pnpm preview`
 - Serve the production build in workerd (after `NODE_ENV=production pnpm build`): `pnpm preview:prod` (port 8787)
 - Concurrency check against it (or `--base https://onelitefeather.net --concurrency 5 --requests 100`): `node scripts/concurrency-check.mjs`
+- SEO and cache-header checks against it: `pnpm seo:check -- --base http://localhost:8787 --no-mock`, `node scripts/cache-check.mjs`
 - Lint on demand (no script): `pnpm exec eslint .`
 
 ## Coding Style & Naming Conventions
@@ -151,6 +152,58 @@ Never raise a baseline number to make a change pass. Fix the errors, or explain
 in the pull request why the rise is unavoidable.
 
 When adding a skill, place it under `.claude/skills/` and list it here.
+
+## Caching and SEO signals
+
+Pages are built to be served from Cloudflare's Workers Cache (enabled
+separately, see the `edge-caching-and-seo` OpenSpec change). Caching is
+steered by response headers alone:
+
+- **`routeRules` in `nuxt.config.ts` hold the table.** `/en/**` and `/de/**`
+  are cacheable for an hour (legal pages a day) via `cloudflare-cdn-cache-control`,
+  which Cloudflare strips before the browser; browsers get
+  `max-age=0, must-revalidate`. `/`, `/ingest/**`, `/__nuxt_content/**` and
+  `/api/**` are `no-store`. Never put `s-maxage` or `must-revalidate` into the
+  edge directive — either switches off stale-while-revalidate — and never add
+  Nitro `swr`/`cache` rules on top: Nitro's cache replays `Set-Cookie` to every
+  visitor. `tests/architecture/edge-cache-rules.spec.ts` holds the table.
+- **A cached page is shared by everyone who requests that path.** No render
+  may read `route.query`, cookies or request headers
+  (`tests/architecture/request-independent-render.spec.ts`), and cacheable
+  responses carry no `Set-Cookie` (`server/plugins/strip-cacheable-cookies.ts`).
+  A feature that needs per-request input belongs on the client or behind an
+  uncached endpoint.
+- **Errors are never cached or indexed.** `server/plugins/error-response-headers.ts`
+  sets `no-store` and `X-Robots-Tag: noindex` on every status >= 400; without
+  it Workers Cache keeps a 404 for three minutes.
+- **A deploy empties the cache** — the Worker version is part of the key, so
+  cached HTML never points at chunks of another build.
+
+SEO emitters, so nothing is written twice:
+
+- `<html lang/dir>`, canonical, hreflang and `og:locale` come from
+  `@nuxtjs/i18n` in `experimental.strictSeo` mode. Pages with translated slugs
+  publish them through `useSetI18nParams`; a locale without params gets no
+  link. `useLocaleHead` is not allowed in this mode. `error.vue` removes
+  canonical/hreflang in Unhead's `tags:resolve` hook.
+- Title, description, OG/Twitter and the page's WebPage node come from
+  `usePageSeo` (`useArticleSeo` for articles). `useSeoMeta` takes an object of
+  getters — `@unhead/vue` v3 silently ignores a function. The page type goes
+  through `defineWebPage`, never a raw `{ '@type': … }` object, which becomes a
+  second node.
+- Sitemap entries for blog and POI are shaped in `content.config.ts`
+  (`filter`/`onUrl`). Those functions are serialised and run in an empty scope
+  per sitemap request: they must not reference anything outside their own
+  body (`tests/seo/sitemap-content-hooks.spec.ts` evaluates them that way).
+  Translation links live in front-matter `alternates`, held symmetric by
+  `tests/content/translation-alternates.spec.ts`.
+- `nuxt-schema-org` 6.3.2 is patched (`patches/`, see `pnpm-workspace.yaml`)
+  until the next release ships the upstream fix.
+
+`seo.yml` runs `seo:check`, `cache-check` and Lighthouse against the
+production build (`pnpm preview:prod`). After enabling Workers Cache, verify
+hits against production with
+`node scripts/cache-check.mjs --base https://onelitefeather.net --expect-hits`.
 
 ## Deploy
 
