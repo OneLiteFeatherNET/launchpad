@@ -21,17 +21,22 @@ export type FeaturedMember = {
 const props = defineProps<{ members: FeaturedMember[] }>()
 
 const { t, locale } = useI18n()
+
+/** A person link: avatar, name and role; outlined with the design system's state layer. */
+const memberLinkClass
+  = 'inline-flex items-center gap-3 rounded-medium border border-outline-variant px-3 py-2 '
+    + 'state-layer focus-ring'
 </script>
 
 <template>
   <section
     v-if="props.members.length"
-    class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6"
+    class="mt-8 border-t border-outline-variant pt-6"
     :aria-labelledby="'featured-team-heading'"
   >
     <h2
       id="featured-team-heading"
-      class="text-sm font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400"
+      class="text-label-large uppercase text-on-surface-variant"
     >
       {{ t('blog.featured_team') }}
     </h2>
@@ -39,7 +44,7 @@ const { t, locale } = useI18n()
       <li v-for="m in props.members" :key="m.slug">
         <NuxtLink
           :to="`/${locale}/team/${m.slug}`"
-          class="inline-flex items-center gap-3 rounded-xl border border-neutral-200 dark:border-neutral-800 px-3 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary"
+          :class="memberLinkClass"
         >
           <NuxtImg
             :src="m.avatarUrl"
@@ -50,13 +55,15 @@ const { t, locale } = useI18n()
             format="avif,webp"
             quality="80"
             densities="x1 x2"
-            class="h-8 w-8 rounded-lg object-cover"
+            class="h-8 w-8 rounded-small object-cover"
             loading="lazy"
             decoding="async"
           />
           <span class="min-w-0">
-            <span class="block text-sm font-semibold text-neutral-900 dark:text-neutral-100">{{ m.name }}</span>
-            <span v-if="m.role" class="block text-xs text-neutral-600 dark:text-neutral-400">{{ m.role }}</span>
+            <span class="block text-label-large text-on-surface">{{ m.name }}</span>
+            <span v-if="m.role" class="block text-label-small text-on-surface-variant">
+              {{ m.role }}
+            </span>
           </span>
         </NuxtLink>
       </li>

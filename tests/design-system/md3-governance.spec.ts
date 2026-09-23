@@ -46,23 +46,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'elevation',
     'button',
   ],
-  'layers/blog/components/FeaturedTeamMembers.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'button',
-  ],
-  'layers/blog/components/SocialMediaShare.vue': [
-    'palette',
-    'dark-colour',
-    'button',
-  ],
-  'layers/blog/components/Top1.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
   'layers/community-poi/components/CommunityPoiBluemap.vue': [
     'palette',
     'dark-colour',
@@ -169,12 +152,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'elevation',
   ],
   'layouts/default.vue': ['palette', 'dark-colour'],
-  'pages/blog/[...slug].vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
   'pages/bluemap.vue': ['palette', 'shape'],
   'pages/community-poi/[...slug].vue': [
     'palette',
