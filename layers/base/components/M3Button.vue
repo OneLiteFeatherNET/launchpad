@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import { computed, resolveComponent, useSlots } from 'vue'
 import { useInteractiveTag } from '../composables/useInteractiveTag'
 import type { ButtonVariant, IconName } from '../types'
 import { M3_BUTTON_BASE, M3_BUTTON_PADDING, M3_BUTTON_VARIANTS } from '../utils/m3Variants'
@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<{
 })
 
 const slots = useSlots()
-const { tag, attrs } = useInteractiveTag(() => props)
+const { component, attrs } = useInteractiveTag(() => props, resolveComponent('NuxtLink'))
 
 const hasIcon = computed(() => Boolean(props.icon || slots.icon))
 const classes = computed(() => {
@@ -44,7 +44,7 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <component :is="tag" v-bind="attrs" :class="classes">
+  <component :is="component" v-bind="attrs" :class="classes">
     <span
       v-if="hasIcon"
       class="inline-flex size-[1.125rem] items-center justify-center"
