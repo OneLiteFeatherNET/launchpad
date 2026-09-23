@@ -10,9 +10,13 @@ const { t } = useI18n()
 // own canonical/alternate links — that previously produced duplicate /
 // conflicting hreflang tags that Google flagged.
 const head = useLocaleHead({ dir: true, lang: true, seo: true })
+// error.vue renders inside this layout. An error page is not a version of any
+// URL, so it gets no canonical and no hreflang — before this, a missing
+// article announced itself as /en and /de alternates of a URL that 404s.
+const error = useError()
 useHead(() => {
   const h = unref(head)
-  return { link: h?.link ?? [], meta: h?.meta ?? [] }
+  return { link: error.value ? [] : (h?.link ?? []), meta: h?.meta ?? [] }
 })
 // Only set a static <Title> when the route explicitly provides one via meta.
 // `title` is declared in types/page-meta.d.ts, so the compiler holds the pages

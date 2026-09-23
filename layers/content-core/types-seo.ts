@@ -24,8 +24,6 @@ export type PageSeoOptions = {
   /** Optional explicit preview image dimensions for og:image:width/height. */
   imageWidth?: number
   imageHeight?: number
-  /** Optional explicit MIME type, e.g. "image/webp". */
-  imageType?: string
   /**
    * Explicit canonical URL. If omitted, the current route path is resolved against site.url.
    */
@@ -47,9 +45,12 @@ export type PageSeoOptions = {
    */
   twitterCreator?: string
   /**
-   * Schema.org type, default "WebPage".
+   * Schema.org type of the page itself, default "WebPage". Limited to
+   * WebPage and its subtypes: it refines the one WebPage node every page
+   * carries. What the page is *about* — the site, an article, a build — is a
+   * separate node the page defines itself.
    */
-  schemaType?: string
+  schemaType?: 'WebPage' | 'AboutPage' | 'CollectionPage' | 'ContactPage' | 'FAQPage' | 'ItemPage' | 'ProfilePage' | 'SearchResultsPage'
   /**
    * Optional robots directive to override defaults. Wins over noindex/nofollow flags.
    */

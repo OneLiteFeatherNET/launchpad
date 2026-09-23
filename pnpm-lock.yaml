@@ -22,6 +22,11 @@ overrides:
   vite@>=7.1.0 <=7.1.10: '>=7.1.11'
   vue-i18n@>=10.0.0 <10.0.8: '>=10.0.8'
 
+patchedDependencies:
+  nuxt-schema-org@6.3.2:
+    hash: 2b8083fbe53ebe03562ed2a3a61badaadc6cd9cc17bf3ab498b223a9286d261c
+    path: patches/nuxt-schema-org@6.3.2.patch
+
 importers:
 
   .:
@@ -128,7 +133,7 @@ importers:
         version: 1.6.3(magicast@0.5.4)(rxjs@7.8.2)
       nuxt-schema-org:
         specifier: 6.3.2
-        version: 6.3.2(46860202234966446edccab14cd87b8e)
+        version: 6.3.2(patch_hash=2b8083fbe53ebe03562ed2a3a61badaadc6cd9cc17bf3ab498b223a9286d261c)(46860202234966446edccab14cd87b8e)
       nuxt-vitalizer:
         specifier: 3.0.0
         version: 3.0.0(magic-string@1.4.1)(magicast@0.5.4)(oxc-parser@0.143.0)(unplugin@3.4.0(esbuild@0.28.1)(rollup@4.62.2)(vite@7.3.6(@types/node@26.4.0)(jiti@2.7.0)(lightningcss@1.33.0)(terser@5.49.0)(yaml@2.9.1)))
@@ -10784,7 +10789,7 @@ snapshots:
       nuxt: 4.4.8(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7))(@parcel/watcher@2.5.6)(@types/node@26.4.0)(@vue/compiler-sfc@3.5.43)(better-sqlite3@12.11.1)(cac@7.0.0)(db0@0.3.4(better-sqlite3@12.11.1))(esbuild@0.28.1)(eslint@10.9.1(jiti@2.7.0))(ioredis@5.11.1)(lightningcss@1.33.0)(magicast@0.5.4)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@7.0.1(rollup@4.62.2))(rollup@4.62.2)(srvx@0.11.21)(terser@5.49.0)(typescript@5.9.3)(vite@7.3.6(@types/node@26.4.0)(jiti@2.7.0)(lightningcss@1.33.0)(terser@5.49.0)(yaml@2.9.1))(vue-tsc@3.3.11(typescript@5.9.3))(yaml@2.9.1)
       nuxt-link-checker: 5.3.0(87baa00fccbb970d9d247e3fb732ddb3)
       nuxt-og-image: 6.7.8(823d5c0e42379e2b667da2298fef5396)
-      nuxt-schema-org: 6.3.2(46860202234966446edccab14cd87b8e)
+      nuxt-schema-org: 6.3.2(patch_hash=2b8083fbe53ebe03562ed2a3a61badaadc6cd9cc17bf3ab498b223a9286d261c)(46860202234966446edccab14cd87b8e)
       nuxt-seo-utils: 8.4.2(1c65d33eb7ff31cd745d613b6f4f612d)
       nuxt-site-config: 4.2.3(@nuxt/schema@4.4.8)(magic-string@1.4.1)(magicast@0.5.4)(nuxt@4.4.8(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7))(@parcel/watcher@2.5.6)(@types/node@26.4.0)(@vue/compiler-sfc@3.5.43)(better-sqlite3@12.11.1)(cac@7.0.0)(db0@0.3.4(better-sqlite3@12.11.1))(esbuild@0.28.1)(eslint@10.9.1(jiti@2.7.0))(ioredis@5.11.1)(lightningcss@1.33.0)(magicast@0.5.4)(meow@13.2.0)(optionator@0.9.4)(rollup-plugin-visualizer@7.0.1(rollup@4.62.2))(rollup@4.62.2)(srvx@0.11.21)(terser@5.49.0)(typescript@5.9.3)(vite@7.3.6(@types/node@26.4.0)(jiti@2.7.0)(lightningcss@1.33.0)(terser@5.49.0)(yaml@2.9.1))(vue-tsc@3.3.11(typescript@5.9.3))(yaml@2.9.1))(oxc-parser@0.143.0)(unplugin@3.4.0(esbuild@0.28.1)(rollup@4.62.2)(vite@7.3.6(@types/node@26.4.0)(jiti@2.7.0)(lightningcss@1.33.0)(terser@5.49.0)(yaml@2.9.1)))(vite@7.3.6(@types/node@26.4.0)(jiti@2.7.0)(lightningcss@1.33.0)(terser@5.49.0)(yaml@2.9.1))(vue@3.5.43(typescript@5.9.3))(zod@4.5.4)
       nuxtseo-shared: 5.3.16(dd69f3f65b1db09f2bcdfa4947a556a0)
@@ -15492,7 +15497,7 @@ snapshots:
       - react
       - rxjs
 
-  nuxt-schema-org@6.3.2(46860202234966446edccab14cd87b8e):
+  nuxt-schema-org@6.3.2(patch_hash=2b8083fbe53ebe03562ed2a3a61badaadc6cd9cc17bf3ab498b223a9286d261c)(46860202234966446edccab14cd87b8e):
     dependencies:
       '@nuxt/kit': 4.5.2(magic-string@1.4.1)(magicast@0.5.4)(oxc-parser@0.143.0)(unplugin@3.4.0(esbuild@0.28.1)(rollup@4.62.2)(vite@7.3.6(@types/node@26.4.0)(jiti@2.7.0)(lightningcss@1.33.0)(terser@5.49.0)(yaml@2.9.1)))
       defu: 6.1.7

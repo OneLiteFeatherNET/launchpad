@@ -50,7 +50,7 @@ const localeCodeFromHreflang = (
   available: LocaleObject[]
 ): string | undefined => {
   const match = available.find(
-    (l) => l.code === hreflang || l.iso === hreflang || hreflang.split('-')[0] === l.code
+    (l) => l.code === hreflang || l.language === hreflang || hreflang.split('-')[0] === l.code
   )
   return match?.code
 }

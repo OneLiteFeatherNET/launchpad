@@ -30,6 +30,12 @@ const imageProvider = (process.env.NUXT_IMAGE_PROVIDER ?? (isCloudflareBuild ? '
   ? 'cloudflare'
   : 'none'
 
+/** Response headers for a page the edge may cache for `seconds`. */
+const cachedPageHeaders = (seconds: number) => ({
+  'cloudflare-cdn-cache-control': `max-age=${seconds}, stale-while-revalidate=86400`,
+  'cache-control': 'public, max-age=0, must-revalidate'
+})
+
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
     devtools: {
@@ -108,7 +114,10 @@ export default defineNuxtConfig({
         strategy: 'prefix',
         defaultLocale: 'en',
         locales: [
-            {code: 'de', iso: 'de-DE', name: 'Deutsch', file: 'de.json'}, {code: 'en', iso: 'en-US', name: 'English', file: 'en.json'}
+            // `language`, not `iso`: @nuxtjs/i18n v10 reads only `language` for
+            // hreflang and <html lang>. `iso` worked only because nuxtseo-shared
+            // copies it over at runtime.
+            {code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json'}, {code: 'en', language: 'en-US', name: 'English', file: 'en.json'}
         ],
         detectBrowserLanguage: {
             useCookie: true,
@@ -142,11 +151,34 @@ export default defineNuxtConfig({
         }
     },
     routeRules: {
-        // Legal pages are intentionally excluded from search indexing.
-        '/en/imprint': { robots: 'noindex, follow' },
-        '/de/imprint': { robots: 'noindex, follow' },
-        '/en/privacy': { robots: 'noindex, follow' },
-        '/de/privacy': { robots: 'noindex, follow' },
+        // Edge caching. `cloudflare-cdn-cache-control` is read by Cloudflare's
+        // Workers Cache and stripped before the response leaves the edge;
+        // browsers only ever see `cache-control`, which makes them revalidate
+        // every time. The two must stay separate: `must-revalidate` or
+        // `s-maxage` in the edge directive would switch off
+        // stale-while-revalidate there.
+        //
+        // Caching these routes by path is only correct because no render
+        // reads query, cookies or request headers —
+        // tests/architecture/request-independent-render.spec.ts holds that.
+        // Errors are never cached: server/plugins/error-response-headers.ts
+        // overrides these headers with `no-store` on any status >= 400.
+        '/en/**': { headers: cachedPageHeaders(3600) },
+        '/de/**': { headers: cachedPageHeaders(3600) },
+        // Legal pages are intentionally excluded from search indexing, and
+        // change even less often than content.
+        '/en/imprint': { robots: 'noindex, follow', headers: cachedPageHeaders(86400) },
+        '/de/imprint': { robots: 'noindex, follow', headers: cachedPageHeaders(86400) },
+        '/en/privacy': { robots: 'noindex, follow', headers: cachedPageHeaders(86400) },
+        '/de/privacy': { robots: 'noindex, follow', headers: cachedPageHeaders(86400) },
+        '/robots.txt': { headers: { 'cloudflare-cdn-cache-control': 'max-age=3600, stale-while-revalidate=86400' } },
+        // Request-dependent or internal: `/` redirects by cookie and
+        // Accept-Language, the rest are the analytics proxy, Nuxt Content's
+        // query endpoints and server APIs.
+        '/': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
+        '/ingest/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
+        '/__nuxt_content/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
+        '/api/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
     },
 
     vite: {

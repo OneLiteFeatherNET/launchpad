@@ -14,7 +14,7 @@ const { top1Article, allPosts } = useBlogOverview()
 usePageSeo({
   title: t('blog.overview.title'),
   description: t('blog.overview.description'),
-  schemaType: 'Blog',
+  schemaType: 'CollectionPage',
   keywords: [
     'OneLiteFeather blog',
     'Minecraft development blog',

@@ -1,0 +1,27 @@
+diff --git a/dist/runtime/app/plugins/i18n/defaults.js b/dist/runtime/app/plugins/i18n/defaults.js
+index 53ba2ddc242188efbcafa8eeaec17a9c568b1c2f..1cc66cfd9878f916b6baf025cb1cc53864e4621c 100644
+--- a/dist/runtime/app/plugins/i18n/defaults.js
++++ b/dist/runtime/app/plugins/i18n/defaults.js
+@@ -91,14 +91,17 @@ export default defineNuxtPlugin({
+     }
+     useSchemaOrg([
+       website,
+-      defineWebPage(computed(() => ({
+-        // null blocks identity resolver defaults and is stripped from the graph
+-        about: (schemaOrgConfig.identity || toValue(siteConfig.identity)) && withoutTrailingSlash(route.path) === withoutTrailingSlash(localePath("index")) ? { "@id": identityId() } : null,
+-        description: toValue(siteConfig.description) || "",
++      defineWebPage({
++        // null blocks identity resolver defaults and is stripped from the graph.
++        // Plain object with getter props instead of computed(): a ref loses the
++        // resolver metadata defineWebPage attaches and orphans an untyped
++        // WebPage node (upstream harlan-zw/nuxt-schema-org#155, fixed on main).
++        about: () => (schemaOrgConfig.identity || toValue(siteConfig.identity)) && withoutTrailingSlash(route.path) === withoutTrailingSlash(localePath("index")) ? { "@id": identityId() } : null,
++        description: () => toValue(siteConfig.description) || "",
+         isPartOf: {
+           "@id": websiteId()
+         }
+-      })))
++      })
+     ]);
+     maybeAddIdentitySchemaOrg();
+   }

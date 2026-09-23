@@ -47,14 +47,14 @@ export function useArticleSeo(
     return blog.value?.title || t('layouts.title')
   })
 
-  const previewSocial = computed(() =>
-    img(blog.value?.headerImage || 'images/logo.svg', {
-      width: 1200,
-      height: 630,
-      format: 'webp',
-      quality: 80
-    })
-  )
+  // og:image / twitter:image: the header image at 1200×630, or the site
+  // default. The former fallback, images/logo.svg, is a format no social
+  // card renders.
+  const previewSocial = computed(() => resolveSocialImage(
+    blog.value?.headerImage,
+    baseUrl.value,
+    (src) => img(src, { width: 1200, height: 630, format: 'webp', quality: 80 })
+  ))
 
   // Multiple aspect ratios are recommended by Google for article rich results.
   const articleImages = computed(() => {
@@ -100,37 +100,40 @@ export function useArticleSeo(
     return seo.title || title.value
   })
 
+  type WithSeo = { seo?: BlogSeoFrontmatter } | null
+  const seoFrontmatter = computed(() => (blog.value as WithSeo)?.seo || {})
+  const metaDescription = computed(() => seoFrontmatter.value.description
+    || blog.value?.description
+    || extractPlainText((blog.value as { excerpt?: unknown } | null)?.excerpt)
+    || '')
+  const headerAlt = computed(() => blog.value?.headerImageAlt || blog.value?.title || '')
+
   // Document-level meta + OG/Twitter cards.
-  useSeoMeta(() => {
-    const seo = ((blog.value as { seo?: BlogSeoFrontmatter } | null)?.seo) || {}
-    const resolvedTitle = metaTitle.value
-    const metaDescription = seo.description
-      || blog.value?.description
-      || extractPlainText((blog.value as { excerpt?: unknown } | null)?.excerpt)
-      || ''
-    const headerAlt = blog.value?.headerImageAlt || blog.value?.title || ''
-    return {
-      title: resolvedTitle,
-      ogTitle: seo.ogTitle || resolvedTitle,
-      twitterTitle: seo.twitterTitle || resolvedTitle,
-      description: metaDescription,
-      ogDescription: seo.ogDescription || metaDescription,
-      ogImage: previewSocial.value,
-      ogImageWidth: 1200,
-      ogImageHeight: 630,
-      ogImageType: 'image/webp',
-      ogImageAlt: headerAlt,
-      twitterImage: previewSocial.value,
-      twitterImageAlt: headerAlt,
-      ogType: 'article',
-      ogUrl: canonicalUrl.value,
-      twitterCard: 'summary_large_image',
-      articlePublishedTime: isoDate(blog.value?.pubDate),
-      articleModifiedTime: isoDate(blog.value?.updatedDate) || isoDate(blog.value?.pubDate),
-      articleAuthor: authors.value?.map((a) => a.name) || undefined,
-      articleTag: blog.value?.tags || undefined,
-      keywords: blog.value?.tags?.join(', ') || undefined
-    }
+  //
+  // An object of getters, not one getter returning an object: @unhead/vue v3
+  // reads the keys of what it is given, and a function has none — the former
+  // `useSeoMeta(() => ({ … }))` emitted nothing at all, so no article carried
+  // og:image, og:type=article or article:* in production.
+  useSeoMeta({
+    title: () => metaTitle.value,
+    ogTitle: () => seoFrontmatter.value.ogTitle || metaTitle.value,
+    twitterTitle: () => seoFrontmatter.value.twitterTitle || metaTitle.value,
+    description: () => metaDescription.value,
+    ogDescription: () => seoFrontmatter.value.ogDescription || metaDescription.value,
+    ogImage: () => previewSocial.value.url,
+    ogImageWidth: () => previewSocial.value.width,
+    ogImageHeight: () => previewSocial.value.height,
+    ogImageAlt: () => headerAlt.value,
+    twitterImage: () => previewSocial.value.url,
+    twitterImageAlt: () => headerAlt.value,
+    ogType: 'article',
+    ogUrl: () => canonicalUrl.value,
+    twitterCard: 'summary_large_image',
+    articlePublishedTime: () => isoDate(blog.value?.pubDate),
+    articleModifiedTime: () => isoDate(blog.value?.updatedDate) || isoDate(blog.value?.pubDate),
+    articleAuthor: () => authors.value?.map((a) => a.name) || undefined,
+    articleTag: () => blog.value?.tags || undefined,
+    keywords: () => blog.value?.tags?.join(', ') || undefined
   })
 
   // Article structured data, linked to the global Organization and Person
