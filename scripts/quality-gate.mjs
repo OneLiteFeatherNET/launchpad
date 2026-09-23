@@ -23,12 +23,17 @@
  * was observed as 39 type errors locally against 41 in CI on the same commit,
  * which cost a wrong baseline. CI starts from a clean checkout and would never
  * reproduce it. Regenerating makes both sides measure the same thing.
+ *
+ * Type errors are counted once per location and code (see
+ * `count-type-errors.mjs`): build mode checks files under `shared/` in two
+ * projects and reports their errors twice.
  */
 
 import { execFileSync } from 'node:child_process'
 import { readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
+import { countTypeErrors } from './count-type-errors.mjs'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const BASELINE = resolve(ROOT, 'quality-baseline.json')
@@ -42,12 +47,14 @@ const ESLINT_ARGS = [
   'json',
 ]
 
+// Must stay identical to `pnpm typecheck`: build mode over the four projects
+// the root tsconfig references (app, server, shared, node), so the ratchet
+// measures exactly what a contributor sees locally.
 const TSC_ARGS = [
   'exec',
   'vue-tsc',
+  '-b',
   '--noEmit',
-  '-p',
-  'tsconfig.json',
 ]
 
 const PREPARE_ARGS = [
@@ -92,7 +99,7 @@ function countEslint() {
 
 function countTypes() {
   const out = run(TSC_ARGS)
-  return { typeErrors: (out.match(/error TS\d+/g) || []).length }
+  return { typeErrors: countTypeErrors(out) }
 }
 
 const baseline = JSON.parse(readFileSync(BASELINE, 'utf8'))

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// @ts-ignore-next-line: types for @vueuse/core may not be available in this environment
 import { useClipboard } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import ServerAddressCard from './ServerAddressCard.vue'

@@ -4,6 +4,37 @@
  * and walking the `body` AST (minimark format) for things like word counts.
  */
 
+import type {
+  ContentElementNode,
+  ContentTextNode,
+  MinimarkElement,
+  MinimarkRoot
+} from '../types-ast'
+
+function isRecord(input: unknown): input is Record<string, unknown> {
+  return typeof input === 'object' && input !== null && !Array.isArray(input)
+}
+
+/** A `[tag, attrs, ...children]` tuple, as opposed to a plain child list. */
+function isMinimarkElement(input: unknown): input is MinimarkElement {
+  return Array.isArray(input)
+    && input.length >= 2
+    && typeof input[0] === 'string'
+    && isRecord(input[1])
+}
+
+function isMinimarkRoot(input: unknown): input is MinimarkRoot {
+  return isRecord(input) && input.type === 'minimark' && Array.isArray(input.value)
+}
+
+function isTextNode(input: unknown): input is ContentTextNode {
+  return isRecord(input) && typeof input.value === 'string'
+}
+
+function isElementNode(input: unknown): input is ContentElementNode {
+  return isRecord(input) && Array.isArray(input.children)
+}
+
 /**
  * Walks the minimark AST that @nuxt/content stores in `body.value`. Nodes
  * are tuples of the form `[tag, attrs, ...children]` where children can be
@@ -15,52 +46,52 @@ const walkMinimark = (input: unknown, sink: string[]): void => {
     sink.push(input)
     return
   }
-  if (!Array.isArray(input)) return
-  if (input.length >= 2 && typeof input[0] === 'string' && typeof input[1] === 'object' && input[1] !== null) {
-    for (let i = 2; i < input.length; i++) walkMinimark(input[i], sink)
+  if (isMinimarkElement(input)) {
+    const [, , ...children] = input
+    for (const child of children) walkMinimark(child, sink)
     return
   }
-  for (const child of input) walkMinimark(child, sink)
+  if (Array.isArray(input)) {
+    for (const child of input) walkMinimark(child, sink)
+  }
 }
 
 /**
- * Walks any @nuxt/content AST shape we currently emit and returns the
- * concatenated plain text, soft-trimmed to `maxLength` characters.
- * Handles both the legacy excerpt AST (with `type` + `children`) and the
- * minimark body format (arrays of `[tag, attrs, ...children]` tuples).
+ * Walks the node-object format (`excerpt`) and hands a minimark root it meets
+ * on to `walkMinimark`. A shape that is neither is skipped: the input is an
+ * untyped frontmatter column, and a stray value must not end up in the text.
  */
-export function extractPlainText(node: any, maxLength = 180): string {
+const walkNodes = (input: unknown, sink: string[]): void => {
+  if (isTextNode(input)) {
+    sink.push(input.value)
+    return
+  }
+  if (isMinimarkRoot(input)) {
+    walkMinimark(input.value, sink)
+    return
+  }
+  if (isElementNode(input)) {
+    for (const child of input.children) walkNodes(child, sink)
+    // Add space between block-ish nodes
+    if (input.type === 'paragraph') sink.push(' ')
+    return
+  }
+  if (Array.isArray(input)) {
+    for (const child of input) walkNodes(child, sink)
+  }
+}
+
+/**
+ * Walks any @nuxt/content AST shape we currently emit (see `ContentAstNode`)
+ * and returns the concatenated plain text, soft-trimmed to `maxLength`
+ * characters. Takes `unknown` because every caller reads the tree from an
+ * untyped column; the guards above narrow it to the named shapes.
+ */
+export function extractPlainText(node: unknown, maxLength = 180): string {
   if (!node) return ''
 
   const parts: string[] = []
-
-  const walk = (n: any) => {
-    if (!n) return
-    // Text node
-    if (typeof n.value === 'string') {
-      parts.push(n.value)
-      return
-    }
-    // minimark wrapper: { type: 'minimark', value: [[tag, attrs, ...children], ...] }
-    if (n.type === 'minimark' && n.value) {
-      walkMinimark(n.value, parts)
-      return
-    }
-    // Element with children (paragraphs, links, strong, etc.)
-    if (Array.isArray(n.children)) {
-      for (const child of n.children) walk(child)
-      // Add space between block-ish nodes
-      if (n.type === 'paragraph') parts.push(' ')
-      return
-    }
-    // Arrays of nodes
-    if (Array.isArray(n)) {
-      for (const child of n) walk(child)
-      return
-    }
-  }
-
-  walk(node)
+  walkNodes(node, parts)
 
   const text = parts.join(' ').replace(/\s+/g, ' ').trim()
   if (!text) return ''
@@ -71,4 +102,3 @@ export function extractPlainText(node: any, maxLength = 180): string {
   const lastSpace = clipped.lastIndexOf(' ')
   return (lastSpace > 0 ? clipped.slice(0, lastSpace) : clipped).trim() + '…'
 }
-

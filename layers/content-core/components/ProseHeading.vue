@@ -44,7 +44,7 @@ const { t, te } = useI18n()
 const permalinkLabel = computed(() => {
   const key = 'content.permalinkToHeading'
   return te(key) && props.id
-    ? (t as any)(key, { id: props.id }) as string
+    ? t(key, { id: props.id })
     : `Permalink to heading ${props.id}`
 })
 </script>

@@ -220,7 +220,7 @@ export type BlogArticle = (
   canonical?: string
   alternates?: BlogAlternateHeader[]
   seo?: BlogSeoOverrides
-  head?: Record<string, any>
+  head?: Record<string, unknown>
   tags?: string[]
 }
 

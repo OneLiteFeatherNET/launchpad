@@ -42,7 +42,7 @@ const isSvg = computed(() => {
   if (!src) {
     return false
   }
-  const [pathOnly] = src.split(/[?#]/)
+  const [pathOnly = ''] = src.split(/[?#]/)
   return pathOnly.toLowerCase().endsWith('.svg')
 })
 

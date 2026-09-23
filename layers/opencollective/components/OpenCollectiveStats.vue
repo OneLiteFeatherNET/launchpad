@@ -6,7 +6,7 @@ type Props = {
   subtitle?: string
   totalRaised: number
   goal?: number
-  contributors?: number
+  contributors?: number | null
   currency?: string
   link?: string
   updatedAt?: string | Date

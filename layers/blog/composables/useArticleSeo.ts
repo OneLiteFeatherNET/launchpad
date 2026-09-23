@@ -171,8 +171,9 @@ export function useArticleSeo(
     { name: blog.value?.title || '' }
   ])
 
-  // nuxt-og-image v6 wants the component name as the first positional argument.
-  defineOgImage('NuxtSeo', {
+  // nuxt-og-image v6 wants the component name as the first positional argument;
+  // `.satori` for the same reason as in usePageSeo.
+  defineOgImage('NuxtSeo.satori', {
     title: blog.value?.title || t('blog.overview.title'),
     description: blog.value?.description || ''
   })

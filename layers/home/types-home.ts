@@ -6,7 +6,7 @@ import type {
   ServerConceptDocument,
   ServerConnectDocument,
   HomeCarouselDocument
-} from '#layers/content-core'
+} from '#layers/content-core/types'
 import type { AnySlide } from './types-carousel'
 
 export type { ServerConceptDocument, ServerConnectDocument, HomeCarouselDocument }

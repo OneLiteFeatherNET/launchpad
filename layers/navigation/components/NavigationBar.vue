@@ -32,14 +32,14 @@ const localePath = useLocalePath();
 const discordUrl = runtimeConfig.public.discordUrl as string;
 
 type BuiltLink = NavLinkConfig & { path: string }
-type BuiltGroup = NavGroupConfig & { children: BuiltLink[] }
+type BuiltGroup = Omit<NavGroupConfig, 'children'> & { children: BuiltLink[] }
 type NavEntry = BuiltLink | BuiltGroup
 
 // Navigationspfade basieren auf der aktuellen (reaktiven) Sprache
 const resolvePath = (link: NavLinkConfig): string => {
   if (link.path) return link.path
   if (link.routeName) {
-    const base = localePath(link.routeName as any)
+    const base = localePath(link.routeName)
     return link.hash ? `${base}${link.hash}` : base
   }
   return '#'
@@ -70,7 +70,7 @@ const bottomNavLinks = computed<BuiltLink[]>(() => {
   const links: BuiltLink[] = []
   allNavItems.value.forEach((entry) => {
     if (entry.type === 'group') {
-      links.push(...entry.children.map(c => ({ ...c, path: c.path })))
+      links.push(...entry.children)
     } else {
       links.push(entry)
     }
