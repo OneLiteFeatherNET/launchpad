@@ -90,59 +90,51 @@ describe('contrast helper', () => {
  * checked in, in both schemes, because the generator's promise is only as
  * good as the file it wrote.
  */
-const ROLE_PAIRS: [string, string][] = [
+/** A foreground role, the background it sits on, and the ratio it needs. */
+interface Pair { fg: string, bg: string, min: number }
+
+const ACCENT_ROLES = [
   'primary',
-'secondary',
-'tertiary',
-'error',
-'brand-orange',
-'brand-purple',
-].flatMap((role): [string, string][] => [
-  [`on-${role}`, role], [`on-${role}-container`, `${role}-container`],
-])
+  'secondary',
+  'tertiary',
+  'error',
+  'brand-orange',
+  'brand-purple',
+]
 
 const SURFACES = [
   'surface',
-'surface-dim',
-'surface-bright',
+  'surface-dim',
+  'surface-bright',
   'surface-container-lowest',
-'surface-container-low',
-'surface-container',
+  'surface-container-low',
+  'surface-container',
   'surface-container-high',
-'surface-container-highest',
+  'surface-container-highest',
 ]
 
-/** [foreground, background, minimum ratio] for every pair the spec names. */
-const REQUIRED_CONTRAST: [string, string, number][] = [
-  ...ROLE_PAIRS.map(([fg, bg]): [string, string, number] => [fg,
-bg,
-4.5]),
-  ['inverse-on-surface',
-'inverse-surface',
-4.5],
-  ...SURFACES.flatMap((surface): [string, string, number][] => [
-    ['on-surface',
-surface,
-4.5],
-    ['on-surface-variant',
-surface,
-4.5],
-    ['outline',
-surface,
-3],
+/** Every pair the spec names. */
+const REQUIRED_CONTRAST: Pair[] = [
+  ...ACCENT_ROLES.flatMap((role) => {
+    const container = `${role}-container`
+    return [{ fg: `on-${role}`, bg: role, min: 4.5 }, { fg: `on-${container}`, bg: container, min: 4.5 }]
+  }),
+  { fg: 'inverse-on-surface', bg: 'inverse-surface', min: 4.5 },
+  // M3LinearProgress: the primary indicator against its track (1.4.11).
+  { fg: 'primary', bg: 'surface-container-highest', min: 3 },
+  ...SURFACES.flatMap((surface) => [
+    { fg: 'on-surface', bg: surface, min: 4.5 },
+    { fg: 'on-surface-variant', bg: surface, min: 4.5 },
+    { fg: 'outline', bg: surface, min: 3 },
     // The focus ring is drawn in `secondary`; 1.4.11 asks 3:1 of it.
-    ['secondary',
-surface,
-3],
+    { fg: 'secondary', bg: surface, min: 3 },
   ]),
 ]
 
 /** Every pair below its minimum, as `fg on bg (scheme): ratio < min`. */
 function contrastFailures(colors: Map<string, SchemeColor>): string[] {
   const failures: string[] = []
-  for (const [fg,
-bg,
-minimum] of REQUIRED_CONTRAST) {
+  for (const { fg, bg, min: minimum } of REQUIRED_CONTRAST) {
     const front = colors.get(fg)
     const back = colors.get(bg)
     if (!front || !back) {
