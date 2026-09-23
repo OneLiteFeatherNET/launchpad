@@ -16,6 +16,17 @@ useHead(() => ({ title: title.value }))
 // server/plugins/error-response-headers.ts; the meta tag says the same to
 // anything that reads only the HTML.
 useSeoMeta({ robots: 'noindex, follow' })
+// An error page is not a version of any URL, so it carries no canonical and
+// no hreflang. @nuxtjs/i18n's strict SEO mode always links the current locale
+// and adds its tags after rendering, so they are dropped where Unhead resolves
+// the final tag list. The hook lives only as long as this error page does.
+function isSeoLink(tag: { tag: string, props: Record<string, unknown> }) {
+  return tag.tag === 'link' && ['canonical', 'alternate'].includes(String(tag.props.rel))
+}
+const dropSeoLinks = injectHead().hooks.hook('tags:resolve', (ctx) => {
+  ctx.tags = ctx.tags.filter(tag => !isSeoLink(tag))
+})
+onBeforeUnmount(dropSeoLinks)
 
 const handleHome = () => clearError({ redirect: localePath('index') })
 </script>

@@ -128,6 +128,14 @@ export default defineNuxtConfig({
         // the production domain in every environment so the SEO tags Google
         // sees are always the real URLs (dev never gets indexed anyway).
         baseUrl: 'https://onelitefeather.net',
+        experimental: {
+            // The module writes <html lang/dir>, canonical, hreflang and
+            // og:locale itself, and omits every locale a page publishes no
+            // route params for. Without it, an article that exists only in
+            // German announced /en/blog/<german-slug> — a 404 — as its English
+            // version and x-default, and the language switcher linked there.
+            strictSeo: true
+        },
     },
     sitemap: {
         xslColumns: [
@@ -145,10 +153,11 @@ export default defineNuxtConfig({
         sources: [
             '/api/__sitemap__/team'
         ],
-        defaults: {
-            changefreq: 'weekly',
-            priority: 0.8
-        }
+        // No changefreq/priority defaults: Google ignores both. lastmod comes
+        // from real content dates only (content.config.ts), never the build.
+        // One hour matches the edge cache of the pages the sitemap lists, and
+        // bounds how late a scheduled article appears in it.
+        cacheMaxAgeSeconds: 3600
     },
     routeRules: {
         // Edge caching. `cloudflare-cdn-cache-control` is read by Cloudflare's
@@ -175,7 +184,9 @@ export default defineNuxtConfig({
         // Request-dependent or internal: `/` redirects by cookie and
         // Accept-Language, the rest are the analytics proxy, Nuxt Content's
         // query endpoints and server APIs.
-        '/': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
+        // Also out of the sitemap: it only redirects, and a sitemap lists
+        // pages that answer 200.
+        '/': { sitemap: false, headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/ingest/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/__nuxt_content/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/api/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },

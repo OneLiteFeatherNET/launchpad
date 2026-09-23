@@ -1,23 +1,11 @@
 <script setup lang="ts">
-import { unref } from 'vue'
-
 const route = useRoute()
 const { t } = useI18n()
 
-// Single source of truth for canonical + hreflang + og:locale across the
-// whole app. Driven by @nuxtjs/i18n (incl. translated blog slugs via
-// useSetI18nParams), so individual composables no longer hand-roll their
-// own canonical/alternate links — that previously produced duplicate /
-// conflicting hreflang tags that Google flagged.
-const head = useLocaleHead({ dir: true, lang: true, seo: true })
-// error.vue renders inside this layout. An error page is not a version of any
-// URL, so it gets no canonical and no hreflang — before this, a missing
-// article announced itself as /en and /de alternates of a URL that 404s.
-const error = useError()
-useHead(() => {
-  const h = unref(head)
-  return { link: error.value ? [] : (h?.link ?? []), meta: h?.meta ?? [] }
-})
+// <html lang/dir>, canonical, hreflang and og:locale come from @nuxtjs/i18n
+// itself (`experimental.strictSeo` in nuxt.config.ts), driven by the
+// translated slugs pages publish through useSetI18nParams. Nothing here or in
+// the SEO composables writes canonical or alternate links.
 // Only set a static <Title> when the route explicitly provides one via meta.
 // `title` is declared in types/page-meta.d.ts, so the compiler holds the pages
 // that set it to the same string contract this line relies on.
@@ -29,7 +17,7 @@ useSiteNavigationSchema()
 </script>
 
 <template>
-  <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
+  <Html>
   <Head>
     <Title v-if="routeTitle">{{ routeTitle }}</Title>
   </Head>
