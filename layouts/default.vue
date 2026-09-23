@@ -21,7 +21,7 @@ useSiteNavigationSchema()
   <Head>
     <Title v-if="routeTitle">{{ routeTitle }}</Title>
   </Head>
-    <Body class="dark:bg-gray-900 overflow-x-hidden">
+    <Body class="overflow-x-hidden bg-surface text-on-surface">
       <!-- Local wrapper ensures flex layout even if <Body> classes are not applied by the renderer -->
       <div class="min-h-screen flex flex-col">
         <a href="#main-content" class="skip-link">{{ t('accessibility.skip_to_content') }}</a>

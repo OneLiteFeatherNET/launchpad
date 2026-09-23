@@ -39,39 +39,7 @@ const DESIGN_SYSTEM = 'layers/base/'
  * Files that still break a rule, and which rules. Alphabetical, one file per
  * line, so parallel migrations merge cleanly.
  */
-const PENDING_MIGRATION: Record<string, Rule[]> = {
-  'error.vue': [
-    'palette',
-    'dark-colour',
-    'elevation',
-    'button',
-  ],
-  'layers/content-core/components/ProseA.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-  ],
-  'layers/content-core/components/ProseHeading.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-  ],
-  'layers/content-core/components/ProseLi.vue': ['palette', 'dark-colour'],
-  'layers/content-core/components/ProseList.vue': ['palette', 'dark-colour'],
-  'layers/content-core/components/ProseP.vue': ['palette', 'dark-colour'],
-  'layers/content-core/components/ProsePre.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-  ],
-  'layouts/default.vue': ['palette', 'dark-colour'],
-  'pages/imprint.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-  ],
-  'pages/privacy.vue': ['palette', 'dark-colour'],
-}
+const PENDING_MIGRATION: Record<string, Rule[]> = {}
 
 /**
  * Raw <button>s or button-styled links that are deliberately not primitives,

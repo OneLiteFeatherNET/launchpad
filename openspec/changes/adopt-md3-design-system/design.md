@@ -178,6 +178,16 @@ Klassen für einen Konflikt, der nach der Migration nicht mehr existiert.
   `CopyButton` bleibt als Komposition auf `M3IconButton`/`M3Button`,
   `SectionHeading`/`GradientText` bleiben und nutzen Typo-Tokens.
 
+### D5a – Inhalte aus Markdown (in der Umsetzung ergänzt)
+- **Links im Fließtext** sind immer unterstrichen: `primary` hält gegen
+  `on-surface` keinen garantierten 3:1-Abstand (WCAG 1.4.1).
+- **Code-Blöcke** liegen auf `surface-container-highest` und folgen dem
+  Farbschema: `@nuxtjs/mdc` schaltet Shikis dunkles Theme nur unter einer
+  `html.dark`-Klasse um, die die Seite nie setzt. Eine Regel in
+  `tokens.css` unter `prefers-color-scheme: dark` übernimmt das.
+- Die `prose`-Klassen der Seiten entfallen; das Typography-Plugin ist nicht
+  installiert, die `Prose*`-Komponenten gestalten den Inhalt selbst.
+
 ### D6 – Governance als ein Test mit schrumpfender Ausnahmeliste
 `tests/design-system/md3-governance.spec.ts` prüft die vier Regeln aus
 `specs/design-system-governance` über `collectSourceFiles` (wie die

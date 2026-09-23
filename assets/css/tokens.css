@@ -80,3 +80,20 @@ html { scroll-padding-top: 4rem; }
       color: transparent;
       -webkit-text-fill-color: transparent; /* iOS/Safari */
   }
+
+/*
+ * Code blocks follow the OS colour scheme like every role does.
+ * Shiki emits both themes as custom properties, but @nuxtjs/mdc switches to
+ * the dark one only under an `html.dark` class this site never sets, so code
+ * stayed in the light GitHub theme on a dark page. `html body` outranks the
+ * generated `html .shiki span`, which is inlined later in the document.
+ */
+@media (prefers-color-scheme: dark) {
+  html body .shiki span {
+    color: var(--shiki-dark);
+    background: var(--shiki-dark-bg);
+    font-style: var(--shiki-dark-font-style);
+    font-weight: var(--shiki-dark-font-weight);
+    text-decoration: var(--shiki-dark-text-decoration);
+  }
+}

@@ -21,17 +21,20 @@ useBreadcrumbs(() => [
 </script>
 
 <template>
-  <div class="container mx-auto py-4 dark:text-white">
+  <div class="container mx-auto py-4 text-body-large text-on-surface">
     <!-- Visible here: the page opened straight into an address block with no
          heading at all, which is a gap for sighted readers too. -->
-    <h1 class="text-2xl font-bold mb-4">{{ t('blog.imprint.title') }}</h1>
+    <h1 class="mb-4 text-headline-medium font-bold">{{ t('blog.imprint.title') }}</h1>
     <div class="space-y-2">
       <p class="font-semibold">Phillipp Glanz</p>
       <p>Geisinger Straße 6</p>
       <p>71634 Ludwigsburg</p>
       <p>
         <span class="font-semibold">Mail:</span>
-        <a href="mailto:contact@onelitefeather.net" class="text-blue-600 dark:text-blue-400 hover:underline underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-sm transition-colors"> contact@onelitefeather.net</a>
+        <a
+          href="mailto:contact@onelitefeather.net"
+          class="rounded-extra-small text-primary underline underline-offset-2 focus-ring"
+        > contact@onelitefeather.net</a>
       </p>
     </div>
   </div>

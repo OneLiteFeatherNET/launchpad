@@ -8,10 +8,10 @@ const props = withDefaults(defineProps<{
 })
 
 const tag = computed(() => props.ordered ? 'ol' : 'ul')
-const listClass = computed(() => [
-  'mb-4 ps-4 marker:text-gray-700 dark:marker:text-gray-300 dark:text-white transition-colors',
-  props.ordered ? 'list-decimal' : 'list-disc'
-])
+const listClass = computed(() => {
+  const marker = props.ordered ? 'list-decimal' : 'list-disc'
+  return `mb-4 ps-4 text-body-large text-on-surface marker:text-on-surface-variant ${marker}`
+})
 </script>
 
 <template>
