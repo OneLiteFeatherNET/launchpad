@@ -69,7 +69,7 @@ Migration Plan). Vor jedem PR gilt: `pnpm test`, `pnpm build` und
 
 ## 11. Migration sponsoring, opencollective, content-core, Rest (PR 9, PR 10)
 
-- [ ] 11.1 `Sponsoring` (rohe Buttons → Primitives) und `OpenCollectiveStats` umstellen; verifiziert durch Governance-Test und Screenshots
+- [x] 11.1 `Sponsoring` (rohe Buttons → Primitives) und `OpenCollectiveStats` umstellen; verifiziert durch Governance-Test und Screenshots
 - [ ] 11.2 Alle `Prose*`-Komponenten in `content-core` auf Typo- und Rollen-Tokens umstellen; verifiziert durch Governance-Test und Screenshot eines Blogartikels mit Überschriften, Listen, Code und Bild
 - [ ] 11.3 `pages/index.vue`, `pages/imprint.vue`, `pages/privacy.vue`, `layouts/default.vue` und `error.vue` umstellen; verifiziert durch Governance-Test mit leerer `PENDING_MIGRATION` und Screenshots inkl. 404-Seite
 

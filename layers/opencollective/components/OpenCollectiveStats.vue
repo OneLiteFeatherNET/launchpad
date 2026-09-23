@@ -74,6 +74,19 @@ const updatedLabel = computed(() => {
   if (Number.isNaN(date.getTime())) return ''
   return t('collective.updated', { date: date.toLocaleDateString(locale.value) })
 })
+
+const statCardClass = 'rounded-extra-large border border-outline-variant bg-surface-container-low p-5 sm:p-6'
+
+/** The call to give: tertiary container, like the sponsoring contact card. */
+const ctaCardClass
+  = 'state-layer group relative flex flex-col justify-between overflow-hidden rounded-extra-large '
+    + 'bg-tertiary-container p-5 text-on-tertiary-container shadow-elevation-1 transition-shadow '
+    + 'duration-150 ease-standard hover:shadow-elevation-3 focus-ring sm:p-6'
+const ctaBadgeClass
+  = 'inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1 text-label-medium text-on-surface'
+const ctaPillClass
+  = 'inline-flex w-fit items-center gap-2 rounded-full bg-tertiary px-4 py-2 text-label-large '
+    + 'text-on-tertiary motion-safe:animate-[pulse_2.8s_ease-in-out_infinite]'
 </script>
 
 <template>
@@ -95,33 +108,36 @@ const updatedLabel = computed(() => {
       </div>
 
       <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-3">
-        <div class="rounded-2xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/90 p-5 sm:p-6 shadow-sm">
-          <p class="text-sm text-neutral-600 dark:text-neutral-400">{{ t('collective.raised') }}</p>
-          <p class="mt-1 text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-100">{{ formattedRaised }}</p>
-          <p v-if="formattedGoal" class="text-sm text-neutral-600 dark:text-neutral-400">
+        <div :class="statCardClass">
+          <p class="text-label-large text-on-surface-variant">{{ t('collective.raised') }}</p>
+          <p class="mt-1 text-headline-medium font-bold text-on-surface">{{ formattedRaised }}</p>
+          <p v-if="formattedGoal" class="text-body-medium text-on-surface-variant">
             {{ t('collective.of_goal', { goal: formattedGoal }) }}
           </p>
-          <div v-if="goalValue" class="mt-4" role="img" :aria-label="progressLabel">
-            <div class="h-3 w-full rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
-              <div
-                class="h-full rounded-full bg-[var(--color-brand-accent,#38bdf8)] transition-all"
-                :style="{ width: `${progress}%` }"
-              />
-            </div>
-            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+          <!-- A progressbar now, not an image: its value is exposed, not only a label. -->
+          <div v-if="goalValue" class="mt-4">
+            <M3LinearProgress
+              size="md"
+              :value="progress"
+              :label="t('collective.raised')"
+              :value-text="progressLabel"
+            />
+            <p class="mt-2 text-body-medium text-on-surface-variant">
               {{ progressLabel }}
             </p>
           </div>
         </div>
 
-        <div class="rounded-2xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/90 p-5 sm:p-6 shadow-sm flex flex-col justify-between">
+        <div :class="statCardClass" class="flex flex-col justify-between">
           <div>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400">{{ t('collective.contributors') }}</p>
-            <p class="mt-1 text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+            <p class="text-label-large text-on-surface-variant">
+              {{ t('collective.contributors') }}
+            </p>
+            <p class="mt-1 text-headline-medium font-bold text-on-surface">
               {{ props.contributors ?? '—' }}
             </p>
           </div>
-          <p v-if="updatedLabel" class="text-xs text-neutral-500 dark:text-neutral-500 mt-4">
+          <p v-if="updatedLabel" class="mt-4 text-body-small text-on-surface-variant">
             {{ updatedLabel }}
           </p>
         </div>
@@ -130,25 +146,27 @@ const updatedLabel = computed(() => {
           :href="props.link"
           target="_blank"
           rel="noopener noreferrer"
-          class="group relative overflow-hidden rounded-2xl border border-[var(--color-brand-accent,#38bdf8)]/40 bg-white/95 dark:bg-zinc-900/90 text-brand-900 dark:text-brand-100 p-5 sm:p-6 shadow-md transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary flex flex-col justify-between"
+          :class="ctaCardClass"
           :aria-label="t('collective.cta')"
           data-ph-capture-attribute="cta"
           data-ph-capture-attribute-name="open-collective"
         >
           <div>
-            <p class="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-brand-800 shadow-sm dark:bg-white/10">
+            <p :class="ctaBadgeClass">
               {{ t('collective.raised') }}
-              <span class="h-2 w-2 rounded-full bg-brand-500 animate-pulse" aria-hidden="true" />
+              <span
+                class="size-2 rounded-full bg-tertiary motion-safe:animate-pulse"
+                aria-hidden="true"
+              />
             </p>
-            <p class="mt-3 text-lg font-bold">
+            <p class="mt-3 text-title-large font-bold">
               {{ t('collective.cta') }}
             </p>
-            <p class="mt-2 text-sm text-brand-800/80 dark:text-brand-100/80">
+            <p class="mt-2 text-body-medium">
               {{ t('collective.subtitle') }}
             </p>
           </div>
-          <span class="relative inline-flex items-center gap-2 text-sm font-semibold text-brand-900 dark:text-brand-50 px-3 py-2 rounded-full bg-white/85 dark:bg-white/10 shadow-sm overflow-hidden animate-[pulse_2.8s_ease-in-out_infinite]">
-            <span class="pointer-events-none absolute inset-[-2px] rounded-full border border-brand-400/40 dark:border-brand-300/30" aria-hidden="true" />
+          <span :class="ctaPillClass">
             {{ t('collective.cta') }}
             <span aria-hidden="true">→</span>
           </span>

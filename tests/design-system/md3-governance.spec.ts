@@ -64,19 +64,6 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
     'dark-colour',
     'shape',
   ],
-  'layers/opencollective/components/OpenCollectiveStats.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-  ],
-  'layers/sponsoring/components/Sponsoring.vue': [
-    'palette',
-    'dark-colour',
-    'shape',
-    'elevation',
-    'button',
-  ],
   'layouts/default.vue': ['palette', 'dark-colour'],
   'pages/imprint.vue': [
     'palette',
@@ -93,6 +80,8 @@ const PENDING_MIGRATION: Record<string, Rule[]> = {
 const BUTTON_EXCEPTIONS: Record<string, string> = {
   'layers/home/components/Carousel.vue':
     'pause toggle and slide dots on the indicator bar over the image; MD3 has no carousel indicator',
+  'layers/sponsoring/components/Sponsoring.vue':
+    'slide dots of the sponsor carousel; like the home carousel\'s, no MD3 counterpart',
   'layers/navigation/components/LanguageSelector.vue':
     'menu trigger among the navigation links; shares their look (NAV_ITEM_DESKTOP), not a button\'s',
 }
