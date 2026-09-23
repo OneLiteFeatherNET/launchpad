@@ -66,6 +66,30 @@ without checking a real build first.
 - Use 2-space indentation and keep templates focused; reuse shared components where possible.
 - Let ESLint (via `eslint.config.mjs` and Nuxt defaults) guide formatting and imports.
 
+## UI primitives (Material Design 3)
+
+The site's design system is Material Design 3, built as Tailwind tokens and
+own components — no component library. Details: skill `tailwind-design`.
+
+- **Build controls from `layers/base`**: `M3Button`, `M3IconButton`,
+  `M3Chip`, `M3Card` + `M3CardLink`, `M3Divider`, `M3LinearProgress`. A
+  clickable card has exactly one link, stretched over it (`M3CardLink`).
+- **Colour, shape, type and state come from props and tokens**: MD3 roles
+  (`bg-surface-container-high`, `text-on-surface-variant`), `rounded-medium`,
+  `shadow-elevation-1`, `text-title-large`. Callers add layout classes only.
+- **No raw colours, no `dark:` colour variants**: every role is a
+  `light-dark()` pair and switches schemes by itself.
+  `tests/design-system/md3-governance.spec.ts` rejects palette colours,
+  white/black, bracketed colours, off-scale radii and shadows, and
+  hand-styled buttons outside `layers/base`. A deliberate raw button goes into
+  its `BUTTON_EXCEPTIONS` with a reason.
+- **Colour roles are generated**: change the core colours in
+  `scripts/md3-tokens.mjs` and run it; never hand-edit the block between the
+  `md3:generated` markers in `assets/css/tailwind.css`.
+- **Share class lists per domain** in that layer's `utils/`
+  (e.g. `layers/community-poi/utils/poiCalloutClasses.ts`); domain-free
+  building blocks belong in `layers/base`.
+
 ## Testing Guidelines
 - No formal automated test suite is configured yet.
 - When adding tests, prefer Vitest for unit/component tests with filenames like `*.spec.ts`.
@@ -123,9 +147,10 @@ wrong here — not general Nuxt or Tailwind documentation.
   definitions, the `ContentRepository` boundary, derived `path` values,
   Prose overrides. Read it before editing `content.config.ts`, a content
   file, or a content query.
-- **`tailwind-design`** — the `@theme` token contract, which utility names
-  compile, the two dark-mode mechanisms, where custom CSS belongs. Read it
-  before adding utility classes or design tokens.
+- **`tailwind-design`** — the Material Design 3 token contract (generated
+  colour roles, type/shape/elevation scales, `state-layer`/`focus-ring`),
+  the M3* primitives, the governance tests, dark mode, where custom CSS
+  belongs. Read it before adding utility classes, tokens or UI controls.
 
 Preserved from the previous skill set: source maps are never published to
 production, and the Lighthouse `valid-source-maps` audit is an accepted

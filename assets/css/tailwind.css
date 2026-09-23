@@ -2,6 +2,12 @@
 
 :root {
     color-scheme: light dark;
+
+    /* Raw brand colours for decoration only (the connect box's glow). Kept
+       out of @theme on purpose: there they would mint utilities such as
+       `bg-brand-magenta`, and colour in components comes from the MD3 roles. */
+    --brand-magenta: #EC008B;
+    --brand-cyan: #27A9E1;
 }
 
 @theme {
@@ -149,48 +155,6 @@
     --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
     --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
     --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
-
-    --color-secondary-pink: #EC008B;
-    --color-secondary-orange: #F7931D;
-    --color-secondary-purple: #91268F;
-    --color-secondary-blue: #2A388F;
-    --color-secondary-cyan: #27A9E1;
-    /* Brand core */
-    --color-brand-primary:  #2A388F; /* tiefes Blau */
-    --color-brand-secondary:#27A9E1; /* helleres Blau */
-    --color-brand-accent:   #EC008B; /* magenta */
-    --color-white:          #FFFFFF;
-
-    /* Numeric brand ramp.
-       Components already addressed brand colours this way (text-brand-900,
-       bg-brand-100, from-brand-500) across 38 call sites, but no such scale
-       existed, so every one of them compiled to nothing.
-
-       Derived from --color-brand-primary rather than picked by eye: that
-       colour is hsl(232, 55%, 36%), and each step keeps hue and saturation
-       while moving lightness. Step 500 is the base value itself, so
-       `bg-brand-500` and `bg-brand-primary` render identically — a test
-       enforces that.
-
-       The lightness curve is conventional (96 / 91 / 82 / 70 / 54 / 36 / 30 /
-       24 / 19 / 14); if the brand guide specifies exact tints, replace these
-       values — the call sites and the test stay valid either way. */
-    --color-brand-50:       #EFF1FA;
-    --color-brand-100:      #DCDFF5;
-    --color-brand-200:      #B8BFEA;
-    --color-brand-300:      #8994DC;
-    --color-brand-400:      #4A5BCA;
-    --color-brand-500:      #2A388F;
-    --color-brand-600:      #232E76;
-    --color-brand-700:      #1C255F;
-    --color-brand-800:      #161D4B;
-    --color-brand-900:      #101637;
-
-    /* Derived neutrals (UI) */
-    --color-bg:             light-dark(#ffffff, #0b1020);
-    --color-text:           light-dark(#111827, #e5e7eb);
-    --color-muted:          light-dark(#6b7280, #9aa3b2);
-    --color-border:         light-dark(#e5e7eb, #1f2743);
 
     /* Gradients.
        Note there is deliberately no --gradient-from/via/to here: `gradient-*`

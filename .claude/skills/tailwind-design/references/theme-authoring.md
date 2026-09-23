@@ -23,10 +23,11 @@ the `@theme` contract at all).
 
 ## Plain `@theme` — the default
 
-Use this for anything with a literal value: `--color-brand-purple: #91268F;`,
-a new spacing step, a new font size. This is what every token in
-`tailwind.css` uses today except the `light-dark()` neutrals, and it's the
-right default for a new color or spacing token too.
+Use this for anything with a literal value: a new spacing step, a new font
+size, a shape or elevation step. Colours are the exception — the MD3 roles are
+generated as `light-dark()` pairs by `scripts/md3-tokens.mjs` between the
+`md3:generated` markers; add a colour by changing that script's inputs, never
+by writing a `--color-*` line by hand.
 
 ## `@theme inline` — when the value is itself a `var()`
 
@@ -46,8 +47,8 @@ happens in the browser, per element, against whatever `--src` is in scope there.
 That is exactly what you want when `--src` is redefined per subtree (a `.dark`
 block, a component wrapper): the plain form would resolve `--color-something`
 once from wherever *it* was declared, flattening the override. Nothing in this
-repo needs it today — the `light-dark()` neutrals (`--color-bg`,
-`--color-surface`, …) are plain `@theme` because `light-dark()` is a CSS
+repo needs it today — the `light-dark()` roles (`--color-surface`,
+`--color-on-surface`, …) are plain `@theme` because `light-dark()` is a CSS
 function value, not a variable reference.
 
 ## `@theme static` — force-keep an unreferenced token
@@ -86,13 +87,10 @@ custom property is only ever consumed by hand through `var()` in bespoke CSS
 and never through a Tailwind class, it doesn't belong in `@theme` — a plain
 `:root { --my-value: ...; }` works identically without asking the scanner to
 track it. There is no `--gradient-*` utility namespace in Tailwind v4 (unlike `--color-*`),
-so none of this repo's seven `--gradient-*` entries mint a class. They split two
-ways, and the split matters:
-
-- `--gradient-brand`, `--gradient-accent`, `--gradient-brand-light`,
-  `--gradient-accent-light` are read by the hand-written `.text-gradient-brand`
-  etc. rules in `tokens.css`. They work, but only because those rules exist by
-  hand — don't copy this as the pattern for a new token.
-- `--gradient-from`, `--gradient-via`, `--gradient-to` are read by
-  **nothing at all**. No utility, no `tokens.css` rule, no component. They are
-  dead weight in `@theme`; deleting them changes no rendered output.
+so none of this repo's four `--gradient-*` entries mint a class.
+`--gradient-brand`, `--gradient-accent`, `--gradient-brand-light` and
+`--gradient-accent-light` are read by the hand-written `.text-gradient-*`
+rules in `tokens.css`. They work, but only because those rules exist by hand —
+don't copy this as the pattern for a new token. The raw brand colours used
+only for decoration (`--brand-magenta`, `--brand-cyan`) follow the rule above
+and sit in `:root`, not `@theme`.

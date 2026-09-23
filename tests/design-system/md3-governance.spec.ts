@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { generateTokens } from '../../scripts/md3-tokens.mjs'
-import { findViolations, type Rule, type RuleContext } from '../helpers/md3-rules'
+import { findViolations, type RuleContext } from '../helpers/md3-rules'
 import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources'
 import { themeCss } from '../helpers/theme'
 
@@ -20,10 +20,9 @@ import { themeCss } from '../helpers/theme'
  *   elevation    shadows come from the MD3 elevation scale
  *   button       <button> and button-styled links go through a primitive
  *
- * The tree broke all of them when the rules arrived, so PENDING_MIGRATION
- * records who still does. It can only shrink: a new file cannot join it, and
- * an entry that no longer applies fails until it is removed. When it is
- * empty the migration is done and the list goes.
+ * The tree broke all of them when the rules arrived; a shrink-only list of
+ * files still to migrate tracked the way to zero and was removed once empty.
+ * From here on a violation anywhere fails outright.
  */
 
 const SOURCE_DIRS = [
@@ -34,12 +33,6 @@ const SOURCE_DIRS = [
 
 /** The design system itself: primitives may use whatever they need. */
 const DESIGN_SYSTEM = 'layers/base/'
-
-/**
- * Files that still break a rule, and which rules. Alphabetical, one file per
- * line, so parallel migrations merge cleanly.
- */
-const PENDING_MIGRATION: Record<string, Rule[]> = {}
 
 /**
  * Raw <button>s or button-styled links that are deliberately not primitives,
@@ -85,34 +78,14 @@ describe('MD3 governance', () => {
     expect(byFile.size).toBeGreaterThan(40)
   })
 
-  it('is broken by no file beyond the pending migration', () => {
-    const unexpected: string[] = []
+  it('is broken by no file', () => {
+    const found: string[] = []
     for (const [path, violations] of byFile) {
-      const pending = PENDING_MIGRATION[path] ?? []
       for (const violation of violations) {
-        if (pending.includes(violation.rule)) continue
-        unexpected.push(`${path}:${violation.line} [${violation.rule}] ${violation.found} — ${violation.hint}`,)
+        found.push(`${path}:${violation.line} [${violation.rule}] ${violation.found} — ${violation.hint}`)
       }
     }
-    expect(unexpected).toEqual([])
-  })
-
-  it('lists only files and rules that still apply', () => {
-    // A migrated file left on the list would let it regress unnoticed.
-    const stale: string[] = []
-    for (const [path, rules] of Object.entries(PENDING_MIGRATION)) {
-      const violations = byFile.get(path)
-      if (!violations) {
-        stale.push(`${path}: file no longer exists — remove the entry`)
-        continue
-      }
-      for (const rule of rules) {
-        if (!violations.some((violation) => violation.rule === rule)) {
-          stale.push(`${path}: [${rule}] no longer broken — remove it from PENDING_MIGRATION`)
-        }
-      }
-    }
-    expect(stale).toEqual([])
+    expect(found).toEqual([])
   })
 
   it.each(Object.entries(BUTTON_EXCEPTIONS))('allows a raw button in %s: %s', (path) => {

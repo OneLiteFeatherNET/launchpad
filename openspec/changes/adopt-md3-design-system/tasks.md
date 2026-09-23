@@ -75,7 +75,8 @@ Migration Plan). Vor jedem PR gilt: `pnpm test`, `pnpm build` und
 
 ## 12. Abschluss (PR 11)
 
-- [ ] 12.1 Alt-Tokens (`bg`, `text`, `muted`, `border`, `brand-50…900`, `secondary-*`, sowie nicht mehr genutzte `brand-*`-Einzelfarben) aus `@theme` entfernen, Verlaufs-Tokens behalten; `tokens.css` (Skip-Link) auf Rollen-Tokens umstellen; verifiziert durch `dead-color-tokens.spec.ts` grün und einen Test, dass `text-muted` nicht mehr auflöst
-- [ ] 12.2 `brand-scale.spec.ts` und `PENDING_MIGRATION` samt zugehöriger Prüfungen entfernen; verifiziert durch `pnpm test` grün
-- [ ] 12.3 `.claude/skills/tailwind-design/SKILL.md` auf den neuen Token-Vertrag (Rollen, Skalen, Utilities, Primitives, Governance) umschreiben und `AGENTS.md` um einen Abschnitt „UI-Primitives“ ergänzen; verifiziert durch Review, dass keine Aussage des Skills mehr dem Code widerspricht
-- [ ] 12.4 Gesamtprüfung: `pnpm build`, `pnpm test`, `pnpm quality` (kein gestiegener Wert, ggf. `pnpm quality:update` bei gesunkenem) und Lighthouse-Accessibility ≥ 0,9 auf Start-, Blog-, Team- und POI-Seite; Ergebnis im PR dokumentieren
+- [x] 12.1 Alt-Tokens (`bg`, `text`, `muted`, `border`, `brand-50…900`, `secondary-*`, sowie nicht mehr genutzte `brand-*`-Einzelfarben) aus `@theme` entfernen, Verlaufs-Tokens behalten; `tokens.css` (Skip-Link) auf Rollen-Tokens umstellen; verifiziert durch `dead-color-tokens.spec.ts` grün und einen Test, dass `text-muted` nicht mehr auflöst
+- [x] 12.2 `brand-scale.spec.ts` und `PENDING_MIGRATION` samt zugehöriger Prüfungen entfernen; verifiziert durch `pnpm test` grün
+- [x] 12.3 `.claude/skills/tailwind-design/SKILL.md` auf den neuen Token-Vertrag (Rollen, Skalen, Utilities, Primitives, Governance) umschreiben und `AGENTS.md` um einen Abschnitt „UI-Primitives“ ergänzen; verifiziert durch Review, dass keine Aussage des Skills mehr dem Code widerspricht
+- [x] 12.4 Gesamtprüfung: `pnpm build`, `pnpm test`, `pnpm quality` (kein gestiegener Wert, ggf. `pnpm quality:update` bei gesunkenem) und Lighthouse-Accessibility ≥ 0,9 auf Start-, Blog-, Team- und POI-Seite; Ergebnis im PR dokumentieren
+  - Ergebnis (2026-09-23, Branch `feat/md3-cleanup`): `pnpm build` grün, `pnpm test` 389/389, `pnpm quality` ohne Regression (ESLint 201/17, TS 16; Start 319/36/21). Lighthouse-Accessibility (lokal, Desktop, Dev-Server): `/de` 1,0 · `/de/blog` 1,0 · `/de/team` 1,0 · `/de/community-poi` 0,98 · `/de/community-poi/labyrinth` 0,99; offen nur die schon vorher bestehenden Hinweise `label-content-name-mismatch` und `heading-order`, keine Kontrastbefunde.

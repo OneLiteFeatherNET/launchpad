@@ -1,7 +1,6 @@
 import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources'
+import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
 import { schemeColors, themeCss, type SchemeColor } from '../helpers/theme'
 
 /**
@@ -58,17 +57,6 @@ function blend(fg: string, bg: string, alpha: number): string {
     return Math.round(channel * alpha + behind * (1 - alpha))
   })
   return `#${mixed.map((c) => c.toString(16).padStart(2, '0')).join('')}`
-}
-
-/** Both sides of a `light-dark(a, b)` token declaration. */
-function lightDarkToken(name: string): { light: string, dark: string } {
-  const css = readFileSync(join(repoRoot, 'assets/css/tailwind.css'), 'utf8')
-  const pattern = new RegExp(`--color-${name}:\\s*light-dark\\((#[0-9a-fA-F]{6}),\\s*(#[0-9a-fA-F]{6})\\)`)
-  const match = pattern.exec(css)
-  if (match?.[1] === undefined || match[2] === undefined) {
-    throw new Error(`--color-${name} is not a light-dark() pair`)
-  }
-  return { light: match[1], dark: match[2] }
 }
 
 describe('contrast helper', () => {
@@ -167,22 +155,6 @@ describe('MD3 colour roles', () => {
   })
 })
 
-describe('muted foreground on the page background', () => {
-  const muted = lightDarkToken('muted')
-  const bg = lightDarkToken('bg')
-
-  it('clears 3:1 in both themes at full opacity', () => {
-    expect(contrastRatio(muted.light, bg.light)).toBeGreaterThanOrEqual(3)
-    expect(contrastRatio(muted.dark, bg.dark)).toBeGreaterThanOrEqual(3)
-  })
-
-  it('drops below 3:1 in light mode at 70% opacity', () => {
-    // Not a requirement — a recorded fact, so that anyone reaching for
-    // `opacity-70` on a muted control sees why it is not available.
-    expect(contrastRatio(blend(muted.light, bg.light, 0.7), bg.light)).toBeLessThan(3)
-  })
-})
-
 describe('interactive elements', () => {
   const files = collectSourceFiles(SOURCE_DIRS, ['.vue'])
 
@@ -191,7 +163,9 @@ describe('interactive elements', () => {
   })
 
   it('never dim an active muted control below the contrast floor', () => {
-    // `opacity-70` plus the muted token renders at 2.76:1 in light mode.
+    // `opacity-70` on the old muted token rendered at 2.76:1 in light mode.
+    // The roles clear their contrast at full opacity only, so dimming
+    // secondary text with opacity stays off the table.
     //
     // 1.4.11 exempts inactive components explicitly, and the footer has two
     // genuine ones — `aria-disabled="true"` with `@click.prevent` on a
@@ -202,7 +176,7 @@ describe('interactive elements', () => {
       const text = readFileSync(file, 'utf8')
       for (const line of text.split('\n')) {
         if (/aria-disabled="true"/.test(line)) continue
-        if (/--color-muted/.test(line) && /\bopacity-(?:[1-8]?\d)\b/.test(line)) {
+        if (/on-surface-variant/.test(line) && /\bopacity-(?:[1-8]?\d)\b/.test(line)) {
           offenders.push(relativeToRepo(file))
           break
         }
