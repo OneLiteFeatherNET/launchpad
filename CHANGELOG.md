@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.7.0...onelitefeather.net-v1.7.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **community-poi:** load the maze images from the image origin ([#380](https://github.com/OneLiteFeatherNET/launchpad/issues/380)) ([e21f51c](https://github.com/OneLiteFeatherNET/launchpad/commit/e21f51ca11776bfaf7acddba6f3263b326461e0f))
+* **home:** keep carousel captions clear of the dots ([#378](https://github.com/OneLiteFeatherNET/launchpad/issues/378)) ([54fe0ac](https://github.com/OneLiteFeatherNET/launchpad/commit/54fe0ac748bf9ec846f46847346d4dd226ed1e6f))
+
 ## [1.7.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.6.0...onelitefeather.net-v1.7.0) (2026-09-23)
 
 
