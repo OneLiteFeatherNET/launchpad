@@ -31,25 +31,33 @@ const global = { stubs: { NuxtLink, IconFa: true } }
 
 describe('useInteractiveTag', () => {
   it('renders a button with type="button" by default', () => {
-    const { tag, attrs } = useInteractiveTag({})
+    const { tag, attrs } = useInteractiveTag({}, NuxtLink)
     expect(tag.value).toBe('button')
     expect(attrs.value).toMatchObject({ type: 'button' })
   })
 
   it('renders a NuxtLink for an internal route', () => {
-    const { tag, attrs } = useInteractiveTag({ to: '/de/team' })
+    const { tag, attrs } = useInteractiveTag({ to: '/de/team' }, NuxtLink)
     expect(tag.value).toBe('NuxtLink')
     expect(attrs.value).toMatchObject({ to: '/de/team' })
   })
 
+  it('hands <component :is> the resolved link component, never the string', () => {
+    // Nuxt does not register NuxtLink globally: the string 'NuxtLink' in
+    // `:is` renders a literal <nuxtlink> element that is no link at all.
+    const { component } = useInteractiveTag({ to: '/de/team' }, NuxtLink)
+    expect(component.value).toBe(NuxtLink)
+    expect(useInteractiveTag({}, NuxtLink).component.value).toBe('button')
+  })
+
   it('renders an <a> for an external URL, safe in a new tab', () => {
-    const { tag, attrs } = useInteractiveTag({ href: 'https://example.org', target: '_blank' })
+    const { tag, attrs } = useInteractiveTag({ href: 'https://example.org', target: '_blank' }, NuxtLink)
     expect(tag.value).toBe('a')
     expect(attrs.value).toMatchObject({ href: 'https://example.org', rel: 'noopener noreferrer' })
   })
 
   it('makes a disabled link inert', () => {
-    const { attrs } = useInteractiveTag({ href: 'https://example.org', disabled: true })
+    const { attrs } = useInteractiveTag({ href: 'https://example.org', disabled: true }, NuxtLink)
     expect(attrs.value).toEqual({ 'role': 'link', 'aria-disabled': 'true', 'tabindex': -1 })
   })
 })

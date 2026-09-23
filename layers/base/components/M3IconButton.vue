@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, resolveComponent } from 'vue'
 import { useInteractiveTag } from '../composables/useInteractiveTag'
 import type { IconButtonSize, IconButtonVariant, IconName } from '../types'
 import {
@@ -42,7 +42,7 @@ const props = withDefaults(defineProps<{
   disabled: false,
 })
 
-const { tag, attrs } = useInteractiveTag(() => props)
+const { tag, component, attrs } = useInteractiveTag(() => props, resolveComponent('NuxtLink'))
 
 const isToggle = computed(() => props.selected !== undefined)
 const classes = computed(() => {
@@ -58,7 +58,7 @@ const classes = computed(() => {
 
 <template>
   <component
-    :is="tag"
+    :is="component"
     v-bind="attrs"
     :class="classes"
     :aria-label="label"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import { computed, resolveComponent, useSlots } from 'vue'
 import { useInteractiveTag } from '../composables/useInteractiveTag'
 import type { ChipKind, IconName, M3Color } from '../types'
 import {
@@ -43,10 +43,11 @@ const props = withDefaults(defineProps<{
 })
 
 const slots = useSlots()
-const interactive = useInteractiveTag(() => props)
+const interactive = useInteractiveTag(() => props, resolveComponent('NuxtLink'))
 
 const isLabel = computed(() => props.kind === 'label')
 const tag = computed(() => (isLabel.value ? 'span' : interactive.tag.value))
+const component = computed(() => (isLabel.value ? 'span' : interactive.component.value))
 const attrs = computed(() => (isLabel.value ? {} : interactive.attrs.value))
 
 const showsCheck = computed(() => props.kind === 'filter' && props.selected)
@@ -67,7 +68,7 @@ const classes = computed(() => {
 
 <template>
   <component
-    :is="tag"
+    :is="component"
     v-bind="attrs"
     :class="classes"
     :aria-pressed="kind === 'filter' && tag === 'button' ? String(selected) : undefined"

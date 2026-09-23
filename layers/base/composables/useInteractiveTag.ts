@@ -1,4 +1,4 @@
-import { computed, toValue, type MaybeRefOrGetter } from 'vue'
+import { computed, toValue, type Component, type MaybeRefOrGetter } from 'vue'
 import type { InteractiveTagOptions } from '../types'
 
 /**
@@ -10,8 +10,17 @@ import type { InteractiveTagOptions } from '../types'
  * button inside a form does not submit it, `rel="noopener noreferrer"` on a
  * link that opens a new tab, and a disabled link that really is inert: no
  * href, out of the tab order, `aria-disabled` for assistive technology.
+ *
+ * `linkComponent` is what renders an internal route. The caller passes
+ * `resolveComponent('NuxtLink')` from its own SFC: Nuxt registers NuxtLink
+ * through a compile-time transform of that call, not globally, so the bare
+ * string 'NuxtLink' handed to `<component :is>` renders a literal
+ * <nuxtlink> element that is no link at all.
  */
-export function useInteractiveTag(options: MaybeRefOrGetter<InteractiveTagOptions>) {
+export function useInteractiveTag(
+  options: MaybeRefOrGetter<InteractiveTagOptions>,
+  linkComponent: Component | string,
+) {
   const tag = computed(() => {
     const { to, href } = toValue(options)
     if (to) return 'NuxtLink'
@@ -34,5 +43,8 @@ export function useInteractiveTag(options: MaybeRefOrGetter<InteractiveTagOption
       : { href, target, rel }
   })
 
-  return { tag, attrs }
+  /** What to hand to `<component :is>`: the resolved link component or a tag. */
+  const component = computed(() => (tag.value === 'NuxtLink' ? linkComponent : tag.value))
+
+  return { tag, component, attrs }
 }
