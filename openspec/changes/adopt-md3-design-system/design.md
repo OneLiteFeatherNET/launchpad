@@ -43,7 +43,10 @@ Randbedingungen aus dem Bestand, die den Ansatz formen:
 
 **Non-Goals:**
 - Keine Laufzeit-Themes (Dynamic Color aus Wallpaper/Nutzerwahl), kein
-  Theme-Umschalter, keine Kontraststufen „medium/high“.
+  Theme-Umschalter, keine Kontraststufen „medium/high“. Ausnahme:
+  kalendergesteuerte Saisons (`add-halloween-season`), deren Rollen derselbe
+  Generator aus eigenen Seeds erzeugt – keine Nutzerwahl, kein Client-Code
+  für die Farben.
 - Keine vollständige MD3-Komponentenabdeckung – nur, was die Website heute
   braucht (siehe `specs/ui-primitives`). Menü, Dialog, Textfeld, Navigation
   Rail folgen bei Bedarf in eigenen Changes.
@@ -83,6 +86,10 @@ Abweichung; ein Vitest-Test ruft die Erzeugungsfunktion direkt auf, damit
 - **Warum im `@theme`-Block statt eigener Datei:** Die Tests und der Skill
   verankern `tailwind.css` als einzige Token-Quelle; ein zweiter Ort würde
   jede Prüfung verdoppeln.
+  Ausnahme sind die Saison-Overrides in `assets/css/seasons.css`
+  (`add-halloween-season`, D2): reine Neudeklarationen ohne `@theme`, die
+  keine Utilities erzeugen; in `tailwind.css` würden die Parser sie als
+  Basiswerte lesen.
 
 ### D3 – Namensraum: MD3-Rollennamen direkt, Alt-Tokens befristet daneben
 `--color-primary`, `--color-surface-container-high` usw. ohne Präfix, damit
