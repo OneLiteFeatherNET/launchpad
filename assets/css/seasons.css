@@ -114,10 +114,10 @@ html[data-season="new-year"] {
   --color-on-primary: light-dark(#ffffff, #332566);
   --color-primary-container: light-dark(#2a1b5c, #2a1b5c);
   --color-on-primary-container: light-dark(#9384cb, #9384cb);
-  --color-secondary: light-dark(#735c00, #e9c349);
-  --color-on-secondary: light-dark(#ffffff, #3c2f00);
-  --color-secondary-container: light-dark(#fed65b, #af8d11);
-  --color-on-secondary-container: light-dark(#745c00, #281e00);
+  --color-secondary: light-dark(#6d5d2f, #dac58d);
+  --color-on-secondary: light-dark(#ffffff, #3b2f05);
+  --color-secondary-container: light-dark(#f7e1a6, #56481b);
+  --color-on-secondary-container: light-dark(#736334, #cbb780);
   --color-tertiary: light-dark(#0c131e, #c0c7d6);
   --color-on-tertiary: light-dark(#ffffff, #2a313c);
   --color-tertiary-container: light-dark(#212833, #212833);
@@ -143,22 +143,22 @@ html[data-season="new-year"] {
   --color-inverse-primary: light-dark(#ccbeff, #625497);
   --color-scrim: light-dark(#000000, #000000);
   --color-shadow: light-dark(#000000, #000000);
-  --color-brand-orange: light-dark(#735c00, #e9c348);
+  --color-brand-orange: light-dark(#735c00, #e9c349);
   --color-on-brand-orange: light-dark(#ffffff, #3c2f00);
-  --color-brand-orange-container: light-dark(#ffe088, #574500);
-  --color-on-brand-orange-container: light-dark(#241a00, #ffe088);
+  --color-brand-orange-container: light-dark(#ffe086, #574500);
+  --color-on-brand-orange-container: light-dark(#231a00, #ffe086);
   --color-brand-purple: light-dark(#5f52a7, #c9bfff);
   --color-on-brand-purple: light-dark(#ffffff, #302175);
   --color-brand-purple-container: light-dark(#e5deff, #473a8d);
   --color-on-brand-purple-container: light-dark(#1a0261, #e5deff);
 
   /* decoration:start */
-  --brand-magenta: #d4af37;
+  --brand-magenta: #9c8a57;
   --brand-cyan: #c0c7d6;
   --gradient-brand: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   --gradient-accent: linear-gradient(90deg, var(--color-brand-purple) 0%, var(--color-tertiary) 60%, var(--color-secondary) 100%);
-  --gradient-brand-light: linear-gradient(90deg, #7b6db2 0%, #dab53d 100%);
-  --gradient-accent-light: linear-gradient(90deg, #8579c9 0%, #979eac 60%, #e9c349 100%);
+  --gradient-brand-light: linear-gradient(90deg, #7b6db2 0%, #cbb780 100%);
+  --gradient-accent-light: linear-gradient(90deg, #8579c9 0%, #979eac 60%, #dac58d 100%);
   /* decoration:end */
 }
 
@@ -167,10 +167,10 @@ html[data-season="spring"] {
   --color-on-primary: light-dark(#ffffff, #003a05);
   --color-primary-container: light-dark(#348431, #52a24a);
   --color-on-primary-container: light-dark(#f8fff0, #001a01);
-  --color-secondary: light-dark(#a43463, #ffb0c9);
-  --color-on-secondary: light-dark(#ffffff, #650034);
-  --color-secondary-container: light-dark(#fd7bab, #851a4b);
-  --color-on-secondary-container: light-dark(#760b40, #ff95b9);
+  --color-secondary: light-dark(#854e61, #f9b3c9);
+  --color-on-secondary: light-dark(#ffffff, #4f2133);
+  --color-secondary-container: light-dark(#ffb9ce, #6c394b);
+  --color-on-secondary-container: light-dark(#7b4658, #eaa5bb);
   --color-tertiary: light-dark(#745b00, #ebc246);
   --color-on-tertiary: light-dark(#ffffff, #3d2f00);
   --color-tertiary-container: light-dark(#cda72b, #cda72b);
@@ -206,11 +206,11 @@ html[data-season="spring"] {
   --color-on-brand-purple-container: light-dark(#390035, #ffd7f2);
 
   /* decoration:start */
-  --brand-magenta: #e86a9a;
+  --brand-magenta: #af7286;
   --brand-cyan: #f2c94c;
   --gradient-brand: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   --gradient-accent: linear-gradient(90deg, var(--color-brand-purple) 0%, var(--color-tertiary) 60%, var(--color-secondary) 100%);
-  --gradient-brand-light: linear-gradient(90deg, #378733 0%, #ff9bbd 100%);
-  --gradient-accent-light: linear-gradient(90deg, #b868aa 0%, #be9a1d 60%, #ffb0c9 100%);
+  --gradient-brand-light: linear-gradient(90deg, #378733 0%, #eaa6bb 100%);
+  --gradient-accent-light: linear-gradient(90deg, #b868aa 0%, #be9a1d 60%, #f9b3c9 100%);
   /* decoration:end */
 }

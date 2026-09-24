@@ -71,11 +71,16 @@ export const SEASONS = {
   'new-year': {
     core: {
       primary: '#2A1B5C', // midnight violet: structure and the surfaces' undertone
-      secondary: '#D4AF37', // gold: everything interactive, focus ring included
+      // Calmed after the visual review: D4AF37 made an eye-watering
+      // secondary-container (bright yellow active nav pill) even though its
+      // chroma (47.8) looked ordinary next to the base secondary's (51.2).
+      // Same HCT hue, chroma roughly halved (~24) and a slightly lower
+      // tone — inside the spec's 35-55° hue band.
+      secondary: '#9C8A57', // muted gold: everything interactive, focus ring included
       tertiary: '#C0C7D6', // silver: the rare accent
     },
     custom: {
-      'brand-orange': '#D4AF37',
+      'brand-orange': '#9C8A57',
       'brand-purple': '#3B2F7A',
     },
     // Fidelity's own neutral palette flattens to near-zero chroma, so the
@@ -89,7 +94,11 @@ export const SEASONS = {
   spring: {
     core: {
       primary: '#3F8F3A', // spring green: structure and the surfaces' undertone
-      secondary: '#E86A9A', // blossom pink: everything interactive, focus ring included
+      // Calmed after the visual review: E86A9A made an eye-watering
+      // secondary-container (bright pink active nav pill). Same HCT hue,
+      // chroma roughly halved (~30) and a slightly lower tone — inside the
+      // spec's 320-355° hue band.
+      secondary: '#AF7286', // muted blossom pink: everything interactive, focus ring included
       tertiary: '#F2C94C', // daffodil yellow: the rare accent
     },
     custom: {
