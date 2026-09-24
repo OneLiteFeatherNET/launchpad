@@ -1,0 +1,41 @@
+schema: spec-driven
+
+# Per-artifact rules. Shown to the AI only while it writes that artifact.
+rules:
+  proposal:
+    - >-
+      Name the Conventional Commits type and scope the change will ship under
+      (for example `feat(season)`, `fix(ci)`), because release-please derives
+      the version bump and the changelog from it. A change that mixes types
+      (a feature plus an unrelated fix) is two changes.
+  tasks:
+    - >-
+      Every commit message and every pull request title follows Conventional
+      Commits: `type(scope): imperative summary`, lower case, no trailing
+      period. Types release-please reads here: feat, fix, perf, refactor,
+      revert, docs, ci (shown in the changelog) and build, test, style, chore
+      (hidden). A breaking change gets `!` after the scope and a
+      `BREAKING CHANGE:` footer.
+    - >-
+      The pull request title matters most: pull requests are squash-merged, so
+      the title becomes the commit on main that release-please reads. Include
+      a final task that opens the pull request with a Conventional Commits
+      title matching the proposal's type and scope.
+
+# Advisory guidance for how apply and archive work is conducted.
+operations:
+  apply:
+    guidance:
+      - >-
+        Commit messages and pull request titles follow Conventional Commits
+        (`type(scope): summary`) — release-please builds versions and
+        CHANGELOG.md from them. Pull requests are squash-merged, so the PR
+        title is what lands on main; never open one with a free-form title.
+      - >-
+        Split commits by type: a `feat` commit does not also carry an
+        unrelated `fix` or `refactor`.
+  archive:
+    guidance:
+      - >-
+        Commit the archive as `docs(openspec): archive <change-name>` unless
+        the archive ships together with the implementation's own commit.
