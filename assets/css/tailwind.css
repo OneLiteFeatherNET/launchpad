@@ -173,6 +173,29 @@
         50%      { transform: translate3d(1.5rem, -0.75rem, 0); }
     }
 
+    /* Snowflakes and petals (winter, spring): a slow fall across the corner,
+       transform only. The element fades out over the last stretch of the
+       cycle so it disappears before it would otherwise jump back to the top
+       — a still frame never shows a visible snap. */
+    --animate-season-fall: season-fall 24s linear infinite;
+
+    @keyframes season-fall {
+        0%   { transform: translate3d(0, -10%, 0) rotate(0deg); opacity: 0; }
+        10%  { opacity: 1; }
+        80%  { opacity: 1; }
+        100% { transform: translate3d(1rem, 130%, 0) rotate(70deg); opacity: 0; }
+    }
+
+    /* Light points (new year): a gentle brightening, well under the 3-per-
+       second flash limit of WCAG 2.3.1 — one full cycle takes 4.5s, so the
+       brightest moment recurs at most 0.22 times a second. */
+    --animate-season-twinkle: season-twinkle 4.5s var(--ease-standard) infinite;
+
+    @keyframes season-twinkle {
+        0%, 100% { opacity: 0.35; transform: scale(0.9); }
+        50%      { opacity: 0.8; transform: scale(1); }
+    }
+
     /* Gradients.
        Note there is deliberately no --gradient-from/via/to here: `gradient-*`
        is not a utility namespace in Tailwind v4, so those custom properties
