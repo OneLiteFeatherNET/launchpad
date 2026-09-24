@@ -118,6 +118,13 @@ export function eventFrontmatterProblems(data: Frontmatter): string[] {
     }
   }
 
+  if (data.unlisted !== undefined && typeof data.unlisted !== 'boolean') {
+    problems.push(`unlisted: must be a boolean (got ${JSON.stringify(data.unlisted)})`)
+  }
+  if (data.unlisted === true && data.promote !== undefined && data.promote !== false) {
+    problems.push('unlisted: must not be combined with a promote object (unlisted events are never promoted)')
+  }
+
   const subject = asRecord(data.subject)
   if (data.type === 'beta') {
     if (!subject) problems.push('subject: required when type is beta')
@@ -176,6 +183,30 @@ function eventDocuments(): { file: string, data: Frontmatter }[] {
       file: doc.file,
       data: (parse(doc.text.slice(3, doc.text.indexOf('\n---', 3))) ?? {}) as Frontmatter,
     }))
+}
+
+/**
+ * Translations sharing a `translationKey` must agree on `unlisted` — at
+ * runtime `unlisted` always wins per-document (design.md D2), so a mismatch
+ * would silently list one language and not the other. Each mismatch names
+ * every file that disagrees, so an editor sees both sides at once.
+ */
+export function eventTranslationProblems(docs: { file: string, data: Frontmatter }[]): string[] {
+  const byKey = new Map<string, { file: string, unlisted: boolean }[]>()
+  for (const doc of docs) {
+    const key = doc.data.translationKey
+    if (typeof key !== 'string' || key === '') continue
+    const entries = byKey.get(key) ?? []
+    entries.push({ file: doc.file, unlisted: doc.data.unlisted === true })
+    byKey.set(key, entries)
+  }
+  const problems: string[] = []
+  for (const [key, entries] of byKey) {
+    if (new Set(entries.map((entry) => entry.unlisted)).size <= 1) continue
+    const files = entries.map((entry) => entry.file).join(', ')
+    problems.push(`${files}: unlisted differs between translations sharing translationKey "${key}"`)
+  }
+  return problems
 }
 
 const VALID: Frontmatter = {
@@ -260,9 +291,51 @@ describe('events frontmatter', () => {
     expect(eventFrontmatterProblems(withChange((d) => { d.promote = false }))).toEqual([])
   })
 
+  it('accepts unlisted: true', () => {
+    expect(eventFrontmatterProblems(withChange((d) => { d.unlisted = true }))).toEqual([])
+  })
+
+  it('accepts unlisted: true together with promote: false', () => {
+    expect(eventFrontmatterProblems(withChange((d) => {
+      d.unlisted = true
+      d.promote = false
+    }))).toEqual([])
+  })
+
+  it('rejects unlisted: true together with a promote object', () => {
+    const problems = eventFrontmatterProblems(withChange((d) => {
+      d.unlisted = true
+      d.promote = { from: '2026-09-25T12:00:00+02:00' }
+    }))
+    expect(problems.some((problem) => problem.includes('unlisted') && problem.includes('promote'))).toBe(true)
+  })
+
   it('holds every event file to these rules', () => {
-    const failures = eventDocuments()
+    const docs = eventDocuments()
+    const failures = docs
       .flatMap((doc) => eventFrontmatterProblems(doc.data).map((problem) => `${doc.file}: ${problem}`))
+      .concat(eventTranslationProblems(docs))
     expect(failures.sort()).toEqual([])
+  })
+})
+
+describe('unlisted consistency across translations', () => {
+  it('rejects differing unlisted between files sharing a translationKey, naming both', () => {
+    const de = { file: 'content/events/de/slender.md', data: withChange((d) => { d.translationKey = 'slender'; d.unlisted = true }) }
+    const en = { file: 'content/events/en/slender.md', data: withChange((d) => { d.translationKey = 'slender'; d.unlisted = false }) }
+    const problems = eventTranslationProblems([de, en])
+    expect(problems.some((problem) => problem.includes(de.file) && problem.includes(en.file) && problem.includes('unlisted'))).toBe(true)
+  })
+
+  it('accepts translations that agree on unlisted', () => {
+    const de = { file: 'content/events/de/slender.md', data: withChange((d) => { d.translationKey = 'slender'; d.unlisted = true }) }
+    const en = { file: 'content/events/en/slender.md', data: withChange((d) => { d.translationKey = 'slender'; d.unlisted = true }) }
+    expect(eventTranslationProblems([de, en])).toEqual([])
+  })
+
+  it('ignores files without a shared translationKey', () => {
+    const de = { file: 'content/events/de/a.md', data: withChange((d) => { d.unlisted = true }) }
+    const en = { file: 'content/events/en/b.md', data: withChange((d) => { d.unlisted = false }) }
+    expect(eventTranslationProblems([de, en])).toEqual([])
   })
 })

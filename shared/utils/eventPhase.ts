@@ -11,6 +11,11 @@
  * Deliberately free of Vue and H3, and of `Date.now()`: the caller decides
  * what "now" is, so the app can fix it once on the server and hand the result
  * to the client instead of recomputing it there.
+ *
+ * `unlisted` and the phase are independent axes: the phase describes the
+ * schedule, `unlisted` describes findability. `isEventListedAt` and
+ * `isEventReachableAt` combine them for the two places that need it — see
+ * their own docs below.
  */
 
 export type EventPhase = 'hidden' | 'announced' | 'running' | 'past'
@@ -61,6 +66,33 @@ export function eventPhaseAt(schedule: EventScheduleFields, now: Moment): EventP
 /** Whether the event is visible anywhere at `now`. */
 export function isEventVisibleAt(schedule: EventScheduleFields, now: Moment): boolean {
   return eventPhaseAt(schedule, now) !== 'hidden'
+}
+
+/**
+ * Whether the event belongs in the overview, the carousel or the sitemap at
+ * `now`. `unlisted` regulates findability; the schedule (via `eventPhaseAt`)
+ * regulates the phase — the two are independent axes, so an unlisted event is
+ * never listed even once it would otherwise be visible.
+ */
+export function isEventListedAt(
+  schedule: EventScheduleFields,
+  unlisted: boolean | undefined,
+  now: Moment
+): boolean {
+  return !unlisted && isEventVisibleAt(schedule, now)
+}
+
+/**
+ * Whether the event's detail page must answer with content rather than 404
+ * at `now`. An unlisted event is always reachable, regardless of phase; a
+ * public event is reachable exactly when it is visible.
+ */
+export function isEventReachableAt(
+  schedule: EventScheduleFields,
+  unlisted: boolean | undefined,
+  now: Moment
+): boolean {
+  return Boolean(unlisted) || isEventVisibleAt(schedule, now)
 }
 
 /**

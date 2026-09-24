@@ -424,11 +424,13 @@
       "beta": "Beta"
     },
     "phase": {
+      "hidden": "Preview",
       "announced": "Announced",
       "running": "Running",
       "past": "Ended"
     },
     "phase_hint": {
+      "hidden": "Starts on",
       "announced": "Starts on",
       "running": "Running now",
       "past": "This event has ended."

@@ -45,6 +45,19 @@ runningEarly], 'de', now)
   it('is empty, not missing, when there are no events', () => {
     expect(groupEventsAt([], 'en', now)).toEqual({ now: now.toISOString(), current: [], upcoming: [], past: [] })
   })
+
+  it('drops unlisted events from all three sections', () => {
+    const unlistedRunning = doc('unlisted-running', runningLate.event, { unlisted: true } as Partial<EventDocument>)
+    const unlistedUpcoming = doc('unlisted-upcoming', soon.event, { unlisted: true } as Partial<EventDocument>)
+    const unlistedPast = doc('unlisted-past', pastRecent.event, { unlisted: true } as Partial<EventDocument>)
+    const grouped = groupEventsAt([unlistedRunning,
+unlistedUpcoming,
+unlistedPast,
+runningLate], 'de', now)
+    expect(grouped.current.map((card) => card.slug)).toEqual(['running-late'])
+    expect(grouped.upcoming).toEqual([])
+    expect(grouped.past).toEqual([])
+  })
 })
 
 describe('promotedEventsAt', () => {
@@ -71,5 +84,13 @@ runningLate,
 runningEarly], 'de', now).map((card) => card.slug)
     expect(MAX_PROMOTED_EVENTS).toBe(2)
     expect(slugs).toEqual(['running-early', 'running-late'])
+  })
+
+  it('never promotes an unlisted event, even with a promote window', () => {
+    const unlisted = doc('unlisted', runningLate.event, {
+      unlisted: true,
+      promote: { from: runningLate.event.startsAt },
+    } as Partial<EventDocument>)
+    expect(promotedEventsAt([unlisted], 'de', now)).toEqual([])
   })
 })
