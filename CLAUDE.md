@@ -49,10 +49,11 @@ node scripts/md3-tokens.mjs [--check]      # regenerate / verify the generated M
 ## Planning workflow
 
 Non-trivial changes are planned with OpenSpec under `openspec/changes/<name>/`
-(proposal, specs, design, tasks). `openspec/config.yaml` enforces Conventional
-Commits on every artifact and operation this generates. Drive it with the
-`openspec` CLI (`openspec list`, `openspec change ...`, `openspec doctor`) —
-no slash commands for it are committed to this repository yet.
+(proposal, specs, design, tasks). `openspec/config.yaml` adds Conventional
+Commits rules to the proposal and tasks artifacts and guidance for apply and
+archive. Drive it with the `openspec` CLI (`openspec list`,
+`openspec change ...`, `openspec doctor`) — no slash commands for it are
+committed to this repository yet.
 
 ## Working with subagents
 
