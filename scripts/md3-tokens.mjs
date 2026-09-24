@@ -57,6 +57,39 @@ export const SEASONS = {
       'brand-purple': '#6A0DAD',
     },
   },
+  winter: {
+    core: {
+      primary: '#3A7CA5', // frost blue: structure and the surfaces' undertone
+      secondary: '#C9A227', // candle gold: everything interactive, focus ring included
+      tertiary: '#9B8FC7', // frost lilac: the rare accent
+    },
+    custom: {
+      'brand-orange': '#C9A227',
+      'brand-purple': '#5B6FA8',
+    },
+  },
+  'new-year': {
+    core: {
+      primary: '#2A1B5C', // midnight violet: structure and the surfaces' undertone
+      secondary: '#D4AF37', // gold: everything interactive, focus ring included
+      tertiary: '#C0C7D6', // silver: the rare accent
+    },
+    custom: {
+      'brand-orange': '#D4AF37',
+      'brand-purple': '#3B2F7A',
+    },
+  },
+  spring: {
+    core: {
+      primary: '#3F8F3A', // spring green: structure and the surfaces' undertone
+      secondary: '#E86A9A', // blossom pink: everything interactive, focus ring included
+      tertiary: '#F2C94C', // daffodil yellow: the rare accent
+    },
+    custom: {
+      'brand-orange': '#F2A541',
+      'brand-purple': '#B565A7',
+    },
+  },
 }
 
 export const SEASONS_HEADER = '/* Written by scripts/md3-tokens.mjs — do not edit by hand. */'

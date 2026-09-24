@@ -60,6 +60,37 @@ describe('resolveSeason — calendar', () => {
   })
 })
 
+describe('resolveSeason — winter, new year, spring', () => {
+  it('runs winter from 1 to 26 December', () => {
+    expect(at('2026-11-30T23:30:00Z')).toBe('winter') // 1 Dec 00:30 Berlin
+    expect(at('2026-12-26T22:00:00Z')).toBe('winter') // 26 Dec 23:00 Berlin
+  })
+
+  it('is inactive the evening before winter opens', () => {
+    // 30 November 23:30 Berlin time (UTC+1) is 22:30 UTC.
+    expect(at('2026-11-30T22:30:00Z')).toBeNull()
+  })
+
+  it('hands off from winter to new year on 26/27 December', () => {
+    expect(at('2026-12-26T22:00:00Z')).toBe('winter') // 26 Dec 23:00 Berlin
+    expect(at('2026-12-26T23:30:00Z')).toBe('new-year') // 27 Dec 00:30 Berlin
+  })
+
+  it('runs new year across the turn of the calendar year', () => {
+    expect(at('2026-12-31T23:30:00Z')).toBe('new-year') // 1 Jan 00:30 Berlin
+    expect(at('2027-01-05T23:30:00Z')).toBe('new-year') // 6 Jan 00:30 Berlin
+  })
+
+  it('is inactive the day after new year closes', () => {
+    expect(at('2027-01-06T23:30:00Z')).toBeNull() // 7 Jan 00:30 Berlin
+  })
+
+  it('runs spring from 20 March to 20 April', () => {
+    expect(at('2026-03-19T23:30:00Z')).toBe('spring') // 20 Mar 00:30 Berlin
+    expect(at('2027-04-20T22:30:00Z')).toBeNull() // 21 Apr 00:30 Berlin
+  })
+})
+
 describe('resolveSeason — overrides', () => {
   const september = new Date('2026-09-01T12:00:00Z')
   const october = new Date('2026-10-25T12:00:00Z')

@@ -55,3 +55,162 @@ html[data-season="halloween"] {
   --gradient-accent-light: linear-gradient(90deg, #ab5eef 0%, #75ae0c 60%, #ffb691 100%);
   /* decoration:end */
 }
+
+html[data-season="winter"] {
+  --color-primary: light-dark(#18638b, #8fcdfa);
+  --color-on-primary: light-dark(#ffffff, #00344d);
+  --color-primary-container: light-dark(#3a7ca5, #3a7ca5);
+  --color-on-primary-container: light-dark(#fffeff, #fffeff);
+  --color-secondary: light-dark(#755b00, #ecc246);
+  --color-on-secondary: light-dark(#ffffff, #3d2e00);
+  --color-secondary-container: light-dark(#fed255, #b18c09);
+  --color-on-secondary-container: light-dark(#735a00, #2f2300);
+  --color-tertiary: light-dark(#605689, #ccbefa);
+  --color-on-tertiary: light-dark(#ffffff, #332959);
+  --color-tertiary-container: light-dark(#796ea4, #796ea4);
+  --color-on-tertiary-container: light-dark(#fffeff, #fffeff);
+  --color-error: light-dark(#ba1a1a, #ffb4ab);
+  --color-on-error: light-dark(#ffffff, #690005);
+  --color-error-container: light-dark(#ffdad6, #93000a);
+  --color-on-error-container: light-dark(#93000a, #ffdad6);
+  --color-surface: light-dark(#f8f9fd, #111416);
+  --color-on-surface: light-dark(#191c1f, #e1e2e6);
+  --color-on-surface-variant: light-dark(#40484e, #c0c7cf);
+  --color-surface-dim: light-dark(#d8dade, #111416);
+  --color-surface-bright: light-dark(#f8f9fd, #37393c);
+  --color-surface-container-lowest: light-dark(#ffffff, #0b0f11);
+  --color-surface-container-low: light-dark(#f2f3f7, #191c1f);
+  --color-surface-container: light-dark(#eceef1, #1d2023);
+  --color-surface-container-high: light-dark(#e7e8ec, #272a2d);
+  --color-surface-container-highest: light-dark(#e1e2e6, #323538);
+  --color-outline: light-dark(#71787f, #8a9299);
+  --color-outline-variant: light-dark(#c0c7cf, #40484e);
+  --color-inverse-surface: light-dark(#2e3134, #e1e2e6);
+  --color-inverse-on-surface: light-dark(#eff1f4, #2e3134);
+  --color-inverse-primary: light-dark(#8fcdfa, #1a648c);
+  --color-scrim: light-dark(#000000, #000000);
+  --color-shadow: light-dark(#000000, #000000);
+  --color-brand-orange: light-dark(#755b00, #ecc246);
+  --color-on-brand-orange: light-dark(#ffffff, #3d2e00);
+  --color-brand-orange-container: light-dark(#ffe08e, #584400);
+  --color-on-brand-orange-container: light-dark(#241a00, #ffe08e);
+  --color-brand-purple: light-dark(#3c5ba9, #b3c5ff);
+  --color-on-brand-purple: light-dark(#ffffff, #002b75);
+  --color-brand-purple-container: light-dark(#dae1ff, #20428f);
+  --color-on-brand-purple-container: light-dark(#001849, #dae1ff);
+
+  /* decoration:start */
+  --brand-magenta: #c9a227;
+  --brand-cyan: #9b8fc7;
+  --gradient-brand: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --gradient-accent: linear-gradient(90deg, var(--color-brand-purple) 0%, var(--color-tertiary) 60%, var(--color-secondary) 100%);
+  --gradient-brand-light: linear-gradient(90deg, #3b7da6 0%, #ddb439 100%);
+  --gradient-accent-light: linear-gradient(90deg, #6e82bc 0%, #a296cf 60%, #ecc246 100%);
+  /* decoration:end */
+}
+
+html[data-season="new-year"] {
+  --color-primary: light-dark(#150148, #ccbeff);
+  --color-on-primary: light-dark(#ffffff, #332566);
+  --color-primary-container: light-dark(#2a1b5c, #2a1b5c);
+  --color-on-primary-container: light-dark(#9384cb, #9384cb);
+  --color-secondary: light-dark(#735c00, #e9c349);
+  --color-on-secondary: light-dark(#ffffff, #3c2f00);
+  --color-secondary-container: light-dark(#fed65b, #af8d11);
+  --color-on-secondary-container: light-dark(#745c00, #281e00);
+  --color-tertiary: light-dark(#0c131e, #c0c7d6);
+  --color-on-tertiary: light-dark(#ffffff, #2a313c);
+  --color-tertiary-container: light-dark(#212833, #212833);
+  --color-on-tertiary-container: light-dark(#888f9d, #888f9d);
+  --color-error: light-dark(#ba1a1a, #ffb4ab);
+  --color-on-error: light-dark(#ffffff, #690005);
+  --color-error-container: light-dark(#ffdad6, #93000a);
+  --color-on-error-container: light-dark(#93000a, #ffdad6);
+  --color-surface: light-dark(#fdf8fe, #141317);
+  --color-on-surface: light-dark(#1c1b1f, #e6e1e7);
+  --color-on-surface-variant: light-dark(#484550, #cac4d1);
+  --color-surface-dim: light-dark(#ddd8df, #141317);
+  --color-surface-bright: light-dark(#fdf8fe, #3a383d);
+  --color-surface-container-lowest: light-dark(#ffffff, #0f0e12);
+  --color-surface-container-low: light-dark(#f7f2f8, #1c1b1f);
+  --color-surface-container: light-dark(#f1ecf3, #201f24);
+  --color-surface-container-high: light-dark(#ece6ed, #2b292e);
+  --color-surface-container-highest: light-dark(#e6e1e7, #363439);
+  --color-outline: light-dark(#797581, #938f9b);
+  --color-outline-variant: light-dark(#cac4d1, #484550);
+  --color-inverse-surface: light-dark(#313034, #e6e1e7);
+  --color-inverse-on-surface: light-dark(#f4eff6, #313034);
+  --color-inverse-primary: light-dark(#ccbeff, #625497);
+  --color-scrim: light-dark(#000000, #000000);
+  --color-shadow: light-dark(#000000, #000000);
+  --color-brand-orange: light-dark(#735c00, #e9c348);
+  --color-on-brand-orange: light-dark(#ffffff, #3c2f00);
+  --color-brand-orange-container: light-dark(#ffe088, #574500);
+  --color-on-brand-orange-container: light-dark(#241a00, #ffe088);
+  --color-brand-purple: light-dark(#5f52a7, #c9bfff);
+  --color-on-brand-purple: light-dark(#ffffff, #302175);
+  --color-brand-purple-container: light-dark(#e5deff, #473a8d);
+  --color-on-brand-purple-container: light-dark(#1a0261, #e5deff);
+
+  /* decoration:start */
+  --brand-magenta: #d4af37;
+  --brand-cyan: #c0c7d6;
+  --gradient-brand: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --gradient-accent: linear-gradient(90deg, var(--color-brand-purple) 0%, var(--color-tertiary) 60%, var(--color-secondary) 100%);
+  --gradient-brand-light: linear-gradient(90deg, #7b6db2 0%, #dab53d 100%);
+  --gradient-accent-light: linear-gradient(90deg, #8579c9 0%, #979eac 60%, #e9c349 100%);
+  /* decoration:end */
+}
+
+html[data-season="spring"] {
+  --color-primary: light-dark(#166a1a, #87da7b);
+  --color-on-primary: light-dark(#ffffff, #003a05);
+  --color-primary-container: light-dark(#348431, #52a24a);
+  --color-on-primary-container: light-dark(#f8fff0, #001a01);
+  --color-secondary: light-dark(#a43463, #ffb0c9);
+  --color-on-secondary: light-dark(#ffffff, #650034);
+  --color-secondary-container: light-dark(#fd7bab, #851a4b);
+  --color-on-secondary-container: light-dark(#760b40, #ff95b9);
+  --color-tertiary: light-dark(#745b00, #ebc246);
+  --color-on-tertiary: light-dark(#ffffff, #3d2f00);
+  --color-tertiary-container: light-dark(#cda72b, #cda72b);
+  --color-on-tertiary-container: light-dark(#4f3d00, #4f3d00);
+  --color-error: light-dark(#ba1a1a, #ffb4ab);
+  --color-on-error: light-dark(#ffffff, #690005);
+  --color-error-container: light-dark(#ffdad6, #93000a);
+  --color-on-error-container: light-dark(#93000a, #ffdad6);
+  --color-surface: light-dark(#f6fbf0, #10150e);
+  --color-on-surface: light-dark(#181d16, #dfe4d9);
+  --color-on-surface-variant: light-dark(#40493c, #bfcab9);
+  --color-surface-dim: light-dark(#d7dcd1, #10150e);
+  --color-surface-bright: light-dark(#f6fbf0, #363b33);
+  --color-surface-container-lowest: light-dark(#ffffff, #0b0f09);
+  --color-surface-container-low: light-dark(#f1f5ea, #181d16);
+  --color-surface-container: light-dark(#ebefe4, #1c211a);
+  --color-surface-container-high: light-dark(#e5eadf, #262b24);
+  --color-surface-container-highest: light-dark(#dfe4d9, #31362f);
+  --color-outline: light-dark(#707a6b, #8a9484);
+  --color-outline-variant: light-dark(#bfcab9, #40493c);
+  --color-inverse-surface: light-dark(#2d322a, #dfe4d9);
+  --color-inverse-on-surface: light-dark(#eef2e7, #2d322a);
+  --color-inverse-primary: light-dark(#87da7b, #1a6d1c);
+  --color-scrim: light-dark(#000000, #000000);
+  --color-shadow: light-dark(#000000, #000000);
+  --color-brand-orange: light-dark(#865300, #ffb963);
+  --color-on-brand-orange: light-dark(#ffffff, #472a00);
+  --color-brand-orange-container: light-dark(#ffddb9, #663e00);
+  --color-on-brand-orange-container: light-dark(#2b1700, #ffddb9);
+  --color-brand-purple: light-dark(#8d4382, #ffabed);
+  --color-on-brand-purple: light-dark(#ffffff, #571150);
+  --color-brand-purple-container: light-dark(#ffd7f2, #722a69);
+  --color-on-brand-purple-container: light-dark(#390035, #ffd7f2);
+
+  /* decoration:start */
+  --brand-magenta: #e86a9a;
+  --brand-cyan: #f2c94c;
+  --gradient-brand: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --gradient-accent: linear-gradient(90deg, var(--color-brand-purple) 0%, var(--color-tertiary) 60%, var(--color-secondary) 100%);
+  --gradient-brand-light: linear-gradient(90deg, #378733 0%, #ff9bbd 100%);
+  --gradient-accent-light: linear-gradient(90deg, #b868aa 0%, #be9a1d 60%, #ffb0c9 100%);
+  /* decoration:end */
+}
