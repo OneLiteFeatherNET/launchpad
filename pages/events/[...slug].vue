@@ -24,7 +24,11 @@ usePageSeo({
   description: description.value,
   image: event.value?.thumbnail,
   imageAlt: event.value?.thumbnailAlt,
-  schemaType: 'WebPage'
+  schemaType: 'WebPage',
+  // Unlisted events are reachable by link in every phase but never indexed
+  // (design.md D4) — canonical, hreflang and Schema.org stay as for a public
+  // event, noindex alone keeps it out of search results.
+  noindex: event.value?.unlisted === true
 })
 
 useBreadcrumbs(() => [
@@ -105,8 +109,8 @@ const resources = computed(() => event.value?.resources ?? [])
           class="rounded-medium px-4 py-3 text-body-medium"
           :class="phase === 'past' ? pastHintClass : liveHintClass"
         >
-          <template v-if="phase === 'announced'">
-            {{ t('events.phase_hint.announced') }} <DateRange :start="event.event.startsAt" />
+          <template v-if="phase === 'announced' || phase === 'hidden'">
+            {{ t(`events.phase_hint.${phase}`) }} <DateRange :start="event.event.startsAt" />
           </template>
           <template v-else>{{ t(`events.phase_hint.${phase}`) }}</template>
         </p>
