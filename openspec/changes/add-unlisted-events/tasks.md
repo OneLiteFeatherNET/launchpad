@@ -32,4 +32,4 @@ den sie treiben.
 
 - [x] 5.1 `pnpm test` (79 Dateien, 513 Tests), `pnpm quality` (192 ESLint-Fehler / 17 Warnungen / 3 TS-Fehler, unverändert gegenüber der Baseline) und `pnpm build` laufen grün; `tests/architecture/` (19 Dateien, 76 Tests) bleibt grün
 - [x] 5.2 Kommentar in `shared/utils/eventPhase.ts` um den Satz ergänzt, dass `unlisted` und die Phase unabhängige Achsen sind — `unlisted` regelt die Auffindbarkeit, die Phase den Zeitplan (siehe Diff)
-- [ ] 5.3 Pull Request gegen `main` mit dem Titel `feat(events): add unlisted events reachable only by link` öffnen (Beschreibung: Zusammenfassung, Screenshot der Vorschau-Kopfzeile, Hinweis, dass `add-events-section` vorher archiviert sein muss)
+- [x] 5.3 Pull Request gegen `main` mit dem Titel `feat(events): add unlisted events reachable only by link` öffnen (Beschreibung: Zusammenfassung, Screenshot der Vorschau-Kopfzeile, Hinweis, dass `add-events-section` vorher archiviert sein muss)
