@@ -166,6 +166,21 @@ describe('seasonal colour effect', () => {
     }
   })
 
+  it('opens a firework bucket over at least a second before its first peak', () => {
+    // spec new-year-season, "Neujahrs-Deko mit sanftem Feuerwerk": the
+    // fade-in alone — not the whole cycle — must take at least 1s, so a
+    // bucket never seems to pop into view.
+    const css = themeCss()
+    const duration = Number(/--animate-season-burst:\s*[a-z-]+\s+([\d.]+)s/.exec(css)?.[1])
+    expect(duration).toBeGreaterThan(0)
+    const block = /@keyframes\s+season-burst\s*\{([\s\S]*?)\n {4}\}/.exec(css)?.[1] ?? ''
+    const steps = [...block.matchAll(/(\d+(?:\.\d+)?)%\s*\{[^}]*opacity:\s*([\d.]+)/g)]
+      .map((match) => ({ percent: Number(match[1]), opacity: Number(match[2]) }))
+    const firstPeak = steps.find((step) => step.percent > 0 && step.opacity > 0)
+    expect(firstPeak).toBeDefined()
+    expect(((firstPeak?.percent ?? 0) / 100) * duration).toBeGreaterThanOrEqual(1)
+  })
+
   it('keeps winter\'s primary and secondary at least 30° from error, in both schemes', () => {
     // Winter is deliberately red-free so interactive elements never read as
     // an error state (spec winter-season).

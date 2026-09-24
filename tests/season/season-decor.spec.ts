@@ -134,9 +134,43 @@ describe('during new year', () => {
     }
   })
 
-  it('never uses the drift or fall animation, only the flash-free twinkle', async () => {
+  it('never uses the drift or fall animation for its corners and lights', async () => {
     const html = (await mountWith(newYear)).html()
+    // The lights use the flash-free twinkle; the fireworks (checked below)
+    // are the only place animate-season-burst appears.
     expect(html).not.toMatch(/animate-season-(drift|fall)/)
+  })
+
+  it('shows at most four firework buckets, only from md up, and none under reduced motion', async () => {
+    const bursts = (await mountWith(newYear)).findAll('[data-decor="burst"]')
+    expect(bursts.length).toBeGreaterThan(0)
+    expect(bursts.length).toBeLessThanOrEqual(4)
+    for (const burst of bursts) {
+      expect(burst.classes()).toEqual(expect.arrayContaining(['hidden',
+'motion-safe:md:block',
+'animate-season-burst']))
+      expect(burst.classes()).not.toContain('md:block')
+    }
+  })
+
+  it('never sizes a firework bucket above 160×160px', async () => {
+    // Tailwind's default spacing scale: h-<n>/w-<n> is n * 4px.
+    const bursts = (await mountWith(newYear)).findAll('[data-decor="burst"]')
+    expect(bursts.length).toBeGreaterThan(0)
+    for (const burst of bursts) {
+      for (const axis of ['h', 'w'] as const) {
+        for (const utility of burst.classes()) {
+          const match = new RegExp(`^(?:[a-z]+:)?${axis}-(\\d+)$`).exec(utility)
+          if (match) expect(Number(match[1]) * 4).toBeLessThanOrEqual(160)
+        }
+      }
+    }
+  })
+
+  it('colours every firework bucket from a season role, never red', async () => {
+    const html = (await mountWith(newYear)).html()
+    expect(html).toMatch(/data-decor="burst"/)
+    expect(html).not.toMatch(/text-error|bg-error/)
   })
 })
 
