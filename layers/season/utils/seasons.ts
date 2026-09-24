@@ -74,10 +74,12 @@ export const SPRING: Season = {
  * readability — the order carries no meaning once the windows do not
  * overlap, which `overlappingSeasons` below enforces in a test.
  */
-export const SEASONS: readonly Season[] = [SPRING,
-HALLOWEEN,
-WINTER,
-NEW_YEAR]
+export const SEASONS: readonly Season[] = [
+  SPRING,
+  HALLOWEEN,
+  WINTER,
+  NEW_YEAR,
+]
 
 /** Override value that switches every season off, whatever the date says. */
 export const SEASON_OFF = 'none'
@@ -136,13 +138,13 @@ export interface SeasonOverlap {
  */
 export function overlappingSeasons(seasons: readonly Season[]): SeasonOverlap[] {
   const overlaps: SeasonOverlap[] = []
+  const year = everyDayOfTheYear()
   for (let i = 0; i < seasons.length; i += 1) {
     for (let j = i + 1; j < seasons.length; j += 1) {
       const first = seasons[i]
       const second = seasons[j]
       if (!first || !second) continue
-      const day = everyDayOfTheYear()
-        .find((candidate) => covers(first, candidate) && covers(second, candidate))
+      const day = year.find((candidate) => covers(first, candidate) && covers(second, candidate))
       if (day) overlaps.push({ first: first.id, second: second.id, day })
     }
   }

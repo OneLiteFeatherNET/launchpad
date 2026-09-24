@@ -17,8 +17,10 @@
  *
  * This component is only the frame. The actual shapes live one per season in
  * SeasonDecor<Name>.vue (design D4) — explicitly imported and mapped by id,
- * rather than resolved from a string, so the mapping stays type-checked and
- * a season without an entry is a build error, not a silent blank frame.
+ * rather than resolved from a string, so the mapping stays type-checked.
+ * `DECORATIONS` is not itself checked against every season id, so a season
+ * with `decor: true` and no entry here would render a blank frame; the
+ * "mapping" test in season-decor.spec.ts catches that.
  */
 import SeasonDecorHalloween from './SeasonDecorHalloween.vue'
 import SeasonDecorNewYear from './SeasonDecorNewYear.vue'
