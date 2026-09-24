@@ -9,7 +9,7 @@
 /** A four-pointed star, mirrored for the right-hand corner. */
 const STAR = 'M50 8l9 33 33 9-33 9-9 33-9-33-33-9 33-9z'
 
-const LIGHT_CLASS = 'absolute hidden rounded-full animate-season-twinkle bg-tertiary/70 motion-safe:md:block'
+const LIGHT_CLASS = 'absolute hidden rounded-full animate-season-twinkle bg-secondary/70 motion-safe:md:block'
 
 /** Where each light sits and how its twinkle is offset. Five at most (spec). */
 const LIGHTS = [
@@ -25,7 +25,7 @@ const LIGHTS = [
   <svg
     v-for="side in ['-left-1', '-right-1 -scale-x-100']"
     :key="side"
-    :class="['absolute -top-1 h-20 w-20 text-secondary/25 sm:h-28 sm:w-28', side]"
+    :class="['absolute top-16 h-28 w-28 text-secondary/25 sm:h-36 sm:w-36', side]"
     data-decor="star"
     viewBox="0 0 100 100"
     fill="currentColor"

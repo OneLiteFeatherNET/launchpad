@@ -26,7 +26,7 @@ const BATS = [
   <svg
     v-for="side in ['-left-1', '-right-1 -scale-x-100']"
     :key="side"
-    :class="['absolute -top-1 h-28 w-28 text-primary/25 sm:h-40 sm:w-40', side]"
+    :class="['absolute top-16 h-28 w-28 text-primary/25 sm:h-40 sm:w-40', side]"
     data-decor="web"
     viewBox="0 0 100 100"
     fill="none"

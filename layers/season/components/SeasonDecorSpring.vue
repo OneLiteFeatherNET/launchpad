@@ -31,7 +31,7 @@ const PETALS = [
   <svg
     v-for="side in ['-left-1', '-right-1 -scale-x-100']"
     :key="side"
-    :class="['absolute -top-1 h-24 w-24 text-primary/25 sm:h-32 sm:w-32', side]"
+    :class="['absolute top-16 h-28 w-28 text-primary/25 sm:h-36 sm:w-36', side]"
     data-decor="branch"
     viewBox="0 0 100 100"
     fill="none"
