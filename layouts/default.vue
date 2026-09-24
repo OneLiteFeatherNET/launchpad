@@ -14,6 +14,11 @@ const routeTitle = computed(() => (route.meta?.title ? t(route.meta.title) : nul
 // Expose the main navigation as schema.org SiteNavigationElement so Google
 // has a structured signal when picking SERP sitelinks.
 useSiteNavigationSchema()
+
+// The navigation shows a season's own mark while one is in effect. Passed in
+// rather than read there: navigation and season are domains, and only the
+// orchestrator may combine two.
+const season = useSeason()
 </script>
 
 <template>
@@ -25,7 +30,7 @@ useSiteNavigationSchema()
       <!-- Local wrapper ensures flex layout even if <Body> classes are not applied by the renderer -->
       <div class="min-h-screen flex flex-col">
         <a href="#main-content" class="skip-link">{{ t('accessibility.skip_to_content') }}</a>
-        <NavigationBar />
+        <NavigationBar :logo-src="season?.logo" />
         <main id="main-content" tabindex="-1" class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1 focus:outline-none">
           <slot/>
         </main>

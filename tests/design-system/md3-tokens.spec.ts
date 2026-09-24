@@ -104,11 +104,11 @@ describe('generated MD3 colour roles', () => {
 })
 
 describe('browser chrome colour', () => {
-  /** The theme-color meta for one colour scheme, as declared in app.vue. */
+  /** The base theme-color for one scheme, from app.vue's BASE_THEME_COLOR. */
   function themeColor(scheme: 'light' | 'dark'): string | undefined {
     const app = readFileSync(join(repoRoot, 'app.vue'), 'utf8')
-    const pattern = new RegExp(`name: 'theme-color', media: '\\(prefers-color-scheme: ${scheme}\\)', content: '(#[0-9a-f]{6})'`,)
-    return pattern.exec(app)?.[1]
+    const constant = /const BASE_THEME_COLOR = \{([^}]*)\}/.exec(app)?.[1] ?? ''
+    return new RegExp(`${scheme}: '(#[0-9a-f]{6})'`).exec(constant)?.[1]
   }
 
   it('matches the surface role in both schemes', () => {
