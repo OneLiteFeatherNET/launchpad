@@ -318,6 +318,10 @@ const eventsSchema = withI18nMeta(z.object({
     ]),
     thumbnail: z.string().optional(),
     thumbnailAlt: z.string().optional(),
+    // Reachable by link regardless of schedule, but never listed anywhere on
+    // its own (overview, carousel, sitemap) and never promoted. Default false
+    // keeps every existing event public. See shared/utils/eventPhase.ts.
+    unlisted: z.boolean().optional(),
     event: z.object({
       announceAt: eventTimestamp.optional(),
       startsAt: eventTimestamp,

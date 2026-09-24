@@ -6,8 +6,8 @@ den sie treiben.
 
 ## 1. Schema und Inhaltsprüfung
 
-- [ ] 1.1 In `tests/content/events-frontmatter.spec.ts` Fälle für `unlisted: true` (akzeptiert), `unlisted: true` + `promote: false` (akzeptiert), `unlisted: true` + `promote`-Objekt (abgelehnt, Meldung nennt Datei, `unlisted` und `promote`) und abweichendes `unlisted` bei gleichem `translationKey` (abgelehnt, Meldung nennt beide Dateien) ergänzen und rot sehen; verifiziert durch `pnpm exec vitest run tests/content/events-frontmatter.spec.ts`
-- [ ] 1.2 `unlisted: z.boolean().optional()` in `eventsSchema` (`content.config.ts`) aufnehmen und die Prüfregeln aus 1.1 umsetzen; verifiziert durch grüne Tests aus 1.1 und `tests/content/schema-columns.spec.ts`
+- [x] 1.1 In `tests/content/events-frontmatter.spec.ts` Fälle für `unlisted: true` (akzeptiert), `unlisted: true` + `promote: false` (akzeptiert), `unlisted: true` + `promote`-Objekt (abgelehnt, Meldung nennt Datei, `unlisted` und `promote`) und abweichendes `unlisted` bei gleichem `translationKey` (abgelehnt, Meldung nennt beide Dateien) ergänzen und rot sehen; verifiziert durch `pnpm exec vitest run tests/content/events-frontmatter.spec.ts`
+- [x] 1.2 `unlisted: z.boolean().optional()` in `eventsSchema` (`content.config.ts`) aufnehmen und die Prüfregeln aus 1.1 umsetzen; verifiziert durch grüne Tests aus 1.1 und `tests/content/schema-columns.spec.ts`
 
 ## 2. Gemeinsame Sichtbarkeitsregel
 
