@@ -1,5 +1,5 @@
 import type { EventAccessMode, EventDocument, EventPhase, EventType } from '../types'
-import { eventPhaseAt, isPromotedAt } from '#shared/utils/eventPhase'
+import { eventPhaseAt, isEventListedAt, isPromotedAt } from '#shared/utils/eventPhase'
 import { eventDetailPath } from '#shared/utils/eventRoutes'
 
 /**
@@ -63,10 +63,13 @@ export function toEventCard(doc: EventDocument, locale: string, now: Date): Even
 /**
  * The overview's three sections at `now`. Running and announced events are
  * ordered by start, soonest first; past events by end, most recent first
- * (an event without `endsAt` is never past). Hidden events are dropped.
+ * (an event without `endsAt` is never past). Hidden and unlisted events are
+ * dropped.
  */
 export function groupEventsAt(docs: EventDocument[], locale: string, now: Date): GroupedEvents {
-  const cards = docs.map((doc) => toEventCard(doc, locale, now))
+  const cards = docs
+    .filter((doc) => isEventListedAt(doc.event, doc.unlisted, now))
+    .map((doc) => toEventCard(doc, locale, now))
   const byStart = (a: EventCardData, b: EventCardData) => time(a.startsAt) - time(b.startsAt)
   return {
     now: now.toISOString(),
@@ -80,7 +83,9 @@ export function groupEventsAt(docs: EventDocument[], locale: string, now: Date):
 
 /**
  * The events the home carousel promotes at `now`: inside their promotion
- * window, soonest start first, at most {@link MAX_PROMOTED_EVENTS}.
+ * window, listed, soonest start first, at most {@link MAX_PROMOTED_EVENTS}.
+ * An unlisted event is never promoted, even inside its own promote window —
+ * findability is the same rule everywhere (design.md D2).
  */
 export function promotedEventsAt(
   docs: EventDocument[],
@@ -88,7 +93,7 @@ export function promotedEventsAt(
   now: Date
 ): EventCardData[] {
   return docs
-    .filter((doc) => isPromotedAt(doc.event, doc.promote, now))
+    .filter((doc) => isEventListedAt(doc.event, doc.unlisted, now) && isPromotedAt(doc.event, doc.promote, now))
     .map((doc) => toEventCard(doc, locale, now))
     .sort((a, b) => time(a.startsAt) - time(b.startsAt))
     .slice(0, MAX_PROMOTED_EVENTS)

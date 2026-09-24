@@ -18,8 +18,8 @@ den sie treiben.
 
 ## 3. Übersicht und Carousel
 
-- [ ] 3.1 In `tests/events/event-lists.spec.ts` Fälle ergänzen: nicht gelistete Events fehlen in allen drei Gruppen von `groupEventsAt` und in `promotedEventsAt`, auch mit `promote`-Fenster; rot sehen
-- [ ] 3.2 `groupEventsAt` und `promotedEventsAt` in `layers/events/utils/eventLists.ts` vorab mit `isEventListedAt` filtern; verifiziert durch grüne Tests aus 3.1 und `pnpm exec vitest run tests/events`
+- [x] 3.1 In `tests/events/event-lists.spec.ts` Fälle ergänzt: nicht gelistete Events fehlen in allen drei Gruppen von `groupEventsAt` und in `promotedEventsAt`, auch mit `promote`-Fenster; rot gesehen
+- [x] 3.2 `groupEventsAt` und `promotedEventsAt` in `layers/events/utils/eventLists.ts` vorab mit `isEventListedAt` gefiltert; verifiziert durch grüne Tests aus 3.1 und `pnpm exec vitest run tests/events`
 
 ## 4. Detailseite
 
