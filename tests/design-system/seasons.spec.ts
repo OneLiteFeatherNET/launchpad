@@ -22,7 +22,8 @@ function staleSeasonTokens(css: string): string[] {
   const stale: string[] = []
   for (const [id, seeds] of Object.entries(SEASONS)) {
     const checkedIn = schemeColors(seasonCss(id, css) ?? '')
-    for (const [name, expected] of Object.entries(generateTokens(seeds.core, seeds.custom))) {
+    const tokens = generateTokens(seeds.core, seeds.custom, seeds.neutralChroma)
+    for (const [name, expected] of Object.entries(tokens)) {
       const actual = checkedIn.get(name)
       if (actual?.light !== expected.light || actual?.dark !== expected.dark) stale.push(`${id}: ${name}`)
     }

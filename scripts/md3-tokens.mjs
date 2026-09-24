@@ -78,6 +78,13 @@ export const SEASONS = {
       'brand-orange': '#D4AF37',
       'brand-purple': '#3B2F7A',
     },
+    // Fidelity's own neutral palette flattens to near-zero chroma, so the
+    // dark surface came out practically black instead of midnight violet.
+    // Chroma 16 at the primary's hue reads as a clearly tinted, midnight
+    // violet dark surface without turning muddy (design D3, "Nachtrag");
+    // 8-12 stayed too close to neutral grey, 20+ started to compete with
+    // on-surface's own tint.
+    neutralChroma: 16,
   },
   spring: {
     core: {
@@ -153,13 +160,37 @@ function seasonsFile() {
   return fileURLToPath(new URL('../assets/css/seasons.css', import.meta.url))
 }
 
-function scheme(isDark, core) {
+/**
+ * @param {boolean} isDark
+ * @param {{ primary: string, secondary: string, tertiary: string }} core
+ * @param {number} [neutralChroma] Overrides the neutral and neutral-variant
+ *   palettes with `TonalPalette.fromHueAndChroma(primaryHue, …)` instead of
+ *   Fidelity's own, near-grey neutrals. Fidelity derives its neutral palette
+ *   from the primary seed too, but flattens its chroma almost to zero —
+ *   fine for a brand blue, but it is why a near-black primary seed like
+ *   new-year's midnight violet (#2A1B5C) still comes out neutral grey in the
+ *   dark surface (design D3, "Nachtrag nach der Sichtprüfung"). Left
+ *   unset, a season's output is unchanged from before this parameter existed.
+ */
+function scheme(isDark, core, neutralChroma) {
   const source = Hct.fromInt(argbFromHex(core.primary))
   // Fidelity keeps primary-container close to the seed, so the brand blue
   // survives instead of being desaturated as Tonal Spot would. Its neutral
-  // palettes are reused; the three accent palettes each come from their own
-  // core colour, as Material Theme Builder does with custom core colours.
+  // palettes are reused unless neutralChroma overrides them; the three
+  // accent palettes each come from their own core colour, as Material Theme
+  // Builder does with custom core colours.
   const base = new SchemeFidelity(source, isDark, 0)
+  // The neutral-variant palette (outline, surface-variant-derived roles)
+  // reads a touch more tinted than plain neutral surfaces in Fidelity's own
+  // output too, so the override keeps that relationship: +4 chroma, a small
+  // additive step that stays legible instead of compounding a multiplier at
+  // higher chroma values.
+  const neutralPalette = neutralChroma === undefined
+    ? base.neutralPalette
+    : TonalPalette.fromHueAndChroma(source.hue, neutralChroma)
+  const neutralVariantPalette = neutralChroma === undefined
+    ? base.neutralVariantPalette
+    : TonalPalette.fromHueAndChroma(source.hue, neutralChroma + 4)
   return new DynamicScheme({
     sourceColorArgb: source.toInt(),
     variant: base.variant,
@@ -168,18 +199,19 @@ function scheme(isDark, core) {
     primaryPalette: TonalPalette.fromInt(argbFromHex(core.primary)),
     secondaryPalette: TonalPalette.fromInt(argbFromHex(core.secondary)),
     tertiaryPalette: TonalPalette.fromInt(argbFromHex(core.tertiary)),
-    neutralPalette: base.neutralPalette,
-    neutralVariantPalette: base.neutralVariantPalette,
+    neutralPalette,
+    neutralVariantPalette,
   })
 }
 
 /**
  * Every generated token as `{ light, dark }` lowercase hex. Without arguments
- * the base scheme; a season passes its own seeds.
+ * the base scheme; a season passes its own seeds and, optionally, its own
+ * neutralChroma (see `scheme()`).
  */
-export function generateTokens(core = CORE_COLORS, custom = CUSTOM_COLORS) {
-  const light = scheme(false, core)
-  const dark = scheme(true, core)
+export function generateTokens(core = CORE_COLORS, custom = CUSTOM_COLORS, neutralChroma) {
+  const light = scheme(false, core, neutralChroma)
+  const dark = scheme(true, core, neutralChroma)
   const tokens = {}
   for (const [name, getter] of Object.entries(SCHEME_ROLES)) {
     tokens[name] = { light: hexFromArgb(light[getter]), dark: hexFromArgb(dark[getter]) }
@@ -230,7 +262,7 @@ export function seasonDeclarations(id) {
   const season = SEASONS[id]
   if (!season) throw new Error(`Unknown season "${id}"`)
   const roles = {}
-  const tokens = generateTokens(season.core, season.custom)
+  const tokens = generateTokens(season.core, season.custom, season.neutralChroma)
   for (const [name, { light, dark }] of Object.entries(tokens)) {
     roles[`--color-${name}`] = `light-dark(${light}, ${dark})`
   }

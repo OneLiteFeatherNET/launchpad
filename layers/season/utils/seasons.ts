@@ -50,7 +50,7 @@ export const NEW_YEAR: Season = {
   start: { month: 12, day: 27 },
   end: { month: 1, day: 6 },
   decor: true,
-  themeColor: { light: '#fdf8fe', dark: '#141317' },
+  themeColor: { light: '#fdf7ff', dark: '#141123' },
   logo: 'images/seasons/new-year/logo.svg',
   favicon: '/images/seasons/new-year/favicon.svg',
 }
