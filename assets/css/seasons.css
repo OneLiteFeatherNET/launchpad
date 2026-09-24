@@ -1,0 +1,57 @@
+/* Written by scripts/md3-tokens.mjs — do not edit by hand. */
+/* Seasonal overrides of the MD3 roles in tailwind.css, applied while
+   <html data-season="…"> is set (layers/season). `html[…]` outranks the
+   `:root` rule @theme writes, independent of bundle order. */
+
+html[data-season="halloween"] {
+  --color-primary: light-dark(#430d6e, #dfb7ff);
+  --color-on-primary: light-dark(#ffffff, #471272);
+  --color-primary-container: light-dark(#5b2a86, #5b2a86);
+  --color-on-primary-container: light-dark(#cf9afd, #cf9afd);
+  --color-secondary: light-dark(#9e4300, #ffb691);
+  --color-on-secondary: light-dark(#ffffff, #552100);
+  --color-secondary-container: light-dark(#ff7518, #ee6803);
+  --color-on-secondary-container: light-dark(#5c2400, #461a00);
+  --color-tertiary: light-dark(#1f3300, #9cd83e);
+  --color-on-tertiary: light-dark(#ffffff, #213600);
+  --color-tertiary-container: light-dark(#304b00, #304b00);
+  --color-on-tertiary-container: light-dark(#87c127, #87c127);
+  --color-error: light-dark(#ba1a1a, #ffb4ab);
+  --color-on-error: light-dark(#ffffff, #690005);
+  --color-error-container: light-dark(#ffdad6, #93000a);
+  --color-on-error-container: light-dark(#93000a, #ffdad6);
+  --color-surface: light-dark(#fff7fe, #161218);
+  --color-on-surface: light-dark(#1e1a20, #e8e0e9);
+  --color-on-surface-variant: light-dark(#4c4450, #cec3d2);
+  --color-surface-dim: light-dark(#e0d7e0, #161218);
+  --color-surface-bright: light-dark(#fff7fe, #3c383e);
+  --color-surface-container-lowest: light-dark(#ffffff, #100d13);
+  --color-surface-container-low: light-dark(#faf1fa, #1e1a20);
+  --color-surface-container: light-dark(#f4ebf4, #221e24);
+  --color-surface-container-high: light-dark(#eee5ee, #2d282f);
+  --color-surface-container-highest: light-dark(#e8e0e9, #38333a);
+  --color-outline: light-dark(#7d7481, #978d9b);
+  --color-outline-variant: light-dark(#cec3d2, #4c4450);
+  --color-inverse-surface: light-dark(#332f35, #e8e0e9);
+  --color-inverse-on-surface: light-dark(#f7eef7, #332f35);
+  --color-inverse-primary: light-dark(#dfb7ff, #7847a4);
+  --color-scrim: light-dark(#000000, #000000);
+  --color-shadow: light-dark(#000000, #000000);
+  --color-brand-orange: light-dark(#9e4300, #ffb691);
+  --color-on-brand-orange: light-dark(#ffffff, #552100);
+  --color-brand-orange-container: light-dark(#ffdbcb, #783100);
+  --color-on-brand-orange-container: light-dark(#341100, #ffdbcb);
+  --color-brand-purple: light-dark(#8333c6, #dfb7ff);
+  --color-on-brand-purple: light-dark(#ffffff, #4b007e);
+  --color-brand-purple-container: light-dark(#f1daff, #690bac);
+  --color-on-brand-purple-container: light-dark(#2d004f, #f1daff);
+
+  /* decoration:start */
+  --brand-magenta: #ff7518;
+  --brand-cyan: #7cb518;
+  --gradient-brand: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --gradient-accent: linear-gradient(90deg, var(--color-brand-purple) 0%, var(--color-tertiary) 60%, var(--color-secondary) 100%);
+  --gradient-brand-light: linear-gradient(90deg, #9361bf 0%, #ffa271 100%);
+  --gradient-accent-light: linear-gradient(90deg, #ab5eef 0%, #75ae0c 60%, #ffb691 100%);
+  /* decoration:end */
+}
