@@ -180,10 +180,10 @@
     --animate-season-fall: season-fall 24s linear infinite;
 
     @keyframes season-fall {
-        0%   { transform: translate3d(0, -10%, 0) rotate(0deg); opacity: 0; }
+        0%   { transform: translate3d(0, -2rem, 0) rotate(0deg); opacity: 0; }
         10%  { opacity: 1; }
         80%  { opacity: 1; }
-        100% { transform: translate3d(1rem, 130%, 0) rotate(70deg); opacity: 0; }
+        100% { transform: translate3d(1.5rem, 45vh, 0) rotate(70deg); opacity: 0; }
     }
 
     /* Light points (new year): a gentle brightening, well under the 3-per-
