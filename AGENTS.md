@@ -73,7 +73,7 @@ referenced projects.
 - Serve the production build in workerd (after `NODE_ENV=production pnpm build`): `pnpm preview:prod` (port 8787)
 - Concurrency check against it (or `--base https://onelitefeather.net --concurrency 5 --requests 100`): `node scripts/concurrency-check.mjs`
 - SEO and cache-header checks against it: `pnpm seo:check -- --base http://localhost:8787 --no-mock`, `node scripts/cache-check.mjs`
-- Lint on demand (no script): `pnpm exec eslint .`
+- Lint: `pnpm lint` (check) / `pnpm lint:fix` (autofix)
 
 ## Coding Style & Naming Conventions
 - Use Vue 3 Composition API with `<script setup lang="ts">` in SFCs.
@@ -107,13 +107,21 @@ own components — no component library. Details: skill `tailwind-design`.
   building blocks belong in `layers/base`.
 
 ## Testing Guidelines
-- No formal automated test suite is configured yet.
+- There is a Vitest suite under `tests/`, run in CI via `pnpm test`; `tests/architecture/` enforces the layer rules above.
 - When adding tests, prefer Vitest for unit/component tests with filenames like `*.spec.ts`.
 - Co-locate small tests with source files or under a `tests/` directory.
 - Add at least smoke tests for new features and critical utilities.
 
 ## Commit & Pull Request Guidelines
-- Follow the existing style: short, imperative messages (e.g. `chore: refine OL styles`, `feat: add team page`).
+- Every commit message and every pull request title follows Conventional
+  Commits: `type(scope): imperative summary`, lower case, no trailing period
+  (e.g. `feat(team): add team page`, `fix(ci): pin node version`). Allowed
+  types are exactly those in `release-please-config.json`: `feat`, `fix`,
+  `perf`, `refactor`, `revert`, `docs`, `ci` (shown in the changelog) and
+  `build`, `test`, `style`, `chore` (hidden). A breaking change gets `!` after
+  the scope plus a `BREAKING CHANGE:` footer. Pull requests are squash-merged,
+  so the PR title becomes the commit on `main` that release-please reads — it
+  must itself be a valid Conventional Commit.
 - Group related changes into single commits; avoid mixing refactors and features.
 - PRs should include: a concise summary, rationale, screenshots for UI changes, and links to relevant issues.
 - Ensure `pnpm build` (and any tests you add) pass locally before opening a PR.
