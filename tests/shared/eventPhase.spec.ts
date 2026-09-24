@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { eventPhaseAt, isAccessOpenAt, isEventVisibleAt, isPromotedAt } from '../../shared/utils/eventPhase'
+import {
+  eventPhaseAt,
+  isAccessOpenAt,
+  isEventListedAt,
+  isEventReachableAt,
+  isEventVisibleAt,
+  isPromotedAt
+} from '../../shared/utils/eventPhase'
 
 const schedule = {
   announceAt: '2026-09-20T12:00:00+02:00',
@@ -91,6 +98,34 @@ describe('isPromotedAt', () => {
   it('does not promote an event that is still hidden', () => {
     const promote = { from: '2026-09-01T00:00:00+02:00' }
     expect(isPromotedAt(schedule, promote, at('2026-09-10T00:00:00+02:00'))).toBe(false)
+  })
+})
+
+describe('isEventListedAt and isEventReachableAt', () => {
+  const moments: [phase: string, now: string][] = [
+    ['hidden', '2026-09-20T11:59:59+02:00'],
+    ['announced', '2026-09-25T10:00:00+02:00'],
+    ['running', '2026-10-05T10:00:00+02:00'],
+    ['past', '2027-01-01T00:00:00+01:00'],
+  ]
+  const unlistedValues: (boolean | undefined)[] = [true, false, undefined]
+
+  it.each(
+    moments.flatMap(([phase, now]) => unlistedValues.map((unlisted) => [phase, now, unlisted] as const))
+  )('phase %s, unlisted=%s', (phase, now, unlisted) => {
+    const listed = phase !== 'hidden' && !unlisted
+    const reachable = Boolean(unlisted) || phase !== 'hidden'
+    expect(isEventListedAt(schedule, unlisted, at(now))).toBe(listed)
+    expect(isEventReachableAt(schedule, unlisted, at(now))).toBe(reachable)
+  })
+
+  it('a listed event is always reachable, but not vice versa', () => {
+    // Running and public: both true.
+    expect(isEventListedAt(schedule, false, at('2026-10-05T10:00:00+02:00'))).toBe(true)
+    expect(isEventReachableAt(schedule, false, at('2026-10-05T10:00:00+02:00'))).toBe(true)
+    // Hidden and unlisted: reachable by link, never listed.
+    expect(isEventListedAt(schedule, true, at('2026-09-20T11:59:59+02:00'))).toBe(false)
+    expect(isEventReachableAt(schedule, true, at('2026-09-20T11:59:59+02:00'))).toBe(true)
   })
 })
 

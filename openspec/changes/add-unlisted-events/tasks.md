@@ -11,10 +11,10 @@ den sie treiben.
 
 ## 2. Gemeinsame Sichtbarkeitsregel
 
-- [ ] 2.1 In `tests/events/eventPhase.spec.ts` `isEventListedAt` und `isEventReachableAt` für jede Phase × `unlisted` (true/false/undefined) mit festem `now` spezifizieren und rot sehen; verifiziert durch `pnpm exec vitest run tests/events/eventPhase.spec.ts`
-- [ ] 2.2 Beide Prädikate in `shared/utils/eventPhase.ts` umsetzen (oberste Ebene, ohne Vue/H3, ohne `Date.now()`); verifiziert durch grüne Tests aus 2.1
-- [ ] 2.3 In `tests/events/eventRoutes.spec.ts` einen Fall „laufendes, nicht gelistetes Event fehlt in den Sitemap-Einträgen“ ergänzen, dann `EventSitemapSource` um `unlisted?: boolean` erweitern und `visibleEventSitemapEntries` auf `isEventListedAt` umstellen; verifiziert durch `pnpm exec vitest run tests/events/eventRoutes.spec.ts`
-- [ ] 2.4 `server/api/__sitemap__/events.ts` reicht `unlisted` aus der Collection durch; verifiziert durch `pnpm build` und einen Abruf von `/__sitemap__/events` in `pnpm preview` mit einem temporären nicht gelisteten Test-Event (danach entfernen)
+- [x] 2.1 In `tests/shared/eventPhase.spec.ts` (tatsächlicher Pfad der bestehenden Datei; `tests/events/eventPhase.spec.ts` existiert nicht) `isEventListedAt` und `isEventReachableAt` für jede Phase × `unlisted` (true/false/undefined) mit festem `now` spezifizieren und rot sehen; verifiziert durch `pnpm exec vitest run tests/shared/eventPhase.spec.ts`
+- [x] 2.2 Beide Prädikate in `shared/utils/eventPhase.ts` umsetzen (oberste Ebene, ohne Vue/H3, ohne `Date.now()`); verifiziert durch grüne Tests aus 2.1
+- [x] 2.3 In `tests/shared/eventRoutes.spec.ts` (tatsächlicher Pfad; s.o.) einen Fall „laufendes, nicht gelistetes Event fehlt in den Sitemap-Einträgen“ ergänzt, dann `EventSitemapSource` um `unlisted?: boolean` erweitert und `visibleEventSitemapEntries` auf `isEventListedAt` umgestellt; verifiziert durch `pnpm exec vitest run tests/shared/eventRoutes.spec.ts`
+- [ ] 2.4 `server/api/__sitemap__/events.ts` reicht `unlisted` aus der Collection durch (strukturell bereits der Fall, da `EventDocument` das Feld jetzt trägt); Build- und `pnpm preview`-Teil der Verifikation siehe Bericht
 
 ## 3. Übersicht und Carousel
 

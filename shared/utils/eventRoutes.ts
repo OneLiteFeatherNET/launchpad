@@ -1,4 +1,4 @@
-import { isEventVisibleAt, type EventScheduleFields } from './eventPhase'
+import { isEventListedAt, type EventScheduleFields } from './eventPhase'
 
 /**
  * Where an event lives, and which events a sitemap may list — shared for the
@@ -14,12 +14,14 @@ export function eventDetailPath(locale: string, slug: string): string {
 export interface EventSitemapSource {
   slug: string
   event: EventScheduleFields
+  unlisted?: boolean
 }
 
 /**
- * Sitemap entries for every event visible at `now`, per locale. Hidden events
+ * Sitemap entries for every listed event at `now`, per locale. Hidden events
  * are left out entirely, so an unannounced event is not discoverable through
- * the sitemap before its page would answer.
+ * the sitemap before its page would answer; unlisted events are left out
+ * regardless of phase, same as the overview and the carousel.
  */
 export function visibleEventSitemapEntries(
   eventsByLocale: Record<string, EventSitemapSource[]>,
@@ -28,7 +30,7 @@ export function visibleEventSitemapEntries(
   const entries: { loc: string }[] = []
   for (const [locale, events] of Object.entries(eventsByLocale)) {
     for (const entry of events) {
-      if (!entry.slug || !isEventVisibleAt(entry.event, now)) continue
+      if (!entry.slug || !isEventListedAt(entry.event, entry.unlisted, now)) continue
       entries.push({ loc: eventDetailPath(locale, entry.slug) })
     }
   }
