@@ -114,10 +114,10 @@ html[data-season="new-year"] {
   --color-on-primary: light-dark(#ffffff, #332566);
   --color-primary-container: light-dark(#2a1b5c, #2a1b5c);
   --color-on-primary-container: light-dark(#9384cb, #9384cb);
-  --color-secondary: light-dark(#6d5d2f, #dac58d);
-  --color-on-secondary: light-dark(#ffffff, #3b2f05);
-  --color-secondary-container: light-dark(#f7e1a6, #56481b);
-  --color-on-secondary-container: light-dark(#736334, #cbb780);
+  --color-secondary: light-dark(#775a00, #ecc159);
+  --color-on-secondary: light-dark(#ffffff, #3f2e00);
+  --color-secondary-container: light-dark(#fed268, #8c6b00);
+  --color-on-secondary-container: light-dark(#765900, #fff3df);
   --color-tertiary: light-dark(#0c131e, #c0c7d6);
   --color-on-tertiary: light-dark(#ffffff, #2a313c);
   --color-tertiary-container: light-dark(#212833, #212833);
@@ -143,22 +143,22 @@ html[data-season="new-year"] {
   --color-inverse-primary: light-dark(#ccbeff, #625497);
   --color-scrim: light-dark(#000000, #000000);
   --color-shadow: light-dark(#000000, #000000);
-  --color-brand-orange: light-dark(#735c00, #e9c349);
-  --color-on-brand-orange: light-dark(#ffffff, #3c2f00);
-  --color-brand-orange-container: light-dark(#ffe086, #574500);
-  --color-on-brand-orange-container: light-dark(#231a00, #ffe086);
+  --color-brand-orange: light-dark(#775a00, #f0c048);
+  --color-on-brand-orange: light-dark(#ffffff, #3f2e00);
+  --color-brand-orange-container: light-dark(#ffdf9a, #5a4300);
+  --color-on-brand-orange-container: light-dark(#251a00, #ffdf9a);
   --color-brand-purple: light-dark(#5f52a7, #c9bfff);
   --color-on-brand-purple: light-dark(#ffffff, #302175);
   --color-brand-purple-container: light-dark(#e5deff, #473a8d);
   --color-on-brand-purple-container: light-dark(#1a0261, #e5deff);
 
   /* decoration:start */
-  --brand-magenta: #9c8a57;
+  --brand-magenta: #b8922e;
   --brand-cyan: #c0c7d6;
   --gradient-brand: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   --gradient-accent: linear-gradient(90deg, var(--color-brand-purple) 0%, var(--color-tertiary) 60%, var(--color-secondary) 100%);
-  --gradient-brand-light: linear-gradient(90deg, #7b6db2 0%, #cbb780 100%);
-  --gradient-accent-light: linear-gradient(90deg, #8579c9 0%, #979eac 60%, #dac58d 100%);
+  --gradient-brand-light: linear-gradient(90deg, #7b6db2 0%, #ddb34d 100%);
+  --gradient-accent-light: linear-gradient(90deg, #8579c9 0%, #979eac 60%, #ecc159 100%);
   /* decoration:end */
 }
 

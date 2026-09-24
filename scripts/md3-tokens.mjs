@@ -71,16 +71,23 @@ export const SEASONS = {
   'new-year': {
     core: {
       primary: '#2A1B5C', // midnight violet: structure and the surfaces' undertone
-      // Calmed after the visual review: D4AF37 made an eye-watering
-      // secondary-container (bright yellow active nav pill) even though its
-      // chroma (47.8) looked ordinary next to the base secondary's (51.2).
-      // Same HCT hue, chroma roughly halved (~24) and a slightly lower
-      // tone — inside the spec's 35-55° hue band.
-      secondary: '#9C8A57', // muted gold: everything interactive, focus ring included
+      // First calming pass (chroma ~24) overshot: the rendered `secondary`
+      // role — used broadly for buttons, chips, pills — turned muddy khaki
+      // rather than gold, because a dark tone at low chroma reads as
+      // desaturated brown, not "dark gold". This keeps roughly the original
+      // chroma (~43, close to winter's own gold at 48.6, which nobody
+      // objected to) so `secondary` itself stays a clear gold; only the
+      // *container* comes out a little calmer than the original #D4AF37's
+      // screaming #fed65b, landing on a warm #fed268. Hue inside the spec's
+      // 35-55° band either way.
+      secondary: '#B8922E', // gold: everything interactive, focus ring included
       tertiary: '#C0C7D6', // silver: the rare accent
     },
     custom: {
-      'brand-orange': '#9C8A57',
+      // Not harmonised (customColor blend:false), so this can glow brighter
+      // than the UI role above without dragging text/background contrast
+      // down with it — reserved for decoration (fireworks, stars).
+      'brand-orange': '#E2B64A', // festive gold: fireworks and stars only
       'brand-purple': '#3B2F7A',
     },
     // Fidelity's own neutral palette flattens to near-zero chroma, so the
