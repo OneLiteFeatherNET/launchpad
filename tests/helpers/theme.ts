@@ -8,6 +8,27 @@ export function themeCss(): string {
   return readFileSync(THEME_FILE, 'utf8')
 }
 
+export const SEASONS_FILE = join(repoRoot, 'assets/css/seasons.css')
+
+export function seasonsCss(): string {
+  return readFileSync(SEASONS_FILE, 'utf8')
+}
+
+/**
+ * The declarations of one season's `html[data-season="<id>"]` block, or null
+ * when seasons.css has none. Feed it to `schemeColors()` to read the season's
+ * roles the way the base scheme's are read.
+ */
+export function seasonCss(id: string, css = seasonsCss()): string | null {
+  const match = new RegExp(`html\\[data-season="${id}"\\]\\s*\\{([^}]*)\\}`).exec(css)
+  return match?.[1] ?? null
+}
+
+/** Ids of every season block in seasons.css, in file order. */
+export function seasonIds(css = seasonsCss()): string[] {
+  return [...css.matchAll(/html\[data-season="([a-z0-9-]+)"\]/g)].map((m) => m[1] ?? '')
+}
+
 /** Colour values of one scheme pair, lowercase `#rrggbb`. */
 export interface SchemeColor {
   light: string
@@ -81,9 +102,15 @@ export async function resolveCandidates(
 
 function compileOptions() {
   const tailwindDir = join(repoRoot, 'node_modules/tailwindcss')
+  const cssDir = join(repoRoot, 'assets/css')
   return {
-    base: join(repoRoot, 'assets/css'),
+    base: cssDir,
     loadStylesheet: async (id: string) => {
+      // The project's own imports (./seasons.css) sit next to tailwind.css.
+      if (id.startsWith('./')) {
+        const path = join(cssDir, id)
+        return { path, base: cssDir, content: readFileSync(path, 'utf8') }
+      }
       const file = id === 'tailwindcss' ? 'index.css' : id.replace(/^tailwindcss\//, '')
       return {
         path: join(tailwindDir, file),

@@ -41,9 +41,15 @@ const over = (front, back, alpha) => front.map((c, i) => c * alpha + back[i] * (
 
 async function css() {
   const tailwindDir = `${root}node_modules/tailwindcss/`
+  const cssDir = `${root}assets/css/`
   const compiler = await compile(themeCss, {
     base: `${root}assets/css`,
     loadStylesheet: async (id) => {
+      // The project's own imports (./seasons.css) sit next to tailwind.css.
+      if (id.startsWith('./')) {
+        const path = cssDir + id.slice(2)
+        return { path, base: cssDir, content: readFileSync(path, 'utf8') }
+      }
       const file = id === 'tailwindcss' ? 'index.css' : id.replace(/^tailwindcss\//, '')
       return { path: tailwindDir + file, base: tailwindDir, content: readFileSync(tailwindDir + file, 'utf8') }
     },

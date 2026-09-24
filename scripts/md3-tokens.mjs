@@ -6,8 +6,14 @@
 // @material/material-color-utilities reaches a bundle: only this script and
 // tests/design-system/md3-tokens.spec.ts import it.
 //
-//   node scripts/md3-tokens.mjs          rewrite the generated block
-//   node scripts/md3-tokens.mjs --check  exit 1 if the block is out of date
+// Seasons (see SEASONS) come out of the same maths from their own seeds and
+// are written to assets/css/seasons.css, one `html[data-season="…"]` block
+// each. They live in a file of their own because every token test parses
+// tailwind.css as a whole, where a later declaration wins: a season written
+// there would be read back as the base scheme.
+//
+//   node scripts/md3-tokens.mjs          rewrite the generated block and seasons.css
+//   node scripts/md3-tokens.mjs --check  exit 1 if either is out of date
 import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import {
@@ -31,6 +37,38 @@ export const CUSTOM_COLORS = {
   'brand-orange': '#F7931D',
   'brand-purple': '#91268F',
 }
+
+/**
+ * Seasonal schemes, keyed by the id `data-season` carries on <html>. Each
+ * replaces the three core colours and both custom colours; everything else —
+ * variant, contrast level, neutral palettes from primary — is the base recipe.
+ * The ids must match the registry in layers/season/utils/seasons.ts; a test
+ * holds the two in step.
+ */
+export const SEASONS = {
+  halloween: {
+    core: {
+      primary: '#5B2A86', // witch violet: structure and the surfaces' undertone
+      secondary: '#FF7518', // pumpkin: everything interactive, focus ring included
+      tertiary: '#7CB518', // poison green: the rare accent
+    },
+    custom: {
+      'brand-orange': '#FF7518',
+      'brand-purple': '#6A0DAD',
+    },
+  },
+}
+
+export const SEASONS_HEADER = '/* Written by scripts/md3-tokens.mjs — do not edit by hand. */'
+/**
+ * Colour values outside the roles: the raw brand colours in `:root` (the
+ * connect box's glow) and the gradients in @theme. They are fixed brand hex,
+ * so without a seasonal answer they keep glowing magenta and cyan in the
+ * middle of a costume. A test fails as soon as tailwind.css gains one that
+ * this section does not answer.
+ */
+export const BRIDGE_START = '/* decoration:start */'
+export const BRIDGE_END = '/* decoration:end */'
 
 /** Token name → DynamicScheme getter, in the order they are written. */
 export const SCHEME_ROLES = {
@@ -78,8 +116,12 @@ function themeFile() {
   return fileURLToPath(new URL('../assets/css/tailwind.css', import.meta.url))
 }
 
-function scheme(isDark) {
-  const source = Hct.fromInt(argbFromHex(CORE_COLORS.primary))
+function seasonsFile() {
+  return fileURLToPath(new URL('../assets/css/seasons.css', import.meta.url))
+}
+
+function scheme(isDark, core) {
+  const source = Hct.fromInt(argbFromHex(core.primary))
   // Fidelity keeps primary-container close to the seed, so the brand blue
   // survives instead of being desaturated as Tonal Spot would. Its neutral
   // palettes are reused; the three accent palettes each come from their own
@@ -90,24 +132,27 @@ function scheme(isDark) {
     variant: base.variant,
     contrastLevel: 0,
     isDark,
-    primaryPalette: TonalPalette.fromInt(argbFromHex(CORE_COLORS.primary)),
-    secondaryPalette: TonalPalette.fromInt(argbFromHex(CORE_COLORS.secondary)),
-    tertiaryPalette: TonalPalette.fromInt(argbFromHex(CORE_COLORS.tertiary)),
+    primaryPalette: TonalPalette.fromInt(argbFromHex(core.primary)),
+    secondaryPalette: TonalPalette.fromInt(argbFromHex(core.secondary)),
+    tertiaryPalette: TonalPalette.fromInt(argbFromHex(core.tertiary)),
     neutralPalette: base.neutralPalette,
     neutralVariantPalette: base.neutralVariantPalette,
   })
 }
 
-/** Every generated token as `{ light, dark }` lowercase hex. */
-export function generateTokens() {
-  const light = scheme(false)
-  const dark = scheme(true)
+/**
+ * Every generated token as `{ light, dark }` lowercase hex. Without arguments
+ * the base scheme; a season passes its own seeds.
+ */
+export function generateTokens(core = CORE_COLORS, custom = CUSTOM_COLORS) {
+  const light = scheme(false, core)
+  const dark = scheme(true, core)
   const tokens = {}
   for (const [name, getter] of Object.entries(SCHEME_ROLES)) {
     tokens[name] = { light: hexFromArgb(light[getter]), dark: hexFromArgb(dark[getter]) }
   }
-  const sourceArgb = argbFromHex(CORE_COLORS.primary)
-  for (const [name, hex] of Object.entries(CUSTOM_COLORS)) {
+  const sourceArgb = argbFromHex(core.primary)
+  for (const [name, hex] of Object.entries(custom)) {
     const group = customColor(sourceArgb, { name, value: argbFromHex(hex), blend: false })
     const roles = {
       [name]: 'color',
@@ -143,13 +188,83 @@ export function currentBlock(css = readFileSync(themeFile(), 'utf8')) {
   return css.slice(lineStart, end + END_MARKER.length)
 }
 
+/**
+ * Everything a season declares, in write order: every role and custom colour
+ * as a light-dark() pair, then the decoration colours outside the roles —
+ * raw brand colours and gradients. Values are the raw declaration text.
+ */
+export function seasonDeclarations(id) {
+  const season = SEASONS[id]
+  if (!season) throw new Error(`Unknown season "${id}"`)
+  const roles = {}
+  const tokens = generateTokens(season.core, season.custom)
+  for (const [name, { light, dark }] of Object.entries(tokens)) {
+    roles[`--color-${name}`] = `light-dark(${light}, ${dark})`
+  }
+  const tone = (hex, t) => hexFromArgb(TonalPalette.fromInt(argbFromHex(hex)).tone(t))
+  const { primary, secondary, tertiary } = season.core
+  const purple = season.custom['brand-purple']
+  const bridge = {}
+  // The glow blends two raw colours with the orange custom colour; the season
+  // swaps in its secondary and tertiary seeds.
+  bridge['--brand-magenta'] = secondary.toLowerCase()
+  bridge['--brand-cyan'] = tertiary.toLowerCase()
+  // The main gradients sit on the page as text (GradientText), so they follow
+  // the scheme through the roles and stay as legible as the roles are. The
+  // -light variants are static, as in the base theme, at the tones the base
+  // theme's own -light stops sit on.
+  bridge['--gradient-brand'] = 'linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%)'
+  bridge['--gradient-accent'] = 'linear-gradient(90deg, var(--color-brand-purple) 0%, '
+    + 'var(--color-tertiary) 60%, var(--color-secondary) 100%)'
+  bridge['--gradient-brand-light'] = `linear-gradient(90deg, ${tone(primary, 50)} 0%, ${tone(secondary, 75)} 100%)`
+  bridge['--gradient-accent-light'] = `linear-gradient(90deg, ${tone(purple, 55)} 0%, `
+    + `${tone(tertiary, 65)} 60%, ${tone(secondary, 80)} 100%)`
+  return { roles, bridge }
+}
+
+/** The complete contents of assets/css/seasons.css. */
+export function renderSeasons() {
+  const out = [
+    SEASONS_HEADER,
+    '/* Seasonal overrides of the MD3 roles in tailwind.css, applied while',
+    '   <html data-season="…"> is set (layers/season). `html[…]` outranks the',
+    '   `:root` rule @theme writes, independent of bundle order. */',
+  ]
+  for (const id of Object.keys(SEASONS)) {
+    const { roles, bridge } = seasonDeclarations(id)
+    out.push('', `html[data-season="${id}"] {`)
+    for (const [name, value] of Object.entries(roles)) out.push(`  ${name}: ${value};`)
+    out.push('', `  ${BRIDGE_START}`)
+    for (const [name, value] of Object.entries(bridge)) out.push(`  ${name}: ${value};`)
+    out.push(`  ${BRIDGE_END}`, '}')
+  }
+  return `${out.join('\n')}\n`
+}
+
+function readIfExists(path) {
+  try {
+    return readFileSync(path, 'utf8')
+  } catch {
+    return null
+  }
+}
+
 function main() {
   const css = readFileSync(themeFile(), 'utf8')
   const existing = currentBlock(css)
   const next = renderBlock()
+  const seasons = renderSeasons()
   if (process.argv.includes('--check')) {
+    let stale = false
     if (existing !== next) {
       console.error('MD3 colour tokens in assets/css/tailwind.css are out of date.')
+      stale = true
+    }
+    if (readIfExists(seasonsFile()) !== seasons) {
+      console.error('Seasonal colour tokens in assets/css/seasons.css are out of date.')
+      stale = true
+    }
+    if (stale) {
       console.error('Run: node scripts/md3-tokens.mjs')
       process.exit(1)
     }
@@ -160,6 +275,7 @@ function main() {
     process.exit(1)
   }
   writeFileSync(themeFile(), css.replace(existing, next))
+  writeFileSync(seasonsFile(), seasons)
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) main()
