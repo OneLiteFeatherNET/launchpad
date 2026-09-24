@@ -30,13 +30,14 @@ function event(slug: string, overrides: Partial<EventDocument> = {}): EventDocum
 }
 
 const events: EventDocument[] = [
-  event('preview-only', { unlisted: true }),
-  event('public-hidden'),
+  event('preview-only', { unlisted: true }), event('public-hidden'),
 ]
 
 const fakeRepo = {
   listEvents: vi.fn(async () => events),
-  getEventBySlug: vi.fn(async (_locale: string, slug: string) => events.find((doc) => doc.slug === slug) ?? null),
+  getEventBySlug: vi.fn(async (_locale: string, slug: string) => (
+    events.find((doc) => doc.slug === slug) ?? null
+  )),
   getEventByTranslationKey: vi.fn(async () => null),
   getServerConnect: vi.fn(async () => null),
 }

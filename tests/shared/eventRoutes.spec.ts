@@ -33,8 +33,7 @@ describe('visibleEventSitemapEntries', () => {
     const running = { startsAt: '2026-10-01T18:00:00+02:00', endsAt: '2026-10-14T23:59:00+02:00' }
     const entries = visibleEventSitemapEntries({
       de: [
-        fixture('laeuft', running),
-        fixture('geheim', running, true),
+        fixture('laeuft', running), fixture('geheim', running, true),
       ],
     }, now)
     expect(entries).toEqual([{ loc: '/de/events/laeuft' }])

@@ -108,11 +108,13 @@ describe('isEventListedAt and isEventReachableAt', () => {
     ['running', '2026-10-05T10:00:00+02:00'],
     ['past', '2027-01-01T00:00:00+01:00'],
   ]
-  const unlistedValues: (boolean | undefined)[] = [true, false, undefined]
+  const unlistedValues: (boolean | undefined)[] = [true,
+false,
+undefined]
 
-  it.each(
-    moments.flatMap(([phase, now]) => unlistedValues.map((unlisted) => [phase, now, unlisted] as const))
-  )('phase %s, unlisted=%s', (phase, now, unlisted) => {
+  it.each(moments.flatMap(([phase, now]) => unlistedValues.map((unlisted) => [phase,
+now,
+unlisted] as const)))('phase %s, unlisted=%s', (phase, now, unlisted) => {
     const listed = phase !== 'hidden' && !unlisted
     const reachable = Boolean(unlisted) || phase !== 'hidden'
     expect(isEventListedAt(schedule, unlisted, at(now))).toBe(listed)

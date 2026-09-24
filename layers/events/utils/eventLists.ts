@@ -93,7 +93,9 @@ export function promotedEventsAt(
   now: Date
 ): EventCardData[] {
   return docs
-    .filter((doc) => isEventListedAt(doc.event, doc.unlisted, now) && isPromotedAt(doc.event, doc.promote, now))
+    .filter((doc) => (
+      isEventListedAt(doc.event, doc.unlisted, now) && isPromotedAt(doc.event, doc.promote, now)
+    ))
     .map((doc) => toEventCard(doc, locale, now))
     .sort((a, b) => time(a.startsAt) - time(b.startsAt))
     .slice(0, MAX_PROMOTED_EVENTS)
