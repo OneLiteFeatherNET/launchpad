@@ -130,6 +130,30 @@ Use `focus-ring`. Inside a container that clips overflow (menus) draw it
 inside: `focus-visible:outline-3 focus-visible:-outline-offset-3
 focus-visible:outline-secondary`. Never a bare `focus:` ring.
 
+## Seasons (Halloween and later)
+
+A season repaints the site by redeclaring the MD3 colour roles under
+`html[data-season="<id>"]`. Those blocks live in `assets/css/seasons.css`,
+which `scripts/md3-tokens.mjs` writes from the seeds in its `SEASONS`
+register — **never edit that file by hand**; change the seeds and run
+`node scripts/md3-tokens.mjs`. It is a separate file on purpose: the token
+tests parse `tailwind.css` whole and a later declaration wins, so a season
+written there would be read as the base scheme.
+
+- Style components with role tokens only; they recolour for free. Raw
+  palette colours (`gray-900`, `white/10`) stay as they are in every season.
+- Each season block also answers the fixed brand colours outside the roles
+  (`--gradient-*`, `--brand-magenta`, `--brand-cyan`). Adding another such
+  value to `tailwind.css` means giving it a seasonal answer in
+  `seasonDeclarations()` too — `tests/design-system/seasons.spec.ts` fails
+  until both agree.
+- Which season is active is decided on the server (`layers/season`,
+  `useSeason`). Preview with `?season=halloween`, switch off with
+  `?season=none`; `NUXT_PUBLIC_SEASON` does either in production without a
+  build.
+- Motion in decoration is opt-in (`motion-safe:md:block`): in Tailwind v4
+  `motion-reduce:hidden` sorts before `md:block` and loses to it.
+
 ## References
 
 - `references/theme-authoring.md` — `@theme` vs `@theme inline` vs `@theme static`, animation tokens.
