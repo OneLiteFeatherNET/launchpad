@@ -1,7 +1,7 @@
 import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale } from '#layers/content-core'
-import { isAccessOpenAt, eventPhaseAt } from '#shared/utils/eventPhase'
+import { isAccessOpenAt, eventPhaseAt, isEventReachableAt } from '#shared/utils/eventPhase'
 import type { EventDocument, EventPhase } from '../types'
 import {
   groupEventsAt,
@@ -64,7 +64,7 @@ export function useEventPromotions() {
 
 export interface EventDetail {
   event: EventDocument
-  phase: Exclude<EventPhase, 'hidden'>
+  phase: EventPhase
   /** Whether sign-up or application is open, if the event has a window. */
   accessOpen: boolean
   /** Java server address for `join.server`, from the server_connect content. */
@@ -83,9 +83,11 @@ const normalizeLocales = (list: unknown[]): LocaleObject[] => list
   .map((locale) => locale as LocaleObject)
 
 /**
- * One event by the catch-all slug, with its phase. Unknown and still hidden
- * events answer 404 — a hidden event must not be reachable before its
- * announcement, even by a guessed URL.
+ * One event by the catch-all slug, with its phase. Unknown events answer
+ * 404, and so do hidden *public* events — a hidden public event must not be
+ * reachable before its announcement, even by a guessed URL. An unlisted
+ * event is reachable in every phase, including hidden: its detail page then
+ * shows the preview (design.md D3).
  *
  * Publishes the slug of each translation to the language switcher and the
  * hreflang links. The translations are looked up inside the data handler, so
@@ -114,8 +116,8 @@ export async function useEventDetail() {
       const event = await repo.getEventBySlug(activeLocale.value, slug.value)
       if (!event) return null
       const now = new Date()
+      if (!isEventReachableAt(event.event, event.unlisted, now)) return null
       const phase = eventPhaseAt(event.event, now)
-      if (phase === 'hidden') return null
       const connect = event.join?.server ? await repo.getServerConnect(activeLocale.value) : null
       const localeSlugs: Record<string, string | null> = { [activeLocale.value]: event.slug }
       for (const other of normalizeLocales((locales.value || []) as unknown[])) {

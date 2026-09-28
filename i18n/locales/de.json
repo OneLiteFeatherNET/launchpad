@@ -424,11 +424,13 @@
       "beta": "Beta"
     },
     "phase": {
+      "hidden": "Vorschau",
       "announced": "Angekündigt",
       "running": "Läuft",
       "past": "Beendet"
     },
     "phase_hint": {
+      "hidden": "Startet am",
       "announced": "Startet am",
       "running": "Läuft gerade",
       "past": "Dieses Event ist beendet."
