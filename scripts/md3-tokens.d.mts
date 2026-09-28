@@ -8,13 +8,19 @@ export const CUSTOM_COLORS: Record<string, string>
 export const SCHEME_ROLES: Record<string, string>
 export const START_MARKER: string
 export const END_MARKER: string
-export function generateTokens(core?: SeasonSeeds['core'], custom?: Record<string, string>): Record<string, SchemePair>
+export function generateTokens(
+  core?: SeasonSeeds['core'],
+  custom?: Record<string, string>,
+  neutralChroma?: number,
+): Record<string, SchemePair>
 export function renderBlock(tokens?: Record<string, SchemePair>): string
 export function currentBlock(css?: string): string | null
 
 export interface SeasonSeeds {
   core: Record<'primary' | 'secondary' | 'tertiary', string>
   custom: Record<string, string>
+  /** See `generateTokens`'s neutralChroma parameter; unset for most seasons. */
+  neutralChroma?: number
 }
 
 export const SEASONS: Record<string, SeasonSeeds>

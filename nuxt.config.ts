@@ -292,10 +292,10 @@ export default defineNuxtConfig({
             openCollectiveSlug: 'onelitefeather',
             openCollectiveGoal: 3000,
             openCollectiveCurrency: 'EUR',
-            // Forces a seasonal costume on (`halloween`) or off (`none`) ahead
-            // of the calendar, via NUXT_PUBLIC_SEASON — the kill switch that
-            // needs no deploy. Empty follows the dates in
-            // layers/season/utils/seasons.ts.
+            // Forces a seasonal costume on (`spring`, `halloween`, `winter`,
+            // `new-year`) or off (`none`) ahead of the calendar, via
+            // NUXT_PUBLIC_SEASON — the kill switch that needs no deploy.
+            // Empty follows the dates in layers/season/utils/seasons.ts.
             season: '',
             // Social handles consumed by usePageSeo for twitter:site / twitter:creator.
             // Empty strings are filtered out by the composable.

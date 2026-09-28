@@ -26,7 +26,60 @@ export const HALLOWEEN: Season = {
   favicon: '/images/seasons/halloween/favicon.svg',
 }
 
-export const SEASONS: readonly Season[] = [HALLOWEEN]
+/**
+ * A winter skin, not a Christmas one — no red, so interactive elements never
+ * read as an error state. Runs the whole month up to two days before New
+ * Year's, where the next season picks up.
+ */
+export const WINTER: Season = {
+  id: 'winter',
+  start: { month: 12, day: 1 },
+  end: { month: 12, day: 26 },
+  decor: true,
+  themeColor: { light: '#f8f9fd', dark: '#111416' },
+  logo: 'images/seasons/winter/logo.svg',
+  favicon: '/images/seasons/winter/favicon.svg',
+}
+
+/**
+ * Wraps the year end: starts the day after winter closes and runs through
+ * Epiphany. `start > end` is exactly the case `covers()` exists for.
+ */
+export const NEW_YEAR: Season = {
+  id: 'new-year',
+  start: { month: 12, day: 27 },
+  end: { month: 1, day: 6 },
+  decor: true,
+  themeColor: { light: '#fdf7ff', dark: '#141123' },
+  logo: 'images/seasons/new-year/logo.svg',
+  favicon: '/images/seasons/new-year/favicon.svg',
+}
+
+/**
+ * A fixed calendar window, not the moveable feast of Easter — the season
+ * starts on the calendar's spring equinox date and runs exactly a month.
+ */
+export const SPRING: Season = {
+  id: 'spring',
+  start: { month: 3, day: 20 },
+  end: { month: 4, day: 20 },
+  decor: true,
+  themeColor: { light: '#f6fbf0', dark: '#10150e' },
+  logo: 'images/seasons/spring/logo.svg',
+  favicon: '/images/seasons/spring/favicon.svg',
+}
+
+/**
+ * Sorted by calendar start (spring, halloween, winter, new year) purely for
+ * readability — the order carries no meaning once the windows do not
+ * overlap, which `overlappingSeasons` below enforces in a test.
+ */
+export const SEASONS: readonly Season[] = [
+  SPRING,
+  HALLOWEEN,
+  WINTER,
+  NEW_YEAR,
+]
 
 /** Override value that switches every season off, whatever the date says. */
 export const SEASON_OFF = 'none'
@@ -58,6 +111,44 @@ function covers(season: Season, day: SeasonDay): boolean {
   return start <= end
     ? current >= start && current <= end
     : current >= start || current <= end
+}
+
+/** Every day of a leap year, so 29 February is covered too. */
+function everyDayOfTheYear(): SeasonDay[] {
+  const days: SeasonDay[] = []
+  const cursor = new Date(Date.UTC(2024, 0, 1))
+  while (cursor.getUTCFullYear() === 2024) {
+    days.push({ month: cursor.getUTCMonth() + 1, day: cursor.getUTCDate() })
+    cursor.setUTCDate(cursor.getUTCDate() + 1)
+  }
+  return days
+}
+
+/** One collision between two seasons: their ids and the first day both cover. */
+export interface SeasonOverlap {
+  first: string
+  second: string
+  day: SeasonDay
+}
+
+/**
+ * Every pair of seasons whose windows share a calendar day, each with the
+ * first shared day. Brute-force over a full leap year — trivially correct,
+ * year-end wraps included, and cheap enough to run in every test.
+ */
+export function overlappingSeasons(seasons: readonly Season[]): SeasonOverlap[] {
+  const overlaps: SeasonOverlap[] = []
+  const year = everyDayOfTheYear()
+  for (let i = 0; i < seasons.length; i += 1) {
+    for (let j = i + 1; j < seasons.length; j += 1) {
+      const first = seasons[i]
+      const second = seasons[j]
+      if (!first || !second) continue
+      const day = year.find((candidate) => covers(first, candidate) && covers(second, candidate))
+      if (day) overlaps.push({ first: first.id, second: second.id, day })
+    }
+  }
+  return overlaps
 }
 
 export interface ResolveSeasonOptions {
