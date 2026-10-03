@@ -63,7 +63,7 @@
     "nuxt": "^4.2.1",
     "nuxt-og-image": "6.8.0",
     "nuxt-posthog": "1.6.3",
-    "nuxt-schema-org": "6.3.2",
+    "nuxt-schema-org": "6.4.3",
     "nuxt-vitalizer": "3.0.0",
     "parse5": "^8.0.0",
     "playwright": "1.63.0",
