@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.7.1...onelitefeather.net-v1.8.0) (2026-10-03)
+
+
+### Features
+
+* **events:** add unlisted events reachable only by link ([#387](https://github.com/OneLiteFeatherNET/launchpad/issues/387)) ([6a3ecc6](https://github.com/OneLiteFeatherNET/launchpad/commit/6a3ecc69affd9817db2e9551dbe04fdcdc615079))
+
+
+### Refactors
+
+* **types:** split type-checking into Nuxt 4 projects ([#381](https://github.com/OneLiteFeatherNET/launchpad/issues/381)) ([2c34f25](https://github.com/OneLiteFeatherNET/launchpad/commit/2c34f25845b11381d017f686523f4d60bdf51340))
+
 ## [1.7.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.7.0...onelitefeather.net-v1.7.1) (2026-09-23)
 
 
