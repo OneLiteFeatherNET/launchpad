@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.3](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.2...onelitefeather.net-v1.8.3) (2026-10-04)
+
+
+### Performance
+
+* **cloudflare:** move the d1 database to western europe ([#413](https://github.com/OneLiteFeatherNET/launchpad/issues/413)) ([d3c5f35](https://github.com/OneLiteFeatherNET/launchpad/commit/d3c5f35fc9f0405c49ef0a8eb32b60c06e33855a))
+
+
+### Documentation
+
+* **openspec:** propose seed-d1-at-deploy ([#410](https://github.com/OneLiteFeatherNET/launchpad/issues/410)) ([15c3897](https://github.com/OneLiteFeatherNET/launchpad/commit/15c3897b666904b3abc4eee8b0e0a4b75ad2b840))
+
 ## [1.8.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.1...onelitefeather.net-v1.8.2) (2026-10-04)
 
 
