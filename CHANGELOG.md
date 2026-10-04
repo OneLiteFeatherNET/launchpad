@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.8.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.0...onelitefeather.net-v1.8.1) (2026-10-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency nuxt to v4.5.1 [security] ([#284](https://github.com/OneLiteFeatherNET/launchpad/issues/284)) ([56658ed](https://github.com/OneLiteFeatherNET/launchpad/commit/56658ed705dfa004f06b445bc23f1ba2ad7db4ac))
+* **team:** shorten the opencollective button label so it fits the card ([#402](https://github.com/OneLiteFeatherNET/launchpad/issues/402)) ([bc04640](https://github.com/OneLiteFeatherNET/launchpad/commit/bc04640772f143723a8c1c20b701ade9e22618f5))
+
+
+### Documentation
+
+* **readme:** describe workers deployment and release-please flow ([#407](https://github.com/OneLiteFeatherNET/launchpad/issues/407)) ([ef90168](https://github.com/OneLiteFeatherNET/launchpad/commit/ef9016834229d421610105b624747f950abbd852))
+
+
+### Continuous Integration
+
+* **renovate:** automerge security fixes and weekly lockfile maintenance ([#405](https://github.com/OneLiteFeatherNET/launchpad/issues/405)) ([261b2da](https://github.com/OneLiteFeatherNET/launchpad/commit/261b2dacbd84dd8676de4764e92afec6f5c89906))
+* **renovate:** hold typescript 7 and material-color-utilities 0.4 ([#406](https://github.com/OneLiteFeatherNET/launchpad/issues/406)) ([b5a6c3f](https://github.com/OneLiteFeatherNET/launchpad/commit/b5a6c3fef8dbc8e31bd61c90582751a660dd220d))
+
 ## [1.8.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.7.1...onelitefeather.net-v1.8.0) (2026-10-04)
 
 
