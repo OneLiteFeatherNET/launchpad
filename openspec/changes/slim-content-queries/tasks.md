@@ -28,4 +28,4 @@ den sie treiben.
 
 - [x] 5.1 Payload vor und nach messen (siehe Design, „Messung“) und Zahlen in `design.md` und in die PR-Beschreibung übernehmen
 - [x] 5.2 `pnpm test`, `pnpm quality`, `pnpm typecheck` und `pnpm build` laufen grün; Baseline nicht erhöht
-- [ ] 5.3 Pull Request gegen `main` mit dem Titel `perf(content): slim content queries for uncached renders` öffnen (Beschreibung: Zusammenfassung, je Punkt was und warum, Vorher/Nachher-Tabelle, Abfragen je Rendering, Testergebnis, Link auf diesen Ordner)
+- [x] 5.3 Pull Request gegen `main` mit dem Titel `perf(content): slim content queries for uncached renders` öffnen (Beschreibung: Zusammenfassung, je Punkt was und warum, Vorher/Nachher-Tabelle, Abfragen je Rendering, Testergebnis, Link auf diesen Ordner)
