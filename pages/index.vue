@@ -29,6 +29,7 @@ const carouselSlides = computed(() => [
 ])
 const { sponsors } = useSponsoring()
 const { data: collective } = useOpenCollective()
+const { items: faqItems } = useFaqContent()
 useHomeSeo({ title: t('index.title') })
 
 
@@ -66,5 +67,5 @@ useHomeSeo({ title: t('index.title') })
     :link="collective.link"
     :updated-at="collective.updatedAt"
   />
-  <LazyFaqSection hydrate-on-visible />
+  <LazyFaqSection hydrate-on-visible :items="faqItems" />
 </template>
