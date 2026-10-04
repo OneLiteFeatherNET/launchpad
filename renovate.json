@@ -2,5 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>onelitefeathernet/renovate:default(onelitefeathernet/maintainers-launchpad)"
-  ]
+  ],
+  "vulnerabilityAlerts": {
+    "automerge": true
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  }
 }
