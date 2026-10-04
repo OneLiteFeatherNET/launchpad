@@ -374,9 +374,6 @@ export default defineNuxtConfig({
                     // cached HTML could point at another build's chunks. What is
                     // cached, and for how long, is decided by the routeRules
                     // headers alone (see AGENTS.md, "Caching and SEO signals").
-                    // @ts-expect-error The wrangler types bundled with Nitro
-                    // predate the `cache` key (wrangler >= 4.69); the build
-                    // output carries it. Drop this once the types know it.
                     cache: {
                         enabled: true
                     },
@@ -388,7 +385,10 @@ export default defineNuxtConfig({
                     // Workers Logs: request and console output stay queryable
                     // in the dashboard instead of vanishing with the request.
                     observability: {
-                        enabled: true
+                        enabled: true,
+                        // Traces (fetch, D1 spans) for every request; low traffic.
+                        // @ts-expect-error Nitro's bundled wrangler types predate `traces`.
+                        traces: { enabled: true, head_sampling_rate: 1 }
                     },
                     // The workers.dev route serves a duplicate of
                     // onelitefeather.net, so it stays off. Preview URLs stay

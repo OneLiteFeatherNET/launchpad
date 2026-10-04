@@ -76,4 +76,12 @@ describe('production config overrides', () => {
 
     expect(wrangler).toMatch(/placement:\s*\{\s*mode:\s*'smart'\s*\}/)
   })
+
+  it('traces every request while keeping workers logs on', () => {
+    const { production } = blocks()
+    const wrangler = production.slice(production.indexOf('wrangler: {'))
+
+    expect(wrangler).toMatch(/observability:\s*\{\s*enabled:\s*true,/)
+    expect(wrangler).toMatch(/traces:\s*\{\s*enabled:\s*true,\s*head_sampling_rate:\s*1\s*\}/)
+  })
 })
