@@ -360,8 +360,10 @@ export default defineNuxtConfig({
                     // "Cannot redefine property: $i18n". The ceiling here is
                     // only a guard against runaway renders and must stay far
                     // above a normal render: ten times the measured p99, at
-                    // least 1000 ms. 5000 is the placeholder until that
-                    // measurement exists.
+                    // least 1000 ms. Measured 2026-10-04 (Cloudflare GraphQL
+                    // analytics, last 10 days): CPU p99 328-453 ms per day, so
+                    // ten times the maximum is about 4,530 ms; 5000 is that,
+                    // rounded up. Re-measure before lowering it.
                     limits: {
                         cpu_ms: 5000
                     },
