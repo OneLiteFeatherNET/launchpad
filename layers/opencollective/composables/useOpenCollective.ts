@@ -1,5 +1,5 @@
 import { useRuntimeConfig } from '#imports'
-import type { CollectiveResponse, CollectiveStats } from '../types'
+import type { CollectiveStats } from '../types'
 
 type PublicCollectiveConfig = {
   openCollectiveSlug?: string
@@ -29,25 +29,7 @@ export const useOpenCollective = () => {
     'opencollective-stats',
     async (): Promise<CollectiveStats> => {
       try {
-        const url = `${link}.json`
-        const res = await $fetch<CollectiveResponse>(url, { timeout: 5000 })
-
-        const raisedCents = typeof res.balance === 'number' ? res.balance : 0
-        const raised = Math.max(0, Math.round(raisedCents / 100))
-
-        // Use goal from API if present (yearlyIncome), otherwise fallback
-        const apiGoal =
-          typeof res.yearlyIncome === 'number' ? Math.round(res.yearlyIncome / 100) : null
-
-        return {
-          slug,
-          currency: res.currency || fallbackCurrency,
-          totalRaised: raised,
-          goal: apiGoal || fallbackGoal,
-          contributors: res.backersCount ?? null,
-          updatedAt: res.updatedAt || res.lastTransactionAt || new Date().toISOString(),
-          link
-        }
+        return await $fetch<CollectiveStats>('/api/opencollective', { timeout: 5000 })
       } catch (err) {
         console.warn('[useOpenCollective] failed to load stats', err)
         return buildFallback()
