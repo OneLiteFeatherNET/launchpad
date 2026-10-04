@@ -3,9 +3,9 @@
 // This re-exports it under the same name and derives the plain shapes this
 // layer's composable and components actually work with, via indexed access
 // against the document type rather than duplicating named sub-interfaces.
-import type { CommunityPoiDocument } from '#layers/content-core/types'
+import type { CommunityPoiDocument, CommunityPoiSummary } from '#layers/content-core/types'
 
-export type { CommunityPoiDocument }
+export type { CommunityPoiDocument, CommunityPoiSummary }
 
 /** A single community POI, as the composable and components consume it. */
 export type CommunityPoi = CommunityPoiDocument

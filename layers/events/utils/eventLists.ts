@@ -1,4 +1,4 @@
-import type { EventAccessMode, EventDocument, EventPhase, EventType } from '../types'
+import type { EventAccessMode, EventPhase, EventSummary, EventType } from '../types'
 import { eventPhaseAt, isEventListedAt, isPromotedAt } from '#shared/utils/eventPhase'
 import { eventDetailPath } from '#shared/utils/eventRoutes'
 
@@ -37,12 +37,12 @@ export const MAX_PROMOTED_EVENTS = 2
 const time = (value: string | undefined) => (value ? Date.parse(value) : Number.NaN)
 
 /** Name of the lowest placement number, if any. */
-function winnerOf(doc: EventDocument): string | undefined {
+function winnerOf(doc: EventSummary): string | undefined {
   const placements = doc.results?.placements ?? []
   return [...placements].sort((a, b) => a.place - b.place)[0]?.name
 }
 
-export function toEventCard(doc: EventDocument, locale: string, now: Date): EventCardData {
+export function toEventCard(doc: EventSummary, locale: string, now: Date): EventCardData {
   const phase = eventPhaseAt(doc.event, now)
   return {
     slug: doc.slug,
@@ -66,7 +66,7 @@ export function toEventCard(doc: EventDocument, locale: string, now: Date): Even
  * (an event without `endsAt` is never past). Hidden and unlisted events are
  * dropped.
  */
-export function groupEventsAt(docs: EventDocument[], locale: string, now: Date): GroupedEvents {
+export function groupEventsAt(docs: EventSummary[], locale: string, now: Date): GroupedEvents {
   const cards = docs
     .filter((doc) => isEventListedAt(doc.event, doc.unlisted, now))
     .map((doc) => toEventCard(doc, locale, now))
@@ -88,7 +88,7 @@ export function groupEventsAt(docs: EventDocument[], locale: string, now: Date):
  * findability is the same rule everywhere (design.md D2).
  */
 export function promotedEventsAt(
-  docs: EventDocument[],
+  docs: EventSummary[],
   locale: string,
   now: Date
 ): EventCardData[] {

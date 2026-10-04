@@ -3,10 +3,10 @@ import { computed, ref, watch } from '#imports'
 import CommunityPoiStatusBadge from './CommunityPoiStatusBadge.vue'
 import CommunityPoiCategoryBadge from './CommunityPoiCategoryBadge.vue'
 import CommunityPoiProgressBar from './CommunityPoiProgressBar.vue'
-import type { CommunityPoi } from '../types'
+import type { CommunityPoiSummary } from '../types'
 
 const props = defineProps<{
-  poi: CommunityPoi
+  poi: CommunityPoiSummary
 }>()
 
 // A thumbnail can be declared and still not arrive — the Cloudflare provider
@@ -37,8 +37,8 @@ const buildersLabel = computed(() => {
   })
 })
 
-const galleryCount = computed(() => (props.poi.gallery ?? []).length)
-const schematicCount = computed(() => (props.poi.schematics ?? []).length)
+const galleryCount = computed(() => props.poi.galleryCount ?? 0)
+const schematicCount = computed(() => props.poi.schematicCount ?? 0)
 const detailAria = computed(() => t('community_poi.card.open_detail', { title: props.poi.title }))
 
 const mediaClass = 'relative aspect-[16/9] w-full overflow-hidden bg-surface-container-highest'

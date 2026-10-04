@@ -1,9 +1,9 @@
 // The CMS-derived document shape lives in content-core, the only layer
 // permitted to name @nuxt/content directly (module-boundaries.spec.ts).
 // Everything below derives from it by indexed access, as community-poi does.
-import type { EventDocument } from '#layers/content-core/types'
+import type { EventDocument, EventSummary } from '#layers/content-core/types'
 
-export type { EventDocument }
+export type { EventDocument, EventSummary }
 
 /** A single event, as the composables and components consume it. */
 export type EventEntry = EventDocument
