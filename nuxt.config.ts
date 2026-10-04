@@ -380,6 +380,11 @@ export default defineNuxtConfig({
                     cache: {
                         enabled: true
                     },
+                    // Smart Placement: cache misses render near D1 instead of the visitor
+                    // (several sequential ~190 ms queries per uncached page).
+                    placement: {
+                        mode: 'smart'
+                    },
                     // Workers Logs: request and console output stay queryable
                     // in the dashboard instead of vanishing with the request.
                     observability: {
