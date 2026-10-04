@@ -345,11 +345,12 @@ export default defineNuxtConfig({
                 nodeCompat: true,
                 wrangler: {
                     name: 'launchpad',
+                    // WEUR on purpose: the old WNAM primary cost ~190 ms per query from Europe.
                     d1_databases: [
                         {
                             binding: 'DB',
-                            database_name: 'launchpad',
-                            database_id: 'a92127c1-aaa3-4753-82ba-ea59fa9e7140'
+                            database_name: 'launchpad-weur',
+                            database_id: '249ee06a-61d9-4344-8853-1c0b3ac861c2'
                         }
                     ],
                     // Requires Workers Paid — the Free plan rejects `limits`

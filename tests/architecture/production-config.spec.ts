@@ -85,3 +85,12 @@ describe('production config overrides', () => {
     expect(wrangler).toMatch(/traces:\s*\{\s*enabled:\s*true,\s*head_sampling_rate:\s*1\s*\}/)
   })
 })
+
+describe('production D1 binding', () => {
+  it('points DB at the western-europe database, not the WNAM one', () => {
+    const { production } = blocks()
+    expect(production, 'database_id must be launchpad-weur').toContain(`database_id: '249ee06a-61d9-4344-8853-1c0b3ac861c2'`)
+    expect(production).toContain(`database_name: 'launchpad-weur'`)
+    expect(production, 'old WNAM database id must be gone').not.toContain('a92127c1')
+  })
+})

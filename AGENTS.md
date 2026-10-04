@@ -262,6 +262,10 @@ Cloudflare Workers Builds deploys the `launchpad` Worker. Its configuration
 lives in the dashboard, not in this repository, so this is the record of what
 it must be:
 
+- **The D1 database `launchpad-weur` lives in WEUR on purpose** — the earlier
+  WNAM primary cost ~190 ms per query from Europe. @nuxt/content refills an
+  empty database from the build's dumps on first query.
+
 - **Production branch `main`, deploy command `npx wrangler deploy`.** A check
   run on a `main` commit that reports a "Preview Alias URL" means `main` is
   being treated as a preview branch: the build succeeds, a version is
