@@ -32,23 +32,15 @@ const { data: collective } = useOpenCollective()
 useHomeSeo({ title: t('index.title') })
 
 
+// The h1 in the template is sr-only: the carousel is the visual opening and leaves no room for a heading.
+// Sections below the carousel are lazy + hydrate-on-visible; see tests/architecture/lazy-components.spec.ts.
 </script>
 
 <template>
-  <!--
-    Visually hidden: the carousel is the page's visual opening and the design
-    leaves no room for a heading above it. Screen readers still get one, which
-    is what names the page in a heading list. Same string as the document
-    title, so the two agree.
-  -->
   <h1 class="sr-only">{{ t('index.title') }}</h1>
-  <!-- Full-bleed Carousel on mobile: remove outer padding and width limits; restore container on md+ -->
   <div class="-mx-4 sm:-mx-6 px-0 py-6 md:py-10 md:mx-auto md:max-w-6xl md:px-4 lg:px-8">
     <Carousel :slides="carouselSlides" aspect="16/9" :aria-label="t('index.carousel_aria')" />
   </div>
-  <!-- Everything below the carousel is off-screen at load; hydrate-on-visible
-       is what turns the code split into a saving. See tests/architecture/lazy-components.spec.ts -->
-  <!-- Server Concept Section -->
   <LazyServerConcept
     v-if="concept"
     hydrate-on-visible
@@ -56,7 +48,6 @@ useHomeSeo({ title: t('index.title') })
     :subtitle="concept.subtitle"
     :points="concept.points || []"
   />
-  <!-- Server Connect Section -->
   <LazyServerAddresses
     v-if="connect"
     hydrate-on-visible
