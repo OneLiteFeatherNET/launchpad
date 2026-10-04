@@ -1,7 +1,10 @@
 <script setup lang="ts">
 
+import type { FaqEntry } from '#layers/content-core'
+
+// Fetched by the page: a query started in here begins only after the page rendered.
+const props = defineProps<{ items: FaqEntry[] }>()
 const { t } = useI18n()
-const { items } = useFaqContent()
 
 const detailsClass
   = 'group rounded-medium border border-outline-variant bg-surface-container-low px-4 py-3 '
@@ -32,11 +35,11 @@ const answerClass = [
 // still picked up by other crawlers (Bing, DuckDuckGo, AI assistants). The
 // schema requires plain-text answers, so we strip the MDC AST down.
 useSchemaOrg(computed(() => {
-  if (!items.value.length) return []
+  if (!props.items.length) return []
   return [
     {
       '@type': 'FAQPage',
-      mainEntity: items.value.map((entry) => ({
+      mainEntity: props.items.map((entry) => ({
         '@type': 'Question' as const,
         name: entry.question,
         acceptedAnswer: {
