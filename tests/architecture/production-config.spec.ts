@@ -69,4 +69,11 @@ describe('production config overrides', () => {
     // part of the cache key, so HTML never points at another build's chunks.
     expect(production).not.toContain('cross_version_cache')
   })
+
+  it('places the worker near its D1 database with smart placement', () => {
+    const { production } = blocks()
+    const wrangler = production.slice(production.indexOf('wrangler: {'))
+
+    expect(wrangler).toMatch(/placement:\s*\{\s*mode:\s*'smart'\s*\}/)
+  })
 })
