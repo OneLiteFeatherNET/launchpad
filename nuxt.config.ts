@@ -364,6 +364,19 @@ export default defineNuxtConfig({
                     // measurement exists.
                     limits: {
                         cpu_ms: 5000
+                    },
+                    // Workers Cache in front of the Worker: a hit never
+                    // invokes the Worker and costs no CPU. The Worker version
+                    // is part of the cache key, so every deploy starts with an
+                    // empty cache — never share the cache across versions, or
+                    // cached HTML could point at another build's chunks. What is
+                    // cached, and for how long, is decided by the routeRules
+                    // headers alone (see AGENTS.md, "Caching and SEO signals").
+                    // @ts-expect-error The wrangler types bundled with Nitro
+                    // predate the `cache` key (wrangler >= 4.69); the build
+                    // output carries it. Drop this once the types know it.
+                    cache: {
+                        enabled: true
                     }
                     // NUXT_IMAGE_PROVIDER is a Cloudflare Workers Builds build
                     // variable (read at build time in nuxt.config, see top of
