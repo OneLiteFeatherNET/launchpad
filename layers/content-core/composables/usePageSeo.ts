@@ -116,7 +116,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   // rather than adding a second one. A plain `{ '@type': … }` object here
   // used to become a separate node next to it, and the module's own WebPage
   // was left without a type — two page nodes per URL, one of them untyped.
-  useSchemaOrg(() => [
+  useSchemaOrg(computed(() => [
     defineWebPage({
       '@type': opts.schemaType || 'WebPage',
       name: pageTitle.value,
@@ -124,5 +124,5 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
       url: canonicalUrl.value,
       inLanguage: locale?.value || DEFAULT_LOCALE
     })
-  ])
+  ]))
 }

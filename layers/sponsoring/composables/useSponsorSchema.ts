@@ -17,7 +17,7 @@ export interface SponsorSchemaEntry {
 export function useSponsorSchema(sponsors: Ref<readonly SponsorSchemaEntry[]>) {
   const site = useSiteConfig()
 
-  useSchemaOrg(() => {
+  useSchemaOrg(computed(() => {
     const list = sponsors.value
     if (!list?.length) return []
     const organizations = list.map((s) => ({
@@ -36,5 +36,5 @@ export function useSponsorSchema(sponsors: Ref<readonly SponsorSchemaEntry[]>) {
         sponsor: organizations.map((o) => ({ '@id': o['@id'] }))
       }
     ]
-  })
+  }))
 }

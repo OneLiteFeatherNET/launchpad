@@ -53,5 +53,5 @@ export function useSiteNavigationSchema() {
       .filter(<T>(v: T | null): v is T => v !== null)
   })
 
-  useSchemaOrg(() => elements.value)
+  useSchemaOrg(computed(() => elements.value))
 }

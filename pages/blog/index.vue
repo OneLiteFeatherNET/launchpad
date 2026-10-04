@@ -29,7 +29,7 @@ useBreadcrumbs(() => [
 ])
 
 // Help Google identify the list of articles as a structured collection.
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   const articles = [top1Article.value, ...(allPosts.value || [])].filter(Boolean)
   if (!articles.length) return []
   return [
@@ -45,7 +45,7 @@ useSchemaOrg(() => {
       }))
     }
   ]
-})
+}))
 </script>
 
 <template>

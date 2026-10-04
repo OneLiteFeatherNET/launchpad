@@ -31,7 +31,7 @@ const answerClass = [
 // FAQ rich results to authoritative sources, but other crawlers (Bing,
 // DuckDuckGo, AI assistants) still pick it up. Plain-text answers only,
 // so we strip the MDC AST down.
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   if (!items.value.length) return []
   return [
     {
@@ -46,7 +46,7 @@ useSchemaOrg(() => {
       }))
     }
   ]
-})
+}))
 </script>
 
 <template>

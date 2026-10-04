@@ -38,12 +38,12 @@ export function useBreadcrumbs(items: BreadcrumbItem[] | (() => BreadcrumbItem[]
       return entry
     }))
 
-  useSchemaOrg(() => ([
+  useSchemaOrg(computed(() => ([
     {
       '@type': 'BreadcrumbList',
       itemListElement: itemListElement.value
     }
-  ]))
+  ])))
 
   return { items: resolved }
 }

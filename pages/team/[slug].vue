@@ -87,7 +87,7 @@ useBreadcrumbs(() => [
 // Person schema so the team member can earn its own knowledge panel.
 // The stable `@id` is reused by Article.author across every blog post so
 // Google can merge the entities into one identity in its graph.
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   if (!member.value) return []
   const profileUrl = member.value.slug
     ? personProfileUrl(site.url, locale.value, member.value.slug)
@@ -112,7 +112,7 @@ useSchemaOrg(() => {
       worksFor: { '@id': organizationId(site.url) }
     }
   ]
-})
+}))
 
 // Custom OG image that puts the Minecraft head, the actual member name
 // and their bio into the social preview, instead of the generic NuxtSeo

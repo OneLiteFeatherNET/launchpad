@@ -31,7 +31,7 @@ const answerClass = [
 // rich results to authoritative health/government sites, but the markup is
 // still picked up by other crawlers (Bing, DuckDuckGo, AI assistants). The
 // schema requires plain-text answers, so we strip the MDC AST down.
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   if (!items.value.length) return []
   return [
     {
@@ -46,7 +46,7 @@ useSchemaOrg(() => {
       }))
     }
   ]
-})
+}))
 </script>
 
 <template>
