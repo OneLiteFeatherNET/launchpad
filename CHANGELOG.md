@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.1...onelitefeather.net-v1.8.2) (2026-10-04)
+
+
+### Performance
+
+* **cloudflare:** enable smart placement for the worker ([#409](https://github.com/OneLiteFeatherNET/launchpad/issues/409)) ([dc74c45](https://github.com/OneLiteFeatherNET/launchpad/commit/dc74c45c7f9e2806619ef193ba328914e57f9460))
+* **home:** cut the uncached ssr waterfall on the home page ([#411](https://github.com/OneLiteFeatherNET/launchpad/issues/411)) ([ab64f79](https://github.com/OneLiteFeatherNET/launchpad/commit/ab64f796587a6b2c658858a013a6c361c08da559))
+
 ## [1.8.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.0...onelitefeather.net-v1.8.1) (2026-10-04)
 
 
