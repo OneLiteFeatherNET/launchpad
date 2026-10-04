@@ -9,5 +9,17 @@
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
-  }
+  },
+  "packageRules": [
+    {
+      "description": "typescript-eslint and vue-tsc do not support TypeScript 7 yet (typescript-eslint#10940, vuejs/language-tools#6156)",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    },
+    {
+      "description": "0.4.0 ships extensionless ESM imports Node cannot resolve; lift once a fixed release exists",
+      "matchPackageNames": ["@material/material-color-utilities"],
+      "allowedVersions": "<0.4"
+    }
+  ]
 }
