@@ -58,4 +58,15 @@ describe('production config overrides', () => {
     // Concatenated, not replaced — see the note above.
     expect(repeated).toEqual([])
   })
+
+  it('enables the workers cache without sharing it across versions', () => {
+    const { production } = blocks()
+    const wrangler = production.slice(production.indexOf('wrangler: {'))
+
+    // Hits skip the Worker; the routeRules headers decide what is cached.
+    expect(wrangler).toMatch(/cache:\s*\{\s*enabled:\s*true\s*\}/)
+    // A deploy must invalidate the cache (design D3): the Worker version stays
+    // part of the cache key, so HTML never points at another build's chunks.
+    expect(production).not.toContain('cross_version_cache')
+  })
 })

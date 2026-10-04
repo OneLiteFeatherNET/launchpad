@@ -360,10 +360,25 @@ export default defineNuxtConfig({
                     // "Cannot redefine property: $i18n". The ceiling here is
                     // only a guard against runaway renders and must stay far
                     // above a normal render: ten times the measured p99, at
-                    // least 1000 ms. 5000 is the placeholder until that
-                    // measurement exists.
+                    // least 1000 ms. Measured 2026-10-04 (Cloudflare GraphQL
+                    // analytics, last 10 days): CPU p99 328-453 ms per day, so
+                    // ten times the maximum is about 4,530 ms; 5000 is that,
+                    // rounded up. Re-measure before lowering it.
                     limits: {
                         cpu_ms: 5000
+                    },
+                    // Workers Cache in front of the Worker: a hit never
+                    // invokes the Worker and costs no CPU. The Worker version
+                    // is part of the cache key, so every deploy starts with an
+                    // empty cache — never share the cache across versions, or
+                    // cached HTML could point at another build's chunks. What is
+                    // cached, and for how long, is decided by the routeRules
+                    // headers alone (see AGENTS.md, "Caching and SEO signals").
+                    // @ts-expect-error The wrangler types bundled with Nitro
+                    // predate the `cache` key (wrangler >= 4.69); the build
+                    // output carries it. Drop this once the types know it.
+                    cache: {
+                        enabled: true
                     }
                     // NUXT_IMAGE_PROVIDER is a Cloudflare Workers Builds build
                     // variable (read at build time in nuxt.config, see top of
