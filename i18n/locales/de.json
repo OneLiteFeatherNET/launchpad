@@ -108,7 +108,7 @@
       "badge": "Offene Stelle",
       "apply": "Über Discord bewerben",
       "apply_aria": "Für {role} über Discord bewerben",
-      "apply_opencollective": "Über OpenCollective unterstützen",
+      "apply_opencollective": "Via OpenCollective spenden",
       "apply_aria_opencollective": "{role} über OpenCollective unterstützen"
     },
     "faq": {
