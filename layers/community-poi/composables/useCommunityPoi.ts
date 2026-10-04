@@ -9,10 +9,11 @@ import { COMMUNITY_POI_STATUS_ORDER } from '#layers/content-core'
 import type {
   CommunityPoi,
   CommunityPoiAlternateHeader,
-  CommunityPoiStatus
+  CommunityPoiStatus,
+  CommunityPoiSummary
 } from '../types'
 
-const updatedTimestamp = (entry: CommunityPoi): number => {
+const updatedTimestamp = (entry: CommunityPoiSummary): number => {
   const raw = entry.updatedAt ?? entry.startedAt
   if (!raw) return 0
   const parsed = raw instanceof Date ? raw : new Date(raw)
@@ -50,13 +51,13 @@ export function useCommunityPoiOverview() {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data: pois } = useAsyncData<CommunityPoi[]>(
+  const { data: pois } = useAsyncData<CommunityPoiSummary[]>(
     () => `community-poi-list-${activeLocale.value}`,
     () => repo.listCommunityPois(activeLocale.value),
     { watch: [activeLocale] }
   )
 
-  const sorted = computed<CommunityPoi[]>(() => {
+  const sorted = computed<CommunityPoiSummary[]>(() => {
     const list = pois.value || []
     return [...list].sort((a, b) => {
       const sa = COMMUNITY_POI_STATUS_ORDER[a.status as CommunityPoiStatus] ?? 99

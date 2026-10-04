@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import CommunityPoiCard from './CommunityPoiCard.vue'
-import type { CommunityPoi } from '../types'
+import type { CommunityPoiSummary } from '../types'
 
 defineProps<{
-  pois: CommunityPoi[]
+  pois: CommunityPoiSummary[]
 }>()
 
 const { t } = useI18n()

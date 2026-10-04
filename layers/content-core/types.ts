@@ -18,7 +18,9 @@ export type {
   ServerConnectDocument,
   HomeCarouselDocument,
   CommunityPoiDocument,
+  CommunityPoiSummary,
   EventDocument,
+  EventSummary,
   // A value, exported as a type so dependants can derive `typeof …[number]`
   // without a runtime edge.
   COMMUNITY_POI_STATUS_ORDER

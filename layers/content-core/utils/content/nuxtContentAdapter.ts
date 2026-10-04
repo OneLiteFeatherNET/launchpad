@@ -10,7 +10,9 @@ import type {
   ServerConnectDocument,
   HomeCarouselDocument,
   CommunityPoiDocument,
-  EventDocument
+  CommunityPoiSummary,
+  EventDocument,
+  EventSummary
 } from './repository'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
 
@@ -30,13 +32,48 @@ const homeCarouselKey = (locale: Locale) => `home_carousel_${locale}` as 'home_c
 const communityPoiKey = (locale: Locale) => `community_poi_${locale}` as 'community_poi_de' | 'community_poi_en'
 const eventsKey = (locale: Locale) => `events_${locale}` as 'events_de' | 'events_en'
 
+type CommunityPoiQuery = ReturnType<typeof queryCollection<'community_poi_de' | 'community_poi_en'>>
+
+function communityPoiSummaries(query: CommunityPoiQuery) {
+  return query.select(
+    'slug',
+    'title',
+    'summary',
+    'status',
+    'progress',
+    'category',
+    'featured',
+    'featuredCaption',
+    'thumbnail',
+    'thumbnailAlt',
+    'location',
+    'acceptsContributions',
+    'builders',
+    'startedAt',
+    'updatedAt',
+    'gallery',
+    'schematics'
+  )
+}
+
+const toCommunityPoiSummary = (row: Record<string, unknown>): CommunityPoiSummary => {
+  const { gallery, schematics, ...rest } = row
+  return {
+    ...rest,
+    galleryCount: Array.isArray(gallery) ? gallery.length : 0,
+    schematicCount: Array.isArray(schematics) ? schematics.length : 0
+  } as CommunityPoiSummary
+}
+
 /**
  * The @nuxt/content-backed {@link ContentRepository} implementation. Every
  * `queryCollection` call in the app is funnelled through here. All methods
  * must run inside a Nuxt context (e.g. an `useAsyncData` fetcher), which is
  * how `queryCollection` resolves the active Nuxt app.
  */
-export function createNuxtContentAdapter(): ContentRepository {
+type Query = typeof queryCollection
+
+export function createNuxtContentAdapter(query: Query = queryCollection): ContentRepository {
   return {
     // Projected, not `SELECT *`. This feeds one screen — the overview's
     // headline card and teaser grid — and without a projection every row
@@ -53,7 +90,7 @@ export function createNuxtContentAdapter(): ContentRepository {
     // publish unreleased articles. The contract is asserted in
     // tests/content/blog-list-projection.spec.ts.
     listBlogArticles(locale) {
-      return queryCollection(blogKey(locale))
+      return query(blogKey(locale))
         .select(
           // ContentRenderer emits it as data-content-id; without it the
           // rendered excerpt is identical but loses that attribute.
@@ -73,90 +110,120 @@ export function createNuxtContentAdapter(): ContentRepository {
     },
 
     getBlogArticleBySlug(locale, slug) {
-      return queryCollection(blogKey(locale))
+      return query(blogKey(locale))
         .where('slug', '=', slug)
         .first() as Promise<BlogArticle | null>
     },
 
     getBlogArticleByTranslationKey(locale, translationKey) {
-      return queryCollection(blogKey(locale))
+      return query(blogKey(locale))
         .where('translationKey', '=', translationKey)
         .first() as Promise<BlogArticle | null>
     },
 
     getAuthorBySlug(slug) {
-      return queryCollection('authors')
+      return query('authors')
         .where('slug', '=', slug)
         .first() as Promise<BlogAuthorProfile | null>
     },
 
+    async listAuthorsBySlugs(slugs) {
+      if (!slugs.length) return []
+      return await query('authors')
+        .select('slug', 'name', 'role', 'avatar', 'bio', 'links')
+        .where('slug', 'IN', slugs)
+        .all() as BlogAuthorProfile[]
+    },
+
     listFaqEntries(locale) {
-      return queryCollection(faqKey(locale))
+      return query(faqKey(locale))
         .order('order', 'ASC')
         .all() as Promise<FaqEntry[]>
     },
 
-    async getTeamDocument(locale) {
-      const docs = await queryCollection(teamKey(locale)).all()
-      return (docs[0] ?? null) as TeamDocument | null
+    getTeamDocument(locale) {
+      return query(teamKey(locale))
+        .first() as Promise<TeamDocument | null>
     },
 
     listTeamFaqEntries(locale) {
-      return queryCollection(teamFaqKey(locale))
+      return query(teamFaqKey(locale))
         .order('order', 'ASC')
         .all() as Promise<TeamFaqEntry[]>
     },
 
-    async getServerConcept(locale) {
-      const docs = await queryCollection(serverConceptKey(locale)).all()
-      return (docs[0] ?? null) as ServerConceptDocument | null
+    getServerConcept(locale) {
+      return query(serverConceptKey(locale))
+        .first() as Promise<ServerConceptDocument | null>
     },
 
-    async getServerConnect(locale) {
-      const docs = await queryCollection(serverConnectKey(locale)).all()
-      return (docs[0] ?? null) as ServerConnectDocument | null
+    getServerConnect(locale) {
+      return query(serverConnectKey(locale))
+        .first() as Promise<ServerConnectDocument | null>
     },
 
-    async getHomeCarousel(locale) {
-      const docs = await queryCollection(homeCarouselKey(locale)).all()
-      return (docs[0] ?? null) as HomeCarouselDocument | null
+    getHomeCarousel(locale) {
+      return query(homeCarouselKey(locale))
+        .first() as Promise<HomeCarouselDocument | null>
     },
 
     getSponsorsDocument(locale) {
-      return queryCollection(sponsorsKey(locale))
+      return query(sponsorsKey(locale))
         .first() as Promise<SponsorsDocument | null>
     },
 
+    // gallery and schematics are read only to be reduced to counts.
     listCommunityPois(locale) {
-      return queryCollection(communityPoiKey(locale))
-        .all() as Promise<CommunityPoiDocument[]>
+      return communityPoiSummaries(query(communityPoiKey(locale)))
+        .all()
+        .then((rows) => rows.map(toCommunityPoiSummary))
+    },
+
+    listFeaturedCommunityPois(locale) {
+      return communityPoiSummaries(query(communityPoiKey(locale)))
+        .where('featured', '=', true)
+        .all()
+        .then((rows) => rows.map(toCommunityPoiSummary))
     },
 
     getCommunityPoiBySlug(locale, slug) {
-      return queryCollection(communityPoiKey(locale))
+      return query(communityPoiKey(locale))
         .where('slug', '=', slug)
         .first() as Promise<CommunityPoiDocument | null>
     },
 
     getCommunityPoiByTranslationKey(locale, translationKey) {
-      return queryCollection(communityPoiKey(locale))
+      return query(communityPoiKey(locale))
         .where('translationKey', '=', translationKey)
         .first() as Promise<CommunityPoiDocument | null>
     },
 
     listEvents(locale) {
-      return queryCollection(eventsKey(locale))
-        .all() as Promise<EventDocument[]>
+      return query(eventsKey(locale))
+        .select(
+          'slug',
+          'title',
+          'summary',
+          'type',
+          'thumbnail',
+          'thumbnailAlt',
+          'unlisted',
+          'event',
+          'access',
+          'promote',
+          'results'
+        )
+        .all() as Promise<EventSummary[]>
     },
 
     getEventBySlug(locale, slug) {
-      return queryCollection(eventsKey(locale))
+      return query(eventsKey(locale))
         .where('slug', '=', slug)
         .first() as Promise<EventDocument | null>
     },
 
     getEventByTranslationKey(locale, translationKey) {
-      return queryCollection(eventsKey(locale))
+      return query(eventsKey(locale))
         .where('translationKey', '=', translationKey)
         .first() as Promise<EventDocument | null>
     }

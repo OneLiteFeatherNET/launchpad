@@ -1,4 +1,4 @@
-import type { Locale, CommunityPoiDocument } from '#layers/content-core'
+import type { Locale, CommunityPoiSummary } from '#layers/content-core'
 import { COMMUNITY_POI_STATUS_ORDER } from '#layers/content-core'
 import type {
   HomeCarouselDocument,
@@ -8,14 +8,14 @@ import type {
   PoiSlide
 } from '../types'
 
-const updatedTs = (entry: CommunityPoiDocument): number => {
+const updatedTs = (entry: CommunityPoiSummary): number => {
   const raw = entry.updatedAt ?? entry.startedAt
   if (!raw) return 0
   const parsed = raw instanceof Date ? raw : new Date(raw)
   return Number.isNaN(parsed.getTime()) ? 0 : parsed.getTime()
 }
 
-const poiToSlide = (poi: CommunityPoiDocument, localeCode: string): PoiSlide => ({
+const poiToSlide = (poi: CommunityPoiSummary, localeCode: string): PoiSlide => ({
   type: 'poi',
   title: poi.title,
   href: `/${localeCode}/community-poi/${poi.slug}`,
@@ -53,15 +53,15 @@ export function useHomeContent() {
   // Featured POIs surface on the home carousel without anyone touching the
   // carousel JSON: maintainers just flip `featured: true` in the POI's
   // frontmatter and the next build picks it up.
-  const { data: featuredPois } = useAsyncData<CommunityPoiDocument[]>(
+  const { data: featuredPois } = useAsyncData<CommunityPoiSummary[]>(
     () => `featured-community-pois-${activeLocale.value}`,
-    () => repo.listCommunityPois(activeLocale.value),
+    () => repo.listFeaturedCommunityPois(activeLocale.value),
     { watch: [activeLocale] }
   )
 
   const slides = computed<HomeCarouselSlide[]>(() => {
     const base = homeCarousel.value?.slides ?? []
-    const featured = (featuredPois.value || []).filter((p) => p.featured)
+    const featured = featuredPois.value || []
     if (!featured.length) return base
     const ordered = [...featured].sort((a, b) => {
       const sa = COMMUNITY_POI_STATUS_ORDER[a.status] ?? 99

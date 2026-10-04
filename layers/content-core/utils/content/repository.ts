@@ -148,6 +148,21 @@ export type CommunityPoiDocument = (
  */
 export type EventDocument = EventsDeCollectionItem | EventsEnCollectionItem
 
+export type EventSummary = Pick<
+  EventDocument,
+  | 'slug'
+  | 'title'
+  | 'summary'
+  | 'type'
+  | 'thumbnail'
+  | 'thumbnailAlt'
+  | 'unlisted'
+  | 'event'
+  | 'access'
+  | 'promote'
+  | 'results'
+>
+
 /**
  * Display order for `CommunityPoiDocument['status']` (in-progress first,
  * because that's where the community can still help; completed last). A
@@ -159,6 +174,28 @@ export type EventDocument = EventsDeCollectionItem | EventsEnCollectionItem
  * itself so adding a status here is a compile error at every use site, not a
  * silent `?? 99` fallback in whichever copy someone forgot to update.
  */
+export type CommunityPoiSummary = Pick<
+  CommunityPoiDocument,
+  | 'slug'
+  | 'title'
+  | 'summary'
+  | 'status'
+  | 'progress'
+  | 'category'
+  | 'featured'
+  | 'featuredCaption'
+  | 'thumbnail'
+  | 'thumbnailAlt'
+  | 'location'
+  | 'acceptsContributions'
+  | 'builders'
+  | 'startedAt'
+  | 'updatedAt'
+> & {
+  galleryCount: number
+  schematicCount: number
+}
+
 export const COMMUNITY_POI_STATUS_ORDER: Record<CommunityPoiDocument['status'], number> = {
   'in-progress': 0,
   planning: 1,
@@ -251,6 +288,8 @@ export interface ContentRepository {
   ): Promise<BlogArticle | null>
   /** Author profile (locale-independent collection) by `slug`, or null. */
   getAuthorBySlug(slug: string): Promise<BlogAuthorProfile | null>
+  /** Profiles for the given slugs in one query; unordered, unknown slugs absent. */
+  listAuthorsBySlugs(slugs: string[]): Promise<BlogAuthorProfile[]>
 
   // --- FAQ ------------------------------------------------------------------
   /** All FAQ entries for a locale, ordered by the `order` field ascending. */
@@ -272,7 +311,9 @@ export interface ContentRepository {
 
   // --- Community POI --------------------------------------------------------
   /** All community POIs for a locale (unfiltered, unsorted — caller decides). */
-  listCommunityPois(locale: Locale): Promise<CommunityPoiDocument[]>
+  listCommunityPois(locale: Locale): Promise<CommunityPoiSummary[]>
+  /** Only POIs flagged `featured`, filtered in SQL (unsorted). */
+  listFeaturedCommunityPois(locale: Locale): Promise<CommunityPoiSummary[]>
   /** Single POI by its `slug` frontmatter field, or null. */
   getCommunityPoiBySlug(locale: Locale, slug: string): Promise<CommunityPoiDocument | null>
   /** Single POI in `locale` sharing the given `translationKey`, or null. */
@@ -283,7 +324,7 @@ export interface ContentRepository {
 
   // --- Events ---------------------------------------------------------------
   /** All events for a locale (unfiltered, unsorted — caller decides). */
-  listEvents(locale: Locale): Promise<EventDocument[]>
+  listEvents(locale: Locale): Promise<EventSummary[]>
   /** Single event by its `slug` frontmatter field, or null. */
   getEventBySlug(locale: Locale, slug: string): Promise<EventDocument | null>
   /** Single event in `locale` sharing the given `translationKey`, or null. */

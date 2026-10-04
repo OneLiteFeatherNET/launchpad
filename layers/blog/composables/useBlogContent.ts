@@ -184,11 +184,10 @@ export async function useBlogArticle() {
         .filter(Boolean)
         .map((s) => String(s))
 
-      const authorDocs = slugs.length
-        ? await Promise.all(
-          slugs.map((authorSlug) => repo.getAuthorBySlug(authorSlug))
-        )
-        : []
+      // `IN` returns no order; restore the frontmatter order.
+      const found = slugs.length ? await repo.listAuthorsBySlugs(slugs) : []
+      const bySlug = new Map(found.map((author) => [author.slug, author]))
+      const authorDocs = slugs.map((authorSlug) => bySlug.get(authorSlug))
 
       return {
         article: doc,
