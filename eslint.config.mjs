@@ -17,6 +17,9 @@ const a11yConfigs = vuejsAccessibility.configs['flat/recommended'].map(config =>
 }))
 
 export default withNuxt(...a11yConfigs, {
+  // Vendored output of `nuxt-og-image eject`; re-ejecting on upgrades would undo any reformat.
+  ignores: ['components/OgImage/NuxtSeo.satori.vue']
+}, {
   rules: {
     'linebreak-style': ['error', 'unix'],
     'max-len': [
