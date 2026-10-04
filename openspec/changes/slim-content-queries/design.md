@@ -92,7 +92,21 @@ Vorher (`origin/main`):
 | `/en/community-poi` | 83487 | 20360 |
 | `/en/blog/dev-blog-1-what-we-using` | 74202 | 9788 |
 
-Nachher: wird mit der Umsetzung (Aufgabe 5.1) ergänzt.
+Nachher:
+
+| Seite | HTML gesamt (B) | `__NUXT_DATA__` (B) |
+| --- | --- | --- |
+| `/en` | 98732 (-16,5 %) | 9611 (-67 %) |
+| `/en/events` | 38244 (0) | 1017 (0) |
+| `/en/community-poi` | 66790 (-20 %) | 3713 (-82 %) |
+| `/en/blog/dev-blog-1-what-we-using` | 73784 (-0,6 %) | 9370 (-4 %) |
+
+Abfragen je Rendering (Inhalt der Seite, ohne Layout und Übersetzungen):
+`/en` bleibt bei 5 (Konzept, Verbindung, Carousel, markierte POIs,
+Event-Promotions); statt aller POI-Zeilen mit allen Spalten liest sie nur die
+markierten. Ein Artikel mit N Autor:innen braucht statt N nur 1
+Autorenabfrage (der Beispielartikel hat einen Autor, daher keine Änderung der
+Anzahl; der Payload sinkt, weil der Autoren-Body entfällt).
 
 ## Risks / Trade-offs
 
