@@ -37,7 +37,7 @@ const toIso = (raw: string | Date | undefined): string | undefined => {
   return Number.isNaN(date.getTime()) ? undefined : date.toISOString()
 }
 
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   if (!poi.value) return []
   const detailUrl = new URL(
     `/${locale.value}/community-poi/${poi.value.slug}`,
@@ -78,7 +78,7 @@ useSchemaOrg(() => {
     })
   }
   return nodes
-})
+}))
 
 useHead(() => (poi.value as { head?: Record<string, unknown> } | null)?.head || {})
 

@@ -29,7 +29,7 @@ useBreadcrumbs(() => [
 // Expose the roster as an ItemList of Person entities. The stable per-member
 // `@id` matches the one used on the individual profile page and in
 // Article.author, so Google can merge them into one identity.
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   const members = groups.value.flatMap((g) => g.members)
   if (!members.length) return []
   return [
@@ -46,7 +46,7 @@ useSchemaOrg(() => {
       }))
     }
   ]
-})
+}))
 </script>
 
 <template>

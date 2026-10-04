@@ -27,7 +27,7 @@ useBreadcrumbs(() => [
   { name: t('navigation.home'), url: `/${locale.value}` }, { name: t('community_poi.overview.title') }
 ])
 
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   const list = pois.value || []
   if (!list.length) return []
   return [
@@ -42,7 +42,7 @@ useSchemaOrg(() => {
       }))
     }
   ]
-})
+}))
 </script>
 
 <template>

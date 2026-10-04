@@ -40,7 +40,7 @@ useBreadcrumbs(() => [
 // Deliberately plain: Google grants no Event rich result to online-only or
 // members-only events, so this describes the event for semantic use rather
 // than chasing a search feature (design.md D10).
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   if (!event.value) return []
   const url = new URL(eventDetailPath(locale.value, event.value.slug), site.url).toString()
   return [
@@ -63,7 +63,7 @@ useSchemaOrg(() => {
       organizer: { '@id': organizationId(site.url) }
     }
   ]
-})
+}))
 
 const pastHintClass = 'bg-surface-container-high text-on-surface-variant'
 const liveHintClass = 'bg-secondary-container text-on-secondary-container'
