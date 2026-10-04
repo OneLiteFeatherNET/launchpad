@@ -86,7 +86,7 @@ function scheme(isDark) {
   // core colour, as Material Theme Builder does with custom core colours.
   const base = new SchemeFidelity(source, isDark, 0)
   return new DynamicScheme({
-    sourceColorArgb: source.toInt(),
+    sourceColorHct: source,
     variant: base.variant,
     contrastLevel: 0,
     isDark,
