@@ -37,7 +37,7 @@ const cachedPageHeaders = (seconds: number) => ({
 })
 
 export default defineNuxtConfig({
-    compatibilityDate: '2025-05-15',
+    compatibilityDate: '2026-09-01',
     devtools: {
         enabled: true,
 
@@ -379,7 +379,17 @@ export default defineNuxtConfig({
                     // output carries it. Drop this once the types know it.
                     cache: {
                         enabled: true
-                    }
+                    },
+                    // Workers Logs: request and console output stay queryable
+                    // in the dashboard instead of vanishing with the request.
+                    observability: {
+                        enabled: true
+                    },
+                    // The workers.dev route serves a duplicate of
+                    // onelitefeather.net, so it stays off. Preview URLs stay
+                    // on: Workers Builds uses them for pull request previews.
+                    workers_dev: false,
+                    preview_urls: true
                     // NUXT_IMAGE_PROVIDER is a Cloudflare Workers Builds build
                     // variable (read at build time in nuxt.config, see top of
                     // file) — not a runtime Worker var, so it is not in `vars`.
