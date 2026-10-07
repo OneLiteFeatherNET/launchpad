@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.4](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.3...onelitefeather.net-v1.8.4) (2026-10-07)
+
+
+### Bug Fixes
+
+* **team:** noindex thin member profiles and drop them from the sitemap ([#424](https://github.com/OneLiteFeatherNET/launchpad/issues/424)) ([c0a62dc](https://github.com/OneLiteFeatherNET/launchpad/commit/c0a62dc893ec5280c1895b59fa0f115654fd51c1))
+* **team:** sync roster with the minecraft team and use mc names ([#425](https://github.com/OneLiteFeatherNET/launchpad/issues/425)) ([b2460a4](https://github.com/OneLiteFeatherNET/launchpad/commit/b2460a4ad497738c837274765b02378aca0499fb))
+
 ## [1.8.3](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.2...onelitefeather.net-v1.8.3) (2026-10-04)
 
 
