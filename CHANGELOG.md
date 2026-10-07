@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.9.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.4...onelitefeather.net-v1.9.0) (2026-10-07)
+
+
+### Features
+
+* **content:** cross-link authors and hosts with team profiles ([6d938fc](https://github.com/OneLiteFeatherNET/launchpad/commit/6d938fce648917cd6b7c34a470f2c2d2fe74d6d9))
+
+
+### Bug Fixes
+
+* **seo:** drop trailing slashes from canonicals and stop leaking content paths ([a054f17](https://github.com/OneLiteFeatherNET/launchpad/commit/a054f175bffcc38fe2d408fbe23f8946593e4405))
+
 ## [1.8.4](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.3...onelitefeather.net-v1.8.4) (2026-10-07)
 
 
