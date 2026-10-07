@@ -102,14 +102,20 @@ describe('loadLiteSupporters', () => {
       member({ name: 'Marc', profile: 'https://opencollective.com/m', totalAmountDonated: 1 }),
       member({ name: 'Abarzer', profile: 'https://opencollective.com/a', totalAmountDonated: 500 })
     ])
-    expect(result.map((s) => s.name)).toEqual(['Abarzer', 'Marc', 'weltspielt'])
+    expect(result.map((s) => s.name)).toEqual(['Abarzer',
+'Marc',
+'weltspielt'])
   })
 
   it('exposes name, image and profile and nothing else', async () => {
     const result = await load([member({ image: S3 })])
     expect(result).toEqual([{ name: 'Marc', image: S3, profile: 'https://opencollective.com/marc44' }])
     const json = JSON.stringify(result)
-    for (const secret of ['4200', 'marc@example.org', 'github', 'lastTransactionAt', 'totalAmountDonated']) {
+    for (const secret of ['4200',
+'marc@example.org',
+'github',
+'lastTransactionAt',
+'totalAmountDonated']) {
       expect(json, `${secret} must be stripped`).not.toContain(secret)
     }
   })
@@ -122,7 +128,11 @@ describe('loadLiteSupporters', () => {
       member({ name: 'D', profile: 'https://opencollective.com/d', image: null }),
       member({ name: 'E', profile: 'https://opencollective.com/e', image: 'not a url' })
     ])
-    expect(result.map((s) => s.image)).toEqual([S3, null, null, null, null])
+    expect(result.map((s) => s.image)).toEqual([S3,
+null,
+null,
+null,
+null])
   })
 
   it('throws on an error status, so no cache layer stores it', async () => {

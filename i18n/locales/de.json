@@ -135,6 +135,11 @@
       "apply_opencollective": "Via OpenCollective spenden",
       "apply_aria_opencollective": "{role} über OpenCollective unterstützen"
     },
+    "supporters": {
+      "title": "Unsere Lite-Unterstützer",
+      "intro": "Diese Menschen tragen den Lite-Rang mit ihren freiwilligen Spenden. Danke!",
+      "link_aria": "{name} auf der Community-Wand ansehen"
+    },
     "faq": {
       "section_title": "Bewerbungen und Ränge",
       "section_subtitle": "Antworten zu Ablauf, Anforderungen und dem Lite-Rang."
@@ -538,9 +543,11 @@
     },
     "wall": {
       "title": "Die Wand der Mitwirkenden",
-      "intro": "Alle, die bei Community-Bauten und Events namentlich genannt werden.",
+      "intro": "Alle, die bei Community-Bauten und Events namentlich genannt werden, und unsere Lite-Unterstützer.",
       "badge_build": "Bau: {title}",
-      "badge_event": "Event: {place}. Platz {title}"
+      "badge_event": "Event: {place}. Platz {title}",
+      "badge_supporter": "Unterstützer",
+      "badge_supporter_aria": "Unterstützer: {name} auf OpenCollective ansehen"
     },
     "strip": {
       "title": "Unsere Community in Zahlen",

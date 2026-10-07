@@ -44,7 +44,7 @@ describe('buildCommunityOverview', () => {
       ]
     })
     expect(result.contributors, 'spelling of mcName must not split a person').toHaveLength(1)
-    expect(result.contributors[0]!.contributions.map((c) => c.title)).toEqual(['POI a', 'POI b'])
+    expect(result.contributors[0]!.contributions.map((c) => 'title' in c ? c.title : c.path)).toEqual(['POI a', 'POI b'])
   })
 
   it('gives a person one contribution when a POI lists them twice', () => {

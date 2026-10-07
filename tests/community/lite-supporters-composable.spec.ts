@@ -33,8 +33,7 @@ describe('useLiteSupporters', () => {
   it('passes the list from the route through', async () => {
     registerEndpoint('/api/community/supporters', () => ({
       supporters: [
-        { name: 'Ada', image: null, profile: 'https://opencollective.com/ada' },
-        { name: 'Bo', image: null, profile: 'https://opencollective.com/bo' }
+        { name: 'Ada', image: null, profile: 'https://opencollective.com/ada' }, { name: 'Bo', image: null, profile: 'https://opencollective.com/bo' }
       ]
     }))
     expect(await render()).toBe('Ada,Bo')

@@ -135,6 +135,11 @@
       "apply_opencollective": "Support via OpenCollective",
       "apply_aria_opencollective": "Support {role} via OpenCollective"
     },
+    "supporters": {
+      "title": "Our Lite supporters",
+      "intro": "These people carry the Lite rank with their voluntary donations. Thank you!",
+      "link_aria": "View {name} on the community wall"
+    },
     "faq": {
       "section_title": "Applications and ranks",
       "section_subtitle": "Answers on the process, requirements, and the Lite rank."
@@ -538,9 +543,11 @@
     },
     "wall": {
       "title": "The contributor wall",
-      "intro": "Everyone named on a community build or in an event.",
+      "intro": "Everyone named on a community build or in an event, and our Lite supporters.",
       "badge_build": "Build: {title}",
-      "badge_event": "Event: place {place} in {title}"
+      "badge_event": "Event: place {place} in {title}",
+      "badge_supporter": "Supporter",
+      "badge_supporter_aria": "Supporter: view {name} on OpenCollective"
     },
     "strip": {
       "title": "Our community in numbers",

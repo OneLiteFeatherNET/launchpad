@@ -15,10 +15,11 @@ type Member = {
 }
 
 const AVATAR_HOSTS = new Set([
-  'opencollective-production.s3.us-west-1.amazonaws.com',
-  'images.opencollective.com'
+  'opencollective-production.s3.us-west-1.amazonaws.com', 'images.opencollective.com'
 ])
-const ANONYMOUS = new Set(['guest', 'incognito', 'anonymous'])
+const ANONYMOUS = new Set(['guest',
+'incognito',
+'anonymous'])
 const PROFILE_HOSTS = new Set(['opencollective.com', 'www.opencollective.com'])
 
 const parseUrl = (value: unknown): URL | null => {

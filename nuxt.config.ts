@@ -236,8 +236,9 @@ export default defineNuxtConfig({
         quality: 75,
         // Allow the Cloudflare Images pipeline to transform third-party origins
         // we explicitly trust. Minecraft head renders come from mc-heads.net and
-        // are reshipped as AVIF/WebP via img.onelitefeather.net.
-        domains: ['mc-heads.net'],
+        // are reshipped as AVIF/WebP via img.onelitefeather.net; the same goes
+        // for the OpenCollective avatars of Lite supporters.
+        domains: ['mc-heads.net', 'opencollective-production.s3.us-west-1.amazonaws.com'],
         // The screen sizes predefined by `@nuxt/image`:
         screens: {
             xs: 320,

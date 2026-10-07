@@ -16,7 +16,7 @@ export function useCommunityOverview() {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data: overview } = useAsyncData<CommunityOverview>(
+  const { data: base } = useAsyncData<CommunityOverview>(
     () => `community-overview-${activeLocale.value}`,
     async () => {
       const [
@@ -39,6 +39,10 @@ export function useCommunityOverview() {
     { watch: [activeLocale], default: emptyOverview }
   )
 
+  // Applied outside the data handler so the list can arrive after the content queries.
+  const { supporters } = useLiteSupporters()
+  const overview = computed(() => withSupporters(base.value, supporters.value))
+
   const { members: discordMembers } = useDiscordMembers()
   const { data: collective } = useOpenCollective()
 
@@ -47,7 +51,7 @@ export function useCommunityOverview() {
     teamSize: overview.value.teamSize,
     buildCount: overview.value.buildCount,
     contributorCount: overview.value.contributors.length,
-    supporters: collective.value?.contributors ?? null
+    supporters: supporters.value.length || (collective.value?.contributors ?? null)
   }))
 
   return { overview, numbers }
