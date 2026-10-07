@@ -6,9 +6,20 @@ import { collectSourceFiles, relativeToRepo, repoRoot } from '../helpers/sources
 /** Every invite goes through https://1lf.link/discord so it can be repointed in one place. */
 const DIRECT_INVITE = /discord\.gg\/\w|discord(?:app)?\.com\/invite\/\w/i
 
-const contentSections = readdirSync(join(repoRoot, 'content')).filter((entry) => entry !== 'blog').map((entry) => `content/${entry}`)
-const DIRS = ['layers', 'pages', 'layouts', 'i18n', 'public', 'server', 'shared', ...contentSections]
-const EXTENSIONS = ['.vue', '.ts', '.json', '.txt', '.md', '.yml', '.yaml']
+const contentSections = readdirSync(join(repoRoot, 'content'))
+  .filter((entry) => entry !== 'blog')
+  .map((entry) => `content/${entry}`)
+const DIRS = [
+  'layers',
+  'pages',
+  'layouts',
+  'i18n',
+  'public',
+  'server',
+  'shared',
+  ...contentSections
+]
+const EXTENSIONS = '.vue .ts .json .txt .md .yml .yaml'.split(' ')
 
 describe('discord invite links', () => {
   it('recognises a direct invite', () => {

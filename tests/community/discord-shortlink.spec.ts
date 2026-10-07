@@ -3,15 +3,18 @@ import { loadDiscordMembers, resolveDiscordInviteCode } from '../../shared/utils
 
 type Init = { signal?: AbortSignal, redirect?: string }
 
-const redirectTo = (location: string | null, status = 302) =>
-  new Response(null, { status, headers: location ? { location } : {} })
+const redirectTo = (location: string | null, status = 302) => {
+  const headers = location ? { location } : undefined
+  return new Response(null, { status, headers })
+}
 
-const routes = (table: Record<string, () => Response>) =>
-  vi.fn(async (url: string, _init: Init): Promise<Response> => {
+const routes = (table: Record<string, () => Response>) => {
+  return vi.fn(async (url: string, _init: Init): Promise<Response> => {
     const route = table[url]
     if (!route) throw new Error(`unexpected ${url}`)
     return route()
   })
+}
 
 const SHORT = 'https://1lf.link/discord'
 const INVITE_URL = 'https://discord.com/api/v10/invites'
@@ -56,7 +59,8 @@ describe('resolveDiscordInviteCode', () => {
   })
 
   it('gives null without a Location', async () => {
-    expect(await resolveDiscordInviteCode(routes({ [SHORT]: () => redirectTo(null) }), SHORT)).toBeNull()
+    const fetcher = routes({ [SHORT]: () => redirectTo(null) })
+    expect(await resolveDiscordInviteCode(fetcher, SHORT)).toBeNull()
   })
 
   it('gives null for a foreign host that does not redirect on', async () => {

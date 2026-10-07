@@ -1,7 +1,9 @@
 // Same caching shape as opencollective.get.ts: swr is off (a background refresh
 // needs waitUntil) and a throw is never stored.
 const cachedMembers = defineCachedFunction(
-  (shortlink: string, fallbackCode: string) => loadDiscordMembers(fetch, { shortlink, fallbackCode }),
+  (shortlink: string, fallbackCode: string) => {
+    return loadDiscordMembers(fetch, { shortlink, fallbackCode })
+  },
   {
     name: 'discord-members',
     maxAge: DISCORD_CACHE_TTL,

@@ -33,7 +33,12 @@ export async function loadDiscordMemberCount(
   return count
 }
 
-const DISCORD_HOSTS = new Set(['discord.com', 'www.discord.com', 'discord.gg', 'discordapp.com'])
+const DISCORD_HOSTS = new Set([
+  'discord.com',
+  'www.discord.com',
+  'discord.gg',
+  'discordapp.com'
+])
 const MAX_REDIRECT_HOPS = 3
 
 /**
