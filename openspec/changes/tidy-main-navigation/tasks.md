@@ -37,4 +37,4 @@ Warten, jeder Test baut sein eigenes Fixture.
 
 ## 7. Pull Request
 
-- [ ] 7.1 Pull Request mit dem Titel `feat(navigation): group the main navigation under team, blog, community and more` öffnen (englischer Text, Zusammenfassung, Screenshots)
+- [x] 7.1 Pull Request mit dem Titel `feat(navigation): group the main navigation under team, blog, community and more` öffnen (englischer Text, Zusammenfassung, Screenshots)
