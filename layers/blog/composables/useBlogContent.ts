@@ -1,11 +1,7 @@
 import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale } from '#layers/content-core'
-import type {
-  BlogArticle,
-  BlogAlternateHeader,
-  BlogAuthorProfile
-} from '../types'
+import type { BlogArticle, BlogAlternateHeader, Person } from '../types'
 
 const normalizeReleaseDate = (entry: BlogArticle): Date | null => {
   // `releaseDate` and `pubDate` are schema columns now, so both arrive as
@@ -164,7 +160,7 @@ export async function useBlogArticle() {
   // without any author data.
   const { data: payload } = await useAsyncData<{
     article: BlogArticle | null
-    authors: BlogAuthorProfile[]
+    authors: Person[]
   } | null>(
     () => `${route.path}-${locale.value}`,
     async () => {
@@ -184,14 +180,9 @@ export async function useBlogArticle() {
         .filter(Boolean)
         .map((s) => String(s))
 
-      // `IN` returns no order; restore the frontmatter order.
-      const found = slugs.length ? await repo.listAuthorsBySlugs(slugs) : []
-      const bySlug = new Map(found.map((author) => [author.slug, author]))
-      const authorDocs = slugs.map((authorSlug) => bySlug.get(authorSlug))
-
       return {
         article: doc,
-        authors: authorDocs.filter((a): a is BlogAuthorProfile => Boolean(a))
+        authors: await resolvePeople(slugs, activeLocale.value)
       }
     },
     { watch: [locale, slug] }
@@ -204,7 +195,7 @@ export async function useBlogArticle() {
   }
 
   const article = computed<BlogArticle | null>(() => payload.value?.article || null)
-  const authors = computed<BlogAuthorProfile[]>(() => payload.value?.authors || [])
+  const authors = computed<Person[]>(() => payload.value?.authors || [])
 
   const blog = computed<BlogArticle | null>(() => {
     if (!article.value) return null

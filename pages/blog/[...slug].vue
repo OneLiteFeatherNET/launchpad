@@ -131,23 +131,14 @@ const articleClass
           v-if="authors?.length"
           class="mt-3 flex flex-wrap items-center gap-4 text-on-surface"
         >
-          <div v-for="author in authors" :key="author.slug" class="flex items-center gap-3">
-            <NuxtImg
-              v-if="author.avatar"
-              :src="author.avatar"
-              :alt="author.name"
-              width="48"
-              height="48"
-              class="h-12 w-12 rounded-full border border-outline-variant object-cover"
-              format="webp"
-            />
-            <div>
-              <p class="text-label-large">{{ author.name }}</p>
-              <p v-if="author.role" class="text-label-small text-on-surface-variant">
-                {{ author.role }}
-              </p>
-            </div>
-          </div>
+          <PersonLink
+            v-for="author in authors"
+            :key="author.slug"
+            :name="author.name"
+            :to="author.profilePath"
+            :avatar="author.avatar"
+            :role="author.role"
+          />
         </div>
 
         <section
