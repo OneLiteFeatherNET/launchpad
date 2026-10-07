@@ -40,4 +40,4 @@ sein eigenes Fixture.
 
 ## 6. Pull Request
 
-- [ ] 6.1 Pull Request mit dem Titel `feat(community): add a community page with stats and contributor wall` öffnen (Beschreibung auf Englisch: Zusammenfassung, Begründung, Belege aus 5.2)
+- [x] 6.1 Pull Request mit dem Titel `feat(community): add a community page with stats and contributor wall` öffnen (Beschreibung auf Englisch: Zusammenfassung, Begründung, Belege aus 5.2)
