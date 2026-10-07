@@ -32,6 +32,9 @@ daran denkt, die JSON-Datei anzupassen.
   entfällt.
 - **Obergrenze**: höchstens 6 neue Slides aus Blog, POIs und Projekten; die
   beworbenen Events (höchstens 2, bestehende Regel) stehen davor.
+- **Auffüllen**: unter 5 Slides füllt das Karussell mit den jüngsten nicht neuen
+  Inhalten ohne Hinweis auf, damit es durch den Wegfall der handgepflegten
+  Blog-Slides nicht ärmer wird.
 - **„Jetzt“ ist ein Parameter** der reinen Funktionen und wird einmal auf dem Server
   im Datenhandler entschieden; der Browser fragt die Uhr nicht erneut.
 - **ARCR**: `publishedAt: 2026-10-07` in de und en.

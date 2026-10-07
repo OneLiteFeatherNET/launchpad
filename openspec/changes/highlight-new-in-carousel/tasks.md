@@ -17,10 +17,14 @@ statt Systemzeit, kein Netz, kein Warten, jeder Test baut sein eigenes Fixture.
 - [x] 2.1 `tests/home/highlights.spec.ts` (Node, fester `now`): Fenster 30 Tage inklusive, Zukunft und fehlendes Datum nicht neu, Reihenfolge, Gleichstand nach `href`, Obergrenze 6, Blog nur freigegeben (`releaseDate ?? pubDate`), Autorennamen aus Personen, `composeSlides` (Events zuerst, Kuratiertes danach, Duplikate nach `href` entfallen, Rückfall ohne Neues), kein `path`/`stem` in den Slides; rot sehen
 - [x] 2.2 `layers/home/utils/highlights.ts`, `layers/home/types-carousel.ts` (`ProjectSlide`, `isNew`), `layers/home/index.ts` umsetzen; `layers/events/utils/eventLists.ts`: `announcedAt` an `EventCardData`; verifiziert durch grüne Tests aus 2.1 und `pnpm exec vitest run tests/events tests/architecture`
 
+- [x] 2.3 Auffüllen: `tests/home/highlights.spec.ts` (`recentSlides`, `composeSlides` mit `recent`) rot sehen, dann `recentSlides`, `recentBlogArticles`, `MIN_SLIDES` in `layers/home/utils/highlights.ts`, `recent` in `composables/useHomeHighlights.ts` und `pages/index.vue`; verifiziert durch `pnpm exec vitest run tests/home`
+
 ## 3. Darstellung und Barrierefreiheit
 
 - [x] 3.1 `tests/a11y/carousel-live-region.spec.ts` und `tests/home/highlights.spec.ts` erweitern: `getSlideLabel` stellt `carousel.new_label` voran, wenn `isNew`; `tests/i18n`: Schlüssel `carousel.new`, `carousel.new_label`, `carousel.project_*` in de und en; rot sehen
 - [x] 3.2 `layers/home/composables/useCarousel.ts`, `components/CarouselItem{Blog,Poi,Event}.vue` (Chip „Neu“), `CarouselItemProject.vue`, `Carousel.vue` (Typ `project`, Preload), `i18n/locales/{de,en}.json`; verifiziert durch grüne Tests aus 3.1 und `pnpm exec vitest run tests/a11y tests/i18n tests/design-system`
+
+- [ ] 3.3 Blog-Slide: feste Texte „von“ / „Lesen“ über `carousel.by_author` und `carousel.read` in `i18n/locales/{de,en}.json`; Test rendert den englischen Slide; verifiziert durch `pnpm exec vitest run tests/home tests/i18n`
 
 ## 4. Seite und Inhalt
 

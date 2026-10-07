@@ -84,6 +84,13 @@ describe('useHomeHighlights', () => {
     expect(repo.getTeamDocument).toHaveBeenCalledTimes(1)
   })
 
+  it('also returns recent, not-new content to fill a sparse carousel', async () => {
+    await mountSuspended(Harness, { route: '/en' })
+    await flushPromises()
+    const recent = result!.highlights.value.recent.map((slide) => (slide as { href: string }).href)
+    expect(recent).toEqual(['/en/blog/old'])
+  })
+
   it('leaves path and stem out of the payload', async () => {
     repo.listProjects.mockResolvedValue([
       {

@@ -58,6 +58,24 @@ Ist nichts neu, MUST das Karussell genau die kuratierten Slides zeigen.
 - **WHEN** kein Inhalt im Fenster liegt
 - **THEN** zeigt das Karussell nur die kuratierten Slides
 
+### Requirement: Ein dünnes Karussell wird aufgefüllt
+Hat das Karussell nach beworbenen Events, neuen und kuratierten Slides weniger
+als 5 Slides, MUST es mit den jüngsten freigegebenen Blogartikeln, Projekten und
+Community-POIs aufgefüllt werden, die nicht neu sind, ohne Hinweis „Neu“, das
+jüngste zuerst, ohne einen `href`, der schon vorkommt, bis 5 erreicht sind oder
+die Quellen erschöpft sind. Das Datum eines Eintrags ist bei Artikeln
+`releaseDate ?? pubDate`, bei POIs `publishedAt ?? updatedAt ?? startedAt`, bei
+Projekten `publishedAt ?? releasedAt`; ein Eintrag mit Datum in der Zukunft MUST
+entfallen.
+
+#### Scenario: Wenig Neues
+- **WHEN** nur ein neuer und zwei kuratierte Slides existieren und genug ältere Inhalte
+- **THEN** zeigt das Karussell 5 Slides, die letzten beiden ohne Hinweis „Neu“
+
+#### Scenario: Genug Slides
+- **WHEN** schon 5 Slides existieren
+- **THEN** wird nichts aufgefüllt
+
 ### Requirement: „Jetzt“ ist ein Parameter
 Die Auswahl MUST eine reine Funktion von Daten und einem übergebenen Zeitpunkt
 sein; der Zeitpunkt MUST auf dem Server einmal entschieden und in der Payload

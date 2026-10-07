@@ -6,9 +6,15 @@ export interface HomeHighlights {
   /** The moment "new" was decided, as an ISO string. */
   now: string
   slides: AnySlide[]
+  /** Not-new content for filling a sparse carousel, newest first. */
+  recent: AnySlide[]
 }
 
-const emptyHighlights = (): HomeHighlights => ({ now: new Date(0).toISOString(), slides: [] })
+const emptyHighlights = (): HomeHighlights => ({
+  now: new Date(0).toISOString(),
+  slides: [],
+  recent: []
+})
 
 /**
  * The home carousel's new slides: blog, POIs and projects published within the
@@ -36,21 +42,18 @@ export function useHomeHighlights() {
         repo.listCommunityPois(activeLocale.value),
         repo.listProjects(activeLocale.value)
       ])
-      const fresh = freshBlogArticles(articles, now)
+      const shown = [
+        ...freshBlogArticles(articles, now), ...recentBlogArticles(articles, now, MIN_SLIDES)
+      ]
       const people = await resolvePeople(
-        [...new Set(fresh.flatMap(authorSlugsOf))],
+        [...new Set(shown.flatMap(authorSlugsOf))],
         activeLocale.value
       )
+      const sources = { locale: activeLocale.value, now, articles: shown, people, pois, projects }
       return {
         now: now.toISOString(),
-        slides: freshSlides({
-          locale: activeLocale.value,
-          now,
-          articles: fresh,
-          people,
-          pois,
-          projects
-        })
+        slides: freshSlides(sources),
+        recent: recentSlides(sources)
       }
     },
     { watch: [activeLocale], default: emptyHighlights }

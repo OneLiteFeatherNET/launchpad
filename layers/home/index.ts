@@ -16,9 +16,12 @@ export {
 export {
   HIGHLIGHT_WINDOW_DAYS,
   MAX_HIGHLIGHTS,
+  MIN_SLIDES,
   isNewAt,
   freshBlogArticles,
   freshSlides,
+  recentBlogArticles,
+  recentSlides,
   eventSlide,
   composeSlides
 } from './utils/highlights'

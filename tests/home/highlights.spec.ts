@@ -6,6 +6,8 @@ import {
   eventSlide,
   freshBlogArticles,
   freshSlides,
+  MIN_SLIDES,
+  recentSlides,
   isNewAt
 } from '../../layers/home/utils/highlights'
 import { getSlideLabel } from '../../layers/home/composables/useCarousel'
@@ -249,6 +251,66 @@ describe('composeSlides', () => {
     const slides = composeSlides({ events: [], fresh, curated: [curatedPoi, image('/a.png')] })
     expect(slides.map((slide) => (slide as { type: string }).type)).toEqual(['poi', 'image'])
     expect((slides[0] as PoiSlide).isNew).toBe(true)
+  })
+})
+
+describe('recentSlides', () => {
+  it('lists released content that is not new, newest first, without a badge', () => {
+    const slides = recentSlides(sources({
+      articles: [
+        article('older', { pubDate: daysAgo(90) }),
+        article('recent', { pubDate: daysAgo(40) }),
+        article('fresh', { pubDate: daysAgo(2) }),
+        article('later', { releaseDate: daysAgo(-3) })
+      ],
+      pois: [poi('maze', { updatedAt: daysAgo(60) })],
+      projects: [project('arcr', { releasedAt: daysAgo(500) })]
+    }))
+    expect(hrefs(slides as never)).toEqual([
+      '/en/blog/recent',
+      '/en/community-poi/maze',
+      '/en/blog/older',
+      '/en/projects/arcr'
+    ])
+    expect(slides.every((slide) => !('isNew' in slide))).toBe(true)
+  })
+
+  it('keeps at most the minimum slide count', () => {
+    const projects = Array.from({ length: 9 }, (_, index) => project(`p${index}`, { publishedAt: daysAgo(40 + index) }))
+    expect(recentSlides(sources({ projects }))).toHaveLength(MIN_SLIDES)
+  })
+
+  it('skips an entry dated in the future', () => {
+    expect(recentSlides(sources({ projects: [project('x', { publishedAt: daysAgo(-2) })] }))).toEqual([])
+  })
+})
+
+describe('composeSlides fill-up', () => {
+  const image = (src: string): ImageSlide => ({ type: 'image', src, alt: src })
+  const recent = (n: number) => freshSlides(sources({
+    projects: Array.from({ length: n }, (_, i) => project(`r${i}`, { publishedAt: daysAgo(1 + i) }))
+  })).map((slide) => ({ ...slide, isNew: undefined }))
+
+  it('fills up to the minimum with recent slides after the curated ones', () => {
+    const slides = composeSlides({ events: [], fresh: [], curated: [image('/a.png')], recent: recent(6) })
+    expect(slides).toHaveLength(MIN_SLIDES)
+    expect(slides[0]).toMatchObject({ type: 'image' })
+    expect((slides[1] as { href: string }).href).toBe('/en/projects/r0')
+  })
+
+  it('adds nothing when there are enough slides', () => {
+    const curated = Array.from({ length: MIN_SLIDES }, (_, i) => image(`/${i}.png`))
+    expect(composeSlides({ events: [], fresh: [], curated, recent: recent(3) })).toEqual(curated)
+  })
+
+  it('does not repeat a slide that is already there', () => {
+    const fresh = freshSlides(sources({ projects: [project('r0', { publishedAt: daysAgo(1) })] }))
+    const slides = composeSlides({ events: [], fresh, curated: [], recent: recent(2) })
+    expect(hrefs(slides as never)).toEqual(['/en/projects/r0', '/en/projects/r1'])
+  })
+
+  it('stops when the sources run out', () => {
+    expect(composeSlides({ events: [], fresh: [], curated: [image('/a.png')], recent: recent(1) })).toHaveLength(2)
   })
 })
 

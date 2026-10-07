@@ -32,6 +32,12 @@ die neuen Slides aus Blog, POIs und Projekten nach Datum absteigend (Gleichstand
 `href` aufsteigend), höchstens 6. Danach die kuratierten Slides, wobei jeder mit
 einem `href` eines erzeugten entfällt. Ohne Neues bleibt nur Kuratiertes.
 
+**D3a Auffüllen.** Weil die entfernten Blog-Slides das Karussell sonst ärmer
+machen, füllt `composeSlides` unter `MIN_SLIDES = 5` mit `recentSlides` auf: nicht
+neue, freigegebene Artikel, POIs und Projekte ohne Hinweis, jüngstes zuerst,
+Duplikate nach `href` übersprungen. Der Handler legt höchstens 5 davon in die
+Payload (`recent`) und löst deren Autoren mit auf.
+
 **D4 Wo was liegt.** `layers/home/utils/highlights.ts` hält reine Funktionen über
 einfachen Daten (`isNewAt`, `freshSlides`, `eventSlide`, `composeSlides`); die
 Layer importiert nur Typen anderer Domänen und `#shared/utils/blogAuthors`.

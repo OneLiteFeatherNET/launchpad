@@ -23,6 +23,7 @@ const carouselSlides = computed(() => {
   return composeSlides({
     events: promoted.value.map((card) => eventSlide(card, now)),
     fresh: highlights.value.slides,
+    recent: highlights.value.recent,
     curated: slides.value ?? []
   })
 })
