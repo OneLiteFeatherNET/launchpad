@@ -45,4 +45,4 @@ kein Netz, kein Warten, jeder Test baut sein eigenes Fixture.
 
 ## 7. Pull Request
 
-- [ ] 7.1 Pull Request mit dem Titel `feat(projects): add a projects section linked to community points of interest` öffnen (Beschreibung auf Englisch: Zusammenfassung, Begründung, Belege aus 6.2; Hinweis, dass der ARCR-POI folgt)
+- [x] 7.1 Pull Request mit dem Titel `feat(projects): add a projects section linked to community points of interest` öffnen (Beschreibung auf Englisch: Zusammenfassung, Begründung, Belege aus 6.2; Hinweis, dass der ARCR-POI folgt)
