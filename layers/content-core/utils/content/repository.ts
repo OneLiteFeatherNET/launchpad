@@ -254,7 +254,6 @@ export type BlogArticle = (
 ) & {
   author?: string | string[]
   authors?: BlogAuthorProfile[]
-  teamMembers?: string[]
   canonical?: string
   alternates?: BlogAlternateHeader[]
   seo?: BlogSeoOverrides

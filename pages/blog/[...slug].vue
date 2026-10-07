@@ -11,32 +11,6 @@ definePageMeta({
 
 const { blog, authors } = await useBlogArticle()
 
-// Only fetches the roster when the article actually names team members —
-// before this guard, every article page issued the content query and shipped
-// the whole team document in its SSR payload, even for the vast majority of
-// posts that never reference a member.
-const hasTeamMembers = computed(() => (blog.value?.teamMembers?.length ?? 0) > 0)
-const { bySlug } = useTeamRoster({ enabled: hasTeamMembers })
-
-// Resolves what FeaturedTeamMembers used to fetch for itself. The lookup
-// belongs here: this page is the root, so it may know both the blog and the
-// team layer, and neither layer learns about the other.
-const featuredMembers = computed(() => (blog.value?.teamMembers ?? [])
-  .map((slug: string) => bySlug.value[slug])
-  // `bySlug` is only ever keyed by a member's own slug, so every entry it
-  // returns already has one — the `m.slug` half of this guard just narrows
-  // the type for FeaturedMember below, it drops nothing at runtime.
-  .filter((m): m is NonNullable<typeof m> & { slug: string } => Boolean(m?.slug))
-  .map((member) => ({
-    slug: member.slug,
-    name: member.name,
-    avatarUrl: teamAvatarUrl(
-      { mcName: member.mcName, slug: member.slug, avatarUrl: member.avatarUrl },
-      64
-    ),
-    role: toRoleString(member.role) ?? ''
-  })))
-
 // All Article-level SEO (meta tags, Article JSON-LD, breadcrumbs, OG
 // image) lives in useArticleSeo — keeps this page focused on view code.
 // Canonical + hreflang are emitted app-wide by @nuxtjs/i18n
@@ -148,11 +122,6 @@ const articleClass
           <h2 id="article-content-heading" class="sr-only">{{ title }}</h2>
           <ContentRenderer :value="blog" />
         </section>
-
-        <FeaturedTeamMembers
-          v-if="featuredMembers.length"
-          :members="featuredMembers"
-        />
 
         <!-- Social Media Sharing Buttons -->
         <section class="mt-8 border-t border-outline-variant pt-6" :aria-label="t('article.share')">

@@ -58,7 +58,7 @@ Die offenen Fragen 1 bis 4 in `design.md` sind entschieden.
 
 ## 7. `teamMembers` entfernen
 
-- [ ] 7.1 Nach Entscheidung zu offener Frage 1: `teamMembers` aus `content.config.ts` (Zeile ~27) und `repository.ts` (Zeile ~256), `layers/blog/components/FeaturedTeamMembers.vue`, den Block und die `useTeamRoster`-Nutzung in `pages/blog/[...slug].vue`, den Schlüssel `blog.featured_team` in `de.json` und `en.json` sowie den Test „blog names nothing from the team domain“ in `tests/architecture/module-boundaries.spec.ts` entfernen; `tests/architecture/unused-components.spec.ts` und `tests/content/schema-columns.spec.ts` anpassen; verifiziert durch `pnpm exec vitest run tests/architecture tests/content tests/i18n` und `pnpm typecheck`
+- [x] 7.1 Nach Entscheidung zu offener Frage 1: `teamMembers` aus `content.config.ts` (Zeile ~27) und `repository.ts` (Zeile ~256), `layers/blog/components/FeaturedTeamMembers.vue`, den Block und die `useTeamRoster`-Nutzung in `pages/blog/[...slug].vue`, den Schlüssel `blog.featured_team` in `de.json` und `en.json` sowie den Test „blog names nothing from the team domain“ in `tests/architecture/module-boundaries.spec.ts` entfernen; `tests/architecture/unused-components.spec.ts` und `tests/content/schema-columns.spec.ts` anpassen; verifiziert durch `pnpm exec vitest run tests/architecture tests/content tests/i18n` und `pnpm typecheck`
 
 ## 8. Abschluss
 

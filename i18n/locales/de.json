@@ -58,7 +58,6 @@
     }
   },
   "blog": {
-    "featured_team": "Beteiligte Teammitglieder",
     "overview": {
       "title": "Übersicht",
       "description": "Finde interessante Blogbeiträge von OneLiteFeather.net rund um Entwicklung, Community und mehr."

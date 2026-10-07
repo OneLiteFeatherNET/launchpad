@@ -66,7 +66,6 @@
     "description": "Interactive BlueMap map of the OneLiteFeather Minecraft server."
   },
   "blog": {
-    "featured_team": "Featured team members",
     "overview": {
       "title": "Overview",
       "description": "Find interesting blog posts from OneLiteFeather.net about development, community and more."

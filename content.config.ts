@@ -22,9 +22,6 @@ const blogSchema = withI18nMeta(z.object({
     // checks them). Without this field on the schema, the column is dropped
     // and the page-level Author lookups come back empty.
     author: z.union([z.string(), z.array(z.string())]).optional(),
-    // Slugs of team members featured in this article. Loose backlink to the
-    // team profile pages, independent of the `author`/`authors` collection.
-    teamMembers: z.array(z.string()).optional(),
     excerpt: z.object({
       type: z.string(),
       children: z.any()
