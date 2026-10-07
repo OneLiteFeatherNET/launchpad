@@ -6,42 +6,47 @@
       "name": "TheMeinerLP",
       "slug": "themeinerlp",
       "rank": "admin",
+      "mcName": "themeinerlp",
       "slogan": "Just Sudo IT.",
       "bio": "Handles Kubernetes, Proxmox, infrastructure, development, DevOps, strategy and technical interviews.",
       "href": "/en/team/themeinerlp"
     },
     {
-      "id": "selenretterin",
-      "name": "Selenretterin",
-      "slug": "selenretterin",
+      "id": "seelenretterin",
+      "name": "seelenretterin",
+      "slug": "seelenretterin",
       "rank": "admin",
+      "mcName": "seelenretterin",
       "slogan": "aka OneLiteFeather",
       "bio": "Owns strategy, marketing and social media.",
-      "href": "/en/team/selenretterin"
+      "href": "/en/team/seelenretterin"
     },
     {
       "id": "theevilreaper",
       "name": "theEvilReaper",
       "slug": "theevilreaper",
       "rank": "admin",
+      "mcName": "theevilreaper",
       "bio": "Works on GitHub, Minestom development, everything around minigames, exotic development and technical interviews.",
       "href": "/en/team/theevilreaper"
     },
     {
-      "id": "alex-m",
-      "name": "Alex M.",
-      "slug": "alex-m",
+      "id": "mrs_sunday",
+      "name": "mrs_sunday",
+      "slug": "mrs_sunday",
       "role": "Team Assistance",
       "rank": "teamassist",
-      "href": "/en/team/alex-m"
+      "mcName": "mrs_sunday",
+      "href": "/en/team/mrs_sunday"
     },
     {
-      "id": "joltra",
-      "name": "Joltra",
-      "slug": "joltra",
+      "id": "joltras",
+      "name": "joltras",
+      "slug": "joltras",
       "role": "Development",
       "rank": "content",
-      "href": "/en/team/joltra"
+      "mcName": "joltras",
+      "href": "/en/team/joltras"
     },
     {
       "id": "theshadowsdust",
@@ -49,6 +54,7 @@
       "slug": "theshadowsdust",
       "role": "Development",
       "rank": "content",
+      "mcName": "theshadowsdust",
       "slogan": "I feel like I'm upside down.",
       "href": "/en/team/theshadowsdust"
     },
@@ -58,23 +64,26 @@
       "slug": "mcmdev",
       "role": "Development",
       "rank": "content",
+      "mcName": "mcmdev",
       "href": "/en/team/mcmdev"
     },
     {
-      "id": "random",
-      "name": "Random",
-      "slug": "random",
+      "id": "3s1",
+      "name": "3s1",
+      "slug": "3s1",
       "role": "Development",
       "rank": "content",
-      "href": "/en/team/random"
+      "mcName": "3s1",
+      "href": "/en/team/3s1"
     },
     {
-      "id": "pega",
-      "name": "Pega",
-      "slug": "pega",
+      "id": "pegasusfieber17",
+      "name": "pegasusfieber17",
+      "slug": "pegasusfieber17",
       "role": "Building Team",
       "rank": "content",
-      "href": "/en/team/pega"
+      "mcName": "pegasusfieber17",
+      "href": "/en/team/pegasusfieber17"
     },
     {
       "id": "weltspielt",
@@ -82,15 +91,17 @@
       "slug": "weltspielt",
       "role": "Content & Concepts",
       "rank": "content",
+      "mcName": "weltspielt",
       "href": "/en/team/weltspielt"
     },
     {
-      "id": "saynax-jonas",
-      "name": "Saynax | Jonas",
-      "slug": "saynax-jonas",
+      "id": "saynax",
+      "name": "saynax",
+      "slug": "saynax",
       "rank": "content",
+      "mcName": "saynax",
       "bio": "Handles infra, DevOps and security.",
-      "href": "/en/team/saynax-jonas"
+      "href": "/en/team/saynax"
     },
     {
       "id": "open-content",
@@ -111,12 +122,13 @@
       "href": "/en/team/bavariankingdom"
     },
     {
-      "id": "b3nny",
-      "name": "B3nNy",
-      "slug": "b3nny",
+      "id": "blndr2",
+      "name": "blndr2",
+      "slug": "blndr2",
       "rank": "moderation",
+      "mcName": "blndr2",
       "slogan": "Modrinth.",
-      "href": "/en/team/b3nny"
+      "href": "/en/team/blndr2"
     },
     {
       "id": "open-moderation",
@@ -126,6 +138,24 @@
       "slogan": "Keep the community fair and friendly.",
       "openPosition": true,
       "applyUrl": "https://1lf.link/discord"
+    },
+    {
+      "id": "lycheesis",
+      "name": "lycheesis",
+      "slug": "lycheesis",
+      "role": "Media",
+      "rank": "media",
+      "mcName": "lycheesis",
+      "href": "/en/team/lycheesis"
+    },
+    {
+      "id": "lynxplay",
+      "name": "lynxplay",
+      "slug": "lynxplay",
+      "role": "Media",
+      "rank": "media",
+      "mcName": "lynxplay",
+      "href": "/en/team/lynxplay"
     },
     {
       "id": "open-media",
