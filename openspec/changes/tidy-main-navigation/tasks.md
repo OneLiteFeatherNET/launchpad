@@ -25,11 +25,16 @@ Warten, jeder Test baut sein eigenes Fixture.
 
 - [x] 4.1 Test ergänzen, dass `useSiteNavigationSchema` ausschließlich aus `navConfig` liest und keine Beschriftung festschreibt (die neue Struktur fließt damit ein); falls rot, Composable anpassen; verifiziert durch `pnpm exec vitest run tests/navigation tests/seo`
 
-## 5. Gesamtprüfung
+## 5. Spielen-Button, Events automatisch, mobile Gruppenköpfe
 
-- [x] 5.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün (typecheck: die drei Fehler der Baseline in Dateien außerhalb der Navigation bleiben unverändert)
-- [x] 5.2 `pnpm preview`: `/de` und `/en` zeigen Team, Blog, Community, Mehr in dieser Reihenfolge, die Gruppen enthalten ihre Kinder, kein Link „Übersicht“ auf oberster Ebene, das Logo führt auf `/de`; Screenshots bei 1480, 1280, 1024 und 390 px Breite ohne Umbruch und ohne Abschneiden
+- [x] 5.1 Tests schreiben (rot sehen): `tests/navigation/structure.spec.ts` für `buildNavConfig` mit beiden Werten (Reihenfolge, höchstens sechs Einträge oberster Ebene, alle Ziele erreichbar inklusive `playLink` mit `#connect`, Events-Aktivzustand als Link und über die Gruppe, „Mehr“ ohne „Server verbinden“, `navigation.play` de „Spielen“ und en „Play“); `tests/navigation/live-events.spec.ts` für `hasLiveListedEventAt` mit festem `now` (laufend, angekündigt: ja; verborgen, vergangen, `unlisted`: nein); `tests/navigation/events-in-nav.spec.ts` (nuxt-Umgebung, feste Uhr, Repository-Attrappe); `tests/content/adapter-queries.spec.ts` (`listEventSchedules` wählt nur `unlisted` und `event`); `tests/navigation/bar.spec.ts` (gefüllter Spielen-Button vor tonalem Discord, beide mobil, Gruppenkopf mit `NAV_ITEM_MOBILE`, Eigenschaft `eventsTopLevel`, Layout reicht sie weiter)
+- [x] 5.2 `buildNavConfig`/`playLink`, `hasLiveListedEventAt`, `listEventSchedules`, `useEventsInNav`, Layout, `NavigationBar.vue` (Buttons, Eigenschaft, mobile Gruppenköpfe) und `useSiteNavigationSchema` umsetzen; i18n anpassen; verifiziert durch grüne Tests aus 5.1 und `pnpm exec vitest run tests/navigation tests/content tests/architecture tests/i18n`
 
-## 6. Pull Request
+## 6. Gesamtprüfung
 
-- [ ] 6.1 Pull Request mit dem Titel `feat(navigation): group the main navigation under team, blog, community and more` öffnen (englischer Text, Zusammenfassung, Screenshots)
+- [x] 6.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün (typecheck: die drei Fehler der Baseline in Dateien außerhalb der Navigation bleiben unverändert)
+- [x] 6.2 `pnpm preview`: `/de` und `/en` zeigen Team, Blog, Community, Mehr in dieser Reihenfolge (mit einem vorübergehenden kommenden Event: Team, Blog, Events, Community, Mehr), vor der Sprachwahl Spielen und Discord, die Gruppen enthalten ihre Kinder, kein Link „Übersicht“ auf oberster Ebene, das Logo führt auf `/de`; Screenshots bei 1480, 1280, 1024 und 390 px Breite ohne Umbruch und ohne Abschneiden
+
+## 7. Pull Request
+
+- [ ] 7.1 Pull Request mit dem Titel `feat(navigation): group the main navigation under team, blog, community and more` öffnen (englischer Text, Zusammenfassung, Screenshots)

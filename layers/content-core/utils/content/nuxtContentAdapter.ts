@@ -12,6 +12,7 @@ import type {
   CommunityPoiDocument,
   CommunityPoiSummary,
   EventDocument,
+  EventScheduleSummary,
   EventSummary,
   ProjectDocument,
   ProjectSummary
@@ -254,6 +255,12 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
           'results'
         )
         .all() as Promise<EventSummary[]>
+    },
+
+    listEventSchedules(locale) {
+      return query(eventsKey(locale))
+        .select('unlisted', 'event')
+        .all() as Promise<EventScheduleSummary[]>
     },
 
     getEventBySlug(locale, slug) {

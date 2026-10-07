@@ -2,11 +2,12 @@
 import { ref, computed, watch, nextTick, useRoute, onKeyStroke } from '#imports';
 import NavigationItem from './NavigationItem.vue'
 import LanguageSelector from './LanguageSelector.vue'
-import { navConfig, type NavConfigEntry, type NavLinkConfig, type NavGroupConfig } from '../navItems'
+import { buildNavConfig, playLink, type NavLinkConfig, type NavGroupConfig } from '../navItems'
 import {
   NAV_ITEM_ACTIVE,
   NAV_ITEM_DESKTOP,
   NAV_ITEM_INACTIVE,
+  NAV_ITEM_MOBILE,
   NAV_MENU_SURFACE
 } from '../utils/navItemClasses'
 import { isNavGroupActive } from '../utils/navigation'
@@ -15,12 +16,14 @@ const { t, locale } = useI18n();
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute()
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   elevation?: 0 | 1 | 2 | 3 | 4 | 5;
   variant?: 'top' | 'bottom';
+  eventsTopLevel?: boolean;
 }>(), {
   elevation: 2,
-  variant: 'top'
+  variant: 'top',
+  eventsTopLevel: false
 });
 
 const mobileMenuOpen = ref(false);
@@ -53,7 +56,7 @@ const resolvePath = (link: NavLinkConfig): string => {
 
 const navItems = computed<NavEntry[]>(() => {
   const _ = locale.value // keep reactivity
-  return navConfig.map((entry) => {
+  return buildNavConfig({ eventsTopLevel: props.eventsTopLevel }).map((entry) => {
     if (entry.type === 'group') {
       return {
         ...entry,
@@ -64,11 +67,19 @@ const navItems = computed<NavEntry[]>(() => {
   })
 })
 
+const playPath = computed(() => resolvePath(playLink))
+
+const discordLink: BuiltLink = {
+  type: 'link',
+  textKey: 'navigation.discord',
+  path: discordUrl,
+  icon: ['fab', 'discord'],
+  external: true
+}
+
 const allNavItems = computed<NavEntry[]>(() => {
-  const items: NavEntry[] = [...navItems.value]
-  if (discordUrl) {
-    items.push({ type: 'link', textKey: 'navigation.discord', path: discordUrl, icon: ['fab', 'discord'], external: true })
-  }
+  const items: NavEntry[] = [...navItems.value, { ...playLink, path: playPath.value }]
+  if (discordUrl) items.push(discordLink)
   return items
 })
 
@@ -95,9 +106,6 @@ const logoLinkClass
 const mobilePanelClass
   = 'absolute left-0 right-0 top-0 z-50 mx-4 rounded-large bg-surface-container-high p-4 '
     + 'shadow-elevation-3'
-const mobileSummaryClass
-  = 'flex cursor-pointer select-none items-center gap-2 rounded-full px-2 py-1 '
-    + 'text-label-large focus-ring'
 
 const elevationClasses = {
   0: 'shadow-none',
@@ -149,7 +157,7 @@ onKeyStroke('Escape', () => closeMenus())
           </NuxtLinkLocale>
         </div>
 
-        <nav class="hidden items-center gap-2 lg:flex" :aria-label="t('navigation.main')">
+        <nav class="hidden items-center gap-2 xl:flex" :aria-label="t('navigation.main')">
           <template v-for="item in navItems" :key="item.type === 'link' ? item.path : item.textKey">
             <NavigationItem
               v-if="item.type === 'link'"
@@ -197,6 +205,14 @@ onKeyStroke('Escape', () => closeMenus())
             </div>
           </template>
           <M3Button
+            variant="filled"
+            :icon="playLink.icon"
+            :to="playPath"
+            class="whitespace-nowrap"
+          >
+            {{ t('navigation.play') }}
+          </M3Button>
+          <M3Button
             v-if="discordUrl"
             variant="tonal"
             :icon="['fab', 'discord']"
@@ -209,7 +225,7 @@ onKeyStroke('Escape', () => closeMenus())
           <LanguageSelector />
         </nav>
 
-        <div class="lg:hidden">
+        <div class="xl:hidden">
           <M3IconButton
             ref="mobileToggleRef"
             :icon="mobileMenuOpen ? ['fas','times'] : ['fas','bars']"
@@ -235,7 +251,7 @@ onKeyStroke('Escape', () => closeMenus())
       <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions, vuejs-accessibility/click-events-have-key-events -->
       <div
         v-if="mobileMenuOpen"
-        class="fixed inset-0 top-16 z-40 bg-scrim/40 backdrop-blur-sm lg:hidden"
+        class="fixed inset-0 top-16 z-40 bg-scrim/40 backdrop-blur-sm xl:hidden"
         @click.self="mobileMenuOpen = false"
       >
         <nav
@@ -245,7 +261,7 @@ onKeyStroke('Escape', () => closeMenus())
           role="navigation"
           :aria-label="t('navigation.mobile')"
         >
-          <template v-for="item in allNavItems" :key="item.type === 'link' ? item.path : item.textKey">
+          <template v-for="item in navItems" :key="item.type === 'link' ? item.path : item.textKey">
             <NavigationItem
               v-if="item.type === 'link'"
               :text-key="item.textKey"
@@ -256,18 +272,23 @@ onKeyStroke('Escape', () => closeMenus())
             />
             <details
               v-else
-              class="mb-2 rounded-large bg-surface-container-highest p-2"
+              class="group"
             >
               <summary
                 :class="[
-                  mobileSummaryClass,
-                  isGroupActive(item) ? NAV_ITEM_ACTIVE : 'text-on-surface'
+                  NAV_ITEM_MOBILE,
+                  isGroupActive(item) ? NAV_ITEM_ACTIVE : NAV_ITEM_INACTIVE,
+                  'list-none'
                 ]"
               >
-                <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
+                <IconFa v-if="item.icon" :icon="item.icon" class="h-5 w-5" />
                 <span>{{ t(item.textKey) }}</span>
+                <IconFa
+                  :icon="['fas','chevron-down']"
+                  class="ml-auto h-3 w-3 transition-transform group-open:rotate-180"
+                />
               </summary>
-              <div class="mt-2 space-y-1">
+              <div class="space-y-1 pl-4 pt-1">
                 <NavigationItem
                   v-for="child in item.children"
                   :key="child.path"
@@ -280,6 +301,28 @@ onKeyStroke('Escape', () => closeMenus())
               </div>
             </details>
           </template>
+          <M3Divider decorative class="my-2" />
+          <div class="flex flex-col gap-2">
+            <M3Button
+              variant="filled"
+              :icon="playLink.icon"
+              :to="playPath"
+              class="w-full justify-center"
+              @click="mobileMenuOpen = false"
+            >
+              {{ t('navigation.play') }}
+            </M3Button>
+            <M3Button
+              v-if="discordUrl"
+              variant="tonal"
+              :icon="['fab', 'discord']"
+              :href="discordUrl"
+              target="_blank"
+              class="w-full justify-center"
+            >
+              {{ t('navigation.discord') }}
+            </M3Button>
+          </div>
           <M3Divider decorative class="my-2" />
           <div>
             <LanguageSelector variant="mobile" @selected="mobileMenuOpen = false" />

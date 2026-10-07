@@ -126,3 +126,19 @@ export function isAccessOpenAt(window: EventAccessWindowFields | undefined, now:
   if (closes !== undefined && at >= closes) return false
   return true
 }
+
+/**
+ * Whether any event is listed and still ahead of or in its run at `now`:
+ * announced or running. Past, hidden and unlisted events do not count. The
+ * navigation uses this to promote "Events" to the top level only while the
+ * page has something to show.
+ */
+export function hasLiveListedEventAt(
+  events: Array<{ unlisted?: boolean, event: EventScheduleFields }>,
+  now: Moment
+): boolean {
+  return events.some((entry) => {
+    if (!isEventListedAt(entry.event, entry.unlisted, now)) return false
+    return eventPhaseAt(entry.event, now) !== 'past'
+  })
+}

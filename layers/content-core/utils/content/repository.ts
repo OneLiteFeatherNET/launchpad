@@ -191,6 +191,9 @@ export type EventSummary = Pick<
   | 'results'
 >
 
+/** What the navigation needs of an event: its schedule and whether it is listed. */
+export type EventScheduleSummary = Pick<EventDocument, 'unlisted' | 'event'>
+
 /**
  * Display order for `CommunityPoiDocument['status']` (in-progress first,
  * because that's where the community can still help; completed last). A
@@ -353,6 +356,8 @@ export interface ContentRepository {
   // --- Events ---------------------------------------------------------------
   /** All events for a locale (unfiltered, unsorted — caller decides). */
   listEvents(locale: Locale): Promise<EventSummary[]>
+  /** Schedule and `unlisted` of every event, nothing else (unsorted — caller decides). */
+  listEventSchedules(locale: Locale): Promise<EventScheduleSummary[]>
   /** Single event by its `slug` frontmatter field, or null. */
   getEventBySlug(locale: Locale, slug: string): Promise<EventDocument | null>
   /** Single event in `locale` sharing the given `translationKey`, or null. */

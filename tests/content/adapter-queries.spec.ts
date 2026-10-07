@@ -108,6 +108,15 @@ describe('event list', () => {
     await adapter().getEventBySlug('en', 'x')
     expect(named('select')).toHaveLength(0)
   })
+
+  it('projects the schedule list to the schedule and visibility, nothing else', async () => {
+    fake.state.rows = [{ unlisted: false, event: { startsAt: '2026-01-01T00:00:00Z' } }]
+    const rows = await adapter().listEventSchedules('de')
+    expect(fake.state.collection).toBe('events_de')
+    expect(selected()).toEqual(['unlisted', 'event'])
+    expect(named('order')).toHaveLength(0)
+    expect(rows).toHaveLength(1)
+  })
 })
 
 describe('community poi list', () => {
