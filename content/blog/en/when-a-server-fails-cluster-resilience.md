@@ -12,7 +12,7 @@ tags:
   - kubernetes
   - reliability
   - hardening
-author: phillipp-glanz
+author: themeinerlp
 canonical: 'https://onelitefeather.net/en/blog/when-a-server-fails-cluster-resilience'
 alternates:
   - hreflang: 'de'

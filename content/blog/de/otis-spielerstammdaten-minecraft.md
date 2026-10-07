@@ -11,7 +11,7 @@ tags:
   - minecraft
   - daten
   - microservices
-author: phillipp-glanz
+author: themeinerlp
 
 canonical: 'https://onelitefeather.net/de/blog/otis-zentrale-spielerstammdaten-minecraft'
 sitemap:

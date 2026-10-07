@@ -12,7 +12,7 @@ tags:
   - kubernetes
   - reliability
   - hardening
-author: phillipp-glanz
+author: themeinerlp
 canonical: 'https://onelitefeather.net/de/blog/wenn-ein-server-ausfaellt-cluster-resilienz'
 sitemap:
   lastmod: '2026-06-13'

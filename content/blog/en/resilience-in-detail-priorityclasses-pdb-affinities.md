@@ -13,7 +13,7 @@ tags:
   - gitops
   - hardening
   - reliability
-author: phillipp-glanz
+author: themeinerlp
 canonical: 'https://onelitefeather.net/en/blog/resilience-in-detail-priorityclasses-pdb-affinities'
 alternates:
   - hreflang: 'de'

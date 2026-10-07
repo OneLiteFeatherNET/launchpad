@@ -26,8 +26,8 @@ Die offenen Fragen 1 bis 4 in `design.md` sind entschieden.
 
 ## 3. Inhalt migrieren (eigener Commit)
 
-- [ ] 3.1 In allen 15 Dateien `content/blog/{de,en}/*.md` `author: phillipp-glanz` durch `author: themeinerlp` ersetzen; `content/authors/phillipp-glanz.md` löschen; `schemaOrg.author` unangetastet lassen (offene Frage 4); Commit `feat(content): migrate blog authors to team slugs`; verifiziert durch `pnpm exec vitest run tests/content` inklusive aktiviertem Dateifall aus 2.1(a) und (b) und `tests/content/orphaned-files.spec.ts`
-- [ ] 3.2 `tests/content/blog-authors-query.spec.ts` und weitere Tests, die `phillipp-glanz` nennen (`grep -rn phillipp-glanz tests/`), anpassen; verifiziert durch `pnpm test`
+- [x] 3.1 In allen 15 Dateien `content/blog/{de,en}/*.md` `author: phillipp-glanz` durch `author: themeinerlp` ersetzen; `content/authors/phillipp-glanz.md` löschen; `schemaOrg.author` unangetastet lassen (offene Frage 4); Commit `feat(content): migrate blog authors to team slugs`; verifiziert durch `pnpm exec vitest run tests/content` inklusive aktiviertem Dateifall aus 2.1(a) und (b) und `tests/content/orphaned-files.spec.ts`
+- [x] 3.2 `tests/content/blog-authors-query.spec.ts` und weitere Tests, die `phillipp-glanz` nennen (`grep -rn phillipp-glanz tests/`), anpassen; verifiziert durch `pnpm test`
 
 ## 4. Blog: Byline, Karte, Autorenseite
 

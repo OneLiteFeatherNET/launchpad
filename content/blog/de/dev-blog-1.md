@@ -7,7 +7,7 @@ headerImage: 'images/blog/dev-blog-1.webp'
 headerImageAlt: 'Title Bild für DevBlog #1'
 slug: 'dev-blog-1-was-wir-verwenden'
 translationKey: 'dev-blog-1-what-we-using'
-author: phillipp-glanz
+author: themeinerlp
 tags:
   - devblog
   - technologien

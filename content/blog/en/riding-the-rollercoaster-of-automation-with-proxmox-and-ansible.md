@@ -12,7 +12,7 @@ tags:
   - proxmox
   - ansible
   - infrastructure
-author: phillipp-glanz
+author: themeinerlp
 canonical: 'https://onelitefeather.net/en/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible'
 alternates:
   - hreflang: 'de'
