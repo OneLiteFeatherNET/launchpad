@@ -32,9 +32,10 @@ Beobachtete Ausgangslage (Stand `origin/main`, `1c9e4fa`):
   und `tests/architecture/module-boundaries.spec.ts` (Zeile ~449). Kein
   Inhalt setzt es (`grep` über `content/` ohne Treffer).
 - **Canonical**: `usePageSeo` (`layers/content-core/composables/usePageSeo.ts`,
-  Zeilen 31 bis 44) entfernt Query und Hash aus dem Canonical und aus jedem
-  Hreflang-Eintrag. Eine gefilterte Blog-Übersicht hat daher ohne weiteres
-  Zutun den Canonical der ungefilterten.
+  Zeilen 31 bis 44) leitet Canonical und Hreflang aus `switchLocalePath`
+  ab und entfernt Query und Hash. Dynamische Seiten (`pages/blog/[...slug].vue`,
+  `useEventDetail`) veröffentlichen ihre Sprach-Slugs über `useSetI18nParams`;
+  `pages/team/[slug].vue` tut das nicht, weil der Slug in beiden Sprachen gleich ist.
 - **Edge-Cache**: `nuxt.config.ts` cacht `/de/**` und `/en/**` per
   `cloudflare-cdn-cache-control` (3600 s). `tests/architecture/request-independent-render.spec.ts`
   verbietet `route.query`, `useCookie` u. a. in `pages/`, `layouts/`, `layers/`.
@@ -85,7 +86,7 @@ Mapping `Mitglied → Person` nutzt `teamAvatarUrl` nicht selbst (das liegt im
 Team-Layer), sondern `avatarUrl` bzw. den `mc-heads.net`-Kopf aus `mcName`
 oder `slug`; der Avatar-Helfer wird dazu in `content-core` verfügbar gemacht
 (offene Frage 3). `profilePath` ist `/<locale>/team/<slug>` oder
-`/<locale>/blog?author=<slug>`.
+`/<locale>/blog/author/<slug>`.
 
 Die Inhaltsprüfung (`tests/content/person-slugs.spec.ts`) liest
 `content/team/*/home.json`, `content/authors/*.md`, `content/blog/*/*.md` und
@@ -94,31 +95,50 @@ Regeln stehen als reine Funktion in der Testdatei, wie bei
 `events-frontmatter.spec.ts`, damit Fixture-Fälle denselben Code laufen lassen
 wie die echten Dateien.
 
-### D3: Der Autorenfilter liest die Query, mit einer registrierten Ausnahme
+### D3: Der Autorenfilter ist eine Pfadroute
 
-`useBlogOverview` bekommt den Filter als Parameter, den die Seite aus
-`route.query.author` ableitet; die Daten hängen am Cache-Key
-`blog-overview-<locale>-<author>`. Das verletzt heute
-`tests/architecture/request-independent-render.spec.ts`. Der dortige
-Kommentar nennt als Begründung, der Cache-Schlüssel enthalte „path and query
-alone“: Eine Query allein ist also nicht das Leck, sondern Cookies, Header
-und Nutzer. Vorschlag: genau eine benannte Ausnahme (`pages/blog/index.vue`),
-begründet im Test, und ein Test, der prüft, dass `route.query` nur den Wert
-`author` liest und dass dieser vor der Verwendung gegen die Slug-Form
-(`^[a-z0-9_-]{1,64}$`) geprüft wird. Das begrenzt den Raum der Cache-Einträge
-nicht (jeder gültige Slug ist ein eigener Schlüssel), hält aber Ausgabe und
-Abfrage klein. Siehe offene Frage 2: Gegenoption ist ein rein clientseitiger
-Filter.
+`pages/blog/author/[slug].vue` zeigt `/<locale>/blog/author/<slug>`. Das
+statische Segment `author` schlägt `pages/blog/[...slug].vue`; ein Artikel
+mit dem Slug `author` wäre unerreichbar, die Inhaltsprüfung verbietet ihn.
+Die Seite liest nur `route.params.slug`; `route.query` kommt nirgends vor,
+`tests/architecture/request-independent-render.spec.ts` bleibt unverändert,
+und es gibt keine Ausnahme. Gründe gegen `?author=`: die Regel, dass ein
+Render nur vom Pfad abhängt, und die Fragmentierung des Edge-Caches (jeder
+Query-Wert ein eigener Eintrag, ohne dass `usePageSeo` ihn kennt). Als Pfad
+ist jede Autorenseite eine echte, begrenzte, cachebare URL.
+
+Ein Composable `useBlogPostsByAuthor(slug)` (auch für das Team-Profil, D5)
+lädt `repo.listBlogArticles(locale)` und filtert mit der reinen Funktion aus
+`shared/utils/blogAuthors.ts`. Die Seite löst den Slug mit `usePeople` auf
+und wirft `createError({ statusCode: 404, fatal: true })` nach dem `await`,
+wenn keine Person aufgelöst wird oder die Liste leer ist (wie
+`useTeamProfile`). SEO und i18n wie die anderen dynamischen Seiten:
+`usePageSeo` mit eigenem Titel, kein `canonical`-Override, denn `usePageSeo`
+leitet ihn aus `switchLocalePath(locale)` ab; die Sprachumschaltung bekommt
+den Slug über `useSetI18nParams` (`{ de: { slug }, en: { slug } }`), nur für
+Sprachen mit freigegebenen Artikeln, wie `useEventDetail` und `useBlogArticle`
+es für ihre Slugs tun. Eine Sprache ohne Artikel erhält keinen Param und
+fällt auf die Blog-Übersicht zurück.
+
+*Sitemap*: im Umfang. `server/api/__sitemap__/blog-authors.ts` folgt
+`team.ts`: `queryCollection` auf `blog_<locale>`, Locale-Liste direkt aus
+`~/layers/content-core/utils/content/locales` (Nitro-Regel aus AGENTS.md,
+benannte Ausnahme in `module-boundaries.spec.ts`). Die Freigaberegel
+(`releaseDate`/`pubDate`) und das Herauslösen der Autoren-Slugs liegen in
+`shared/utils/blogAuthors.ts` (oberste Ebene, von Nitro und App
+automatisch importiert, ohne Vue und H3), damit Seite und Sitemap dieselbe
+Regel anwenden. Die Quelle wird in `nuxt.config.ts` neben `team` und
+`events` eingetragen.
 
 ### D4: Filtern im Composable, nicht in der Datenbank
 
-Die Blog-Liste lädt weiterhin `repo.listBlogArticles(locale)` und filtert
-im Composable nach `author` (`Array.isArray` behandelt). Bei 8 Artikeln je
-Sprache braucht es keine neue Repository-Methode; die bestehende
-Freigaberegel `isReleased` und die Sortierung bleiben die einzige Quelle.
-Das hervorgehobene erste Element (`top1Article`) entfällt bei aktivem Filter
-nicht: Die gefilterte Liste wird wie die ungefilterte aufgebaut
-(`top1` plus Rest), damit das Layout gleich bleibt.
+Die Autorenseite lädt `repo.listBlogArticles(locale)` und filtert nach
+`author` (String oder Liste) mit der reinen Funktion aus
+`shared/utils/blogAuthors.ts`. Bei 8 Artikeln je Sprache braucht es keine neue
+Repository-Methode. Die Freigaberegel `isReleased` aus
+`useBlogContent.ts` zieht dazu in dieselbe Datei um, damit Seite, Profil und
+Sitemap sie teilen; `useBlogContent` importiert sie von dort. Die Autorenseite
+zeigt die Karten als einfaches Raster ohne hervorgehobenes erstes Element.
 
 ### D5: Beiträge und Events des Profils werden in der Seite zusammengesetzt
 
@@ -150,20 +170,20 @@ alle Slugs, nicht eine je Karte). Die Karte stellt den Autorenlink über den
 gestreckten Kartenlink (`M3CardLink`), wie die Excerpt-Links es mit
 `relative z-10` tun, damit nichts ineinander verschachtelt wird.
 
-### D8: Unbekannter Autor ist ein Leerzustand
+### D8: Unbekannt oder leer ist 404
 
-Der Filter akzeptiert jeden Slug der erlaubten Form. Ohne Treffer in
-`usePeople` und ohne Artikel antwortet die Seite mit 200, Leerzustand und
-`noindex` (via `usePageSeo({ noindex })`). Ein 404 würde jede handgebaute
-URL zum Fehler machen und widerspricht nicht der `soft-404`-Regel, weil die
-Seite dann einen echten Zustand beschreibt, ist aber unnötig. Der Canonical
-bleibt `/blog`.
+Eine nicht auflösbare Person und eine auflösbare ohne freigegebenen Artikel
+ergeben beide 404: Eine nicht vorhandene Person darf keine indexierbare Seite
+erzeugen, und eine leere Seite wäre ein Soft-404. Beides folgt derselben
+Regel wie die Sitemap-Quelle (D3).
 
 ## Risks / Trade-offs
 
-- **Edge-Cache-Fragmentierung durch Query**: jeder Slug ist ein eigener
-  Cache-Eintrag. Mitigation: Slug-Form-Prüfung, 200 mit `noindex` statt
-  Fehlern, die gecacht würden. Rest-Risiko offen (Frage 2).
+- **Pfadkollision `author`**: ein Artikel mit dem Slug `author` wäre
+  unerreichbar. Mitigation: Inhaltsprüfung.
+- **Cache-Einträge für beliebige Slugs**: unbekannte Slugs rendern eine
+  404-Seite, die laut `server/plugins/error-response-headers.ts` nie gecacht
+  wird.
 - **Client-Bundle**: neue Wertexporte aus `content-core/index.ts`. Mitigation:
   die reine Funktion importiert nur Typen; `pnpm build` ist Teil der Aufgaben.
 - **Doppelte Wahrheit im Rollout**: Zwischen Content-Migration und Entfernen
@@ -190,31 +210,24 @@ verschwindet damit.
 
 ## Open Questions
 
-1. **`teamMembers` ist nicht ungenutzt.** Der Auftrag nennt das Feld
-   „unused“; im Code liest es `pages/blog/[...slug].vue:18-35`, rendert
-   `FeaturedTeamMembers` (`:161`), und `module-boundaries.spec.ts:~449`
-   prüft diese Komponente. Kein Inhalt setzt das Feld, daher ist das
-   Entfernen folgenlos für die Seite. Annahme dieses Plans: das Feld **samt**
-   Komponente, Seitenblock, Typfeld in `repository.ts:256`, der
-   Boundary-Testzeile und dem i18n-Schlüssel `blog.featured_team` entfernen.
-   Wenn die Komponente bleiben soll, entfällt nur das Schema-Feld nicht.
-2. **`?author=` und `request-independent-render.spec.ts`.** Der Test
-   verbietet `route.query` in jedem Render; der Autorenfilter braucht es.
-   Vorschlag in D3: eine benannte Ausnahme. Alternative: Filter nur im
-   Client (SSR zeigt immer die ungefilterte Liste, kein Cache-Thema, aber
-   der Filter fehlt dem ersten Render und Crawlern). Entscheidung vor
-   Umsetzung nötig.
+1. **Aufgelöst: `teamMembers`.** Das Feld ist nicht ungenutzt
+   (`pages/blog/[...slug].vue:18-35` und `:161`, `module-boundaries.spec.ts:~449`,
+   `repository.ts:256`), aber kein Inhalt setzt es. Entscheidung: Feld samt
+   Komponente `FeaturedTeamMembers`, Seitenblock, Typfeld, Boundary-Testzeile
+   und i18n-Schlüssel `blog.featured_team` entfernen (Aufgabe 7.1).
+2. **Aufgelöst: Autorenfilter als Pfad.** `/<locale>/blog/author/<slug>`
+   statt `?author=` (D3). Gründe: `request-independent-render.spec.ts`
+   verlangt, dass kein Render die Query liest, und jede Query wäre ein
+   eigener Edge-Cache-Eintrag. Der Test bleibt unverändert.
 3. **Avatar-Helfer.** `teamAvatarUrl` liegt in `layers/team/utils/teamAvatar.ts`.
    `content-core` darf `team` nicht importieren. Vorschlag: Funktion nach
    `shared/utils/` (oberste Ebene) oder in `content-core` verschieben und
    vom Team-Layer wiederverwenden. Entscheidung bei der Umsetzung, Test
    `tests/team/…` mitziehen.
-4. **`schemaOrg.author.name` in den Artikeln.** Jeder Artikel trägt im
-   Frontmatter `schemaOrg: BlogPosting … author: Person „Phillipp Glanz“`,
-   während die Byline künftig „TheMeinerLP“ zeigt. Das ist ein Klarname in
-   strukturierten Daten, kein Byline-Feld. Dieser Plan lässt es unverändert;
-   falls strukturierte Daten und Byline übereinstimmen sollen, ist das ein
+4. **Aufgelöst: `schemaOrg.author.name`.** Bleibt in den Artikeln
+   unverändert („Phillipp Glanz“); eine Angleichung an die Byline wäre ein
    eigener Change.
-5. **`hreflang` der gefilterten Liste.** `usePageSeo` entfernt die Query
-   schon. Zu prüfen bei der Umsetzung (View-Source), dass genau ein
-   Canonical und je Sprache ein Alternate erscheint.
+5. **Hreflang und Canonical der Autorenseite.** Bei der Umsetzung per
+   View-Source prüfen: genau ein Canonical, je Sprache ein Alternate, und
+   der Sprachwechsel führt auf `/<de|en>/blog/author/<slug>` oder, ohne
+   Artikel in der Zielsprache, auf die Blog-Übersicht.

@@ -28,14 +28,15 @@ Event soll seine Gastgeber nennen und verlinken können.
   `content/authors/phillipp-glanz.md` entfällt. Die Byline zeigt den
   Team-Namen („TheMeinerLP“); es gibt kein Feld für einen Klarnamen.
 - **Byline und Artikelkarte verlinken den Autor.** Team-Autoren führen auf
-  `/<locale>/team/<slug>`, externe auf `/<locale>/blog?author=<slug>`. Die
+  `/<locale>/team/<slug>`, externe auf `/<locale>/blog/author/<slug>`. Die
   `ArticleCard` zeigt den Autor neu an.
-- **Blog-Übersicht mit Autorenfilter** `/<locale>/blog?author=<slug>`: Für
-  externe Autoren steht über der gefilterten Liste ein Autorenkasten (Bio,
-  Links, Avatar); für Team-Autoren verweist der Kasten auf das Profil. Der
-  Canonical einer gefilterten Liste zeigt auf `/<locale>/blog`. Ein
-  unbekannter Autor ergibt einen Leerzustand mit Status 200 und `noindex`,
-  keinen Fehler.
+- **Autorenseite unter einem Pfad** `/<locale>/blog/author/<slug>`
+  (`pages/blog/author/[slug].vue`): Autorenkasten (Bio, Links, Avatar; bei
+  Team-Autoren ein Link auf das Profil) über der auf den Autor gefilterten
+  Liste. Die Seite liest keine Query, ist indexierbar, trägt einen eigenen
+  Canonical und hreflang-Alternates und steht in der Sitemap. Ein unbekannter
+  Slug und eine Person ohne freigegebenen Artikel antworten mit 404. Kein
+  Artikel darf den Slug `author` tragen (Pfadkollision).
 - **Team-Profil mit Beiträgen und Events**: Die Seite `/team/<slug>` zeigt
   „Beiträge“ (Artikel mit dem Slug als Autor) und „Events“ (Events, deren
   `hosts` den Slug enthalten, unter der bestehenden Sichtbarkeitsregel).
@@ -59,8 +60,8 @@ Event soll seine Gastgeber nennen und verlinken können.
 - `person-resolution`: Auflösen eines Slugs zu einer Person (Team zuerst,
   dann extern), Profilpfad je Art, Inhaltsregeln für Autoren- und
   Gastgeber-Slugs.
-- `blog-authors`: Autor in Byline und Artikelkarte, Autorenfilter und
-  Autorenkasten auf der Blog-Übersicht, Canonical und Leerzustand.
+- `blog-authors`: Autor in Byline und Artikelkarte, Autorenseite
+  unter `/blog/author/<slug>` mit Autorenkasten, Canonical, Sitemap und 404.
 - `team-profile-contributions`: Abschnitte „Beiträge“ und „Events“ auf dem
   Team-Profil.
 
@@ -80,12 +81,16 @@ Event soll seine Gastgeber nennen und verlinken können.
 - `layers/blog`: `composables/useBlogContent.ts`, `components/ArticleCard.vue`,
   `components/FeaturedTeamMembers.vue` (entfällt); `pages/blog/index.vue`,
   `pages/blog/[...slug].vue`
-- `pages/team/[slug].vue`, `pages/events/[...slug].vue`
+- `pages/blog/author/[slug].vue` (neu), `pages/team/[slug].vue`,
+  `pages/events/[...slug].vue`
+- `shared/utils/blogAuthors.ts` (neu, Freigaberegel und Autoren-Slugs für Seite
+  und Sitemap), `server/api/__sitemap__/blog-authors.ts` (neu), `nuxt.config.ts`
+  (Sitemap-Quelle)
 - `layers/events`: `composables/useEvents.ts` (`useEventDetail`), `types.ts`
 - `content/blog/{de,en}/*.md` (Migration), `content/authors/phillipp-glanz.md`
   (entfällt)
 - `tests/architecture/module-boundaries.spec.ts`,
-  `tests/architecture/request-independent-render.spec.ts` (siehe `design.md`),
+  `tests/architecture/request-independent-render.spec.ts` bleibt unberührt,
   neue Tests unter `tests/content/` und `tests/content-core/`
 - `i18n/locales/{de,en}.json`
 - Keine neuen Abhängigkeiten.

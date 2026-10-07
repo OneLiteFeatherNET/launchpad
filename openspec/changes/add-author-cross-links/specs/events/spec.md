@@ -8,7 +8,7 @@ ohne Angabe hat es keine Gastgeber. Jeder Slug MUST wie bei Blogautoren über
 den Team-Roster und die externen Autoren aufgelöst werden. Die Detailseite
 SHALL die Gastgeber in Frontmatter-Reihenfolge mit Namen und Avatar zeigen
 und jeden Namen auf das Profil verlinken (Team: `/<locale>/team/<slug>`,
-extern: `/<locale>/blog?author=<slug>`). Ohne `hosts` MUST kein Abschnitt
+extern: `/<locale>/blog/author/<slug>`). Ohne `hosts` MUST kein Abschnitt
 erscheinen. Ein nicht auflösbarer Slug MUST ohne Fehler übergangen werden. Die
 Platzierungen in den Ergebnissen eines Events SHALL nicht verlinkt werden.
 

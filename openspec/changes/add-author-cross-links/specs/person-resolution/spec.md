@@ -22,7 +22,7 @@ Blog und Events gelten.
 
 #### Scenario: Externer Autor
 - **WHEN** ein Slug aufgelöst wird, der nur unter den externen Autoren steht
-- **THEN** ist `kind` gleich `external`, und `profilePath` ist `/<locale>/blog?author=<slug>`
+- **THEN** ist `kind` gleich `external`, und `profilePath` ist `/<locale>/blog/author/<slug>`
 
 #### Scenario: Team gewinnt
 - **WHEN** ein Slug sowohl im Team-Roster als auch unter den externen Autoren stünde
