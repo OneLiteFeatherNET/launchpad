@@ -504,6 +504,7 @@
     },
     "guides": {
       "title": "Guide"
-    }
+    },
+    "hosts": "Hosts"
   }
 }

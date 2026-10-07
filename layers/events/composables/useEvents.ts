@@ -1,6 +1,6 @@
 import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
-import type { Locale } from '#layers/content-core'
+import type { Locale, Person } from '#layers/content-core'
 import { isAccessOpenAt, eventPhaseAt, isEventReachableAt } from '#shared/utils/eventPhase'
 import type { EventDocument, EventPhase } from '../types'
 import {
@@ -87,6 +87,8 @@ export interface EventDetail {
   accessOpen: boolean
   /** Java server address for `join.server`, from the server_connect content. */
   serverAddress?: string
+  /** The people named in `hosts`, in frontmatter order; unresolvable slugs are dropped. */
+  hosts: Person[]
   /** The moment the phase was decided, as an ISO string. */
   now: string
   /**
@@ -150,6 +152,7 @@ export async function useEventDetail() {
         phase,
         accessOpen: isAccessOpenAt(event.access, now),
         serverAddress: connect?.javaAddress,
+        hosts: await resolvePeople(event.hosts ?? [], activeLocale.value),
         now: now.toISOString(),
         localeSlugs,
       }

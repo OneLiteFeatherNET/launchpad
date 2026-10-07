@@ -504,6 +504,7 @@
     },
     "guides": {
       "title": "Anleitung"
-    }
+    },
+    "hosts": "Gastgeber"
   }
 }

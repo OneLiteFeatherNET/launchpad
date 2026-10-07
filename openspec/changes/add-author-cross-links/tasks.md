@@ -52,9 +52,9 @@ Die offenen Fragen 1 bis 4 in `design.md` sind entschieden.
 
 ## 6. Events: Gastgeber
 
-- [ ] 6.1 `tests/events/event-detail.spec.ts` um Fälle ergänzen: `hosts` werden zu Personen mit `profilePath` aufgelöst, in Frontmatter-Reihenfolge, nicht auflösbarer Slug wird übergangen, ohne `hosts` bleibt die Liste leer; rot sehen
-- [ ] 6.2 `useEventDetail` in `layers/events/composables/useEvents.ts` löst `hosts` mit `usePeople` im Daten-Handler auf (Teil von `EventDetail`); verifiziert durch grüne Tests aus 6.1
-- [ ] 6.3 `pages/events/[...slug].vue` zeigt den Abschnitt „Gastgeber“ mit `PersonLink` (nur bei Treffern); die Platzierungen in `EventResults.vue` bleiben unverlinkt, abgesichert durch einen Fall in `tests/events/event-results-guides.spec.ts`; i18n `events.hosts` in `de` und `en`; verifiziert durch `pnpm exec vitest run tests/events tests/i18n`
+- [x] 6.1 `tests/events/event-detail.spec.ts` um Fälle ergänzen: `hosts` werden zu Personen mit `profilePath` aufgelöst, in Frontmatter-Reihenfolge, nicht auflösbarer Slug wird übergangen, ohne `hosts` bleibt die Liste leer; rot sehen
+- [x] 6.2 `useEventDetail` in `layers/events/composables/useEvents.ts` löst `hosts` mit `usePeople` im Daten-Handler auf (Teil von `EventDetail`); verifiziert durch grüne Tests aus 6.1
+- [x] 6.3 `pages/events/[...slug].vue` zeigt den Abschnitt „Gastgeber“ mit `PersonLink` (nur bei Treffern); die Platzierungen in `EventResults.vue` bleiben unverlinkt, abgesichert durch einen Fall in `tests/events/event-results-guides.spec.ts`; i18n `events.hosts` in `de` und `en`; verifiziert durch `pnpm exec vitest run tests/events tests/i18n`
 
 ## 7. `teamMembers` entfernen
 
