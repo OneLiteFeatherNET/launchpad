@@ -11,7 +11,7 @@ tags:
   - minecraft
   - data
   - microservices
-author: phillipp-glanz
+author: themeinerlp
 
 canonical: 'https://onelitefeather.net/en/blog/otis-central-player-data-minecraft'
 alternates:

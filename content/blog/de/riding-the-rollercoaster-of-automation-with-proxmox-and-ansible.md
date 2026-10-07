@@ -12,7 +12,7 @@ tags:
   - proxmox
   - ansible
   - infrastructure
-author: phillipp-glanz
+author: themeinerlp
 canonical: 'https://onelitefeather.net/de/blog/mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
 sitemap:
   lastmod: '2023-10-15'

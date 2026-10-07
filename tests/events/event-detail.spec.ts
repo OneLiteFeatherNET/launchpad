@@ -30,7 +30,13 @@ function event(slug: string, overrides: Partial<EventDocument> = {}): EventDocum
 }
 
 const events: EventDocument[] = [
-  event('preview-only', { unlisted: true }), event('public-hidden'),
+  event('preview-only', { unlisted: true }),
+event('public-hidden'),
+  event('hosted', {
+ unlisted: true, hosts: ['gast',
+'ghost',
+'tp']
+} as Partial<EventDocument>),
 ]
 
 const fakeRepo = {
@@ -40,6 +46,8 @@ const fakeRepo = {
   )),
   getEventByTranslationKey: vi.fn(async () => null),
   getServerConnect: vi.fn(async () => null),
+  getTeamDocument: vi.fn(async () => ({ members: [{ id: 'tp', slug: 'tp', name: 'Team Person' }] })),
+  listAuthorsBySlugs: vi.fn(async (slugs: string[]) => slugs.filter((slug) => slug === 'gast').map((slug) => ({ slug, name: 'Gast' }))),
 }
 
 // useContentRepository is a plain auto-imported function (not #app's own),
@@ -62,6 +70,32 @@ const Harness = defineComponent({
     }
   },
   template: '<div>{{ outcome }}</div>',
+})
+
+const HostsHarness = defineComponent({
+  async setup() {
+    const { detail } = await useEventDetail()
+    const hosts = detail.value?.hosts ?? []
+    return { outcome: hosts.map((host) => `${host.name}>${host.profilePath}`).join(',') }
+  },
+  template: '<div>{{ outcome }}</div>',
+})
+
+describe('useEventDetail hosts', () => {
+  it('resolves hosts in frontmatter order with their profile paths', async () => {
+    const wrapper = await mountSuspended(HostsHarness, { route: '/de/events/hosted' })
+    expect(wrapper.text()).toBe('Gast>/de/blog/author/gast,Team Person>/de/team/tp')
+  })
+
+  it('skips a host that resolves to nobody', async () => {
+    const wrapper = await mountSuspended(HostsHarness, { route: '/de/events/hosted' })
+    expect(wrapper.text()).not.toContain('ghost')
+  })
+
+  it('has no hosts for an event without any', async () => {
+    const wrapper = await mountSuspended(HostsHarness, { route: '/de/events/preview-only' })
+    expect(wrapper.text()).toBe('')
+  })
 })
 
 describe('useEventDetail', () => {

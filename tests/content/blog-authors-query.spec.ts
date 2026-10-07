@@ -13,9 +13,9 @@ const article = (author?: string | string[]) => ({
 
 let currentSlug = ''
 let counter = 0
-const open = () => {
+const open = (locale = 'en') => {
   currentSlug = `post-${++counter}`
-  return mountSuspended(Harness, { route: `/en/blog/${currentSlug}` })
+  return mountSuspended(Harness, { route: `/${locale}/blog/${currentSlug}` })
 }
 
 const profile = (slug: string) => ({ slug, name: slug.toUpperCase() })
@@ -23,7 +23,7 @@ const profile = (slug: string) => ({ slug, name: slug.toUpperCase() })
 const repo = {
   getBlogArticleBySlug: vi.fn(),
   getBlogArticleByTranslationKey: vi.fn(async () => null),
-  getAuthorBySlug: vi.fn(),
+  getTeamDocument: vi.fn(),
   listAuthorsBySlugs: vi.fn()
 }
 
@@ -32,19 +32,21 @@ mockNuxtImport('useContentRepository', () => () => repo)
 const Harness = defineComponent({
   async setup() {
     const { authors } = await useBlogArticle()
-    return { names: authors.value.map((author) => author.name).join(',') }
+    return { text: authors.value.map((author) => `${author.name}>${author.profilePath}`).join(',') }
   },
-  template: '<div>{{ names }}</div>'
+  template: '<div>{{ text }}</div>'
 })
 
 beforeEach(() => {
   vi.clearAllMocks()
-  const reversed = async (slugs: string[]) => [...slugs].reverse().map(profile)
-  repo.listAuthorsBySlugs.mockImplementation(reversed)
+  repo.getTeamDocument.mockResolvedValue({
+    members: [{ id: 't', name: 'Team Person', slug: 'tp' }]
+  })
+  repo.listAuthorsBySlugs.mockImplementation(async (slugs: string[]) => [...slugs].reverse().filter((slug) => slug !== 'ghost').map(profile))
 })
 
 describe('blog article authors', () => {
-  it('reads all authors with a single query', async () => {
+  it('reads the external authors with a single query', async () => {
     repo.getBlogArticleBySlug.mockImplementation(async () => article(['b',
 'a',
 'c']))
@@ -53,7 +55,6 @@ describe('blog article authors', () => {
     expect(repo.listAuthorsBySlugs).toHaveBeenCalledWith(['b',
 'a',
 'c'])
-    expect(repo.getAuthorBySlug).not.toHaveBeenCalled()
   })
 
   it('keeps the order of the frontmatter', async () => {
@@ -61,26 +62,44 @@ describe('blog article authors', () => {
 'a',
 'c']))
     const wrapper = await open()
-    expect(wrapper.text()).toBe('B,A,C')
+    expect(wrapper.text()).toBe('B>/en/blog/author/b,A>/en/blog/author/a,C>/en/blog/author/c')
+  })
+
+  it('links a team author to the team profile in the page locale', async () => {
+    repo.getBlogArticleBySlug.mockImplementation(async () => article('tp'))
+    const wrapper = await open('de')
+    expect(wrapper.text()).toBe('Team Person>/de/team/tp')
+  })
+
+  it('does not ask the authors collection for a team author', async () => {
+    repo.getBlogArticleBySlug.mockImplementation(async () => article('tp'))
+    await open()
+    expect(repo.listAuthorsBySlugs).not.toHaveBeenCalled()
+  })
+
+  it('mixes team and external authors in frontmatter order', async () => {
+    repo.getBlogArticleBySlug.mockImplementation(async () => article(['a', 'tp']))
+    const wrapper = await open()
+    expect(wrapper.text()).toBe('A>/en/blog/author/a,Team Person>/en/team/tp')
   })
 
   it('accepts a single author given as a string', async () => {
     repo.getBlogArticleBySlug.mockImplementation(async () => article('a'))
     const wrapper = await open()
     expect(repo.listAuthorsBySlugs).toHaveBeenCalledWith(['a'])
-    expect(wrapper.text()).toBe('A')
+    expect(wrapper.text()).toBe('A>/en/blog/author/a')
   })
 
-  it('skips authors the collection does not know', async () => {
+  it('skips authors that resolve to nobody', async () => {
     repo.getBlogArticleBySlug.mockImplementation(async () => article(['a', 'ghost']))
-    repo.listAuthorsBySlugs.mockResolvedValue([profile('a')])
     const wrapper = await open()
-    expect(wrapper.text()).toBe('A')
+    expect(wrapper.text()).toBe('A>/en/blog/author/a')
   })
 
-  it('does not query authors for an article without any', async () => {
+  it('does not query people for an article without authors', async () => {
     repo.getBlogArticleBySlug.mockImplementation(async () => article(undefined))
     await open()
     expect(repo.listAuthorsBySlugs).not.toHaveBeenCalled()
+    expect(repo.getTeamDocument).not.toHaveBeenCalled()
   })
 })

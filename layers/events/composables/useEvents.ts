@@ -1,9 +1,10 @@
 import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
-import type { Locale } from '#layers/content-core'
+import type { Locale, Person } from '#layers/content-core'
 import { isAccessOpenAt, eventPhaseAt, isEventReachableAt } from '#shared/utils/eventPhase'
 import type { EventDocument, EventPhase } from '../types'
 import {
+  eventsByHostAt,
   groupEventsAt,
   promotedEventsAt,
   type EventCardData,
@@ -62,6 +63,23 @@ export function useEventPromotions() {
   return { promoted: data }
 }
 
+/** The listed events `slug` hosts, phase decided on the server like the overview's. */
+export function useEventsByHost(slug: MaybeRefOrGetter<string>) {
+  const activeLocale = useActiveLocale()
+  const repo = useContentRepository()
+
+  const { data } = useAsyncData<EventCardData[]>(
+    () => `events-by-host-${activeLocale.value}-${toValue(slug)}`,
+    async () => {
+      const docs = await repo.listEvents(activeLocale.value)
+      return eventsByHostAt(docs, toValue(slug), activeLocale.value, new Date())
+    },
+    { watch: [activeLocale, () => toValue(slug)], default: () => [] }
+  )
+
+  return { events: data }
+}
+
 export interface EventDetail {
   event: EventDocument
   phase: EventPhase
@@ -69,6 +87,8 @@ export interface EventDetail {
   accessOpen: boolean
   /** Java server address for `join.server`, from the server_connect content. */
   serverAddress?: string
+  /** The people named in `hosts`, in frontmatter order; unresolvable slugs are dropped. */
+  hosts: Person[]
   /** The moment the phase was decided, as an ISO string. */
   now: string
   /**
@@ -132,6 +152,7 @@ export async function useEventDetail() {
         phase,
         accessOpen: isAccessOpenAt(event.access, now),
         serverAddress: connect?.javaAddress,
+        hosts: await resolvePeople(event.hosts ?? [], activeLocale.value),
         now: now.toISOString(),
         localeSlugs,
       }

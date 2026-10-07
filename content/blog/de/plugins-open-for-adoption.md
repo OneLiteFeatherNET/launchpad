@@ -11,7 +11,7 @@ tags:
   - minecraft
   - community
   - plugins
-author: phillipp-glanz
+author: themeinerlp
 canonical: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'
 sitemap:
   lastmod: '2025-02-05'

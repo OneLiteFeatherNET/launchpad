@@ -52,6 +52,15 @@ describe('EventResults', () => {
     expect(wrapper.text()).toContain('Wie geht es weiter')
   })
 
+  it('does not link a placement named after a team member', () => {
+    const wrapper = mount(EventResults, {
+      props: { results: { placements: [{ place: 1, name: 'TheMeinerLP', mcName: 'themeinerlp' }] } },
+      global,
+    })
+    expect(wrapper.text(), 'name shown').toContain('TheMeinerLP')
+    expect(wrapper.find('a').exists(), 'no link in results').toBe(false)
+  })
+
   it('says results will follow when there are none', () => {
     expect(mount(EventResults, { props: {}, global }).text()).toContain('Die Ergebnisse folgen')
     const empty = mount(EventResults, { props: { results: {} }, global })

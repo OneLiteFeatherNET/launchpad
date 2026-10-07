@@ -66,7 +66,6 @@
     "description": "Interactive BlueMap map of the OneLiteFeather Minecraft server."
   },
   "blog": {
-    "featured_team": "Featured team members",
     "overview": {
       "title": "Overview",
       "description": "Find interesting blog posts from OneLiteFeather.net about development, community and more."
@@ -78,6 +77,12 @@
     "imprint": {
       "title": "Imprint",
       "description": "Imprint and legal information for the OneLiteFeather Minecraft Network, including the responsible party and contact details."
+    },
+    "author": {
+      "profile": "View profile",
+      "title": "{name} – Blog",
+      "description": "All blog posts by {name} on OneLiteFeather.net.",
+      "posts_by": "Posts by {name}"
     }
   },
   "team": {
@@ -114,6 +119,10 @@
     "faq": {
       "section_title": "Applications and ranks",
       "section_subtitle": "Answers on the process, requirements, and the Lite rank."
+    },
+    "profile": {
+      "posts": "Posts",
+      "events": "Events"
     }
   },
   "sponsor": {
@@ -494,6 +503,7 @@
     },
     "guides": {
       "title": "Guide"
-    }
+    },
+    "hosts": "Hosts"
   }
 }

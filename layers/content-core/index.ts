@@ -2,6 +2,8 @@
 export { useContentRepository } from './composables/useContentRepository'
 export { usePageSeo } from './composables/usePageSeo'
 export { useBreadcrumbs } from './composables/useBreadcrumbs'
+export { usePeople, resolvePeople, resolvePerson } from './composables/usePeople'
+export type { Person } from './utils/content/person'
 export { COMMUNITY_POI_STATUS_ORDER } from './utils/content/repository'
 export type {
   ContentRepository,

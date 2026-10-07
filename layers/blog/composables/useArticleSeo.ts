@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { BlogArticle, BlogAuthorProfile } from '../types'
+import type { BlogArticle, Person } from '../types'
 
 interface BlogSeoFrontmatter {
   title?: string
@@ -21,7 +21,7 @@ interface BlogSeoFrontmatter {
  */
 export function useArticleSeo(
   blog: Ref<BlogArticle | null>,
-  authors: Ref<BlogAuthorProfile[]>
+  authors: Ref<Person[]>
 ) {
   const { locale, t } = useI18n()
   const config = useRuntimeConfig()

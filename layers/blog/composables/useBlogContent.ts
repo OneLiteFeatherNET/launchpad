@@ -1,29 +1,12 @@
 import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale } from '#layers/content-core'
-import type {
-  BlogArticle,
-  BlogAlternateHeader,
-  BlogAuthorProfile
-} from '../types'
+import type { BlogArticle, BlogAlternateHeader, Person } from '../types'
 
-const normalizeReleaseDate = (entry: BlogArticle): Date | null => {
-  // `releaseDate` and `pubDate` are schema columns now, so both arrive as
-  // the coerced value @nuxt/content stores rather than a hand-typed union.
-  const raw = entry.releaseDate ?? entry.pubDate
-  if (!raw) return null
-  const parsed = new Date(raw)
-  return Number.isNaN(parsed.getTime()) ? null : parsed
-}
+const releaseTimestamp = (entry: BlogArticle): number => releaseTimeOf(entry) ?? 0
 
-const releaseTimestamp = (entry: BlogArticle): number =>
-  normalizeReleaseDate(entry)?.getTime() ?? 0
-
-const isReleased = (entry: BlogArticle | null | undefined): entry is BlogArticle => {
-  if (!entry) return false
-  const release = normalizeReleaseDate(entry)
-  if (!release) return true
-  return release.getTime() <= Date.now()
+function isReleased(entry: BlogArticle | null | undefined): entry is BlogArticle {
+  return Boolean(entry) && isReleasedAt(entry as BlogArticle, new Date())
 }
 
 const normalizeLocales = (list: unknown[]): LocaleObject[] =>
@@ -77,11 +60,26 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data: allPostsData } = useAsyncData<BlogArticle[]>(
+  // The overview's authors are resolved in the same payload as the articles,
+  // so the whole page costs one people lookup rather than one per card.
+  const { data: overview } = useAsyncData<{ articles: BlogArticle[], people: Person[] }>(
     () => `all-posts-${activeLocale.value}`,
-    () => repo.listBlogArticles(activeLocale.value),
+    async () => {
+      const articles = await repo.listBlogArticles(activeLocale.value)
+      const slugs = [...new Set(articles.flatMap(authorSlugsOf))]
+      return { articles, people: await resolvePeople(slugs, activeLocale.value) }
+    },
     { watch: [activeLocale] }
   )
+
+  const allPostsData = computed(() => overview.value?.articles)
+
+  const authorsOf = (article: BlogArticle): Person[] => {
+    const bySlug = new Map((overview.value?.people ?? []).map((person) => [person.slug, person]))
+    return authorSlugsOf(article)
+      .map((slug) => bySlug.get(slug))
+      .filter((person): person is Person => Boolean(person))
+  }
 
   const visiblePosts = computed<BlogArticle[]>(() => {
     const posts = (allPostsData.value || []).filter(isReleased)
@@ -116,6 +114,7 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
     top1Article,
     allPosts,
     allPostsData,
+    authorsOf,
     page,
     totalPosts,
     totalPages
@@ -164,7 +163,7 @@ export async function useBlogArticle() {
   // without any author data.
   const { data: payload } = await useAsyncData<{
     article: BlogArticle | null
-    authors: BlogAuthorProfile[]
+    authors: Person[]
   } | null>(
     () => `${route.path}-${locale.value}`,
     async () => {
@@ -184,14 +183,9 @@ export async function useBlogArticle() {
         .filter(Boolean)
         .map((s) => String(s))
 
-      // `IN` returns no order; restore the frontmatter order.
-      const found = slugs.length ? await repo.listAuthorsBySlugs(slugs) : []
-      const bySlug = new Map(found.map((author) => [author.slug, author]))
-      const authorDocs = slugs.map((authorSlug) => bySlug.get(authorSlug))
-
       return {
         article: doc,
-        authors: authorDocs.filter((a): a is BlogAuthorProfile => Boolean(a))
+        authors: await resolvePeople(slugs, activeLocale.value)
       }
     },
     { watch: [locale, slug] }
@@ -204,7 +198,7 @@ export async function useBlogArticle() {
   }
 
   const article = computed<BlogArticle | null>(() => payload.value?.article || null)
-  const authors = computed<BlogAuthorProfile[]>(() => payload.value?.authors || [])
+  const authors = computed<Person[]>(() => payload.value?.authors || [])
 
   const blog = computed<BlogArticle | null>(() => {
     if (!article.value) return null

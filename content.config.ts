@@ -17,14 +17,11 @@ const blogSchema = withI18nMeta(z.object({
     headerImage: z.string().optional(),
     headerImageAlt: z.string().optional(),
     tags: z.array(z.string()).optional(),
-    // Author slug(s) matching entries in the `authors` page collection.
-    // Without this field on the schema, the column is dropped and the
-    // page-level Author lookups (visible cards + Article JSON-LD) come
-    // back empty.
+    // Person slug(s): a team roster slug or an entry of the `authors`
+    // collection (resolved by resolvePeople; tests/content/person-slugs.spec.ts
+    // checks them). Without this field on the schema, the column is dropped
+    // and the page-level Author lookups come back empty.
     author: z.union([z.string(), z.array(z.string())]).optional(),
-    // Slugs of team members featured in this article. Loose backlink to the
-    // team profile pages, independent of the `author`/`authors` collection.
-    teamMembers: z.array(z.string()).optional(),
     excerpt: z.object({
       type: z.string(),
       children: z.any()
@@ -322,6 +319,8 @@ const eventsSchema = withI18nMeta(z.object({
     // its own (overview, carousel, sitemap) and never promoted. Default false
     // keeps every existing event public. See shared/utils/eventPhase.ts.
     unlisted: z.boolean().optional(),
+    // Person slugs (team roster or `authors`), in display order.
+    hosts: z.array(z.string()).optional(),
     event: z.object({
       announceAt: eventTimestamp.optional(),
       startsAt: eventTimestamp,

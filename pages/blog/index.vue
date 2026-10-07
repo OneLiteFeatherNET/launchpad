@@ -9,7 +9,7 @@ definePageMeta({
   layout: 'default',
 });
 
-const { top1Article, allPosts } = useBlogOverview()
+const { top1Article, allPosts, authorsOf } = useBlogOverview()
 
 usePageSeo({
   title: t('blog.overview.title'),
@@ -59,12 +59,14 @@ useSchemaOrg(computed(() => {
     <Top1
         v-if="top1Article"
         :blog-article="top1Article"
+        :authors="authorsOf(top1Article)"
     />
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
       <ArticleCard
         v-for="article in allPosts"
         :key="article.slug"
         :blog-article="article"
+        :authors="authorsOf(article)"
       />
     </div>
   </div>

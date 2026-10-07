@@ -12,7 +12,7 @@ tags:
   - paper
   - slf4j
   - observability
-author: phillipp-glanz
+author: themeinerlp
 canonical: 'https://onelitefeather.net/de/blog/effizientes-logging-paper-plugins-slf4j-log4j2-grafana-loki'
 sitemap:
   lastmod: '2024-09-29'

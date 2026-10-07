@@ -19,6 +19,12 @@ const site = useSiteConfig()
 
 const { member, avatarSrc } = await useTeamProfile()
 
+// Contributions come from other domains; only this page may combine them
+// with the team layer's profile.
+const memberSlug = computed(() => member.value?.slug ?? '')
+const { articles: posts } = await useBlogPostsByAuthor(memberSlug)
+const { events } = useEventsByHost(memberSlug)
+
 const memberRoles = computed(() => toRoleList(member.value?.role))
 const memberRoleText = computed(() => toRoleString(member.value?.role))
 
@@ -205,6 +211,19 @@ const profileClass
           <span class="capitalize">{{ link.key }}</span>
         </M3Button>
       </div>
+
+      <AuthorPostList
+        v-if="posts.length"
+        class="mt-8"
+        :title="t('team.profile.posts')"
+        :posts="posts"
+      />
+      <HostedEventList
+        v-if="events.length"
+        class="mt-8"
+        :title="t('team.profile.events')"
+        :events="events"
+      />
     </div>
 
     <div v-else class="mt-10 text-center text-body-large text-on-surface-variant">

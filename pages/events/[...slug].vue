@@ -116,6 +116,20 @@ const resources = computed(() => event.value?.resources ?? [])
         </p>
       </header>
 
+      <section v-if="detail.hosts.length" aria-labelledby="event-hosts" class="space-y-3">
+        <h2 id="event-hosts" class="text-title-large text-on-surface">{{ t('events.hosts') }}</h2>
+        <div class="flex flex-wrap gap-x-8 gap-y-4">
+          <PersonLink
+            v-for="host in detail.hosts"
+            :key="host.slug"
+            :name="host.name"
+            :to="host.profilePath"
+            :avatar="host.avatar"
+            :role="host.role"
+          />
+        </div>
+      </section>
+
       <EventResults v-if="phase === 'past'" :results="event.results" />
 
       <section aria-labelledby="event-details" class="space-y-4">

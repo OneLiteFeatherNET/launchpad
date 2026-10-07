@@ -125,6 +125,23 @@ export function eventFrontmatterProblems(data: Frontmatter): string[] {
     problems.push('unlisted: must not be combined with a promote object (unlisted events are never promoted)')
   }
 
+  if (data.hosts !== undefined) {
+    if (!Array.isArray(data.hosts)) {
+      problems.push('hosts: must be a list of slugs')
+    } else {
+      const seen = new Set<string>()
+      data.hosts.forEach((host, index) => {
+        if (typeof host !== 'string' || host === '') {
+          problems.push(`hosts[${index}]: must be a non-empty string`)
+        } else if (seen.has(host)) {
+          problems.push(`hosts[${index}]: "${host}" appears twice`)
+        } else {
+          seen.add(host)
+        }
+      })
+    }
+  }
+
   const subject = asRecord(data.subject)
   if (data.type === 'beta') {
     if (!subject) problems.push('subject: required when type is beta')
@@ -188,23 +205,32 @@ function eventDocuments(): { file: string, data: Frontmatter }[] {
 /**
  * Translations sharing a `translationKey` must agree on `unlisted` — at
  * runtime `unlisted` always wins per-document (design.md D2), so a mismatch
- * would silently list one language and not the other. Each mismatch names
- * every file that disagrees, so an editor sees both sides at once.
+ * would silently list one language and not the other — and on `hosts`, which
+ * name the same people in both languages. Each mismatch names every file that
+ * disagrees, so an editor sees both sides at once.
  */
 export function eventTranslationProblems(docs: { file: string, data: Frontmatter }[]): string[] {
-  const byKey = new Map<string, { file: string, unlisted: boolean }[]>()
+  const byKey = new Map<string, { file: string, unlisted: boolean, hosts: string }[]>()
   for (const doc of docs) {
     const key = doc.data.translationKey
     if (typeof key !== 'string' || key === '') continue
     const entries = byKey.get(key) ?? []
-    entries.push({ file: doc.file, unlisted: doc.data.unlisted === true })
+    entries.push({
+      file: doc.file,
+      unlisted: doc.data.unlisted === true,
+      hosts: JSON.stringify(doc.data.hosts ?? []),
+    })
     byKey.set(key, entries)
   }
   const problems: string[] = []
   for (const [key, entries] of byKey) {
-    if (new Set(entries.map((entry) => entry.unlisted)).size <= 1) continue
     const files = entries.map((entry) => entry.file).join(', ')
-    problems.push(`${files}: unlisted differs between translations sharing translationKey "${key}"`)
+    if (new Set(entries.map((entry) => entry.unlisted)).size > 1) {
+      problems.push(`${files}: unlisted differs between translations sharing translationKey "${key}"`)
+    }
+    if (new Set(entries.map((entry) => entry.hosts)).size > 1) {
+      problems.push(`${files}: hosts differ between translations sharing translationKey "${key}"`)
+    }
   }
   return problems
 }
@@ -279,6 +305,17 @@ describe('events frontmatter', () => {
     ['unquoted stat value',
 (d: Frontmatter) => { d.results = { stats: [{ label: 'Teilnehmer', value: 42 }] } },
 'results.stats[0].value: must be a quoted string'],
+    ['hosts that is not a list',
+(d: Frontmatter) => { d.hosts = 'themeinerlp' },
+'hosts: must be a list of slugs'],
+    ['hosts entry that is not a string',
+(d: Frontmatter) => { d.hosts = ['themeinerlp', 3] },
+'hosts[1]: must be a non-empty string'],
+    ['duplicate host',
+(d: Frontmatter) => { d.hosts = ['themeinerlp',
+'gast',
+'themeinerlp'] },
+'hosts[2]: "themeinerlp" appears twice'],
     ['promote window without offset',
 (d: Frontmatter) => { d.promote = { from: '2026-09-25' } },
 'promote.from: not an ISO timestamp'],
@@ -289,6 +326,10 @@ describe('events frontmatter', () => {
 
   it('accepts promote: false', () => {
     expect(eventFrontmatterProblems(withChange((d) => { d.promote = false }))).toEqual([])
+  })
+
+  it('accepts a list of hosts', () => {
+    expect(eventFrontmatterProblems(withChange((d) => { d.hosts = ['themeinerlp', 'gast'] }))).toEqual([])
   })
 
   it('accepts unlisted: true', () => {
@@ -337,5 +378,28 @@ describe('unlisted consistency across translations', () => {
     const de = { file: 'content/events/de/a.md', data: withChange((d) => { d.unlisted = true }) }
     const en = { file: 'content/events/en/b.md', data: withChange((d) => { d.unlisted = false }) }
     expect(eventTranslationProblems([de, en])).toEqual([])
+  })
+})
+
+describe('hosts consistency across translations', () => {
+  const doc = (file: string, hosts?: string[]) => ({
+    file,
+    data: withChange((d) => { d.translationKey = 'slender'; if (hosts) d.hosts = hosts }),
+  })
+
+  it('rejects differing hosts between files sharing a translationKey, naming both', () => {
+    const de = doc('content/events/de/slender.md', ['themeinerlp'])
+    const en = doc('content/events/en/slender.md', ['gast'])
+    const problems = eventTranslationProblems([de, en])
+    expect(problems.some((problem) => problem.includes(de.file) && problem.includes(en.file) && problem.includes('hosts'))).toBe(true)
+  })
+
+  it('rejects hosts in one translation and none in the other', () => {
+    const problems = eventTranslationProblems([doc('de.md', ['themeinerlp']), doc('en.md')])
+    expect(problems.some((problem) => problem.includes('hosts'))).toBe(true)
+  })
+
+  it('accepts translations that agree on hosts', () => {
+    expect(eventTranslationProblems([doc('de.md', ['themeinerlp']), doc('en.md', ['themeinerlp'])])).toEqual([])
   })
 })

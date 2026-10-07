@@ -58,7 +58,6 @@
     }
   },
   "blog": {
-    "featured_team": "Beteiligte Teammitglieder",
     "overview": {
       "title": "Übersicht",
       "description": "Finde interessante Blogbeiträge von OneLiteFeather.net rund um Entwicklung, Community und mehr."
@@ -70,6 +69,12 @@
     "imprint": {
       "title": "Impressum",
       "description": "Impressum und rechtliche Angaben zum OneLiteFeather Minecraft-Netzwerk inklusive verantwortlicher Stelle und Kontaktdaten."
+    },
+    "author": {
+      "profile": "Zum Profil",
+      "title": "{name} – Blog",
+      "description": "Alle Blogbeiträge von {name} auf OneLiteFeather.net.",
+      "posts_by": "Beiträge von {name}"
     }
   },
   "index": {
@@ -114,6 +119,10 @@
     "faq": {
       "section_title": "Bewerbungen und Ränge",
       "section_subtitle": "Antworten zu Ablauf, Anforderungen und dem Lite-Rang."
+    },
+    "profile": {
+      "posts": "Beiträge",
+      "events": "Events"
     }
   },
   "sponsor": {
@@ -494,6 +503,7 @@
     },
     "guides": {
       "title": "Anleitung"
-    }
+    },
+    "hosts": "Gastgeber"
   }
 }

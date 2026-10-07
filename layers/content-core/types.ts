@@ -26,3 +26,4 @@ export type {
   COMMUNITY_POI_STATUS_ORDER
 } from './utils/content/repository'
 export type { Locale } from './utils/content/locales'
+export type { Person } from './utils/content/person'
