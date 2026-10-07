@@ -143,9 +143,8 @@ export async function useBlogArticle() {
   // Slug derived from catch-all route param; reactive on client navigation
   const slugSegments = computed<string[]>(() => {
     const params = route.params as Record<string, string | string[] | undefined>
-    const p = params?.slug
-    if (Array.isArray(p) && p.length) return p.map(String)
-    if (typeof p === 'string' && p.length > 0) return [p]
+    const fromParam = catchAllSegments(params?.slug)
+    if (fromParam.length) return fromParam
 
     const parts = (route.path || '').split('/').filter(Boolean)
     const blogIndex = parts.indexOf('blog')

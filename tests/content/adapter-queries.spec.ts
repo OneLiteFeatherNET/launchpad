@@ -195,3 +195,36 @@ describe('author lookup', () => {
 'avatar']))
   })
 })
+
+describe('collection paths', () => {
+  const row = (extra: Record<string, unknown> = {}) => ({
+    id: 'team_faq_en/team-faq/en/process.md',
+    path: '/team-faq/en/process',
+    stem: 'team-faq/en/process',
+    slug: 'process',
+    ...extra
+  })
+
+  it('strips path and stem from a single document', async () => {
+    fake.state.rows = [row()]
+    const doc = await createNuxtContentAdapter().getTeamDocument('en')
+    expect(doc, 'path leaks into the SSR payload').not.toHaveProperty('path')
+    expect(doc, 'stem leaks into the SSR payload').not.toHaveProperty('stem')
+  })
+
+  it('strips path and stem from every row of a list', async () => {
+    fake.state.rows = [row(), row({ slug: 'apply' })]
+    const entries = await createNuxtContentAdapter().listTeamFaqEntries('en')
+    for (const entry of entries) {
+      expect(entry).not.toHaveProperty('path')
+      expect(entry).not.toHaveProperty('stem')
+    }
+  })
+
+  it('strips path and stem from an article but keeps what the page reads', async () => {
+    fake.state.rows = [row({ body: { type: 'minimark' } })]
+    const article = await createNuxtContentAdapter().getBlogArticleBySlug('en', 'process')
+    expect(article).not.toHaveProperty('path')
+    expect(article).toMatchObject({ id: 'team_faq_en/team-faq/en/process.md', slug: 'process', body: { type: 'minimark' } })
+  })
+})
