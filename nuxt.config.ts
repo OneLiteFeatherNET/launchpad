@@ -205,6 +205,8 @@ export default defineNuxtConfig({
         '/en/team/pega': { redirect: { to: '/en/team/pegasusfieber17', statusCode: 301 } },
         '/de/team/saynax-jonas': { redirect: { to: '/de/team/saynax', statusCode: 301 } },
         '/en/team/saynax-jonas': { redirect: { to: '/en/team/saynax', statusCode: 301 } },
+        '/de/team/bavariankingdom': { redirect: { to: '/de/team/morelia0815', statusCode: 301 } },
+        '/en/team/bavariankingdom': { redirect: { to: '/en/team/morelia0815', statusCode: 301 } },
         '/de/team/b3nny': { redirect: { to: '/de/team/blndr2', statusCode: 301 } },
         '/en/team/b3nny': { redirect: { to: '/en/team/blndr2', statusCode: 301 } },
     },

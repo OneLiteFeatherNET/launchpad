@@ -20,8 +20,9 @@ const renamed: Record<string, string> = {
   'pega': 'pegasusfieber17',
   'saynax-jonas': 'saynax',
   'b3nny': 'blndr2',
+  'bavariankingdom': 'morelia0815',
 }
-const kept = ['mcmdev', 'bavariankingdom']
+const kept = ['mcmdev']
 
 function members(locale: string): Member[] {
   const raw = readFileSync(`${repoRoot}/content/team/${locale}/home.json`, 'utf8')
@@ -36,7 +37,7 @@ describe('team roster', () => {
   })
 
   it.each(locales)('uses the minecraft name as slug, id and mcName in %s', (locale) => {
-    for (const m of members(locale).filter((x) => x.id !== 'bavariankingdom')) {
+    for (const m of members(locale)) {
       expect(m.slug, m.id).toBe(m.id)
       expect(m.mcName, m.id).toBe(m.id)
       expect(m.name.toLowerCase(), m.id).toBe(m.id)
