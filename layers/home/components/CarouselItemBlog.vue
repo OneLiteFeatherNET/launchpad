@@ -25,6 +25,7 @@ interface BlogItem {
   author?: string
   date?: string | Date
   tag?: string
+  isNew?: boolean
 }
 
 const props = withDefaults(defineProps<{ item: BlogItem; priority?: boolean }>(), {
@@ -67,6 +68,7 @@ const dateLabel = computed(() => {
     <div :class="CAROUSEL_CAPTION_POSITION">
       <div :class="CAROUSEL_CAPTION">
         <div :class="CAROUSEL_META">
+          <M3Chip v-if="item.isNew" kind="label" color="tertiary" :label="t('carousel.new')" />
           <M3Chip v-if="item.tag" kind="label" color="secondary" :label="item.tag" />
           <span v-if="dateLabel">{{ dateLabel }}</span>
           <span v-if="item.author" class="truncate">von {{ item.author }}</span>

@@ -16,6 +16,7 @@ export interface EventCardData {
   accessMode: EventAccessMode
   startsAt: string
   endsAt?: string
+  announcedAt?: string
   thumbnail?: string
   thumbnailAlt?: string
   path: string
@@ -53,6 +54,7 @@ export function toEventCard(doc: EventSummary, locale: string, now: Date): Event
     accessMode: doc.access?.mode ?? 'open',
     startsAt: doc.event.startsAt,
     endsAt: doc.event.endsAt,
+    announcedAt: doc.event.announceAt,
     thumbnail: doc.thumbnail,
     thumbnailAlt: doc.thumbnailAlt,
     path: eventDetailPath(locale, doc.slug),

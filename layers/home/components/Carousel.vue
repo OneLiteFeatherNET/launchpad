@@ -6,6 +6,7 @@ import CarouselItemBlog from './CarouselItemBlog.vue'
 import CarouselItemNews from './CarouselItemNews.vue'
 import CarouselItemEvent from './CarouselItemEvent.vue'
 import CarouselItemPoi from './CarouselItemPoi.vue'
+import CarouselItemProject from './CarouselItemProject.vue'
 import type { AnySlide, NormalizedSlide } from '../types'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
@@ -76,6 +77,7 @@ const preloadLink = computed(() => {
         || slide.type === 'news'
         || slide.type === 'event'
         || slide.type === 'poi'
+        || slide.type === 'project'
         ? slide.image
         : undefined
 
@@ -251,6 +253,7 @@ const componentFor = (slide: NormalizedSlide) => {
     case 'news': return CarouselItemNews
     case 'event': return CarouselItemEvent
     case 'poi': return CarouselItemPoi
+    case 'project': return CarouselItemProject
     default: return CarouselItemImage
   }
 }
