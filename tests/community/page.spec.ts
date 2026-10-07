@@ -42,15 +42,16 @@ describe('home page community strip', () => {
 })
 
 describe('navigation', () => {
-  it('has a community entry before the "more" group', () => {
-    const community = navConfig.findIndex((entry) => entry.type === 'link' && entry.routeName === 'community')
-    const more = navConfig.findIndex((entry) => entry.type === 'group')
-    expect(community, 'community link exists').toBeGreaterThan(-1)
-    expect(community).toBeLessThan(more)
+  const community = navConfig.find(entry => entry.type === 'group' && entry.textKey === 'navigation.community')
+
+  it('has a community group that links the community page', () => {
+    expect(community?.type).toBe('group')
+    const children = community?.type === 'group' ? community.children : []
+    expect(children.find(child => child.routeName === 'community')?.textKey).toBe('navigation.community_overview')
   })
 
-  it('titles the entry from the navigation messages', () => {
-    const entry = navConfig.find((item) => item.type === 'link' && item.routeName === 'community')
-    expect(entry?.textKey).toBe('navigation.community')
+  it('sits before the "more" group', () => {
+    const titles = navConfig.map(entry => entry.textKey)
+    expect(titles.indexOf('navigation.community')).toBeLessThan(titles.indexOf('navigation.more'))
   })
 })

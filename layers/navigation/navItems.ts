@@ -18,13 +18,19 @@ export type NavGroupConfig = {
 export type NavConfigEntry = NavLinkConfig | NavGroupConfig
 
 export const navConfig: NavConfigEntry[] = [
-  { type: 'link', textKey: 'navigation.overview', routeName: 'index', icon: ['fas', 'home'] },
-  { type: 'link', textKey: 'navigation.blog', routeName: 'blog', icon: ['fas', 'file-alt'] },
   { type: 'link', textKey: 'navigation.team', routeName: 'team', icon: ['fas', 'users'] },
-  { type: 'link', textKey: 'navigation.community_poi', routeName: 'community-poi', icon: ['fas', 'location-dot'] },
-  { type: 'link', textKey: 'navigation.events', routeName: 'events', icon: ['fas', 'calendar-days'] },
-  { type: 'link', textKey: 'navigation.projects', routeName: 'projects', icon: ['fas', 'code'] },
-  { type: 'link', textKey: 'navigation.community', routeName: 'community', icon: ['fas', 'handshake'] },
+  { type: 'link', textKey: 'navigation.blog', routeName: 'blog', icon: ['fas', 'file-alt'] },
+  {
+    type: 'group',
+    textKey: 'navigation.community',
+    icon: ['fas', 'handshake'],
+    children: [
+      { type: 'link', textKey: 'navigation.community_overview', routeName: 'community', icon: ['fas', 'handshake'] },
+      { type: 'link', textKey: 'navigation.builds', routeName: 'community-poi', icon: ['fas', 'location-dot'] },
+      { type: 'link', textKey: 'navigation.projects', routeName: 'projects', icon: ['fas', 'code'] },
+      { type: 'link', textKey: 'navigation.events', routeName: 'events', icon: ['fas', 'calendar-days'] }
+    ]
+  },
   {
     type: 'group',
     textKey: 'navigation.more',

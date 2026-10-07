@@ -3,7 +3,13 @@ import { ref, computed, watch, nextTick, useRoute, onKeyStroke } from '#imports'
 import NavigationItem from './NavigationItem.vue'
 import LanguageSelector from './LanguageSelector.vue'
 import { navConfig, type NavConfigEntry, type NavLinkConfig, type NavGroupConfig } from '../navItems'
-import { NAV_ITEM_DESKTOP, NAV_ITEM_INACTIVE, NAV_MENU_SURFACE } from '../utils/navItemClasses'
+import {
+  NAV_ITEM_ACTIVE,
+  NAV_ITEM_DESKTOP,
+  NAV_ITEM_INACTIVE,
+  NAV_MENU_SURFACE
+} from '../utils/navItemClasses'
+import { isNavGroupActive } from '../utils/navigation'
 
 const { t, locale } = useI18n();
 const runtimeConfig = useRuntimeConfig();
@@ -78,16 +84,20 @@ const bottomNavLinks = computed<BuiltLink[]>(() => {
   return links
 })
 
+const groupMenuId = (group: BuiltGroup) => `nav-group-${group.textKey.replace(/\./g, '-')}`
+const isGroupActive = (g: BuiltGroup) => isNavGroupActive(route.path, g.children.map(c => c.path))
+
 const headerClass = 'sticky top-0 z-50 w-full bg-surface-container/95 backdrop-blur'
 const bottomBarClass = 'fixed bottom-0 inset-x-0 z-50 bg-surface-container'
 const logoLinkClass
-  = 'flex items-center gap-2 rounded-small text-on-surface no-underline hover:opacity-90 focus-ring'
+  = 'flex shrink-0 items-center gap-2 whitespace-nowrap rounded-small text-on-surface '
+    + 'no-underline hover:opacity-90 focus-ring'
 const mobilePanelClass
   = 'absolute left-0 right-0 top-0 z-50 mx-4 rounded-large bg-surface-container-high p-4 '
     + 'shadow-elevation-3'
 const mobileSummaryClass
   = 'flex cursor-pointer select-none items-center gap-2 rounded-full px-2 py-1 '
-    + 'text-label-large text-on-surface focus-ring'
+    + 'text-label-large focus-ring'
 
 const elevationClasses = {
   0: 'shadow-none',
@@ -133,14 +143,14 @@ onKeyStroke('Escape', () => closeMenus())
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
-          <NuxtLinkLocale to="/" :aria-label="t('navigation.overview')" :class="logoLinkClass">
+          <NuxtLinkLocale to="/" :aria-label="t('navigation.home_link')" :class="logoLinkClass">
             <NuxtImg src="images/logo.svg" :alt="t('accessibility.logo_alt')" width="40" height="40" class="h-10 w-10" />
             <GradientText variant="accent" tone="light" class="text-lg font-semibold">OneLiteFeather</GradientText>
           </NuxtLinkLocale>
         </div>
 
         <nav class="hidden items-center gap-2 lg:flex" :aria-label="t('navigation.main')">
-          <template v-for="item in allNavItems" :key="item.type === 'link' ? item.path : item.textKey">
+          <template v-for="item in navItems" :key="item.type === 'link' ? item.path : item.textKey">
             <NavigationItem
               v-if="item.type === 'link'"
               :text-key="item.textKey"
@@ -157,15 +167,23 @@ onKeyStroke('Escape', () => closeMenus())
                 <!-- summary is the native disclosure button: Enter/Space fire a click natively, so keyboard parity exists -->
                 <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions, vuejs-accessibility/click-events-have-key-events -->
                 <summary
-                  :class="[NAV_ITEM_DESKTOP, NAV_ITEM_INACTIVE, 'list-none']"
+                  :class="[
+                    NAV_ITEM_DESKTOP,
+                    isGroupActive(item) ? NAV_ITEM_ACTIVE : NAV_ITEM_INACTIVE,
+                    'list-none'
+                  ]"
                   :aria-expanded="openGroup === item.textKey ? 'true' : 'false'"
+                  :aria-controls="groupMenuId(item)"
                   @click.prevent="toggleGroup(item.textKey)"
                 >
                   <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
                   <span>{{ t(item.textKey) }}</span>
                   <IconFa :icon="['fas','chevron-down']" class="h-3 w-3" />
                 </summary>
-                <div :class="[NAV_MENU_SURFACE, 'z-20 flex w-56 flex-col gap-1 px-2']">
+                <div
+                  :id="groupMenuId(item)"
+                  :class="[NAV_MENU_SURFACE, 'z-20 flex w-56 flex-col gap-1 px-2']"
+                >
                   <NavigationItem
                     v-for="child in item.children"
                     :key="child.path"
@@ -178,6 +196,16 @@ onKeyStroke('Escape', () => closeMenus())
               </details>
             </div>
           </template>
+          <M3Button
+            v-if="discordUrl"
+            variant="tonal"
+            :icon="['fab', 'discord']"
+            :href="discordUrl"
+            target="_blank"
+            class="whitespace-nowrap"
+          >
+            {{ t('navigation.discord') }}
+          </M3Button>
           <LanguageSelector />
         </nav>
 
@@ -231,7 +259,10 @@ onKeyStroke('Escape', () => closeMenus())
               class="mb-2 rounded-large bg-surface-container-highest p-2"
             >
               <summary
-                :class="mobileSummaryClass"
+                :class="[
+                  mobileSummaryClass,
+                  isGroupActive(item) ? NAV_ITEM_ACTIVE : 'text-on-surface'
+                ]"
               >
                 <IconFa v-if="item.icon" :icon="item.icon" class="h-4 w-4" />
                 <span>{{ t(item.textKey) }}</span>

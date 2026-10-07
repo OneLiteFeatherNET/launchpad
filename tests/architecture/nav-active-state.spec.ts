@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { repoRoot } from '../helpers/sources'
-import { isCurrentNavPath } from '../../layers/navigation/utils/navigation'
+import { isCurrentNavPath, isNavGroupActive } from '../../layers/navigation/utils/navigation'
 
 /**
  * Two nav items were lit at once on every subpage.
@@ -78,5 +78,46 @@ describe('navigation active state', () => {
     expect(source).toContain('isCurrentNavPath')
     // The raw prefix test must be gone, not merely wrapped.
     expect(source).not.toMatch(/route\.path\.startsWith\(props\.path/)
+  })
+})
+
+describe('navigation group active state', () => {
+  const community = [
+    '/de/community',
+    '/de/community-poi',
+    '/de/projects',
+    '/de/events',
+  ]
+  const more = [
+    '/de#connect',
+    '/de/bluemap',
+    'https://status.onelitefeather.net',
+  ]
+
+  it('is active on a child and below it', () => {
+    expect(isNavGroupActive('/de/community-poi', community)).toBe(true)
+    expect(isNavGroupActive('/de/community-poi/yggdrasil', community)).toBe(true)
+    expect(isNavGroupActive('/de/events/herbst-bauevent', community)).toBe(true)
+  })
+
+  it('is inactive on pages outside the group', () => {
+    expect(isNavGroupActive('/de/team', community)).toBe(false)
+    expect(isNavGroupActive('/de', community)).toBe(false)
+  })
+
+  it('does not light up for an anchor on the home page or an external target', () => {
+    expect(isNavGroupActive('/de', more)).toBe(false)
+    expect(isNavGroupActive('/de/community', more)).toBe(false)
+    expect(isNavGroupActive('/de/bluemap', more)).toBe(true)
+  })
+
+  it('does not match a sibling that merely shares a prefix', () => {
+    expect(isNavGroupActive('/de/community-pois', ['/de/community'])).toBe(false)
+  })
+
+  it('is used for the group buttons on desktop and mobile', () => {
+    const bar = readFileSync(`${repoRoot}/layers/navigation/components/NavigationBar.vue`, 'utf8')
+    expect(bar).toContain('isNavGroupActive')
+    expect(bar.match(/isGroupActive\(item\)/g)?.length).toBeGreaterThanOrEqual(2)
   })
 })

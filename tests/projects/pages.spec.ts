@@ -50,9 +50,10 @@ describe('community POI detail page', () => {
 })
 
 describe('navigation', () => {
-  it('links the projects before the community page', () => {
-    const names = navConfig.map((entry) => (entry.type === 'link' ? entry.routeName : undefined))
+  it('links the projects in the community group', () => {
+    const community = navConfig.find(entry => entry.type === 'group' && entry.textKey === 'navigation.community')
+    const names = community?.type === 'group' ? community.children.map(child => child.routeName) : []
     expect(names).toContain('projects')
-    expect(names.indexOf('projects')).toBeLessThan(names.indexOf('community'))
+    expect(names.indexOf('projects')).toBeLessThan(names.indexOf('events'))
   })
 })
