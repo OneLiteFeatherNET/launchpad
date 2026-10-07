@@ -16,3 +16,10 @@ export type CollectiveStats = {
   updatedAt: string
   link: string
 }
+
+/** A Lite supporter as the public member list names them; nothing else is exposed. */
+export type LiteSupporter = {
+  name: string
+  image: string | null
+  profile: string
+}

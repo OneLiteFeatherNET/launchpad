@@ -9,6 +9,7 @@ definePageMeta({
 })
 
 const { groups, memberCount } = useTeamRoster()
+const supporterLinks = useLiteSupporterLinks()
 
 usePageSeo({
   title: t('team.index.title'),
@@ -64,7 +65,9 @@ useSchemaOrg(computed(() => {
       v-for="group in groups"
       :key="group.rank"
       :group="group"
-    />
+    >
+      <TeamSupporterList v-if="group.rank === 'lite'" :supporters="supporterLinks" />
+    </TeamRankSection>
 
     <p
       v-if="memberCount === 0"

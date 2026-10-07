@@ -20,6 +20,7 @@ const ada: Contributor = {
   key: 'ada',
   name: 'Ada',
   mcName: 'ada',
+  anchor: 'person-ada',
   contributions: [
     { kind: 'build', title: 'Yggdrasil', path: '/de/community-poi/yggdrasil' }, { kind: 'event', title: 'Herbstbau', path: '/de/events/herbstbau', place: 1 }
   ]
@@ -90,6 +91,64 @@ describe('CommunityWall', () => {
     const text = (await open(CommunityWall, { contributors: [ada] })).text()
     expect(text).toContain('Bau: Yggdrasil')
     expect(text).toContain('Event: 1. Platz Herbstbau')
+  })
+
+  it('gives each card its anchor as id', async () => {
+    const wrapper = await open(CommunityWall, { contributors: [ada, { ...ada, key: 'bo', name: 'Bo', anchor: 'person-bo' }] })
+    expect(wrapper.findAll('section > ul > li').map((li) => li.attributes('id'))).toEqual(['person-ada', 'person-bo'])
+  })
+
+  it('links the supporter badge to the OpenCollective profile', async () => {
+    const marc: Contributor = {
+      key: 'marc',
+      name: 'Marc',
+      anchor: 'person-marc',
+      contributions: [{ kind: 'supporter', path: 'https://opencollective.com/marc44' }]
+    }
+    const wrapper = await open(CommunityWall, { contributors: [marc] })
+    const link = wrapper.get('a[href="https://opencollective.com/marc44"]')
+    expect(link.text()).toBe('Unterstützer')
+  })
+
+  it('shows both badges on one card for a builder who also supports', async () => {
+    const both: Contributor = {
+      ...ada,
+      contributions: [...ada.contributions, { kind: 'supporter', path: 'https://opencollective.com/ada' }]
+    }
+    const wrapper = await open(CommunityWall, { contributors: [both] })
+    expect(wrapper.findAll('section > ul > li')).toHaveLength(1)
+    expect(wrapper.text()).toContain('Bau: Yggdrasil')
+    expect(wrapper.text()).toContain('Unterstützer')
+  })
+
+  it('shows the Minecraft head for a person with an mcName, even with a supporter avatar', async () => {
+    const wrapper = await open(CommunityWall, { contributors: [{ ...ada, avatarUrl: 'https://opencollective-production.s3.us-west-1.amazonaws.com/a.png' }] })
+    expect(wrapper.get('img').attributes('src')).toContain('mc-heads.net')
+  })
+
+  it('shows the supporter avatar when there is no mcName', async () => {
+    const url = 'https://opencollective-production.s3.us-west-1.amazonaws.com/a.png'
+    const marc: Contributor = {
+      key: 'marc',
+      name: 'Marc',
+      anchor: 'person-marc',
+      avatarUrl: url,
+      contributions: [{ kind: 'supporter', path: 'https://opencollective.com/marc44' }]
+    }
+    const wrapper = await open(CommunityWall, { contributors: [marc] })
+    expect(wrapper.get('img').attributes('src')).toContain('opencollective-production')
+  })
+
+  it('shows an initial instead of an image for a supporter without avatar', async () => {
+    const marc: Contributor = {
+      key: 'marc',
+      name: 'marc',
+      anchor: 'person-marc',
+      contributions: [{ kind: 'supporter', path: 'https://opencollective.com/marc44' }]
+    }
+    const wrapper = await open(CommunityWall, { contributors: [marc] })
+    expect(wrapper.find('img').exists()).toBe(false)
+    expect(wrapper.get('[aria-hidden="true"]').text()).toBe('M')
   })
 
   it('renders nothing for an empty wall', async () => {
