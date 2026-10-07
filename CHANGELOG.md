@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.11.0...onelitefeather.net-v1.12.0) (2026-10-07)
+
+
+### Features
+
+* **home:** highlight content from the last 30 days in the carousel ([9f79a96](https://github.com/OneLiteFeatherNET/launchpad/commit/9f79a96700b4f71b7093395ec85830c93c671523))
+
 ## [1.11.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.10.0...onelitefeather.net-v1.11.0) (2026-10-07)
 
 
