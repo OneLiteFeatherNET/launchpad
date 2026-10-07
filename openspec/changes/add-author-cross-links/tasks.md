@@ -62,9 +62,9 @@ Die offenen Fragen 1 bis 4 in `design.md` sind entschieden.
 
 ## 8. Abschluss
 
-- [ ] 8.1 `pnpm test` läuft grün, inklusive `tests/architecture/` (Layer-Grenzen, `request-independent-render`, Namenskollisionen)
-- [ ] 8.2 `pnpm typecheck` und `pnpm quality` laufen; die Zahlen in `quality-baseline.json` steigen nicht (nicht anheben, notfalls Befund beheben)
-- [ ] 8.3 `pnpm build` läuft grün (der neue Wertexport in `layers/content-core/index.ts` darf den Client-Build nicht brechen)
-- [ ] 8.4 In `pnpm preview` unter `http://localhost:8788` prüfen: `/de/blog` (Autor auf Karten), `/de/blog/author/themeinerlp` (Liste, Kasten, genau ein Canonical auf sich selbst und je Sprache ein Alternate per View-Source, Sprachwechsel), `/de/blog/author/niemand` (404), Eintrag in `/api/__sitemap__/blog-authors`, Artikel-Byline mit Link, `/de/team/themeinerlp` (Abschnitt „Beiträge“, „Events“ nur bei Inhalt), ein temporäres Event mit `hosts` (nicht committen); keine Hydration-Warnung in der Konsole
-- [ ] 8.5 `.nuxtrc`-Änderungen aus dem `nuxt`-Testumfeld nicht committen
+- [x] 8.1 `pnpm test` läuft grün, inklusive `tests/architecture/` (Layer-Grenzen, `request-independent-render`, Namenskollisionen)
+- [x] 8.2 `pnpm typecheck` und `pnpm quality` laufen; die Zahlen in `quality-baseline.json` steigen nicht (nicht anheben, notfalls Befund beheben)
+- [x] 8.3 `pnpm build` läuft grün (der neue Wertexport in `layers/content-core/index.ts` darf den Client-Build nicht brechen)
+- [x] 8.4 In `pnpm preview` unter `http://localhost:8788` prüfen: `/de/blog` (Autor auf Karten), `/de/blog/author/themeinerlp` (Liste, Kasten, genau ein Canonical auf sich selbst und je Sprache ein Alternate per View-Source, Sprachwechsel), `/de/blog/author/niemand` (404), Eintrag in `/api/__sitemap__/blog-authors`, Artikel-Byline mit Link, `/de/team/themeinerlp` (Abschnitt „Beiträge“, „Events“ nur bei Inhalt), ein temporäres Event mit `hosts` (nicht committen); keine Hydration-Warnung in der Konsole
+- [x] 8.5 `.nuxtrc`-Änderungen aus dem `nuxt`-Testumfeld nicht committen
 - [ ] 8.6 Pull Request gegen `main` mit dem Titel `feat(content): cross-link authors and hosts with team profiles` öffnen (englische Beschreibung: Zusammenfassung, Begründung, Hinweis auf die Entscheidungen zu offenen Fragen 1 bis 3, Screenshot von Autorenkasten und Team-Profil, Hinweis, dass `add-events-section` und `add-unlisted-events` vorher archiviert sein müssen)
