@@ -43,6 +43,7 @@ export interface NewsSlide {
   alt?: string
   date?: string | Date
   tag?: string
+  isNew?: boolean
 }
 
 /**
@@ -117,7 +118,13 @@ export type AnySlide =
 /**
  * Union type of normalized slides (without legacy)
  */
-export type NormalizedSlide = ImageSlide | BlogSlide | NewsSlide | EventSlide | PoiSlide | ProjectSlide
+export type NormalizedSlide =
+  | ImageSlide
+  | BlogSlide
+  | NewsSlide
+  | EventSlide
+  | PoiSlide
+  | ProjectSlide
 
 /**
  * Slide type discriminator for type guards

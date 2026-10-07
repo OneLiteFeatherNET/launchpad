@@ -24,8 +24,8 @@ statt Systemzeit, kein Netz, kein Warten, jeder Test baut sein eigenes Fixture.
 
 ## 4. Seite und Inhalt
 
-- [ ] 4.1 `tests/home/highlights-page.spec.ts` (`// @vitest-environment nuxt`, `original` umwickelt, fester `now` über das Repository-Fixture): `useHomeHighlights` legt `now` und die Slides in die Payload, fragt Blog, POIs, Projekte je einmal und löst Autoren auf; `tests/architecture/home-data-waterfall.spec.ts` ergänzt: `pages/index.vue` ruft `useHomeHighlights` und `composeSlides`; rot sehen
-- [ ] 4.2 `composables/useHomeHighlights.ts` und `pages/index.vue` umsetzen; `content/carousel/{de,en}/home.json`: handgeschriebene Blog-Slides entfernen, Bildslides bleiben; verifiziert durch grüne Tests aus 4.1 und `pnpm exec vitest run tests/content tests/home tests/architecture`
+- [x] 4.1 `tests/home/highlights-page.spec.ts` (`// @vitest-environment nuxt`, `original` umwickelt, fester `now` über das Repository-Fixture): `useHomeHighlights` legt `now` und die Slides in die Payload, fragt Blog, POIs, Projekte je einmal und löst Autoren auf; `tests/architecture/home-data-waterfall.spec.ts` ergänzt: `pages/index.vue` ruft `useHomeHighlights` und `composeSlides`; rot sehen
+- [x] 4.2 `composables/useHomeHighlights.ts` und `pages/index.vue` umsetzen; `content/carousel/{de,en}/home.json`: handgeschriebene Blog-Slides entfernen, Bildslides bleiben; verifiziert durch grüne Tests aus 4.1 und `pnpm exec vitest run tests/content tests/home tests/architecture`
 
 ## 5. Gesamtprüfung
 
