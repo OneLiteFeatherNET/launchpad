@@ -15,7 +15,7 @@
 
 /** A top-bar item: link, "more" summary or language trigger. */
 export const NAV_ITEM_DESKTOP
-  = 'inline-flex h-10 items-center gap-2 rounded-full px-3 text-label-large '
+  = 'inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-full px-3 text-label-large '
     + 'no-underline cursor-pointer state-layer focus-ring '
     + 'transition-colors duration-150 ease-standard'
 

@@ -19,6 +19,7 @@ export type {
   CommunityPoiSummary,
   EventDocument,
   EventSummary,
+  EventScheduleSummary,
   ProjectDocument,
   ProjectSummary
 } from './utils/content/repository'

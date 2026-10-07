@@ -1,6 +1,5 @@
 {
   "navigation": {
-    "overview": "Overview",
     "toggle_mobile_menu": "Toggle mobile menu",
     "home": "Home",
     "back_home": "Back to home",
@@ -11,12 +10,14 @@
     "blog": "Blog",
     "team": "Team",
     "bluemap": "BlueMap",
-    "server": "Server",
+    "play": "Play",
     "discord": "Discord",
     "change_language": "Change language",
     "more": "More",
     "status": "Status",
-    "community_poi": "Community POIs",
+    "builds": "Builds",
+    "home_link": "OneLiteFeather – Home",
+    "community_overview": "Overview",
     "events": "Events",
     "community": "Community",
     "projects": "Projects"
