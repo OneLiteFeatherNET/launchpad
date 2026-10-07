@@ -33,8 +33,8 @@ sein eigenes Fixture.
 
 ## 5. Gesamtprüfung
 
-- [ ] 5.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
-- [ ] 5.2 `pnpm preview`: `/de/community` und `/en/community` antworten mit 200, genau ein Canonical ohne Schrägstrich, hreflang, Zahlen und Wand mit den Namen der Bauherren; `/de` trägt den Streifen; die Sitemap listet beide Seiten; `/api/community/discord` liefert eine Zahl; mit ungültigem `NUXT_DISCORD_INVITE_CODE` rendert die Seite weiter ohne Discord-Kachel
+- [x] 5.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
+- [x] 5.2 `pnpm preview`: `/de/community` und `/en/community` antworten mit 200, genau ein Canonical ohne Schrägstrich, hreflang, Zahlen und Wand mit den Namen der Bauherren; `/de` trägt den Streifen; die Sitemap listet beide Seiten; `/api/community/discord` liefert eine Zahl; mit ungültigem `NUXT_DISCORD_INVITE_CODE` rendert die Seite weiter ohne Discord-Kachel
 
 ## 6. Pull Request
 
