@@ -18,7 +18,9 @@ export type {
   CommunityPoiDocument,
   CommunityPoiSummary,
   EventDocument,
-  EventSummary
+  EventSummary,
+  ProjectDocument,
+  ProjectSummary
 } from './utils/content/repository'
 // From `./utils/content/locales`, not `./utils/content/collections`: the
 // latter also imports `defineCollection` from `@nuxt/content` for its

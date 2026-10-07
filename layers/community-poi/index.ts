@@ -1,2 +1,2 @@
-export { useCommunityPoiOverview, useCommunityPoiDetail } from './composables/useCommunityPoi'
+export { useCommunityPoiOverview, useCommunityPoiDetail, useCommunityPoisByProject } from './composables/useCommunityPoi'
 export type * from './types'

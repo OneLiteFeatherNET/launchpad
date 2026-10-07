@@ -12,7 +12,7 @@ import { locales } from '../../layers/content-core/utils/content/locales'
  * cannot say either: slugs are plain strings to it.
  */
 
-interface SlugReference { file: string, locale: string, field: 'author' | 'hosts', slugs: string[] }
+interface SlugReference { file: string, locale: string, field: 'author' | 'hosts' | 'maintainers', slugs: string[] }
 interface AuthorEntry { file: string, slug: string }
 
 export function collisionProblems(teamSlugs: string[], authors: AuthorEntry[]): string[] {
@@ -58,7 +58,7 @@ function authorEntries(): AuthorEntry[] {
   }))
 }
 
-function referencesIn(dir: string, field: 'author' | 'hosts'): SlugReference[] {
+function referencesIn(dir: string, field: 'author' | 'hosts' | 'maintainers'): SlugReference[] {
   return collectSourceFiles([dir], ['.md']).map((file) => ({
     file: relativeToRepo(file),
     locale: relativeToRepo(file).split('/')[2] ?? '',
@@ -119,11 +119,13 @@ describe('person slugs in the content files', () => {
     expect(problems).toEqual([])
   })
 
-  it('resolves every blog author and event host in its own locale', () => {
+  it('resolves every blog author, event host and project maintainer in its own locale', () => {
     const resolvable = Object.fromEntries(locales.map((locale) => [
       locale, new Set([...rosterSlugs(locale), ...authors.map((author) => author.slug)]),
     ]))
-    const references = [...referencesIn('content/blog', 'author'), ...referencesIn('content/events', 'hosts')]
+    const references = [...referencesIn('content/blog', 'author'),
+...referencesIn('content/events', 'hosts'),
+...referencesIn('content/projects', 'maintainers')]
     expect(unresolvedProblems(references, resolvable)).toEqual([])
   })
 })

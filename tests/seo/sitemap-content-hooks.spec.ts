@@ -48,6 +48,8 @@ const blogFilter = compile<(entry: Record<string, unknown>) => boolean>('blog', 
 const blogOnUrl = compile<(url: Url, entry: Record<string, unknown>, collection: string) => void>('blog', 'onUrl')
 const poiOnUrl = compile<(url: Url, entry: Record<string, unknown>, collection: string) => void>('community_poi', 'onUrl')
 
+const projectOnUrl = compile<(url: Url, entry: Record<string, unknown>, collection: string) => void>('projects', 'onUrl')
+
 const day = 24 * 60 * 60 * 1000
 const alternates = [
   { hreflang: 'de', href: 'https://onelitefeather.net/de/blog/artikel' },
@@ -125,5 +127,44 @@ describe('community POI sitemap entries', () => {
     const url: Url = { loc: '' }
     poiOnUrl(url, { slug: 'x' }, 'community_poi_en')
     expect(url).not.toHaveProperty('lastmod')
+  })
+})
+
+describe('project sitemap entries', () => {
+  it('builds the route and pairs the translation with region tags', () => {
+    const url: Url = { loc: '/projects/de/arcr' }
+    projectOnUrl(url, {
+      slug: 'arcr',
+      alternates: [
+        { hreflang: 'de', href: 'https://onelitefeather.net/de/projects/arcr' },
+        { hreflang: 'en', href: 'https://onelitefeather.net/en/projects/arcr' },
+        { hreflang: 'x-default', href: 'https://onelitefeather.net/en/projects/arcr' },
+      ],
+    }, 'projects_de')
+    expect(url.loc).toBe('/de/projects/arcr')
+    expect(url.alternatives).toEqual([
+      { hreflang: 'de-DE', href: 'https://onelitefeather.net/de/projects/arcr' },
+      { hreflang: 'en-US', href: 'https://onelitefeather.net/en/projects/arcr' },
+      { hreflang: 'x-default', href: 'https://onelitefeather.net/en/projects/arcr' },
+    ])
+  })
+
+  it('takes lastmod from updatedAt only', () => {
+    const url: Url = { loc: '' }
+    projectOnUrl(url, { slug: 'arcr', updatedAt: '2026-10-07', releasedAt: '2024-01-30' }, 'projects_en')
+    expect((url.lastmod as Date).toISOString().slice(0, 10)).toBe('2026-10-07')
+  })
+
+  it('carries no lastmod without an update date', () => {
+    const url: Url = { loc: '' }
+    projectOnUrl(url, { slug: 'arcr', releasedAt: '2024-01-30' }, 'projects_en')
+    expect(url).not.toHaveProperty('lastmod')
+  })
+
+  it('drops changefreq and priority', () => {
+    const url: Url = { loc: '', changefreq: 'monthly', priority: 0.8 }
+    projectOnUrl(url, { slug: 'arcr' }, 'projects_en')
+    expect(url).not.toHaveProperty('changefreq')
+    expect(url).not.toHaveProperty('priority')
   })
 })

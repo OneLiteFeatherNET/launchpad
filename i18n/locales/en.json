@@ -18,7 +18,8 @@
     "status": "Status",
     "community_poi": "Community POIs",
     "events": "Events",
-    "community": "Community"
+    "community": "Community",
+    "projects": "Projects"
   },
   "carousel": {
     "prev": "Previous",
@@ -536,6 +537,41 @@
     "strip": {
       "title": "Our community in numbers",
       "cta": "Visit the community"
+    }
+  },
+  "projects": {
+    "overview": {
+      "title": "Projects",
+      "description": "Software by OneLiteFeather: plugins and tools we build ourselves and run on our server — with documentation, source code and downloads.",
+      "empty": "No projects published yet."
+    },
+    "status": {
+      "active": "Active",
+      "maintenance": "Maintained",
+      "archived": "Archived"
+    },
+    "card": {
+      "open_detail": "View project {title}"
+    },
+    "detail": {
+      "back": "All projects",
+      "links_aria": "Documentation, source code and downloads",
+      "facts": "At a glance",
+      "platforms": "Platforms",
+      "license": "License",
+      "released": "First released",
+      "maintainers": "Maintainers",
+      "in_use": "In use on the server",
+      "in_use_intro": "These builds on our server show the project in action."
+    },
+    "links": {
+      "docs": "Documentation",
+      "source": "Source code",
+      "issues": "Report an issue"
+    },
+    "poi": {
+      "title": "Projects shown here",
+      "intro": "This build shows the following projects in use."
     }
   }
 }

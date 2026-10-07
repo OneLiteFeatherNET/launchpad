@@ -12,7 +12,9 @@ import type {
   CommunityPoiDocument,
   CommunityPoiSummary,
   EventDocument,
-  EventSummary
+  EventSummary,
+  ProjectDocument,
+  ProjectSummary
 } from './repository'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
 
@@ -31,11 +33,13 @@ const serverConnectKey = (locale: Locale) => `server_connect_${locale}` as 'serv
 const homeCarouselKey = (locale: Locale) => `home_carousel_${locale}` as 'home_carousel_de' | 'home_carousel_en'
 const communityPoiKey = (locale: Locale) => `community_poi_${locale}` as 'community_poi_de' | 'community_poi_en'
 const eventsKey = (locale: Locale) => `events_${locale}` as 'events_de' | 'events_en'
+const projectsKey = (locale: Locale) => `projects_${locale}` as 'projects_de' | 'projects_en'
 
 type CommunityPoiQuery = ReturnType<typeof queryCollection<'community_poi_de' | 'community_poi_en'>>
 
-function communityPoiSummaries(query: CommunityPoiQuery) {
+function communityPoiSummaries(query: CommunityPoiQuery, ...extra: ('projects')[]) {
   return query.select(
+    ...extra,
     'slug',
     'title',
     'summary',
@@ -56,8 +60,20 @@ function communityPoiSummaries(query: CommunityPoiQuery) {
   )
 }
 
+const PROJECT_CARD_FIELDS = [
+  'slug',
+  'title',
+  'summary',
+  'status',
+  'logo',
+  'logoAlt',
+  'releasedAt',
+  'platforms',
+  'license'
+] as const
+
 const toCommunityPoiSummary = (row: Record<string, unknown>): CommunityPoiSummary => {
-  const { gallery, schematics, ...rest } = row
+  const { gallery, schematics, projects: _projects, ...rest } = row
   return {
     ...rest,
     galleryCount: Array.isArray(gallery) ? gallery.length : 0,
@@ -199,6 +215,14 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
         .then((rows) => rows.map(toCommunityPoiSummary))
     },
 
+    // `projects` is a JSON column, so the match is made here, not in SQL.
+    async listCommunityPoisByProject(locale, slug) {
+      const rows = await communityPoiSummaries(query(communityPoiKey(locale)), 'projects').all()
+      return rows
+        .filter((row) => (row as { projects?: string[] | null }).projects?.includes(slug))
+        .map(toCommunityPoiSummary)
+    },
+
     getCommunityPoiBySlug(locale, slug) {
       return query(communityPoiKey(locale))
         .where('slug', '=', slug)
@@ -240,6 +264,32 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
       return query(eventsKey(locale))
         .where('translationKey', '=', translationKey)
         .first().then(withoutRoutes) as Promise<EventDocument | null>
+    },
+
+    listProjects(locale) {
+      return query(projectsKey(locale))
+        .select(...PROJECT_CARD_FIELDS)
+        .all() as Promise<ProjectSummary[]>
+    },
+
+    async listProjectsBySlugs(locale, slugs) {
+      if (!slugs.length) return []
+      return await query(projectsKey(locale))
+        .select(...PROJECT_CARD_FIELDS)
+        .where('slug', 'IN', slugs)
+        .all() as ProjectSummary[]
+    },
+
+    getProjectBySlug(locale, slug) {
+      return query(projectsKey(locale))
+        .where('slug', '=', slug)
+        .first().then(withoutRoutes) as Promise<ProjectDocument | null>
+    },
+
+    getProjectByTranslationKey(locale, translationKey) {
+      return query(projectsKey(locale))
+        .where('translationKey', '=', translationKey)
+        .first().then(withoutRoutes) as Promise<ProjectDocument | null>
     }
   }
 }

@@ -14,7 +14,9 @@ import type {
   CommunityPoiDeCollectionItem,
   CommunityPoiEnCollectionItem,
   EventsDeCollectionItem,
-  EventsEnCollectionItem
+  EventsEnCollectionItem,
+  ProjectsDeCollectionItem,
+  ProjectsEnCollectionItem
 } from '@nuxt/content'
 import type { Locale } from './collections'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
@@ -132,6 +134,7 @@ export type CommunityPoiDocument = (
   updatedAt?: string | Date
   forumUrl?: string
   acceptsContributions?: boolean
+  projects?: string[]
   canonical?: string
   alternates?: {
     hreflang: string
@@ -147,6 +150,28 @@ export type CommunityPoiDocument = (
  * The `events` layer derives its plain shapes from this by indexed access.
  */
 export type EventDocument = EventsDeCollectionItem | EventsEnCollectionItem
+
+/**
+ * Shape of the `projects` collection document, as @nuxt/content generates it.
+ * Lives here for the same reason as {@link EventDocument}: only content-core
+ * may name `@nuxt/content`. The `projects` layer derives its plain shapes
+ * from this by indexed access.
+ */
+export type ProjectDocument = ProjectsDeCollectionItem | ProjectsEnCollectionItem
+
+/** The card fields of a project; the list queries select exactly these. */
+export type ProjectSummary = Pick<
+  ProjectDocument,
+  | 'slug'
+  | 'title'
+  | 'summary'
+  | 'status'
+  | 'logo'
+  | 'logoAlt'
+  | 'releasedAt'
+  | 'platforms'
+  | 'license'
+>
 
 export type EventSummary = Pick<
   EventDocument,
@@ -332,4 +357,19 @@ export interface ContentRepository {
     locale: Locale,
     translationKey: string
   ): Promise<EventDocument | null>
+
+  // --- Projects -------------------------------------------------------------
+  /** All projects for a locale, card fields only (unsorted — caller decides). */
+  listProjects(locale: Locale): Promise<ProjectSummary[]>
+  /** Card fields of the given slugs in one query; unordered, unknown slugs absent. */
+  listProjectsBySlugs(locale: Locale, slugs: string[]): Promise<ProjectSummary[]>
+  /** Single project by its `slug` frontmatter field, or null. */
+  getProjectBySlug(locale: Locale, slug: string): Promise<ProjectDocument | null>
+  /** Single project in `locale` sharing the given `translationKey`, or null. */
+  getProjectByTranslationKey(
+    locale: Locale,
+    translationKey: string
+  ): Promise<ProjectDocument | null>
+  /** The POIs whose `projects` names the slug, as cards (unsorted). */
+  listCommunityPoisByProject(locale: Locale, slug: string): Promise<CommunityPoiSummary[]>
 }

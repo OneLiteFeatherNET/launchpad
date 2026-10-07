@@ -228,3 +228,91 @@ describe('collection paths', () => {
     expect(article).toMatchObject({ id: 'team_faq_en/team-faq/en/process.md', slug: 'process', body: { type: 'minimark' } })
   })
 })
+
+describe('project queries', () => {
+  const adapter = () => createNuxtContentAdapter()
+  const row = (extra: Record<string, unknown> = {}) => ({
+    slug: 'arcr',
+    path: '/projects/en/arcr',
+    stem: 'projects/en/arcr',
+    ...extra
+  })
+
+  it('projects the card fields of the list and nothing else', async () => {
+    await adapter().listProjects('en')
+    expect(fake.state.collection).toBe('projects_en')
+    expect([...selected()].sort()).toEqual([
+      'license',
+      'logo',
+      'logoAlt',
+      'platforms',
+      'releasedAt',
+      'slug',
+      'status',
+      'summary',
+      'title'
+    ])
+  })
+
+  it('reads several projects with one IN query', async () => {
+    fake.state.rows = [{ slug: 'b' }]
+    await adapter().listProjectsBySlugs('de', ['b', 'a'])
+    expect(fake.state.collection).toBe('projects_de')
+    expect(named('where').map((call) => call.args)).toEqual([['slug',
+'IN',
+['b', 'a']]])
+    expect(selected()).not.toContain('body')
+    expect(selected()).not.toContain('links')
+  })
+
+  it('does not query for an empty project slug list', async () => {
+    expect(await adapter().listProjectsBySlugs('de', [])).toEqual([])
+    expect(calls()).toHaveLength(0)
+  })
+
+  it('strips path and stem from a project found by slug', async () => {
+    fake.state.rows = [row()]
+    const project = await adapter().getProjectBySlug('en', 'arcr')
+    expect(named('where').map((call) => call.args)).toEqual([['slug',
+'=',
+'arcr']])
+    expect(project).toMatchObject({ slug: 'arcr' })
+    expect(project).not.toHaveProperty('path')
+    expect(project).not.toHaveProperty('stem')
+  })
+
+  it('finds a project by translation key without path and stem', async () => {
+    fake.state.rows = [row()]
+    const project = await adapter().getProjectByTranslationKey('de', 'arcr')
+    expect(fake.state.collection).toBe('projects_de')
+    expect(named('where').map((call) => call.args)).toEqual([['translationKey',
+'=',
+'arcr']])
+    expect(project).not.toHaveProperty('path')
+  })
+})
+
+describe('community pois of a project', () => {
+  const adapter = () => createNuxtContentAdapter()
+
+  it('keeps only the pois that name the project and drops the field', async () => {
+    fake.state.rows = [
+      { slug: 'a', projects: ['arcr', 'other'], gallery: [], schematics: [] },
+      { slug: 'b', projects: ['other'], gallery: [], schematics: [] },
+      { slug: 'c', gallery: [], schematics: [] }
+    ]
+    const pois = await adapter().listCommunityPoisByProject('en', 'arcr')
+    expect(fake.state.collection).toBe('community_poi_en')
+    expect(pois.map((poi) => poi.slug)).toEqual(['a'])
+    expect(pois[0]).not.toHaveProperty('projects')
+    expect(pois[0]).toMatchObject({ galleryCount: 0, schematicCount: 0 })
+  })
+
+  it('selects the card projection plus the projects column', async () => {
+    await adapter().listCommunityPoisByProject('de', 'arcr')
+    expect(selected()).toEqual(expect.arrayContaining(['slug',
+'title',
+'projects']))
+    expect(selected()).not.toContain('body')
+  })
+})

@@ -41,6 +41,15 @@ const normalizeLocales = (list: unknown[]): LocaleObject[] => list
     .filter((locale): locale is LocaleObject => Boolean(locale && typeof locale === 'object' && 'code' in (locale as Record<string, unknown>)))
     .map((locale) => locale as LocaleObject)
 
+function sortPoiSummaries(list: CommunityPoiSummary[]): CommunityPoiSummary[] {
+  return [...list].sort((a, b) => {
+    const sa = COMMUNITY_POI_STATUS_ORDER[a.status as CommunityPoiStatus] ?? 99
+    const sb = COMMUNITY_POI_STATUS_ORDER[b.status as CommunityPoiStatus] ?? 99
+    if (sa !== sb) return sa - sb
+    return updatedTimestamp(b) - updatedTimestamp(a)
+  })
+}
+
 /**
  * Loads the community POI overview for the active locale and orders entries
  * by status (active projects first), then by most recent update so the page
@@ -57,19 +66,30 @@ export function useCommunityPoiOverview() {
     { watch: [activeLocale] }
   )
 
-  const sorted = computed<CommunityPoiSummary[]>(() => {
-    const list = pois.value || []
-    return [...list].sort((a, b) => {
-      const sa = COMMUNITY_POI_STATUS_ORDER[a.status as CommunityPoiStatus] ?? 99
-      const sb = COMMUNITY_POI_STATUS_ORDER[b.status as CommunityPoiStatus] ?? 99
-      if (sa !== sb) return sa - sb
-      return updatedTimestamp(b) - updatedTimestamp(a)
-    })
-  })
+  const sorted = computed<CommunityPoiSummary[]>(() => sortPoiSummaries(pois.value || []))
 
   const total = computed(() => sorted.value.length)
 
   return { pois: sorted, total }
+}
+
+/** The POIs whose `projects` names `projectSlug`, as cards, in overview order. */
+export async function useCommunityPoisByProject(projectSlug: MaybeRefOrGetter<string>) {
+  const { locale } = useI18n()
+  const repo = useContentRepository()
+  const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
+
+  const { data } = await useAsyncData<CommunityPoiSummary[]>(
+    () => `community-poi-by-project-${activeLocale.value}-${toValue(projectSlug)}`,
+    async () => {
+      const slug = toValue(projectSlug)
+      if (!slug) return []
+      return sortPoiSummaries(await repo.listCommunityPoisByProject(activeLocale.value, slug))
+    },
+    { watch: [activeLocale, () => toValue(projectSlug)], default: () => [] }
+  )
+
+  return { pois: data }
 }
 
 /**
