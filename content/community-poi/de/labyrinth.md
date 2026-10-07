@@ -1,7 +1,7 @@
 ---
 slug: 'labyrinth'
 translationKey: 'maze'
-title: 'Labyrinth von B3nNy'
+title: 'Labyrinth von blndr2'
 summary: 'Ein begehbares Labyrinth – aktuell etwa zur Hälfte fertig gebaut. Schematic zum Mitlaufen und Vergleichen liegt bei.'
 status: 'in-progress'
 progress: 40
@@ -16,8 +16,8 @@ coordinates:
   z: 33
   dimension: 'overworld'
 builders:
-  - name: 'B3nNy'
-    mcName: 'B3nNy'
+  - name: 'blndr2'
+    mcName: 'blndr2'
 thumbnail: '/images/community-poi/labyrinth/cover.webp'
 thumbnailAlt: 'Render des fertigen Labyrinth-Layouts in Vogelperspektive'
 gallery:
@@ -83,7 +83,7 @@ alternates:
 
 ## Worum geht's?
 
-Das Labyrinth ist B3nNys persönliches Bauprojekt – ein klassisches Maze mit Außenmauern, Innenwegen und ein paar Überraschungen. Aktuell sind die Konturen fertig, die Details kommen Stück für Stück dazu.
+Das Labyrinth ist blndr2s persönliches Bauprojekt – ein klassisches Maze mit Außenmauern, Innenwegen und ein paar Überraschungen. Aktuell sind die Konturen fertig, die Details kommen Stück für Stück dazu.
 
 ## Mitlaufen statt nur anschauen
 
