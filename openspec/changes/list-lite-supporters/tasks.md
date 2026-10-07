@@ -27,9 +27,9 @@ belegen), kein Warten, jeder Test baut sein eigenes Fixture.
 
 ## 4. Gesamtprüfung
 
-- [ ] 4.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
-- [ ] 4.2 `pnpm preview`: `/de/team` listet die Unterstützer mit Links auf `/de/community#person-…`; `/de/community` zeigt sie mit Abzeichen und Ankern, „Blndr2“ als eine Karte mit zwei Abzeichen; im HTML und in der Payload kein `totalAmountDonated`, keine E-Mail-Adresse, kein `lastTransaction`; mit ungültigem Slug (`NUXT_PUBLIC_OPEN_COLLECTIVE_SLUG`) antworten beide Seiten mit 200 ohne Liste
+- [x] 4.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
+- [x] 4.2 `pnpm preview`: `/de/team` listet die Unterstützer mit Links auf `/de/community#person-…`; `/de/community` zeigt sie mit Abzeichen und Ankern, „Blndr2“ als eine Karte mit zwei Abzeichen; im HTML und in der Payload kein `totalAmountDonated`, keine E-Mail-Adresse, kein `lastTransaction`; mit ungültigem Slug (`NUXT_PUBLIC_OPEN_COLLECTIVE_SLUG`) antworten beide Seiten mit 200 ohne Liste
 
 ## 5. Pull Request
 
-- [ ] 5.1 Pull Request mit dem Titel `feat(community): list lite supporters on the team page and community wall` öffnen (Beschreibung auf Englisch: Datenquelle, Datenschutz, Querverweise, Zusammenführung, Zahlen, Belege aus 4.2)
+- [x] 5.1 Pull Request mit dem Titel `feat(community): list lite supporters on the team page and community wall` öffnen (Beschreibung auf Englisch: Datenquelle, Datenschutz, Querverweise, Zusammenführung, Zahlen, Belege aus 4.2)
