@@ -7,7 +7,8 @@ definePageMeta({
   layout: 'default',
 });
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const { numbers } = useCommunityOverview()
 const { concept, connect, slides } = useHomeContent()
 const { promoted } = useEventPromotions()
 
@@ -42,6 +43,7 @@ useHomeSeo({ title: t('index.title') })
   <div class="-mx-4 sm:-mx-6 px-0 py-6 md:py-10 md:mx-auto md:max-w-6xl md:px-4 lg:px-8">
     <Carousel :slides="carouselSlides" aspect="16/9" :aria-label="t('index.carousel_aria')" />
   </div>
+  <LazyCommunityStrip hydrate-on-visible :numbers="numbers" :to="`/${locale}/community`" />
   <LazyServerConcept
     v-if="concept"
     hydrate-on-visible

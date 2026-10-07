@@ -17,7 +17,8 @@
     "more": "More",
     "status": "Status",
     "community_poi": "Community POIs",
-    "events": "Events"
+    "events": "Events",
+    "community": "Community"
   },
   "carousel": {
     "prev": "Previous",
@@ -505,5 +506,28 @@
       "title": "Guide"
     },
     "hosts": "Hosts"
+  },
+  "community": {
+    "title": "Community",
+    "description": "The OneLiteFeather community in numbers: Discord, team, community builds and everyone who built and played along.",
+    "intro": "How big and lively our community is – and who made it so.",
+    "stats": {
+      "aria": "The community in numbers",
+      "discord": "Discord members",
+      "team": "Team members",
+      "builds": "Community builds",
+      "contributors": "Contributors",
+      "supporters": "Supporters"
+    },
+    "wall": {
+      "title": "The contributor wall",
+      "intro": "Everyone named on a community build or in an event.",
+      "badge_build": "Build: {title}",
+      "badge_event": "Event: place {place} in {title}"
+    },
+    "strip": {
+      "title": "Our community in numbers",
+      "cta": "Visit the community"
+    }
   }
 }

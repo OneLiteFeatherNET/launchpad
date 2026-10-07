@@ -28,9 +28,7 @@ const event = (
 
 const PAST = { startsAt: '2026-01-01T10:00:00Z', endsAt: '2026-01-10T10:00:00Z' }
 
-const overview = (
-  input: Partial<Parameters<typeof buildCommunityOverview>[0]> = {}
-) => buildCommunityOverview({ pois: [], events: [], teamSize: 0, locale: 'de', now: NOW, ...input })
+const overview = (input: Partial<Parameters<typeof buildCommunityOverview>[0]> = {}) => buildCommunityOverview({ pois: [], events: [], teamSize: 0, locale: 'de', now: NOW, ...input })
 
 describe('buildCommunityOverview', () => {
   it('passes the team size and the number of builds through', () => {
@@ -42,8 +40,7 @@ describe('buildCommunityOverview', () => {
   it('merges one builder of two POIs into a single person with two contributions', () => {
     const result = overview({
       pois: [
-        poi('a', [{ name: 'Blndr2', mcName: 'Blndr2' }]),
-        poi('b', [{ name: 'blndr2', mcName: 'blndr2' }])
+        poi('a', [{ name: 'Blndr2', mcName: 'Blndr2' }]), poi('b', [{ name: 'blndr2', mcName: 'blndr2' }])
       ]
     })
     expect(result.contributors, 'spelling of mcName must not split a person').toHaveLength(1)
@@ -58,8 +55,7 @@ describe('buildCommunityOverview', () => {
   it('shows the name of the first contribution', () => {
     const result = overview({
       pois: [
-        poi('a', [{ name: 'Blndr2', mcName: 'BLNDR2' }]),
-        poi('b', [{ name: 'blndr2', mcName: 'blndr2' }])
+        poi('a', [{ name: 'Blndr2', mcName: 'BLNDR2' }]), poi('b', [{ name: 'blndr2', mcName: 'blndr2' }])
       ]
     })
     expect(result.contributors[0]!.name).toBe('Blndr2')
@@ -124,11 +120,14 @@ describe('buildCommunityOverview', () => {
   it('sorts people by number of contributions, then by name', () => {
     const result = overview({
       pois: [
-        poi('a', [{ name: 'Zed' }, { name: 'Amy' }]),
-        poi('b', [{ name: 'Zed' }, { name: 'Bob' }])
+        poi('a', [{ name: 'Zed' }, { name: 'Amy' }]), poi('b', [{ name: 'Zed' }, { name: 'Bob' }])
       ]
     })
-    expect(result.contributors.map((c) => c.name)).toEqual(['Zed', 'Amy', 'Bob'])
+    expect(result.contributors.map((c) => c.name)).toEqual([
+      'Zed',
+      'Amy',
+      'Bob'
+    ])
   })
 
   it('carries nothing of the source rows beyond what the wall shows', () => {

@@ -9,7 +9,10 @@ type Fetcher = (url: string, init: Init) => Promise<Response>
  * endpoint (no token). Throws on every failure so a cache layer never stores
  * one; the caller decides what the page shows instead.
  */
-export async function loadDiscordMemberCount(fetcher: Fetcher, inviteCode: string): Promise<number> {
+export async function loadDiscordMemberCount(
+  fetcher: Fetcher,
+  inviteCode: string
+): Promise<number> {
   const res = await fetcher(
     `https://discord.com/api/v10/invites/${encodeURIComponent(inviteCode)}?with_counts=true`,
     {

@@ -20,16 +20,16 @@ sein eigenes Fixture.
 
 ## 3. Komponenten
 
-- [ ] 3.1 `tests/community/components.spec.ts` (`// @vitest-environment nuxt`) schreiben: `CommunityStats` zeigt eine `dl` mit je Beschriftung und Wert, lässt die Discord-Kachel bei `null` weg und die Unterstützer-Kachel bei `null`; `CommunityWall` zeigt eine `ul` mit einem `li` je Person, Kopf mit leerem `alt`, je Beitrag einen Link auf den Pfad, nennt „1. Platz“ beim Event-Abzeichen, rendert nichts bei leerer Liste; `CommunityStrip` verlinkt auf `/de/community`; rot sehen; verifiziert durch `pnpm exec vitest run tests/community/components.spec.ts`
-- [ ] 3.2 `CommunityStats.vue`, `CommunityWall.vue`, `CommunityStrip.vue` mit M3-Bausteinen und Tokens umsetzen, Texte in `i18n/locales/{de,en}.json` unter `community.*`; verifiziert durch grüne Tests aus 3.1, `pnpm exec vitest run tests/i18n tests/design-system tests/a11y`
+- [x] 3.1 `tests/community/components.spec.ts` (`// @vitest-environment nuxt`) schreiben: `CommunityStats` zeigt eine `dl` mit je Beschriftung und Wert, lässt die Discord-Kachel bei `null` weg und die Unterstützer-Kachel bei `null`; `CommunityWall` zeigt eine `ul` mit einem `li` je Person, Kopf mit leerem `alt`, je Beitrag einen Link auf den Pfad, nennt „1. Platz“ beim Event-Abzeichen, rendert nichts bei leerer Liste; `CommunityStrip` verlinkt auf `/de/community`; rot sehen; verifiziert durch `pnpm exec vitest run tests/community/components.spec.ts`
+- [x] 3.2 `CommunityStats.vue`, `CommunityWall.vue`, `CommunityStrip.vue` mit M3-Bausteinen und Tokens umsetzen, Texte in `i18n/locales/{de,en}.json` unter `community.*`; verifiziert durch grüne Tests aus 3.1, `pnpm exec vitest run tests/i18n tests/design-system tests/a11y`
 
 ## 4. Orchestrierung, Seite, Navigation
 
-- [ ] 4.1 `tests/community/overview-composable.spec.ts` (`// @vitest-environment nuxt`, `useContentRepository` per `mockNuxtImport` mit fester Attrappe; Events mit Daten weit in der Vergangenheit, damit die Uhr des Composables das Ergebnis nicht beeinflusst): `useCommunityOverview` verknüpft POIs, Events und Teamgröße (ohne `openPosition`), fragt die Sprache der Seite ab; rot sehen
-- [ ] 4.2 `composables/useCommunityOverview.ts` umsetzen; verifiziert durch grüne Tests aus 4.1
-- [ ] 4.3 `tests/community/page.spec.ts` schreiben (liest die Quelle): die Seite hat einen `h1`, ruft `usePageSeo` mit Titel und `CollectionPage`, `useBreadcrumbs`, setzt die Wand nur bei vorhandenen Mitwirkenden ein, liest keine Query; die Startseite setzt `CommunityStrip` mit Props; `navConfig` enthält `routeName: 'community'` vor dem Block `more`; rot sehen
-- [ ] 4.4 `pages/community.vue`, Zahlenstreifen in `pages/index.vue` (nach dem Karussell, Daten auf Seitenebene, Komponente per `LazyCommunityStrip hydrate-on-visible`) und Eintrag in `layers/navigation/navItems.ts` umsetzen; `navigation.community` in `i18n/locales/{de,en}.json`; verifiziert durch grüne Tests aus 4.3 und `pnpm exec vitest run tests/architecture tests/seo tests/a11y tests/i18n`
-- [ ] 4.5 `AGENTS.md`: `community` in die Layer-Liste aufnehmen; verifiziert durch Durchsicht
+- [x] 4.1 `tests/community/overview-composable.spec.ts` (`// @vitest-environment nuxt`, `useContentRepository` per `mockNuxtImport` mit fester Attrappe; Events mit Daten weit in der Vergangenheit, damit die Uhr des Composables das Ergebnis nicht beeinflusst): `useCommunityOverview` verknüpft POIs, Events und Teamgröße (ohne `openPosition`), fragt die Sprache der Seite ab; rot sehen
+- [x] 4.2 `composables/useCommunityOverview.ts` umsetzen; verifiziert durch grüne Tests aus 4.1
+- [x] 4.3 `tests/community/page.spec.ts` schreiben (liest die Quelle): die Seite hat einen `h1`, ruft `usePageSeo` mit Titel und `CollectionPage`, `useBreadcrumbs`, setzt die Wand nur bei vorhandenen Mitwirkenden ein, liest keine Query; die Startseite setzt `CommunityStrip` mit Props; `navConfig` enthält `routeName: 'community'` vor dem Block `more`; rot sehen
+- [x] 4.4 `pages/community.vue`, Zahlenstreifen in `pages/index.vue` (nach dem Karussell, Daten auf Seitenebene, Komponente per `LazyCommunityStrip hydrate-on-visible`) und Eintrag in `layers/navigation/navItems.ts` umsetzen; `navigation.community` in `i18n/locales/{de,en}.json`; verifiziert durch grüne Tests aus 4.3 und `pnpm exec vitest run tests/architecture tests/seo tests/a11y tests/i18n`
+- [x] 4.5 `AGENTS.md`: `community` in die Layer-Liste aufnehmen; verifiziert durch Durchsicht
 
 ## 5. Gesamtprüfung
 

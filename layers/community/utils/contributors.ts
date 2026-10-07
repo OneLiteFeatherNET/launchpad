@@ -18,8 +18,13 @@ export interface CommunityOverviewInput {
   now: Date
 }
 
-const keyOf = (person: { name: string, mcName?: string }): string =>
-  (person.mcName || person.name).trim().toLowerCase()
+type Named = { name: string, mcName?: string }
+
+const keyOf = (person: Named): string => (person.mcName || person.name).trim().toLowerCase()
+
+const byContributionsThenName = (a: Contributor, b: Contributor): number => {
+  return b.contributions.length - a.contributions.length || a.name.localeCompare(b.name)
+}
 
 /**
  * Who is on the wall: people the site already names as builders of a POI or
@@ -30,12 +35,13 @@ const keyOf = (person: { name: string, mcName?: string }): string =>
 export function buildCommunityOverview(input: CommunityOverviewInput): CommunityOverview {
   const people = new Map<string, Contributor>()
 
-  const add = (person: { name: string, mcName?: string }, contribution: Contribution) => {
+  const add = (person: Named, contribution: Contribution) => {
     const key = keyOf(person)
     if (!key) return
     const existing = people.get(key)
     if (existing) {
-      const repeated = existing.contributions.some((c) => c.kind === contribution.kind && c.path === contribution.path)
+      const repeated = existing.contributions
+        .some((c) => c.kind === contribution.kind && c.path === contribution.path)
       if (!repeated) existing.contributions.push(contribution)
       return
     }
@@ -66,8 +72,7 @@ export function buildCommunityOverview(input: CommunityOverviewInput): Community
     }
   }
 
-  const contributors = [...people.values()].sort((a, b) =>
-    b.contributions.length - a.contributions.length || a.name.localeCompare(b.name))
+  const contributors = [...people.values()].sort(byContributionsThenName)
 
   return { teamSize: input.teamSize, buildCount: input.pois.length, contributors }
 }

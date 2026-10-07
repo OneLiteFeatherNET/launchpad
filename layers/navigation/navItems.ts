@@ -23,6 +23,7 @@ export const navConfig: NavConfigEntry[] = [
   { type: 'link', textKey: 'navigation.team', routeName: 'team', icon: ['fas', 'users'] },
   { type: 'link', textKey: 'navigation.community_poi', routeName: 'community-poi', icon: ['fas', 'location-dot'] },
   { type: 'link', textKey: 'navigation.events', routeName: 'events', icon: ['fas', 'calendar-days'] },
+  { type: 'link', textKey: 'navigation.community', routeName: 'community', icon: ['fas', 'handshake'] },
   {
     type: 'group',
     textKey: 'navigation.more',
