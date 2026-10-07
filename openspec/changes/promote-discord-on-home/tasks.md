@@ -20,8 +20,8 @@ Netz (der Abruf wird übergeben), kein Warten, jeder Test baut sein Fixture.
 
 ## 3. Gesamtprüfung
 
-- [ ] 3.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
-- [ ] 3.2 `pnpm preview`: `/de` und `/en` zeigen den Discord-Block direkt nach dem Karussell mit Mitgliederzahl und `href="https://1lf.link/discord"`, im gerenderten HTML kein direkter Einladungslink, `/api/community/discord` liefert eine Zahl
+- [x] 3.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
+- [x] 3.2 `pnpm preview`: `/de` und `/en` zeigen den Discord-Block direkt nach dem Karussell mit Mitgliederzahl und `href="https://1lf.link/discord"`, im gerenderten HTML kein direkter Einladungslink, `/api/community/discord` liefert eine Zahl
 
 ## 4. Pull Request
 
