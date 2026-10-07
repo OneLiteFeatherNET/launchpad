@@ -66,6 +66,18 @@ const toCommunityPoiSummary = (row: Record<string, unknown>): CommunityPoiSummar
 }
 
 /**
+ * `path` and `stem` of an unprojected row come from the file's location
+ * (`/team-faq/en/process`), name no route of this site, and no template reads
+ * them. Serialised into the SSR payload they get crawled and answer 404.
+ */
+function withoutRoutes<T>(value: T): T {
+  if (Array.isArray(value)) return value.map(withoutRoutes) as T
+  if (!value || typeof value !== 'object') return value
+  const { path: _path, stem: _stem, ...rest } = value as Record<string, unknown>
+  return rest as T
+}
+
+/**
  * The @nuxt/content-backed {@link ContentRepository} implementation. Every
  * `queryCollection` call in the app is funnelled through here. All methods
  * must run inside a Nuxt context (e.g. an `useAsyncData` fetcher), which is
@@ -113,19 +125,19 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
     getBlogArticleBySlug(locale, slug) {
       return query(blogKey(locale))
         .where('slug', '=', slug)
-        .first() as Promise<BlogArticle | null>
+        .first().then(withoutRoutes) as Promise<BlogArticle | null>
     },
 
     getBlogArticleByTranslationKey(locale, translationKey) {
       return query(blogKey(locale))
         .where('translationKey', '=', translationKey)
-        .first() as Promise<BlogArticle | null>
+        .first().then(withoutRoutes) as Promise<BlogArticle | null>
     },
 
     getAuthorBySlug(slug) {
       return query('authors')
         .where('slug', '=', slug)
-        .first() as Promise<BlogAuthorProfile | null>
+        .first().then(withoutRoutes) as Promise<BlogAuthorProfile | null>
     },
 
     async listAuthorsBySlugs(slugs) {
@@ -139,38 +151,38 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
     listFaqEntries(locale) {
       return query(faqKey(locale))
         .order('order', 'ASC')
-        .all() as Promise<FaqEntry[]>
+        .all().then(withoutRoutes) as Promise<FaqEntry[]>
     },
 
     getTeamDocument(locale) {
       return query(teamKey(locale))
-        .first() as Promise<TeamDocument | null>
+        .first().then(withoutRoutes) as Promise<TeamDocument | null>
     },
 
     listTeamFaqEntries(locale) {
       return query(teamFaqKey(locale))
         .order('order', 'ASC')
-        .all() as Promise<TeamFaqEntry[]>
+        .all().then(withoutRoutes) as Promise<TeamFaqEntry[]>
     },
 
     getServerConcept(locale) {
       return query(serverConceptKey(locale))
-        .first() as Promise<ServerConceptDocument | null>
+        .first().then(withoutRoutes) as Promise<ServerConceptDocument | null>
     },
 
     getServerConnect(locale) {
       return query(serverConnectKey(locale))
-        .first() as Promise<ServerConnectDocument | null>
+        .first().then(withoutRoutes) as Promise<ServerConnectDocument | null>
     },
 
     getHomeCarousel(locale) {
       return query(homeCarouselKey(locale))
-        .first() as Promise<HomeCarouselDocument | null>
+        .first().then(withoutRoutes) as Promise<HomeCarouselDocument | null>
     },
 
     getSponsorsDocument(locale) {
       return query(sponsorsKey(locale))
-        .first() as Promise<SponsorsDocument | null>
+        .first().then(withoutRoutes) as Promise<SponsorsDocument | null>
     },
 
     // gallery and schematics are read only to be reduced to counts.
@@ -190,13 +202,13 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
     getCommunityPoiBySlug(locale, slug) {
       return query(communityPoiKey(locale))
         .where('slug', '=', slug)
-        .first() as Promise<CommunityPoiDocument | null>
+        .first().then(withoutRoutes) as Promise<CommunityPoiDocument | null>
     },
 
     getCommunityPoiByTranslationKey(locale, translationKey) {
       return query(communityPoiKey(locale))
         .where('translationKey', '=', translationKey)
-        .first() as Promise<CommunityPoiDocument | null>
+        .first().then(withoutRoutes) as Promise<CommunityPoiDocument | null>
     },
 
     listEvents(locale) {
@@ -221,13 +233,13 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
     getEventBySlug(locale, slug) {
       return query(eventsKey(locale))
         .where('slug', '=', slug)
-        .first() as Promise<EventDocument | null>
+        .first().then(withoutRoutes) as Promise<EventDocument | null>
     },
 
     getEventByTranslationKey(locale, translationKey) {
       return query(eventsKey(locale))
         .where('translationKey', '=', translationKey)
-        .first() as Promise<EventDocument | null>
+        .first().then(withoutRoutes) as Promise<EventDocument | null>
     }
   }
 }
