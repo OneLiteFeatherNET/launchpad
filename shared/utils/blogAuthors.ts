@@ -50,3 +50,27 @@ export function releasedAuthorSlugs(entries: readonly BlogAuthorFields[], now: D
   }
   return [...slugs]
 }
+
+export function blogAuthorPath(locale: string, slug: string): string {
+  return `/${locale}/blog/author/${slug}`
+}
+
+export interface BlogAuthorSitemapSource {
+  articles: readonly BlogAuthorFields[]
+  /** Slugs that resolve to a person in this locale (roster plus authors). */
+  resolvable: readonly string[]
+}
+
+/** Sitemap entries for exactly the author pages that answer 200 at `now`. */
+export function blogAuthorSitemapEntries(
+  byLocale: Record<string, BlogAuthorSitemapSource>,
+  now: Date
+): { loc: string }[] {
+  const entries: { loc: string }[] = []
+  for (const [locale, { articles, resolvable }] of Object.entries(byLocale)) {
+    for (const slug of releasedAuthorSlugs(articles, now)) {
+      if (resolvable.includes(slug)) entries.push({ loc: blogAuthorPath(locale, slug) })
+    }
+  }
+  return entries
+}

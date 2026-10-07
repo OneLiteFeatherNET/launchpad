@@ -5,8 +5,9 @@ import type { BlogArticle, BlogAlternateHeader, Person } from '../types'
 
 const releaseTimestamp = (entry: BlogArticle): number => releaseTimeOf(entry) ?? 0
 
-const isReleased = (entry: BlogArticle | null | undefined): entry is BlogArticle =>
-  Boolean(entry) && isReleasedAt(entry as BlogArticle, new Date())
+function isReleased(entry: BlogArticle | null | undefined): entry is BlogArticle {
+  return Boolean(entry) && isReleasedAt(entry as BlogArticle, new Date())
+}
 
 const normalizeLocales = (list: unknown[]): LocaleObject[] =>
   list

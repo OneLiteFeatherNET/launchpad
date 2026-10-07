@@ -78,6 +78,12 @@
     "imprint": {
       "title": "Imprint",
       "description": "Imprint and legal information for the OneLiteFeather Minecraft Network, including the responsible party and contact details."
+    },
+    "author": {
+      "profile": "View profile",
+      "title": "{name} – Blog",
+      "description": "All blog posts by {name} on OneLiteFeather.net.",
+      "posts_by": "Posts by {name}"
     }
   },
   "team": {

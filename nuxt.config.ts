@@ -152,8 +152,11 @@ export default defineNuxtConfig({
         // a Nitro endpoint that reads the same JSON the page uses.
         // Event detail pages are listed per request, because whether an
         // event is visible depends on the time — see the route's comment.
+        // So are author pages: one exists only for a person with a released article.
         sources: [
-            '/api/__sitemap__/team', '/api/__sitemap__/events'
+            '/api/__sitemap__/team',
+            '/api/__sitemap__/events',
+            '/api/__sitemap__/blog-authors'
         ],
         // No changefreq/priority defaults: Google ignores both. lastmod comes
         // from real content dates only (content.config.ts), never the build.

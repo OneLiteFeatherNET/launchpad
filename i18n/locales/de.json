@@ -70,6 +70,12 @@
     "imprint": {
       "title": "Impressum",
       "description": "Impressum und rechtliche Angaben zum OneLiteFeather Minecraft-Netzwerk inklusive verantwortlicher Stelle und Kontaktdaten."
+    },
+    "author": {
+      "profile": "Zum Profil",
+      "title": "{name} – Blog",
+      "description": "Alle Blogbeiträge von {name} auf OneLiteFeather.net.",
+      "posts_by": "Beiträge von {name}"
     }
   },
   "index": {

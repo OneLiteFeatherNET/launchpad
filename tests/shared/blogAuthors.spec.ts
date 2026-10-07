@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
+import { resolvePersonFrom } from '../../layers/content-core/utils/content/person'
 import {
   articlesByAuthor,
+  blogAuthorSitemapEntries,
   authorSlugsOf,
   isReleasedAt,
   releasedAuthorSlugs,
@@ -114,5 +116,46 @@ describe('releasedAuthorSlugs', () => {
       post('a', { author: 'x' }), post('b', { author: 'later', releaseDate: '2026-12-01T00:00:00Z' }),
     ], NOW)
     expect(slugs).toEqual(['x'])
+  })
+})
+
+describe('blogAuthorSitemapEntries', () => {
+  const de = {
+    articles: [post('a', { author: ['tp', 'gast'] }), post('b', { author: 'nobody' })],
+    resolvable: ['tp', 'gast'],
+  }
+
+  it('lists one entry per author with a released article', () => {
+    const entries = blogAuthorSitemapEntries({ de }, NOW)
+    expect(entries).toEqual([{ loc: '/de/blog/author/tp' }, { loc: '/de/blog/author/gast' }])
+  })
+
+  it('leaves out an author that resolves to nobody', () => {
+    const entries = blogAuthorSitemapEntries({ de }, NOW)
+    expect(entries.map((entry) => entry.loc)).not.toContain('/de/blog/author/nobody')
+  })
+
+  it('leaves out an author whose only article is not released', () => {
+    const entries = blogAuthorSitemapEntries({
+      de: {
+        articles: [post('a', { author: 'tp', releaseDate: '2026-12-01T00:00:00Z' })],
+        resolvable: ['tp'],
+      },
+    }, NOW)
+    expect(entries).toEqual([])
+  })
+
+  it('lists a person only in the languages where an article exists', () => {
+    const entries = blogAuthorSitemapEntries({
+      de,
+      en: { articles: [], resolvable: ['tp'] },
+    }, NOW)
+    expect(entries.map((entry) => entry.loc)).not.toContain('/en/blog/author/tp')
+  })
+
+  it('uses the path the author page links to', () => {
+    const [entry] = blogAuthorSitemapEntries({ en: { articles: [post('a', { author: 'gast' })], resolvable: ['gast'] } }, NOW)
+    const person = resolvePersonFrom('gast', 'en', { team: null, authors: [{ slug: 'gast', name: 'Gast' }] })
+    expect(entry?.loc).toBe(person?.profilePath)
   })
 })
