@@ -8,9 +8,9 @@ statt Systemzeit, kein Netz, kein Warten, jeder Test baut sein eigenes Fixture.
 
 ## 1. `publishedAt` in Schema und Repository
 
-- [ ] 1.1 `tests/content/adapter-queries.spec.ts` erweitern: `listProjects`, `listProjectsBySlugs` und die POI-Listen projizieren zusätzlich `publishedAt`; `tests/content/projects-frontmatter.spec.ts`: Übersetzungen tragen dasselbe `publishedAt`; rot sehen
-- [ ] 1.2 `content.config.ts` (`publishedAt` an `projects` und `community_poi`), `layers/content-core/utils/content/repository.ts` (`ProjectSummary`, `CommunityPoiSummary`, `CommunityPoiDocument`) und `nuxtContentAdapter.ts` umsetzen; `tests/content/schema-columns.spec.ts` bleibt grün; verifiziert durch `pnpm exec vitest run tests/content`
-- [ ] 1.3 `content/projects/{de,en}/anti-redstoneclock-remastered.md`: `publishedAt: '2026-10-07'`; POIs ohne bekanntes Datum bleiben unverändert; verifiziert durch `pnpm exec vitest run tests/content`
+- [x] 1.1 `tests/content/adapter-queries.spec.ts` erweitern: `listProjects`, `listProjectsBySlugs` und die POI-Listen projizieren zusätzlich `publishedAt`; `tests/content/projects-frontmatter.spec.ts`: Projekt-Übersetzungen tragen dasselbe `publishedAt`, ARCR trägt `2026-10-07`; rot sehen
+- [x] 1.2 `content.config.ts` (`publishedAt` an `projects` und `community_poi`), `layers/content-core/utils/content/repository.ts` (`ProjectSummary`, `CommunityPoiSummary`, `CommunityPoiDocument`) und `nuxtContentAdapter.ts` umsetzen; `tests/content/schema-columns.spec.ts` bleibt grün; verifiziert durch `pnpm exec vitest run tests/content`
+- [x] 1.3 `content/projects/{de,en}/anti-redstoneclock-remastered.md`: `publishedAt: '2026-10-07'`; POIs ohne bekanntes Datum bleiben unverändert; verifiziert durch `pnpm exec vitest run tests/content`
 
 ## 2. Reine Auswahl und Slide-Typen
 

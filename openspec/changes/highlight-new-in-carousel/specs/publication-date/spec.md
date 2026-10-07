@@ -11,8 +11,8 @@ Daten ableitbar ist.
 `projects` und `community_poi` MUST ein optionales Datum `publishedAt` kennen: den
 Tag, an dem der Eintrag auf der Website erschien. Es MUST unabhängig von
 `releasedAt` (Projekt) und `startedAt` (POI) sein. Fehlt es, ist der Eintrag nie
-„neu“. Übersetzungen mit gleichem `translationKey` MUST dasselbe `publishedAt`
-tragen.
+„neu“. Übersetzungen von Projekten mit gleichem `translationKey` MUST dasselbe
+`publishedAt` tragen.
 
 #### Scenario: Abweichende Übersetzungen
 - **WHEN** die deutsche und die englische Fassung eines Projekts unterschiedliche `publishedAt` tragen

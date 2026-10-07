@@ -20,6 +20,7 @@ const LINK_KEYS = ['docs',
 'issues']
 const FACT_FIELDS = ['status',
 'releasedAt',
+'publishedAt',
 'license',
 'platforms',
 'maintainers',
@@ -183,6 +184,11 @@ describe('project translations', () => {
     expect(projectTranslationProblems([doc('de', VALID)])[0]).toContain('no en translation')
   })
 
+  it('rejects differing publishedAt', () => {
+    const en = doc('en', withChange((d) => { d.publishedAt = '2026-10-07' }))
+    expect(projectTranslationProblems([doc('de', VALID), en])[0]).toContain('publishedAt differs')
+  })
+
   it('rejects differing maintainers', () => {
     const en = doc('en', withChange((d) => { d.maintainers = ['themeinerlp'] }))
     expect(projectTranslationProblems([doc('de', VALID), en])[0]).toContain('maintainers differs')
@@ -206,5 +212,14 @@ describe('project documents', () => {
 
   it('keeps translations in step', () => {
     expect(projectTranslationProblems(docs)).toEqual([])
+  })
+})
+
+describe('project publication', () => {
+  const arcr = projectDocuments().filter((d) => d.data.slug === 'anti-redstoneclock-remastered')
+
+  it('dates ARCR on the day it was added to the site, in both languages', () => {
+    expect(arcr).toHaveLength(2)
+    for (const d of arcr) expect(String(d.data.publishedAt), d.file).toContain('2026-10-07')
   })
 })
