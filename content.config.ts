@@ -294,7 +294,45 @@ const communityPoiSchema = withI18nMeta(z.object({
     // Defaults to true: a POI is community-contributable unless it explicitly
     // opts out. An `.optional()` boolean gets stored as `false` when absent,
     // which would wrongly flag every POI as showcase-only.
-    acceptsContributions: z.boolean().default(true)
+    acceptsContributions: z.boolean().default(true),
+    // Project slugs (content/projects) this build shows in use. Resolved in
+    // the same language by tests/content/poi-projects.spec.ts.
+    projects: z.array(z.string()).optional()
+  }))
+
+const projectLink = z.string().url()
+
+const projectsSchema = withI18nMeta(z.object({
+    slug: z.string(),
+    title: z.string(),
+    summary: z.string(),
+    status: z.enum([
+      'active',
+      'maintenance',
+      'archived'
+    ]),
+    logo: z.string().optional(),
+    logoAlt: z.string().optional(),
+    // Date of the first stable release, not of the latest version.
+    releasedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
+    platforms: z.array(z.string()).optional(),
+    license: z.string().optional(),
+    links: z
+      .object({
+        docs: projectLink.optional(),
+        source: projectLink.optional(),
+        issues: projectLink.optional(),
+        downloads: z
+          .array(z.object({
+              label: z.string(),
+              url: projectLink
+            }))
+          .optional()
+      })
+      .optional(),
+    // Person slugs (team roster or `authors`), in display order.
+    maintainers: z.array(z.string()).optional()
   }))
 
 // Timestamps stay strings on purpose. They sit inside JSON columns, where a
@@ -549,6 +587,32 @@ export default defineContentConfig({
             delete url.priority
             const modified = entry.updatedAt ?? entry.startedAt
             if (modified) url.lastmod = new Date(modified as string | Date)
+            const regions: Record<string, string> = { de: 'de-DE', en: 'en-US' }
+            const alternates = (entry.alternates ?? []) as { hreflang: string, href: string }[]
+            if (alternates.length) {
+              url.alternatives = alternates.map(alt => ({
+                hreflang: regions[alt.hreflang] ?? alt.hreflang,
+                href: alt.href
+              }))
+            }
+          }
+        })
+      })
+    })),
+    ...defineLocalizedCollections('projects', (locale) => asSchemaOrgCollection({
+      type: 'page',
+      source: `projects/${locale}/**/*.md`,
+      // Same derived-path problem as the blog collection above; see the
+      // comment there. The serialised body must not close over `locale`.
+      schema: projectsSchema.extend({
+        sitemap: defineSitemapSchema({
+          name: `projects_${locale}`,
+          onUrl: (url, entry, collection) => {
+            const loc = collection.split('_').pop()
+            url.loc = `/${loc}/projects/${entry.slug}`
+            delete url.changefreq
+            delete url.priority
+            if (entry.updatedAt) url.lastmod = new Date(entry.updatedAt as string | Date)
             const regions: Record<string, string> = { de: 'de-DE', en: 'en-US' }
             const alternates = (entry.alternates ?? []) as { hreflang: string, href: string }[]
             if (alternates.length) {
