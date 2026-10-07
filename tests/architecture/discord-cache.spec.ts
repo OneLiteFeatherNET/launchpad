@@ -13,8 +13,11 @@ describe('Discord member count', () => {
     expect(route).toMatch(/members:\s*null/)
   })
 
-  it('reads its invite code from private runtime config with the current default', () => {
-    expect(read('server/api/community/discord.get.ts')).toMatch(/useRuntimeConfig\(\)\.discordInviteCode/)
+  it('resolves the invite from the public shortlink and falls back to the configured code', () => {
+    const route = read('server/api/community/discord.get.ts')
+    expect(route).toMatch(/loadDiscordMembers\(/)
+    expect(route).toMatch(/config\.public\.discordUrl/)
+    expect(route).toMatch(/config\.discordInviteCode/)
     expect(read('nuxt.config.ts')).toMatch(/discordInviteCode:\s*'yzkf2H9UQD'/)
   })
 
