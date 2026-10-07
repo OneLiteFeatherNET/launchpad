@@ -76,6 +76,8 @@ usePageSeo({
   twitterCard: 'summary',
   ogType: 'profile',
   schemaType: 'ProfilePage',
+  // Thin profiles are soft 404s for Google; links stay followable.
+  noindex: member.value ? isThinTeamProfile(member.value) : false,
 })
 
 useBreadcrumbs(() => [
