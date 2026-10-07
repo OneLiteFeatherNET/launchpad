@@ -15,28 +15,28 @@ kein Netz, kein Warten, jeder Test baut sein eigenes Fixture.
 
 ## 2. Layer `projects`
 
-- [ ] 2.1 `tests/projects/project-lists.spec.ts` schreiben: `sortProjects` stellt `active` vor `maintenance` vor `archived`, innerhalb des Status das jüngere `releasedAt` zuerst, ohne Datum zuletzt, dann nach Titel; verändert die Eingabe nicht; rot sehen
-- [ ] 2.2 `layers/projects/{nuxt.config.ts,index.ts,types.ts}` und `layers/projects/utils/projectLists.ts` umsetzen; Typen aus `#layers/content-core/types`; verifiziert durch grüne Tests aus 2.1 und `pnpm exec vitest run tests/architecture`
-- [ ] 2.3 `tests/projects/composables.spec.ts` (`// @vitest-environment nuxt`, `useContentRepository` per `mockNuxtImport` mit Attrappe, `original` umhüllt): `useProjectsOverview` sortiert und fragt die Sprache der Seite ab; `useProjectsBySlugs` fragt nichts bei leerer Liste ab; `useProjectDetail` wirft 404 (`fatal: true`) bei unbekanntem Slug, löst Maintainer in Reihenfolge auf und überspringt unbekannte; rot sehen
-- [ ] 2.4 `layers/projects/composables/useProjects.ts` umsetzen (Sprach-Slugs für den Umschalter über `useSetI18nParams`, Übersetzung per `translationKey`); verifiziert durch grüne Tests aus 2.3 und `pnpm exec vitest run tests/routes`
-- [ ] 2.5 `tests/projects/components.spec.ts` (`// @vitest-environment nuxt`): `ProjectCard` hat genau einen Link auf `/de/projects/<slug>`, zeigt Titel, Kurzbeschreibung und Status, Platzhalter ohne Logo, Logo mit `alt` aus `logoAlt`; `ProjectGrid` rendert eine `ul` mit je Projekt einem `li` und einen Leerzustand ohne Projekte; rot sehen
-- [ ] 2.6 `ProjectCard.vue`, `ProjectGrid.vue`, `ProjectStatusBadge.vue` mit M3-Bausteinen und Tokens umsetzen, Texte unter `projects.*` in `i18n/locales/{de,en}.json`; verifiziert durch grüne Tests aus 2.5, `pnpm exec vitest run tests/i18n tests/design-system tests/a11y`
+- [x] 2.1 `tests/projects/project-lists.spec.ts` schreiben: `sortProjects` stellt `active` vor `maintenance` vor `archived`, innerhalb des Status das jüngere `releasedAt` zuerst, ohne Datum zuletzt, dann nach Titel; verändert die Eingabe nicht; rot sehen
+- [x] 2.2 `layers/projects/{nuxt.config.ts,index.ts,types.ts}` und `layers/projects/utils/projectLists.ts` umsetzen; Typen aus `#layers/content-core/types`; verifiziert durch grüne Tests aus 2.1 und `pnpm exec vitest run tests/architecture`
+- [x] 2.3 `tests/projects/composables.spec.ts` (`// @vitest-environment nuxt`, `useContentRepository` per `mockNuxtImport` mit Attrappe, `original` umhüllt): `useProjectsOverview` sortiert und fragt die Sprache der Seite ab; `useProjectsBySlugs` fragt nichts bei leerer Liste ab; `useProjectDetail` wirft 404 (`fatal: true`) bei unbekanntem Slug, löst Maintainer in Reihenfolge auf und überspringt unbekannte; rot sehen
+- [x] 2.4 `layers/projects/composables/useProjects.ts` umsetzen (Sprach-Slugs für den Umschalter über `useSetI18nParams`, Übersetzung per `translationKey`); verifiziert durch grüne Tests aus 2.3 und `pnpm exec vitest run tests/routes`
+- [x] 2.5 `tests/projects/components.spec.ts` (`// @vitest-environment nuxt`): `ProjectCard` hat genau einen Link auf `/de/projects/<slug>`, zeigt Titel, Kurzbeschreibung und Status, Platzhalter ohne Logo, Logo mit `alt` aus `logoAlt`; `ProjectGrid` rendert eine `ul` mit je Projekt einem `li` und einen Leerzustand ohne Projekte; rot sehen
+- [x] 2.6 `ProjectCard.vue`, `ProjectGrid.vue`, `ProjectStatusBadge.vue` mit M3-Bausteinen und Tokens umsetzen, Texte unter `projects.*` in `i18n/locales/{de,en}.json`; verifiziert durch grüne Tests aus 2.5, `pnpm exec vitest run tests/i18n tests/design-system tests/a11y`
 
 ## 3. Verbindung mit Community-POIs
 
-- [ ] 3.1 `tests/projects/poi-link.spec.ts` (`// @vitest-environment nuxt`): `useCommunityPoisByProject(slug)` fragt `listCommunityPoisByProject` mit Sprache und Slug; `tests/projects/pages.spec.ts` (liest die Quelle): `pages/projects/[...slug].vue` ruft `useCommunityPoisByProject` und zeigt den Abschnitt nur bei `pois.length`, `pages/community-poi/[...slug].vue` ruft `useProjectsBySlugs` und zeigt den Abschnitt nur bei Treffern; rot sehen
-- [ ] 3.2 `useCommunityPoisByProject` in `layers/community-poi/composables/useCommunityPoi.ts` und `layers/community-poi/index.ts` umsetzen; verifiziert durch grüne Tests aus 3.1 (Seiten folgen in 4.2 und 4.3)
+- [x] 3.1 `tests/projects/poi-link.spec.ts` (`// @vitest-environment nuxt`): `useCommunityPoisByProject(slug)` fragt `listCommunityPoisByProject` mit Sprache und Slug; `tests/projects/pages.spec.ts` (liest die Quelle): `pages/projects/[...slug].vue` ruft `useCommunityPoisByProject` und zeigt den Abschnitt nur bei `pois.length`, `pages/community-poi/[...slug].vue` ruft `useProjectsBySlugs` und zeigt den Abschnitt nur bei Treffern; rot sehen
+- [x] 3.2 `useCommunityPoisByProject` in `layers/community-poi/composables/useCommunityPoi.ts` und `layers/community-poi/index.ts` umsetzen; verifiziert durch grüne Tests aus 3.1 (Seiten folgen in 4.2 und 4.3)
 
 ## 4. Seiten und Navigation
 
-- [ ] 4.1 `tests/projects/pages.spec.ts` erweitern (liest die Quelle): beide Seiten haben genau einen `h1`, rufen `usePageSeo` mit Titel und `useBreadcrumbs`, lesen keine Query; die Detailseite nutzt `ResourceList`, `PersonLink` und setzt den Abschnitt „Im Einsatz“ nur bei vorhandenen POIs; `tests/architecture/nav-active-state.spec.ts`/`navConfig`: Eintrag `routeName: 'projects'` vor `community`; rot sehen
-- [ ] 4.2 `pages/projects/index.vue` und `pages/projects/[...slug].vue` umsetzen (Schema.org `ItemList` bzw. `SoftwareApplication`, Breadcrumbs, Abschnitt „Im Einsatz auf dem Server“ mit `CommunityPoiGrid`); verifiziert durch grüne Tests aus 4.1 und `pnpm exec vitest run tests/seo tests/a11y tests/routes`
-- [ ] 4.3 `pages/community-poi/[...slug].vue`: Abschnitt mit `ProjectGrid` nach dem Beschreibungstext; `layers/navigation/navItems.ts` und `navigation.projects` in `i18n/locales/{de,en}.json`; verifiziert durch grüne Tests aus 4.1 und `pnpm exec vitest run tests/architecture tests/i18n`
+- [x] 4.1 `tests/projects/pages.spec.ts` erweitern (liest die Quelle): beide Seiten haben genau einen `h1`, rufen `usePageSeo` mit Titel und `useBreadcrumbs`, lesen keine Query; die Detailseite nutzt `ResourceList`, `PersonLink` und setzt den Abschnitt „Im Einsatz“ nur bei vorhandenen POIs; `tests/architecture/nav-active-state.spec.ts`/`navConfig`: Eintrag `routeName: 'projects'` vor `community`; rot sehen
+- [x] 4.2 `pages/projects/index.vue` und `pages/projects/[...slug].vue` umsetzen (Schema.org `ItemList` bzw. `SoftwareApplication`, Breadcrumbs, Abschnitt „Im Einsatz auf dem Server“ mit `CommunityPoiGrid`); verifiziert durch grüne Tests aus 4.1 und `pnpm exec vitest run tests/seo tests/a11y tests/routes`
+- [x] 4.3 `pages/community-poi/[...slug].vue`: Abschnitt mit `ProjectGrid` nach dem Beschreibungstext; `layers/navigation/navItems.ts` und `navigation.projects` in `i18n/locales/{de,en}.json`; verifiziert durch grüne Tests aus 4.1 und `pnpm exec vitest run tests/architecture tests/i18n`
 
 ## 5. Inhalt und Dokumentation
 
 - [x] 5.1 `content/projects/de/anti-redstoneclock-remastered.md` und `content/projects/en/anti-redstoneclock-remastered.md` schreiben (nur Angaben aus der Dokumentation und dem Repository, mit `alternates`, `translationKey: arcr`, `releasedAt: 2024-01-30`, `maintainers: [themeinerlp]`); verifiziert durch grüne Tests aus 1.4 und `pnpm exec vitest run tests/content`
-- [ ] 5.2 `AGENTS.md`: `projects` in die Layer-Liste aufnehmen; verifiziert durch Durchsicht
+- [x] 5.2 `AGENTS.md`: `projects` in die Layer-Liste aufnehmen; verifiziert durch Durchsicht
 
 ## 6. Gesamtprüfung
 

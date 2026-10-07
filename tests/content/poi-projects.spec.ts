@@ -14,7 +14,10 @@ interface Doc { file: string, locale: string, data: Frontmatter }
 
 const slugList = (value: unknown): string[] => (Array.isArray(value) ? value.map(String) : [])
 
-export function unresolvedProjectProblems(pois: Doc[], projectSlugs: Record<string, Set<string>>): string[] {
+export function unresolvedProjectProblems(
+  pois: Doc[],
+  projectSlugs: Record<string, Set<string>>
+): string[] {
   return pois.flatMap((poi) => slugList(poi.data.projects)
     .filter((slug) => !projectSlugs[poi.locale]?.has(slug))
     .map((slug) => `${poi.file}: projects "${slug}" does not resolve in ${poi.locale}`))
@@ -29,7 +32,8 @@ export function poiProjectTranslationProblems(pois: Doc[]): string[] {
   }
   const problems: string[] = []
   for (const [key, group] of byKey) {
-    const values = new Set(group.map((poi) => JSON.stringify([...slugList(poi.data.projects)].sort())))
+    const lists = group.map((poi) => [...slugList(poi.data.projects)].sort())
+    const values = new Set(lists.map((list) => JSON.stringify(list)))
     if (values.size > 1) {
       problems.push(`${group.map((poi) => poi.file).join(', ')}: projects differ between translations sharing translationKey "${key}"`)
     }
@@ -73,8 +77,7 @@ describe('poi project references', () => {
 
   it('names both files when translations differ in projects', () => {
     const problems = poiProjectTranslationProblems([
-      poi('de.md', 'de', { translationKey: 'maze', projects: ['arcr'] }),
-      poi('en.md', 'en', { translationKey: 'maze' }),
+      poi('de.md', 'de', { translationKey: 'maze', projects: ['arcr'] }), poi('en.md', 'en', { translationKey: 'maze' }),
     ])
     expect(problems).toHaveLength(1)
     expect(problems[0]).toContain('de.md, en.md')
@@ -82,8 +85,7 @@ describe('poi project references', () => {
 
   it('ignores the order of the projects', () => {
     expect(poiProjectTranslationProblems([
-      poi('de.md', 'de', { translationKey: 'k', projects: ['a', 'b'] }),
-      poi('en.md', 'en', { translationKey: 'k', projects: ['b', 'a'] }),
+      poi('de.md', 'de', { translationKey: 'k', projects: ['a', 'b'] }), poi('en.md', 'en', { translationKey: 'k', projects: ['b', 'a'] }),
     ])).toEqual([])
   })
 })

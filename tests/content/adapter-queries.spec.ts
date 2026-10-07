@@ -258,7 +258,9 @@ describe('project queries', () => {
     fake.state.rows = [{ slug: 'b' }]
     await adapter().listProjectsBySlugs('de', ['b', 'a'])
     expect(fake.state.collection).toBe('projects_de')
-    expect(named('where').map((call) => call.args)).toEqual([['slug', 'IN', ['b', 'a']]])
+    expect(named('where').map((call) => call.args)).toEqual([['slug',
+'IN',
+['b', 'a']]])
     expect(selected()).not.toContain('body')
     expect(selected()).not.toContain('links')
   })
@@ -271,7 +273,9 @@ describe('project queries', () => {
   it('strips path and stem from a project found by slug', async () => {
     fake.state.rows = [row()]
     const project = await adapter().getProjectBySlug('en', 'arcr')
-    expect(named('where').map((call) => call.args)).toEqual([['slug', '=', 'arcr']])
+    expect(named('where').map((call) => call.args)).toEqual([['slug',
+'=',
+'arcr']])
     expect(project).toMatchObject({ slug: 'arcr' })
     expect(project).not.toHaveProperty('path')
     expect(project).not.toHaveProperty('stem')
@@ -281,7 +285,9 @@ describe('project queries', () => {
     fake.state.rows = [row()]
     const project = await adapter().getProjectByTranslationKey('de', 'arcr')
     expect(fake.state.collection).toBe('projects_de')
-    expect(named('where').map((call) => call.args)).toEqual([['translationKey', '=', 'arcr']])
+    expect(named('where').map((call) => call.args)).toEqual([['translationKey',
+'=',
+'arcr']])
     expect(project).not.toHaveProperty('path')
   })
 })
@@ -304,7 +310,9 @@ describe('community pois of a project', () => {
 
   it('selects the card projection plus the projects column', async () => {
     await adapter().listCommunityPoisByProject('de', 'arcr')
-    expect(selected()).toEqual(expect.arrayContaining(['slug', 'title', 'projects']))
+    expect(selected()).toEqual(expect.arrayContaining(['slug',
+'title',
+'projects']))
     expect(selected()).not.toContain('body')
   })
 })

@@ -123,7 +123,9 @@ describe('person slugs in the content files', () => {
     const resolvable = Object.fromEntries(locales.map((locale) => [
       locale, new Set([...rosterSlugs(locale), ...authors.map((author) => author.slug)]),
     ]))
-    const references = [...referencesIn('content/blog', 'author'), ...referencesIn('content/events', 'hosts'), ...referencesIn('content/projects', 'maintainers')]
+    const references = [...referencesIn('content/blog', 'author'),
+...referencesIn('content/events', 'hosts'),
+...referencesIn('content/projects', 'maintainers')]
     expect(unresolvedProblems(references, resolvable)).toEqual([])
   })
 })

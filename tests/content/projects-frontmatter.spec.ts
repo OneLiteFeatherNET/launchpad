@@ -12,9 +12,18 @@ import { locales } from '../../layers/content-core/utils/content/locales'
 type Frontmatter = Record<string, unknown>
 interface ProjectDocument { file: string, locale: string, data: Frontmatter }
 
-const STATUSES = ['active', 'maintenance', 'archived']
-const LINK_KEYS = ['docs', 'source', 'issues']
-const FACT_FIELDS = ['status', 'releasedAt', 'license', 'platforms', 'maintainers', 'links'] as const
+const STATUSES = ['active',
+'maintenance',
+'archived']
+const LINK_KEYS = ['docs',
+'source',
+'issues']
+const FACT_FIELDS = ['status',
+'releasedAt',
+'license',
+'platforms',
+'maintainers',
+'links'] as const
 
 const isText = (value: unknown): value is string => typeof value === 'string' && value.trim() !== ''
 const isHttps = (value: unknown): boolean => {
@@ -27,7 +36,9 @@ const isHttps = (value: unknown): boolean => {
 
 export function projectFrontmatterProblems(data: Frontmatter): string[] {
   const problems: string[] = []
-  for (const field of ['slug', 'title', 'summary']) {
+  for (const field of ['slug',
+'title',
+'summary']) {
     if (!isText(data[field])) problems.push(`${field}: required text is missing`)
   }
   if (!STATUSES.includes(data.status as string)) {
