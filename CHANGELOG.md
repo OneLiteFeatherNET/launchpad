@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.14.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.13.0...onelitefeather.net-v1.14.0) (2026-10-07)
+
+
+### Features
+
+* **about:** add an about us page ([268ee96](https://github.com/OneLiteFeatherNET/launchpad/commit/268ee961c4680e13e6161f470d6eea9c4857ba70))
+* **community:** list lite supporters on the team page and community wall ([4bacb28](https://github.com/OneLiteFeatherNET/launchpad/commit/4bacb28cba08316fb550b187802bfe5cedd5e5cc))
+* **events:** add the slender halloween 2026 event ([334ad66](https://github.com/OneLiteFeatherNET/launchpad/commit/334ad66d37468f2e2ecc839ebe55ee8f028b2551))
+
+
+### Bug Fixes
+
+* **footer:** link about, contact and github instead of placeholders ([4c21639](https://github.com/OneLiteFeatherNET/launchpad/commit/4c216398e0cbd08d6355e70a8dc968e81f6a26ad))
+
+
+### Documentation
+
+* **openspec:** archive completed changes ([004a939](https://github.com/OneLiteFeatherNET/launchpad/commit/004a9390e77b6b468729cb8e85645ec87629ef06))
+
 ## [1.13.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.12.0...onelitefeather.net-v1.13.0) (2026-10-07)
 
 
