@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.10.0...onelitefeather.net-v1.11.0) (2026-10-07)
+
+
+### Features
+
+* **projects:** add a projects section linked to community points of interest ([0abf925](https://github.com/OneLiteFeatherNET/launchpad/commit/0abf925547c1fca7b06e9b0fa80734b2e14b10c6))
+
 ## [1.10.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.9.0...onelitefeather.net-v1.10.0) (2026-10-07)
 
 
