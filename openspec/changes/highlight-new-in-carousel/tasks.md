@@ -24,7 +24,7 @@ statt Systemzeit, kein Netz, kein Warten, jeder Test baut sein eigenes Fixture.
 - [x] 3.1 `tests/a11y/carousel-live-region.spec.ts` und `tests/home/highlights.spec.ts` erweitern: `getSlideLabel` stellt `carousel.new_label` voran, wenn `isNew`; `tests/i18n`: Schlüssel `carousel.new`, `carousel.new_label`, `carousel.project_*` in de und en; rot sehen
 - [x] 3.2 `layers/home/composables/useCarousel.ts`, `components/CarouselItem{Blog,Poi,Event}.vue` (Chip „Neu“), `CarouselItemProject.vue`, `Carousel.vue` (Typ `project`, Preload), `i18n/locales/{de,en}.json`; verifiziert durch grüne Tests aus 3.1 und `pnpm exec vitest run tests/a11y tests/i18n tests/design-system`
 
-- [ ] 3.3 Blog-Slide: feste Texte „von“ / „Lesen“ über `carousel.by_author` und `carousel.read` in `i18n/locales/{de,en}.json`; Test rendert den englischen Slide; verifiziert durch `pnpm exec vitest run tests/home tests/i18n`
+- [x] 3.3 Blog-Slide: feste Texte „von“ / „Lesen“ über `carousel.by_author` und `carousel.read` in `i18n/locales/{de,en}.json`; Test rendert den englischen Slide; verifiziert durch `pnpm exec vitest run tests/home tests/i18n`
 
 ## 4. Seite und Inhalt
 

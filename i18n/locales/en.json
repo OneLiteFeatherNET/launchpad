@@ -37,6 +37,8 @@
     "to_event": "Go to event: {title}",
     "news_link": "News: {title}",
     "to_news": "Go to news item: {title}",
+    "by_author": "by {author}",
+    "read": "Read",
     "new": "New",
     "new_label": "New: {title}",
     "project_tag": "Project",
