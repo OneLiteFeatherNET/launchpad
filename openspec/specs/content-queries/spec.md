@@ -1,7 +1,7 @@
 # content-queries Specification
 
 ## Purpose
-TBD - created by archiving change slim-content-queries. Update Purpose after archive.
+Specifies how content queries stay slim: single-document collections and overview cards read only the fields they render.
 
 ## Requirements
 
