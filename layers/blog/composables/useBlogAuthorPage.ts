@@ -15,13 +15,11 @@ export async function useBlogAuthorPage() {
   const setI18nParams = useSetI18nParams()
   const slug = computed(() => String((route.params as Record<string, unknown>).slug ?? ''))
 
-  const posts = await useBlogPostsByAuthor(slug)
-
-  if (!posts.person.value || !posts.articles.value.length) {
-    throw createError({ statusCode: 404, statusMessage: 'Author not found', fatal: true })
-  }
-
-  const { data: available } = await useAsyncData<Locale[]>(
+  // Both lookups start before the first await: composables outside a
+  // <script setup> lose the Nuxt context at an await, and a useAsyncData
+  // started afterwards fails with NUXT_E1001 on the server.
+  const pendingPosts = useBlogPostsByAuthor(slug)
+  const pendingLocales = useAsyncData<Locale[]>(
     () => `blog-author-locales-${slug.value}`,
     async () => {
       const now = new Date()
@@ -35,6 +33,13 @@ export async function useBlogAuthorPage() {
     },
     { watch: [slug], default: () => [] }
   )
+
+  const posts = await pendingPosts
+  const { data: available } = await pendingLocales
+
+  if (!posts.person.value || !posts.articles.value.length) {
+    throw createError({ statusCode: 404, statusMessage: 'Author not found', fatal: true })
+  }
 
   watch(available, (codes) => {
     setI18nParams(Object.fromEntries(codes.map((code) => [code, { slug: slug.value }])))
