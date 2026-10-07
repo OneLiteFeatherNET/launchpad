@@ -296,6 +296,8 @@ export default defineNuxtConfig({
         }
     },
     runtimeConfig: {
+        // Invite behind https://1lf.link/discord; NUXT_DISCORD_INVITE_CODE overrides it.
+        discordInviteCode: 'yzkf2H9UQD',
         public: {
             discordUrl: 'https://1lf.link/discord',
             // Public BlueMap URL used to embed the external map

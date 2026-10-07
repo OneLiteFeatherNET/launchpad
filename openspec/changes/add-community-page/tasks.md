@@ -14,9 +14,9 @@ sein eigenes Fixture.
 
 ## 2. Discord-Mitgliederzahl
 
-- [ ] 2.1 `tests/community/discord-invite.spec.ts` schreiben: `loadDiscordMemberCount` ruft `https://discord.com/api/v10/invites/<code>?with_counts=true` auf (Code URL-kodiert), liefert `approximate_member_count`, wirft bei Status ≠ 2xx, bei fehlendem oder nicht numerischem Feld und bei Fehler des Abrufs, übergibt ein Abbruchsignal; `tests/architecture/discord-cache.spec.ts`: die Route nutzt `defineCachedFunction`, `swr: false`, und die Composable ruft nur `/api/community/discord`; rot sehen; verifiziert durch `pnpm exec vitest run tests/community/discord-invite.spec.ts tests/architecture/discord-cache.spec.ts`
-- [ ] 2.2 `shared/utils/discordInvite.ts` (oberste Ebene), `server/api/community/discord.get.ts` und `runtimeConfig.discordInviteCode: 'yzkf2H9UQD'` in `nuxt.config.ts` umsetzen; die Route fängt Fehler zu `{ members: null }`; verifiziert durch grüne Tests aus 2.1
-- [ ] 2.3 `layers/community/composables/useDiscordMembers.ts` mit Test (`// @vitest-environment nuxt`, `$fetch` per `mockNuxtImport` ersetzt: Zahl durchgereicht; Fehler ergibt `null`, kein Wurf); verifiziert durch `pnpm exec vitest run tests/community`
+- [x] 2.1 `tests/community/discord-invite.spec.ts` schreiben: `loadDiscordMemberCount` ruft `https://discord.com/api/v10/invites/<code>?with_counts=true` auf (Code URL-kodiert), liefert `approximate_member_count`, wirft bei Status ≠ 2xx, bei fehlendem oder nicht numerischem Feld und bei Fehler des Abrufs, übergibt ein Abbruchsignal; `tests/architecture/discord-cache.spec.ts`: die Route nutzt `defineCachedFunction`, `swr: false`, und die Composable ruft nur `/api/community/discord`; rot sehen; verifiziert durch `pnpm exec vitest run tests/community/discord-invite.spec.ts tests/architecture/discord-cache.spec.ts`
+- [x] 2.2 `shared/utils/discordInvite.ts` (oberste Ebene), `server/api/community/discord.get.ts` und `runtimeConfig.discordInviteCode: 'yzkf2H9UQD'` in `nuxt.config.ts` umsetzen; die Route fängt Fehler zu `{ members: null }`; verifiziert durch grüne Tests aus 2.1
+- [x] 2.3 `layers/community/composables/useDiscordMembers.ts` mit Test (`// @vitest-environment nuxt`, `$fetch` per `mockNuxtImport` ersetzt: Zahl durchgereicht; Fehler ergibt `null`, kein Wurf); verifiziert durch `pnpm exec vitest run tests/community`
 
 ## 3. Komponenten
 
