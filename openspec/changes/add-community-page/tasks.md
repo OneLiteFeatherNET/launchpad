@@ -31,6 +31,8 @@ sein eigenes Fixture.
 - [x] 4.4 `pages/community.vue`, Zahlenstreifen in `pages/index.vue` (nach dem Karussell, Daten auf Seitenebene, Komponente per `LazyCommunityStrip hydrate-on-visible`) und Eintrag in `layers/navigation/navItems.ts` umsetzen; `navigation.community` in `i18n/locales/{de,en}.json`; verifiziert durch grüne Tests aus 4.3 und `pnpm exec vitest run tests/architecture tests/seo tests/a11y tests/i18n`
 - [x] 4.5 `AGENTS.md`: `community` in die Layer-Liste aufnehmen; verifiziert durch Durchsicht
 
+- [x] 4.6 `tests/community/components.spec.ts` erweitern: Kachel „Mitwirkende“ erst ab `MIN_CONTRIBUTORS_SHOWN`, nie im Streifen; Streifen zeigt Discord, Team, Bauten, Unterstützer; Kacheln mit `0` oder `null` entfallen; rot sehen; `layers/community/utils/thresholds.ts` und `CommunityStats`-Eigenschaft `variant` umsetzen; verifiziert durch `pnpm exec vitest run tests/community`
+
 ## 5. Gesamtprüfung
 
 - [x] 5.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün

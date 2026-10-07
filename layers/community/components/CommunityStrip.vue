@@ -21,7 +21,7 @@ const panelClass
         <h2 id="community-strip-title" class="text-title-large font-bold text-on-surface">
           {{ t('community.strip.title') }}
         </h2>
-        <CommunityStats :numbers="{ ...numbers, supporters: null }" class="mt-4" />
+        <CommunityStats :numbers="numbers" variant="strip" class="mt-4" />
       </div>
       <M3Button
         :to="to"

@@ -120,6 +120,16 @@ Team-Profil-Links in der Wand; Pflege einer eigenen Mitwirkenden-Liste.
     und Titel; `useBreadcrumbs`. Canonical und hreflang liefert wie bei den
     übrigen statischen Seiten das i18n-Modul; am Build zu belegen.
 
+11. **Kleine Zahlen werden nicht gezeigt.** Die Seite soll zeigen, wie groß die
+    Community ist; „2 Mitwirkende“ neben 308 Discord-Mitgliedern liest sich
+    winzig und widerspricht dem Ziel. Die Kachel „Mitwirkende“ erscheint daher
+    erst ab `MIN_CONTRIBUTORS_SHOWN = 10` (`layers/community/utils/thresholds.ts`)
+    und nie im Streifen der Startseite; der Streifen zeigt Discord, Team,
+    Bauten und Unterstützer. Kacheln mit `null` oder `0` entfallen. Die Wand
+    bleibt, weil sie echte Personen würdigt; ihr Einleitungstext nennt keine
+    Zahl, damit er bei wenigen Namen nicht widerspricht. `CommunityStats`
+    erhält dafür die Eigenschaft `variant` (`page` | `strip`).
+
 ## Risks / Trade-offs
 
 - **Leere Wand**: Mit den heutigen Inhalten stehen zwei Personen auf der Wand

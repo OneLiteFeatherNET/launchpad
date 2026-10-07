@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 import CommunityStats from '../../layers/community/components/CommunityStats.vue'
 import CommunityStrip from '../../layers/community/components/CommunityStrip.vue'
 import CommunityWall from '../../layers/community/components/CommunityWall.vue'
+import { MIN_CONTRIBUTORS_SHOWN } from '../../layers/community/utils/thresholds'
 import type { CommunityNumbers, Contributor } from '../../layers/community/types'
 
 const numbers = (overrides: Partial<CommunityNumbers> = {}): CommunityNumbers => ({
@@ -27,10 +28,10 @@ const ada: Contributor = {
 const open = (component: object, props: object) => mountSuspended(component, { props, route: '/de/community' })
 
 describe('CommunityStats', () => {
-  it('lists every number with its label as a description list', async () => {
+  it('lists every shown number with its label as a description list', async () => {
     const wrapper = await open(CommunityStats, { numbers: numbers() })
-    expect(wrapper.findAll('dl dt')).toHaveLength(5)
-    expect(wrapper.findAll('dl dd')).toHaveLength(5)
+    expect(wrapper.findAll('dl dt')).toHaveLength(4)
+    expect(wrapper.findAll('dl dd')).toHaveLength(4)
   })
 
   it('formats the numbers for the locale', async () => {
@@ -40,13 +41,31 @@ describe('CommunityStats', () => {
 
   it('leaves out the Discord tile when there is no count', async () => {
     const wrapper = await open(CommunityStats, { numbers: numbers({ discordMembers: null }) })
-    expect(wrapper.findAll('dt')).toHaveLength(4)
+    expect(wrapper.findAll('dt')).toHaveLength(3)
     expect(wrapper.text()).not.toContain('Discord')
   })
 
   it('leaves out the supporters tile when there is no count', async () => {
     const wrapper = await open(CommunityStats, { numbers: numbers({ supporters: null }) })
-    expect(wrapper.findAll('dt')).toHaveLength(4)
+    expect(wrapper.findAll('dt')).toHaveLength(3)
+  })
+
+  it('leaves out any tile whose value is zero', async () => {
+    const wrapper = await open(CommunityStats, { numbers: numbers({ buildCount: 0 }) })
+    expect(wrapper.text()).not.toContain('Community-Bauten')
+  })
+
+  it('hides the contributors tile below the threshold', async () => {
+    const few = numbers({ contributorCount: MIN_CONTRIBUTORS_SHOWN - 1 })
+    const wrapper = await open(CommunityStats, { numbers: few })
+    expect(wrapper.text()).not.toContain('Mitwirkende')
+  })
+
+  it('shows the contributors tile at the threshold', async () => {
+    const enough = numbers({ contributorCount: MIN_CONTRIBUTORS_SHOWN })
+    const wrapper = await open(CommunityStats, { numbers: enough })
+    expect(wrapper.text()).toContain('Mitwirkende')
+    expect(wrapper.findAll('dt')).toHaveLength(5)
   })
 })
 
@@ -90,5 +109,21 @@ describe('CommunityStrip', () => {
     const wrapper = await open(CommunityStrip, { numbers: numbers(), to: '/de/community' })
     expect(wrapper.text()).toContain('18')
     expect(wrapper.text()).toContain('1.234')
+  })
+
+  it('shows Discord, team, supporters and builds, in that order', async () => {
+    const wrapper = await open(CommunityStrip, { numbers: numbers(), to: '/de/community' })
+    expect(wrapper.findAll('dt').map((dt) => dt.text())).toEqual([
+      'Discord-Mitglieder',
+      'Teammitglieder',
+      'Community-Bauten',
+      'Unterstützer'
+    ])
+  })
+
+  it('never shows contributors, however many there are', async () => {
+    const many = numbers({ contributorCount: 500 })
+    const wrapper = await open(CommunityStrip, { numbers: many, to: '/de/community' })
+    expect(wrapper.text()).not.toContain('Mitwirkende')
   })
 })

@@ -7,17 +7,25 @@ mitgewirkt hat.
 
 ## ADDED Requirements
 
-### Requirement: Die Community-Seite zeigt vier Zahlen
+### Requirement: Die Community-Seite zeigt Zahlen, die die Community abbilden
 `/<locale>/community` MUST oben Kacheln für Discord-Mitglieder, Teamgröße,
-Community-Bauten und Mitwirkende zeigen, als Liste mit Beschriftung und Wert.
+Community-Bauten, Unterstützer und Mitwirkende zeigen, als Liste mit
+Beschriftung und Wert. Eine Kachel, deren Wert fehlt (`null`) oder `0` ist,
+MUST entfallen. Die Kachel „Mitwirkende“ SHALL nur erscheinen, wenn die Zahl
+mindestens `MIN_CONTRIBUTORS_SHOWN` (10) beträgt; die Wand bleibt davon
+unberührt, ihr Einleitungstext nennt keine Zahl.
 Die Teamgröße SHALL die Mitglieder des Rosters ohne offene Positionen zählen,
 die Community-Bauten alle Community-POIs der Sprache. Die Kachel der
 Discord-Mitglieder MUST entfallen, wenn keine Zahl vorliegt; die Seite
 antwortet trotzdem mit 200. Live-Spielerzahlen MUST NOT erscheinen.
 
 #### Scenario: Alle Zahlen vorhanden
-- **WHEN** `/de/community` geöffnet wird und der Discord-Abruf gelingt
-- **THEN** zeigt die Seite vier Kacheln mit Zahlen
+- **WHEN** `/de/community` geöffnet wird, der Discord-Abruf gelingt und es mindestens zehn Mitwirkende gibt
+- **THEN** zeigt die Seite fünf Kacheln mit Zahlen
+
+#### Scenario: Zu wenige Mitwirkende
+- **WHEN** weniger als zehn Mitwirkende vorliegen
+- **THEN** entfällt die Kachel „Mitwirkende“, und die Wand zeigt weiter jede Person
 
 #### Scenario: Discord nicht erreichbar
 - **WHEN** der Discord-Abruf fehlschlägt
@@ -53,8 +61,10 @@ auf die Seite führt und dort als aktuell markiert ist.
 - **THEN** enthält die Navigation „Community“ mit Link auf `/<locale>/community`
 
 ### Requirement: Die Startseite verweist mit einem Zahlenstreifen
-Die Startseite MUST einen schmalen Streifen mit denselben Zahlen zeigen und mit
-einem Link auf die Community-Seite versehen.
+Die Startseite MUST einen schmalen Streifen mit Discord-Mitgliedern,
+Teamgröße, Community-Bauten und Unterstützern zeigen, nie mit Mitwirkenden, und
+mit einem Link auf die Community-Seite versehen. Fehlende oder `0`-Werte
+entfallen auch hier.
 
 #### Scenario: Streifen auf der Startseite
 - **WHEN** `/de` geöffnet wird
