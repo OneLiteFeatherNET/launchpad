@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { faFacebook, faGithub, faLinkedin, faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons'
 const { t } = useI18n()
 const appConfig = useAppConfig()
+const { discordUrl } = useRuntimeConfig().public
 
 const versionLabel = computed(() =>
   appConfig.version ? t('footer.version', { version: appConfig.version }) : ''
@@ -26,8 +27,6 @@ const linkClass
     + 'hover:text-primary focus-ring'
 const copyrightClass
   = 'flex flex-col items-center gap-1 text-body-medium text-on-surface-variant sm:items-start'
-/** "Coming soon" entries: MD3's disabled content colour, not clickable. */
-const placeholderClass = 'cursor-not-allowed text-body-medium text-on-surface/38'
 </script>
 
 <template>
@@ -69,15 +68,14 @@ const placeholderClass = 'cursor-not-allowed text-body-medium text-on-surface/38
               </a>
             </li>
             <li>
-              <NuxtLink
-                to="https://github.com/OneLiteFeatherNET"
-                :class="placeholderClass"
-                aria-disabled="true"
-                :title="t('footer.coming_soon')"
-                @click.prevent
+              <a
+                href="https://github.com/OneLiteFeatherNET"
+                target="_blank"
+                rel="noopener noreferrer"
+                :class="linkClass"
               >
                 {{ t('footer.services.github') }}
-              </NuxtLink>
+              </a>
             </li>
           </ul>
         </div>
@@ -89,28 +87,19 @@ const placeholderClass = 'cursor-not-allowed text-body-medium text-on-surface/38
           </h4>
           <ul class="space-y-3">
             <li>
-              <!-- Placeholder: About (not available yet) -->
-              <NuxtLink
-                to="#"
-                :class="placeholderClass"
-                aria-disabled="true"
-                :title="t('footer.coming_soon')"
-                @click.prevent
-              >
+              <NuxtLinkLocale to="/community" :class="linkClass">
                 {{ t('footer.organization.about') }}
-              </NuxtLink>
+              </NuxtLinkLocale>
             </li>
             <li>
-              <!-- Placeholder: Contact (not available yet) -->
-              <NuxtLink
-                to="#"
-                :class="placeholderClass"
-                aria-disabled="true"
-                :title="t('footer.coming_soon')"
-                @click.prevent
+              <a
+                :href="discordUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                :class="linkClass"
               >
                 {{ t('footer.organization.contact') }}
-              </NuxtLink>
+              </a>
             </li>
           </ul>
         </div>
