@@ -38,11 +38,11 @@ describe('SiteFooter links', () => {
     const hrefs = (await open('/de')).map((a) => a.attributes('href'))
     expect(hrefs).toContain('https://github.com/OneLiteFeatherNET')
     expect(hrefs).toContain('https://1lf.link/discord')
-    expect(hrefs).toContain('/de/community')
+    expect(hrefs).toContain('/de/about')
   })
 
   it('localises the about link', async () => {
     const hrefs = (await open('/en')).map((a) => a.attributes('href'))
-    expect(hrefs).toContain('/en/community')
+    expect(hrefs).toContain('/en/about')
   })
 })

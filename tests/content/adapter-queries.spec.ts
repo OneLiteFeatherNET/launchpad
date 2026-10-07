@@ -53,7 +53,8 @@ describe('single-document collections', () => {
     ['getTeamDocument', 'team_de'],
     ['getServerConcept', 'server_concept_de'],
     ['getServerConnect', 'server_connect_de'],
-    ['getHomeCarousel', 'home_carousel_de']
+    ['getHomeCarousel', 'home_carousel_de'],
+    ['getAboutDocument', 'about_de']
   ] as const
 
   it.each(cases)('%s reads one row with first(), never all()', async (method, collection) => {

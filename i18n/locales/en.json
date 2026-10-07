@@ -20,7 +20,8 @@
     "community_overview": "Overview",
     "events": "Events",
     "community": "Community",
-    "projects": "Projects"
+    "projects": "Projects",
+    "about": "About us"
   },
   "carousel": {
     "prev": "Previous",
@@ -580,6 +581,22 @@
     "poi": {
       "title": "Projects shown here",
       "intro": "This build shows the following projects in use."
+    }
+  },
+  "about": {
+    "title": "About us",
+    "description": "OneLiteFeather is a Minecraft network that lives on its community: community builds, open software, events of our own and transparent funding.",
+    "sections": {
+      "who": "Who we are",
+      "pillars": "What sets us apart",
+      "work": "How we work",
+      "join": "Get involved"
+    },
+    "join": {
+      "play": "Play",
+      "discord": "Discord",
+      "apply": "Apply",
+      "support": "Support us"
     }
   }
 }

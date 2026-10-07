@@ -59,6 +59,7 @@ export function buildNavConfig({ eventsTopLevel }: { eventsTopLevel: boolean }):
       textKey: 'navigation.more',
       icon: ['fas', 'ellipsis-h'],
       children: [
+        { type: 'link', textKey: 'navigation.about', routeName: 'about', icon: ['fas', 'circle-info'] },
         { type: 'link', textKey: 'navigation.bluemap', routeName: 'bluemap', icon: ['fas', 'map'] },
         {
           type: 'link',

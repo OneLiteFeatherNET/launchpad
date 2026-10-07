@@ -6,6 +6,7 @@ import type {
   TeamDocument,
   BlogArticle,
   BlogAuthorProfile,
+  AboutDocument,
   ServerConceptDocument,
   ServerConnectDocument,
   HomeCarouselDocument,
@@ -30,6 +31,7 @@ const teamFaqKey = (locale: Locale) => `team_faq_${locale}` as 'team_faq_de' | '
 const teamKey = (locale: Locale) => `team_${locale}` as 'team_de' | 'team_en'
 const sponsorsKey = (locale: Locale) => `sponsors_${locale}` as 'sponsors_de' | 'sponsors_en'
 const serverConceptKey = (locale: Locale) => `server_concept_${locale}` as 'server_concept_de' | 'server_concept_en'
+const aboutKey = (locale: Locale) => `about_${locale}` as 'about_de' | 'about_en'
 const serverConnectKey = (locale: Locale) => `server_connect_${locale}` as 'server_connect_de' | 'server_connect_en'
 const homeCarouselKey = (locale: Locale) => `home_carousel_${locale}` as 'home_carousel_de' | 'home_carousel_en'
 const communityPoiKey = (locale: Locale) => `community_poi_${locale}` as 'community_poi_de' | 'community_poi_en'
@@ -187,6 +189,11 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
     getServerConcept(locale) {
       return query(serverConceptKey(locale))
         .first().then(withoutRoutes) as Promise<ServerConceptDocument | null>
+    },
+
+    getAboutDocument(locale) {
+      return query(aboutKey(locale))
+        .first().then(withoutRoutes) as Promise<AboutDocument | null>
     },
 
     getServerConnect(locale) {

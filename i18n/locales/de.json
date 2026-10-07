@@ -20,7 +20,8 @@
     "community_overview": "Übersicht",
     "events": "Events",
     "community": "Community",
-    "projects": "Projekte"
+    "projects": "Projekte",
+    "about": "Über uns"
   },
   "carousel": {
     "prev": "Zurück",
@@ -580,6 +581,22 @@
     "poi": {
       "title": "Gezeigte Projekte",
       "intro": "Dieser Bau zeigt die folgenden Projekte im Einsatz."
+    }
+  },
+  "about": {
+    "title": "Über uns",
+    "description": "OneLiteFeather ist ein Minecraft-Netzwerk, das von seiner Community lebt: Gemeinschaftsbauten, offene Software, eigene Events und transparente Finanzierung.",
+    "sections": {
+      "who": "Wer wir sind",
+      "pillars": "Was uns ausmacht",
+      "work": "Wie wir arbeiten",
+      "join": "Mitmachen"
+    },
+    "join": {
+      "play": "Spielen",
+      "discord": "Discord",
+      "apply": "Bewerben",
+      "support": "Unterstützen"
     }
   }
 }
