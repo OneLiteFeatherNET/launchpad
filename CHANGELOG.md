@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.9.0...onelitefeather.net-v1.10.0) (2026-10-07)
+
+
+### Features
+
+* **community:** add a community page with stats and contributor wall ([43bde71](https://github.com/OneLiteFeatherNET/launchpad/commit/43bde71444cbbdc2e3386b179b44791e4013b919))
+* **home:** put discord in the foreground of the home page ([450319a](https://github.com/OneLiteFeatherNET/launchpad/commit/450319a8ea2894025b51d7b9b874585f27354ebc))
+
 ## [1.9.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.4...onelitefeather.net-v1.9.0) (2026-10-07)
 
 
