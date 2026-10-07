@@ -17,7 +17,8 @@
     "more": "Mehr",
     "status": "Status",
     "community_poi": "Community-POIs",
-    "events": "Events"
+    "events": "Events",
+    "community": "Community"
   },
   "carousel": {
     "prev": "Zurück",
@@ -505,5 +506,28 @@
       "title": "Anleitung"
     },
     "hosts": "Gastgeber"
+  },
+  "community": {
+    "title": "Community",
+    "description": "Die OneLiteFeather-Community in Zahlen: Discord, Team, Community-Bauten und alle, die mitgebaut und mitgespielt haben.",
+    "intro": "Wie groß und lebendig unsere Community ist – und wer dazu beigetragen hat.",
+    "stats": {
+      "aria": "Die Community in Zahlen",
+      "discord": "Discord-Mitglieder",
+      "team": "Teammitglieder",
+      "builds": "Community-Bauten",
+      "contributors": "Mitwirkende",
+      "supporters": "Unterstützer"
+    },
+    "wall": {
+      "title": "Die Wand der Mitwirkenden",
+      "intro": "Alle, die bei Community-Bauten und Events namentlich genannt werden.",
+      "badge_build": "Bau: {title}",
+      "badge_event": "Event: {place}. Platz {title}"
+    },
+    "strip": {
+      "title": "Unsere Community in Zahlen",
+      "cta": "Zur Community"
+    }
   }
 }

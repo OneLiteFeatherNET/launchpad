@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 - `layers/<domain>/`: one Nuxt layer per domain — `base`, `content-core`,
-  `blog`, `community-poi`, `events`, `team`, `home`, `sponsoring`,
+  `blog`, `community-poi`, `community`, `events`, `team`, `home`, `sponsoring`,
   `opencollective`, `navigation`, `footer`. Each holds its own `components/`, `composables/`,
   `utils/`, `types.ts` and an `index.ts` that is its public surface.
 - `pages/`, `layouts/`, `app.vue`: the orchestrator. These know every layer and
