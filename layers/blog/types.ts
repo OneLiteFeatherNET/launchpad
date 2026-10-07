@@ -16,3 +16,6 @@ export interface BlogAlternateLanguageLink {
   locale: string
   url: string
 }
+
+/** The part of a person a card needs to name and link them. */
+export type CardAuthor = Pick<Person, 'slug' | 'name' | 'profilePath'>

@@ -24,7 +24,8 @@ const ADAPTER = 'layers/content-core/utils/content/nuxtContentAdapter.ts'
 const CONSUMERS = ['layers/blog/components/ArticleCard.vue',
   'layers/blog/components/Top1.vue',
   'pages/blog/index.vue',
-  'layers/blog/composables/useBlogContent.ts']
+  'layers/blog/composables/useBlogContent.ts',
+  'shared/utils/blogAuthors.ts']
 
 /** The names an article row goes by in those files. */
 const ROW_IDENTIFIERS = ['blogArticle',
@@ -107,6 +108,8 @@ describe('blog overview projection', () => {
     // exactly the kind of column a projection written from the template alone
     // would miss.
     expect(required).toContain('releaseDate')
+    // The cards name their authors, so the slugs have to come with the row.
+    expect(required).toContain('author')
     // Prose in a comment is not a property access — see requiredFields.
     expect(required).not.toContain('if')
   })

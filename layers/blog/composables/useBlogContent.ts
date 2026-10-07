@@ -59,11 +59,26 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data: allPostsData } = useAsyncData<BlogArticle[]>(
+  // The overview's authors are resolved in the same payload as the articles,
+  // so the whole page costs one people lookup rather than one per card.
+  const { data: overview } = useAsyncData<{ articles: BlogArticle[], people: Person[] }>(
     () => `all-posts-${activeLocale.value}`,
-    () => repo.listBlogArticles(activeLocale.value),
+    async () => {
+      const articles = await repo.listBlogArticles(activeLocale.value)
+      const slugs = [...new Set(articles.flatMap(authorSlugsOf))]
+      return { articles, people: await resolvePeople(slugs, activeLocale.value) }
+    },
     { watch: [activeLocale] }
   )
+
+  const allPostsData = computed(() => overview.value?.articles)
+
+  const authorsOf = (article: BlogArticle): Person[] => {
+    const bySlug = new Map((overview.value?.people ?? []).map((person) => [person.slug, person]))
+    return authorSlugsOf(article)
+      .map((slug) => bySlug.get(slug))
+      .filter((person): person is Person => Boolean(person))
+  }
 
   const visiblePosts = computed<BlogArticle[]>(() => {
     const posts = (allPostsData.value || []).filter(isReleased)
@@ -98,6 +113,7 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
     top1Article,
     allPosts,
     allPostsData,
+    authorsOf,
     page,
     totalPosts,
     totalPages

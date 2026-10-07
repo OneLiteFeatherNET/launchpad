@@ -104,6 +104,7 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
           'headerImageAlt',
           'pubDate',
           'releaseDate',
+          'author',
           'tags'
         )
         .all() as Promise<BlogArticle[]>
