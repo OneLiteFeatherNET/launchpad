@@ -125,8 +125,7 @@ export async function useEventDetail() {
 
   const slug = computed<string | undefined>(() => {
     const param = (route.params as Record<string, string | string[] | undefined>).slug
-    if (Array.isArray(param)) return param.at(-1)
-    return param || undefined
+    return catchAllSegments(param).at(-1)
   })
 
   const { data: detail } = await useAsyncData<EventDetail | null>(

@@ -34,7 +34,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
     const u = new URL(path || '/', site.url)
     u.search = ''
     u.hash = ''
-    return u.toString()
+    return withoutTrailingSlash(u.toString())
   }
 
   // Canonical must be byte-identical to this locale's self-referencing
