@@ -23,4 +23,4 @@
 - [x] 4.3 `pnpm build` läuft grün
 - [x] 4.4 In `pnpm preview` per `curl` prüfen: `/en/blog/dev-blog-1-what-we-using/` und `/de/team/themeinerlp/` liefern einen Canonical ohne `/` (Artikel mit Inhalt, Titel nicht „Title“), die Varianten ohne `/` sind unverändert, und `/en`, `/de/team`, `/en/team`, `/en/blog/dev-blog-1-what-we-using` enthalten weder `team-faq/en/`, `server-concept/en/`, `sponsors/`, `/blog/en/` noch `faq/en/` als Strings
 - [x] 4.5 `.nuxtrc`-Änderungen aus dem `nuxt`-Testumfeld und `openspec/config.yaml` nicht committen
-- [ ] 4.6 Pull Request gegen `main` mit dem Titel `fix(seo): drop trailing slashes from canonicals and stop leaking content paths` öffnen (englische Beschreibung: Zusammenfassung, Ursache je Problem, Messung am Build, Hinweis auf den separaten Cloudflare-Redirect)
+- [x] 4.6 Pull Request gegen `main` mit dem Titel `fix(seo): drop trailing slashes from canonicals and stop leaking content paths` öffnen (englische Beschreibung: Zusammenfassung, Ursache je Problem, Messung am Build, Hinweis auf den separaten Cloudflare-Redirect)
