@@ -33,9 +33,9 @@ statt Systemzeit, kein Netz, kein Warten, jeder Test baut sein eigenes Fixture.
 
 ## 5. Gesamtprüfung
 
-- [ ] 5.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
-- [ ] 5.2 `pnpm preview`: `/de` und `/en` zeigen zuerst den ARCR-Slide mit „Neu“/„New“, danach die kuratierten; kein „Phillipp Glanz“ aus `home.json` im HTML; Slide-Links antworten mit 200
+- [x] 5.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
+- [x] 5.2 `pnpm preview`: `/de` und `/en` zeigen zuerst den ARCR-Slide mit „Neu“/„New“, danach die kuratierten; kein „Phillipp Glanz“ aus `home.json` im HTML; Slide-Links antworten mit 200
 
 ## 6. Pull Request
 
-- [ ] 6.1 Pull Request mit dem Titel `feat(home): highlight content from the last 30 days in the carousel` öffnen (Beschreibung auf Englisch: Zusammenfassung, Regeln, Belege aus 5.2)
+- [x] 6.1 Pull Request mit dem Titel `feat(home): highlight content from the last 30 days in the carousel` öffnen (Beschreibung auf Englisch: Zusammenfassung, Regeln, Belege aus 5.2)
