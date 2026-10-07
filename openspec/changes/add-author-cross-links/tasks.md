@@ -44,11 +44,11 @@ Die offenen Fragen 1 bis 4 in `design.md` sind entschieden.
 
 ## 5. Team-Profil: Beiträge und Events
 
-- [ ] 5.1 `tests/shared/blogAuthors.spec.ts` (aus 4.5) um die Profil-Beiträge erweitern: die reinen Funktionen liefern freigegebene Artikel mit Slug in `author` (String und Liste), neueste zuerst, ohne zukünftige `releaseDate`, mit festem `now`; rot sehen. Keine zweite Filterfunktion: 4.5 und `useBlogPostsByAuthor` aus 4.6 werden wiederverwendet
-- [ ] 5.2 `AuthorPostList` in `layers/blog/components/` (Titel als Link, Veröffentlichungsdatum) mit Komponententest; sie nutzt `useBlogPostsByAuthor` aus 4.6; verifiziert durch `pnpm exec vitest run tests/shared tests/blog`
-- [ ] 5.3 `tests/events/events-by-host.spec.ts`: reine Funktion in `layers/events/utils/eventLists.ts` liefert gelistete Events mit Slug in `hosts` je Phase, schließt `unlisted` und verborgene Events aus, mit festem `now`; rot sehen
-- [ ] 5.4 `useEventsByHost(slug)` in `layers/events/composables/useEvents.ts` (Phase im `useAsyncData`-Handler, in der Nutzlast übertragen) und `HostedEventList` in `layers/events/components/` umsetzen; verifiziert durch grüne Tests aus 5.3 und `tests/events/phase-on-server.spec.ts`
-- [ ] 5.5 `pages/team/[slug].vue` setzt `AuthorPostList` und `HostedEventList` zusammen, beide nur bei Treffern; `layers/team` bleibt unverändert; i18n `team.profile.posts` und `team.profile.events` in `de` und `en`; verifiziert durch `pnpm exec vitest run tests/architecture tests/seo/team-thin-profiles.spec.ts tests/i18n` (Hinweis: `isThinTeamProfile` zählt Beiträge nicht mit; ob ein Profil mit Beiträgen nicht mehr als dünn gilt, ist ein eigener Entscheid und wird hier nicht geändert)
+- [x] 5.1 `tests/shared/blogAuthors.spec.ts` (aus 4.5) um die Profil-Beiträge erweitern: die reinen Funktionen liefern freigegebene Artikel mit Slug in `author` (String und Liste), neueste zuerst, ohne zukünftige `releaseDate`, mit festem `now`; rot sehen. Keine zweite Filterfunktion: 4.5 und `useBlogPostsByAuthor` aus 4.6 werden wiederverwendet
+- [x] 5.2 `AuthorPostList` in `layers/blog/components/` (Titel als Link, Veröffentlichungsdatum) mit Komponententest; sie nutzt `useBlogPostsByAuthor` aus 4.6; verifiziert durch `pnpm exec vitest run tests/shared tests/blog`
+- [x] 5.3 `tests/events/events-by-host.spec.ts`: reine Funktion in `layers/events/utils/eventLists.ts` liefert gelistete Events mit Slug in `hosts` je Phase, schließt `unlisted` und verborgene Events aus, mit festem `now`; rot sehen
+- [x] 5.4 `useEventsByHost(slug)` in `layers/events/composables/useEvents.ts` (Phase im `useAsyncData`-Handler, in der Nutzlast übertragen) und `HostedEventList` in `layers/events/components/` umsetzen; verifiziert durch grüne Tests aus 5.3 und `tests/events/phase-on-server.spec.ts`
+- [x] 5.5 `pages/team/[slug].vue` setzt `AuthorPostList` und `HostedEventList` zusammen, beide nur bei Treffern; `layers/team` bleibt unverändert; i18n `team.profile.posts` und `team.profile.events` in `de` und `en`; verifiziert durch `pnpm exec vitest run tests/architecture tests/seo/team-thin-profiles.spec.ts tests/i18n` (Hinweis: `isThinTeamProfile` zählt Beiträge nicht mit; ob ein Profil mit Beiträgen nicht mehr als dünn gilt, ist ein eigener Entscheid und wird hier nicht geändert)
 
 ## 6. Events: Gastgeber
 

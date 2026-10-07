@@ -4,6 +4,7 @@ import type { Locale } from '#layers/content-core'
 import { isAccessOpenAt, eventPhaseAt, isEventReachableAt } from '#shared/utils/eventPhase'
 import type { EventDocument, EventPhase } from '../types'
 import {
+  eventsByHostAt,
   groupEventsAt,
   promotedEventsAt,
   type EventCardData,
@@ -60,6 +61,23 @@ export function useEventPromotions() {
   )
 
   return { promoted: data }
+}
+
+/** The listed events `slug` hosts, phase decided on the server like the overview's. */
+export function useEventsByHost(slug: MaybeRefOrGetter<string>) {
+  const activeLocale = useActiveLocale()
+  const repo = useContentRepository()
+
+  const { data } = useAsyncData<EventCardData[]>(
+    () => `events-by-host-${activeLocale.value}-${toValue(slug)}`,
+    async () => {
+      const docs = await repo.listEvents(activeLocale.value)
+      return eventsByHostAt(docs, toValue(slug), activeLocale.value, new Date())
+    },
+    { watch: [activeLocale, () => toValue(slug)], default: () => [] }
+  )
+
+  return { events: data }
 }
 
 export interface EventDetail {

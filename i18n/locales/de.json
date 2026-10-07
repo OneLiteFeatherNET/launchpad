@@ -120,6 +120,10 @@
     "faq": {
       "section_title": "Bewerbungen und Ränge",
       "section_subtitle": "Antworten zu Ablauf, Anforderungen und dem Lite-Rang."
+    },
+    "profile": {
+      "posts": "Beiträge",
+      "events": "Events"
     }
   },
   "sponsor": {

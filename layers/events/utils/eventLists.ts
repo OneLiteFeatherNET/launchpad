@@ -100,3 +100,20 @@ export function promotedEventsAt(
     .sort((a, b) => time(a.startsAt) - time(b.startsAt))
     .slice(0, MAX_PROMOTED_EVENTS)
 }
+
+/**
+ * Listed events `slug` hosts at `now`: running first, then announced, then
+ * past. The same visibility rule as the overview, so unlisted and hidden
+ * events never surface on a profile.
+ */
+export function eventsByHostAt(
+  docs: EventSummary[],
+  slug: string,
+  locale: string,
+  now: Date
+): EventCardData[] {
+  const grouped = groupEventsAt(docs.filter((doc) => doc.hosts?.includes(slug)), locale, now)
+  return [...grouped.current,
+...grouped.upcoming,
+...grouped.past]
+}

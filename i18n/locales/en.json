@@ -120,6 +120,10 @@
     "faq": {
       "section_title": "Applications and ranks",
       "section_subtitle": "Answers on the process, requirements, and the Lite rank."
+    },
+    "profile": {
+      "posts": "Posts",
+      "events": "Events"
     }
   },
   "sponsor": {
