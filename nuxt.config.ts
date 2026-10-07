@@ -192,6 +192,23 @@ export default defineNuxtConfig({
         '/ingest/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/__nuxt_content/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/api/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
+        // Renamed team profiles: permanent redirects keep inbound links.
+        '/de/team/selenretterin': { redirect: { to: '/de/team/seelenretterin', statusCode: 301 } },
+        '/en/team/selenretterin': { redirect: { to: '/en/team/seelenretterin', statusCode: 301 } },
+        '/de/team/alex-m': { redirect: { to: '/de/team/mrs_sunday', statusCode: 301 } },
+        '/en/team/alex-m': { redirect: { to: '/en/team/mrs_sunday', statusCode: 301 } },
+        '/de/team/joltra': { redirect: { to: '/de/team/joltras', statusCode: 301 } },
+        '/en/team/joltra': { redirect: { to: '/en/team/joltras', statusCode: 301 } },
+        '/de/team/random': { redirect: { to: '/de/team/3s1', statusCode: 301 } },
+        '/en/team/random': { redirect: { to: '/en/team/3s1', statusCode: 301 } },
+        '/de/team/pega': { redirect: { to: '/de/team/pegasusfieber17', statusCode: 301 } },
+        '/en/team/pega': { redirect: { to: '/en/team/pegasusfieber17', statusCode: 301 } },
+        '/de/team/saynax-jonas': { redirect: { to: '/de/team/saynax', statusCode: 301 } },
+        '/en/team/saynax-jonas': { redirect: { to: '/en/team/saynax', statusCode: 301 } },
+        '/de/team/bavariankingdom': { redirect: { to: '/de/team/morelia0815', statusCode: 301 } },
+        '/en/team/bavariankingdom': { redirect: { to: '/en/team/morelia0815', statusCode: 301 } },
+        '/de/team/b3nny': { redirect: { to: '/de/team/blndr2', statusCode: 301 } },
+        '/en/team/b3nny': { redirect: { to: '/en/team/blndr2', statusCode: 301 } },
     },
 
     vite: {

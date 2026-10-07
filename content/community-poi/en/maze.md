@@ -1,7 +1,7 @@
 ---
 slug: 'maze'
 translationKey: 'maze'
-title: 'Maze by B3nNy'
+title: 'Maze by blndr2'
 summary: 'A walkable maze, currently around 40 % built. A schematic file ships with the project so you can compare the design with the current state.'
 status: 'in-progress'
 progress: 40
@@ -16,8 +16,8 @@ coordinates:
   z: 33
   dimension: 'overworld'
 builders:
-  - name: 'B3nNy'
-    mcName: 'B3nNy'
+  - name: 'blndr2'
+    mcName: 'blndr2'
 thumbnail: '/images/community-poi/labyrinth/cover.webp'
 thumbnailAlt: 'Top-down render of the finished maze layout'
 gallery:
@@ -83,7 +83,7 @@ alternates:
 
 ## What is this?
 
-The maze is B3nNy's personal build — a classic maze with outer walls, inner paths and a few surprises. The contour is done, details are still being added piece by piece.
+The maze is blndr2's personal build — a classic maze with outer walls, inner paths and a few surprises. The contour is done, details are still being added piece by piece.
 
 ## Walk it as you build
 
