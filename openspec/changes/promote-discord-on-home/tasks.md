@@ -25,4 +25,4 @@ Netz (der Abruf wird übergeben), kein Warten, jeder Test baut sein Fixture.
 
 ## 4. Pull Request
 
-- [ ] 4.1 Pull Request mit dem Titel `feat(home): put discord in the foreground of the home page` öffnen (Beschreibung auf Englisch: Zusammenfassung, Begründung, Belege aus 3.2)
+- [x] 4.1 Pull Request mit dem Titel `feat(home): put discord in the foreground of the home page` öffnen (Beschreibung auf Englisch: Zusammenfassung, Begründung, Belege aus 3.2)
