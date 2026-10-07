@@ -246,6 +246,7 @@ describe('project queries', () => {
       'logo',
       'logoAlt',
       'platforms',
+      'publishedAt',
       'releasedAt',
       'slug',
       'status',
@@ -306,6 +307,11 @@ describe('community pois of a project', () => {
     expect(pois.map((poi) => poi.slug)).toEqual(['a'])
     expect(pois[0]).not.toHaveProperty('projects')
     expect(pois[0]).toMatchObject({ galleryCount: 0, schematicCount: 0 })
+  })
+
+  it('selects publishedAt on every poi list, for the home highlights', async () => {
+    await adapter().listCommunityPois('en')
+    expect(selected()).toContain('publishedAt')
   })
 
   it('selects the card projection plus the projects column', async () => {

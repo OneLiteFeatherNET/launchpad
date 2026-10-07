@@ -289,6 +289,9 @@ const communityPoiSchema = withI18nMeta(z.object({
         }))
       .optional(),
     startedAt: z.coerce.date().optional(),
+    // Day the entry appeared on this site (not when building began); drives
+    // "new" on the home carousel. Unset means never new.
+    publishedAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
     forumUrl: z.string().url().optional(),
     // Defaults to true: a POI is community-contributable unless it explicitly
@@ -315,6 +318,8 @@ const projectsSchema = withI18nMeta(z.object({
     logoAlt: z.string().optional(),
     // Date of the first stable release, not of the latest version.
     releasedAt: z.coerce.date().optional(),
+    // Day the entry appeared on this site; drives "new" on the home carousel.
+    publishedAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
     platforms: z.array(z.string()).optional(),
     license: z.string().optional(),

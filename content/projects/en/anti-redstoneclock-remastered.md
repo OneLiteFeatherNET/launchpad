@@ -5,6 +5,7 @@ title: 'Anti-RedstoneClock Remastered'
 summary: 'A Paper plugin that detects redstone clocks, alerts staff in game, on Discord or in the console, and can optionally disable or destroy them.'
 status: 'active'
 releasedAt: '2024-01-30'
+publishedAt: '2026-10-07'
 updatedAt: '2026-10-07'
 platforms:
   - 'Paper'

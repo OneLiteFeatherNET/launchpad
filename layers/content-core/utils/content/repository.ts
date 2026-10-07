@@ -131,6 +131,7 @@ export type CommunityPoiDocument = (
     setupNotes?: string
   }[]
   startedAt?: string | Date
+  publishedAt?: string | Date
   updatedAt?: string | Date
   forumUrl?: string
   acceptsContributions?: boolean
@@ -169,6 +170,7 @@ export type ProjectSummary = Pick<
   | 'logo'
   | 'logoAlt'
   | 'releasedAt'
+  | 'publishedAt'
   | 'platforms'
   | 'license'
 >
@@ -216,6 +218,7 @@ export type CommunityPoiSummary = Pick<
   | 'acceptsContributions'
   | 'builders'
   | 'startedAt'
+  | 'publishedAt'
   | 'updatedAt'
 > & {
   galleryCount: number

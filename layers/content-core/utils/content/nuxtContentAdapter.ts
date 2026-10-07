@@ -54,6 +54,7 @@ function communityPoiSummaries(query: CommunityPoiQuery, ...extra: ('projects')[
     'acceptsContributions',
     'builders',
     'startedAt',
+    'publishedAt',
     'updatedAt',
     'gallery',
     'schematics'
@@ -68,6 +69,7 @@ const PROJECT_CARD_FIELDS = [
   'logo',
   'logoAlt',
   'releasedAt',
+  'publishedAt',
   'platforms',
   'license'
 ] as const
