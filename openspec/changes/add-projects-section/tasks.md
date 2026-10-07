@@ -40,8 +40,8 @@ kein Netz, kein Warten, jeder Test baut sein eigenes Fixture.
 
 ## 6. Gesamtprüfung
 
-- [ ] 6.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
-- [ ] 6.2 `pnpm preview`: `/de/projects`, `/en/projects` und beide ARCR-Detailseiten antworten mit 200, genau ein Canonical ohne Schrägstrich, hreflang auf die Übersetzung, Links auf Dokumentation und Quellcode; ein unbekannter Slug antwortet mit 404; die Sitemap listet die Detailseiten; die Navigation trägt den Eintrag; mit vorübergehendem `projects: [anti-redstoneclock-remastered]` an einem POI zeigen beide Richtungen die Verknüpfung (danach zurückgesetzt, nicht committet)
+- [x] 6.1 `pnpm test`, `pnpm typecheck`, `pnpm quality` (Baseline nicht erhöht) und `pnpm build` laufen grün
+- [x] 6.2 `pnpm preview`: `/de/projects`, `/en/projects` und beide ARCR-Detailseiten antworten mit 200, genau ein Canonical ohne Schrägstrich, hreflang auf die Übersetzung, Links auf Dokumentation und Quellcode; ein unbekannter Slug antwortet mit 404; die Sitemap listet die Detailseiten; die Navigation trägt den Eintrag; mit vorübergehendem `projects: [anti-redstoneclock-remastered]` an einem POI zeigen beide Richtungen die Verknüpfung (danach zurückgesetzt, nicht committet)
 
 ## 7. Pull Request
 
