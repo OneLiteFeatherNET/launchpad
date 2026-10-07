@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.12.0...onelitefeather.net-v1.13.0) (2026-10-07)
+
+
+### Features
+
+* **navigation:** group the main navigation under team, blog, community and more ([#437](https://github.com/OneLiteFeatherNET/launchpad/issues/437)) ([5234f8d](https://github.com/OneLiteFeatherNET/launchpad/commit/5234f8dbb2c512a1e9d15f929a8113f065364e43))
+
 ## [1.12.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.11.0...onelitefeather.net-v1.12.0) (2026-10-07)
 
 
