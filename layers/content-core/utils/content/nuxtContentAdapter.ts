@@ -208,6 +208,7 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
           'thumbnail',
           'thumbnailAlt',
           'unlisted',
+          'hosts',
           'event',
           'access',
           'promote',

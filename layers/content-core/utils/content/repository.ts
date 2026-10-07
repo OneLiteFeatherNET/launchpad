@@ -157,6 +157,7 @@ export type EventSummary = Pick<
   | 'thumbnail'
   | 'thumbnailAlt'
   | 'unlisted'
+  | 'hosts'
   | 'event'
   | 'access'
   | 'promote'

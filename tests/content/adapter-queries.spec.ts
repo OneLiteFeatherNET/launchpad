@@ -85,7 +85,8 @@ describe('event list', () => {
 'unlisted',
 'promote',
 'access',
-'results']) {
+'results',
+'hosts']) {
       expect(selected(), `missing ${field}`).toContain(field)
     }
   })
