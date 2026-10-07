@@ -3,24 +3,10 @@ import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale } from '#layers/content-core'
 import type { BlogArticle, BlogAlternateHeader, Person } from '../types'
 
-const normalizeReleaseDate = (entry: BlogArticle): Date | null => {
-  // `releaseDate` and `pubDate` are schema columns now, so both arrive as
-  // the coerced value @nuxt/content stores rather than a hand-typed union.
-  const raw = entry.releaseDate ?? entry.pubDate
-  if (!raw) return null
-  const parsed = new Date(raw)
-  return Number.isNaN(parsed.getTime()) ? null : parsed
-}
+const releaseTimestamp = (entry: BlogArticle): number => releaseTimeOf(entry) ?? 0
 
-const releaseTimestamp = (entry: BlogArticle): number =>
-  normalizeReleaseDate(entry)?.getTime() ?? 0
-
-const isReleased = (entry: BlogArticle | null | undefined): entry is BlogArticle => {
-  if (!entry) return false
-  const release = normalizeReleaseDate(entry)
-  if (!release) return true
-  return release.getTime() <= Date.now()
-}
+const isReleased = (entry: BlogArticle | null | undefined): entry is BlogArticle =>
+  Boolean(entry) && isReleasedAt(entry as BlogArticle, new Date())
 
 const normalizeLocales = (list: unknown[]): LocaleObject[] =>
   list

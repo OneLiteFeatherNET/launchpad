@@ -42,24 +42,27 @@ beforeEach(() => {
   repo.getTeamDocument.mockResolvedValue({
     members: [{ id: 't', name: 'Team Person', slug: 'tp' }]
   })
-  repo.listAuthorsBySlugs.mockImplementation(async (slugs: string[]) =>
-    [...slugs].reverse().filter((slug) => slug !== 'ghost').map(profile))
+  repo.listAuthorsBySlugs.mockImplementation(async (slugs: string[]) => [...slugs].reverse().filter((slug) => slug !== 'ghost').map(profile))
 })
 
 describe('blog article authors', () => {
   it('reads the external authors with a single query', async () => {
-    repo.getBlogArticleBySlug.mockImplementation(async () => article(['b', 'a', 'c']))
+    repo.getBlogArticleBySlug.mockImplementation(async () => article(['b',
+'a',
+'c']))
     await open()
     expect(repo.listAuthorsBySlugs).toHaveBeenCalledTimes(1)
-    expect(repo.listAuthorsBySlugs).toHaveBeenCalledWith(['b', 'a', 'c'])
+    expect(repo.listAuthorsBySlugs).toHaveBeenCalledWith(['b',
+'a',
+'c'])
   })
 
   it('keeps the order of the frontmatter', async () => {
-    repo.getBlogArticleBySlug.mockImplementation(async () => article(['b', 'a', 'c']))
+    repo.getBlogArticleBySlug.mockImplementation(async () => article(['b',
+'a',
+'c']))
     const wrapper = await open()
-    expect(wrapper.text()).toBe(
-      'B>/en/blog/author/b,A>/en/blog/author/a,C>/en/blog/author/c'
-    )
+    expect(wrapper.text()).toBe('B>/en/blog/author/b,A>/en/blog/author/a,C>/en/blog/author/c')
   })
 
   it('links a team author to the team profile in the page locale', async () => {
