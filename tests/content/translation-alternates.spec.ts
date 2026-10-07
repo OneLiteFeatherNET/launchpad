@@ -19,6 +19,7 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
 const SITE = 'https://onelitefeather.net'
 const COLLECTIONS = [
   { dir: 'content/blog', route: 'blog' }, { dir: 'content/community-poi', route: 'community-poi' },
+  { dir: 'content/projects', route: 'projects' },
 ]
 
 type Alternate = { hreflang: string, href: string }
