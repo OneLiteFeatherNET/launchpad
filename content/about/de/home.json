@@ -1,0 +1,32 @@
+{
+  "key": "about",
+  "who": "OneLiteFeather ist ein Minecraft-Netzwerk, das von seiner Community lebt – und von Menschen, die gerne bauen, spielen und entwickeln. 2021 als OneLiteFeather gegründet, wachsen wir seitdem Stück für Stück: mit eigenen Spielmodi, Gemeinschaftsbauten und Software, die wir offen teilen.",
+  "pillars": [
+    {
+      "icon": "cube",
+      "title": "Gemeinsam bauen",
+      "text": "Bauwerke wie Yggdrasil oder das Labyrinth entstehen in der Community. Die Schematics stellen wir zum Nachbauen bereit.",
+      "to": "/community-poi"
+    },
+    {
+      "icon": "code",
+      "title": "Selbst entwickelt, offen geteilt",
+      "text": "Plugins wie Anti-RedstoneClock Remastered und Projekte wie Otis veröffentlichen wir als Open Source – davon profitieren auch andere Server.",
+      "to": "/projects"
+    },
+    {
+      "icon": "calendar-days",
+      "title": "Events mit eigener Handschrift",
+      "text": "Von Bau-Events bis zu eigenen Modi wie Slender, den wir 2023 nach Minecraft gebracht haben.",
+      "to": "/events"
+    },
+    {
+      "icon": "server",
+      "title": "Technik, die hält",
+      "text": "Wir betreiben unsere Infrastruktur selbst und schreiben offen darüber – etwa im Blog über Cluster-Resilienz und Automatisierung.",
+      "to": "/blog"
+    }
+  ],
+  "work": "Kein Pay-to-Win. Wir finanzieren uns über freiwillige Spenden auf OpenCollective – jede Einnahme und Ausgabe ist dort öffentlich einsehbar. Wer uns unterstützt, bekommt den Lite-Rang als Dankeschön, aber keinen spielerischen Vorteil.",
+  "join": "Komm auf den Server, schau im Discord vorbei oder bewirb dich im Team – wir suchen immer Menschen, die Lust haben, etwas aufzubauen."
+}

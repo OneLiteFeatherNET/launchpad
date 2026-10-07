@@ -5,6 +5,8 @@ import type {
   BlogEnCollectionItem,
   TeamDeCollectionItem,
   TeamEnCollectionItem,
+  AboutDeCollectionItem,
+  AboutEnCollectionItem,
   ServerConceptDeCollectionItem,
   ServerConceptEnCollectionItem,
   ServerConnectDeCollectionItem,
@@ -50,6 +52,9 @@ export type TeamDocument = TeamDeCollectionItem | TeamEnCollectionItem
  * `ServerConceptPoint` shape from it.
  */
 export type ServerConceptDocument = ServerConceptDeCollectionItem | ServerConceptEnCollectionItem
+
+/** Shape of the `about` collection document, as @nuxt/content generates it. */
+export type AboutDocument = AboutDeCollectionItem | AboutEnCollectionItem
 
 /**
  * Shape of the `server_connect` collection document, as @nuxt/content
@@ -334,6 +339,7 @@ export interface ContentRepository {
 
   // --- Home -----------------------------------------------------------------
   getServerConcept(locale: Locale): Promise<ServerConceptDocument | null>
+  getAboutDocument(locale: Locale): Promise<AboutDocument | null>
   getServerConnect(locale: Locale): Promise<ServerConnectDocument | null>
   getHomeCarousel(locale: Locale): Promise<HomeCarouselDocument | null>
 

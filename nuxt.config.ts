@@ -53,7 +53,7 @@ export default defineNuxtConfig({
             url: 'http://localhost:3000',
             logo: '/images/logo.svg',
             email: 'contact@onelitefeather.net',
-            foundingDate: '2019-09-01',
+            foundingDate: '2021',
             numberOfEmployees: {
                 '@type': 'QuantitativeValue',
                 'minValue': 1,

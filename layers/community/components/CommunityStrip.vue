@@ -17,7 +17,7 @@ const panelClass
 <template>
   <section class="mx-auto max-w-6xl px-4 py-8 md:py-10" aria-labelledby="community-strip-title">
     <div :class="panelClass">
-      <div class="min-w-0">
+      <div class="min-w-0 md:flex-1">
         <h2 id="community-strip-title" class="text-title-large font-bold text-on-surface">
           {{ t('community.strip.title') }}
         </h2>

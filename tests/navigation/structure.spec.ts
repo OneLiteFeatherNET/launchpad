@@ -73,12 +73,14 @@ describe('main navigation structure', () => {
 'projects'])
   })
 
-  it.each(VARIANTS)('holds bluemap and status under more: $name', ({ eventsTopLevel }) => {
+  it.each(VARIANTS)('holds about, bluemap and status under more: $name', ({ eventsTopLevel }) => {
     const children = childrenOf(buildNavConfig({ eventsTopLevel }), 'navigation.more')
     expect(children.map(child => child.routeName ?? child.path)).toEqual([
-      'bluemap', 'https://status.onelitefeather.net'
+      'about',
+'bluemap',
+'https://status.onelitefeather.net'
     ])
-    expect(children[1]?.external).toBe(true)
+    expect(children[2]?.external).toBe(true)
   })
 
   it('links the play call to action to the connect section of the home page', () => {
@@ -95,6 +97,7 @@ describe('main navigation structure', () => {
       'events',
       'projects',
       'community',
+      'about',
       'bluemap',
       'index',
       'https://status.onelitefeather.net'
@@ -130,6 +133,7 @@ describe('main navigation structure', () => {
       'builds',
       'home_link',
       'community_overview',
+      'about',
       'play'
     ]
     for (const key of keys) {

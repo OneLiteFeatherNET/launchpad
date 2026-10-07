@@ -175,6 +175,25 @@ const serverConceptSchema = z
   })
   .passthrough()
 
+const aboutSchema = z
+  .object({
+    key: z.string().optional(),
+    who: z.string(),
+    pillars: z
+      .array(z
+          .object({
+            icon: z.string(),
+            title: z.string(),
+            text: z.string(),
+            to: z.string()
+          })
+          .passthrough())
+      .default([]),
+    work: z.string(),
+    join: z.string()
+  })
+  .passthrough()
+
 const sponsorsSchema = z
   .object({
     key: z.string().optional(),
@@ -559,6 +578,11 @@ export default defineContentConfig({
       type: 'data',
       source: `server-concept/${locale}/home.json`,
       schema: serverConceptSchema
+    })),
+    ...defineLocalizedCollections('about', (locale) => ({
+      type: 'data',
+      source: `about/${locale}/home.json`,
+      schema: aboutSchema
     })),
     ...defineLocalizedCollections('sponsors', (locale) => ({
       type: 'data',

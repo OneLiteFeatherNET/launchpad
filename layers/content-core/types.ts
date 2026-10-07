@@ -14,6 +14,7 @@ export type {
   BlogArticle,
   BlogAuthorProfile,
   BlogAlternateHeader,
+  AboutDocument,
   ServerConceptDocument,
   ServerConnectDocument,
   HomeCarouselDocument,

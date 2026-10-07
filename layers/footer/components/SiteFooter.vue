@@ -87,7 +87,7 @@ const copyrightClass
           </h4>
           <ul class="space-y-3">
             <li>
-              <NuxtLinkLocale to="/community" :class="linkClass">
+              <NuxtLinkLocale to="/about" :class="linkClass">
                 {{ t('footer.organization.about') }}
               </NuxtLinkLocale>
             </li>
