@@ -1,4 +1,8 @@
-import type { TeamMember } from '../types'
+interface AvatarSource {
+  mcName?: string
+  slug?: string
+  avatarUrl?: string
+}
 
 /**
  * Source host for Minecraft head renders. Must be allow-listed in
@@ -17,7 +21,7 @@ const FALLBACK_MC_NAME = 'Steve'
  * head for unknown names, which keeps the layout intact for the few slugs
  * that aren't valid usernames.
  */
-export function mcUsernameOf(member: Pick<TeamMember, 'mcName' | 'slug'>): string {
+export function mcUsernameOf(member: Pick<AvatarSource, 'mcName' | 'slug'>): string {
   return member.mcName || member.slug || FALLBACK_MC_NAME
 }
 
@@ -30,7 +34,7 @@ export function mcUsernameOf(member: Pick<TeamMember, 'mcName' | 'slug'>): strin
  * size needed; `NuxtImg`'s `sizes`/density handles smaller variants.
  */
 export function teamAvatarUrl(
-  member: Pick<TeamMember, 'mcName' | 'slug' | 'avatarUrl'>,
+  member: AvatarSource,
   size = 128
 ): string {
   if (member.avatarUrl) return member.avatarUrl

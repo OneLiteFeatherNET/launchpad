@@ -7,15 +7,15 @@ folgen Conventional Commits (`feat(content): …`, bei Bedarf `feat(blog)`,
 treiben. Tests folgen F.I.R.S.T.: feste Zeitpunkte statt Systemzeit, kein
 Warten, jeder Test baut sein eigenes Fixture.
 
-Vor Beginn: Offene Frage 3 in `design.md` (Avatar-Helfer) entscheiden lassen; die Fragen 1, 2 und 4 sind entschieden.
+Die offenen Fragen 1 bis 4 in `design.md` sind entschieden.
 
 ## 1. Resolver in content-core
 
-- [ ] 1.1 `tests/content-core/person.spec.ts` schreiben: `resolvePersonFrom` liefert für einen Roster-Slug `kind: 'team'` und `profilePath` `/de/team/<slug>`, für einen externen Slug `kind: 'external'` und `/de/blog/author/<slug>`, bei Kollision das Team-Mitglied, bei unbekanntem Slug `null` ohne Wurf, ignoriert `openPosition`-Einträge; rot sehen; verifiziert durch `pnpm exec vitest run tests/content-core/person.spec.ts`
-- [ ] 1.2 `layers/content-core/utils/content/person.ts` (reine Funktion und Typ `Person`, nur Typimporte) umsetzen; verifiziert durch grüne Tests aus 1.1
-- [ ] 1.3 Avatar-Helfer für Team-Mitglieder nach Entscheidung zu offener Frage 3 aus `layers/team/utils/teamAvatar.ts` zugänglich machen (bestehende Tests unter `tests/` mitziehen); verifiziert durch `pnpm exec vitest run tests/architecture`
-- [ ] 1.4 `usePeople(slugs)` und `resolvePerson(slug, locale)` in `layers/content-core/composables/` mit `useContentRepository()` (`getTeamDocument`, `listAuthorsBySlugs`); Composable-Test im `nuxt`-Umfeld mit `mockNuxtImport('useContentRepository', …)` und fester Repository-Attrappe; verifiziert durch `pnpm exec vitest run tests/content-core`
-- [ ] 1.5 `layers/content-core/index.ts` um die Wertexporte und `export type { Person }` ergänzen; verifiziert durch `pnpm exec vitest run tests/architecture` und `pnpm build` (Client-Bundle-Regel aus AGENTS.md)
+- [x] 1.1 `tests/content-core/person.spec.ts` schreiben: `resolvePersonFrom` liefert für einen Roster-Slug `kind: 'team'` und `profilePath` `/de/team/<slug>`, für einen externen Slug `kind: 'external'` und `/de/blog/author/<slug>`, bei Kollision das Team-Mitglied, bei unbekanntem Slug `null` ohne Wurf, ignoriert `openPosition`-Einträge; rot sehen; verifiziert durch `pnpm exec vitest run tests/content-core/person.spec.ts`
+- [x] 1.2 `layers/content-core/utils/content/person.ts` (reine Funktion und Typ `Person`, nur Typimporte) umsetzen; verifiziert durch grüne Tests aus 1.1
+- [x] 1.3 `teamAvatarUrl` und `mcUsernameOf` von `layers/team/utils/teamAvatar.ts` nach `layers/content-core/utils/teamAvatar.ts` verschieben (offene Frage 3); `layers/team` importiert sie von dort, bestehende Tests mitziehen; verifiziert durch `pnpm exec vitest run tests/architecture`
+- [x] 1.4 `usePeople(slugs)` und `resolvePerson(slug, locale)` in `layers/content-core/composables/` mit `useContentRepository()` (`getTeamDocument`, `listAuthorsBySlugs`); Composable-Test im `nuxt`-Umfeld mit `mockNuxtImport('useContentRepository', …)` und fester Repository-Attrappe; verifiziert durch `pnpm exec vitest run tests/content-core`
+- [x] 1.5 `layers/content-core/index.ts` um die Wertexporte und `export type { Person }` ergänzen; verifiziert durch `pnpm exec vitest run tests/architecture` und `pnpm build` (Client-Bundle-Regel aus AGENTS.md)
 
 ## 2. Schema und Inhaltsprüfung
 
@@ -44,8 +44,8 @@ Vor Beginn: Offene Frage 3 in `design.md` (Avatar-Helfer) entscheiden lassen; di
 
 ## 5. Team-Profil: Beiträge und Events
 
-- [ ] 5.1 `tests/blog/posts-by-author.spec.ts`: reine Funktion liefert freigegebene Artikel mit Slug in `author` (String und Liste), neueste zuerst, ohne zukünftige `releaseDate`, mit festem `now`; rot sehen
-- [ ] 5.2 `useBlogPostsByAuthor(slug)` in `layers/blog/composables/` und `AuthorPostList` in `layers/blog/components/` umsetzen; verifiziert durch grüne Tests aus 5.1
+- [ ] 5.1 `tests/shared/blogAuthors.spec.ts` (aus 4.5) um die Profil-Beiträge erweitern: die reinen Funktionen liefern freigegebene Artikel mit Slug in `author` (String und Liste), neueste zuerst, ohne zukünftige `releaseDate`, mit festem `now`; rot sehen. Keine zweite Filterfunktion: 4.5 und `useBlogPostsByAuthor` aus 4.6 werden wiederverwendet
+- [ ] 5.2 `AuthorPostList` in `layers/blog/components/` (Titel als Link, Veröffentlichungsdatum) mit Komponententest; sie nutzt `useBlogPostsByAuthor` aus 4.6; verifiziert durch `pnpm exec vitest run tests/shared tests/blog`
 - [ ] 5.3 `tests/events/events-by-host.spec.ts`: reine Funktion in `layers/events/utils/eventLists.ts` liefert gelistete Events mit Slug in `hosts` je Phase, schließt `unlisted` und verborgene Events aus, mit festem `now`; rot sehen
 - [ ] 5.4 `useEventsByHost(slug)` in `layers/events/composables/useEvents.ts` (Phase im `useAsyncData`-Handler, in der Nutzlast übertragen) und `HostedEventList` in `layers/events/components/` umsetzen; verifiziert durch grüne Tests aus 5.3 und `tests/events/phase-on-server.spec.ts`
 - [ ] 5.5 `pages/team/[slug].vue` setzt `AuthorPostList` und `HostedEventList` zusammen, beide nur bei Treffern; `layers/team` bleibt unverändert; i18n `team.profile.posts` und `team.profile.events` in `de` und `en`; verifiziert durch `pnpm exec vitest run tests/architecture tests/seo/team-thin-profiles.spec.ts tests/i18n` (Hinweis: `isThinTeamProfile` zählt Beiträge nicht mit; ob ein Profil mit Beiträgen nicht mehr als dünn gilt, ist ein eigener Entscheid und wird hier nicht geändert)

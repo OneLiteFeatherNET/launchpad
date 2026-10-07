@@ -82,10 +82,8 @@ D1-Migration wäre nötig.
 
 Die Auflösung prüft `members` des Roster-Dokuments der aktiven Sprache
 (`openPosition`-Einträge ausgenommen), danach die externen Autoren. Das
-Mapping `Mitglied → Person` nutzt `teamAvatarUrl` nicht selbst (das liegt im
-Team-Layer), sondern `avatarUrl` bzw. den `mc-heads.net`-Kopf aus `mcName`
-oder `slug`; der Avatar-Helfer wird dazu in `content-core` verfügbar gemacht
-(offene Frage 3). `profilePath` ist `/<locale>/team/<slug>` oder
+Mapping `Mitglied → Person` nutzt `teamAvatarUrl`, das dazu nach
+`content-core` zieht (offene Frage 3). `profilePath` ist `/<locale>/team/<slug>` oder
 `/<locale>/blog/author/<slug>`.
 
 Die Inhaltsprüfung (`tests/content/person-slugs.spec.ts`) liest
@@ -219,11 +217,11 @@ verschwindet damit.
    statt `?author=` (D3). Gründe: `request-independent-render.spec.ts`
    verlangt, dass kein Render die Query liest, und jede Query wäre ein
    eigener Edge-Cache-Eintrag. Der Test bleibt unverändert.
-3. **Avatar-Helfer.** `teamAvatarUrl` liegt in `layers/team/utils/teamAvatar.ts`.
-   `content-core` darf `team` nicht importieren. Vorschlag: Funktion nach
-   `shared/utils/` (oberste Ebene) oder in `content-core` verschieben und
-   vom Team-Layer wiederverwenden. Entscheidung bei der Umsetzung, Test
-   `tests/team/…` mitziehen.
+3. **Aufgelöst: Avatar-Helfer.** `teamAvatarUrl` und `mcUsernameOf` ziehen
+   von `layers/team/utils/teamAvatar.ts` nach
+   `layers/content-core/utils/teamAvatar.ts` (strukturelle Parameter statt des
+   Team-Typs); `layers/team` nutzt sie über den Auto-Import. Außerhalb des
+   Layers nutzte niemand den Export aus `layers/team/index.ts`; er entfällt.
 4. **Aufgelöst: `schemaOrg.author.name`.** Bleibt in den Artikeln
    unverändert („Phillipp Glanz“); eine Angleichung an die Byline wäre ein
    eigener Change.
