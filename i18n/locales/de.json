@@ -82,6 +82,14 @@
     "title": "Startseite",
     "carousel_aria": "Startseiten-Highlight-Karussell"
   },
+  "home": {
+    "discord": {
+      "title": "Mitreden auf unserem Discord",
+      "pitch": "Lerne die Community kennen, finde Mitspieler und erfahre als Erste von Events und Neuerungen.",
+      "members": "{count} Mitglieder sind schon dabei",
+      "cta": "Discord beitreten"
+    }
+  },
   "bluemap": {
     "title": "BlueMap",
     "description": "Interaktive BlueMap-Karte des OneLiteFeather Minecraft-Servers."
