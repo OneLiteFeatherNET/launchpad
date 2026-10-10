@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.17.0...onelitefeather.net-v1.17.1) (2026-10-10)
+
+
+### Bug Fixes
+
+* **projects:** link falco's new documentation ([#463](https://github.com/OneLiteFeatherNET/launchpad/issues/463)) ([f04fddc](https://github.com/OneLiteFeatherNET/launchpad/commit/f04fddc4e6c94c2ed49aab12204c40b8ac948419))
+
 ## [1.17.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.16.0...onelitefeather.net-v1.17.0) (2026-10-10)
 
 
