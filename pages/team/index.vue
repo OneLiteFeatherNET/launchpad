@@ -42,7 +42,7 @@ useSchemaOrg(computed(() => {
         position: index + 1,
         url: m.slug
           ? personProfileUrl(site.url, locale.value, m.slug)
-          : new URL(`/${locale.value}/team/`, site.url).toString(),
+          : new URL(`/${locale.value}/team`, site.url).toString(),
         name: m.name
       }))
     }

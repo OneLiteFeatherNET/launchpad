@@ -29,7 +29,7 @@ usePageSeo({
 
 useBreadcrumbs(() => [
   { name: t('navigation.home'), url: `/${locale.value}` },
-  { name: t('community_poi.overview.title'), url: `/${locale.value}/community-poi/` },
+  { name: t('community_poi.overview.title'), url: `/${locale.value}/community-poi` },
   { name: title.value }
 ])
 
@@ -99,7 +99,7 @@ const progressSectionClass = 'rounded-large bg-surface-container-low p-5'
     <article v-if="poi" class="space-y-8">
       <header class="space-y-4">
         <p class="text-sm">
-          <NuxtLink :to="`/${locale}/community-poi/`" :class="backLinkClass">
+          <NuxtLink :to="`/${locale}/community-poi`" :class="backLinkClass">
             ← {{ t('community_poi.detail.back') }}
           </NuxtLink>
         </p>

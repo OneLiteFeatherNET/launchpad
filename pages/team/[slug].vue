@@ -99,7 +99,7 @@ useSchemaOrg(computed(() => {
   if (!member.value) return []
   const profileUrl = member.value.slug
     ? personProfileUrl(site.url, locale.value, member.value.slug)
-    : new URL(`/${locale.value}/team/`, site.url).toString()
+    : new URL(`/${locale.value}/team`, site.url).toString()
   const avatar = avatarSrc.value?.startsWith('http')
     ? avatarSrc.value
     : new URL(avatarSrc.value || '/favicon.svg', site.url).toString()
