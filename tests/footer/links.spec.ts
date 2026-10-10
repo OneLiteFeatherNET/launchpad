@@ -41,6 +41,13 @@ describe('SiteFooter links', () => {
     expect(hrefs).toContain('/de/about')
   })
 
+  it('links the official YouTube, TikTok and Instagram profiles', async () => {
+    const hrefs = (await open('/de')).map((a) => a.attributes('href'))
+    expect(hrefs).toContain('https://www.youtube.com/channel/UCfPUI5tvNVWJeJ-t93fdj0g')
+    expect(hrefs).toContain('https://www.tiktok.com/@onelitefeather.net')
+    expect(hrefs).toContain('https://www.instagram.com/onelitefeather/')
+  })
+
   it('localises the about link', async () => {
     const hrefs = (await open('/en')).map((a) => a.attributes('href'))
     expect(hrefs).toContain('/en/about')

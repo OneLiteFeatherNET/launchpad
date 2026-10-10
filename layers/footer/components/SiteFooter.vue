@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from '#imports'
 import { useI18n } from 'vue-i18n'
-import { faFacebook, faGithub, faLinkedin, faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faGithub, faInstagram, faLinkedin, faTiktok, faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons'
 const { t } = useI18n()
 const appConfig = useAppConfig()
 const { discordUrl } = useRuntimeConfig().public
@@ -12,7 +12,17 @@ const versionLabel = computed(() =>
 
 const socialLinks = [
   { href: 'https://twitch.tv/onelitefeathernet', icon: faTwitch, labelKey: 'social.twitch' },
-  { href: 'https://youtube.com/onelitefeathernet', icon: faYoutube, labelKey: 'social.youtube' },
+  {
+    href: 'https://www.youtube.com/channel/UCfPUI5tvNVWJeJ-t93fdj0g',
+    icon: faYoutube,
+    labelKey: 'social.youtube',
+  },
+  { href: 'https://www.tiktok.com/@onelitefeather.net', icon: faTiktok, labelKey: 'social.tiktok' },
+  {
+    href: 'https://www.instagram.com/onelitefeather/',
+    icon: faInstagram,
+    labelKey: 'social.instagram',
+  },
   { href: 'https://facebook.com/onelitefeathernet', icon: faFacebook, labelKey: 'social.facebook' },
   {
     href: 'https://linkedin.com/company/onelitefeathernet',
