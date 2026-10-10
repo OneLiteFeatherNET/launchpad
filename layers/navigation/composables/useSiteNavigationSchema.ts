@@ -1,4 +1,4 @@
-import { navConfig, type NavConfigEntry, type NavLinkConfig } from '../navItems'
+import { buildNavConfig, playLink, type NavConfigEntry, type NavLinkConfig } from '../navItems'
 
 /**
  * Emits a `SiteNavigationElement[]` JSON-LD payload describing the main
@@ -7,7 +7,7 @@ import { navConfig, type NavConfigEntry, type NavLinkConfig } from '../navItems'
  * entries (e.g. "More") are flattened so each reachable destination shows
  * up as an own element.
  */
-export function useSiteNavigationSchema() {
+export function useSiteNavigationSchema(eventsTopLevel: MaybeRefOrGetter<boolean> = false) {
   const { t, locale } = useI18n()
   const localePath = useLocalePath()
   const site = useSiteConfig()
@@ -40,7 +40,7 @@ export function useSiteNavigationSchema() {
   }
 
   const elements = computed(() => {
-    return flatten(navConfig)
+    return flatten([playLink, ...buildNavConfig({ eventsTopLevel: toValue(eventsTopLevel) })])
       .map((link) => {
         const url = resolveUrl(link)
         if (!url) return null
@@ -53,5 +53,5 @@ export function useSiteNavigationSchema() {
       .filter(<T>(v: T | null): v is T => v !== null)
   })
 
-  useSchemaOrg(() => elements.value)
+  useSchemaOrg(computed(() => elements.value))
 }

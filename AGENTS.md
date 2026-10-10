@@ -2,8 +2,8 @@
 
 ## Project Structure & Module Organization
 - `layers/<domain>/`: one Nuxt layer per domain — `base`, `content-core`,
-  `blog`, `community-poi`, `events`, `team`, `home`, `sponsoring`,
-  `opencollective`, `navigation`, `footer`, `season`. Each holds its own `components/`, `composables/`,
+  `blog`, `community-poi`, `community`, `about`, `events`, `projects`, `team`, `home`, `sponsoring`,
+  `opencollective`, `navigation`, `footer`, `consent`, `season`. Each holds its own `components/`, `composables/`,
   `utils/`, `types.ts` and an `index.ts` that is its public surface.
 - `pages/`, `layouts/`, `app.vue`: the orchestrator. These know every layer and
   are the only place allowed to combine two domains.
@@ -276,6 +276,10 @@ hits against production with
 Cloudflare Workers Builds deploys the `launchpad` Worker. Its configuration
 lives in the dashboard, not in this repository, so this is the record of what
 it must be:
+
+- **The D1 database `launchpad-weur` lives in WEUR on purpose** — the earlier
+  WNAM primary cost ~190 ms per query from Europe. @nuxt/content refills an
+  empty database from the build's dumps on first query.
 
 - **Production branch `main`, deploy command `npx wrangler deploy`.** A check
   run on a `main` commit that reports a "Preview Alias URL" means `main` is

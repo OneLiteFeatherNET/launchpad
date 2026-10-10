@@ -1,5 +1,5 @@
-import type { EventAccessMode, EventDocument, EventPhase, EventType } from '../types'
-import { eventPhaseAt, isPromotedAt } from '#shared/utils/eventPhase'
+import type { EventAccessMode, EventPhase, EventSummary, EventType } from '../types'
+import { eventPhaseAt, isEventListedAt, isPromotedAt } from '#shared/utils/eventPhase'
 import { eventDetailPath } from '#shared/utils/eventRoutes'
 
 /**
@@ -16,6 +16,7 @@ export interface EventCardData {
   accessMode: EventAccessMode
   startsAt: string
   endsAt?: string
+  announcedAt?: string
   thumbnail?: string
   thumbnailAlt?: string
   path: string
@@ -37,12 +38,12 @@ export const MAX_PROMOTED_EVENTS = 2
 const time = (value: string | undefined) => (value ? Date.parse(value) : Number.NaN)
 
 /** Name of the lowest placement number, if any. */
-function winnerOf(doc: EventDocument): string | undefined {
+function winnerOf(doc: EventSummary): string | undefined {
   const placements = doc.results?.placements ?? []
   return [...placements].sort((a, b) => a.place - b.place)[0]?.name
 }
 
-export function toEventCard(doc: EventDocument, locale: string, now: Date): EventCardData {
+export function toEventCard(doc: EventSummary, locale: string, now: Date): EventCardData {
   const phase = eventPhaseAt(doc.event, now)
   return {
     slug: doc.slug,
@@ -53,6 +54,7 @@ export function toEventCard(doc: EventDocument, locale: string, now: Date): Even
     accessMode: doc.access?.mode ?? 'open',
     startsAt: doc.event.startsAt,
     endsAt: doc.event.endsAt,
+    announcedAt: doc.event.announceAt,
     thumbnail: doc.thumbnail,
     thumbnailAlt: doc.thumbnailAlt,
     path: eventDetailPath(locale, doc.slug),
@@ -63,10 +65,13 @@ export function toEventCard(doc: EventDocument, locale: string, now: Date): Even
 /**
  * The overview's three sections at `now`. Running and announced events are
  * ordered by start, soonest first; past events by end, most recent first
- * (an event without `endsAt` is never past). Hidden events are dropped.
+ * (an event without `endsAt` is never past). Hidden and unlisted events are
+ * dropped.
  */
-export function groupEventsAt(docs: EventDocument[], locale: string, now: Date): GroupedEvents {
-  const cards = docs.map((doc) => toEventCard(doc, locale, now))
+export function groupEventsAt(docs: EventSummary[], locale: string, now: Date): GroupedEvents {
+  const cards = docs
+    .filter((doc) => isEventListedAt(doc.event, doc.unlisted, now))
+    .map((doc) => toEventCard(doc, locale, now))
   const byStart = (a: EventCardData, b: EventCardData) => time(a.startsAt) - time(b.startsAt)
   return {
     now: now.toISOString(),
@@ -80,16 +85,37 @@ export function groupEventsAt(docs: EventDocument[], locale: string, now: Date):
 
 /**
  * The events the home carousel promotes at `now`: inside their promotion
- * window, soonest start first, at most {@link MAX_PROMOTED_EVENTS}.
+ * window, listed, soonest start first, at most {@link MAX_PROMOTED_EVENTS}.
+ * An unlisted event is never promoted, even inside its own promote window —
+ * findability is the same rule everywhere (design.md D2).
  */
 export function promotedEventsAt(
-  docs: EventDocument[],
+  docs: EventSummary[],
   locale: string,
   now: Date
 ): EventCardData[] {
   return docs
-    .filter((doc) => isPromotedAt(doc.event, doc.promote, now))
+    .filter((doc) => (
+      isEventListedAt(doc.event, doc.unlisted, now) && isPromotedAt(doc.event, doc.promote, now)
+    ))
     .map((doc) => toEventCard(doc, locale, now))
     .sort((a, b) => time(a.startsAt) - time(b.startsAt))
     .slice(0, MAX_PROMOTED_EVENTS)
+}
+
+/**
+ * Listed events `slug` hosts at `now`: running first, then announced, then
+ * past. The same visibility rule as the overview, so unlisted and hidden
+ * events never surface on a profile.
+ */
+export function eventsByHostAt(
+  docs: EventSummary[],
+  slug: string,
+  locale: string,
+  now: Date
+): EventCardData[] {
+  const grouped = groupEventsAt(docs.filter((doc) => doc.hosts?.includes(slug)), locale, now)
+  return [...grouped.current,
+...grouped.upcoming,
+...grouped.past]
 }

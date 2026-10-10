@@ -5,6 +5,7 @@ import type {
   NewsSlide,
   EventSlide,
   PoiSlide,
+  ProjectSlide,
   NormalizedSlide,
   LegacyImageSlide
 } from '../types'
@@ -31,6 +32,10 @@ export function normalizeSlide(slide: AnySlide): NormalizedSlide {
   }
   if ((any as PoiSlide).type === 'poi') {
     return any as PoiSlide
+  }
+
+  if ((any as ProjectSlide).type === 'project') {
+    return any as ProjectSlide
   }
 
   // Legacy format: has src/alt but no type
@@ -95,6 +100,13 @@ export function isPoiSlide(slide: NormalizedSlide): slide is PoiSlide {
 }
 
 /**
+ * Type Guard: Checks if a slide is a ProjectSlide
+ */
+export function isProjectSlide(slide: NormalizedSlide): slide is ProjectSlide {
+  return slide.type === 'project'
+}
+
+/**
  * The subset of vue-i18n's `t` these helpers need.
  *
  * Passed in rather than reached for: `useI18n()` is only valid inside setup,
@@ -108,20 +120,11 @@ export type TranslateSlideText = (key: string, named: Record<string, unknown>) =
  * Extracts a label text from a slide for accessibility
  */
 export function getSlideLabel(slide: NormalizedSlide, t: TranslateSlideText): string {
-  switch (slide.type) {
-    case 'image':
-      return slide.alt || t('carousel.image_fallback', {})
-    case 'blog':
-      return slide.title
-    case 'news':
-      return slide.title
-    case 'event':
-      return slide.title
-    case 'poi':
-      return slide.title
-    default:
-      return t('carousel.slide_fallback', {})
-  }
+  if (slide.type === 'image') return slide.alt || t('carousel.image_fallback', {})
+  const title = slide.title || t('carousel.slide_fallback', {})
+  // The marker is part of the label, not only of the visible chip: the live
+  // region and the slide's aria-label are what a screen reader hears.
+  return slide.isNew ? t('carousel.new_label', { title }) : title
 }
 
 /**

@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { createI18n } from 'vue-i18n'
 import CommunityPoiCard from '../../layers/community-poi/components/CommunityPoiCard.vue'
-import type { CommunityPoi } from '../../layers/community-poi/types'
+import type { CommunityPoiSummary } from '../../layers/community-poi/types'
 
 /**
  * The static check in `poi-card-image-fallback.spec.ts` says the wiring is
@@ -22,7 +22,7 @@ const poi = {
   thumbnailAlt: 'Render des Labyrinths',
   status: 'in_progress',
   progress: 40
-} as unknown as CommunityPoi
+} as unknown as CommunityPoiSummary
 
 const stubs = {
   NuxtPicture: { name: 'NuxtPicture', template: '<picture data-test="thumb" />' },

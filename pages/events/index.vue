@@ -24,7 +24,7 @@ useBreadcrumbs(() => [
   { name: t('navigation.home'), url: `/${locale.value}` }, { name: t('events.title') }
 ])
 
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   const list = [...events.value.current,
 ...events.value.upcoming,
 ...events.value.past]
@@ -41,7 +41,7 @@ useSchemaOrg(() => {
       }))
     }
   ]
-})
+}))
 </script>
 
 <template>

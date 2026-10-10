@@ -19,6 +19,7 @@ import EventCard from '../../layers/events/components/EventCard.vue'
 import EventJoinBlock from '../../layers/events/components/EventJoinBlock.vue'
 import EventPhaseChip from '../../layers/events/components/EventPhaseChip.vue'
 import EventSection from '../../layers/events/components/EventSection.vue'
+import EventTestingBlock from '../../layers/events/components/EventTestingBlock.vue'
 import type { EventDocument } from '../../layers/events/types'
 import type { EventCardData } from '../../layers/events/utils/eventLists'
 
@@ -167,6 +168,23 @@ describe('EventJoinBlock', () => {
     })
     expect(wrapper.findAll('li').map((node) => node.text())).toEqual(['Lite-Rang'])
     expect(wrapper.text()).toContain('20 Plätze, Auslosung')
+  })
+})
+
+describe('EventPhaseChip', () => {
+  it('shows the neutral preview label for an unlisted, hidden event', () => {
+    const wrapper = mount(EventPhaseChip, { props: { phase: 'hidden' }, global })
+    expect(wrapper.text()).toBe('Vorschau')
+  })
+})
+
+describe('EventTestingBlock', () => {
+  it('shows the feedback link for a hidden preview, same as announced', () => {
+    const wrapper = mount(EventTestingBlock, {
+      props: { phase: 'hidden', testing: { feedbackUrl: 'https://forms.example/feedback' } },
+      global,
+    })
+    expect(wrapper.get('a[href="https://forms.example/feedback"]').text()).toContain('Feedback melden')
   })
 })
 

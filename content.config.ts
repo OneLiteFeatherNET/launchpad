@@ -17,14 +17,11 @@ const blogSchema = withI18nMeta(z.object({
     headerImage: z.string().optional(),
     headerImageAlt: z.string().optional(),
     tags: z.array(z.string()).optional(),
-    // Author slug(s) matching entries in the `authors` page collection.
-    // Without this field on the schema, the column is dropped and the
-    // page-level Author lookups (visible cards + Article JSON-LD) come
-    // back empty.
+    // Person slug(s): a team roster slug or an entry of the `authors`
+    // collection (resolved by resolvePeople; tests/content/person-slugs.spec.ts
+    // checks them). Without this field on the schema, the column is dropped
+    // and the page-level Author lookups come back empty.
     author: z.union([z.string(), z.array(z.string())]).optional(),
-    // Slugs of team members featured in this article. Loose backlink to the
-    // team profile pages, independent of the `author`/`authors` collection.
-    teamMembers: z.array(z.string()).optional(),
     excerpt: z.object({
       type: z.string(),
       children: z.any()
@@ -178,6 +175,25 @@ const serverConceptSchema = z
   })
   .passthrough()
 
+const aboutSchema = z
+  .object({
+    key: z.string().optional(),
+    who: z.string(),
+    pillars: z
+      .array(z
+          .object({
+            icon: z.string(),
+            title: z.string(),
+            text: z.string(),
+            to: z.string()
+          })
+          .passthrough())
+      .default([]),
+    work: z.string(),
+    join: z.string()
+  })
+  .passthrough()
+
 const sponsorsSchema = z
   .object({
     key: z.string().optional(),
@@ -292,12 +308,55 @@ const communityPoiSchema = withI18nMeta(z.object({
         }))
       .optional(),
     startedAt: z.coerce.date().optional(),
+    // Day the entry appeared on this site (not when building began); drives
+    // "new" on the home carousel. Unset means never new.
+    publishedAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
     forumUrl: z.string().url().optional(),
     // Defaults to true: a POI is community-contributable unless it explicitly
     // opts out. An `.optional()` boolean gets stored as `false` when absent,
     // which would wrongly flag every POI as showcase-only.
-    acceptsContributions: z.boolean().default(true)
+    acceptsContributions: z.boolean().default(true),
+    // Project slugs (content/projects) this build shows in use. Resolved in
+    // the same language by tests/content/poi-projects.spec.ts.
+    projects: z.array(z.string()).optional()
+  }))
+
+const projectLink = z.string().url()
+
+const projectsSchema = withI18nMeta(z.object({
+    slug: z.string(),
+    title: z.string(),
+    summary: z.string(),
+    status: z.enum([
+      'active',
+      'maintenance',
+      'archived'
+    ]),
+    logo: z.string().optional(),
+    logoAlt: z.string().optional(),
+    // Date of the first stable release, not of the latest version.
+    releasedAt: z.coerce.date().optional(),
+    // Day the entry appeared on this site; drives "new" on the home carousel.
+    publishedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
+    platforms: z.array(z.string()).optional(),
+    license: z.string().optional(),
+    links: z
+      .object({
+        docs: projectLink.optional(),
+        source: projectLink.optional(),
+        issues: projectLink.optional(),
+        downloads: z
+          .array(z.object({
+              label: z.string(),
+              url: projectLink
+            }))
+          .optional()
+      })
+      .optional(),
+    // Person slugs (team roster or `authors`), in display order.
+    maintainers: z.array(z.string()).optional()
   }))
 
 // Timestamps stay strings on purpose. They sit inside JSON columns, where a
@@ -318,6 +377,12 @@ const eventsSchema = withI18nMeta(z.object({
     ]),
     thumbnail: z.string().optional(),
     thumbnailAlt: z.string().optional(),
+    // Reachable by link regardless of schedule, but never listed anywhere on
+    // its own (overview, carousel, sitemap) and never promoted. Default false
+    // keeps every existing event public. See shared/utils/eventPhase.ts.
+    unlisted: z.boolean().optional(),
+    // Person slugs (team roster or `authors`), in display order.
+    hosts: z.array(z.string()).optional(),
     event: z.object({
       announceAt: eventTimestamp.optional(),
       startsAt: eventTimestamp,
@@ -514,6 +579,11 @@ export default defineContentConfig({
       source: `server-concept/${locale}/home.json`,
       schema: serverConceptSchema
     })),
+    ...defineLocalizedCollections('about', (locale) => ({
+      type: 'data',
+      source: `about/${locale}/home.json`,
+      schema: aboutSchema
+    })),
     ...defineLocalizedCollections('sponsors', (locale) => ({
       type: 'data',
       source: `sponsors/${locale}/home.json`,
@@ -546,6 +616,32 @@ export default defineContentConfig({
             delete url.priority
             const modified = entry.updatedAt ?? entry.startedAt
             if (modified) url.lastmod = new Date(modified as string | Date)
+            const regions: Record<string, string> = { de: 'de-DE', en: 'en-US' }
+            const alternates = (entry.alternates ?? []) as { hreflang: string, href: string }[]
+            if (alternates.length) {
+              url.alternatives = alternates.map(alt => ({
+                hreflang: regions[alt.hreflang] ?? alt.hreflang,
+                href: alt.href
+              }))
+            }
+          }
+        })
+      })
+    })),
+    ...defineLocalizedCollections('projects', (locale) => asSchemaOrgCollection({
+      type: 'page',
+      source: `projects/${locale}/**/*.md`,
+      // Same derived-path problem as the blog collection above; see the
+      // comment there. The serialised body must not close over `locale`.
+      schema: projectsSchema.extend({
+        sitemap: defineSitemapSchema({
+          name: `projects_${locale}`,
+          onUrl: (url, entry, collection) => {
+            const loc = collection.split('_').pop()
+            url.loc = `/${loc}/projects/${entry.slug}`
+            delete url.changefreq
+            delete url.priority
+            if (entry.updatedAt) url.lastmod = new Date(entry.updatedAt as string | Date)
             const regions: Record<string, string> = { de: 'de-DE', en: 'en-US' }
             const alternates = (entry.alternates ?? []) as { hreflang: string, href: string }[]
             if (alternates.length) {

@@ -24,7 +24,11 @@ usePageSeo({
   description: description.value,
   image: event.value?.thumbnail,
   imageAlt: event.value?.thumbnailAlt,
-  schemaType: 'WebPage'
+  schemaType: 'WebPage',
+  // Unlisted events are reachable by link in every phase but never indexed
+  // (design.md D4) — canonical, hreflang and Schema.org stay as for a public
+  // event, noindex alone keeps it out of search results.
+  noindex: event.value?.unlisted === true
 })
 
 useBreadcrumbs(() => [
@@ -36,7 +40,7 @@ useBreadcrumbs(() => [
 // Deliberately plain: Google grants no Event rich result to online-only or
 // members-only events, so this describes the event for semantic use rather
 // than chasing a search feature (design.md D10).
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   if (!event.value) return []
   const url = new URL(eventDetailPath(locale.value, event.value.slug), site.url).toString()
   return [
@@ -59,7 +63,7 @@ useSchemaOrg(() => {
       organizer: { '@id': organizationId(site.url) }
     }
   ]
-})
+}))
 
 const pastHintClass = 'bg-surface-container-high text-on-surface-variant'
 const liveHintClass = 'bg-secondary-container text-on-secondary-container'
@@ -105,12 +109,26 @@ const resources = computed(() => event.value?.resources ?? [])
           class="rounded-medium px-4 py-3 text-body-medium"
           :class="phase === 'past' ? pastHintClass : liveHintClass"
         >
-          <template v-if="phase === 'announced'">
-            {{ t('events.phase_hint.announced') }} <DateRange :start="event.event.startsAt" />
+          <template v-if="phase === 'announced' || phase === 'hidden'">
+            {{ t(`events.phase_hint.${phase}`) }} <DateRange :start="event.event.startsAt" />
           </template>
           <template v-else>{{ t(`events.phase_hint.${phase}`) }}</template>
         </p>
       </header>
+
+      <section v-if="detail.hosts.length" aria-labelledby="event-hosts" class="space-y-3">
+        <h2 id="event-hosts" class="text-title-large text-on-surface">{{ t('events.hosts') }}</h2>
+        <div class="flex flex-wrap gap-x-8 gap-y-4">
+          <PersonLink
+            v-for="host in detail.hosts"
+            :key="host.slug"
+            :name="host.name"
+            :to="host.profilePath"
+            :avatar="host.avatar"
+            :role="host.role"
+          />
+        </div>
+      </section>
 
       <EventResults v-if="phase === 'past'" :results="event.results" />
 

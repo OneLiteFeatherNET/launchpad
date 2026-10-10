@@ -24,6 +24,7 @@ const CLOCK_OR_PHASE = new RegExp([
     'isEventVisibleAt',
     'groupEventsAt',
     'promotedEventsAt',
+    'eventsByHostAt',
   ].map((name) => String.raw`\b${name}\(`),
 ].join('|'), 'g')
 

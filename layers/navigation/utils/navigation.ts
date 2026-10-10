@@ -19,3 +19,12 @@ export function isCurrentNavPath(routePath: string, linkPath: string): boolean {
 
   return routePath.startsWith(`${linkPath}/`)
 }
+
+/**
+ * Whether the current page is one of a group's children. Anchored (`/de#connect`)
+ * and external targets never count: the first would light the group on the
+ * home page, the second is not a page of this site.
+ */
+export function isNavGroupActive(routePath: string, childPaths: string[]): boolean {
+  return childPaths.some(path => !path.includes('#') && !/^https?:\/\//i.test(path) && isCurrentNavPath(routePath, path))
+}

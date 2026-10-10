@@ -2,7 +2,7 @@
 slug: 'megabase'
 translationKey: 'megabase'
 title: 'Megabase'
-summary: 'B3nNys größtes Bauvorhaben: Ein Areal von mehreren hundert Blöcken Kantenlänge ist ausgehoben und abgesteckt, die Schematic für den Aufbau liegt bereit.'
+summary: 'blndr2s größtes Bauvorhaben: Ein Areal von mehreren hundert Blöcken Kantenlänge ist ausgehoben und abgesteckt, die Schematic für den Aufbau liegt bereit.'
 status: 'in-progress'
 progress: 5
 category: 'community'
@@ -15,8 +15,8 @@ coordinates:
   z: 20850
   dimension: 'overworld'
 builders:
-  - name: 'B3nNy'
-    mcName: 'B3nNy'
+  - name: 'blndr2'
+    mcName: 'blndr2'
 thumbnail: '/images/community-poi/megabase/site_overview.png'
 thumbnailAlt: 'Luftbild des ausgehobenen Megabase-Areals, ein riesiges V-förmiges Fundament im Gelände'
 gallery:
@@ -51,7 +51,7 @@ alternates:
 
 ## Worum geht's?
 
-Die Megabase ist B3nNys größtes Vorhaben und unterscheidet sich von den anderen Projekten vor allem durch den Maßstab. Wo Labyrinth und Hafen jeweils ein Bauwerk sind, geht es hier um eine Fläche, die man aus normaler Spielhöhe gar nicht mehr überblickt – das Übersichtsbild ist weit außerhalb der Renderdistanz aufgenommen.
+Die Megabase ist blndr2s größtes Vorhaben und unterscheidet sich von den anderen Projekten vor allem durch den Maßstab. Wo Labyrinth und Hafen jeweils ein Bauwerk sind, geht es hier um eine Fläche, die man aus normaler Spielhöhe gar nicht mehr überblickt – das Übersichtsbild ist weit außerhalb der Renderdistanz aufgenommen.
 
 Der Aushub ist abgeschlossen. Das Gelände wurde auf eine einheitliche Höhe gebracht und die Grundfläche als V-förmiges Fundament aus dunklem Stein angelegt; daneben steht der Litematica-Umriss dessen, was darauf entstehen soll. Oberirdisch ist noch kein Block gesetzt.
 
@@ -65,6 +65,6 @@ Zur Einordnung liegt in der Galerie ein Bild der „Uncensored Library“ – ni
 
 ## Wie kannst du mithelfen?
 
-Bei einem Bau dieser Größe ist Material der Engpass, nicht die Idee. Wer mitmachen will, meldet sich am besten direkt bei B3nNy auf Discord – dort wird auch abgestimmt, welche Abschnitte als Nächstes drankommen.
+Bei einem Bau dieser Größe ist Material der Engpass, nicht die Idee. Wer mitmachen will, meldet sich am besten direkt bei blndr2 auf Discord – dort wird auch abgestimmt, welche Abschnitte als Nächstes drankommen.
 
 Zum Mitverfolgen: Lade dir die Schematic und lege sie im Spiel als Hologramm über das Fundament. Litematica bitte ausschließlich zur Ansicht verwenden, **kein Auto-Place** (siehe Serverregel unten).

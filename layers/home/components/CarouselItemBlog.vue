@@ -25,6 +25,7 @@ interface BlogItem {
   author?: string
   date?: string | Date
   tag?: string
+  isNew?: boolean
 }
 
 const props = withDefaults(defineProps<{ item: BlogItem; priority?: boolean }>(), {
@@ -67,9 +68,12 @@ const dateLabel = computed(() => {
     <div :class="CAROUSEL_CAPTION_POSITION">
       <div :class="CAROUSEL_CAPTION">
         <div :class="CAROUSEL_META">
+          <M3Chip v-if="item.isNew" kind="label" color="tertiary" :label="t('carousel.new')" />
           <M3Chip v-if="item.tag" kind="label" color="secondary" :label="item.tag" />
           <span v-if="dateLabel">{{ dateLabel }}</span>
-          <span v-if="item.author" class="truncate">von {{ item.author }}</span>
+          <span v-if="item.author" class="truncate">
+            {{ t('carousel.by_author', { author: item.author }) }}
+          </span>
         </div>
 
         <h3 :class="CAROUSEL_TITLE">
@@ -91,7 +95,7 @@ const dateLabel = computed(() => {
           :to="item.href"
           :aria-label="t('carousel.read_article', { title: item.title })"
         >
-          Lesen
+          {{ t('carousel.read') }}
           <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
         </M3Button>
       </div>

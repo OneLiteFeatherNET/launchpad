@@ -1,3 +1,3 @@
 export { useSiteNavigationSchema } from './composables/useSiteNavigationSchema'
-export { navConfig } from './navItems'
+export { buildNavConfig, navConfig, playLink } from './navItems'
 export type { NavConfigEntry, NavGroupConfig, NavLinkConfig } from './navItems'

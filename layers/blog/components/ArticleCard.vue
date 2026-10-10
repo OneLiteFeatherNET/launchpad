@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import type { BlogArticle } from "../types";
+import type { BlogArticle, CardAuthor } from "../types";
 
 const {getFeatureFlag } = usePostHogFeatureFlag();
 const {locale, d} = useI18n();
 
-const { blogArticle } = defineProps<{
+const { blogArticle, authors = [] } = defineProps<{
   blogArticle: BlogArticle;
+  authors?: CardAuthor[];
 }>();
 const title = computed(() => {
   if (getFeatureFlag('blog-ethanol-conversion').value === 'test') {
@@ -58,6 +59,15 @@ const title = computed(() => {
     <time class="mt-0.5 block text-body-small text-on-surface-variant">
       {{ d(new Date(blogArticle.pubDate as any)) }}
     </time>
+    <div v-if="authors?.length" class="mt-1 flex flex-wrap gap-x-4">
+      <PersonLink
+        v-for="author in authors"
+        :key="author.slug"
+        :name="author.name"
+        :to="author.profilePath"
+        class="relative z-10 w-fit"
+      />
+    </div>
     <div v-if="blogArticle.tags?.length" class="mt-2 flex flex-wrap gap-2">
       <M3Chip
         v-for="tag in blogArticle.tags"
@@ -66,7 +76,7 @@ const title = computed(() => {
         kind="label"
       />
     </div>
-    <!-- Links in the excerpt sit above the stretched card link, so they stay clickable. -->
+    <!-- Links in the excerpt and the author links sit above the stretched card link. -->
     <ContentRenderer
       class="mt-3 text-body-medium text-on-surface-variant [&_a]:relative [&_a]:z-10"
       :value="blogArticle"

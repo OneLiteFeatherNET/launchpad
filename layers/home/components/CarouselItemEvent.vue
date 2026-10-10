@@ -25,6 +25,7 @@ interface EventItem {
   image?: string
   alt?: string
   note?: string
+  isNew?: boolean
 }
 
 const props = withDefaults(defineProps<{ item: EventItem; priority?: boolean }>(), {
@@ -90,6 +91,7 @@ const dateBadgeClass
               {{ timeRange }}
             </div>
           </div>
+          <M3Chip v-if="item.isNew" kind="label" color="tertiary" :label="t('carousel.new')" />
           <!-- Location chip -->
           <M3Chip
             v-if="item.location"

@@ -37,7 +37,7 @@ const cachedPageHeaders = (seconds: number) => ({
 })
 
 export default defineNuxtConfig({
-    compatibilityDate: '2025-05-15',
+    compatibilityDate: '2026-09-01',
     app: {
         head: {
             // Declared here, not only in app.vue: nuxt-seo-utils adds its own
@@ -62,7 +62,7 @@ export default defineNuxtConfig({
             url: 'http://localhost:3000',
             logo: '/images/logo.svg',
             email: 'contact@onelitefeather.net',
-            foundingDate: '2019-09-01',
+            foundingDate: '2021',
             numberOfEmployees: {
                 '@type': 'QuantitativeValue',
                 'minValue': 1,
@@ -161,8 +161,11 @@ export default defineNuxtConfig({
         // a Nitro endpoint that reads the same JSON the page uses.
         // Event detail pages are listed per request, because whether an
         // event is visible depends on the time — see the route's comment.
+        // So are author pages: one exists only for a person with a released article.
         sources: [
-            '/api/__sitemap__/team', '/api/__sitemap__/events'
+            '/api/__sitemap__/team',
+            '/api/__sitemap__/events',
+            '/api/__sitemap__/blog-authors'
         ],
         // No changefreq/priority defaults: Google ignores both. lastmod comes
         // from real content dates only (content.config.ts), never the build.
@@ -201,6 +204,23 @@ export default defineNuxtConfig({
         '/ingest/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/__nuxt_content/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/api/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
+        // Renamed team profiles: permanent redirects keep inbound links.
+        '/de/team/selenretterin': { redirect: { to: '/de/team/seelenretterin', statusCode: 301 } },
+        '/en/team/selenretterin': { redirect: { to: '/en/team/seelenretterin', statusCode: 301 } },
+        '/de/team/alex-m': { redirect: { to: '/de/team/mrs_sunday', statusCode: 301 } },
+        '/en/team/alex-m': { redirect: { to: '/en/team/mrs_sunday', statusCode: 301 } },
+        '/de/team/joltra': { redirect: { to: '/de/team/joltras', statusCode: 301 } },
+        '/en/team/joltra': { redirect: { to: '/en/team/joltras', statusCode: 301 } },
+        '/de/team/random': { redirect: { to: '/de/team/3s1', statusCode: 301 } },
+        '/en/team/random': { redirect: { to: '/en/team/3s1', statusCode: 301 } },
+        '/de/team/pega': { redirect: { to: '/de/team/pegasusfieber17', statusCode: 301 } },
+        '/en/team/pega': { redirect: { to: '/en/team/pegasusfieber17', statusCode: 301 } },
+        '/de/team/saynax-jonas': { redirect: { to: '/de/team/saynax', statusCode: 301 } },
+        '/en/team/saynax-jonas': { redirect: { to: '/en/team/saynax', statusCode: 301 } },
+        '/de/team/bavariankingdom': { redirect: { to: '/de/team/morelia0815', statusCode: 301 } },
+        '/en/team/bavariankingdom': { redirect: { to: '/en/team/morelia0815', statusCode: 301 } },
+        '/de/team/b3nny': { redirect: { to: '/de/team/blndr2', statusCode: 301 } },
+        '/en/team/b3nny': { redirect: { to: '/en/team/blndr2', statusCode: 301 } },
     },
 
     vite: {
@@ -225,8 +245,9 @@ export default defineNuxtConfig({
         quality: 75,
         // Allow the Cloudflare Images pipeline to transform third-party origins
         // we explicitly trust. Minecraft head renders come from mc-heads.net and
-        // are reshipped as AVIF/WebP via img.onelitefeather.net.
-        domains: ['mc-heads.net'],
+        // are reshipped as AVIF/WebP via img.onelitefeather.net; the same goes
+        // for the OpenCollective avatars of Lite supporters.
+        domains: ['mc-heads.net', 'opencollective-production.s3.us-west-1.amazonaws.com'],
         // The screen sizes predefined by `@nuxt/image`:
         screens: {
             xs: 320,
@@ -247,13 +268,8 @@ export default defineNuxtConfig({
         host: 'https://eu.i.posthog.com',
         proxy: true,
         clientOptions: {
-            // No consent layer exists yet, so capture must not start on its own.
-            // `identified_only` stops a person profile (and its cookie) from being
-            // created for every anonymous visitor; `opt_out_capturing_by_default`
-            // holds all capture until something explicitly opts in. Remove both
-            // only together with a real consent mechanism.
-            person_profiles: 'identified_only',
-            opt_out_capturing_by_default: true
+            // Statistics run by default; the consent layer (layers/consent) lets visitors opt out.
+            person_profiles: 'identified_only'
         }
     },
     content: {
@@ -285,6 +301,8 @@ export default defineNuxtConfig({
         }
     },
     runtimeConfig: {
+        // Invite behind https://1lf.link/discord; NUXT_DISCORD_INVITE_CODE overrides it.
+        discordInviteCode: 'yzkf2H9UQD',
         public: {
             discordUrl: 'https://1lf.link/discord',
             // Public BlueMap URL used to embed the external map
@@ -360,11 +378,12 @@ export default defineNuxtConfig({
                 nodeCompat: true,
                 wrangler: {
                     name: 'launchpad',
+                    // WEUR on purpose: the old WNAM primary cost ~190 ms per query from Europe.
                     d1_databases: [
                         {
                             binding: 'DB',
-                            database_name: 'launchpad',
-                            database_id: 'a92127c1-aaa3-4753-82ba-ea59fa9e7140'
+                            database_name: 'launchpad-weur',
+                            database_id: '249ee06a-61d9-4344-8853-1c0b3ac861c2'
                         }
                     ],
                     // Requires Workers Paid — the Free plan rejects `limits`
@@ -375,11 +394,41 @@ export default defineNuxtConfig({
                     // "Cannot redefine property: $i18n". The ceiling here is
                     // only a guard against runaway renders and must stay far
                     // above a normal render: ten times the measured p99, at
-                    // least 1000 ms. 5000 is the placeholder until that
-                    // measurement exists.
+                    // least 1000 ms. Measured 2026-10-04 (Cloudflare GraphQL
+                    // analytics, last 10 days): CPU p99 328-453 ms per day, so
+                    // ten times the maximum is about 4,530 ms; 5000 is that,
+                    // rounded up. Re-measure before lowering it.
                     limits: {
                         cpu_ms: 5000
-                    }
+                    },
+                    // Workers Cache in front of the Worker: a hit never
+                    // invokes the Worker and costs no CPU. The Worker version
+                    // is part of the cache key, so every deploy starts with an
+                    // empty cache — never share the cache across versions, or
+                    // cached HTML could point at another build's chunks. What is
+                    // cached, and for how long, is decided by the routeRules
+                    // headers alone (see AGENTS.md, "Caching and SEO signals").
+                    cache: {
+                        enabled: true
+                    },
+                    // Smart Placement: cache misses render near D1 instead of the visitor
+                    // (several sequential ~190 ms queries per uncached page).
+                    placement: {
+                        mode: 'smart'
+                    },
+                    // Workers Logs: request and console output stay queryable
+                    // in the dashboard instead of vanishing with the request.
+                    observability: {
+                        enabled: true,
+                        // Traces (fetch, D1 spans) for every request; low traffic.
+                        // @ts-expect-error Nitro's bundled wrangler types predate `traces`.
+                        traces: { enabled: true, head_sampling_rate: 1 }
+                    },
+                    // The workers.dev route serves a duplicate of
+                    // onelitefeather.net, so it stays off. Preview URLs stay
+                    // on: Workers Builds uses them for pull request previews.
+                    workers_dev: false,
+                    preview_urls: true
                     // NUXT_IMAGE_PROVIDER is a Cloudflare Workers Builds build
                     // variable (read at build time in nuxt.config, see top of
                     // file) — not a runtime Worker var, so it is not in `vars`.

@@ -2,12 +2,20 @@
 // layer permitted to name @nuxt/content directly (module-boundaries.spec.ts).
 // This re-exports them under the same names and adds the one plain shape
 // that is specific to this layer.
-import type { BlogArticle, BlogAuthorProfile, BlogAlternateHeader } from '#layers/content-core/types'
+import type {
+  BlogArticle,
+  BlogAuthorProfile,
+  BlogAlternateHeader,
+  Person
+} from '#layers/content-core/types'
 
-export type { BlogArticle, BlogAuthorProfile, BlogAlternateHeader }
+export type { BlogArticle, BlogAuthorProfile, BlogAlternateHeader, Person }
 
 /** An alternate-language link surfaced in an article's front matter. */
 export interface BlogAlternateLanguageLink {
   locale: string
   url: string
 }
+
+/** The part of a person a card needs to name and link them. */
+export type CardAuthor = Pick<Person, 'slug' | 'name' | 'profilePath'>

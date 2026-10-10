@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { BlogArticle, BlogAuthorProfile } from '../types'
+import type { BlogArticle, Person } from '../types'
 
 interface BlogSeoFrontmatter {
   title?: string
@@ -21,7 +21,7 @@ interface BlogSeoFrontmatter {
  */
 export function useArticleSeo(
   blog: Ref<BlogArticle | null>,
-  authors: Ref<BlogAuthorProfile[]>
+  authors: Ref<Person[]>
 ) {
   const { locale, t } = useI18n()
   const config = useRuntimeConfig()
@@ -132,13 +132,15 @@ export function useArticleSeo(
     articlePublishedTime: () => isoDate(blog.value?.pubDate),
     articleModifiedTime: () => isoDate(blog.value?.updatedDate) || isoDate(blog.value?.pubDate),
     articleAuthor: () => authors.value?.map((a) => a.name) || undefined,
-    articleTag: () => blog.value?.tags || undefined,
-    keywords: () => blog.value?.tags?.join(', ') || undefined
+    articleTag: () => blog.value?.tags || undefined
   })
+  useHead(() => ({
+    meta: [{ name: 'keywords', content: blog.value?.tags?.join(', ') || undefined }]
+  }))
 
   // Article structured data, linked to the global Organization and Person
   // entities so Google can merge identities across pages.
-  useSchemaOrg(() => {
+  useSchemaOrg(computed(() => {
     if (!blog.value) return {}
     const article = blog.value
     return {
@@ -163,7 +165,7 @@ export function useArticleSeo(
       inLanguage: locale.value,
       publisher: { '@id': organizationId(site.url) }
     }
-  })
+  }))
 
   useBreadcrumbs(() => [
     { name: t('navigation.home'), url: `/${locale.value}` },

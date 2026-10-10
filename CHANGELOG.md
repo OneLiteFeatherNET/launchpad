@@ -1,5 +1,137 @@
 # Changelog
 
+## [1.15.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.14.0...onelitefeather.net-v1.15.0) (2026-10-10)
+
+
+### Features
+
+* **consent:** add a cookie consent banner ([#449](https://github.com/OneLiteFeatherNET/launchpad/issues/449)) ([eb1c1c3](https://github.com/OneLiteFeatherNET/launchpad/commit/eb1c1c34cf9c81e7f5df4b0912b5216e4ba277cf))
+
+## [1.14.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.13.0...onelitefeather.net-v1.14.0) (2026-10-07)
+
+
+### Features
+
+* **about:** add an about us page ([268ee96](https://github.com/OneLiteFeatherNET/launchpad/commit/268ee961c4680e13e6161f470d6eea9c4857ba70))
+* **community:** list lite supporters on the team page and community wall ([4bacb28](https://github.com/OneLiteFeatherNET/launchpad/commit/4bacb28cba08316fb550b187802bfe5cedd5e5cc))
+* **events:** add the slender halloween 2026 event ([334ad66](https://github.com/OneLiteFeatherNET/launchpad/commit/334ad66d37468f2e2ecc839ebe55ee8f028b2551))
+
+
+### Bug Fixes
+
+* **footer:** link about, contact and github instead of placeholders ([4c21639](https://github.com/OneLiteFeatherNET/launchpad/commit/4c216398e0cbd08d6355e70a8dc968e81f6a26ad))
+
+
+### Documentation
+
+* **openspec:** archive completed changes ([004a939](https://github.com/OneLiteFeatherNET/launchpad/commit/004a9390e77b6b468729cb8e85645ec87629ef06))
+
+## [1.13.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.12.0...onelitefeather.net-v1.13.0) (2026-10-07)
+
+
+### Features
+
+* **navigation:** group the main navigation under team, blog, community and more ([#437](https://github.com/OneLiteFeatherNET/launchpad/issues/437)) ([5234f8d](https://github.com/OneLiteFeatherNET/launchpad/commit/5234f8dbb2c512a1e9d15f929a8113f065364e43))
+
+## [1.12.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.11.0...onelitefeather.net-v1.12.0) (2026-10-07)
+
+
+### Features
+
+* **home:** highlight content from the last 30 days in the carousel ([9f79a96](https://github.com/OneLiteFeatherNET/launchpad/commit/9f79a96700b4f71b7093395ec85830c93c671523))
+
+## [1.11.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.10.0...onelitefeather.net-v1.11.0) (2026-10-07)
+
+
+### Features
+
+* **projects:** add a projects section linked to community points of interest ([0abf925](https://github.com/OneLiteFeatherNET/launchpad/commit/0abf925547c1fca7b06e9b0fa80734b2e14b10c6))
+
+## [1.10.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.9.0...onelitefeather.net-v1.10.0) (2026-10-07)
+
+
+### Features
+
+* **community:** add a community page with stats and contributor wall ([43bde71](https://github.com/OneLiteFeatherNET/launchpad/commit/43bde71444cbbdc2e3386b179b44791e4013b919))
+* **home:** put discord in the foreground of the home page ([450319a](https://github.com/OneLiteFeatherNET/launchpad/commit/450319a8ea2894025b51d7b9b874585f27354ebc))
+
+## [1.9.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.4...onelitefeather.net-v1.9.0) (2026-10-07)
+
+
+### Features
+
+* **content:** cross-link authors and hosts with team profiles ([6d938fc](https://github.com/OneLiteFeatherNET/launchpad/commit/6d938fce648917cd6b7c34a470f2c2d2fe74d6d9))
+
+
+### Bug Fixes
+
+* **seo:** drop trailing slashes from canonicals and stop leaking content paths ([a054f17](https://github.com/OneLiteFeatherNET/launchpad/commit/a054f175bffcc38fe2d408fbe23f8946593e4405))
+
+## [1.8.4](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.3...onelitefeather.net-v1.8.4) (2026-10-07)
+
+
+### Bug Fixes
+
+* **team:** noindex thin member profiles and drop them from the sitemap ([#424](https://github.com/OneLiteFeatherNET/launchpad/issues/424)) ([c0a62dc](https://github.com/OneLiteFeatherNET/launchpad/commit/c0a62dc893ec5280c1895b59fa0f115654fd51c1))
+* **team:** sync roster with the minecraft team and use mc names ([#425](https://github.com/OneLiteFeatherNET/launchpad/issues/425)) ([b2460a4](https://github.com/OneLiteFeatherNET/launchpad/commit/b2460a4ad497738c837274765b02378aca0499fb))
+
+## [1.8.3](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.2...onelitefeather.net-v1.8.3) (2026-10-04)
+
+
+### Performance
+
+* **cloudflare:** move the d1 database to western europe ([#413](https://github.com/OneLiteFeatherNET/launchpad/issues/413)) ([d3c5f35](https://github.com/OneLiteFeatherNET/launchpad/commit/d3c5f35fc9f0405c49ef0a8eb32b60c06e33855a))
+
+
+### Documentation
+
+* **openspec:** propose seed-d1-at-deploy ([#410](https://github.com/OneLiteFeatherNET/launchpad/issues/410)) ([15c3897](https://github.com/OneLiteFeatherNET/launchpad/commit/15c3897b666904b3abc4eee8b0e0a4b75ad2b840))
+
+## [1.8.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.1...onelitefeather.net-v1.8.2) (2026-10-04)
+
+
+### Performance
+
+* **cloudflare:** enable smart placement for the worker ([#409](https://github.com/OneLiteFeatherNET/launchpad/issues/409)) ([dc74c45](https://github.com/OneLiteFeatherNET/launchpad/commit/dc74c45c7f9e2806619ef193ba328914e57f9460))
+* **home:** cut the uncached ssr waterfall on the home page ([#411](https://github.com/OneLiteFeatherNET/launchpad/issues/411)) ([ab64f79](https://github.com/OneLiteFeatherNET/launchpad/commit/ab64f796587a6b2c658858a013a6c361c08da559))
+
+## [1.8.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.8.0...onelitefeather.net-v1.8.1) (2026-10-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency nuxt to v4.5.1 [security] ([#284](https://github.com/OneLiteFeatherNET/launchpad/issues/284)) ([56658ed](https://github.com/OneLiteFeatherNET/launchpad/commit/56658ed705dfa004f06b445bc23f1ba2ad7db4ac))
+* **team:** shorten the opencollective button label so it fits the card ([#402](https://github.com/OneLiteFeatherNET/launchpad/issues/402)) ([bc04640](https://github.com/OneLiteFeatherNET/launchpad/commit/bc04640772f143723a8c1c20b701ade9e22618f5))
+
+
+### Documentation
+
+* **readme:** describe workers deployment and release-please flow ([#407](https://github.com/OneLiteFeatherNET/launchpad/issues/407)) ([ef90168](https://github.com/OneLiteFeatherNET/launchpad/commit/ef9016834229d421610105b624747f950abbd852))
+
+
+### Continuous Integration
+
+* **renovate:** automerge security fixes and weekly lockfile maintenance ([#405](https://github.com/OneLiteFeatherNET/launchpad/issues/405)) ([261b2da](https://github.com/OneLiteFeatherNET/launchpad/commit/261b2dacbd84dd8676de4764e92afec6f5c89906))
+* **renovate:** hold typescript 7 and material-color-utilities 0.4 ([#406](https://github.com/OneLiteFeatherNET/launchpad/issues/406)) ([b5a6c3f](https://github.com/OneLiteFeatherNET/launchpad/commit/b5a6c3fef8dbc8e31bd61c90582751a660dd220d))
+
+## [1.8.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.7.1...onelitefeather.net-v1.8.0) (2026-10-04)
+
+
+### Features
+
+* **events:** add unlisted events reachable only by link ([#387](https://github.com/OneLiteFeatherNET/launchpad/issues/387)) ([6a3ecc6](https://github.com/OneLiteFeatherNET/launchpad/commit/6a3ecc69affd9817db2e9551dbe04fdcdc615079))
+
+
+### Performance
+
+* **cache:** enable the workers cache in front of the worker ([#400](https://github.com/OneLiteFeatherNET/launchpad/issues/400)) ([e2c1d3c](https://github.com/OneLiteFeatherNET/launchpad/commit/e2c1d3c8d3905dc139d1423b0da99d8606e8258f))
+* **content:** slim content queries for uncached renders ([#401](https://github.com/OneLiteFeatherNET/launchpad/issues/401)) ([f9a5017](https://github.com/OneLiteFeatherNET/launchpad/commit/f9a50176a2c9a67a664c24fa8dd6c8dbe1c72073))
+
+
+### Refactors
+
+* **types:** split type-checking into Nuxt 4 projects ([#381](https://github.com/OneLiteFeatherNET/launchpad/issues/381)) ([2c34f25](https://github.com/OneLiteFeatherNET/launchpad/commit/2c34f25845b11381d017f686523f4d60bdf51340))
+
 ## [1.7.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.7.0...onelitefeather.net-v1.7.1) (2026-09-23)
 
 

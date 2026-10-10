@@ -40,5 +40,6 @@ const profileHref = (slug?: string) => slug ? `/${locale.value}/team/${slug}` : 
         :apply-via="p.applyVia"
       />
     </ul>
+    <slot />
   </section>
 </template>

@@ -1,6 +1,5 @@
 {
   "navigation": {
-    "overview": "Overview",
     "toggle_mobile_menu": "Toggle mobile menu",
     "home": "Home",
     "back_home": "Back to home",
@@ -11,13 +10,18 @@
     "blog": "Blog",
     "team": "Team",
     "bluemap": "BlueMap",
-    "server": "Server",
+    "play": "Play",
     "discord": "Discord",
     "change_language": "Change language",
     "more": "More",
     "status": "Status",
-    "community_poi": "Community POIs",
-    "events": "Events"
+    "builds": "Builds",
+    "home_link": "OneLiteFeather – Home",
+    "community_overview": "Overview",
+    "events": "Events",
+    "community": "Community",
+    "projects": "Projects",
+    "about": "About us"
   },
   "carousel": {
     "prev": "Previous",
@@ -35,6 +39,14 @@
     "to_event": "Go to event: {title}",
     "news_link": "News: {title}",
     "to_news": "Go to news item: {title}",
+    "by_author": "by {author}",
+    "read": "Read",
+    "new": "New",
+    "new_label": "New: {title}",
+    "project_tag": "Project",
+    "project_cta": "View project",
+    "project_cta_aria": "View project: {title}",
+    "project_title_aria": "Project: {title}",
     "pause": "Pause automatic slide rotation",
     "play": "Resume automatic slide rotation"
   },
@@ -61,12 +73,19 @@
     "title": "Home",
     "carousel_aria": "Homepage highlight carousel"
   },
+  "home": {
+    "discord": {
+      "title": "Join the conversation on our Discord",
+      "pitch": "Meet the community, find people to play with and hear about events and updates first.",
+      "members": "{count} members are already there",
+      "cta": "Join Discord"
+    }
+  },
   "bluemap": {
     "title": "BlueMap",
     "description": "Interactive BlueMap map of the OneLiteFeather Minecraft server."
   },
   "blog": {
-    "featured_team": "Featured team members",
     "overview": {
       "title": "Overview",
       "description": "Find interesting blog posts from OneLiteFeather.net about development, community and more."
@@ -78,6 +97,12 @@
     "imprint": {
       "title": "Imprint",
       "description": "Imprint and legal information for the OneLiteFeather Minecraft Network, including the responsible party and contact details."
+    },
+    "author": {
+      "profile": "View profile",
+      "title": "{name} – Blog",
+      "description": "All blog posts by {name} on OneLiteFeather.net.",
+      "posts_by": "Posts by {name}"
     }
   },
   "team": {
@@ -111,9 +136,18 @@
       "apply_opencollective": "Support via OpenCollective",
       "apply_aria_opencollective": "Support {role} via OpenCollective"
     },
+    "supporters": {
+      "title": "Our Lite supporters",
+      "intro": "These people carry the Lite rank with their voluntary donations. Thank you!",
+      "link_aria": "View {name} on the community wall"
+    },
     "faq": {
       "section_title": "Applications and ranks",
       "section_subtitle": "Answers on the process, requirements, and the Lite rank."
+    },
+    "profile": {
+      "posts": "Posts",
+      "events": "Events"
     }
   },
   "sponsor": {
@@ -159,8 +193,7 @@
       "title": "Social Media"
     },
     "privacy": "Privacy",
-    "terms": "Imprint",
-    "coming_soon": "Coming soon"
+    "terms": "Imprint"
   },
   "social": {
     "twitch": "Twitch",
@@ -424,11 +457,13 @@
       "beta": "Beta"
     },
     "phase": {
+      "hidden": "Preview",
       "announced": "Announced",
       "running": "Running",
       "past": "Ended"
     },
     "phase_hint": {
+      "hidden": "Starts on",
       "announced": "Starts on",
       "running": "Running now",
       "past": "This event has ended."
@@ -492,6 +527,101 @@
     },
     "guides": {
       "title": "Guide"
+    },
+    "hosts": "Hosts"
+  },
+  "community": {
+    "title": "Community",
+    "description": "The OneLiteFeather community in numbers: Discord, team, community builds and everyone who built and played along.",
+    "intro": "How big and lively our community is – and who made it so.",
+    "stats": {
+      "aria": "The community in numbers",
+      "discord": "Discord members",
+      "team": "Team members",
+      "builds": "Community builds",
+      "contributors": "Contributors",
+      "supporters": "Supporters"
+    },
+    "wall": {
+      "title": "The contributor wall",
+      "intro": "Everyone named on a community build or in an event, and our Lite supporters.",
+      "badge_build": "Build: {title}",
+      "badge_event": "Event: place {place} in {title}",
+      "badge_supporter": "Supporter",
+      "badge_supporter_aria": "Supporter: view {name} on OpenCollective"
+    },
+    "strip": {
+      "title": "Our community in numbers",
+      "cta": "Visit the community"
     }
+  },
+  "projects": {
+    "overview": {
+      "title": "Projects",
+      "description": "Software by OneLiteFeather: plugins and tools we build ourselves and run on our server — with documentation, source code and downloads.",
+      "empty": "No projects published yet."
+    },
+    "status": {
+      "active": "Active",
+      "maintenance": "Maintained",
+      "archived": "Archived"
+    },
+    "card": {
+      "open_detail": "View project {title}"
+    },
+    "detail": {
+      "back": "All projects",
+      "links_aria": "Documentation, source code and downloads",
+      "facts": "At a glance",
+      "platforms": "Platforms",
+      "license": "License",
+      "released": "First released",
+      "maintainers": "Maintainers",
+      "in_use": "In use on the server",
+      "in_use_intro": "These builds on our server show the project in action."
+    },
+    "links": {
+      "docs": "Documentation",
+      "source": "Source code",
+      "issues": "Report an issue"
+    },
+    "poi": {
+      "title": "Projects shown here",
+      "intro": "This build shows the following projects in use."
+    }
+  },
+  "about": {
+    "title": "About us",
+    "description": "OneLiteFeather is a Minecraft network that lives on its community: community builds, open software, events of our own and transparent funding.",
+    "sections": {
+      "who": "Who we are",
+      "pillars": "What sets us apart",
+      "work": "How we work",
+      "join": "Get involved"
+    },
+    "join": {
+      "play": "Play",
+      "discord": "Discord",
+      "apply": "Apply",
+      "support": "Support us"
+    }
+  },
+  "consent": {
+    "banner": {
+      "title": "We're handing out cookies!",
+      "body": "This site drops small cookies in your browser. Necessary cookies remember your language and this choice, and are always on. Statistics cookies show us anonymously which pages are read. They are on by default, but you can switch them off at any time.",
+      "settings": "I'll decide myself!",
+      "reject_all": "No stats cookies for me!",
+      "accept_all": "Bring on the cookies!",
+      "settings_title": "Your cookies, your choice",
+      "save": "Save selection",
+      "back": "Back",
+      "privacy_link": "More in our privacy policy",
+      "necessary_title": "Necessary cookies",
+      "necessary_description": "They remember your language and this choice. Our host Cloudflare may also set security cookies that protect the site from bots. The site needs them, so they are always on. The choice cookie is called olf_consent and expires after six months.",
+      "analytics_title": "Statistics cookies",
+      "analytics_description": "Anonymous usage statistics via PostHog, with servers in the EU. They show us which pages are read. On by default, and you can switch them off at any time."
+    },
+    "footer_link": "Cookie settings"
   }
 }

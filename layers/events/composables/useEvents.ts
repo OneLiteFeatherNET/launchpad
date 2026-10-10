@@ -1,9 +1,10 @@
 import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
-import type { Locale } from '#layers/content-core'
-import { isAccessOpenAt, eventPhaseAt } from '#shared/utils/eventPhase'
+import type { Locale, Person } from '#layers/content-core'
+import { isAccessOpenAt, eventPhaseAt, isEventReachableAt } from '#shared/utils/eventPhase'
 import type { EventDocument, EventPhase } from '../types'
 import {
+  eventsByHostAt,
   groupEventsAt,
   promotedEventsAt,
   type EventCardData,
@@ -62,13 +63,32 @@ export function useEventPromotions() {
   return { promoted: data }
 }
 
+/** The listed events `slug` hosts, phase decided on the server like the overview's. */
+export function useEventsByHost(slug: MaybeRefOrGetter<string>) {
+  const activeLocale = useActiveLocale()
+  const repo = useContentRepository()
+
+  const { data } = useAsyncData<EventCardData[]>(
+    () => `events-by-host-${activeLocale.value}-${toValue(slug)}`,
+    async () => {
+      const docs = await repo.listEvents(activeLocale.value)
+      return eventsByHostAt(docs, toValue(slug), activeLocale.value, new Date())
+    },
+    { watch: [activeLocale, () => toValue(slug)], default: () => [] }
+  )
+
+  return { events: data }
+}
+
 export interface EventDetail {
   event: EventDocument
-  phase: Exclude<EventPhase, 'hidden'>
+  phase: EventPhase
   /** Whether sign-up or application is open, if the event has a window. */
   accessOpen: boolean
   /** Java server address for `join.server`, from the server_connect content. */
   serverAddress?: string
+  /** The people named in `hosts`, in frontmatter order; unresolvable slugs are dropped. */
+  hosts: Person[]
   /** The moment the phase was decided, as an ISO string. */
   now: string
   /**
@@ -83,9 +103,11 @@ const normalizeLocales = (list: unknown[]): LocaleObject[] => list
   .map((locale) => locale as LocaleObject)
 
 /**
- * One event by the catch-all slug, with its phase. Unknown and still hidden
- * events answer 404 — a hidden event must not be reachable before its
- * announcement, even by a guessed URL.
+ * One event by the catch-all slug, with its phase. Unknown events answer
+ * 404, and so do hidden *public* events — a hidden public event must not be
+ * reachable before its announcement, even by a guessed URL. An unlisted
+ * event is reachable in every phase, including hidden: its detail page then
+ * shows the preview (design.md D3).
  *
  * Publishes the slug of each translation to the language switcher and the
  * hreflang links. The translations are looked up inside the data handler, so
@@ -103,8 +125,7 @@ export async function useEventDetail() {
 
   const slug = computed<string | undefined>(() => {
     const param = (route.params as Record<string, string | string[] | undefined>).slug
-    if (Array.isArray(param)) return param.at(-1)
-    return param || undefined
+    return catchAllSegments(param).at(-1)
   })
 
   const { data: detail } = await useAsyncData<EventDetail | null>(
@@ -114,8 +135,8 @@ export async function useEventDetail() {
       const event = await repo.getEventBySlug(activeLocale.value, slug.value)
       if (!event) return null
       const now = new Date()
+      if (!isEventReachableAt(event.event, event.unlisted, now)) return null
       const phase = eventPhaseAt(event.event, now)
-      if (phase === 'hidden') return null
       const connect = event.join?.server ? await repo.getServerConnect(activeLocale.value) : null
       const localeSlugs: Record<string, string | null> = { [activeLocale.value]: event.slug }
       for (const other of normalizeLocales((locales.value || []) as unknown[])) {
@@ -130,6 +151,7 @@ export async function useEventDetail() {
         phase,
         accessOpen: isAccessOpenAt(event.access, now),
         serverAddress: connect?.javaAddress,
+        hosts: await resolvePeople(event.hosts ?? [], activeLocale.value),
         now: now.toISOString(),
         localeSlugs,
       }

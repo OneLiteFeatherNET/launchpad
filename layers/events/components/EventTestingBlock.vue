@@ -4,11 +4,13 @@ import type { EventPhase, EventTesting } from '../types'
 /**
  * For betas: what the test looks at, what is already known to be broken and
  * where to send feedback. The feedback action goes once the test is over;
- * focus and known issues stay readable as a record of the test.
+ * focus and known issues stay readable as a record of the test. `hidden`
+ * (an unlisted event in preview) behaves like `announced`: the feedback link
+ * stays visible.
  */
 const props = defineProps<{
   testing?: EventTesting
-  phase: Exclude<EventPhase, 'hidden'>
+  phase: EventPhase
 }>()
 
 const { t } = useI18n()

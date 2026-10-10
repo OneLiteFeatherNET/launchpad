@@ -23,10 +23,18 @@ useSeoMeta({ robots: 'noindex, follow' })
 function isSeoLink(tag: { tag: string, props: Record<string, unknown> }) {
   return tag.tag === 'link' && ['canonical', 'alternate'].includes(String(tag.props.rel))
 }
-const dropSeoLinks = injectHead().hooks.hook('tags:resolve', (ctx) => {
+const head = injectHead()
+// Nuxt 4.5 renders pre-resolved tags on the server, which skips `tags:resolve`;
+// `ssr:render` is the last point before they are serialised.
+function dropSeoLinks(ctx: { tags: { tag: string, props: Record<string, unknown> }[] }) {
   ctx.tags = ctx.tags.filter(tag => !isSeoLink(tag))
+}
+const unhookResolve = head.hooks?.hook('tags:resolve', dropSeoLinks)
+const unhookRender = head.hooks?.hook('ssr:render', dropSeoLinks)
+onBeforeUnmount(() => {
+  unhookResolve?.()
+  unhookRender?.()
 })
-onBeforeUnmount(dropSeoLinks)
 
 const handleHome = () => clearError({ redirect: localePath('index') })
 </script>

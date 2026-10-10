@@ -58,4 +58,39 @@ describe('production config overrides', () => {
     // Concatenated, not replaced — see the note above.
     expect(repeated).toEqual([])
   })
+
+  it('enables the workers cache without sharing it across versions', () => {
+    const { production } = blocks()
+    const wrangler = production.slice(production.indexOf('wrangler: {'))
+
+    // Hits skip the Worker; the routeRules headers decide what is cached.
+    expect(wrangler).toMatch(/cache:\s*\{\s*enabled:\s*true\s*\}/)
+    // A deploy must invalidate the cache (design D3): the Worker version stays
+    // part of the cache key, so HTML never points at another build's chunks.
+    expect(production).not.toContain('cross_version_cache')
+  })
+
+  it('places the worker near its D1 database with smart placement', () => {
+    const { production } = blocks()
+    const wrangler = production.slice(production.indexOf('wrangler: {'))
+
+    expect(wrangler).toMatch(/placement:\s*\{\s*mode:\s*'smart'\s*\}/)
+  })
+
+  it('traces every request while keeping workers logs on', () => {
+    const { production } = blocks()
+    const wrangler = production.slice(production.indexOf('wrangler: {'))
+
+    expect(wrangler).toMatch(/observability:\s*\{\s*enabled:\s*true,/)
+    expect(wrangler).toMatch(/traces:\s*\{\s*enabled:\s*true,\s*head_sampling_rate:\s*1\s*\}/)
+  })
+})
+
+describe('production D1 binding', () => {
+  it('points DB at the western-europe database, not the WNAM one', () => {
+    const { production } = blocks()
+    expect(production, 'database_id must be launchpad-weur').toContain(`database_id: '249ee06a-61d9-4344-8853-1c0b3ac861c2'`)
+    expect(production).toContain(`database_name: 'launchpad-weur'`)
+    expect(production, 'old WNAM database id must be gone').not.toContain('a92127c1')
+  })
 })

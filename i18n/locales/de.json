@@ -1,6 +1,5 @@
 {
   "navigation": {
-    "overview": "Übersicht",
     "toggle_mobile_menu": "Mobile Menü umschalten",
     "home": "Startseite",
     "back_home": "Zur Startseite zurück",
@@ -11,13 +10,18 @@
     "blog": "Blog",
     "team": "Team",
     "bluemap": "BlueMap",
-    "server": "Server",
+    "play": "Spielen",
     "discord": "Discord",
     "change_language": "Sprache ändern",
     "more": "Mehr",
     "status": "Status",
-    "community_poi": "Community-POIs",
-    "events": "Events"
+    "builds": "Bauwerke",
+    "home_link": "OneLiteFeather – Startseite",
+    "community_overview": "Übersicht",
+    "events": "Events",
+    "community": "Community",
+    "projects": "Projekte",
+    "about": "Über uns"
   },
   "carousel": {
     "prev": "Zurück",
@@ -35,6 +39,14 @@
     "to_event": "Zum Event: {title}",
     "news_link": "News: {title}",
     "to_news": "Zur Meldung: {title}",
+    "by_author": "von {author}",
+    "read": "Lesen",
+    "new": "Neu",
+    "new_label": "Neu: {title}",
+    "project_tag": "Projekt",
+    "project_cta": "Projekt ansehen",
+    "project_cta_aria": "Zum Projekt: {title}",
+    "project_title_aria": "Projekt: {title}",
     "pause": "Automatisches Weiterblättern pausieren",
     "play": "Automatisches Weiterblättern fortsetzen"
   },
@@ -58,7 +70,6 @@
     }
   },
   "blog": {
-    "featured_team": "Beteiligte Teammitglieder",
     "overview": {
       "title": "Übersicht",
       "description": "Finde interessante Blogbeiträge von OneLiteFeather.net rund um Entwicklung, Community und mehr."
@@ -70,11 +81,25 @@
     "imprint": {
       "title": "Impressum",
       "description": "Impressum und rechtliche Angaben zum OneLiteFeather Minecraft-Netzwerk inklusive verantwortlicher Stelle und Kontaktdaten."
+    },
+    "author": {
+      "profile": "Zum Profil",
+      "title": "{name} – Blog",
+      "description": "Alle Blogbeiträge von {name} auf OneLiteFeather.net.",
+      "posts_by": "Beiträge von {name}"
     }
   },
   "index": {
     "title": "Startseite",
     "carousel_aria": "Startseiten-Highlight-Karussell"
+  },
+  "home": {
+    "discord": {
+      "title": "Mitreden auf unserem Discord",
+      "pitch": "Lerne die Community kennen, finde Mitspieler und erfahre als Erste von Events und Neuerungen.",
+      "members": "{count} Mitglieder sind schon dabei",
+      "cta": "Discord beitreten"
+    }
   },
   "bluemap": {
     "title": "BlueMap",
@@ -108,12 +133,21 @@
       "badge": "Offene Stelle",
       "apply": "Über Discord bewerben",
       "apply_aria": "Für {role} über Discord bewerben",
-      "apply_opencollective": "Über OpenCollective unterstützen",
+      "apply_opencollective": "Via OpenCollective spenden",
       "apply_aria_opencollective": "{role} über OpenCollective unterstützen"
+    },
+    "supporters": {
+      "title": "Unsere Lite-Unterstützer",
+      "intro": "Diese Menschen tragen den Lite-Rang mit ihren freiwilligen Spenden. Danke!",
+      "link_aria": "{name} auf der Community-Wand ansehen"
     },
     "faq": {
       "section_title": "Bewerbungen und Ränge",
       "section_subtitle": "Antworten zu Ablauf, Anforderungen und dem Lite-Rang."
+    },
+    "profile": {
+      "posts": "Beiträge",
+      "events": "Events"
     }
   },
   "sponsor": {
@@ -159,8 +193,7 @@
       "title": "Social Media"
     },
     "privacy": "Datenschutz",
-    "terms": "Impressum",
-    "coming_soon": "Demnächst verfügbar"
+    "terms": "Impressum"
   },
   "social": {
     "twitch": "Twitch",
@@ -424,11 +457,13 @@
       "beta": "Beta"
     },
     "phase": {
+      "hidden": "Vorschau",
       "announced": "Angekündigt",
       "running": "Läuft",
       "past": "Beendet"
     },
     "phase_hint": {
+      "hidden": "Startet am",
       "announced": "Startet am",
       "running": "Läuft gerade",
       "past": "Dieses Event ist beendet."
@@ -492,6 +527,101 @@
     },
     "guides": {
       "title": "Anleitung"
+    },
+    "hosts": "Gastgeber"
+  },
+  "community": {
+    "title": "Community",
+    "description": "Die OneLiteFeather-Community in Zahlen: Discord, Team, Community-Bauten und alle, die mitgebaut und mitgespielt haben.",
+    "intro": "Wie groß und lebendig unsere Community ist – und wer dazu beigetragen hat.",
+    "stats": {
+      "aria": "Die Community in Zahlen",
+      "discord": "Discord-Mitglieder",
+      "team": "Teammitglieder",
+      "builds": "Community-Bauten",
+      "contributors": "Mitwirkende",
+      "supporters": "Unterstützer"
+    },
+    "wall": {
+      "title": "Die Wand der Mitwirkenden",
+      "intro": "Alle, die bei Community-Bauten und Events namentlich genannt werden, und unsere Lite-Unterstützer.",
+      "badge_build": "Bau: {title}",
+      "badge_event": "Event: {place}. Platz {title}",
+      "badge_supporter": "Unterstützer",
+      "badge_supporter_aria": "Unterstützer: {name} auf OpenCollective ansehen"
+    },
+    "strip": {
+      "title": "Unsere Community in Zahlen",
+      "cta": "Zur Community"
     }
+  },
+  "projects": {
+    "overview": {
+      "title": "Projekte",
+      "description": "Software von OneLiteFeather: Plugins und Werkzeuge, die wir selbst entwickeln und auf unserem Server einsetzen — mit Dokumentation, Quellcode und Downloads.",
+      "empty": "Noch keine Projekte veröffentlicht."
+    },
+    "status": {
+      "active": "Aktiv",
+      "maintenance": "In Wartung",
+      "archived": "Archiviert"
+    },
+    "card": {
+      "open_detail": "Projekt {title} ansehen"
+    },
+    "detail": {
+      "back": "Alle Projekte",
+      "links_aria": "Dokumentation, Quellcode und Downloads",
+      "facts": "Auf einen Blick",
+      "platforms": "Plattformen",
+      "license": "Lizenz",
+      "released": "Erste Veröffentlichung",
+      "maintainers": "Maintainer",
+      "in_use": "Im Einsatz auf dem Server",
+      "in_use_intro": "Diese Bauten auf unserem Server zeigen das Projekt in Aktion."
+    },
+    "links": {
+      "docs": "Dokumentation",
+      "source": "Quellcode",
+      "issues": "Fehler melden"
+    },
+    "poi": {
+      "title": "Gezeigte Projekte",
+      "intro": "Dieser Bau zeigt die folgenden Projekte im Einsatz."
+    }
+  },
+  "about": {
+    "title": "Über uns",
+    "description": "OneLiteFeather ist ein Minecraft-Netzwerk, das von seiner Community lebt: Gemeinschaftsbauten, offene Software, eigene Events und transparente Finanzierung.",
+    "sections": {
+      "who": "Wer wir sind",
+      "pillars": "Was uns ausmacht",
+      "work": "Wie wir arbeiten",
+      "join": "Mitmachen"
+    },
+    "join": {
+      "play": "Spielen",
+      "discord": "Discord",
+      "apply": "Bewerben",
+      "support": "Unterstützen"
+    }
+  },
+  "consent": {
+    "banner": {
+      "title": "Wir verstreuen Kekse!",
+      "body": "Diese Seite legt kleine Kekse in deinem Browser ab. Notwendige Kekse merken sich deine Sprache und diese Wahl und sind immer an. Statistik-Kekse zeigen uns anonym, welche Seiten gelesen werden. Die sind standardmäßig an, aber du kannst sie jederzeit abschalten.",
+      "settings": "Ich entscheide selbst!",
+      "reject_all": "Keine Statistik-Kekse!",
+      "accept_all": "Her mit den Keksen!",
+      "settings_title": "Deine Kekse, deine Wahl",
+      "save": "Auswahl speichern",
+      "back": "Zurück",
+      "privacy_link": "Mehr dazu in der Datenschutzerklärung",
+      "necessary_title": "Notwendige Kekse",
+      "necessary_description": "Sie merken sich deine Sprache und diese Wahl. Unser Hoster Cloudflare kann zusätzlich Sicherheits-Kekse setzen, die die Seite vor Bots schützen. Die Seite braucht sie, deshalb sind sie immer an. Das Cookie für deine Wahl heißt olf_consent und läuft nach sechs Monaten ab.",
+      "analytics_title": "Statistik-Kekse",
+      "analytics_description": "Anonyme Nutzungsstatistik über PostHog mit Servern in der EU. Sie zeigt uns, welche Seiten gelesen werden. Standardmäßig an, jederzeit abschaltbar."
+    },
+    "footer_link": "Cookie-Einstellungen"
   }
 }

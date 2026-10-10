@@ -22,8 +22,9 @@ Multilingual (de/en) Nuxt site with @nuxt/content, SEO/i18n, and feature-based c
 - Install: `pnpm install`
 - Dev: `pnpm dev`
 - Build: `pnpm build`
-- Preview: `pnpm preview`
-- Generate (SSG): `pnpm generate`
+- Preview: `pnpm preview` (`nuxt preview`)
+- Serve the build in workerd via wrangler: `pnpm preview:prod` (port 8787; run `NODE_ENV=production pnpm build` first)
+- Tests: `pnpm test`; lint: `pnpm lint`; types: `pnpm typecheck`
 
 ## Content authoring
 - Blog posts live under `content/blog/{locale}/`. Frontmatter supports `title`, `description`, `slug`, `pubDate`, `canonical`, `alternates`, `sitemap`, etc.
@@ -35,8 +36,16 @@ Multilingual (de/en) Nuxt site with @nuxt/content, SEO/i18n, and feature-based c
 - Sitemap is auto-generated with i18n-aware content source and alternates.
 - Schema.org via `nuxt-schema-org`; site config from `nuxt.config.ts`.
 
+## Deployment
+- The site runs as the Cloudflare Worker `launchpad` (Nitro preset `cloudflare_module`, SSR), deployed by Cloudflare Workers Builds from the Git integration — not by GitHub Actions. Production branch is `main`.
+- There is no `wrangler.toml`: Nitro generates the wrangler config from `nuxt.config.ts` (`$production.nitro.cloudflare`, `deployConfig: true`). The D1 binding `DB` backs @nuxt/content.
+- Images are served through Cloudflare Images at `img.onelitefeather.net`. `NUXT_IMAGE_PROVIDER` and `WORKERS_CI` are build-time variables in Workers Builds.
+- Pull request previews come from Workers Builds preview URLs.
+- `pnpm generate` (SSG) is not part of the deployment path. See `AGENTS.md` (Deploy) for the required Workers Builds settings.
+
 ## Releases
-- Semantic-release on main with conventional commits. Run `pnpm release` (with push access) to publish tags/changelog.
+- Releases are managed by [release-please](https://github.com/googleapis/release-please) (`.github/workflows/release-please.yml`, `release-please-config.json`). Commits on `main` follow Conventional Commits; release-please keeps a release PR up to date with the version bump and `CHANGELOG.md`.
+- Merging the release PR tags the release and publishes the GitHub Release; the workflow then fast-forwards the `release` branch to the tag.
 - Footer version is pulled from `package.json` (`appConfig.version`).
 
 ## Contributing

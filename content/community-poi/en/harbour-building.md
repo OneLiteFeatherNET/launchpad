@@ -2,7 +2,7 @@
 slug: 'harbour-building'
 translationKey: 'harbour-building'
 title: 'Harbour building (Dockhafen)'
-summary: 'A harbour project from B3nNy that has not started yet. The schematic for the planned harbour ships with the page — the site is waiting for its first block.'
+summary: 'A harbour project from blndr2 that has not started yet. The schematic for the planned harbour ships with the page — the site is waiting for its first block.'
 status: 'planning'
 progress: 0
 category: 'community'
@@ -16,8 +16,8 @@ coordinates:
   z: -239
   dimension: 'overworld'
 builders:
-  - name: 'B3nNy'
-    mcName: 'B3nNy'
+  - name: 'blndr2'
+    mcName: 'blndr2'
 thumbnail: '/images/community-poi/hafengebaeude/litematica_day.png'
 thumbnailAlt: 'Litematica preview of the harbour building as a blue hologram above the still-empty site'
 gallery:
@@ -58,7 +58,7 @@ alternates:
 
 ## What is it?
 
-The harbour building is B3nNy's next project: a covered dock hall on stilts reaching well out over the water. Nothing has been built yet — what exists is a finished schematic and a marked-out spot in the bay.
+The harbour building is blndr2's next project: a covered dock hall on stilts reaching well out over the water. Nothing has been built yet — what exists is a finished schematic and a marked-out spot in the bay.
 
 The first two images show exactly that stage: the blue hologram is the Litematica preview of the schematic, projected over the still-empty site. It lets you judge how the building will sit in the landscape, and how far it will reach past the shoreline, before a single block goes down.
 
@@ -72,4 +72,4 @@ The two reference images in the gallery are **not** from our server — they are
 - Ideas for the warehouses and berths inside
 - Feedback on the placement before the first block goes down
 
-Get in touch with B3nNy on Discord.
+Get in touch with blndr2 on Discord.

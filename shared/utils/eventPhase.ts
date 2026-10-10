@@ -11,6 +11,11 @@
  * Deliberately free of Vue and H3, and of `Date.now()`: the caller decides
  * what "now" is, so the app can fix it once on the server and hand the result
  * to the client instead of recomputing it there.
+ *
+ * `unlisted` and the phase are independent axes: the phase describes the
+ * schedule, `unlisted` describes findability. `isEventListedAt` and
+ * `isEventReachableAt` combine them for the two places that need it — see
+ * their own docs below.
  */
 
 export type EventPhase = 'hidden' | 'announced' | 'running' | 'past'
@@ -64,6 +69,33 @@ export function isEventVisibleAt(schedule: EventScheduleFields, now: Moment): bo
 }
 
 /**
+ * Whether the event belongs in the overview, the carousel or the sitemap at
+ * `now`. `unlisted` regulates findability; the schedule (via `eventPhaseAt`)
+ * regulates the phase — the two are independent axes, so an unlisted event is
+ * never listed even once it would otherwise be visible.
+ */
+export function isEventListedAt(
+  schedule: EventScheduleFields,
+  unlisted: boolean | undefined,
+  now: Moment
+): boolean {
+  return !unlisted && isEventVisibleAt(schedule, now)
+}
+
+/**
+ * Whether the event's detail page must answer with content rather than 404
+ * at `now`. An unlisted event is always reachable, regardless of phase; a
+ * public event is reachable exactly when it is visible.
+ */
+export function isEventReachableAt(
+  schedule: EventScheduleFields,
+  unlisted: boolean | undefined,
+  now: Moment
+): boolean {
+  return Boolean(unlisted) || isEventVisibleAt(schedule, now)
+}
+
+/**
  * Whether the event belongs in the home carousel at `now`. The window
  * defaults to the event's own run (`startsAt` to `endsAt`); `from` and
  * `until` override either end independently, and `false` switches promotion
@@ -93,4 +125,20 @@ export function isAccessOpenAt(window: EventAccessWindowFields | undefined, now:
   if (opens !== undefined && at < opens) return false
   if (closes !== undefined && at >= closes) return false
   return true
+}
+
+/**
+ * Whether any event is listed and still ahead of or in its run at `now`:
+ * announced or running. Past, hidden and unlisted events do not count. The
+ * navigation uses this to promote "Events" to the top level only while the
+ * page has something to show.
+ */
+export function hasLiveListedEventAt(
+  events: Array<{ unlisted?: boolean, event: EventScheduleFields }>,
+  now: Moment
+): boolean {
+  return events.some((entry) => {
+    if (!isEventListedAt(entry.event, entry.unlisted, now)) return false
+    return eventPhaseAt(entry.event, now) !== 'past'
+  })
 }

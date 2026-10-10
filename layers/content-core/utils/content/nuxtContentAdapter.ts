@@ -6,11 +6,17 @@ import type {
   TeamDocument,
   BlogArticle,
   BlogAuthorProfile,
+  AboutDocument,
   ServerConceptDocument,
   ServerConnectDocument,
   HomeCarouselDocument,
   CommunityPoiDocument,
-  EventDocument
+  CommunityPoiSummary,
+  EventDocument,
+  EventScheduleSummary,
+  EventSummary,
+  ProjectDocument,
+  ProjectSummary
 } from './repository'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
 
@@ -25,10 +31,72 @@ const teamFaqKey = (locale: Locale) => `team_faq_${locale}` as 'team_faq_de' | '
 const teamKey = (locale: Locale) => `team_${locale}` as 'team_de' | 'team_en'
 const sponsorsKey = (locale: Locale) => `sponsors_${locale}` as 'sponsors_de' | 'sponsors_en'
 const serverConceptKey = (locale: Locale) => `server_concept_${locale}` as 'server_concept_de' | 'server_concept_en'
+const aboutKey = (locale: Locale) => `about_${locale}` as 'about_de' | 'about_en'
 const serverConnectKey = (locale: Locale) => `server_connect_${locale}` as 'server_connect_de' | 'server_connect_en'
 const homeCarouselKey = (locale: Locale) => `home_carousel_${locale}` as 'home_carousel_de' | 'home_carousel_en'
 const communityPoiKey = (locale: Locale) => `community_poi_${locale}` as 'community_poi_de' | 'community_poi_en'
 const eventsKey = (locale: Locale) => `events_${locale}` as 'events_de' | 'events_en'
+const projectsKey = (locale: Locale) => `projects_${locale}` as 'projects_de' | 'projects_en'
+
+type CommunityPoiQuery = ReturnType<typeof queryCollection<'community_poi_de' | 'community_poi_en'>>
+
+function communityPoiSummaries(query: CommunityPoiQuery, ...extra: ('projects')[]) {
+  return query.select(
+    ...extra,
+    'slug',
+    'title',
+    'summary',
+    'status',
+    'progress',
+    'category',
+    'featured',
+    'featuredCaption',
+    'thumbnail',
+    'thumbnailAlt',
+    'location',
+    'acceptsContributions',
+    'builders',
+    'startedAt',
+    'publishedAt',
+    'updatedAt',
+    'gallery',
+    'schematics'
+  )
+}
+
+const PROJECT_CARD_FIELDS = [
+  'slug',
+  'title',
+  'summary',
+  'status',
+  'logo',
+  'logoAlt',
+  'releasedAt',
+  'publishedAt',
+  'platforms',
+  'license'
+] as const
+
+const toCommunityPoiSummary = (row: Record<string, unknown>): CommunityPoiSummary => {
+  const { gallery, schematics, projects: _projects, ...rest } = row
+  return {
+    ...rest,
+    galleryCount: Array.isArray(gallery) ? gallery.length : 0,
+    schematicCount: Array.isArray(schematics) ? schematics.length : 0
+  } as CommunityPoiSummary
+}
+
+/**
+ * `path` and `stem` of an unprojected row come from the file's location
+ * (`/team-faq/en/process`), name no route of this site, and no template reads
+ * them. Serialised into the SSR payload they get crawled and answer 404.
+ */
+function withoutRoutes<T>(value: T): T {
+  if (Array.isArray(value)) return value.map(withoutRoutes) as T
+  if (!value || typeof value !== 'object') return value
+  const { path: _path, stem: _stem, ...rest } = value as Record<string, unknown>
+  return rest as T
+}
 
 /**
  * The @nuxt/content-backed {@link ContentRepository} implementation. Every
@@ -36,7 +104,9 @@ const eventsKey = (locale: Locale) => `events_${locale}` as 'events_de' | 'event
  * must run inside a Nuxt context (e.g. an `useAsyncData` fetcher), which is
  * how `queryCollection` resolves the active Nuxt app.
  */
-export function createNuxtContentAdapter(): ContentRepository {
+type Query = typeof queryCollection
+
+export function createNuxtContentAdapter(query: Query = queryCollection): ContentRepository {
   return {
     // Projected, not `SELECT *`. This feeds one screen — the overview's
     // headline card and teaser grid — and without a projection every row
@@ -53,7 +123,7 @@ export function createNuxtContentAdapter(): ContentRepository {
     // publish unreleased articles. The contract is asserted in
     // tests/content/blog-list-projection.spec.ts.
     listBlogArticles(locale) {
-      return queryCollection(blogKey(locale))
+      return query(blogKey(locale))
         .select(
           // ContentRenderer emits it as data-content-id; without it the
           // rendered excerpt is identical but loses that attribute.
@@ -67,98 +137,175 @@ export function createNuxtContentAdapter(): ContentRepository {
           'headerImageAlt',
           'pubDate',
           'releaseDate',
+          'author',
           'tags'
         )
         .all() as Promise<BlogArticle[]>
     },
 
     getBlogArticleBySlug(locale, slug) {
-      return queryCollection(blogKey(locale))
+      return query(blogKey(locale))
         .where('slug', '=', slug)
-        .first() as Promise<BlogArticle | null>
+        .first().then(withoutRoutes) as Promise<BlogArticle | null>
     },
 
     getBlogArticleByTranslationKey(locale, translationKey) {
-      return queryCollection(blogKey(locale))
+      return query(blogKey(locale))
         .where('translationKey', '=', translationKey)
-        .first() as Promise<BlogArticle | null>
+        .first().then(withoutRoutes) as Promise<BlogArticle | null>
     },
 
     getAuthorBySlug(slug) {
-      return queryCollection('authors')
+      return query('authors')
         .where('slug', '=', slug)
-        .first() as Promise<BlogAuthorProfile | null>
+        .first().then(withoutRoutes) as Promise<BlogAuthorProfile | null>
+    },
+
+    async listAuthorsBySlugs(slugs) {
+      if (!slugs.length) return []
+      return await query('authors')
+        .select('slug', 'name', 'role', 'avatar', 'bio', 'links')
+        .where('slug', 'IN', slugs)
+        .all() as BlogAuthorProfile[]
     },
 
     listFaqEntries(locale) {
-      return queryCollection(faqKey(locale))
+      return query(faqKey(locale))
         .order('order', 'ASC')
-        .all() as Promise<FaqEntry[]>
+        .all().then(withoutRoutes) as Promise<FaqEntry[]>
     },
 
-    async getTeamDocument(locale) {
-      const docs = await queryCollection(teamKey(locale)).all()
-      return (docs[0] ?? null) as TeamDocument | null
+    getTeamDocument(locale) {
+      return query(teamKey(locale))
+        .first().then(withoutRoutes) as Promise<TeamDocument | null>
     },
 
     listTeamFaqEntries(locale) {
-      return queryCollection(teamFaqKey(locale))
+      return query(teamFaqKey(locale))
         .order('order', 'ASC')
-        .all() as Promise<TeamFaqEntry[]>
+        .all().then(withoutRoutes) as Promise<TeamFaqEntry[]>
     },
 
-    async getServerConcept(locale) {
-      const docs = await queryCollection(serverConceptKey(locale)).all()
-      return (docs[0] ?? null) as ServerConceptDocument | null
+    getServerConcept(locale) {
+      return query(serverConceptKey(locale))
+        .first().then(withoutRoutes) as Promise<ServerConceptDocument | null>
     },
 
-    async getServerConnect(locale) {
-      const docs = await queryCollection(serverConnectKey(locale)).all()
-      return (docs[0] ?? null) as ServerConnectDocument | null
+    getAboutDocument(locale) {
+      return query(aboutKey(locale))
+        .first().then(withoutRoutes) as Promise<AboutDocument | null>
     },
 
-    async getHomeCarousel(locale) {
-      const docs = await queryCollection(homeCarouselKey(locale)).all()
-      return (docs[0] ?? null) as HomeCarouselDocument | null
+    getServerConnect(locale) {
+      return query(serverConnectKey(locale))
+        .first().then(withoutRoutes) as Promise<ServerConnectDocument | null>
+    },
+
+    getHomeCarousel(locale) {
+      return query(homeCarouselKey(locale))
+        .first().then(withoutRoutes) as Promise<HomeCarouselDocument | null>
     },
 
     getSponsorsDocument(locale) {
-      return queryCollection(sponsorsKey(locale))
-        .first() as Promise<SponsorsDocument | null>
+      return query(sponsorsKey(locale))
+        .first().then(withoutRoutes) as Promise<SponsorsDocument | null>
     },
 
+    // gallery and schematics are read only to be reduced to counts.
     listCommunityPois(locale) {
-      return queryCollection(communityPoiKey(locale))
-        .all() as Promise<CommunityPoiDocument[]>
+      return communityPoiSummaries(query(communityPoiKey(locale)))
+        .all()
+        .then((rows) => rows.map(toCommunityPoiSummary))
+    },
+
+    listFeaturedCommunityPois(locale) {
+      return communityPoiSummaries(query(communityPoiKey(locale)))
+        .where('featured', '=', true)
+        .all()
+        .then((rows) => rows.map(toCommunityPoiSummary))
+    },
+
+    // `projects` is a JSON column, so the match is made here, not in SQL.
+    async listCommunityPoisByProject(locale, slug) {
+      const rows = await communityPoiSummaries(query(communityPoiKey(locale)), 'projects').all()
+      return rows
+        .filter((row) => (row as { projects?: string[] | null }).projects?.includes(slug))
+        .map(toCommunityPoiSummary)
     },
 
     getCommunityPoiBySlug(locale, slug) {
-      return queryCollection(communityPoiKey(locale))
+      return query(communityPoiKey(locale))
         .where('slug', '=', slug)
-        .first() as Promise<CommunityPoiDocument | null>
+        .first().then(withoutRoutes) as Promise<CommunityPoiDocument | null>
     },
 
     getCommunityPoiByTranslationKey(locale, translationKey) {
-      return queryCollection(communityPoiKey(locale))
+      return query(communityPoiKey(locale))
         .where('translationKey', '=', translationKey)
-        .first() as Promise<CommunityPoiDocument | null>
+        .first().then(withoutRoutes) as Promise<CommunityPoiDocument | null>
     },
 
     listEvents(locale) {
-      return queryCollection(eventsKey(locale))
-        .all() as Promise<EventDocument[]>
+      return query(eventsKey(locale))
+        .select(
+          'slug',
+          'title',
+          'summary',
+          'type',
+          'thumbnail',
+          'thumbnailAlt',
+          'unlisted',
+          'hosts',
+          'event',
+          'access',
+          'promote',
+          'results'
+        )
+        .all() as Promise<EventSummary[]>
+    },
+
+    listEventSchedules(locale) {
+      return query(eventsKey(locale))
+        .select('unlisted', 'event')
+        .all() as Promise<EventScheduleSummary[]>
     },
 
     getEventBySlug(locale, slug) {
-      return queryCollection(eventsKey(locale))
+      return query(eventsKey(locale))
         .where('slug', '=', slug)
-        .first() as Promise<EventDocument | null>
+        .first().then(withoutRoutes) as Promise<EventDocument | null>
     },
 
     getEventByTranslationKey(locale, translationKey) {
-      return queryCollection(eventsKey(locale))
+      return query(eventsKey(locale))
         .where('translationKey', '=', translationKey)
-        .first() as Promise<EventDocument | null>
+        .first().then(withoutRoutes) as Promise<EventDocument | null>
+    },
+
+    listProjects(locale) {
+      return query(projectsKey(locale))
+        .select(...PROJECT_CARD_FIELDS)
+        .all() as Promise<ProjectSummary[]>
+    },
+
+    async listProjectsBySlugs(locale, slugs) {
+      if (!slugs.length) return []
+      return await query(projectsKey(locale))
+        .select(...PROJECT_CARD_FIELDS)
+        .where('slug', 'IN', slugs)
+        .all() as ProjectSummary[]
+    },
+
+    getProjectBySlug(locale, slug) {
+      return query(projectsKey(locale))
+        .where('slug', '=', slug)
+        .first().then(withoutRoutes) as Promise<ProjectDocument | null>
+    },
+
+    getProjectByTranslationKey(locale, translationKey) {
+      return query(projectsKey(locale))
+        .where('translationKey', '=', translationKey)
+        .first().then(withoutRoutes) as Promise<ProjectDocument | null>
     }
   }
 }

@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
     const doc = docs[0]
     const members = (doc?.members || []) as TeamMember[]
     for (const m of members) {
-      if (!m.slug || m.openPosition) continue
+      if (!m.slug || m.openPosition || isThinTeamProfile(m)) continue
       out.push({ loc: `/${locale}/team/${m.slug}` })
     }
   }

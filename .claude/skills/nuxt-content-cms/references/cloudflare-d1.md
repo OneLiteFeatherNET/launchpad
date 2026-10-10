@@ -11,7 +11,7 @@ Workers-static-assets requirement, not a D1 one — don't cite it as the D1 floo
 `nitro.cloudflare.wrangler.d1_databases` declares the binding:
 
 ```ts
-d1_databases: [{ binding: 'DB', database_name: 'launchpad', database_id: '...' }]
+d1_databases: [{ binding: 'DB', database_name: 'launchpad-weur', database_id: '...' }]
 ```
 
 `@nuxt/content` never reads that block — there is no `d1_databases` or `wrangler`

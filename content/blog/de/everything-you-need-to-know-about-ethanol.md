@@ -11,7 +11,7 @@ tags:
   - security
   - malware
   - minecraft
-author: phillipp-glanz
+author: themeinerlp
 canonical: 'https://onelitefeather.net/de/blog/alles-was-man-ueber-ethanol-wissen-sollte'
 sitemap:
   lastmod: '2024-07-23'

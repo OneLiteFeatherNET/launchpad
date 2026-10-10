@@ -5,6 +5,8 @@ import type {
   BlogEnCollectionItem,
   TeamDeCollectionItem,
   TeamEnCollectionItem,
+  AboutDeCollectionItem,
+  AboutEnCollectionItem,
   ServerConceptDeCollectionItem,
   ServerConceptEnCollectionItem,
   ServerConnectDeCollectionItem,
@@ -14,7 +16,9 @@ import type {
   CommunityPoiDeCollectionItem,
   CommunityPoiEnCollectionItem,
   EventsDeCollectionItem,
-  EventsEnCollectionItem
+  EventsEnCollectionItem,
+  ProjectsDeCollectionItem,
+  ProjectsEnCollectionItem
 } from '@nuxt/content'
 import type { Locale } from './collections'
 import type { FaqEntry, TeamFaqEntry } from '../../types-faq'
@@ -48,6 +52,9 @@ export type TeamDocument = TeamDeCollectionItem | TeamEnCollectionItem
  * `ServerConceptPoint` shape from it.
  */
 export type ServerConceptDocument = ServerConceptDeCollectionItem | ServerConceptEnCollectionItem
+
+/** Shape of the `about` collection document, as @nuxt/content generates it. */
+export type AboutDocument = AboutDeCollectionItem | AboutEnCollectionItem
 
 /**
  * Shape of the `server_connect` collection document, as @nuxt/content
@@ -129,9 +136,11 @@ export type CommunityPoiDocument = (
     setupNotes?: string
   }[]
   startedAt?: string | Date
+  publishedAt?: string | Date
   updatedAt?: string | Date
   forumUrl?: string
   acceptsContributions?: boolean
+  projects?: string[]
   canonical?: string
   alternates?: {
     hreflang: string
@@ -149,6 +158,48 @@ export type CommunityPoiDocument = (
 export type EventDocument = EventsDeCollectionItem | EventsEnCollectionItem
 
 /**
+ * Shape of the `projects` collection document, as @nuxt/content generates it.
+ * Lives here for the same reason as {@link EventDocument}: only content-core
+ * may name `@nuxt/content`. The `projects` layer derives its plain shapes
+ * from this by indexed access.
+ */
+export type ProjectDocument = ProjectsDeCollectionItem | ProjectsEnCollectionItem
+
+/** The card fields of a project; the list queries select exactly these. */
+export type ProjectSummary = Pick<
+  ProjectDocument,
+  | 'slug'
+  | 'title'
+  | 'summary'
+  | 'status'
+  | 'logo'
+  | 'logoAlt'
+  | 'releasedAt'
+  | 'publishedAt'
+  | 'platforms'
+  | 'license'
+>
+
+export type EventSummary = Pick<
+  EventDocument,
+  | 'slug'
+  | 'title'
+  | 'summary'
+  | 'type'
+  | 'thumbnail'
+  | 'thumbnailAlt'
+  | 'unlisted'
+  | 'hosts'
+  | 'event'
+  | 'access'
+  | 'promote'
+  | 'results'
+>
+
+/** What the navigation needs of an event: its schedule and whether it is listed. */
+export type EventScheduleSummary = Pick<EventDocument, 'unlisted' | 'event'>
+
+/**
  * Display order for `CommunityPoiDocument['status']` (in-progress first,
  * because that's where the community can still help; completed last). A
  * presentation ordering, not a CMS concept, but it lives beside the type it
@@ -159,6 +210,29 @@ export type EventDocument = EventsDeCollectionItem | EventsEnCollectionItem
  * itself so adding a status here is a compile error at every use site, not a
  * silent `?? 99` fallback in whichever copy someone forgot to update.
  */
+export type CommunityPoiSummary = Pick<
+  CommunityPoiDocument,
+  | 'slug'
+  | 'title'
+  | 'summary'
+  | 'status'
+  | 'progress'
+  | 'category'
+  | 'featured'
+  | 'featuredCaption'
+  | 'thumbnail'
+  | 'thumbnailAlt'
+  | 'location'
+  | 'acceptsContributions'
+  | 'builders'
+  | 'startedAt'
+  | 'publishedAt'
+  | 'updatedAt'
+> & {
+  galleryCount: number
+  schematicCount: number
+}
+
 export const COMMUNITY_POI_STATUS_ORDER: Record<CommunityPoiDocument['status'], number> = {
   'in-progress': 0,
   planning: 1,
@@ -216,7 +290,6 @@ export type BlogArticle = (
 ) & {
   author?: string | string[]
   authors?: BlogAuthorProfile[]
-  teamMembers?: string[]
   canonical?: string
   alternates?: BlogAlternateHeader[]
   seo?: BlogSeoOverrides
@@ -251,6 +324,8 @@ export interface ContentRepository {
   ): Promise<BlogArticle | null>
   /** Author profile (locale-independent collection) by `slug`, or null. */
   getAuthorBySlug(slug: string): Promise<BlogAuthorProfile | null>
+  /** Profiles for the given slugs in one query; unordered, unknown slugs absent. */
+  listAuthorsBySlugs(slugs: string[]): Promise<BlogAuthorProfile[]>
 
   // --- FAQ ------------------------------------------------------------------
   /** All FAQ entries for a locale, ordered by the `order` field ascending. */
@@ -264,6 +339,7 @@ export interface ContentRepository {
 
   // --- Home -----------------------------------------------------------------
   getServerConcept(locale: Locale): Promise<ServerConceptDocument | null>
+  getAboutDocument(locale: Locale): Promise<AboutDocument | null>
   getServerConnect(locale: Locale): Promise<ServerConnectDocument | null>
   getHomeCarousel(locale: Locale): Promise<HomeCarouselDocument | null>
 
@@ -272,7 +348,9 @@ export interface ContentRepository {
 
   // --- Community POI --------------------------------------------------------
   /** All community POIs for a locale (unfiltered, unsorted — caller decides). */
-  listCommunityPois(locale: Locale): Promise<CommunityPoiDocument[]>
+  listCommunityPois(locale: Locale): Promise<CommunityPoiSummary[]>
+  /** Only POIs flagged `featured`, filtered in SQL (unsorted). */
+  listFeaturedCommunityPois(locale: Locale): Promise<CommunityPoiSummary[]>
   /** Single POI by its `slug` frontmatter field, or null. */
   getCommunityPoiBySlug(locale: Locale, slug: string): Promise<CommunityPoiDocument | null>
   /** Single POI in `locale` sharing the given `translationKey`, or null. */
@@ -283,7 +361,9 @@ export interface ContentRepository {
 
   // --- Events ---------------------------------------------------------------
   /** All events for a locale (unfiltered, unsorted — caller decides). */
-  listEvents(locale: Locale): Promise<EventDocument[]>
+  listEvents(locale: Locale): Promise<EventSummary[]>
+  /** Schedule and `unlisted` of every event, nothing else (unsorted — caller decides). */
+  listEventSchedules(locale: Locale): Promise<EventScheduleSummary[]>
   /** Single event by its `slug` frontmatter field, or null. */
   getEventBySlug(locale: Locale, slug: string): Promise<EventDocument | null>
   /** Single event in `locale` sharing the given `translationKey`, or null. */
@@ -291,4 +371,19 @@ export interface ContentRepository {
     locale: Locale,
     translationKey: string
   ): Promise<EventDocument | null>
+
+  // --- Projects -------------------------------------------------------------
+  /** All projects for a locale, card fields only (unsorted — caller decides). */
+  listProjects(locale: Locale): Promise<ProjectSummary[]>
+  /** Card fields of the given slugs in one query; unordered, unknown slugs absent. */
+  listProjectsBySlugs(locale: Locale, slugs: string[]): Promise<ProjectSummary[]>
+  /** Single project by its `slug` frontmatter field, or null. */
+  getProjectBySlug(locale: Locale, slug: string): Promise<ProjectDocument | null>
+  /** Single project in `locale` sharing the given `translationKey`, or null. */
+  getProjectByTranslationKey(
+    locale: Locale,
+    translationKey: string
+  ): Promise<ProjectDocument | null>
+  /** The POIs whose `projects` names the slug, as cards (unsorted). */
+  listCommunityPoisByProject(locale: Locale, slug: string): Promise<CommunityPoiSummary[]>
 }

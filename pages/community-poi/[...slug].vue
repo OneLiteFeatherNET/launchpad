@@ -10,6 +10,8 @@ definePageMeta({
 
 const { poi } = await useCommunityPoiDetail()
 
+// The join with projects happens here: neither layer knows the other.
+const { projects: linkedProjects } = await useProjectsBySlugs(() => poi.value?.projects ?? [])
 
 const title = computed(() => poi.value?.title || t('community_poi.overview.title'))
 const description = computed(() => poi.value?.summary || t('community_poi.overview.description'))
@@ -37,7 +39,7 @@ const toIso = (raw: string | Date | undefined): string | undefined => {
   return Number.isNaN(date.getTime()) ? undefined : date.toISOString()
 }
 
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   if (!poi.value) return []
   const detailUrl = new URL(
     `/${locale.value}/community-poi/${poi.value.slug}`,
@@ -78,7 +80,7 @@ useSchemaOrg(() => {
     })
   }
   return nodes
-})
+}))
 
 useHead(() => (poi.value as { head?: Record<string, unknown> } | null)?.head || {})
 
@@ -152,6 +154,14 @@ const progressSectionClass = 'rounded-large bg-surface-container-low p-5'
       -->
       <section v-if="poi.body">
         <ContentRenderer :value="poi" />
+      </section>
+
+      <section v-if="linkedProjects.length" aria-labelledby="poi-projects" class="space-y-3">
+        <h2 id="poi-projects" class="text-title-large text-on-surface">
+          {{ t('projects.poi.title') }}
+        </h2>
+        <p class="text-body-medium text-on-surface-variant">{{ t('projects.poi.intro') }}</p>
+        <ProjectGrid :projects="linkedProjects" />
       </section>
 
       <section v-if="poi.gallery?.length">

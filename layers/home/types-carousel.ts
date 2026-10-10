@@ -27,6 +27,8 @@ export interface BlogSlide {
   author?: string
   date?: string | Date
   tag?: string
+  /** Published on the site within the highlight window. */
+  isNew?: boolean
 }
 
 /**
@@ -41,6 +43,7 @@ export interface NewsSlide {
   alt?: string
   date?: string | Date
   tag?: string
+  isNew?: boolean
 }
 
 /**
@@ -56,6 +59,22 @@ export interface PoiSlide {
   status?: 'planning' | 'in-progress' | 'paused' | 'completed'
   progress?: number
   category?: 'team' | 'community' | 'collab'
+  isNew?: boolean
+}
+
+/**
+ * Project slide. `href` cross-links to the project detail page.
+ */
+export interface ProjectSlide {
+  type: 'project'
+  title: string
+  href: string
+  summary?: string
+  image?: string
+  alt?: string
+  status?: 'active' | 'maintenance' | 'archived'
+  platforms?: string[]
+  isNew?: boolean
 }
 
 /**
@@ -71,6 +90,7 @@ export interface EventSlide {
   image?: string
   alt?: string
   note?: string
+  isNew?: boolean
 }
 
 /**
@@ -92,15 +112,22 @@ export type AnySlide =
   | NewsSlide
   | EventSlide
   | PoiSlide
+  | ProjectSlide
   | LegacyImageSlide
 
 /**
  * Union type of normalized slides (without legacy)
  */
-export type NormalizedSlide = ImageSlide | BlogSlide | NewsSlide | EventSlide | PoiSlide
+export type NormalizedSlide =
+  | ImageSlide
+  | BlogSlide
+  | NewsSlide
+  | EventSlide
+  | PoiSlide
+  | ProjectSlide
 
 /**
  * Slide type discriminator for type guards
  */
-export type SlideType = 'image' | 'blog' | 'news' | 'event' | 'poi'
+export type SlideType = 'image' | 'blog' | 'news' | 'event' | 'poi' | 'project'
 

@@ -19,6 +19,12 @@ const site = useSiteConfig()
 
 const { member, avatarSrc } = await useTeamProfile()
 
+// Contributions come from other domains; only this page may combine them
+// with the team layer's profile.
+const memberSlug = computed(() => member.value?.slug ?? '')
+const { articles: posts } = await useBlogPostsByAuthor(memberSlug)
+const { events } = useEventsByHost(memberSlug)
+
 const memberRoles = computed(() => toRoleList(member.value?.role))
 const memberRoleText = computed(() => toRoleString(member.value?.role))
 
@@ -76,6 +82,8 @@ usePageSeo({
   twitterCard: 'summary',
   ogType: 'profile',
   schemaType: 'ProfilePage',
+  // Thin profiles are soft 404s for Google; links stay followable.
+  noindex: member.value ? isThinTeamProfile(member.value) : false,
 })
 
 useBreadcrumbs(() => [
@@ -87,7 +95,7 @@ useBreadcrumbs(() => [
 // Person schema so the team member can earn its own knowledge panel.
 // The stable `@id` is reused by Article.author across every blog post so
 // Google can merge the entities into one identity in its graph.
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   if (!member.value) return []
   const profileUrl = member.value.slug
     ? personProfileUrl(site.url, locale.value, member.value.slug)
@@ -112,7 +120,7 @@ useSchemaOrg(() => {
       worksFor: { '@id': organizationId(site.url) }
     }
   ]
-})
+}))
 
 // Custom OG image that puts the Minecraft head, the actual member name
 // and their bio into the social preview, instead of the generic NuxtSeo
@@ -203,6 +211,19 @@ const profileClass
           <span class="capitalize">{{ link.key }}</span>
         </M3Button>
       </div>
+
+      <AuthorPostList
+        v-if="posts.length"
+        class="mt-8"
+        :title="t('team.profile.posts')"
+        :posts="posts"
+      />
+      <HostedEventList
+        v-if="events.length"
+        class="mt-8"
+        :title="t('team.profile.events')"
+        :events="events"
+      />
     </div>
 
     <div v-else class="mt-10 text-center text-body-large text-on-surface-variant">

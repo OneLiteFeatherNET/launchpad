@@ -9,6 +9,7 @@ definePageMeta({
 })
 
 const { groups, memberCount } = useTeamRoster()
+const supporterLinks = useLiteSupporterLinks()
 
 usePageSeo({
   title: t('team.index.title'),
@@ -29,7 +30,7 @@ useBreadcrumbs(() => [
 // Expose the roster as an ItemList of Person entities. The stable per-member
 // `@id` matches the one used on the individual profile page and in
 // Article.author, so Google can merge them into one identity.
-useSchemaOrg(() => {
+useSchemaOrg(computed(() => {
   const members = groups.value.flatMap((g) => g.members)
   if (!members.length) return []
   return [
@@ -46,7 +47,7 @@ useSchemaOrg(() => {
       }))
     }
   ]
-})
+}))
 </script>
 
 <template>
@@ -64,7 +65,9 @@ useSchemaOrg(() => {
       v-for="group in groups"
       :key="group.rank"
       :group="group"
-    />
+    >
+      <TeamSupporterList v-if="group.rank === 'lite'" :supporters="supporterLinks" />
+    </TeamRankSection>
 
     <p
       v-if="memberCount === 0"

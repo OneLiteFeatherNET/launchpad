@@ -2,7 +2,7 @@
 slug: 'megabase'
 translationKey: 'megabase'
 title: 'Megabase'
-summary: 'The largest undertaking by B3nNy: a site several hundred blocks across has been excavated and marked out, and the schematic for the build is ready.'
+summary: 'The largest undertaking by blndr2: a site several hundred blocks across has been excavated and marked out, and the schematic for the build is ready.'
 status: 'in-progress'
 progress: 5
 category: 'community'
@@ -15,8 +15,8 @@ coordinates:
   z: 20850
   dimension: 'overworld'
 builders:
-  - name: 'B3nNy'
-    mcName: 'B3nNy'
+  - name: 'blndr2'
+    mcName: 'blndr2'
 thumbnail: '/images/community-poi/megabase/site_overview.png'
 thumbnailAlt: 'Aerial view of the excavated megabase site, an enormous V-shaped foundation cut into the terrain'
 gallery:
@@ -51,7 +51,7 @@ alternates:
 
 ## What is it?
 
-The megabase is B3nNy's largest project, and what sets it apart from the others is sheer scale. Where the maze and the harbour are each a single structure, this one covers ground you cannot take in from normal play height — the overview shot was taken well beyond render distance.
+The megabase is blndr2's largest project, and what sets it apart from the others is sheer scale. Where the maze and the harbour are each a single structure, this one covers ground you cannot take in from normal play height — the overview shot was taken well beyond render distance.
 
 The excavation is finished. The terrain has been levelled to a single height and the footprint laid out as a V-shaped foundation of dark stone, with the Litematica outline of the planned build standing beside it. Not a block has gone up yet.
 
@@ -65,6 +65,6 @@ For a sense of scale the gallery includes a picture of "The Uncensored Library" 
 
 ## How can you help?
 
-On a build this size, materials are the bottleneck, not ideas. If you want to pitch in, the best route is a message to B3nNy on Discord — that is also where the next sections get agreed.
+On a build this size, materials are the bottleneck, not ideas. If you want to pitch in, the best route is a message to blndr2 on Discord — that is also where the next sections get agreed.
 
 To follow along: download the schematic and lay it over the foundation in-game as a hologram. Use Litematica for viewing only, **no auto-place** (see the server rule below).

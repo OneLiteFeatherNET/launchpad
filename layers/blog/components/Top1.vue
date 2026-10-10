@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { BlogArticle } from '../types'
+import type { BlogArticle, CardAuthor } from '../types'
 const {locale, d} = useI18n();
-const {blogArticle} = defineProps<{
+const {blogArticle, authors = []} = defineProps<{
   blogArticle: BlogArticle;
+  authors?: CardAuthor[];
 }>();
 </script>
 
@@ -31,6 +32,15 @@ const {blogArticle} = defineProps<{
     <time class="mt-0.5 block text-body-small text-on-surface-variant">
       {{ d(new Date(blogArticle.pubDate as any)) }}
     </time>
+    <div v-if="authors?.length" class="mt-1 flex flex-wrap gap-x-4">
+      <PersonLink
+        v-for="author in authors"
+        :key="author.slug"
+        :name="author.name"
+        :to="author.profilePath"
+        class="relative z-10 w-fit"
+      />
+    </div>
     <div v-if="blogArticle.tags?.length" class="mt-2 flex flex-wrap gap-2">
       <M3Chip
         v-for="tag in blogArticle.tags"

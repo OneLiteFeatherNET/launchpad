@@ -1,15 +1,16 @@
-onlyBuiltDependencies:
-  - '@intlify/vue-i18n-bridge'
-  - '@intlify/vue-router-bridge'
-  - '@parcel/watcher'
-  - '@tailwindcss/oxide'
-  - better-sqlite3
-  - core-js
-  - esbuild
-  - protobufjs
-  - sharp
-  - unrs-resolver
-  - vue-demi
+allowBuilds:
+  '@intlify/vue-i18n-bridge': true
+  '@intlify/vue-router-bridge': true
+  '@parcel/watcher': true
+  '@tailwindcss/oxide': true
+  better-sqlite3: true
+  core-js: true
+  esbuild: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true
+  vue-demi: true
+  workerd: true
 
 overrides:
   '@eslint/plugin-kit@<0.3.4': '>=0.3.4'
@@ -31,10 +32,3 @@ overrides:
   # leave it undefined which floor applies.
   vite@>=7.1.0 <=7.1.10: '>=7.1.11'
   vue-i18n@>=10.0.0 <10.0.8: '>=10.0.8'
-# nuxt-schema-org 6.3.2's i18n plugin passes a computed() to defineWebPage(),
-# which loses the resolver metadata and adds an untyped WebPage node to every
-# page's JSON-LD. Fixed upstream on main (harlan-zw/nuxt-schema-org#155), not
-# yet released. Delete this entry and the patch file with the first release
-# after 6.3.2 — pnpm fails the install loudly if the patch no longer applies.
-patchedDependencies:
-  nuxt-schema-org@6.3.2: patches/nuxt-schema-org@6.3.2.patch

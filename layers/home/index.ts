@@ -9,9 +9,23 @@ export {
   isNewsSlide,
   isEventSlide,
   isPoiSlide,
+  isProjectSlide,
   getSlideLabel,
   getSlideAriaText
 } from './composables/useCarousel'
+export {
+  HIGHLIGHT_WINDOW_DAYS,
+  MAX_HIGHLIGHTS,
+  MIN_SLIDES,
+  isNewAt,
+  freshBlogArticles,
+  freshSlides,
+  recentBlogArticles,
+  recentSlides,
+  eventSlide,
+  composeSlides
+} from './utils/highlights'
+export type { HighlightSources, HighlightEvent } from './utils/highlights'
 export type { TranslateSlideText } from './composables/useCarousel'
 export { useFaqContent } from './composables/useFaqContent'
 export type * from './types'

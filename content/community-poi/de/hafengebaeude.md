@@ -2,7 +2,7 @@
 slug: 'hafengebaeude'
 translationKey: 'harbour-building'
 title: 'Hafengebäude (Dockhafen)'
-summary: 'Ein noch nicht begonnenes Hafenprojekt von B3nNy. Schematic mit dem geplanten Dockhafen liegt bei – Baustelle wartet auf den ersten Block.'
+summary: 'Ein noch nicht begonnenes Hafenprojekt von blndr2. Schematic mit dem geplanten Dockhafen liegt bei – Baustelle wartet auf den ersten Block.'
 status: 'planning'
 progress: 0
 category: 'community'
@@ -16,8 +16,8 @@ coordinates:
   z: -239
   dimension: 'overworld'
 builders:
-  - name: 'B3nNy'
-    mcName: 'B3nNy'
+  - name: 'blndr2'
+    mcName: 'blndr2'
 thumbnail: '/images/community-poi/hafengebaeude/litematica_day.png'
 thumbnailAlt: 'Litematica-Vorschau des Hafengebäudes als blaues Hologramm über dem noch leeren Bauplatz'
 gallery:
@@ -58,7 +58,7 @@ alternates:
 
 ## Worum geht's?
 
-Das Hafengebäude ist B3nNys nächstes Projekt: eine überdachte Dockhalle auf Stelzen, die weit ins Wasser hinausreicht. Gebaut ist noch nichts – was es gibt, ist die fertige Schematic und ein abgesteckter Platz in der Bucht.
+Das Hafengebäude ist blndr2s nächstes Projekt: eine überdachte Dockhalle auf Stelzen, die weit ins Wasser hinausreicht. Gebaut ist noch nichts – was es gibt, ist die fertige Schematic und ein abgesteckter Platz in der Bucht.
 
 Die ersten beiden Bilder zeigen genau diesen Zwischenstand: Das blaue Hologramm ist die Litematica-Vorschau der Schematic, eingeblendet über dem noch leeren Bauplatz. So lässt sich schon vor dem ersten Block beurteilen, wie das Gebäude in der Landschaft sitzt und wie weit es über das Ufer hinausragt.
 
@@ -72,4 +72,4 @@ Die beiden Referenzbilder in der Galerie stammen **nicht** von unserem Server �
 - Vorschläge für Lagerhallen und Anlegestellen im Inneren
 - Feedback zur Platzierung, bevor der erste Block gesetzt wird
 
-Melde dich dafür bei B3nNy auf Discord.
+Melde dich dafür bei blndr2 auf Discord.

@@ -14,13 +14,19 @@ export type {
   BlogArticle,
   BlogAuthorProfile,
   BlogAlternateHeader,
+  AboutDocument,
   ServerConceptDocument,
   ServerConnectDocument,
   HomeCarouselDocument,
   CommunityPoiDocument,
+  CommunityPoiSummary,
   EventDocument,
+  EventSummary,
+  ProjectDocument,
+  ProjectSummary,
   // A value, exported as a type so dependants can derive `typeof …[number]`
   // without a runtime edge.
   COMMUNITY_POI_STATUS_ORDER
 } from './utils/content/repository'
 export type { Locale } from './utils/content/locales'
+export type { Person } from './utils/content/person'

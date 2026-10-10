@@ -2,6 +2,8 @@
 export { useContentRepository } from './composables/useContentRepository'
 export { usePageSeo } from './composables/usePageSeo'
 export { useBreadcrumbs } from './composables/useBreadcrumbs'
+export { usePeople, resolvePeople, resolvePerson } from './composables/usePeople'
+export type { Person } from './utils/content/person'
 export { COMMUNITY_POI_STATUS_ORDER } from './utils/content/repository'
 export type {
   ContentRepository,
@@ -10,11 +12,17 @@ export type {
   BlogArticle,
   BlogAuthorProfile,
   BlogAlternateHeader,
+  AboutDocument,
   ServerConceptDocument,
   ServerConnectDocument,
   HomeCarouselDocument,
   CommunityPoiDocument,
-  EventDocument
+  CommunityPoiSummary,
+  EventDocument,
+  EventSummary,
+  EventScheduleSummary,
+  ProjectDocument,
+  ProjectSummary
 } from './utils/content/repository'
 // From `./utils/content/locales`, not `./utils/content/collections`: the
 // latter also imports `defineCollection` from `@nuxt/content` for its

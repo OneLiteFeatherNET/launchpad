@@ -19,6 +19,7 @@ interface PoiItem {
   status?: 'planning' | 'in-progress' | 'paused' | 'completed'
   progress?: number
   category?: 'team' | 'community' | 'collab'
+  isNew?: boolean
 }
 
 const props = withDefaults(defineProps<{
@@ -75,6 +76,7 @@ const fallbackClass
     <div :class="CAROUSEL_CAPTION_POSITION">
       <div :class="CAROUSEL_CAPTION">
         <div :class="CAROUSEL_META">
+          <M3Chip v-if="item.isNew" kind="label" color="tertiary" :label="t('carousel.new')" />
           <M3Chip kind="label" color="secondary" :label="t('community_poi.carousel.tag')" />
           <M3Chip v-if="categoryLabel" kind="label" :label="categoryLabel" />
           <M3Chip v-if="statusLabel" kind="label" :label="statusLabel" />
