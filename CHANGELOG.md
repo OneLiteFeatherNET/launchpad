@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.19.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.18.0...onelitefeather.net-v1.19.0) (2026-10-10)
+
+
+### Features
+
+* **content:** link related posts and projects ([#477](https://github.com/OneLiteFeatherNET/launchpad/issues/477)) ([3fd6d5f](https://github.com/OneLiteFeatherNET/launchpad/commit/3fd6d5f4afbe54796187413f3a1e1eb4b88c1255))
+* **pages:** add a page on how to join the server ([#476](https://github.com/OneLiteFeatherNET/launchpad/issues/476)) ([3b7bf5c](https://github.com/OneLiteFeatherNET/launchpad/commit/3b7bf5cdbcafffb2b81cadd5b23574d065c276dd))
+* **projects:** add otis ([#474](https://github.com/OneLiteFeatherNET/launchpad/issues/474)) ([73220a3](https://github.com/OneLiteFeatherNET/launchpad/commit/73220a3a4fe806cc55bd679b54bf666a989ad85d))
+* **seo:** use branded og images per section ([#480](https://github.com/OneLiteFeatherNET/launchpad/issues/480)) ([142e70e](https://github.com/OneLiteFeatherNET/launchpad/commit/142e70ec65046f5b4b1f0428205e9dca9785eab0))
+
+
+### Bug Fixes
+
+* **seo:** fall back to the localised default description ([#475](https://github.com/OneLiteFeatherNET/launchpad/issues/475)) ([822cc79](https://github.com/OneLiteFeatherNET/launchpad/commit/822cc7995fe61bf612468a3c9d52dad624739cda))
+* **sitemap:** add lastmod and hreflang alternates where missing ([#478](https://github.com/OneLiteFeatherNET/launchpad/issues/478)) ([3c60245](https://github.com/OneLiteFeatherNET/launchpad/commit/3c602455bb53ab2baae9029d80e55b8d67fbd214))
+
 ## [1.18.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.17.1...onelitefeather.net-v1.18.0) (2026-10-10)
 
 
