@@ -4,7 +4,9 @@ import { eventDetailPath, visibleEventSitemapEntries } from '../../shared/utils/
 const now = new Date('2026-10-05T12:00:00+02:00')
 
 type Schedule = { announceAt?: string, startsAt: string, endsAt?: string }
-const fixture = (slug: string, event: Schedule, unlisted?: boolean) => ({ slug, event, unlisted })
+const fixture = (slug: string, event: Schedule, unlisted?: boolean, translationKey?: string) => ({
+  slug, event, unlisted, translationKey,
+})
 
 describe('visibleEventSitemapEntries', () => {
   it('lists announced, running and past events and nothing hidden', () => {
@@ -37,6 +39,34 @@ describe('visibleEventSitemapEntries', () => {
       ],
     }, now)
     expect(entries).toEqual([{ loc: '/de/events/laeuft' }])
+  })
+
+  it('pairs translations by translationKey even when the slugs differ', () => {
+    const running = { startsAt: '2026-10-01T18:00:00+02:00' }
+    const [de] = visibleEventSitemapEntries({
+      de: [fixture('herbst-bauevent', running, false, 'bau-2026')],
+      en: [fixture('autumn-build', running, false, 'bau-2026')],
+    }, now)
+    const own = { hreflang: 'de-DE', href: '/de/events/herbst-bauevent' }
+    expect(de?.alternatives).toEqual([own, { hreflang: 'en-US', href: '/en/events/autumn-build' }])
+  })
+
+  it('leaves a translation out of the alternates when it is not listed', () => {
+    const running = { startsAt: '2026-10-01T18:00:00+02:00' }
+    const [de] = visibleEventSitemapEntries({
+      de: [fixture('herbst-bauevent', running, false, 'bau-2026')],
+      en: [fixture('autumn-build', running, true, 'bau-2026')],
+    }, now)
+    expect(de).toEqual({ loc: '/de/events/herbst-bauevent' })
+  })
+
+  it('adds no alternates to an event without a translationKey', () => {
+    const running = { startsAt: '2026-10-01T18:00:00+02:00' }
+    const [de] = visibleEventSitemapEntries({
+      de: [fixture('bau', running)],
+      en: [fixture('bau', running)],
+    }, now)
+    expect(de).not.toHaveProperty('alternatives')
   })
 })
 

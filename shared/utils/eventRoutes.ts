@@ -15,24 +15,43 @@ export interface EventSitemapSource {
   slug: string
   event: EventScheduleFields
   unlisted?: boolean
+  translationKey?: string
 }
+
+const regionOf: Record<string, string> = { de: 'de-DE', en: 'en-US' }
 
 /**
  * Sitemap entries for every listed event at `now`, per locale. Hidden events
  * are left out entirely, so an unannounced event is not discoverable through
  * the sitemap before its page would answer; unlisted events are left out
  * regardless of phase, same as the overview and the carousel.
+ *
+ * Translations are paired by `translationKey`, as the detail page pairs them,
+ * because the slugs of one event may differ between languages. Only listed
+ * translations become alternates.
  */
 export function visibleEventSitemapEntries(
   eventsByLocale: Record<string, EventSitemapSource[]>,
   now: Date | number
-): { loc: string }[] {
-  const entries: { loc: string }[] = []
+): { loc: string, alternatives?: { hreflang: string, href: string }[] }[] {
+  const listed: Array<{ locale: string, entry: EventSitemapSource }> = []
   for (const [locale, events] of Object.entries(eventsByLocale)) {
     for (const entry of events) {
       if (!entry.slug || !isEventListedAt(entry.event, entry.unlisted, now)) continue
-      entries.push({ loc: eventDetailPath(locale, entry.slug) })
+      listed.push({ locale, entry })
     }
   }
-  return entries
+  return listed.map(({ locale, entry }) => {
+    const translations = entry.translationKey
+      ? listed.filter((other) => other.entry.translationKey === entry.translationKey)
+      : []
+    if (translations.length < 2) return { loc: eventDetailPath(locale, entry.slug) }
+    return {
+      loc: eventDetailPath(locale, entry.slug),
+      alternatives: translations.map((other) => ({
+        hreflang: regionOf[other.locale] ?? other.locale,
+        href: eventDetailPath(other.locale, other.entry.slug),
+      })),
+    }
+  })
 }

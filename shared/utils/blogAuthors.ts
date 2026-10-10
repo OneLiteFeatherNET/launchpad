@@ -3,12 +3,14 @@
  * page, the team profile and the Nitro sitemap source so they never disagree
  * about which articles exist for a visitor.
  */
+import { articleLastmod, newestDate } from './sitemapDates'
 
 export interface BlogAuthorFields {
   slug?: string
   author?: string | string[]
   releaseDate?: Date | string
   pubDate?: Date | string
+  updatedDate?: Date | string
 }
 
 /** Release time in ms, or null when the article has no usable date. */
@@ -61,15 +63,22 @@ export interface BlogAuthorSitemapSource {
   resolvable: readonly string[]
 }
 
-/** Sitemap entries for exactly the author pages that answer 200 at `now`. */
+/**
+ * Sitemap entries for exactly the author pages that answer 200 at `now`. The
+ * page lists the author's released articles, so its lastmod is the newest of
+ * theirs; without a dated article it has none.
+ */
 export function blogAuthorSitemapEntries(
   byLocale: Record<string, BlogAuthorSitemapSource>,
   now: Date
-): { loc: string }[] {
-  const entries: { loc: string }[] = []
+): { loc: string, lastmod?: Date }[] {
+  const entries: { loc: string, lastmod?: Date }[] = []
   for (const [locale, { articles, resolvable }] of Object.entries(byLocale)) {
     for (const slug of releasedAuthorSlugs(articles, now)) {
-      if (resolvable.includes(slug)) entries.push({ loc: blogAuthorPath(locale, slug) })
+      if (!resolvable.includes(slug)) continue
+      const loc = blogAuthorPath(locale, slug)
+      const lastmod = newestDate(articlesByAuthor(articles, slug, now).map(articleLastmod))
+      entries.push(lastmod ? { loc, lastmod } : { loc })
     }
   }
   return entries

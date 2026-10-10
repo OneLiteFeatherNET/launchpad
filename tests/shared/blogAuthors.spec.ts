@@ -127,7 +127,28 @@ describe('blogAuthorSitemapEntries', () => {
 
   it('lists one entry per author with a released article', () => {
     const entries = blogAuthorSitemapEntries({ de }, NOW)
-    expect(entries).toEqual([{ loc: '/de/blog/author/tp' }, { loc: '/de/blog/author/gast' }])
+    expect(entries.map((entry) => entry.loc)).toEqual(['/de/blog/author/tp', '/de/blog/author/gast'])
+  })
+
+  it('dates an author page by the newest modified date of its released articles', () => {
+    const [entry] = blogAuthorSitemapEntries({
+      de: {
+        articles: [
+          post('a', { author: 'tp', pubDate: '2025-01-01T00:00:00Z', updatedDate: '2026-02-01T00:00:00Z' }),
+          post('b', { author: 'tp', pubDate: '2026-03-01T00:00:00Z' }),
+          post('c', { author: 'tp', pubDate: '2026-09-01T00:00:00Z', releaseDate: '2026-09-01T00:00:00Z' }),
+        ],
+        resolvable: ['tp'],
+      },
+    }, NOW)
+    expect(entry?.lastmod).toEqual(new Date('2026-03-01T00:00:00Z'))
+  })
+
+  it('leaves lastmod out when no released article of the author has a date', () => {
+    const [entry] = blogAuthorSitemapEntries({
+      de: { articles: [{ slug: 'a', author: 'tp' }], resolvable: ['tp'] },
+    }, NOW)
+    expect(entry).not.toHaveProperty('lastmod')
   })
 
   it('leaves out an author that resolves to nobody', () => {

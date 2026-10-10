@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
   const byLocale: Record<string, { articles: BlogArticle[], resolvable: string[] }> = {}
   for (const locale of locales) {
     const articles = (await queryCollection(event, `blog_${locale}` as 'blog_de' | 'blog_en')
-      .select('slug', 'author', 'pubDate', 'releaseDate')
+      .select('slug', 'author', 'pubDate', 'releaseDate', 'updatedDate')
       .all()) as BlogArticle[]
     const team = (await queryCollection(event, `team_${locale}` as 'team_de' | 'team_en')
       .all())[0] as TeamDocument | undefined

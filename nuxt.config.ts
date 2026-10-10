@@ -165,10 +165,12 @@ export default defineNuxtConfig({
         // Event detail pages are listed per request, because whether an
         // event is visible depends on the time — see the route's comment.
         // So are author pages: one exists only for a person with a released article.
+        // The index pages join them only to carry a lastmod the app's own entry lacks.
         sources: [
             '/api/__sitemap__/team',
             '/api/__sitemap__/events',
-            '/api/__sitemap__/blog-authors'
+            '/api/__sitemap__/blog-authors',
+            '/api/__sitemap__/index-pages'
         ],
         // No changefreq/priority defaults: Google ignores both. lastmod comes
         // from real content dates only (content.config.ts), never the build.
