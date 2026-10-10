@@ -38,7 +38,7 @@ describe.each(['de', 'en'])('about content (%s)', (locale) => {
   })
 
   it('names the founding year', () => {
-    expect(doc.who).toContain('2021')
+    expect(doc.who).toContain('2019')
   })
 
   it('keeps the analysis-only project out', () => {

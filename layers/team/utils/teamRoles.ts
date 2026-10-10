@@ -5,7 +5,7 @@
  * call site needs without leaking the union into the templates.
  */
 
-type RoleField = string | string[] | undefined | null
+export type RoleField = string | string[] | undefined | null
 
 /** Trim, drop empties, and de-duplicate the role list. Always an array. */
 export function toRoleList(role: RoleField): string[] {
