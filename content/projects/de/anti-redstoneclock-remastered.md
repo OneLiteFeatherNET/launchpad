@@ -6,13 +6,13 @@ summary: 'Ein Paper-Plugin, das Redstone-Clocks erkennt, Teammitglieder im Spiel
 status: 'active'
 releasedAt: '2024-01-30'
 publishedAt: '2026-10-07'
-updatedAt: '2026-10-07'
+updatedAt: '2026-10-10'
 platforms:
   - 'Paper'
   - 'Folia'
 license: 'AGPL-3.0'
 links:
-  docs: 'https://arcr.onelitefeather.net'
+  docs: 'https://docs.onelitefeather.net/antiredstoneclock-remastered'
   source: 'https://github.com/OneLiteFeatherNET/AntiRedstoneClock-Remastered'
   issues: 'https://github.com/OneLiteFeatherNET/AntiRedstoneClock-Remastered/issues'
   downloads:
@@ -45,8 +45,8 @@ Bevor ein Block gezählt wird, können Filter die Prüfung beenden: die Serverla
 
 ## Was du vor dem Einsatz wissen solltest
 
-- Ab Werk setzt das Plugin ein Warnschild und zerstört den Block. Wenn du lieber über Clocks informiert werden willst, statt sie entfernen zu lassen, schalte das automatische Zerstören ab; die Dokumentation erklärt, wie.
+- Ab Werk informiert das Plugin Team-Mitglieder über Konsole, Admins, Discord und Schilder und zerstört erkannte Clocks (`clock.autoBreak: true`). Das Ziel `sign` ersetzt den Block der Clock durch ein Schild. Wenn du nur informiert werden willst, setze `clock.autoBreak` auf `false`; siehe die [Konfigurationsreferenz](https://docs.onelitefeather.net/antiredstoneclock-remastered/reference/configuration).
 - Es ist kein Performance-Werkzeug. Es beseitigt, was eine Clock gekostet hat, und sonst nichts, und es pausiert die Erkennung, solange der Server nicht hinterherkommt.
-- Paper und Folia werden unterstützt. Spigot, CraftBukkit, Paper-Forks und Hybrid-Server nicht. Die unterstützten Minecraft-Versionen und die benötigte Java-Version stehen in der Dokumentation.
+- Paper und Folia werden unterstützt. Spigot, CraftBukkit, Paper-Forks und Hybrid-Server nicht. Die [unterstützten Minecraft-Versionen und die benötigte Java-Version](https://docs.onelitefeather.net/antiredstoneclock-remastered/reference/supported-versions) stehen in der Dokumentation.
 
-Einrichtung, Konfiguration, Befehle und Berechtigungen findest du in der [Dokumentation](https://arcr.onelitefeather.net).
+Einrichtung, Konfiguration, Befehle und Berechtigungen findest du in der [Dokumentation](https://docs.onelitefeather.net/antiredstoneclock-remastered/getting-started/detect-your-first-clock).
