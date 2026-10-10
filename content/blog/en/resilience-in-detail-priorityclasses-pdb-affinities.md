@@ -82,7 +82,7 @@ spec:
       app.kubernetes.io/name: bluemap
 ```
 
-I added PDBs like this for every multi-replica service: BlueMap (3), Dependency-Track frontend (3), Harbor components core/registry/jobservice/portal (2 each), Reposilite (3) and the Prometheus agent (2). I deliberately gave single-replica workloads **no** PDB – a `maxUnavailable: 1` on a single replica would block node drains entirely. Because the underlying Helm charts often offer no native PDB, these live as standalone manifests next to the releases.
+I added PDBs like this for every multi-replica service: [BlueMap](https://onelitefeather.net/en/bluemap) (3), Dependency-Track frontend (3), Harbor components core/registry/jobservice/portal (2 each), Reposilite (3) and the Prometheus agent (2). I deliberately gave single-replica workloads **no** PDB – a `maxUnavailable: 1` on a single replica would block node drains entirely. Because the underlying Helm charts often offer no native PDB, these live as standalone manifests next to the releases.
 
 > **Case in point.** Draining `fr01-wrk-xl-01` for maintenance could, without a PDB, have moved several BlueMap replicas at once – the map viewer gone for a beat. With `maxUnavailable: 1`, Kubernetes moves the replicas one after another; at least two stay reachable throughout.
 
@@ -99,7 +99,7 @@ Storage and databases are thereby structurally protected; expendable apps step b
 
 ### Pitfall 1: the silent no-op
 
-Assignment went well – until it didn't. For some of our charts (Outline, Leantime, Shlink, Reposilite, Otis, BlueMap) I dutifully set `priorityClassName` as a Helm value – and nothing happened. Those charts simply don't reference `.Values.priorityClassName`; the value was a silent no-op. No error, no warning – just inert.
+Assignment went well – until it didn't. For some of our charts (Outline, Leantime, Shlink, Reposilite, [Otis](https://onelitefeather.net/en/blog/otis-central-player-data-minecraft), BlueMap) I dutifully set `priorityClassName` as a Helm value – and nothing happened. Those charts simply don't reference `.Values.priorityClassName`; the value was a silent no-op. No error, no warning – just inert.
 
 The fix was HelmRelease `postRenderers` patching the rendered Deployment directly:
 

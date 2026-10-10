@@ -70,7 +70,7 @@ Aufwand: Gering (ca. 1 Stunde wo Woche, max. 4 bei Minecraft/Renovate Update)
 Sprache: Kotlin
 Beschreibung: Dieses Plugin gibt den Nutzern auf einem Server die Möglichkeit sich wie ein Aufzug hoch und runter zu bewegen.
 
-## AntiRedstoneClock-Remastered
+## [AntiRedstoneClock-Remastered](https://onelitefeather.net/de/projects/anti-redstoneclock-remastered)
 
 Github: https://github.com/OneLiteFeatherNET/AntiRedstoneClock-Remastered
 Schwierigkeit: Mittel
