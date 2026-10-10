@@ -21,6 +21,7 @@
  */
 
 import { load } from 'cheerio'
+import { existsSync } from 'node:fs'
 import process from 'node:process'
 
 const args = process.argv.slice(2)
@@ -52,17 +53,6 @@ const NOINDEX_ROUTES = [
 
 /** The canonical origin every absolute SEO URL is written against. */
 const SITE_ORIGIN = 'https://onelitefeather.net'
-
-/**
- * Routes whose og:image is the site default served from public/, so the image
- * itself can be fetched from any build (see checkSocialImage).
- */
-const FETCH_IMAGE_ROUTES = new Set([
-  '/en',
-  '/de',
-  '/en/blog',
-  '/de/blog'
-])
 
 const TITLE_MIN = 10
 const TITLE_MAX = 70
@@ -264,7 +254,7 @@ const checkPage = async ({ route, mustIndex }) => {
   const ids = nodes.map((n) => n['@id']).filter(Boolean)
   for (const id of new Set(ids.filter((id, i) => ids.indexOf(id) !== i))) err(route, `JSON-LD @id appears twice: ${id}`)
 
-  await checkSocialImage(route, $, { fetchImage: FETCH_IMAGE_ROUTES.has(route) })
+  await checkSocialImage(route, $)
 }
 
 /** Width and height of a PNG, read from its IHDR chunk. */
@@ -280,12 +270,11 @@ const pngSize = (bytes) => {
 
 /**
  * og:image must be absolute, and a large card needs a large image. The image
- * itself is fetched only for routes that use the site default from public/:
- * article and build images live behind the production image proxy and are
- * absent from a local build, so fetching them here would test the proxy, not
- * this repository.
+ * is fetched only when it is served from public/: proxied images are absent
+ * from a local build, so fetching them here would test the proxy, not this
+ * repository.
  */
-const checkSocialImage = async (route, $, { fetchImage }) => {
+const checkSocialImage = async (route, $) => {
   const image = headContent($, 'meta[property="og:image"]')
   if (!image) return // missing tag is already reported above
   if (!/^https?:\/\//.test(image)) {
@@ -297,12 +286,13 @@ const checkSocialImage = async (route, $, { fetchImage }) => {
   if (card === 'summary_large_image' && declaredWidth && declaredWidth < 1200) {
     err(route, `twitter:card summary_large_image with a ${declaredWidth}px wide og:image`)
   }
-  if (!fetchImage) return
-
   const imageUrl = new URL(image)
-  const servedLocally = IS_LOCAL && imageUrl.origin === SITE_ORIGIN
-  const target = servedLocally ? new URL(imageUrl.pathname, BASE) : imageUrl
-  const res = await fetch(target)
+  const servedLocally = IS_LOCAL
+    && imageUrl.origin === SITE_ORIGIN
+    && existsSync(new URL(`../public${imageUrl.pathname}`, import.meta.url))
+  if (!servedLocally) return
+
+  const res = await fetch(new URL(imageUrl.pathname, BASE))
   if (res.status !== 200) {
     err(route, `og:image ${image} answered ${res.status}`)
     return
