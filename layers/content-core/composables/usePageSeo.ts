@@ -68,9 +68,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
 
   const pageTitle = computed(() => opts.title || site.name)
   const pageDescription = computed(() => {
-    if (opts.description) return opts.description
-    if (site.description) return site.description
-    return t('seo.default_description')
+    return opts.description || t('seo.default_description') || site.description
   })
 
   // Resolve og:locale from the current locale code

@@ -93,6 +93,7 @@ export default defineNuxtConfig({
             ]
         })
     },
+    // Localised description: i18n key `nuxtSiteConfig.description` (WebSite, og defaults).
     site: {
         url: 'http://localhost:3000',
         name: 'OneLiteFeather Network',
