@@ -11,7 +11,7 @@ platforms:
   - 'Minestom'
 license: 'AGPL-3.0'
 links:
-  docs: 'https://github.com/OneLiteFeatherNET/Falco/wiki'
+  docs: 'https://docs.onelitefeather.net/falco'
   source: 'https://github.com/OneLiteFeatherNET/Falco'
   issues: 'https://github.com/OneLiteFeatherNET/Falco/issues'
 maintainers:
@@ -41,4 +41,4 @@ Falco is a set of Java libraries for [Minestom](https://github.com/Minestom/Mine
 - **Java 25 is required.** The build targets Java 25.
 - **Minestom is not included.** The artefacts compile against Minestom but do not bring it along, so you choose the version. Release 3.0.0 is built against Minestom `2026.08.28-26.2` and does not run on `26.1.2`.
 - **The performance figures are measurements, not promises.** The README quotes benchmark results. In one run the Anvil loader read chunks 1.9 times faster than Minestom's own loader on two threads, but a second run did not reproduce that factor. The light engine was 1.11 to 1.71 times faster across six scenarios. All figures were taken before the move to Minestom 26.2 and have not been measured again on it.
-- **Setup.** The quick start, the Maven coordinates and the build instructions are in the [wiki](https://github.com/OneLiteFeatherNET/Falco/wiki/Installation). The artefacts are published to the OneLiteFeather Maven repository at `repo.onelitefeather.dev`.
+- **Setup.** The [quick start](https://docs.onelitefeather.net/falco/tutorials/load-your-first-world-with-falco), the [Maven coordinates](https://docs.onelitefeather.net/falco/how-to-guides/how-to/add-falco-to-your-build) and the [build instructions](https://docs.onelitefeather.net/falco/how-to-guides/how-to/build-falco-from-source) are in the documentation. The artefacts are published to the OneLiteFeather Maven repository at `repo.onelitefeather.dev`.
