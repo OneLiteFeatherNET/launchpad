@@ -39,7 +39,7 @@ It is a re-creation of Trafalcraft's antiRedstoneClock, rewritten from scratch w
 
 ## How it detects clocks
 
-The plugin does not look at builds, it counts events. The first time a block produces a relevant event — a piston firing, a repeater updating, an observer pulsing, redstone dust changing or a hopper moving items — the plugin starts observing it and gives it a deadline. A block that reaches the trigger limit before the deadline is a clock; a block that does not is forgotten. Both numbers are configurable. Hopper chains are only counted when items travel back and forth between a pair, so sorters and storage systems are not reported.
+The plugin does not look at builds, it counts events. The first time a block produces a relevant event — a piston firing, a repeater or comparator updating, an observer pulsing, a sculk sensor going off, redstone dust changing or a hopper moving items — the plugin starts observing it and gives it a deadline. A block that reaches the trigger limit before the deadline is a clock; a block that does not is forgotten. Both numbers are configurable. Hopper chains are only counted when items travel back and forth between a pair, so sorters and storage systems are not reported.
 
 Before a block is counted, filters can end the check: the server load (detection pauses while TPS is outside `tps.min`–`tps.max`, by default 15–20), the event-type switches (`check.*` settings), an ignored world, a WorldGuard region (through the `redstone-clock` flag or the `check.ignoredRegions` list) or a PlotSquared plot that allows clocks.
 
