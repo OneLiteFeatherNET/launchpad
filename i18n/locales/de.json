@@ -16,6 +16,7 @@
     "more": "Mehr",
     "status": "Status",
     "builds": "Bauwerke",
+    "join": "Beitreten",
     "home_link": "OneLiteFeather – Startseite",
     "community_overview": "Übersicht",
     "events": "Events",
@@ -66,7 +67,8 @@
       "copy_port": "Port kopieren",
       "copy_port_aria": "Port kopieren: {port}",
       "port_label": "Port",
-      "clipboard_note": "Dein Browser unterstützt das Kopieren in die Zwischenablage nicht. Bitte kopiere die Adresse manuell."
+      "clipboard_note": "Dein Browser unterstützt das Kopieren in die Zwischenablage nicht. Bitte kopiere die Adresse manuell.",
+      "more_link": "Mehr zum Beitreten"
     }
   },
   "blog": {
@@ -597,6 +599,32 @@
     "poi": {
       "title": "Gezeigte Projekte",
       "intro": "Dieser Bau zeigt die folgenden Projekte im Einsatz."
+    }
+  },
+  "join": {
+    "title": "Server beitreten: Java & Bedrock",
+    "description": "So trittst du dem deutschsprachigen OneLiteFeather Minecraft-Netzwerk bei: Adresse für Java oder Bedrock kopieren und in wenigen Schritten loslegen.",
+    "heading": "Minecraft-Server beitreten",
+    "intro": "OneLiteFeather ist ein deutschsprachiges Minecraft-Netzwerk, gegründet 2019. Du kannst mit der Java Edition oder der Bedrock Edition beitreten. Kopiere die passende Adresse und folge den Schritten für deine Edition.",
+    "java": {
+      "heading": "Mit der Java Edition beitreten",
+      "step_1": "Starte Minecraft Java Edition und öffne den Mehrspielermodus.",
+      "step_2": "Klicke auf „Server hinzufügen“.",
+      "step_3": "Trage als Serveradresse {address} ein. Den Servernamen wählst du selbst.",
+      "step_4": "Klicke auf „Fertig“, wähle den Server in der Liste aus und klicke auf „Server beitreten“."
+    },
+    "bedrock": {
+      "heading": "Mit der Bedrock Edition beitreten",
+      "step_1": "Starte Minecraft Bedrock Edition und öffne den Reiter „Spielen“.",
+      "step_2": "Wechsle zum Reiter „Server“ und wähle „Server hinzufügen“.",
+      "step_3": "Trage einen Servernamen deiner Wahl ein, als Serveradresse {host} und als Port {port}.",
+      "step_4": "Speichere den Eintrag und verbinde dich mit dem Server."
+    },
+    "help": {
+      "heading": "Hilfe und Fragen",
+      "text": "Klappt die Verbindung nicht? Unser Discord hilft dir weiter. Antworten auf häufige Fragen findest du auf der Startseite.",
+      "discord": "Discord",
+      "faq": "Häufige Fragen"
     }
   },
   "about": {

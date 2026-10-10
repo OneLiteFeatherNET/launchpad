@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
   bedrockPort: undefined
 })
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 // Prefer props if provided, otherwise fall back to i18n
 const displayTitle = computed(() => props.title ?? t('server.connect.title'))
@@ -126,6 +126,12 @@ const panelClass
             :copied-secondary="copiedBedrockPort"
             :onCopySecondary="onCopyBedrockPort"
           />
+        </div>
+
+        <div class="mt-6 text-center">
+          <M3Button :to="`/${locale}/join`" variant="text" :icon="['fas', 'arrow-right']">
+            {{ t('server.connect.more_link') }}
+          </M3Button>
         </div>
 
         <ClientOnly>
