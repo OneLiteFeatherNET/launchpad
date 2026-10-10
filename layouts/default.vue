@@ -15,6 +15,11 @@ const routeTitle = computed(() => (route.meta?.title ? t(route.meta.title) : nul
 // has a structured signal when picking SERP sitelinks.
 const { eventsTopLevel } = useEventsInNav()
 useSiteNavigationSchema(eventsTopLevel)
+
+// The navigation shows a season's own mark while one is in effect. Passed in
+// rather than read there: navigation and season are domains, and only the
+// orchestrator may combine two.
+const season = useSeason()
 </script>
 
 <template>
@@ -26,7 +31,7 @@ useSiteNavigationSchema(eventsTopLevel)
       <!-- Local wrapper ensures flex layout even if <Body> classes are not applied by the renderer -->
       <div class="min-h-screen flex flex-col">
         <a href="#main-content" class="skip-link">{{ t('accessibility.skip_to_content') }}</a>
-        <NavigationBar :events-top-level="eventsTopLevel" />
+        <NavigationBar :events-top-level="eventsTopLevel" :logo-src="season?.logo" />
         <main id="main-content" tabindex="-1" class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1 focus:outline-none">
           <slot/>
         </main>

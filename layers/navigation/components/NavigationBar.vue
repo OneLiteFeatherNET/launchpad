@@ -20,10 +20,13 @@ const props = withDefaults(defineProps<{
   elevation?: 0 | 1 | 2 | 3 | 4 | 5;
   variant?: 'top' | 'bottom';
   eventsTopLevel?: boolean;
+  /** Logo path relative to public/. The layout passes a season's own mark. */
+  logoSrc?: string;
 }>(), {
   elevation: 2,
   variant: 'top',
-  eventsTopLevel: false
+  eventsTopLevel: false,
+  logoSrc: 'images/logo.svg'
 });
 
 const mobileMenuOpen = ref(false);
@@ -152,7 +155,7 @@ onKeyStroke('Escape', () => closeMenus())
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
           <NuxtLinkLocale to="/" :aria-label="t('navigation.home_link')" :class="logoLinkClass">
-            <NuxtImg src="images/logo.svg" :alt="t('accessibility.logo_alt')" width="40" height="40" class="h-10 w-10" />
+            <NuxtImg :src="logoSrc" :alt="t('accessibility.logo_alt')" width="40" height="40" class="h-10 w-10" />
             <GradientText variant="accent" tone="light" class="text-lg font-semibold">OneLiteFeather</GradientText>
           </NuxtLinkLocale>
         </div>

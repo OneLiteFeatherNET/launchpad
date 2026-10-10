@@ -38,6 +38,15 @@ const cachedPageHeaders = (seconds: number) => ({
 
 export default defineNuxtConfig({
     compatibilityDate: '2026-09-01',
+    app: {
+        head: {
+            // Declared here, not only in app.vue: nuxt-seo-utils adds its own
+            // icon link for public/favicon.svg unless app.head already has
+            // one, which left every page with two. The `key` lets app.vue
+            // swap it for a season's favicon instead of adding a second.
+            link: [{ key: 'favicon', rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
+        }
+    },
     devtools: {
         enabled: true,
 
@@ -301,6 +310,11 @@ export default defineNuxtConfig({
             openCollectiveSlug: 'onelitefeather',
             openCollectiveGoal: 3000,
             openCollectiveCurrency: 'EUR',
+            // Forces a seasonal costume on (`spring`, `halloween`, `winter`,
+            // `new-year`) or off (`none`) ahead of the calendar, via
+            // NUXT_PUBLIC_SEASON — the kill switch that needs no deploy.
+            // Empty follows the dates in layers/season/utils/seasons.ts.
+            season: '',
             // Social handles consumed by usePageSeo for twitter:site / twitter:creator.
             // Empty strings are filtered out by the composable.
             social: {
@@ -321,6 +335,7 @@ export default defineNuxtConfig({
                 openCollectiveSlug: 'onelitefeather',
                 openCollectiveGoal: 3000,
                 openCollectiveCurrency: 'EUR',
+                season: '',
                 social: {
                     twitterSite: '',
                     twitterCreator: '',
