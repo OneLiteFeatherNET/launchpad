@@ -39,7 +39,7 @@ Es ist ein Nachbau von Trafalcrafts antiRedstoneClock, von Grund auf neu geschri
 
 ## So erkennt es Clocks
 
-Das Plugin sieht sich keine Bauten an, es zählt Ereignisse. Sobald ein Block zum ersten Mal ein relevantes Ereignis auslöst — ein Kolben fährt, ein Repeater aktualisiert sich, ein Observer pulst, Redstone-Staub ändert sich oder ein Hopper bewegt Items —, beginnt das Plugin ihn zu beobachten und setzt ihm eine Frist. Erreicht der Block das Auslöse-Limit vor Ablauf der Frist, ist er eine Clock; sonst wird er vergessen. Beide Werte sind einstellbar. Hopper-Ketten zählen nur, wenn Items zwischen einem Paar hin- und herwandern, damit Sortieranlagen und Lager nicht gemeldet werden.
+Das Plugin sieht sich keine Bauten an, es zählt Ereignisse. Sobald ein Block zum ersten Mal ein relevantes Ereignis auslöst — ein Kolben fährt, ein Repeater oder Comparator aktualisiert sich, ein Observer pulst, ein Sculk-Sensor schlägt an, Redstone-Staub ändert sich oder ein Hopper bewegt Items —, beginnt das Plugin ihn zu beobachten und setzt ihm eine Frist. Erreicht der Block das Auslöse-Limit vor Ablauf der Frist, ist er eine Clock; sonst wird er vergessen. Beide Werte sind einstellbar. Hopper-Ketten zählen nur, wenn Items zwischen einem Paar hin- und herwandern, damit Sortieranlagen und Lager nicht gemeldet werden.
 
 Bevor ein Block gezählt wird, können Filter die Prüfung beenden: die Serverlast (die Erkennung pausiert, solange die TPS außerhalb von `tps.min`–`tps.max` liegen, standardmäßig 15–20), die Schalter für die Ereignistypen (`check.*`-Einstellungen), eine ignorierte Welt, eine WorldGuard-Region (über das Flag `redstone-clock` oder die Liste `check.ignoredRegions`) oder ein PlotSquared-Grundstück, das Clocks erlaubt.
 
