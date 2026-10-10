@@ -49,6 +49,7 @@ export function buildNavConfig({ eventsTopLevel }: { eventsTopLevel: boolean }):
       icon: ['fas', 'handshake'],
       children: [
         { type: 'link', textKey: 'navigation.community_overview', routeName: 'community', icon: ['fas', 'handshake'] },
+        { type: 'link', textKey: 'navigation.join', routeName: 'join', icon: ['fas', 'play'] },
         { type: 'link', textKey: 'navigation.builds', routeName: 'community-poi', icon: ['fas', 'location-dot'] },
         { type: 'link', textKey: 'navigation.projects', routeName: 'projects', icon: ['fas', 'code'] },
         ...(eventsTopLevel ? [] : [eventsLink])

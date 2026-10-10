@@ -61,6 +61,7 @@ describe('main navigation structure', () => {
   it('keeps events last in the community group while no event is live', () => {
     expect(childrenOf(buildNavConfig({ eventsTopLevel: false }), 'navigation.community').map(child => child.routeName))
       .toEqual(['community',
+'join',
 'community-poi',
 'projects',
 'events'])
@@ -69,6 +70,7 @@ describe('main navigation structure', () => {
   it('drops events from the community group once it is on the top level', () => {
     expect(childrenOf(buildNavConfig({ eventsTopLevel: true }), 'navigation.community').map(child => child.routeName))
       .toEqual(['community',
+'join',
 'community-poi',
 'projects'])
   })
@@ -92,6 +94,7 @@ describe('main navigation structure', () => {
     const reachable = new Set([...links(config), playLink].map(link => link.routeName ?? link.path))
     const expected = [
       'blog',
+      'join',
       'team',
       'community-poi',
       'events',
@@ -131,6 +134,7 @@ describe('main navigation structure', () => {
     const nav = messages(locale)
     const keys = [
       'builds',
+      'join',
       'home_link',
       'community_overview',
       'about',

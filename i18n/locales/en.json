@@ -16,6 +16,7 @@
     "more": "More",
     "status": "Status",
     "builds": "Builds",
+    "join": "Join",
     "home_link": "OneLiteFeather – Home",
     "community_overview": "Overview",
     "events": "Events",
@@ -66,7 +67,8 @@
       "copy_port": "Copy port",
       "copy_port_aria": "Copy port: {port}",
       "port_label": "Port",
-      "clipboard_note": "Your browser does not support copying to the clipboard. Please copy the address manually."
+      "clipboard_note": "Your browser does not support copying to the clipboard. Please copy the address manually.",
+      "more_link": "More on joining"
     }
   },
   "index": {
@@ -594,6 +596,32 @@
     "poi": {
       "title": "Projects shown here",
       "intro": "This build shows the following projects in use."
+    }
+  },
+  "join": {
+    "title": "Join Minecraft: Java & Bedrock",
+    "description": "Join the OneLiteFeather Minecraft network: copy the address for Java or Bedrock, add the server in your game and start playing in a few steps.",
+    "heading": "Join Minecraft",
+    "intro": "OneLiteFeather is a Minecraft network founded in 2019. You can join with the Java Edition or the Bedrock Edition. Copy the matching address and follow the steps for your edition.",
+    "java": {
+      "heading": "Join with Java Edition",
+      "step_1": "Start Minecraft Java Edition and open Multiplayer.",
+      "step_2": "Click Add Server.",
+      "step_3": "Enter {address} as the server address. You can choose the server name yourself.",
+      "step_4": "Click Done, select the server in the list and click Join Server."
+    },
+    "bedrock": {
+      "heading": "Join with Bedrock Edition",
+      "step_1": "Start Minecraft Bedrock Edition and open the Play tab.",
+      "step_2": "Switch to the Servers tab and choose Add Server.",
+      "step_3": "Enter any server name, {host} as the server address and {port} as the port.",
+      "step_4": "Save the entry and connect to the server."
+    },
+    "help": {
+      "heading": "Help and questions",
+      "text": "Can't connect? Our Discord can help. Answers to common questions are on the home page.",
+      "discord": "Discord",
+      "faq": "Common questions"
     }
   },
   "about": {
