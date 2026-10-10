@@ -117,7 +117,7 @@ Dadurch das wir zustandlos arbeiten, sind Anfragen als kostbar zu betrachten, da
 
 ## Abschluss
 
-Durch dieses Projekt haben wir eine gute Basis geschaffen, andere Projekte anzugehen und tieferes Verständnis aufzubauen für Architektur und Kommunikation. Gerne kann Otis als Projekt für andere (Minecraft) Projekte verwendet werden, um Stabilität, Einheitlichkeit und Wartbarkeit zu erreichen. Sollte es Fragen geben, kann man sich gerne auf dem Discord unterhalten. Über konstruktives Feedback für diesen Blog Beitrag sind wir froh, da er diesen Blog Beitrag verbessert.
+Durch dieses Projekt haben wir eine gute Basis geschaffen, andere Projekte anzugehen und tieferes Verständnis aufzubauen für Architektur und Kommunikation. Gerne kann Otis als Projekt für andere (Minecraft) Projekte verwendet werden, um Stabilität, Einheitlichkeit und Wartbarkeit zu erreichen. Die Schnittstelle, der Einsatz und die Lizenz sind auf der [Projektseite](/de/projects/otis) zusammengefasst. Sollte es Fragen geben, kann man sich gerne auf dem Discord unterhalten. Über konstruktives Feedback für diesen Blog Beitrag sind wir froh, da er diesen Blog Beitrag verbessert.
 
 
 ---
