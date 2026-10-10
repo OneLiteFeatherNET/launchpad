@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.18.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.17.1...onelitefeather.net-v1.18.0) (2026-10-10)
+
+
+### Features
+
+* **seo:** give pages searchable titles and descriptions ([#471](https://github.com/OneLiteFeatherNET/launchpad/issues/471)) ([cd73766](https://github.com/OneLiteFeatherNET/launchpad/commit/cd73766dd7530fdbb153803056c6c4494aab370b))
+* **seo:** richer project and poi structured data ([#469](https://github.com/OneLiteFeatherNET/launchpad/issues/469)) ([8f902d0](https://github.com/OneLiteFeatherNET/launchpad/commit/8f902d0278d29cb067a4d7e1e9022a06f95031b7))
+
+
+### Bug Fixes
+
+* **seo:** consistent founding year and real team descriptions ([#472](https://github.com/OneLiteFeatherNET/launchpad/issues/472)) ([4141654](https://github.com/OneLiteFeatherNET/launchpad/commit/41416548fa9bcfc7cfddf3f8518a636e74afcea4))
+* **seo:** correct event status, poi image and breadcrumb urls ([#470](https://github.com/OneLiteFeatherNET/launchpad/issues/470)) ([aab9f8f](https://github.com/OneLiteFeatherNET/launchpad/commit/aab9f8fceb05ed153f64f5124aea686a5adc69a4))
+* **seo:** crop social images to the declared size ([#467](https://github.com/OneLiteFeatherNET/launchpad/issues/467)) ([03d7332](https://github.com/OneLiteFeatherNET/launchpad/commit/03d733279cab47a85e0f344a741e7065e2e9d1b8))
+
+
+### Performance
+
+* **analytics:** drop unused posthog extensions and defer recording ([#468](https://github.com/OneLiteFeatherNET/launchpad/issues/468)) ([e9e2bb6](https://github.com/OneLiteFeatherNET/launchpad/commit/e9e2bb699ed7803af7430dbb100987b508a24b4b))
+* **community-poi:** load the bluemap viewer on click ([#466](https://github.com/OneLiteFeatherNET/launchpad/issues/466)) ([0cf8560](https://github.com/OneLiteFeatherNET/launchpad/commit/0cf8560f4afbd6f9f095e4374404e1648e17ba1b))
+
+
+### Documentation
+
+* **skills:** bring the nuxt-seo skill up to date ([#465](https://github.com/OneLiteFeatherNET/launchpad/issues/465)) ([8ab2142](https://github.com/OneLiteFeatherNET/launchpad/commit/8ab2142a87fb2e2b56d07dd6e0fd10ecad4b768a))
+
 ## [1.17.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.17.0...onelitefeather.net-v1.17.1) (2026-10-10)
 
 
