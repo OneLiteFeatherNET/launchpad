@@ -2,12 +2,12 @@
 slug: 'yggdrasil'
 translationKey: 'yggdrasil'
 title: 'Wunderbaum Yggdrasil'
-summary: 'Ein riesiger Kirschblütenbaum, der über der halben Karte thront – mit Zugangsbrücke, Stegen und Hütten in der Krone. Bau-Fortschritt rund 90 %.'
-status: 'in-progress'
-progress: 90
+summary: 'Ein riesiger Kirschblütenbaum, der über der halben Karte thront – mit Zugangsbrücke, Stegen und Hütten in der Krone. Der Bau ist fertig.'
+status: 'completed'
+progress: 100
 category: 'community'
 goal: 'Ein begehbarer Weltenbaum aus Kirschblüten: mächtiger Stamm, weit ausladende Krone und darin ein kleines Dorf aus Plattformen, Stegen und Hütten, das man über Leitern und Brücken erkunden kann.'
-currentState: 'Stamm und Krone stehen komplett, die Zugangsbrücke ist fertig. In der Krone laufen noch Innenausbau, Bepflanzung und Beleuchtung – rund 90 % des Baus sind erledigt.'
+currentState: 'Fertig: Stamm, Krone, Zugangsbrücke und das Dorf in der Krone sind komplett gebaut – der Weltenbaum kann besucht werden.'
 location: 'Welt – siehe Koordinaten, weithin sichtbar über der Kirschblütenlandschaft'
 coordinates:
   x: 1161
@@ -38,7 +38,8 @@ gallery:
 lore: |
   Yggdrasil ist in der nordischen Mythologie der Weltenbaum, der die neun Welten miteinander verbindet.
   Svenko1s Version wächst in Kirschblüten statt in Esche: ein Stamm, der weit über die Baumgrenze reicht, eine Krone, die halbe Landstriche beschattet, und darin ein Netz aus Stegen, Plattformen und Hütten. Von unten ein Wahrzeichen, von oben ein eigener kleiner Ort.
-updatedAt: '2026-08-02'
+updatedAt: '2026-10-10'
+publishedAt: '2026-10-10'
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/community-poi/yggdrasil'
@@ -59,8 +60,6 @@ Der Wunderbaum Yggdrasil ist Svenko1s Großprojekt: ein Kirschblütenbaum in ein
 - Ein kleines Dorf aus Hütten und Plattformen zwischen den Blüten
 - Weitblick über die gesamte Kirschblütenlandschaft, sobald man oben ist
 
-## Wie kannst du mithelfen?
+## Besuch ihn
 
-- Materialfarming für Kirschblätter, Kirschholz und Laternen
-- Ideen und Deko für die Hütten in der Krone
-- Feinschliff an Beleuchtung und Bepflanzung der oberen Plattformen
+Schau bei X 1161, Y 75, Z 339 in der Oberwelt vorbei. Über die Zugangsbrücke geht es weiter über Leitern, Stege und Laufwege hinauf in die Krone – dort oben warten das Dorf und der Ausblick.
