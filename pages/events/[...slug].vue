@@ -19,7 +19,7 @@ const description = computed(() => event.value?.summary || t('events.description
 const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined)
   || 'https://1lf.link/discord'
 
-usePageSeo({
+const { socialImage } = usePageSeo({
   title: title.value,
   description: description.value,
   image: event.value?.thumbnail,
@@ -57,9 +57,7 @@ useSchemaOrg(computed(() => {
       eventStatus: eventSchemaStatus(phase.value),
       eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
       location: { '@type': 'VirtualLocation', url },
-      image: event.value.thumbnail
-        ? new URL(event.value.thumbnail, site.url).toString()
-        : undefined,
+      image: event.value.thumbnail ? socialImage.value.url : undefined,
       organizer: { '@id': organizationId(site.url) }
     }
   ]
