@@ -9,9 +9,8 @@ each internally flagged `includeAppSources: true`.
 
 The children do **not** live at `/sitemap_<code>.xml`. They live under
 `sitemapsPathPrefix` (default `/__sitemap__/`), named from
-`_sitemap = locale.language || locale.code`. The module normalises a legacy
-`iso:` key into `language` itself (`dist/module.mjs`, `normalizeLocales`), so
-this repo's `iso: 'de-DE'` entries still yield `/__sitemap__/de-DE.xml` and
+`_sitemap = locale.language || locale.code`. This repo's locales set `language`
+(`de-DE`, `en-US`), so the children are `/__sitemap__/de-DE.xml` and
 `/__sitemap__/en-US.xml`. The index is `/sitemap_index.xml`; `/sitemap.xml`
 does not aggregate them — it gets a `routeRules` **redirect** to
 `/sitemap_index.xml`. Fetch `/sitemap_index.xml` when you want the list of
@@ -44,10 +43,10 @@ used internally for i18n `pages` mappings, not something a hand-written
 
 Content that isn't a URL-bearing page collection (this repo's `team`, a
 `type: 'data'` collection) doesn't produce sitemap entries on its own.
-`server/api/__sitemap__/team.ts` is registered via `sitemap.sources: ['/api/__sitemap__/team']`
-in `nuxt.config.ts` and returns a flat `{ loc }[]` array, one entry per
-locale × member — the same pattern to follow for any other non-page content
-that needs sitemap URLs. See `nuxt-content-cms` for the split: page
+`server/api/__sitemap__/team.ts` is one of three handlers registered via
+`sitemap.sources` in `nuxt.config.ts` (with `events` and `blog-authors`). Each
+returns a flat `{ loc }[]` array, one entry per locale × item — the same
+pattern to follow for any other non-page content that needs sitemap URLs. See `nuxt-content-cms` for the split: page
 collections' own `path`/`loc` bugs are fixed in `content.config.ts`; sources
 like this one live in `nuxt.config.ts`/`server/api/__sitemap__/`.
 
@@ -60,15 +59,12 @@ renders the columns `sitemap.xslColumns` declares, emitting each one as
 `<xsl:value-of select="{c.select}"/>` inside a `for-each` over
 `sitemap:urlset/sitemap:url`.
 
-This repo's `nuxt.config.ts` adds a `Language` column with
-`select: 'sitemap:hreflang'` — that XPath asks for a child *element* named
-`hreflang` in the sitemap namespace, and no such element exists, so the column
-renders empty on every row. The alternates are an *attribute* on an element in
-the `xhtml` namespace (which the stylesheet does declare), so the expression
-would have to be something like `xhtml:link/@hreflang`. Fixing `nuxt.config.ts`
-is out of scope here — just don't read the empty column as "hreflang missing".
-Diagnostic: never trust the XSL-rendered table; view-source or `curl` the XML
-directly and grep for `hreflang=`.
+A `sitemap.xslColumns` entry that shows alternates must select
+`xhtml:link/@hreflang` (this repo's `Language` column does). `sitemap:hreflang`
+asks for a child element in the sitemap namespace that does not exist, so that
+column renders empty on every row. Don't read an empty column as "hreflang
+missing". Diagnostic: never trust the XSL-rendered table; view-source or `curl`
+the XML directly and grep for `hreflang=`.
 
 ## Robots: `routeRules` is not auto-translated per locale
 
