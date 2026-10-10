@@ -4,7 +4,11 @@
     "github>onelitefeathernet/renovate:default(onelitefeathernet/maintainers-launchpad)"
   ],
   "vulnerabilityAlerts": {
-    "automerge": true
+    "automerge": true,
+    "groupName": null,
+    "minimumReleaseAge": null,
+    "schedule": ["at any time"],
+    "addLabels": ["security"]
   },
   "lockFileMaintenance": {
     "enabled": true,
@@ -20,6 +24,31 @@
       "description": "0.4.0 ships extensionless ESM imports Node cannot resolve; lift once a fixed release exists",
       "matchPackageNames": ["@material/material-color-utilities"],
       "allowedVersions": "<0.4"
+    },
+    {
+      "description": "Undo the preset rule that treats every update as a vulnerability fix: same match, office-hours schedule and default cooldown period",
+      "matchDatasources": ["maven", "github-tags", "gradle-version"],
+      "isVulnerabilityAlert": false,
+      "schedule": ["* 8-17 * * 1-5"],
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "Restore preset rule: remaining GitHub Actions, group minor updates",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor"],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Restore preset rule: major updates, longer cooldown period",
+      "matchUpdateTypes": ["major"],
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "description": "Restore preset rule: patches, group, schedule and cooldown period",
+      "matchUpdateTypes": ["patch"],
+      "groupName": "patch updates",
+      "schedule": ["at any time"],
+      "minimumReleaseAge": "1 day"
     }
   ]
 }
