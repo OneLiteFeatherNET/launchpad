@@ -16,7 +16,7 @@ const { projects: linkedProjects } = await useProjectsBySlugs(() => poi.value?.p
 const title = computed(() => poi.value?.title || t('community_poi.overview.title'))
 const description = computed(() => poi.value?.summary || t('community_poi.overview.description'))
 
-usePageSeo({
+const { socialImage } = usePageSeo({
   title: title.value,
   description: description.value,
   image: poi.value?.thumbnail,
@@ -55,7 +55,7 @@ useSchemaOrg(computed(() => {
       url: detailUrl,
       dateCreated: toIso(poi.value.startedAt as string | Date | undefined),
       dateModified: toIso(poi.value.updatedAt as string | Date | undefined),
-      image: poi.value.thumbnail || undefined,
+      image: poi.value.thumbnail ? socialImage.value.url : undefined,
       author: (poi.value.builders || []).map((b) => ({ '@type': 'Person' as const, name: b.name }))
     }
   ]
