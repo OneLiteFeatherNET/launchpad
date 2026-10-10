@@ -70,6 +70,31 @@ describe('join page messages', () => {
   })
 })
 
+describe('name and language of the network', () => {
+  const LANGUAGE = {
+    de: { intro: 'deutschsprachiges Minecraft-Netzwerk', description: 'deutschsprachigen' },
+    en: { intro: 'German-speaking Minecraft network', description: 'German-speaking' }
+  } as const
+
+  it.each(LOCALES)('names the server in the heading and the title in %s', (locale) => {
+    const tree = messages(locale)
+    expect(lookup(tree, 'join.heading') as string).toMatch(/server/i)
+    expect(lookup(tree, 'join.title') as string).toMatch(/server/i)
+  })
+
+  it.each(LOCALES)('says the network is German-speaking in the intro in %s', (locale) => {
+    expect(lookup(messages(locale), 'join.intro') as string).toContain(LANGUAGE[locale].intro)
+  })
+
+  it.each(LOCALES)('says the network is German-speaking in the meta description in %s', (locale) => {
+    expect(lookup(messages(locale), 'join.description') as string).toContain(LANGUAGE[locale].description)
+  })
+
+  it.each(LOCALES)('states the founding year in the intro in %s', (locale) => {
+    expect(lookup(messages(locale), 'join.intro') as string).toContain('2019')
+  })
+})
+
 describe('entry points to the join page', () => {
   it('links the German editions FAQ answer to /de/join', () => {
     expect(read('content/faq/de/editions.md')).toContain('](/de/join)')

@@ -599,10 +599,10 @@
     }
   },
   "join": {
-    "title": "Minecraft beitreten: Java & Bedrock",
-    "description": "So trittst du dem OneLiteFeather Minecraft-Netzwerk bei: Adresse für Java oder Bedrock kopieren und in wenigen Schritten loslegen.",
-    "heading": "Minecraft beitreten",
-    "intro": "OneLiteFeather ist ein Minecraft-Netzwerk, gegründet 2019. Du kannst mit der Java Edition oder der Bedrock Edition beitreten. Kopiere die passende Adresse und folge den Schritten für deine Edition.",
+    "title": "Server beitreten: Java & Bedrock",
+    "description": "So trittst du dem deutschsprachigen OneLiteFeather Minecraft-Netzwerk bei: Adresse für Java oder Bedrock kopieren und in wenigen Schritten loslegen.",
+    "heading": "Minecraft-Server beitreten",
+    "intro": "OneLiteFeather ist ein deutschsprachiges Minecraft-Netzwerk, gegründet 2019. Du kannst mit der Java Edition oder der Bedrock Edition beitreten. Kopiere die passende Adresse und folge den Schritten für deine Edition.",
     "java": {
       "heading": "Mit der Java Edition beitreten",
       "step_1": "Starte Minecraft Java Edition und öffne den Mehrspielermodus.",

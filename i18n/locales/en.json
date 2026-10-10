@@ -599,10 +599,10 @@
     }
   },
   "join": {
-    "title": "Join Minecraft: Java & Bedrock",
-    "description": "Join the OneLiteFeather Minecraft network: copy the address for Java or Bedrock, add the server in your game and start playing in a few steps.",
-    "heading": "Join Minecraft",
-    "intro": "OneLiteFeather is a Minecraft network founded in 2019. You can join with the Java Edition or the Bedrock Edition. Copy the matching address and follow the steps for your edition.",
+    "title": "Join the server: Java & Bedrock",
+    "description": "Join the German-speaking OneLiteFeather Minecraft network: copy the Java or Bedrock address, add the server in your game and start playing in a few steps.",
+    "heading": "Join the Minecraft server",
+    "intro": "OneLiteFeather is a German-speaking Minecraft network, founded in 2019. You can join with the Java Edition or the Bedrock Edition. Copy the matching address and follow the steps for your edition.",
     "java": {
       "heading": "Join with Java Edition",
       "step_1": "Start Minecraft Java Edition and open Multiplayer.",

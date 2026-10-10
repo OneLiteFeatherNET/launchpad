@@ -22,7 +22,7 @@ usePageSeo({
   schemaType: 'WebPage',
   keywords: [
     'Minecraft Server',
-    'Minecraft beitreten',
+    'Minecraft-Server beitreten',
     'Java Edition',
     'Bedrock Edition',
     'Join Minecraft'
