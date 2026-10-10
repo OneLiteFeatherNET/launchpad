@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { mount } from '@vue/test-utils'
+import { mount, flushPromises } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, h } from 'vue'
 import { createI18n } from 'vue-i18n'
@@ -8,6 +8,7 @@ import en from '../../i18n/locales/en.json'
 import M3Button from '../../layers/base/components/M3Button.vue'
 import CookieConsentBanner from '../../layers/consent/components/CookieConsentBanner.vue'
 import CookieSettingsButton from '../../layers/consent/components/CookieSettingsButton.vue'
+import { resolveCandidates } from '../helpers/theme'
 
 /** Per-test switches, reset before each test; the composable is read at mount. */
 const consent = vi.hoisted(() => ({
@@ -152,6 +153,40 @@ describe('CookieConsentBanner', () => {
     await wrapper.findAll('input[role="switch"]')[1]?.setValue(false)
     await buttonLabelled(wrapper, copy('save')).trigger('click')
     expect(consent.save).toHaveBeenCalledWith({ analytics: false })
+  })
+})
+
+describe('CookieConsentBanner on small screens', () => {
+  const sectionClasses = (wrapper: ReturnType<typeof mountBanner>) => wrapper.find('section').classes()
+
+  it('limits the banner to the visible viewport height', () => {
+    expect(sectionClasses(mountBanner())).toContain('max-h-[85dvh]')
+  })
+
+  it('lets the banner scroll itself when its content is taller than the limit', () => {
+    expect(sectionClasses(mountBanner())).toContain('overflow-y-auto')
+  })
+
+  it('keeps scrolling inside the banner instead of chaining to the page behind it', () => {
+    expect(sectionClasses(mountBanner())).toContain('overscroll-contain')
+  })
+
+  it('compiles the height limit and scroll classes to real CSS rules', async () => {
+    const css = await resolveCandidates([
+      'max-h-[85dvh]',
+      'overflow-y-auto',
+      'overscroll-contain',
+    ])
+    expect(css, 'every banner scroll class must resolve to a utility').not.toContain(null)
+  })
+
+  it('opening settings resets the banner scroll position to the top', async () => {
+    const wrapper = mountBanner()
+    const section = wrapper.find('section').element as HTMLElement
+    section.scrollTop = 240
+    await openSettings(wrapper)
+    await flushPromises()
+    expect(section.scrollTop, 'settings view must start at the top of the banner').toBe(0)
   })
 })
 

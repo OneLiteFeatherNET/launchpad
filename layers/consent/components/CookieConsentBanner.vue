@@ -10,6 +10,7 @@ const { bannerVisible, analyticsAllowed, acceptAll, rejectAll, save } = useCooki
 
 const settingsOpen = ref(false)
 const analytics = ref(false)
+const banner = ref<HTMLElement | null>(null)
 const heading = ref<HTMLElement | null>(null)
 
 // The button that opened the settings disappears, so focus moves to the
@@ -18,6 +19,8 @@ async function openSettings() {
   analytics.value = analyticsAllowed.value
   settingsOpen.value = true
   await nextTick()
+  // The section is the scroll container; keep the new view's top visible.
+  if (banner.value) banner.value.scrollTop = 0
   heading.value?.focus()
 }
 
@@ -34,11 +37,15 @@ const analyticsId = 'cookie-consent-analytics'
 <template>
   <section
     v-if="bannerVisible"
+    ref="banner"
     :aria-labelledby="headingId"
-    class="fixed inset-x-0 bottom-0 z-50 bg-surface-container-high text-on-surface
-      shadow-elevation-3"
+    class="fixed inset-x-0 bottom-0 z-50 max-h-[85dvh] overflow-y-auto overscroll-contain
+      bg-surface-container-high text-on-surface shadow-elevation-3"
   >
-    <div class="mx-auto flex max-w-5xl flex-col gap-4 p-4 sm:p-6">
+    <div
+      class="mx-auto flex max-w-5xl flex-col gap-3 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]
+        sm:gap-4 sm:p-6 sm:pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+    >
       <h2
         :id="headingId"
         ref="heading"
