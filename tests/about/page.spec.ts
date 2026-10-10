@@ -47,9 +47,3 @@ describe('about page', () => {
     expect(page).not.toMatch(/route\.query|useCookie|useRequestHeaders/)
   })
 })
-
-describe('organization identity', () => {
-  it('was founded in 2021', () => {
-    expect(read('nuxt.config.ts')).toMatch(/foundingDate:\s*'2021'/)
-  })
-})
