@@ -1,7 +1,7 @@
 ---
-title: 'Resilience in Detail: PriorityClasses, PDBs and (Anti-)Affinities in Our Kubernetes Cluster'
+title: 'Resilience in Detail: PriorityClasses and PDBs'
 alternativeTitle: 'Deep Dive: How I Hardened Our GitOps Cluster Against Failures'
-description: 'The technical long-form: how I made our Kubernetes cluster more failure-resistant across three hardening pillars – resources, PodDisruptionBudgets and a five-tier PriorityClass scheme – plus zone and pod anti-affinities. Including the pitfalls: silently ignored Helm values, webhook-immutable fields, and a MaxScale pod that stubbornly stayed Pending.'
+description: 'The technical deep dive: hardening our Kubernetes cluster with resources, PodDisruptionBudgets, PriorityClasses and anti-affinities, pitfalls included.'
 pubDate: '2026-06-13'
 headerImage: 'images/blog/cluster-topology-social.png'
 headerImageAlt: 'Topology of the feather-core cluster: control-plane, Ceph storage and workers in zone fr01'
@@ -24,7 +24,7 @@ alternates:
     href: 'https://onelitefeather.net/en/blog/resilience-in-detail-priorityclasses-pdb-affinities'
 schemaOrg:
   - type: 'BlogPosting'
-    headline: 'Resilience in Detail: PriorityClasses, PDBs and (Anti-)Affinities in Our Kubernetes Cluster'
+    headline: 'Resilience in Detail: PriorityClasses and PDBs'
     alternativeHeadline: 'Deep Dive: How I Hardened Our GitOps Cluster Against Failures'
     description: 'The technical long-form: how I made our Kubernetes cluster more failure-resistant across three hardening pillars plus zone and pod anti-affinities.'
     author:

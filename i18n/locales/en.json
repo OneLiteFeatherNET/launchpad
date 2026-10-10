@@ -70,7 +70,7 @@
     }
   },
   "index": {
-    "title": "Home",
+    "title": "German Minecraft server & open source",
     "carousel_aria": "Homepage highlight carousel"
   },
   "home": {
@@ -205,7 +205,7 @@
     "github": "GitHub"
   },
   "seo": {
-    "default_description": "OneLiteFeather is a Minecraft Network sharing development tools with the community.",
+    "default_description": "OneLiteFeather is a German-speaking Minecraft network founded in 2019, with community builds, events and open-source software for Paper and Minestom.",
     "default_keywords": "OneLiteFeather, Minecraft, Minecraft server, Minecraft network, plugins, open source, Paper, Velocity, Java, Bedrock, development tools, community"
   },
   "faq": {
@@ -239,7 +239,7 @@
   "community_poi": {
     "overview": {
       "title": "Community Points of Interest",
-      "description": "Building projects from our community: from concept to active build site to finished landmark — with progress, image galleries and Litematica schematics to rebuild them yourself.",
+      "description": "Community building projects, from concept and active build site to finished landmark – with progress, galleries and Litematica schematics to rebuild.",
       "count": "{count} POIs",
       "empty": "No community POIs published yet. Check back soon — or submit your own project!"
     },
@@ -561,7 +561,7 @@
   },
   "projects": {
     "overview": {
-      "title": "Projects",
+      "title": "Open-source projects: Paper & Minestom",
       "description": "Software by OneLiteFeather: plugins and tools we build ourselves and run on our server — with documentation, source code and downloads.",
       "empty": "No projects published yet."
     },

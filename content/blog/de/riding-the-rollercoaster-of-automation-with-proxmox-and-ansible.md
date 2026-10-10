@@ -1,10 +1,10 @@
 ---
-title: 'Mit Proxmox und Ansible in eine Achterbahn der Automatisierung'
+title: 'Mit Proxmox und Ansible automatisieren'
 alternativeTitle: 'Wie wir Infrastruktur mit Proxmox und Ansible automatisieren'
-description: 'In der unendlichen Weite der digitalen Welt hat unser Team, OneLiteFeather, eine kleine aber feine Spielwiese gefunden, auf der wir unsere kreativen und technischen Visionen verwirklichen. Im Zentrum dieser Entdeckungsreise stehen Proxmox und Ansible, zwei Werkzeuge, die uns nicht nur den Rücken freihalten, sondern auch die Türen zu unerforschten Gebieten öffnen.'
+description: 'Wie OneLiteFeather Infrastruktur mit Proxmox und Ansible automatisiert: zwei Werkzeuge, die uns den Rücken freihalten und neue Wege öffnen.'
 pubDate: '2023-10-15'
 headerImage: 'images/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible.webp'
-headerImageAlt: 'Mit Proxmox und Ansible in eine Achterbahn der Automatisierung Bild'
+headerImageAlt: 'Illustration: Felder, eine Stadt und eine Achterbahn, im Vordergrund ein Planer mit Bauplänen und ein Roboter'
 slug: 'mit-proxmox-und-ansible-in-eine-achterbahn-der-automatisierung-vserver'
 translationKey: 'proxmox-ansible-automation'
 tags:
@@ -27,7 +27,7 @@ alternates:
     href: 'https://onelitefeather.net/en/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible'
 schemaOrg:
   - type: 'BlogPosting'
-    headline: 'Mit Proxmox und Ansible in eine Achterbahn der Automatisierung'
+    headline: 'Mit Proxmox und Ansible automatisieren'
     alternativeHeadline: 'Wie wir Infrastruktur mit Proxmox und Ansible automatisieren'
     description: 'In der unendlichen Weite der digitalen Welt hat unser Team, OneLiteFeather, eine kleine aber feine Spielwiese gefunden, auf der wir unsere kreativen und technischen Visionen verwirklichen. Im Zentrum dieser Entdeckungsreise stehen Proxmox und Ansible, zwei Werkzeuge, die uns nicht nur den Rücken freihalten, sondern auch die Türen zu unerforschten Gebieten öffnen.'
     author:

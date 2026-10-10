@@ -1,7 +1,7 @@
 ---
-title: 'Wenn ein Server ausfällt: Wie wir unser Cluster widerstandsfähig gemacht haben'
+title: 'Wenn ein Server ausfällt: Cluster-Resilienz'
 alternativeTitle: 'Resilienz für Einsteiger: Unsere Reise zu einem ausfallsicheren Kubernetes-Cluster'
-description: 'Ein Server fällt aus – und niemand merkt es. Genau das war mein Ziel. Ich erzähle in Alltagsbildern, wie wir unser Cluster Stück für Stück widerstandsfähiger gemacht haben, welche Höhen und Tiefen die Reise mit sich brachte und was das ganz konkret für OneLiteFeather bedeutet.'
+description: 'Ein Server fällt aus, und niemand merkt es – genau das war das Ziel. In Alltagsbildern, wie wir unseren Cluster Stück für Stück ausfallsicherer machten.'
 pubDate: '2026-06-13'
 headerImage: 'images/blog/cluster-topology-social.png'
 headerImageAlt: 'Topologie des feather-core-Clusters: Control-Plane, Ceph-Storage und Worker in Zone fr01'
@@ -27,7 +27,7 @@ alternates:
     href: 'https://onelitefeather.net/en/blog/when-a-server-fails-cluster-resilience'
 schemaOrg:
   - type: 'BlogPosting'
-    headline: 'Wenn ein Server ausfällt: Wie wir unser Cluster widerstandsfähig gemacht haben'
+    headline: 'Wenn ein Server ausfällt: Cluster-Resilienz'
     alternativeHeadline: 'Resilienz für Einsteiger: Unsere Reise zu einem ausfallsicheren Kubernetes-Cluster'
     description: 'Ein Server fällt aus – und niemand merkt es. Genau das war mein Ziel. Ich erzähle in Alltagsbildern, wie wir unser Cluster Stück für Stück widerstandsfähiger gemacht haben.'
     author:

@@ -1,7 +1,7 @@
 ---
-title: 'Otis: Zentrale Spielerstammdaten für Minecraft (Java & Micronaut)'
+title: 'Otis: Spielerstammdaten für Minecraft'
 alternativeTitle: 'Mojang UUID v4, interne UUID v7, Name & Sprache als stabile Basis fürs Ökosystem'
-description: 'Otis stellt Spielerstammdaten zentral bereit: Mojang UUID (v4), interne UUID (v7), Minecraft-Name und Sprache sowie optional erster/letzter Beitritt. Das reduziert manuelle Inselprozesse, unterstützt DSGVO-orientierte Datenflüsse und bildet die Grundlage für nachgelagerte Services wie Metadata, Bans und Discord Bots.'
+description: 'Otis bündelt Spielerstammdaten: Mojang-UUID (v4), interne UUID (v7), Name, Sprache und optional Beitrittsdaten. Basis für Metadata, Bans und Discord-Bots.'
 pubDate: '2025-11-29'
 headerImage: 'images/blog/otis-player-data-header.png'
 headerImageAlt: 'Otis Microservice: zentrale Minecraft-Spielerdaten (Java, Micronaut)'
@@ -28,7 +28,7 @@ alternates:
 
 schemaOrg:
   - type: 'BlogPosting'
-    headline: 'Otis: Zentrale Spielerstammdaten für Minecraft'
+    headline: 'Otis: Spielerstammdaten für Minecraft'
     alternativeHeadline: 'Java/Micronaut Microservice für UUIDs, Name und Sprache'
     description: 'Zentrale Spielerdaten als Schnittstelle im Ökosystem: weniger manuelle Dateninseln, klarere Verantwortlichkeiten und eine Basis für zuverlässige Services.'
     author:

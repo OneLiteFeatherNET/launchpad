@@ -1,10 +1,10 @@
 ---
-title: 'Alles, was du über Ethanol wissen solltest'
+title: 'Ethanol-Malware: Was du wissen solltest'
 alternativeTitle: 'Schon jetzt auf mehreren hundert Servern, was sich dahinter verbirgt'
-description: 'Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern. Genauso wie Fractureiser wird diese von dem User mori0 / Riesenrad beworben, um Server zu “trollen”. Was sich dahinter verbirgt.'
+description: 'Kaum bekannt und doch auf mehreren hundert Servern. Wie Fractureiser wird es von mori0 / Riesenrad beworben, um Server zu „trollen“. Was dahintersteckt.'
 pubDate: '2024-07-23'
 headerImage: 'images/blog/cyber-theDigitalArtist-Ethanol-Post.webp'
-headerImageAlt: 'Ethanol Malware Post Bild'
+headerImageAlt: 'Grüner Textregen aus Sicherheitsbegriffen wie Malware, Trojaner und Ransomware, im Stil der Matrix'
 slug: 'alles-was-man-ueber-ethanol-wissen-sollte'
 translationKey: 'everything-you-need-to-know-about-ethanol'
 tags:
@@ -26,7 +26,7 @@ alternates:
     href: 'https://onelitefeather.net/en/blog/everything-you-need-to-know-about-ethanol'
 schemaOrg:
   - type: 'BlogPosting'
-    headline: 'Alles, was du über Ethanol wissen solltest'
+    headline: 'Ethanol-Malware: Was du wissen solltest'
     alternativeHeadline: 'Schon jetzt auf mehreren hundert Servern, was sich dahinter verbirgt'
     description: 'Relativ unbekannt und trotzdem schon jetzt auf mehreren hundert Servern. Genauso wie Fractureiser wird diese von dem User mori0 / Riesenrad beworben, um Server zu “trollen”. Was sich dahinter verbirgt.'
     author:

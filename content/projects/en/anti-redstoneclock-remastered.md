@@ -1,7 +1,7 @@
 ---
 slug: 'anti-redstoneclock-remastered'
 translationKey: 'arcr'
-title: 'Anti-RedstoneClock Remastered'
+title: 'Anti-RedstoneClock Remastered: Paper plugin'
 summary: 'A Paper plugin that detects redstone clocks, alerts staff in game, on Discord or in the console, and can optionally disable or destroy them.'
 status: 'active'
 releasedAt: '2024-01-30'

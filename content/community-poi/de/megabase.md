@@ -1,7 +1,7 @@
 ---
 slug: 'megabase'
 translationKey: 'megabase'
-title: 'Megabase'
+title: 'Megabase von blndr2'
 summary: 'blndr2s größtes Bauvorhaben: Ein Areal von mehreren hundert Blöcken Kantenlänge ist ausgehoben und abgesteckt, die Schematic für den Aufbau liegt bereit.'
 status: 'in-progress'
 progress: 5

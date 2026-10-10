@@ -1,7 +1,7 @@
 ---
-title: 'When a Server Fails: How We Made Our Cluster Resilient'
+title: 'When a server fails: cluster resilience'
 alternativeTitle: 'Resilience for Beginners: Our Journey to a Fail-Safe Kubernetes Cluster'
-description: 'A server went down – and nobody noticed. That was exactly my goal. I tell the story in everyday images: how we made our cluster more resilient step by step, the highs and lows of the journey, and what it means in practice for OneLiteFeather.'
+description: 'A server went down and nobody noticed – that was the goal. In everyday images: how OneLiteFeather made its cluster more resilient, step by step.'
 pubDate: '2026-06-13'
 headerImage: 'images/blog/cluster-topology-social.png'
 headerImageAlt: 'Topology of the feather-core cluster: control-plane, Ceph storage and workers in zone fr01'
@@ -23,7 +23,7 @@ alternates:
     href: 'https://onelitefeather.net/en/blog/when-a-server-fails-cluster-resilience'
 schemaOrg:
   - type: 'BlogPosting'
-    headline: 'When a Server Fails: How We Made Our Cluster Resilient'
+    headline: 'When a server fails: cluster resilience'
     alternativeHeadline: 'Resilience for Beginners: Our Journey to a Fail-Safe Kubernetes Cluster'
     description: 'A server went down – and nobody noticed. That was exactly my goal. I tell the story in everyday images: how we made our cluster more resilient step by step.'
     author:
