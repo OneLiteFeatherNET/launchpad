@@ -29,4 +29,4 @@ Vorschlag, `feat(consent): add a cookie consent banner` für den ersten Code,
 
 ## 5. Pull Request
 
-- [ ] 5.1 Pull Request unter dem Titel `feat(consent): add a cookie consent banner` (Squash-Merge) mit englischer Beschreibung: Zusammenfassung, Opt-out-Entscheidung, Cloudflare-Hinweis, geprüft, Screenshots
+- [x] 5.1 Pull Request unter dem Titel `feat(consent): add a cookie consent banner` (Squash-Merge) mit englischer Beschreibung: Zusammenfassung, Opt-out-Entscheidung, Cloudflare-Hinweis, geprüft, Screenshots
