@@ -63,7 +63,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   const socialImage = computed(() => resolveSocialImage(
     opts.image,
     site.url,
-    (src) => img(src, { width: 1200, height: 630, format: 'webp', quality: 80 })
+    (src) => img(src, { width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 80 })
   ))
 
   const pageTitle = computed(() => opts.title || site.name)

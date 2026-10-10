@@ -21,7 +21,8 @@ export type SocialImage = {
 
 /**
  * Resolves the social preview image for a page: the page's own image,
- * transformed to 1200×630 WebP, or the site default. Always absolute —
+ * transformed to 1200×630 WebP (`fit: 'cover'`, or the provider scales and the
+ * declared size is wrong), or the site default. Always absolute —
  * crawlers resolve a relative og:image against nothing, and with the `none`
  * image provider the transform returns the path unchanged.
  */
