@@ -10,7 +10,7 @@ import {
 } from '../../layers/team/utils/teamDescription'
 
 const copy: TeamDescriptionCopy = {
-  withArea: (name, area) => `${name} ist im Bereich ${area} bei OneLiteFeather.`,
+  withArea: (name, area) => `${name} arbeitet bei OneLiteFeather im Bereich ${area}.`,
   plain: name => `${name} ist Teil des Teams bei OneLiteFeather.`
 }
 
@@ -30,28 +30,28 @@ describe('teamProfileDescription', () => {
 
   it('does not use a short slogan such as "Modrinth."', () => {
     const member = { name: 'blndr2', slogan: 'Modrinth.', role: 'Moderation' }
-    expect(teamProfileDescription(member, copy)).toBe('blndr2 ist im Bereich Moderation bei OneLiteFeather.')
+    expect(teamProfileDescription(member, copy)).toBe('blndr2 arbeitet bei OneLiteFeather im Bereich Moderation.')
   })
 
   it('does not use a long slogan that is not a sentence', () => {
     const slogan = 'Wir halten die Community fair, freundlich und im Gleichgewicht ohne Punkt'
     const member = { name: 'mcmdev', slogan, role: 'Entwicklung' }
-    expect(teamProfileDescription(member, copy)).toBe('mcmdev ist im Bereich Entwicklung bei OneLiteFeather.')
+    expect(teamProfileDescription(member, copy)).toBe('mcmdev arbeitet bei OneLiteFeather im Bereich Entwicklung.')
   })
 
   it('builds the sentence from the role', () => {
     const member = { name: 'joltras', role: 'Entwicklung' }
-    expect(teamProfileDescription(member, copy)).toBe('joltras ist im Bereich Entwicklung bei OneLiteFeather.')
+    expect(teamProfileDescription(member, copy)).toBe('joltras arbeitet bei OneLiteFeather im Bereich Entwicklung.')
   })
 
   it('joins several roles into one area', () => {
     const member = { name: 'pegasusfieber17', role: ['Entwicklung', 'Bau-Team'] }
-    expect(teamProfileDescription(member, copy)).toBe('pegasusfieber17 ist im Bereich Entwicklung · Bau-Team bei OneLiteFeather.')
+    expect(teamProfileDescription(member, copy)).toBe('pegasusfieber17 arbeitet bei OneLiteFeather im Bereich Entwicklung · Bau-Team.')
   })
 
   it('falls back to the rank label when the member has no role', () => {
     const member = { name: 'blndr2' }
-    expect(teamProfileDescription(member, copy, 'Moderation')).toBe('blndr2 ist im Bereich Moderation bei OneLiteFeather.')
+    expect(teamProfileDescription(member, copy, 'Moderation')).toBe('blndr2 arbeitet bei OneLiteFeather im Bereich Moderation.')
   })
 
   it('uses the plain sentence when there is neither role nor rank', () => {
