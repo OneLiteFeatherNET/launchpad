@@ -49,7 +49,7 @@ Technologien (Services):
 - Gitlab * 
 - OpenProject
 - Outline
-- Kubernetes
+- [Kubernetes](https://onelitefeather.net/de/blog/resilienz-im-detail-priorityclasses-pdb-affinitaeten)
 - NextCloud
 - MailCow
 - MariaDB

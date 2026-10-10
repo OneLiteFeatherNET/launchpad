@@ -86,7 +86,7 @@ spec:
       app.kubernetes.io/name: bluemap
 ```
 
-Solche PDBs habe ich für alle mehrfach replizierten Dienste eingezogen: BlueMap (3), Dependency-Track-Frontend (3), Harbor-Komponenten core/registry/jobservice/portal (je 2), Reposilite (3) und den Prometheus-Agent (2). Bewusst **kein** PDB bekamen Single-Replica-Workloads – ein `maxUnavailable: 1` bei nur einer Replica würde Node-Drains komplett blockieren. Weil die zugrunde liegenden Helm-Charts oft kein natives PDB anbieten, liegen diese als eigenständige Manifeste neben den Releases.
+Solche PDBs habe ich für alle mehrfach replizierten Dienste eingezogen: [BlueMap](https://onelitefeather.net/de/bluemap) (3), Dependency-Track-Frontend (3), Harbor-Komponenten core/registry/jobservice/portal (je 2), Reposilite (3) und den Prometheus-Agent (2). Bewusst **kein** PDB bekamen Single-Replica-Workloads – ein `maxUnavailable: 1` bei nur einer Replica würde Node-Drains komplett blockieren. Weil die zugrunde liegenden Helm-Charts oft kein natives PDB anbieten, liegen diese als eigenständige Manifeste neben den Releases.
 
 > **Fallbeispiel.** Beim Drain von `fr01-wrk-xl-01` für Wartungsarbeiten wären ohne PDB potenziell mehrere BlueMap-Replicas gleichzeitig umgezogen – die Kartenansicht für einen Moment komplett weg. Mit `maxUnavailable: 1` zieht Kubernetes die Replicas nacheinander um; mindestens zwei bleiben jederzeit erreichbar.
 
@@ -103,7 +103,7 @@ Storage und Datenbanken sind damit strukturell geschützt; verzichtbare Apps tre
 
 ### Stolperstein 1: Der stillschweigende No-Op
 
-Die Zuweisung lief gut – bis sie es nicht mehr tat. Bei einigen unserer Charts (Outline, Leantime, Shlink, Reposilite, Otis, BlueMap) trug ich brav `priorityClassName` als Helm-Value ein – und nichts geschah. Diese Charts referenzieren `.Values.priorityClassName` schlicht nicht; der Wert war ein stiller No-Op. Kein Fehler, keine Warnung – einfach wirkungslos.
+Die Zuweisung lief gut – bis sie es nicht mehr tat. Bei einigen unserer Charts (Outline, Leantime, Shlink, Reposilite, [Otis](https://onelitefeather.net/de/blog/otis-zentrale-spielerstammdaten-minecraft), BlueMap) trug ich brav `priorityClassName` als Helm-Value ein – und nichts geschah. Diese Charts referenzieren `.Values.priorityClassName` schlicht nicht; der Wert war ein stiller No-Op. Kein Fehler, keine Warnung – einfach wirkungslos.
 
 Die Lösung waren HelmRelease-`postRenderers`, die das gerenderte Deployment direkt patchen:
 
