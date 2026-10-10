@@ -156,7 +156,7 @@ Otis also cannot solve communication problems: teams must still align on how to 
 
 Otis provides a clean, scalable, maintainable foundation for player master data inside a Minecraft ecosystem. By centralizing essential information, it reduces duplication, simplifies development, improves GDPR compliance, and decreases operational risk across the network.
 
-It is not a one‑size‑fits‑all solution for every scenario, but it creates the stability needed for reliable downstream services. As we continue building additional components, Otis serves as the backbone of a modern, maintainable infrastructure.
+It is not a one‑size‑fits‑all solution for every scenario, but it creates the stability needed for reliable downstream services. As we continue building additional components, Otis serves as the backbone of a modern, maintainable infrastructure. The interface, use cases and license are summarised on the [project page](/en/projects/otis).
 
 Feedback is always welcome, and discussions around Otis happen openly on Discord.
 
