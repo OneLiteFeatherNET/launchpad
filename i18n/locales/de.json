@@ -298,7 +298,9 @@
       "open": "Auf BlueMap öffnen",
       "link_aria": "{title} auf der BlueMap öffnen (neuer Tab)",
       "iframe_title": "BlueMap-Vorschau für {title}",
-      "embed_note": "Vorschau geladen von {host}. Für volle Funktionen die externe Seite öffnen."
+      "load": "Karte laden",
+      "load_hint": "Die interaktive Karte lädt erst, wenn du sie startest.",
+      "embed_note": "Vorschau von {host}. Für volle Funktionen die externe Seite öffnen."
     },
     "facing": {
       "north": "Norden",

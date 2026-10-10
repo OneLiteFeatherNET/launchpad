@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from '#imports'
+import { computed, nextTick, ref } from '#imports'
 import CommunityPoiCoordsCopy from './CommunityPoiCoordsCopy.vue'
 import { useBluemapDeepLink, useBluemapUrl } from '~/composables/useBluemap'
 import type { CommunityPoiCoordinates } from '../types'
@@ -11,6 +11,17 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const baseUrl = useBluemapUrl()
+
+const loaded = ref(false)
+const frame = ref<HTMLIFrameElement | null>(null)
+
+// The viewer is ~70 MB of requests, so it mounts only when asked for.
+async function loadMap() {
+  loaded.value = true
+  await nextTick()
+  // The button is gone; focus the map so keyboard users land in it.
+  frame.value?.focus()
+}
 
 const deepLink = computed(() => useBluemapDeepLink({
     x: props.coordinates.x,
@@ -42,6 +53,10 @@ const iconClass = 'h-4 w-4 text-primary'
 
 const embedNoteClass
   = 'bg-surface-container-highest px-3 py-2 text-body-small text-on-surface-variant'
+
+// Same box as the iframe, so activating the map does not shift the page.
+const placeholderClass
+  = 'flex aspect-[16/9] w-full flex-col items-center justify-center gap-3 bg-surface-container-high p-4 text-center'
 </script>
 
 <template>
@@ -75,18 +90,23 @@ const embedNoteClass
       :z="coordinates.z"
     />
 
-    <!-- The iframe is loaded by default so every POI lands on its
-         in-world position immediately. `loading="lazy"` still defers the
-         fetch until the section is in view, which keeps initial page
-         weight reasonable. -->
     <div class="overflow-hidden rounded-medium border border-outline-variant">
+      <div v-if="!loaded" :class="placeholderClass">
+        <p class="text-body-medium text-on-surface-variant">
+          {{ t('community_poi.bluemap.load_hint') }}
+        </p>
+        <M3Button variant="tonal" :icon="['fas','play']" @click="loadMap">
+          {{ t('community_poi.bluemap.load') }}
+        </M3Button>
+      </div>
       <!-- Same sandbox as pages/bluemap.vue; see the comment there for why
            allow-scripts and allow-same-origin are both needed. -->
       <iframe
+        v-else
+        ref="frame"
         :src="deepLink"
         :title="t('community_poi.bluemap.iframe_title', { title: props.title })"
         class="block aspect-[16/9] w-full"
-        loading="lazy"
         allow="fullscreen"
         sandbox="allow-scripts allow-same-origin allow-popups"
         referrerpolicy="no-referrer"
