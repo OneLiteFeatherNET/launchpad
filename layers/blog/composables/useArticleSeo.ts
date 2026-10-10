@@ -53,16 +53,16 @@ export function useArticleSeo(
   const previewSocial = computed(() => resolveSocialImage(
     blog.value?.headerImage,
     baseUrl.value,
-    (src) => img(src, { width: 1200, height: 630, format: 'webp', quality: 80 })
+    (src) => img(src, { width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 80 })
   ))
 
   // Multiple aspect ratios are recommended by Google for article rich results.
   const articleImages = computed(() => {
     const source = blog.value?.headerImage || 'images/logo.svg'
     return [
-      img(source, { width: 1200, height: 630, format: 'webp', quality: 80 }),
-      img(source, { width: 1200, height: 900, format: 'webp', quality: 80 }),
-      img(source, { width: 1200, height: 1200, format: 'webp', quality: 80 })
+      img(source, { width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 80 }),
+      img(source, { width: 1200, height: 900, fit: 'cover', format: 'webp', quality: 80 }),
+      img(source, { width: 1200, height: 1200, fit: 'cover', format: 'webp', quality: 80 })
     ]
   })
 
@@ -71,6 +71,7 @@ export function useArticleSeo(
     img(blog.value?.headerImage || 'images/logo.svg', {
       width: 600,
       height: 400,
+      fit: 'cover',
       format: 'webp',
       quality: 75
     })
