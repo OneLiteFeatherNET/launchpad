@@ -59,6 +59,19 @@ describe('production config overrides', () => {
     expect(repeated).toEqual([])
   })
 
+  it('lists the social profiles in the base sameAs only', () => {
+    const { base, production } = blocks()
+
+    for (const url of [
+      'https://www.tiktok.com/@onelitefeather.net',
+      'https://www.youtube.com/channel/UCfPUI5tvNVWJeJ-t93fdj0g',
+      'https://www.instagram.com/onelitefeather/'
+    ]) {
+      expect(base, url).toContain(`'${url}'`)
+      expect(production, url).not.toContain(url)
+    }
+  })
+
   it('enables the workers cache without sharing it across versions', () => {
     const { production } = blocks()
     const wrangler = production.slice(production.indexOf('wrangler: {'))
