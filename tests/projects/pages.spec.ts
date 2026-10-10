@@ -37,8 +37,8 @@ describe('project detail page', () => {
     expect(detail).toContain('useCommunityPoisByProject(')
   })
 
-  it('describes the project as a SoftwareApplication', () => {
-    expect(detail).toContain("'@type': 'SoftwareApplication'")
+  it('describes the project as a SoftwareApplication built by the tested util', () => {
+    expect(detail).toContain('softwareApplicationNode(')
   })
 })
 

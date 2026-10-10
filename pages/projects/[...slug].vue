@@ -33,29 +33,19 @@ useBreadcrumbs(() => [
   { name: title.value }
 ])
 
-const toIso = (raw: string | Date | undefined): string | undefined => {
-  if (!raw) return undefined
-  const date = raw instanceof Date ? raw : new Date(raw)
-  return Number.isNaN(date.getTime()) ? undefined : date.toISOString()
-}
-
 useSchemaOrg(computed(() => {
   if (!project.value) return []
-  const url = new URL(`/${locale.value}/projects/${project.value.slug}`, site.url).toString()
-  const links = project.value.links
   return [
-    {
-      '@type': 'SoftwareApplication',
-      '@id': `${url}#software`,
-      name: project.value.title,
-      description: project.value.summary,
-      url,
+    softwareApplicationNode({
+      title: project.value.title,
+      summary: project.value.summary,
+      url: new URL(`/${locale.value}/projects/${project.value.slug}`, site.url).toString(),
+      publisherId: organizationId(site.url),
       license: project.value.license,
-      datePublished: toIso(project.value.releasedAt as string | Date | undefined),
-      softwareHelp: links?.docs,
-      downloadUrl: links?.downloads?.[0]?.url,
-      publisher: { '@id': organizationId(site.url) }
-    }
+      releasedAt: project.value.releasedAt as string | Date | undefined,
+      platforms: project.value.platforms,
+      links: project.value.links
+    })
   ]
 }))
 
