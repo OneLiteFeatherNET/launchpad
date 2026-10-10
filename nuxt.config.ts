@@ -86,7 +86,10 @@ export default defineNuxtConfig({
             sameAs: [
                 'https://github.com/OneLiteFeatherNET',
                 'https://1lf.link/discord',
-                'https://opencollective.com/onelitefeather'
+                'https://opencollective.com/onelitefeather',
+                'https://www.tiktok.com/@onelitefeather.net',
+                'https://www.youtube.com/channel/UCfPUI5tvNVWJeJ-t93fdj0g',
+                'https://www.instagram.com/onelitefeather/'
             ]
         })
     },
