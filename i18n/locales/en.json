@@ -605,5 +605,22 @@
       "apply": "Apply",
       "support": "Support us"
     }
+  },
+  "consent": {
+    "banner": {
+      "title": "We're handing out cookies!",
+      "body": "This site stores small files in your browser. Necessary cookies, such as the one that remembers your language, are always on. Statistics cookies show us anonymously which pages are read. They are optional and you can change them at any time.",
+      "settings": "I'll decide myself!",
+      "reject_all": "No cookies for me!",
+      "accept_all": "I'll take all cookies!",
+      "settings_title": "Your cookies, your choice",
+      "save": "Save selection",
+      "privacy_link": "More in our privacy policy",
+      "necessary_title": "Necessary cookies",
+      "necessary_description": "They remember your language and your cookie choice. The site needs them, so they are always on. The choice cookie is called olf_consent and expires after six months.",
+      "analytics_title": "Statistics cookies",
+      "analytics_description": "Anonymous usage statistics via PostHog, with servers in the EU. They show us which pages are read. Off by default."
+    },
+    "footer_link": "Cookie settings"
   }
 }

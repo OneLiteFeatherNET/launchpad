@@ -144,6 +144,7 @@ const copyrightClass
           <NuxtLinkLocale to="/imprint" :class="linkClass">
             {{ t('footer.terms') }}
           </NuxtLinkLocale>
+          <slot name="legal-actions" />
         </div>
       </div>
     </div>

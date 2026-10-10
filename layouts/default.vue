@@ -30,7 +30,15 @@ useSiteNavigationSchema(eventsTopLevel)
         <main id="main-content" tabindex="-1" class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1 focus:outline-none">
           <slot/>
         </main>
-        <SiteFooter />
+        <SiteFooter>
+          <template #legal-actions>
+            <CookieSettingsButton />
+          </template>
+        </SiteFooter>
+        <!-- Client only: the consent cookie must never reach cached HTML. -->
+        <ClientOnly>
+          <CookieConsentBanner />
+        </ClientOnly>
       </div>
     </Body>
   </Html>
