@@ -9,7 +9,10 @@ import M3Button from '../../layers/base/components/M3Button.vue'
 import CookieConsentBanner from '../../layers/consent/components/CookieConsentBanner.vue'
 import CookieSettingsButton from '../../layers/consent/components/CookieSettingsButton.vue'
 
+/** Per-test switches, reset before each test; the composable is read at mount. */
 const consent = vi.hoisted(() => ({
+  visible: true,
+  analyticsAllowed: true,
   acceptAll: vi.fn(),
   rejectAll: vi.fn(),
   save: vi.fn(),
@@ -20,8 +23,8 @@ vi.mock('../../layers/consent/composables/useCookieConsent', async () => {
   const { ref } = await import('vue')
   return {
     useCookieConsent: () => ({
-      bannerVisible: ref(true),
-      analyticsAllowed: ref(false),
+      bannerVisible: ref(consent.visible),
+      analyticsAllowed: ref(consent.analyticsAllowed),
       acceptAll: consent.acceptAll,
       rejectAll: consent.rejectAll,
       save: consent.save,
@@ -62,6 +65,8 @@ const openSettings = async (wrapper: ReturnType<typeof mountBanner>) => {
 }
 
 beforeEach(() => {
+  consent.visible = true
+  consent.analyticsAllowed = true
   consent.acceptAll.mockReset()
   consent.rejectAll.mockReset()
   consent.save.mockReset()
@@ -77,19 +82,36 @@ describe('CookieConsentBanner', () => {
     expect(mountBanner('en').text()).toContain("We're handing out cookies!")
   })
 
-  it('accepting all calls acceptAll once', async () => {
+  it('renders nothing once the choice is stored and the banner is not reopened', () => {
+    consent.visible = false
+    expect(mountBanner().find('section').exists()).toBe(false)
+  })
+
+  it('is a non-modal bar, not a dialog', () => {
+    expect(mountBanner().find('[role="dialog"]').exists()).toBe(false)
+  })
+
+  it('offers exactly the three choices on the first view', () => {
+    const labels = mountBanner().findAllComponents(M3Button).map(button => button.text())
+    expect(labels).toHaveLength(3)
+    expect(labels).toContain(copy('accept_all'))
+    expect(labels).toContain(copy('reject_all'))
+    expect(labels).toContain(copy('settings'))
+  })
+
+  it('"Her mit den Keksen!" calls acceptAll once', async () => {
     const wrapper = mountBanner()
     await buttonLabelled(wrapper, copy('accept_all')).trigger('click')
     expect(consent.acceptAll).toHaveBeenCalledTimes(1)
   })
 
-  it('rejecting all calls rejectAll once', async () => {
+  it('"Keine Statistik-Kekse!" calls rejectAll once', async () => {
     const wrapper = mountBanner()
     await buttonLabelled(wrapper, copy('reject_all')).trigger('click')
     expect(consent.rejectAll).toHaveBeenCalledTimes(1)
   })
 
-  it('gives accepting and rejecting the same button variant', () => {
+  it('accepting and opting out share the same button variant', () => {
     const wrapper = mountBanner()
     const variantOf = (label: string) => buttonLabelled(wrapper, label).props('variant')
     expect(variantOf(copy('reject_all'))).toBe(variantOf(copy('accept_all')))
@@ -101,7 +123,15 @@ describe('CookieConsentBanner', () => {
     expect(wrapper.find('input[role="switch"]').exists()).toBe(true)
   })
 
-  it('statistics are off by default in the settings', async () => {
+  it('statistics are on by default in the settings', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    const statistics = wrapper.findAll('input[role="switch"]')[1]
+    expect((statistics?.element as HTMLInputElement | undefined)?.checked).toBe(true)
+  })
+
+  it('statistics show as off in the settings when the visitor opted out', async () => {
+    consent.analyticsAllowed = false
     const wrapper = mountBanner()
     await openSettings(wrapper)
     const statistics = wrapper.findAll('input[role="switch"]')[1]
@@ -119,9 +149,9 @@ describe('CookieConsentBanner', () => {
   it('saving passes the statistics choice made in the settings', async () => {
     const wrapper = mountBanner()
     await openSettings(wrapper)
-    await wrapper.findAll('input[role="switch"]')[1]?.setValue(true)
+    await wrapper.findAll('input[role="switch"]')[1]?.setValue(false)
     await buttonLabelled(wrapper, copy('save')).trigger('click')
-    expect(consent.save).toHaveBeenCalledWith({ analytics: true })
+    expect(consent.save).toHaveBeenCalledWith({ analytics: false })
   })
 })
 

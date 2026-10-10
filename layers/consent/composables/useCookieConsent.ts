@@ -1,7 +1,7 @@
 import { computed, useNuxtApp, useState } from '#imports'
 import type { ConsentState } from '../types'
 import { consentCookieString, readConsentCookie } from '../utils/consentCookie'
-import { createConsentController, isBannerVisible } from '../utils/consentController'
+import { analyticsAllowed, createConsentController, isBannerVisible } from '../utils/consentController'
 
 /**
  * Shared consent state for the banner, the footer link and PostHog. Client
@@ -15,11 +15,9 @@ export function useCookieConsent() {
 
   const controller = createConsentController({
     now: () => new Date(),
-    getState: () => state.value,
     setState: (next) => {
       state.value = next
     },
-    getBannerOpen: () => bannerOpen.value,
     setBannerOpen: (open) => {
       bannerOpen.value = open
     },
@@ -30,14 +28,12 @@ export function useCookieConsent() {
   })
 
   return {
-    decided: computed(() => state.value !== null),
-    analyticsAllowed: computed(() => state.value?.analytics === true),
+    analyticsAllowed: computed(() => analyticsAllowed(state.value)),
     bannerVisible: computed(() => isBannerVisible(state.value !== null, bannerOpen.value)),
     acceptAll: controller.acceptAll,
     rejectAll: controller.rejectAll,
     save: controller.save,
     reopen: controller.reopen,
-    close: controller.close,
     /** Call once on client start (see plugins/cookie-consent.client.ts). */
     restore: () => {
       if (import.meta.client) controller.restore(readConsentCookie(document.cookie))

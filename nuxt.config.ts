@@ -259,10 +259,8 @@ export default defineNuxtConfig({
         host: 'https://eu.i.posthog.com',
         proxy: true,
         clientOptions: {
-            // Capture starts only when the consent layer (layers/consent) opts in;
-            // `identified_only` keeps anonymous visitors from getting a person profile.
-            person_profiles: 'identified_only',
-            opt_out_capturing_by_default: true
+            // Statistics run by default; the consent layer (layers/consent) lets visitors opt out.
+            person_profiles: 'identified_only'
         }
     },
     content: {

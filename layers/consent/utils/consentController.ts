@@ -7,9 +7,7 @@ import type { ConsentState } from '../types'
  */
 export interface ConsentPorts {
   now: () => Date
-  getState: () => ConsentState | null
   setState: (state: ConsentState) => void
-  getBannerOpen: () => boolean
   setBannerOpen: (open: boolean) => void
   persist: (state: ConsentState) => void
   applyAnalytics: (allowed: boolean) => void
@@ -30,7 +28,6 @@ export function createConsentController(ports: ConsentPorts) {
     rejectAll: () => decide(false),
     save: ({ analytics }: { analytics: boolean }) => decide(analytics),
     reopen: () => ports.setBannerOpen(true),
-    close: () => ports.setBannerOpen(false),
     /** Applies a choice stored by an earlier visit. Does not write the cookie again. */
     restore(stored: ConsentState | null) {
       if (!stored) return
@@ -38,6 +35,11 @@ export function createConsentController(ports: ConsentPorts) {
       ports.applyAnalytics(stored.analytics)
     },
   }
+}
+
+/** Statistics run until a visitor opts out, so no decision also means allowed. */
+export function analyticsAllowed(state: ConsentState | null): boolean {
+  return state?.analytics ?? true
 }
 
 /** The banner shows until a decision exists, and again whenever it is reopened. */
