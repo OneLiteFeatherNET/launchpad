@@ -6,13 +6,13 @@ summary: 'Ein Paper-Plugin, das Redstone-Clocks erkennt, Teammitglieder im Spiel
 status: 'active'
 releasedAt: '2024-01-30'
 publishedAt: '2026-10-07'
-updatedAt: '2026-10-07'
+updatedAt: '2026-10-10'
 platforms:
   - 'Paper'
   - 'Folia'
 license: 'AGPL-3.0'
 links:
-  docs: 'https://arcr.onelitefeather.net'
+  docs: 'https://docs.onelitefeather.net/antiredstoneclock-remastered'
   source: 'https://github.com/OneLiteFeatherNET/AntiRedstoneClock-Remastered'
   issues: 'https://github.com/OneLiteFeatherNET/AntiRedstoneClock-Remastered/issues'
   downloads:
@@ -39,14 +39,14 @@ Es ist ein Nachbau von Trafalcrafts antiRedstoneClock, von Grund auf neu geschri
 
 ## So erkennt es Clocks
 
-Das Plugin sieht sich keine Bauten an, es zählt Ereignisse. Sobald ein Block zum ersten Mal ein relevantes Ereignis auslöst — ein Kolben fährt, ein Repeater aktualisiert sich, ein Observer pulst, ein Komparator ändert sich, ein Sculk-Sensor reagiert —, beginnt das Plugin ihn zu beobachten und setzt ihm eine Frist. Erreicht der Block das Auslöse-Limit vor Ablauf der Frist, ist er eine Clock; sonst wird er vergessen. Beide Werte sind einstellbar. Hopper-Ketten zählen nur, wenn Items zwischen einem Paar hin- und herwandern, damit Sortieranlagen und Lager nicht gemeldet werden.
+Das Plugin sieht sich keine Bauten an, es zählt Ereignisse. Sobald ein Block zum ersten Mal ein relevantes Ereignis auslöst — ein Kolben fährt, ein Repeater aktualisiert sich, ein Observer pulst, Redstone-Staub ändert sich oder ein Hopper bewegt Items —, beginnt das Plugin ihn zu beobachten und setzt ihm eine Frist. Erreicht der Block das Auslöse-Limit vor Ablauf der Frist, ist er eine Clock; sonst wird er vergessen. Beide Werte sind einstellbar. Hopper-Ketten zählen nur, wenn Items zwischen einem Paar hin- und herwandern, damit Sortieranlagen und Lager nicht gemeldet werden.
 
-Bevor ein Block gezählt wird, können Filter die Prüfung beenden: die Serverlast, der Blocktyp, eine ignorierte Welt, eine WorldGuard-Region oder ein PlotSquared-Grundstück, das Clocks erlaubt.
+Bevor ein Block gezählt wird, können Filter die Prüfung beenden: die Serverlast (die Erkennung pausiert, solange die TPS außerhalb von `tps.min`–`tps.max` liegen, standardmäßig 15–20), die Schalter für die Ereignistypen (`check.*`-Einstellungen), eine ignorierte Welt, eine WorldGuard-Region (über das Flag `redstone-clock` oder die Liste `check.ignoredRegions`) oder ein PlotSquared-Grundstück, das Clocks erlaubt.
 
 ## Was du vor dem Einsatz wissen solltest
 
-- Ab Werk setzt das Plugin ein Warnschild und zerstört den Block. Wenn du lieber über Clocks informiert werden willst, statt sie entfernen zu lassen, schalte das automatische Zerstören ab; die Dokumentation erklärt, wie.
+- Ab Werk meldet das Plugin erkannte Clocks in der Konsole, Admins im Spiel und mit einem Schild, das den Block der Clock ersetzt, und zerstört die Clock (`clock.autoBreak: true`). Discord-Meldungen kommen an, sobald du [einen Webhook einträgst](https://docs.onelitefeather.net/antiredstoneclock-remastered/how-to-guides/send-alerts-to-discord). Wenn du nur informiert werden willst, setze `clock.autoBreak` auf `false`; siehe die [Konfigurationsreferenz](https://docs.onelitefeather.net/antiredstoneclock-remastered/reference/configuration).
 - Es ist kein Performance-Werkzeug. Es beseitigt, was eine Clock gekostet hat, und sonst nichts, und es pausiert die Erkennung, solange der Server nicht hinterherkommt.
-- Paper und Folia werden unterstützt. Spigot, CraftBukkit, Paper-Forks und Hybrid-Server nicht. Die unterstützten Minecraft-Versionen und die benötigte Java-Version stehen in der Dokumentation.
+- Paper und Folia werden unterstützt. Spigot, CraftBukkit, Paper-Forks und Hybrid-Server nicht. Die [unterstützten Minecraft-Versionen und die benötigte Java-Version](https://docs.onelitefeather.net/antiredstoneclock-remastered/reference/supported-versions) stehen in der Dokumentation.
 
-Einrichtung, Konfiguration, Befehle und Berechtigungen findest du in der [Dokumentation](https://arcr.onelitefeather.net).
+Einrichtung, Konfiguration, Befehle und Berechtigungen findest du in der [Dokumentation](https://docs.onelitefeather.net/antiredstoneclock-remastered/getting-started/detect-your-first-clock).

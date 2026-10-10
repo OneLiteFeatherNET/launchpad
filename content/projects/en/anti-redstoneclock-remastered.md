@@ -6,13 +6,13 @@ summary: 'A Paper plugin that detects redstone clocks, alerts staff in game, on 
 status: 'active'
 releasedAt: '2024-01-30'
 publishedAt: '2026-10-07'
-updatedAt: '2026-10-07'
+updatedAt: '2026-10-10'
 platforms:
   - 'Paper'
   - 'Folia'
 license: 'AGPL-3.0'
 links:
-  docs: 'https://arcr.onelitefeather.net'
+  docs: 'https://docs.onelitefeather.net/antiredstoneclock-remastered'
   source: 'https://github.com/OneLiteFeatherNET/AntiRedstoneClock-Remastered'
   issues: 'https://github.com/OneLiteFeatherNET/AntiRedstoneClock-Remastered/issues'
   downloads:
@@ -39,14 +39,14 @@ It is a re-creation of Trafalcraft's antiRedstoneClock, rewritten from scratch w
 
 ## How it detects clocks
 
-The plugin does not look at builds, it counts events. The first time a block produces a relevant event — a piston firing, a repeater updating, an observer pulsing, a comparator changing, a sculk sensor reacting — the plugin starts observing it and gives it a deadline. A block that reaches the trigger limit before the deadline is a clock; a block that does not is forgotten. Both numbers are configurable. Hopper chains are only counted when items travel back and forth between a pair, so sorters and storage systems are not reported.
+The plugin does not look at builds, it counts events. The first time a block produces a relevant event — a piston firing, a repeater updating, an observer pulsing, redstone dust changing or a hopper moving items — the plugin starts observing it and gives it a deadline. A block that reaches the trigger limit before the deadline is a clock; a block that does not is forgotten. Both numbers are configurable. Hopper chains are only counted when items travel back and forth between a pair, so sorters and storage systems are not reported.
 
-Before a block is counted, filters can end the check: the server load, the block type, an ignored world, a WorldGuard region or a PlotSquared plot that allows clocks.
+Before a block is counted, filters can end the check: the server load (detection pauses while TPS is outside `tps.min`–`tps.max`, by default 15–20), the event-type switches (`check.*` settings), an ignored world, a WorldGuard region (through the `redstone-clock` flag or the `check.ignoredRegions` list) or a PlotSquared plot that allows clocks.
 
 ## What to know before you use it
 
-- Out of the box the plugin places a warning sign and breaks the block. If you would rather be told about clocks than have them removed, switch automatic breaking off; the documentation explains how.
+- Out of the box the plugin reports detected clocks in the console, to admins in game and with a sign that replaces the clock's block, and breaks the clock (`clock.autoBreak: true`). Discord alerts work once you [add a webhook](https://docs.onelitefeather.net/antiredstoneclock-remastered/how-to-guides/send-alerts-to-discord). To only be notified, set `clock.autoBreak` to `false`; see the [configuration reference](https://docs.onelitefeather.net/antiredstoneclock-remastered/reference/configuration).
 - It is not a performance tool. It removes what a clock was costing and nothing else, and it pauses detection while the server is not keeping up.
-- Paper and Folia are supported. Spigot, CraftBukkit, Paper forks and hybrid servers are not. The supported Minecraft versions and the required Java version are listed in the documentation.
+- Paper and Folia are supported. Spigot, CraftBukkit, Paper forks and hybrid servers are not. The [supported Minecraft versions and the required Java version](https://docs.onelitefeather.net/antiredstoneclock-remastered/reference/supported-versions) are listed in the documentation.
 
-Setup, configuration, commands and permissions are covered in the [documentation](https://arcr.onelitefeather.net).
+Setup, configuration, commands and permissions are covered in the [documentation](https://docs.onelitefeather.net/antiredstoneclock-remastered/getting-started/detect-your-first-clock).
