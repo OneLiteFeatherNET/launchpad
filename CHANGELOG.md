@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.16.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.15.0...onelitefeather.net-v1.16.0) (2026-10-10)
+
+
+### Features
+
+* **season:** Halloween skin for the whole site ([#384](https://github.com/OneLiteFeatherNET/launchpad/issues/384)) ([e870394](https://github.com/OneLiteFeatherNET/launchpad/commit/e870394847e803461e88f394781041d6c13dff0c))
+
+
+### Bug Fixes
+
+* **projects:** point anti-redstoneclock-remastered to the new docs ([#453](https://github.com/OneLiteFeatherNET/launchpad/issues/453)) ([f5122ea](https://github.com/OneLiteFeatherNET/launchpad/commit/f5122eabd4267d3592f504bcf00f1af1ce4b4cb5))
+
+
+### Documentation
+
+* **openspec:** archive add-cookie-consent ([#451](https://github.com/OneLiteFeatherNET/launchpad/issues/451)) ([41f5533](https://github.com/OneLiteFeatherNET/launchpad/commit/41f5533fb34183d7b9adfbf811f9adef93301fd2))
+
 ## [1.15.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.14.0...onelitefeather.net-v1.15.0) (2026-10-10)
 
 
