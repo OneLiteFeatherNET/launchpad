@@ -14,6 +14,7 @@ const { top1Article, allPosts, authorsOf } = useBlogOverview()
 usePageSeo({
   title: t('blog.overview.title'),
   description: t('blog.overview.description'),
+  image: sectionOgImage('blog', locale.value),
   schemaType: 'CollectionPage',
   keywords: [
     'OneLiteFeather blog',

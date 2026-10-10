@@ -13,6 +13,7 @@ const { pois, total } = useCommunityPoiOverview()
 usePageSeo({
   title: t('community_poi.overview.title'),
   description: t('community_poi.overview.description'),
+  image: sectionOgImage('community-poi', locale.value),
   schemaType: 'CollectionPage',
   keywords: [
     'OneLiteFeather community',

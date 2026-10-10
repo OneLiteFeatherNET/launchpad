@@ -17,6 +17,7 @@ const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined)
 usePageSeo({
   title: t('events.title'),
   description: t('events.description'),
+  image: sectionOgImage('events', locale.value),
   schemaType: 'CollectionPage'
 })
 

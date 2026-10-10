@@ -10,6 +10,7 @@ definePageMeta({
 usePageSeo({
   title: t('bluemap.title'),
   description: t('bluemap.description'),
+  image: sectionOgImage('bluemap', locale.value),
   schemaType: 'WebPage',
   keywords: [
     'OneLiteFeather BlueMap',

@@ -30,7 +30,7 @@ const carouselSlides = computed(() => {
 const { sponsors } = useSponsoring()
 const { data: collective } = useOpenCollective()
 const { items: faqItems } = useFaqContent()
-useHomeSeo({ title: t('index.title') })
+useHomeSeo({ title: t('index.title'), image: sectionOgImage('home', locale.value) })
 
 
 // The h1 in the template is sr-only: the carousel is the visual opening and leaves no room for a heading.
