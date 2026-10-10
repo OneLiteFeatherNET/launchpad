@@ -4,7 +4,7 @@ alternativeTitle: 'Welche Technologien wir nutzen und warum'
 description: 'Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. '
 pubDate: '2023-10-21'
 headerImage: 'images/blog/dev-blog-1.webp'
-headerImageAlt: 'Title Bild für DevBlog #1'
+headerImageAlt: 'Konferenzraum mit einem Vortragenden vor einer Wand voller Dashboards und Diagramme'
 slug: 'dev-blog-1-was-wir-verwenden'
 translationKey: 'dev-blog-1-what-we-using'
 author: themeinerlp

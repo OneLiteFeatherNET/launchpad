@@ -4,7 +4,7 @@ alternativeTitle: 'What we use and why it helps'
 description: 'Today I would like to present you the active used technologies from our team and which advantages these offer to us...'
 pubDate: '2023-10-21'
 headerImage: 'images/blog/dev-blog-1.webp'
-headerImageAlt: 'Title image for DevBlog #1'
+headerImageAlt: 'Boardroom with a presenter in front of a wall of dashboards and diagrams'
 slug: 'dev-blog-1-what-we-using'
 translationKey: 'dev-blog-1-what-we-using'
 author: themeinerlp

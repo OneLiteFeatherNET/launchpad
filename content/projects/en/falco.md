@@ -1,7 +1,7 @@
 ---
 slug: 'falco'
 translationKey: 'falco'
-title: 'Falco'
+title: 'Falco: Minestom library for chunks and lighting'
 summary: 'An Anvil chunk loader, a light engine and an instance implementation for Minestom.'
 status: 'active'
 releasedAt: '2026-07-31'

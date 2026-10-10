@@ -1,7 +1,7 @@
 ---
 slug: 'falco'
 translationKey: 'falco'
-title: 'Falco'
+title: 'Falco: Minestom-Bibliothek für Chunks und Licht'
 summary: 'Ein Anvil-Chunk-Loader, eine Lichtberechnung und eine Instanzimplementierung für Minestom.'
 status: 'active'
 releasedAt: '2026-07-31'

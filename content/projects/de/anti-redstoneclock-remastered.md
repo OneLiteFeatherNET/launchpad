@@ -1,8 +1,8 @@
 ---
 slug: 'anti-redstoneclock-remastered'
 translationKey: 'arcr'
-title: 'Anti-RedstoneClock Remastered'
-summary: 'Ein Paper-Plugin, das Redstone-Clocks erkennt, Teammitglieder im Spiel, auf Discord oder in der Konsole benachrichtigt und sie auf Wunsch abschaltet oder zerstört.'
+title: 'Anti-RedstoneClock Remastered: Paper-Plugin'
+summary: 'Ein Paper-Plugin, das Redstone-Clocks erkennt, das Team im Spiel, per Discord oder Konsole benachrichtigt und sie auf Wunsch abschaltet oder zerstört.'
 status: 'active'
 releasedAt: '2024-01-30'
 publishedAt: '2026-10-07'

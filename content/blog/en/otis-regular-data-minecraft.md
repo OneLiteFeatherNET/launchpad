@@ -1,7 +1,7 @@
 ---
-title: 'Otis: Central player data for Minecraft (Java & Micronaut)'
+title: 'Otis: Central player data for Minecraft'
 alternativeTitle: 'Mojang UUID v4, internal UUID v7, name & language as a stable base for the ecosystem'
-description: 'Otis provides central player master data: Mojang UUID (v4), internal UUID (v7), Minecraft name, language, and optionally first/last join. This cuts manual one-off processes, supports GDPR-oriented data flows, and forms the foundation for downstream services like metadata, bans, and Discord bots.'
+description: 'Central player data: Mojang UUID (v4), internal UUID (v7), name, language and optional join dates. Foundation for metadata, bans and Discord bots.'
 pubDate: '2025-11-29'
 headerImage: 'images/blog/otis-player-data-header.png'
 headerImageAlt: 'Otis Microservice: central Minecraft player data (Java, Micronaut)'

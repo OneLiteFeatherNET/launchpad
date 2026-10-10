@@ -1,10 +1,10 @@
 ---
-title: 'Wer möchte "Plugins" adoptieren ?'
+title: 'Wer möchte Plugins adoptieren?'
 alternativeTitle: 'Maintainer für unsere Plugins gesucht'
-description: 'Adoption von Plugins hilft uns und der Minecraft Community weiterhin sinnvolle Plugins/Software zu warten, dabei helfen wir als Organisation den Maintainer die Richtigen Personen oder Resourcen zu finden.'
+description: 'Adoption hält sinnvolle Plugins für die Minecraft-Community am Leben. Wir helfen dabei, Maintainer und passende Ressourcen zu finden.'
 pubDate: '2025-02-05'
 headerImage: 'images/blog/plugin-adoptation.webp'
-headerImageAlt: 'Wer möchte Plugins adoptieren ? Bild'
+headerImageAlt: 'Illustration: Eine Person hält einen losen Stecker in der Hand, ein zweiter Stecker liegt am Boden'
 slug: 'wer-moechte-plugins-adoptieren'
 translationKey: 'plugins-open-for-adoption'
 tags:
@@ -22,7 +22,7 @@ alternates:
     href: 'https://onelitefeather.net/de/blog/wer-moechte-plugins-adoptieren'
 schemaOrg:
   - type: 'BlogPosting'
-    headline: 'Wer möchte "Plugins" adoptieren ?'
+    headline: 'Wer möchte Plugins adoptieren?'
     alternativeHeadline: 'Maintainer für unsere Plugins gesucht'
     description: 'Adoption von Plugins hilft uns und der Minecraft Community weiterhin sinnvolle Plugins/Software zu warten, dabei helfen wir als Organisation den Maintainer die Richtigen Personen oder Resourcen zu finden.'
     author:

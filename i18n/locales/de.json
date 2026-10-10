@@ -90,7 +90,7 @@
     }
   },
   "index": {
-    "title": "Startseite",
+    "title": "Deutscher Minecraft-Server & Open Source",
     "carousel_aria": "Startseiten-Highlight-Karussell"
   },
   "home": {
@@ -205,7 +205,7 @@
     "github": "GitHub"
   },
   "seo": {
-    "default_description": "OneLiteFeather ist ein Minecraft-Netzwerk, das Entwicklungstools mit der Community teilt.",
+    "default_description": "OneLiteFeather ist ein deutschsprachiges Minecraft-Netzwerk seit 2019 – mit Community-Bauten, Events und Open-Source-Software für Paper und Minestom.",
     "default_keywords": "OneLiteFeather, Minecraft, Minecraft Server, Minecraft Netzwerk, Plugins, Open Source, Paper, Velocity, Java, Bedrock, Entwicklungstools, Community"
   },
   "faq": {
@@ -239,7 +239,7 @@
   "community_poi": {
     "overview": {
       "title": "Community Points of Interest",
-      "description": "Bauprojekte aus unserer Community: Vom Konzept über laufende Baustellen bis zur fertigen Sehenswürdigkeit – mit Fortschritt, Galerie und Litematica-Schematics zum Nachbauen.",
+      "description": "Community-Bauprojekte: vom Konzept über laufende Baustellen bis zur fertigen Sehenswürdigkeit – mit Fortschritt, Galerie und Litematica-Schematics.",
       "count": "{count} POIs",
       "empty": "Aktuell sind noch keine Community-POIs veröffentlicht. Schau bald wieder rein – oder reiche dein Projekt ein!"
     },
@@ -559,7 +559,7 @@
   },
   "projects": {
     "overview": {
-      "title": "Projekte",
+      "title": "Open-Source-Projekte: Paper & Minestom",
       "description": "Software von OneLiteFeather: Plugins und Werkzeuge, die wir selbst entwickeln und auf unserem Server einsetzen — mit Dokumentation, Quellcode und Downloads.",
       "empty": "Noch keine Projekte veröffentlicht."
     },

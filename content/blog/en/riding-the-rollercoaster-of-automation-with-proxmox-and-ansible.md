@@ -1,10 +1,10 @@
 ---
-title: 'Riding the Rollercoaster of Automation with Proxmox and Ansible'
+title: 'Automating Proxmox with Ansible'
 alternativeTitle: 'How we automate infrastructure with Proxmox and Ansible'
-description: 'In the boundless expanse of the digital world, our team, OneLiteFeather, has discovered a quaint yet vibrant playground where we realize our creative and technical visions. At the heart of this expedition are Proxmox and Ansible, two tools that not only have our backs but also open doors to uncharted territories.'
+description: 'How OneLiteFeather automates its infrastructure with Proxmox and Ansible: two tools that have our backs and open doors to new territory.'
 pubDate: '2023-10-15'
 headerImage: 'images/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible.webp'
-headerImageAlt: 'Riding the Rollercoaster of Automation with Proxmox and Ansible Image'
+headerImageAlt: 'Illustration of fields, a city and a roller coaster, with a planner studying blueprints and a robot in the foreground'
 slug: 'riding-the-rollercoaster-of-automation-with-proxmox-and-ansible'
 translationKey: 'proxmox-ansible-automation'
 tags:
@@ -23,7 +23,7 @@ alternates:
     href: 'https://onelitefeather.net/en/blog/riding-the-rollercoaster-of-automation-with-proxmox-and-ansible'
 schemaOrg:
   - type: 'BlogPosting'
-    headline: 'Riding the Rollercoaster of Automation with Proxmox and Ansible'
+    headline: 'Automating Proxmox with Ansible'
     alternativeHeadline: 'How we automate infrastructure with Proxmox and Ansible'
     description: 'In the boundless expanse of the digital world, our team, OneLiteFeather, has discovered a quaint yet vibrant playground where we realize our creative and technical visions. At the heart of this expedition are Proxmox and Ansible, two tools that not only have our backs but also open doors to uncharted territories.'
     author:

@@ -1,7 +1,7 @@
 ---
 slug: 'megabase'
 translationKey: 'megabase'
-title: 'Megabase'
+title: 'Megabase by blndr2'
 summary: 'The largest undertaking by blndr2: a site several hundred blocks across has been excavated and marked out, and the schematic for the build is ready.'
 status: 'in-progress'
 progress: 5
