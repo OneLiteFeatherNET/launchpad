@@ -2,12 +2,12 @@
 slug: 'yggdrasil'
 translationKey: 'yggdrasil'
 title: 'Yggdrasil, the Wonder Tree'
-summary: 'A giant cherry blossom tree towering over half the map – with an access bridge, walkways and huts inside the canopy. Build progress around 90 %.'
-status: 'in-progress'
-progress: 90
+summary: 'A giant cherry blossom tree towering over half the map – with an access bridge, walkways and huts inside the canopy. The build is complete.'
+status: 'completed'
+progress: 100
 category: 'community'
 goal: 'A walkable world tree made of cherry blossoms: a massive trunk, a far-reaching canopy and a small village of platforms, walkways and huts inside it, explorable via ladders and bridges.'
-currentState: 'Trunk and canopy are fully built and the access bridge is finished. Interior work, planting and lighting inside the canopy are still ongoing – around 90 % of the build is done.'
+currentState: 'Complete: trunk, canopy, access bridge and the village inside the canopy are fully built – the world tree can be visited.'
 location: 'Overworld – see coordinates, visible from far across the cherry blossom landscape'
 coordinates:
   x: 1161
@@ -38,7 +38,8 @@ gallery:
 lore: |
   In Norse mythology, Yggdrasil is the world tree connecting the nine realms.
   Svenko1's version grows in cherry blossom instead of ash: a trunk reaching far above the treeline, a canopy shading whole stretches of land, and inside it a web of walkways, platforms and huts. A landmark from below, a small settlement of its own from above.
-updatedAt: '2026-08-02'
+updatedAt: '2026-10-10'
+publishedAt: '2026-10-10'
 alternates:
   - hreflang: 'de'
     href: 'https://onelitefeather.net/de/community-poi/yggdrasil'
@@ -59,8 +60,6 @@ Yggdrasil is Svenko1's flagship build: a cherry blossom tree at a scale no world
 - A small village of huts and platforms between the blossoms
 - A wide view across the whole cherry blossom landscape once you're up there
 
-## How can you help?
+## Pay a visit
 
-- Material farming for cherry leaves, cherry wood and lanterns
-- Ideas and decoration for the huts inside the canopy
-- Finishing touches on lighting and planting across the upper platforms
+Head to X 1161, Y 75, Z 339 in the overworld. Cross the access bridge, then climb via ladders, walkways and bridges into the canopy, where the village and the view are waiting.
