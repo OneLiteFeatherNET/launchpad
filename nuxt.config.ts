@@ -272,7 +272,12 @@ export default defineNuxtConfig({
         proxy: true,
         clientOptions: {
             // Statistics run by default; the consent layer (layers/consent) lets visitors opt out.
-            person_profiles: 'identified_only'
+            person_profiles: 'identified_only',
+            // Unused in the app; otherwise posthog loads surveys.js and dead-clicks-autocapture.js.
+            disable_surveys: true,
+            capture_dead_clicks: false,
+            // Started after idle time by layers/base/plugins/posthog-recording.client.ts.
+            disable_session_recording: true
         }
     },
     content: {
