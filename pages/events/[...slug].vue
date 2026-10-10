@@ -41,7 +41,7 @@ useBreadcrumbs(() => [
 // members-only events, so this describes the event for semantic use rather
 // than chasing a search feature (design.md D10).
 useSchemaOrg(computed(() => {
-  if (!event.value) return []
+  if (!event.value || !phase.value) return []
   const url = new URL(eventDetailPath(locale.value, event.value.slug), site.url).toString()
   return [
     {
@@ -54,7 +54,7 @@ useSchemaOrg(computed(() => {
       endDate: event.value.event.endsAt
         ? new Date(event.value.event.endsAt).toISOString()
         : undefined,
-      eventStatus: 'https://schema.org/EventScheduled',
+      eventStatus: eventSchemaStatus(phase.value),
       eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
       location: { '@type': 'VirtualLocation', url },
       image: event.value.thumbnail
