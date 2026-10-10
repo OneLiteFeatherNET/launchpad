@@ -206,6 +206,9 @@
     "linkedin": "LinkedIn",
     "github": "GitHub"
   },
+  "nuxtSiteConfig": {
+    "description": "OneLiteFeather is a German-speaking Minecraft network founded in 2019, with community builds, events and open-source software for Paper and Minestom."
+  },
   "seo": {
     "default_description": "OneLiteFeather is a German-speaking Minecraft network founded in 2019, with community builds, events and open-source software for Paper and Minestom.",
     "default_keywords": "OneLiteFeather, Minecraft, Minecraft server, Minecraft network, plugins, open source, Paper, Velocity, Java, Bedrock, development tools, community"

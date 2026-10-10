@@ -206,6 +206,9 @@
     "linkedin": "LinkedIn",
     "github": "GitHub"
   },
+  "nuxtSiteConfig": {
+    "description": "OneLiteFeather ist ein deutschsprachiges Minecraft-Netzwerk seit 2019 – mit Community-Bauten, Events und Open-Source-Software für Paper und Minestom."
+  },
   "seo": {
     "default_description": "OneLiteFeather ist ein deutschsprachiges Minecraft-Netzwerk seit 2019 – mit Community-Bauten, Events und Open-Source-Software für Paper und Minestom.",
     "default_keywords": "OneLiteFeather, Minecraft, Minecraft Server, Minecraft Netzwerk, Plugins, Open Source, Paper, Velocity, Java, Bedrock, Entwicklungstools, Community"
