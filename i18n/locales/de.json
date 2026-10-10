@@ -605,5 +605,23 @@
       "apply": "Bewerben",
       "support": "Unterstützen"
     }
+  },
+  "consent": {
+    "banner": {
+      "title": "Wir verstreuen Kekse!",
+      "body": "Diese Seite legt kleine Kekse in deinem Browser ab. Notwendige Kekse merken sich deine Sprache und diese Wahl und sind immer an. Statistik-Kekse zeigen uns anonym, welche Seiten gelesen werden. Die sind standardmäßig an, aber du kannst sie jederzeit abschalten.",
+      "settings": "Ich entscheide selbst!",
+      "reject_all": "Keine Statistik-Kekse!",
+      "accept_all": "Her mit den Keksen!",
+      "settings_title": "Deine Kekse, deine Wahl",
+      "save": "Auswahl speichern",
+      "back": "Zurück",
+      "privacy_link": "Mehr dazu in der Datenschutzerklärung",
+      "necessary_title": "Notwendige Kekse",
+      "necessary_description": "Sie merken sich deine Sprache und diese Wahl. Unser Hoster Cloudflare kann zusätzlich Sicherheits-Kekse setzen, die die Seite vor Bots schützen. Die Seite braucht sie, deshalb sind sie immer an. Das Cookie für deine Wahl heißt olf_consent und läuft nach sechs Monaten ab.",
+      "analytics_title": "Statistik-Kekse",
+      "analytics_description": "Anonyme Nutzungsstatistik über PostHog mit Servern in der EU. Sie zeigt uns, welche Seiten gelesen werden. Standardmäßig an, jederzeit abschaltbar."
+    },
+    "footer_link": "Cookie-Einstellungen"
   }
 }

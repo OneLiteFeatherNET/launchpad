@@ -1,0 +1,287 @@
+// @vitest-environment happy-dom
+import { mount, flushPromises } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { defineComponent, h } from 'vue'
+import { createI18n } from 'vue-i18n'
+import de from '../../i18n/locales/de.json'
+import en from '../../i18n/locales/en.json'
+import M3Button from '../../layers/base/components/M3Button.vue'
+import CookieConsentBanner from '../../layers/consent/components/CookieConsentBanner.vue'
+import CookieSettingsButton from '../../layers/consent/components/CookieSettingsButton.vue'
+import { resolveCandidates } from '../helpers/theme'
+
+/** Per-test switches, reset before each test; the composable is read at mount. */
+const consent = vi.hoisted(() => ({
+  visible: true,
+  analyticsAllowed: true,
+  acceptAll: vi.fn(),
+  rejectAll: vi.fn(),
+  save: vi.fn(),
+  reopen: vi.fn(),
+}))
+
+vi.mock('../../layers/consent/composables/useCookieConsent', async () => {
+  const { ref } = await import('vue')
+  return {
+    useCookieConsent: () => ({
+      bannerVisible: ref(consent.visible),
+      analyticsAllowed: ref(consent.analyticsAllowed),
+      acceptAll: consent.acceptAll,
+      rejectAll: consent.rejectAll,
+      save: consent.save,
+      reopen: consent.reopen,
+    }),
+  }
+})
+
+const NuxtLinkStub = defineComponent({
+  props: { to: { type: String, required: true } },
+  setup(props, { slots }) {
+    return () => h('a', { href: props.to }, slots.default?.())
+  },
+})
+
+const mountBanner = (locale: 'de' | 'en' = 'de') => mount(CookieConsentBanner, {
+  global: {
+    plugins: [createI18n<false>({ legacy: false, locale, messages: { de, en } })],
+    components: { M3Button },
+    stubs: { NuxtLinkLocale: NuxtLinkStub },
+  },
+})
+
+/**
+ * German copy as the component renders it. The locale JSON is compiled to
+ * message ASTs in this environment, so its raw values are not strings.
+ */
+const copy = (key: string) => createI18n<false>({ legacy: false, locale: 'de', messages: { de, en } }).global.t(`consent.banner.${key}`)
+
+const buttonLabelled = (wrapper: ReturnType<typeof mountBanner>, label: string) => {
+  const match = wrapper.findAllComponents(M3Button).find(button => button.text() === label)
+  if (!match) throw new Error(`no button labelled "${label}"`)
+  return match
+}
+
+const openSettings = async (wrapper: ReturnType<typeof mountBanner>) => {
+  await buttonLabelled(wrapper, copy('settings')).trigger('click')
+}
+
+beforeEach(() => {
+  consent.visible = true
+  consent.analyticsAllowed = true
+  consent.acceptAll.mockReset()
+  consent.rejectAll.mockReset()
+  consent.save.mockReset()
+  consent.reopen.mockReset()
+})
+
+describe('CookieConsentBanner', () => {
+  it('shows the German heading', () => {
+    expect(mountBanner('de').text()).toContain('Wir verstreuen Kekse!')
+  })
+
+  it('shows the English heading', () => {
+    expect(mountBanner('en').text()).toContain("We're handing out cookies!")
+  })
+
+  it('renders nothing once the choice is stored and the banner is not reopened', () => {
+    consent.visible = false
+    expect(mountBanner().find('section').exists()).toBe(false)
+  })
+
+  it('is a non-modal bar, not a dialog', () => {
+    expect(mountBanner().find('[role="dialog"]').exists()).toBe(false)
+  })
+
+  it('offers exactly the three choices on the first view', () => {
+    const labels = mountBanner().findAllComponents(M3Button).map(button => button.text())
+    expect(labels).toHaveLength(3)
+    expect(labels).toContain(copy('accept_all'))
+    expect(labels).toContain(copy('reject_all'))
+    expect(labels).toContain(copy('settings'))
+  })
+
+  it('"Her mit den Keksen!" calls acceptAll once', async () => {
+    const wrapper = mountBanner()
+    await buttonLabelled(wrapper, copy('accept_all')).trigger('click')
+    expect(consent.acceptAll).toHaveBeenCalledTimes(1)
+  })
+
+  it('"Keine Statistik-Kekse!" calls rejectAll once', async () => {
+    const wrapper = mountBanner()
+    await buttonLabelled(wrapper, copy('reject_all')).trigger('click')
+    expect(consent.rejectAll).toHaveBeenCalledTimes(1)
+  })
+
+  it('accepting and opting out share the same button variant', () => {
+    const wrapper = mountBanner()
+    const variantOf = (label: string) => buttonLabelled(wrapper, label).props('variant')
+    expect(variantOf(copy('reject_all'))).toBe(variantOf(copy('accept_all')))
+  })
+
+  it('the settings button opens the category view', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    expect(wrapper.find('input[role="switch"]').exists()).toBe(true)
+  })
+
+  it('statistics are on by default in the settings', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    const statistics = wrapper.findAll('input[role="switch"]')[1]
+    expect((statistics?.element as HTMLInputElement | undefined)?.checked).toBe(true)
+  })
+
+  it('statistics show as off in the settings when the visitor opted out', async () => {
+    consent.analyticsAllowed = false
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    const statistics = wrapper.findAll('input[role="switch"]')[1]
+    expect((statistics?.element as HTMLInputElement | undefined)?.checked).toBe(false)
+  })
+
+  it('the necessary category is on and cannot be switched off', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    const necessary = wrapper.find('input[role="switch"]')
+    expect((necessary.element as HTMLInputElement).checked).toBe(true)
+    expect(necessary.attributes('disabled')).toBeDefined()
+  })
+
+  it('saving passes the statistics choice made in the settings', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    await wrapper.findAll('input[role="switch"]')[1]?.setValue(false)
+    await buttonLabelled(wrapper, copy('save')).trigger('click')
+    expect(consent.save).toHaveBeenCalledWith({ analytics: false })
+  })
+})
+
+describe('CookieConsentBanner on small screens', () => {
+  const sectionClasses = (wrapper: ReturnType<typeof mountBanner>) => wrapper.find('section').classes()
+
+  it('limits the banner to the visible viewport height', () => {
+    expect(sectionClasses(mountBanner())).toContain('max-h-[85dvh]')
+  })
+
+  it('lets the banner scroll itself when its content is taller than the limit', () => {
+    expect(sectionClasses(mountBanner())).toContain('overflow-y-auto')
+  })
+
+  it('keeps scrolling inside the banner instead of chaining to the page behind it', () => {
+    expect(sectionClasses(mountBanner())).toContain('overscroll-contain')
+  })
+
+  it('compiles the height limit and scroll classes to real CSS rules', async () => {
+    const css = await resolveCandidates([
+      'max-h-[85dvh]',
+      'overflow-y-auto',
+      'overscroll-contain',
+    ])
+    expect(css, 'every banner scroll class must resolve to a utility').not.toContain(null)
+  })
+
+  it('opening settings resets the banner scroll position to the top', async () => {
+    const wrapper = mountBanner()
+    const section = wrapper.find('section').element as HTMLElement
+    section.scrollTop = 240
+    await openSettings(wrapper)
+    await flushPromises()
+    expect(section.scrollTop, 'settings view must start at the top of the banner').toBe(0)
+  })
+})
+
+describe('CookieConsentBanner settings back action', () => {
+  const backButton = (wrapper: ReturnType<typeof mountBanner>) => buttonLabelled(wrapper, copy('back'))
+
+  it('"Zurück" returns to the three-choice view', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    await backButton(wrapper).trigger('click')
+    const labels = wrapper.findAllComponents(M3Button).map(button => button.text())
+    expect(labels).toContain(copy('accept_all'))
+    expect(labels).toContain(copy('reject_all'))
+    expect(labels).toContain(copy('settings'))
+    expect(wrapper.text()).not.toContain(copy('settings_title'))
+  })
+
+  it('going back saves nothing, accepts nothing and writes no consent cookie', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    await backButton(wrapper).trigger('click')
+    expect(consent.save).not.toHaveBeenCalled()
+    expect(consent.acceptAll).not.toHaveBeenCalled()
+    expect(consent.rejectAll).not.toHaveBeenCalled()
+    expect(document.cookie).not.toContain('olf_consent')
+  })
+
+  it('going back keeps the banner open', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    await backButton(wrapper).trigger('click')
+    expect(wrapper.find('section').exists()).toBe(true)
+  })
+
+  it('focus lands on the "Ich entscheide selbst!" button after going back', async () => {
+    const host = document.createElement('div')
+    document.body.append(host)
+    const wrapper = mount(CookieConsentBanner, {
+      attachTo: host,
+      global: {
+        plugins: [createI18n<false>({ legacy: false, locale: 'de', messages: { de, en } })],
+        components: { M3Button },
+        stubs: { NuxtLinkLocale: NuxtLinkStub },
+      },
+    })
+    try {
+      await openSettings(wrapper)
+      await backButton(wrapper).trigger('click')
+      await flushPromises()
+      const settingsButton = buttonLabelled(wrapper, copy('settings')).element
+      expect(document.activeElement, 'focus must return to the button that opened settings').toBe(settingsButton)
+    }
+    finally {
+      wrapper.unmount()
+      host.remove()
+    }
+  })
+
+  it('Escape in the settings view goes back to the three choices', async () => {
+    const wrapper = mountBanner()
+    try {
+      await openSettings(wrapper)
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+      await flushPromises()
+      expect(wrapper.text()).not.toContain(copy('settings_title'))
+      expect(wrapper.findAllComponents(M3Button)).toHaveLength(3)
+    }
+    finally {
+      wrapper.unmount()
+    }
+  })
+
+  it('Escape on the first view does nothing', async () => {
+    const wrapper = mountBanner()
+    try {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+      await flushPromises()
+      expect(wrapper.findAllComponents(M3Button)).toHaveLength(3)
+      expect(consent.save).not.toHaveBeenCalled()
+    }
+    finally {
+      wrapper.unmount()
+    }
+  })
+})
+
+describe('CookieSettingsButton', () => {
+  it('reopens the banner when clicked', async () => {
+    const wrapper = mount(CookieSettingsButton, {
+      global: {
+        plugins: [createI18n<false>({ legacy: false, locale: 'en', messages: { de, en } })],
+        components: { M3Button },
+      },
+    })
+    await wrapper.findComponent(M3Button).trigger('click')
+    expect(consent.reopen).toHaveBeenCalledTimes(1)
+  })
+})
