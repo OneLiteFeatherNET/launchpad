@@ -67,15 +67,18 @@ const profileLinks = computed(() => {
 
 const rankLabel = computed(() => member.value?.rank ? t(`team.ranks.${member.value.rank}`) : null)
 
-// Bio first (full description), then slogan, then role list as fallback.
+const memberDescription = computed(() => member.value
+  ? teamProfileDescription(member.value, {
+      withArea: (name, area) => t('team.profile_description_in_area', { name, area }),
+      plain: name => t('team.profile_description_plain', { name })
+    }, rankLabel.value)
+  : '')
+
 // `image` uses the Cloudflare-rendered avatar so social previews show the
 // player's head instead of the synthetic OG fallback.
 usePageSeo({
-  title: member.value ? member.value.name : t('team.profile_title_fallback'),
-  description: member.value?.bio
-    || member.value?.slogan
-    || memberRoleText.value
-    || t('team.profile_description_fallback'),
+  title: member.value ? teamProfileTitle(member.value) : t('team.profile_title_fallback'),
+  description: member.value ? memberDescription.value : t('team.profile_description_fallback'),
   image: avatarSrc.value && avatarSrc.value !== '/favicon.svg' ? avatarSrc.value : undefined,
   imageAlt: member.value ? t('team.avatar_alt', { name: member.value.name }) : undefined,
   // The avatar is 256×256 — too small for a large card, so the small one.
@@ -111,7 +114,7 @@ useSchemaOrg(computed(() => {
       url: profileUrl,
       image: avatar,
       jobTitle: memberRoleText.value || undefined,
-      description: member.value.bio || member.value.slogan || memberRoleText.value || undefined,
+      description: memberDescription.value,
       // Not executable here, but sameAs is published as fact about a person —
       // the same filter keeps a junk scheme out of the structured data.
       sameAs: Object.values((member.value.links || {}) as Record<string, string>)
@@ -127,10 +130,6 @@ useSchemaOrg(computed(() => {
 // banner that `usePageSeo` registers by default. Called after
 // `usePageSeo` so the second `defineOgImage` call wins.
 if (member.value) {
-  const ogDescription = member.value.bio
-    || member.value.slogan
-    || memberRoleText.value
-    || ''
   // Use the 3D-rendered head from mc-heads.net for the OG image — it
   // reads better at OG card sizes than the flat avatar. Satori fetches
   // this absolute URL at render time.
@@ -139,7 +138,7 @@ if (member.value) {
     || `https://mc-heads.net/head/${encodeURIComponent(mcId)}/256`
   defineOgImage('TeamMember', {
     name: member.value.name,
-    description: ogDescription,
+    description: memberDescription.value,
     roleText: memberRoleText.value || undefined,
     rankLabel: rankLabel.value || undefined,
     avatarUrl: ogAvatar

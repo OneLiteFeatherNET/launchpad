@@ -109,6 +109,8 @@
     "title": "Team",
     "profile_title_fallback": "Team",
     "profile_description_fallback": "Teammitglied-Profil bei OneLiteFeather.",
+    "profile_description_in_area": "{name} ist im Bereich {area} bei OneLiteFeather, einem deutschsprachigen Minecraft-Netzwerk.",
+    "profile_description_plain": "{name} ist Teil des Teams bei OneLiteFeather, einem deutschsprachigen Minecraft-Netzwerk.",
     "no_results": "Keine Ergebnisse gefunden",
     "card_aria": "Profil von {name}, {role}",
     "avatar_alt": "Avatar von {name}",
