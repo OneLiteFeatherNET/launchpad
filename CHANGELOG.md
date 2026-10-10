@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.17.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.16.0...onelitefeather.net-v1.17.0) (2026-10-10)
+
+
+### Features
+
+* **community-poi:** add svenko1's end portal ([#461](https://github.com/OneLiteFeatherNET/launchpad/issues/461)) ([4031f2b](https://github.com/OneLiteFeatherNET/launchpad/commit/4031f2bb8149b9248394a21d77ce640105036fac))
+* **community-poi:** add svenko1's trident and copper farm ([#456](https://github.com/OneLiteFeatherNET/launchpad/issues/456)) ([eda8eb4](https://github.com/OneLiteFeatherNET/launchpad/commit/eda8eb49379c59476d08c38acbf05c163458119a))
+* **community-poi:** mark yggdrasil as completed ([#454](https://github.com/OneLiteFeatherNET/launchpad/issues/454)) ([e191558](https://github.com/OneLiteFeatherNET/launchpad/commit/e191558b18a3115488b42c6046a41790356c5d71))
+* **footer:** link tiktok and instagram, point youtube at the channel ([#458](https://github.com/OneLiteFeatherNET/launchpad/issues/458)) ([f3f4fbb](https://github.com/OneLiteFeatherNET/launchpad/commit/f3f4fbb9ea2274a1f3866271f812f05076227298))
+* **projects:** add falco ([#459](https://github.com/OneLiteFeatherNET/launchpad/issues/459)) ([7b67e81](https://github.com/OneLiteFeatherNET/launchpad/commit/7b67e81505b93d2e26f107324806165619b0cfcd))
+* **seo:** add social profiles to schema.org sameAs ([#457](https://github.com/OneLiteFeatherNET/launchpad/issues/457)) ([1443f5e](https://github.com/OneLiteFeatherNET/launchpad/commit/1443f5e935a1262889d0deb50acd7febb65ac86f))
+
+
+### Bug Fixes
+
+* **deps:** undo the preset's blanket vulnerability rule for actions ([#460](https://github.com/OneLiteFeatherNET/launchpad/issues/460)) ([e04b73c](https://github.com/OneLiteFeatherNET/launchpad/commit/e04b73c479e55c9ad425e85075d332cebeec4b84))
+* **projects:** list comparator and sculk sensor clocks ([#455](https://github.com/OneLiteFeatherNET/launchpad/issues/455)) ([ac2ea99](https://github.com/OneLiteFeatherNET/launchpad/commit/ac2ea9916ee243ffc6c5fa431e47106059580f38))
+
 ## [1.16.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.15.0...onelitefeather.net-v1.16.0) (2026-10-10)
 
 
