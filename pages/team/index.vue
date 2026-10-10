@@ -14,6 +14,7 @@ const supporterLinks = useLiteSupporterLinks()
 usePageSeo({
   title: t('team.index.title'),
   description: t('team.index.description'),
+  image: sectionOgImage('team', locale.value),
   schemaType: 'CollectionPage',
   keywords: [
     'OneLiteFeather team',

@@ -12,6 +12,7 @@ const { overview, numbers } = useCommunityOverview()
 usePageSeo({
   title: t('community.title'),
   description: t('community.description'),
+  image: sectionOgImage('community', locale.value),
   schemaType: 'CollectionPage',
   keywords: [
     'OneLiteFeather community',

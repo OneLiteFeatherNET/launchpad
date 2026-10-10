@@ -13,6 +13,7 @@ const { projects } = await useProjectsOverview()
 usePageSeo({
   title: t('projects.overview.title'),
   description: t('projects.overview.description'),
+  image: sectionOgImage('projects', locale.value),
   schemaType: 'CollectionPage',
   keywords: [
     'OneLiteFeather Projekte',

@@ -15,6 +15,7 @@ const { numbers } = useCommunityOverview()
 usePageSeo({
   title: t('about.title'),
   description: t('about.description'),
+  image: sectionOgImage('about', locale.value),
   schemaType: 'AboutPage',
   keywords: [
     'OneLiteFeather',
