@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useCookieConsent } from '../composables/useCookieConsent'
 
@@ -12,6 +12,7 @@ const settingsOpen = ref(false)
 const analytics = ref(false)
 const banner = ref<HTMLElement | null>(null)
 const heading = ref<HTMLElement | null>(null)
+const settingsButton = ref<{ $el: HTMLElement } | null>(null)
 
 // The button that opened the settings disappears, so focus moves to the
 // heading of the new view rather than falling back to the document.
@@ -23,6 +24,22 @@ async function openSettings() {
   if (banner.value) banner.value.scrollTop = 0
   heading.value?.focus()
 }
+
+// Leaves the settings without saving; the unsaved toggles are re-read on the next open.
+async function backToChoices() {
+  if (!settingsOpen.value) return
+  settingsOpen.value = false
+  await nextTick()
+  if (banner.value) banner.value.scrollTop = 0
+  settingsButton.value?.$el.focus()
+}
+
+function onEscape(event: KeyboardEvent) {
+  if (event.key === 'Escape') backToChoices()
+}
+
+onMounted(() => window.addEventListener('keydown', onEscape))
+onUnmounted(() => window.removeEventListener('keydown', onEscape))
 
 function saveSettings() {
   settingsOpen.value = false
@@ -60,7 +77,7 @@ const analyticsId = 'cookie-consent-analytics'
           {{ t('consent.banner.body') }}
         </p>
         <div class="flex flex-wrap gap-3">
-          <M3Button variant="outlined" @click="openSettings">
+          <M3Button ref="settingsButton" variant="outlined" @click="openSettings">
             {{ t('consent.banner.settings') }}
           </M3Button>
           <M3Button variant="tonal" @click="rejectAll">
@@ -114,7 +131,10 @@ const analyticsId = 'cookie-consent-analytics'
             >
           </li>
         </ul>
-        <div class="flex justify-end">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <M3Button variant="text" :icon="['fas', 'chevron-left']" @click="backToChoices">
+            {{ t('consent.banner.back') }}
+          </M3Button>
           <M3Button variant="filled" @click="saveSettings">
             {{ t('consent.banner.save') }}
           </M3Button>

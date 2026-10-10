@@ -190,6 +190,89 @@ describe('CookieConsentBanner on small screens', () => {
   })
 })
 
+describe('CookieConsentBanner settings back action', () => {
+  const backButton = (wrapper: ReturnType<typeof mountBanner>) => buttonLabelled(wrapper, copy('back'))
+
+  it('"Zurück" returns to the three-choice view', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    await backButton(wrapper).trigger('click')
+    const labels = wrapper.findAllComponents(M3Button).map(button => button.text())
+    expect(labels).toContain(copy('accept_all'))
+    expect(labels).toContain(copy('reject_all'))
+    expect(labels).toContain(copy('settings'))
+    expect(wrapper.text()).not.toContain(copy('settings_title'))
+  })
+
+  it('going back saves nothing, accepts nothing and writes no consent cookie', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    await backButton(wrapper).trigger('click')
+    expect(consent.save).not.toHaveBeenCalled()
+    expect(consent.acceptAll).not.toHaveBeenCalled()
+    expect(consent.rejectAll).not.toHaveBeenCalled()
+    expect(document.cookie).not.toContain('olf_consent')
+  })
+
+  it('going back keeps the banner open', async () => {
+    const wrapper = mountBanner()
+    await openSettings(wrapper)
+    await backButton(wrapper).trigger('click')
+    expect(wrapper.find('section').exists()).toBe(true)
+  })
+
+  it('focus lands on the "Ich entscheide selbst!" button after going back', async () => {
+    const host = document.createElement('div')
+    document.body.append(host)
+    const wrapper = mount(CookieConsentBanner, {
+      attachTo: host,
+      global: {
+        plugins: [createI18n<false>({ legacy: false, locale: 'de', messages: { de, en } })],
+        components: { M3Button },
+        stubs: { NuxtLinkLocale: NuxtLinkStub },
+      },
+    })
+    try {
+      await openSettings(wrapper)
+      await backButton(wrapper).trigger('click')
+      await flushPromises()
+      const settingsButton = buttonLabelled(wrapper, copy('settings')).element
+      expect(document.activeElement, 'focus must return to the button that opened settings').toBe(settingsButton)
+    }
+    finally {
+      wrapper.unmount()
+      host.remove()
+    }
+  })
+
+  it('Escape in the settings view goes back to the three choices', async () => {
+    const wrapper = mountBanner()
+    try {
+      await openSettings(wrapper)
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+      await flushPromises()
+      expect(wrapper.text()).not.toContain(copy('settings_title'))
+      expect(wrapper.findAllComponents(M3Button)).toHaveLength(3)
+    }
+    finally {
+      wrapper.unmount()
+    }
+  })
+
+  it('Escape on the first view does nothing', async () => {
+    const wrapper = mountBanner()
+    try {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+      await flushPromises()
+      expect(wrapper.findAllComponents(M3Button)).toHaveLength(3)
+      expect(consent.save).not.toHaveBeenCalled()
+    }
+    finally {
+      wrapper.unmount()
+    }
+  })
+})
+
 describe('CookieSettingsButton', () => {
   it('reopens the banner when clicked', async () => {
     const wrapper = mount(CookieSettingsButton, {
