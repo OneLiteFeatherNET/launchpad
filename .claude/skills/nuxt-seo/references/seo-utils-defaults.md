@@ -3,24 +3,20 @@
 `nuxt-seo-utils` (bundled by `@nuxtjs/seo`) runs an `applyDefaults()` plugin
 with `automaticDefaults: true` by default — no config in this repo turns it
 on, it just runs. It pushes its own `og:locale`, `og:url`, `og:site_name`,
-title template and a `rel="canonical"` link, all at `tagPriority: 'low'`. In
-practice this means it's a **fallback**, not a second live emitter: Unhead's
-tag-priority dedup keeps `layouts/default.vue`'s normal-priority
-`useLocaleHead()` canonical over this low-priority one, so the "one emitter"
-rule in the top-level `Emitter ownership map` still holds today. It only
-becomes live output if the app-wide `useLocaleHead()` call is ever removed —
-worth knowing before you assume canonical has no other source when tracing a
-head-rendering bug.
+title template and a `rel="canonical"` link, all at `tagPriority: 'low'`. It is
+a **fallback**, not a second live emitter: a low-priority tag yields to any
+normal-priority canonical, and in this repo the canonical comes from
+`@nuxtjs/i18n` (`strictSeo`). It only shows when nothing else sets one. Check
+view-source before assuming which canonical is live.
 
 ## `canonicalLowercase` (default: `true`)
 
 The fallback canonical above lowercases the URL path
-(`url.toLocaleLowerCase(locale)`). `useLocaleHead()`'s hreflang self-reference
-does **not** lowercase. `usePageSeo.ts`'s own comment states canonical "must
-be byte-identical to this locale's self-referencing hreflang entry" — if this
-fallback ever becomes the active canonical (see above) on a route with any
-uppercase path segment (a slug, for instance), that byte-identity breaks
-silently. Currently masked by the low-priority override, not fixed.
+(`url.toLocaleLowerCase(locale)`). `usePageSeo.ts:40` requires the canonical to
+be byte-identical to this locale's self-referencing hreflang entry (emitted by
+`@nuxtjs/i18n`). If the fallback ever becomes the active canonical on a route
+with an uppercase path segment (a slug, for instance), that identity breaks
+silently.
 
 ## `canonicalQueryWhitelist` (default: a fixed list)
 

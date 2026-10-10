@@ -19,7 +19,7 @@ composable, and pass it in as a prop:
 
 ```ts
 // composable — resolve locale-aware strings first
-defineOgImage('NuxtSeo', {
+defineOgImage('NuxtSeo.satori', {
   title: opts.title || site.name,
   description: pageDescription.value
 })
@@ -70,14 +70,15 @@ automatically.
 `NuxtSeo` ships both a `.satori.vue` and a `.takumi.vue`). Don't read the
 `COMMUNITY_TEMPLATES = ["NuxtSeo", "Brutalist", "SimpleBlog"]` constant in
 `dist/cli.cjs` as the full list: it is only the subset the v6 migration
-command scans for. Calling `defineOgImage('NuxtSeo', …)`
-works in dev because the dev server can render the module's own copy on
-demand, but the module's own CLI treats this as unfinished migration work —
-`npx nuxt-og-image eject <name>` copies the template source into
-`components/OgImage/<name>.satori.vue` in this repo, where you can edit it and
-where `zeroRuntime`'s prerender pass can pick it up as a local file. See the
-top-level "`zeroRuntime` has three preconditions" section — ejecting the
-template is precondition 2, independent of prerendering (precondition 1).
+command scans for. A `defineOgImage('NuxtSeo…')` call works in dev because the
+dev server can render the module's own copy on demand, but the module's CLI
+treats that as unfinished migration work — `npx nuxt-og-image eject <name>`
+copies the template source into `components/OgImage/<name>.satori.vue` in this
+repo, where you can edit it and where `zeroRuntime`'s prerender pass can pick
+it up as a local file. The `NuxtSeo` template is ejected here
+(`components/OgImage/NuxtSeo.satori.vue`). See the top-level "`zeroRuntime` has
+three preconditions" section — ejecting is precondition 2, independent of
+prerendering (precondition 1).
 
 ## Fonts
 
