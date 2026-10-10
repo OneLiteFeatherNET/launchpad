@@ -125,4 +125,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
       inLanguage: locale?.value || DEFAULT_LOCALE
     })
   ]))
+
+  // Exposed so page JSON-LD can reuse the og:image URL instead of resolving its own.
+  return { socialImage }
 }
