@@ -46,6 +46,7 @@ useSchemaOrg(computed(() => {
     site.url
   ).toString()
   const coords = poi.value.coordinates
+  const placeId = `${detailUrl}#place`
   const nodes: Array<Record<string, unknown>> = [
     {
       '@type': 'CreativeWork',
@@ -56,7 +57,8 @@ useSchemaOrg(computed(() => {
       dateCreated: toIso(poi.value.startedAt as string | Date | undefined),
       dateModified: toIso(poi.value.updatedAt as string | Date | undefined),
       image: poi.value.thumbnail || undefined,
-      author: (poi.value.builders || []).map((b) => ({ '@type': 'Person' as const, name: b.name }))
+      author: (poi.value.builders || []).map((b) => ({ '@type': 'Person' as const, name: b.name })),
+      contentLocation: coords ? { '@id': placeId } : undefined
     }
   ]
   if (coords) {
@@ -64,7 +66,7 @@ useSchemaOrg(computed(() => {
     // Place type still gives Google a richer entity to attach to the page.
     nodes.push({
       '@type': 'Place',
-      '@id': `${detailUrl}#place`,
+      '@id': placeId,
       name: poi.value.location || poi.value.title,
       url: detailUrl,
       additionalProperty: [
