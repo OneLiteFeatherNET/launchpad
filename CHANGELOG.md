@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.14.0...onelitefeather.net-v1.15.0) (2026-10-10)
+
+
+### Features
+
+* **consent:** add a cookie consent banner ([#449](https://github.com/OneLiteFeatherNET/launchpad/issues/449)) ([eb1c1c3](https://github.com/OneLiteFeatherNET/launchpad/commit/eb1c1c34cf9c81e7f5df4b0912b5216e4ba277cf))
+
 ## [1.14.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.13.0...onelitefeather.net-v1.14.0) (2026-10-07)
 
 
