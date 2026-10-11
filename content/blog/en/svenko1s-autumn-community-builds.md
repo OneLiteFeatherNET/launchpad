@@ -43,13 +43,19 @@ Yggdrasil is Svenko1's flagship build. The world tree grows in cherry blossom in
 
 A visit starts at a covered wooden bridge with flower boxes and lanterns. From there, ladders and walkways lead up into the canopy, where a small village of huts and platforms sits between the blossoms. At the top, a wide view waits over the whole cherry blossom landscape.
 
-You will find Yggdrasil in the overworld at X 1161, Y 75, Z 339.
+You will find Yggdrasil in the overworld at :coords{x=1161 y=75 z=339}.
+
+::poi-embed{slug="yggdrasil"}
+::
 
 ## Trident / Copper Farm: finished and open to visitors
 
 The farm is a tall tower in the middle of a forest, with its base standing in water. A widely overhanging roof slab crowns it, and it rises clearly above the treetops even from afar. Inside, a glass walkway leads through the water to the farm chambers, where mobs, including drowned, sit behind panes of glass. The pictures on the project page show the walkway and the farm chambers from different angles.
 
-The farm is finished. When you visit, please do not rebuild any part of it. The coordinates are X 5650 / Y 190 / Z 100 in the overworld.
+The farm is finished. When you visit, please do not rebuild any part of it. The coordinates are :coords{x=5650 y=190 z=100} in the overworld.
+
+::poi-embed{slug="trident-copper-farm"}
+::
 
 ## End portal: planned, schematic available
 
@@ -58,6 +64,35 @@ The third project is still a plan. Svenko1 wants to build an end portal in the o
 Nothing has been built yet, and the location is not fixed. You can already download the schematic without surroundings (173 × 136 × 173 blocks, approx. 590 KB) from the project page. It contains only the structure itself, without the surroundings. Since no origin is set yet, agree on a site with Svenko1 before you paste it in.
 
 If you want to help, support with material farming is welcome once the site is fixed. Get in touch with Svenko1.
+
+::poi-embed{slug="end-portal"}
+::
+
+::gallery
+---
+images:
+  - src: '/images/community-poi/yggdrasil/krone-uebersicht.webp'
+    alt: 'View from inside the cherry blossom canopy across the landscape with a village and a river below'
+    caption: 'From the canopy across the landscape'
+    width: 1600
+    height: 841
+  - src: '/images/community-poi/yggdrasil/krone-innen.webp'
+    alt: 'Platforms, walkways and lantern-lit huts inside the cherry blossom canopy'
+    caption: 'Huts and walkways inside the canopy'
+    width: 1600
+    height: 841
+  - src: '/images/community-poi/trident-kupfer-farm/tower-interior.webp'
+    alt: 'Underwater inside the tower: a glass walkway leads towards a sandstone-coloured room, with bubbles and a few mobs floating in the water'
+    caption: 'Walkway inside the tower'
+    width: 1600
+    height: 841
+  - src: '/images/community-poi/trident-kupfer-farm/mob-window.webp'
+    alt: 'Two drowned behind glass panes in a sandstone wall, with a hopper and chests below'
+    caption: 'Mobs behind glass'
+    width: 1600
+    height: 841
+---
+::
 
 ## How to get there
 

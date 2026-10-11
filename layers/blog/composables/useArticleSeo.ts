@@ -1,4 +1,5 @@
 import type { Ref } from 'vue'
+import type { CommunityPoiEmbed } from '#layers/content-core/types'
 import type { BlogArticle, Person } from '../types'
 
 interface BlogSeoFrontmatter {
@@ -21,7 +22,8 @@ interface BlogSeoFrontmatter {
  */
 export function useArticleSeo(
   blog: Ref<BlogArticle | null>,
-  authors: Ref<Person[]>
+  authors: Ref<Person[]>,
+  embeddedPois: Ref<CommunityPoiEmbed[]>
 ) {
   const { locale, t } = useI18n()
   const config = useRuntimeConfig()
@@ -139,6 +141,15 @@ export function useArticleSeo(
     meta: [{ name: 'keywords', content: blog.value?.tags?.join(', ') || undefined }]
   }))
 
+  // POIs the body embeds with `::poi-embed`. Each mention references the POI
+  // page's CreativeWork by @id, so no second entity with that id is emitted.
+  const poiMentions = computed(() => buildPoiMentions(
+    site.url,
+    locale.value,
+    poiEmbedSlugs((blog.value as { body?: unknown } | null)?.body),
+    embeddedPois.value
+  ))
+
   // Article structured data, linked to the global Organization and Person
   // entities so Google can merge identities across pages.
   useSchemaOrg(computed(() => {
@@ -159,6 +170,7 @@ export function useArticleSeo(
         url: a.slug ? personProfileUrl(site.url, locale.value, a.slug) : undefined
       })) || [],
       image: articleImages.value,
+      mentions: poiMentions.value.length ? poiMentions.value : undefined,
       thumbnailUrl: articleThumbnail.value,
       wordCount: articleWordCount.value,
       articleSection: article.tags?.[0] || undefined,

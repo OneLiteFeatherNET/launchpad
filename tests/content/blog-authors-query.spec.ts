@@ -24,7 +24,8 @@ const repo = {
   getBlogArticleBySlug: vi.fn(),
   getBlogArticleByTranslationKey: vi.fn(async () => null),
   getTeamDocument: vi.fn(),
-  listAuthorsBySlugs: vi.fn()
+  listAuthorsBySlugs: vi.fn(),
+  listCommunityPoiEmbedsBySlugs: vi.fn(async () => [])
 }
 
 mockNuxtImport('useContentRepository', () => () => repo)

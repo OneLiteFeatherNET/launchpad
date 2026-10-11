@@ -11,6 +11,7 @@ import type {
   ServerConnectDocument,
   HomeCarouselDocument,
   CommunityPoiDocument,
+  CommunityPoiEmbed,
   CommunityPoiSummary,
   EventDocument,
   EventScheduleSummary,
@@ -244,6 +245,15 @@ export function createNuxtContentAdapter(query: Query = queryCollection): Conten
       return query(communityPoiKey(locale))
         .where('translationKey', '=', translationKey)
         .first().then(withoutRoutes) as Promise<CommunityPoiDocument | null>
+    },
+
+    // Projected: the embed card never needs the body, lore or gallery.
+    async listCommunityPoiEmbedsBySlugs(locale, slugs) {
+      if (!slugs.length) return []
+      return await query(communityPoiKey(locale))
+        .select('slug', 'title', 'summary', 'status', 'progress', 'thumbnail', 'thumbnailAlt', 'builders', 'coordinates')
+        .where('slug', 'IN', slugs)
+        .all() as CommunityPoiEmbed[]
     },
 
     listEvents(locale) {

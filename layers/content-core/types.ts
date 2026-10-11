@@ -20,6 +20,7 @@ export type {
   HomeCarouselDocument,
   CommunityPoiDocument,
   CommunityPoiSummary,
+  CommunityPoiEmbed,
   EventDocument,
   EventSummary,
   ProjectDocument,

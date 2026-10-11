@@ -206,6 +206,42 @@ describe('author lookup', () => {
   })
 })
 
+describe('community poi embed lookup', () => {
+  const adapter = () => createNuxtContentAdapter()
+
+  it('reads the embed fields of the given slugs with one IN query', async () => {
+    fake.state.rows = [{ slug: 'yggdrasil' }]
+    const pois = await adapter().listCommunityPoiEmbedsBySlugs('de', ['yggdrasil', 'end-portal'])
+    expect(fake.state.collection).toBe('community_poi_de')
+    expect(named('where').map((call) => call.args)).toEqual([['slug',
+'IN',
+['yggdrasil', 'end-portal']]])
+    expect(named('all')).toHaveLength(1)
+    expect(pois).toEqual([{ slug: 'yggdrasil' }])
+  })
+
+  it('selects the card fields and the coordinates, but no body, lore or gallery', async () => {
+    await adapter().listCommunityPoiEmbedsBySlugs('en', ['yggdrasil'])
+    expect(fake.state.collection).toBe('community_poi_en')
+    expect(selected()).toEqual(expect.arrayContaining(['slug',
+'title',
+'status',
+'progress',
+'coordinates']))
+    for (const field of ['body',
+'lore',
+'gallery',
+'schematics']) {
+      expect(selected()).not.toContain(field)
+    }
+  })
+
+  it('does not query for an empty slug list', async () => {
+    expect(await adapter().listCommunityPoiEmbedsBySlugs('de', [])).toEqual([])
+    expect(calls()).toHaveLength(0)
+  })
+})
+
 describe('collection paths', () => {
   const row = (extra: Record<string, unknown> = {}) => ({
     id: 'team_faq_en/team-faq/en/process.md',

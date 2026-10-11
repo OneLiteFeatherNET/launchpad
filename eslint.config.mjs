@@ -58,6 +58,9 @@ export default withNuxt(...a11yConfigs, {
     'vue/multi-word-component-names': [
       'error',
       {
+        // Coords and Gallery are the markdown block names `::coords` and
+        // `::gallery`: MDC resolves a tag to its component by name, so the
+        // single-word name is the block name and cannot be lengthened.
         ignores: [
           'Top1',
           'Carousel',
@@ -65,7 +68,9 @@ export default withNuxt(...a11yConfigs, {
           // Authored as `::download`; a rename would change the markdown syntax.
           'Download',
           // Authored as `::bluemap`; same reason.
-          'Bluemap'
+          'Bluemap',
+          'Coords',
+          'Gallery'
         ]
       }
     ]
