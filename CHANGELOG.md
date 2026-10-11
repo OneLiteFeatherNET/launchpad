@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.21.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.20.0...onelitefeather.net-v1.21.0) (2026-10-11)
+
+
+### Features
+
+* **projects:** add images for anti-redstoneclock remastered ([#442](https://github.com/OneLiteFeatherNET/launchpad/issues/442)) ([4af25fd](https://github.com/OneLiteFeatherNET/launchpad/commit/4af25fd057862ce72819c2bf6238e7253d8bf724))
+
+
+### Bug Fixes
+
+* **blog:** keep unreleased posts out of the page payload ([#487](https://github.com/OneLiteFeatherNET/launchpad/issues/487)) ([f0d0e56](https://github.com/OneLiteFeatherNET/launchpad/commit/f0d0e56513e4fe012709db6beb270c2e07250969))
+* **projects:** list micronaut as otis's platform ([#486](https://github.com/OneLiteFeatherNET/launchpad/issues/486)) ([f20ef27](https://github.com/OneLiteFeatherNET/launchpad/commit/f20ef272ee29e68d04224c5d04cf2341ff47a7ff))
+
 ## [1.20.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.19.0...onelitefeather.net-v1.20.0) (2026-10-11)
 
 
