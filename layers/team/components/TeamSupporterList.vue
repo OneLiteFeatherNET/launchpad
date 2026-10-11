@@ -8,6 +8,10 @@ defineProps<{ supporters: Supporter[] }>()
 
 const { t } = useI18n()
 
+// Avatars are already sized by Open Collective, and the Cloudflare resizer
+// answers 403 for that origin, so they are shown unprocessed.
+const failedAvatars = reactive(new Set<string>())
+
 const avatarClass
   = 'flex size-12 shrink-0 items-center justify-center rounded-medium bg-primary-container '
     + 'text-title-large font-bold text-on-primary-container'
@@ -29,20 +33,17 @@ const avatarClass
       <li v-for="supporter in supporters" :key="supporter.href">
         <M3Card variant="outlined" interactive class="h-full">
           <div class="flex items-center gap-3">
-            <NuxtImg
-              v-if="supporter.image"
+            <img
+              v-if="supporter.image && !failedAvatars.has(supporter.href)"
               :src="supporter.image"
               alt=""
               width="48"
               height="48"
-              fit="cover"
-              format="avif,webp"
-              quality="80"
-              densities="x1 x2"
               class="size-12 shrink-0 rounded-medium bg-surface-container-highest object-cover"
               loading="lazy"
               decoding="async"
-            />
+              @error="failedAvatars.add(supporter.href)"
+            >
             <span v-else :class="avatarClass" aria-hidden="true">
               {{ supporter.name.charAt(0).toUpperCase() }}
             </span>

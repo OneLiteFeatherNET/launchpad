@@ -3,6 +3,7 @@ import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { nextTick } from 'vue'
 import TeamSupporterList from '../../layers/team/components/TeamSupporterList.vue'
 import { repoRoot } from '../helpers/sources'
 
@@ -42,6 +43,27 @@ describe('TeamSupporterList', () => {
     const wrapper = await open({ supporters: [supporters[1]!] })
     expect(wrapper.find('img').exists()).toBe(false)
     expect(wrapper.get('[aria-hidden="true"]').text()).toBe('M')
+  })
+
+  it('shows the avatar unprocessed, since the image resizer rejects the Open Collective origin', async () => {
+    const wrapper = await open({ supporters: [supporters[0]!] })
+    expect(wrapper.get('img').attributes('src')).toBe(AVATAR)
+  })
+
+  it('replaces an avatar that fails to load with the initial', async () => {
+    const wrapper = await open({ supporters: [supporters[0]!] })
+    await wrapper.get('img').trigger('error')
+    await nextTick()
+    expect(wrapper.find('img').exists()).toBe(false)
+    expect(wrapper.get('[aria-hidden="true"]').text()).toBe('A')
+  })
+
+  it('keeps the other avatars when one fails to load', async () => {
+    const other = { name: 'Bea', image: AVATAR, href: '/de/community#person-bea' }
+    const wrapper = await open({ supporters: [supporters[0]!, other] })
+    await wrapper.findAll('img')[0]!.trigger('error')
+    await nextTick()
+    expect(wrapper.findAll('img')).toHaveLength(1)
   })
 
   it('renders nothing without supporters', async () => {
