@@ -1,6 +1,7 @@
 // @vitest-environment nuxt
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
+import { nextTick } from 'vue'
 import CommunityStats from '../../layers/community/components/CommunityStats.vue'
 import CommunityStrip from '../../layers/community/components/CommunityStrip.vue'
 import CommunityWall from '../../layers/community/components/CommunityWall.vue'
@@ -136,7 +137,34 @@ describe('CommunityWall', () => {
       contributions: [{ kind: 'supporter', path: 'https://opencollective.com/marc44' }]
     }
     const wrapper = await open(CommunityWall, { contributors: [marc] })
-    expect(wrapper.get('img').attributes('src')).toContain('opencollective-production')
+    expect(wrapper.get('img').attributes('src')).toBe('https://images.opencollective.com/marc44/avatar/128.png')
+  })
+
+  it('loads the supporter avatar without the image resizer', async () => {
+    const marc: Contributor = {
+      key: 'marc',
+      name: 'Marc',
+      anchor: 'person-marc',
+      avatarUrl: 'https://opencollective-production.s3.us-west-1.amazonaws.com/a.png',
+      contributions: [{ kind: 'supporter', path: 'https://opencollective.com/marc44' }]
+    }
+    const wrapper = await open(CommunityWall, { contributors: [marc] })
+    expect(wrapper.get('img').attributes('src')).not.toContain('cdn-cgi')
+  })
+
+  it('replaces a supporter avatar that fails to load with the initial', async () => {
+    const marc: Contributor = {
+      key: 'marc',
+      name: 'Marc',
+      anchor: 'person-marc',
+      avatarUrl: 'https://opencollective-production.s3.us-west-1.amazonaws.com/a.png',
+      contributions: [{ kind: 'supporter', path: 'https://opencollective.com/marc44' }]
+    }
+    const wrapper = await open(CommunityWall, { contributors: [marc] })
+    await wrapper.get('img').trigger('error')
+    await nextTick()
+    expect(wrapper.find('img').exists()).toBe(false)
+    expect(wrapper.get('[aria-hidden="true"]').text()).toBe('M')
   })
 
   it('shows an initial instead of an image for a supporter without avatar', async () => {

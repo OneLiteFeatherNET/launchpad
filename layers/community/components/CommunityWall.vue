@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Contribution, Contributor } from '../types'
+import { supporterAvatarUrl } from '../utils/avatars'
 
 defineProps<{
   contributors: Contributor[]
@@ -13,6 +14,8 @@ const personClass
 const initialClass
   = 'flex size-14 shrink-0 items-center justify-center rounded-medium bg-primary-container '
     + 'text-headline-small font-bold text-on-primary-container'
+
+const failedAvatars = reactive(new Set<string>())
 
 const badgeLabel = (contribution: Contribution) => {
   if (contribution.kind === 'build') return t('community.wall.badge_build', { title: contribution.title })
@@ -29,7 +32,10 @@ const badgeLink = (contribution: Contribution, name: string) => contribution.kin
 /** Minecraft head with an `mcName`, else the supporter's avatar, else (supporters) an initial. */
 const avatarOf = (person: Contributor): string | null => {
   if (person.mcName) return teamAvatarUrl({ mcName: person.mcName }, 128)
-  if (person.avatarUrl) return person.avatarUrl
+  if (person.avatarUrl) {
+    const profile = person.contributions.find((c) => c.kind === 'supporter')?.path
+    return supporterAvatarUrl(person.avatarUrl, profile)
+  }
   return person.contributions.every((c) => c.kind === 'supporter') ? null : teamAvatarUrl({}, 128)
 }
 </script>
@@ -49,20 +55,17 @@ const avatarOf = (person: Contributor): string | null => {
         :key="person.key"
         :class="personClass"
       >
-        <NuxtImg
-          v-if="avatarOf(person)"
+        <img
+          v-if="avatarOf(person) && !failedAvatars.has(person.key)"
           :src="avatarOf(person)!"
           alt=""
           width="56"
           height="56"
-          fit="cover"
-          format="avif,webp"
-          quality="80"
-          densities="x1 x2"
           class="size-14 shrink-0 rounded-medium bg-surface-container-highest object-cover"
           loading="lazy"
           decoding="async"
-        />
+          @error="failedAvatars.add(person.key)"
+        >
         <span v-else :class="initialClass" aria-hidden="true">
           {{ person.name.charAt(0).toUpperCase() }}
         </span>
