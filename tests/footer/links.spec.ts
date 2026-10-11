@@ -1,6 +1,7 @@
 // @vitest-environment nuxt
 import { mountSuspended } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
+import { LEGAL_LINK_CLASS } from '../../layers/base/utils/textLinkClasses'
 import SiteFooter from '../../layers/footer/components/SiteFooter.vue'
 
 const open = async (route: string) => {
@@ -46,6 +47,14 @@ describe('SiteFooter links', () => {
     expect(hrefs).toContain('https://www.youtube.com/channel/UCfPUI5tvNVWJeJ-t93fdj0g')
     expect(hrefs).toContain('https://www.tiktok.com/@onelitefeather.net')
     expect(hrefs).toContain('https://www.instagram.com/onelitefeather/')
+  })
+
+  it('styles the privacy and imprint links as the legal row', async () => {
+    const legal = (await open('/de')).filter((a) => /\/(privacy|imprint)$/.test(a.attributes('href') ?? ''))
+    expect(legal).toHaveLength(2)
+    for (const a of legal) {
+      expect(a.classes(), a.attributes('href')).toEqual(expect.arrayContaining(LEGAL_LINK_CLASS.split(' ')))
+    }
   })
 
   it('localises the about link', async () => {
