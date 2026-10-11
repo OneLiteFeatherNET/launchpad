@@ -79,6 +79,7 @@ const EXEMPT = [
   /^layers\/content-core\/components\/Prose/,
 /^components\/OgImage\//,
   /^layers\/events\/components\/EventGuides?\.vue$/,
+  /^layers\/content-core\/components\/Download\.vue$/,
 ]
 
 function kebab(name: string): string {
