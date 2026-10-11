@@ -48,6 +48,9 @@ Den Yggdrasil findest du in der Oberwelt bei :coords{x=1161 y=75 z=339}.
 ::poi-embed{slug="yggdrasil"}
 ::
 
+::bluemap{x=1161 y=75 z=339 title="Wunderbaum Yggdrasil"}
+::
+
 ## Trident-/Kupfer-Farm: fertig und besuchbar
 
 Die Farm ist ein hoher Turm mitten im Wald, dessen Fuß im Wasser steht. Oben trägt er eine weit überstehende Dachplatte, und schon von Weitem ragt er deutlich über die Baumkronen. Im Inneren führt ein Steg aus Glas durch das Wasser zu den Farmkammern. Dort sitzen Mobs, darunter Ertrunkene, hinter Glasscheiben. Die Bilder auf der Projektseite zeigen Steg und Farmkammern aus verschiedenen Blickwinkeln.
@@ -55,6 +58,9 @@ Die Farm ist ein hoher Turm mitten im Wald, dessen Fuß im Wasser steht. Oben tr
 Die Farm ist fertig. Wenn du vorbeischaust, baue bitte nichts an ihr um. Die Koordinaten lauten :coords{x=5650 y=190 z=100} in der Oberwelt.
 
 ::poi-embed{slug="trident-kupfer-farm"}
+::
+
+::bluemap{x=5650 y=190 z=100 title="Trident-/Kupfer-Farm"}
 ::
 
 ## End-Portal: geplant, Schematic liegt bei
@@ -66,6 +72,9 @@ Gebaut ist noch nichts, und auch der Standort steht noch nicht fest. Die Schemat
 Wenn du helfen möchtest, ist Unterstützung beim Materialfarming willkommen, sobald der Standort steht. Melde dich dafür bei Svenko1.
 
 ::poi-embed{slug="end-portal"}
+::
+
+::download{name="End Portal ohne Umgebung" url="/community-poi/end-portal/end-portal.litematic" kind="schematic" format="litematic" size-label="ca. 590 KB" description="Noch kein Standort festgelegt – daher ist kein Origin hinterlegt. Vor dem Einfügen den Standort abstimmen."}
 ::
 
 ::gallery

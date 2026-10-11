@@ -28,7 +28,7 @@ schema.org ids, `feat(blog)` for everything else. Before the pull request:
 ## 5. Content
 
 - [x] 5.1 Svenko1 posts (de, en) use `:coords`, `::poi-embed` per build and one `::gallery`; verified by `tests/content/mdc-blocks-resolve.spec.ts`
-- [ ] 5.2 Svenko1 posts (de, en) also use `::bluemap` for the two builds with coordinates and `::download` for the End-Portal schematic, once the sibling blocks are on `main`; verified by `tests/content/mdc-blocks-resolve.spec.ts`
+- [x] 5.2 Svenko1 posts (de, en) also use `::bluemap` for the two builds with coordinates and `::download` for the End-Portal schematic, once the sibling blocks are on `main`; verified by `tests/content/mdc-blocks-resolve.spec.ts`
 
 ## 6. Verification and pull request
 

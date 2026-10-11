@@ -48,6 +48,9 @@ You will find Yggdrasil in the overworld at :coords{x=1161 y=75 z=339}.
 ::poi-embed{slug="yggdrasil"}
 ::
 
+::bluemap{x=1161 y=75 z=339 title="Yggdrasil, the Wonder Tree"}
+::
+
 ## Trident / Copper Farm: finished and open to visitors
 
 The farm is a tall tower in the middle of a forest, with its base standing in water. A widely overhanging roof slab crowns it, and it rises clearly above the treetops even from afar. Inside, a glass walkway leads through the water to the farm chambers, where mobs, including drowned, sit behind panes of glass. The pictures on the project page show the walkway and the farm chambers from different angles.
@@ -55,6 +58,9 @@ The farm is a tall tower in the middle of a forest, with its base standing in wa
 The farm is finished. When you visit, please do not rebuild any part of it. The coordinates are :coords{x=5650 y=190 z=100} in the overworld.
 
 ::poi-embed{slug="trident-copper-farm"}
+::
+
+::bluemap{x=5650 y=190 z=100 title="Trident / Copper Farm"}
 ::
 
 ## End portal: planned, schematic available
@@ -66,6 +72,9 @@ Nothing has been built yet, and the location is not fixed. You can already downl
 If you want to help, support with material farming is welcome once the site is fixed. Get in touch with Svenko1.
 
 ::poi-embed{slug="end-portal"}
+::
+
+::download{name="End Portal without surroundings" url="/community-poi/end-portal/end-portal.litematic" kind="schematic" format="litematic" size-label="approx. 590 KB" description="No location fixed yet, so no origin is set. Agree on a site before pasting."}
 ::
 
 ::gallery
