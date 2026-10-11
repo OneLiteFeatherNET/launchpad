@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.22.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.21.0...onelitefeather.net-v1.22.0) (2026-10-11)
+
+
+### Features
+
+* **blog:** add a bluemap markdown block ([#491](https://github.com/OneLiteFeatherNET/launchpad/issues/491)) ([10497c7](https://github.com/OneLiteFeatherNET/launchpad/commit/10497c7f7840380cb908228aff7a35fe0fccc2aa))
+* **blog:** add a download markdown block ([#489](https://github.com/OneLiteFeatherNET/launchpad/issues/489)) ([65c2650](https://github.com/OneLiteFeatherNET/launchpad/commit/65c265078b3b8cc4765b9f0f62e5f51267fcd2af))
+* **blog:** add interactive markdown blocks ([#492](https://github.com/OneLiteFeatherNET/launchpad/issues/492)) ([953991c](https://github.com/OneLiteFeatherNET/launchpad/commit/953991c9bc3f8bac0a7bbe7fc52aafbbaf83a37f))
+
 ## [1.21.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.20.0...onelitefeather.net-v1.21.0) (2026-10-11)
 
 
