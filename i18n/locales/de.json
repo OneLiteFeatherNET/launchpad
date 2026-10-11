@@ -446,6 +446,7 @@
     "close": "Galerie schließen"
   },
   "resources": {
+    "aria": "Downloads",
     "download": "Herunterladen",
     "open": "Öffnen",
     "opens_new_tab": "(öffnet in neuem Tab)"

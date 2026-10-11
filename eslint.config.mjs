@@ -59,7 +59,9 @@ export default withNuxt(...a11yConfigs, {
         ignores: [
           'Top1',
           'Carousel',
-          'Sponsoring'
+          'Sponsoring',
+          // Authored as `::download`; a rename would change the markdown syntax.
+          'Download'
         ]
       }
     ]
