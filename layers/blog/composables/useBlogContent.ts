@@ -65,7 +65,10 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
   const { data: overview } = useAsyncData<{ articles: BlogArticle[], people: Person[] }>(
     () => `all-posts-${activeLocale.value}`,
     async () => {
-      const articles = await repo.listBlogArticles(activeLocale.value)
+      // Gated here, not in the computed below: this result is serialised into the SSR payload.
+      const now = new Date()
+      const articles = (await repo.listBlogArticles(activeLocale.value))
+        .filter((article) => isReleasedAt(article, now))
       const slugs = [...new Set(articles.flatMap(authorSlugsOf))]
       return { articles, people: await resolvePeople(slugs, activeLocale.value) }
     },
@@ -82,7 +85,7 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
   }
 
   const visiblePosts = computed<BlogArticle[]>(() => {
-    const posts = (allPostsData.value || []).filter(isReleased)
+    const posts = allPostsData.value || []
     return [...posts].sort((a, b) => releaseTimestamp(b) - releaseTimestamp(a))
   })
 
