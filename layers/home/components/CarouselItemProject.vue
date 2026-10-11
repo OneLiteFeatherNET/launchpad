@@ -17,6 +17,8 @@ interface ProjectItem {
   summary?: string
   image?: string
   alt?: string
+  /** `image` is the square logo, not a social card: shown contained, never cropped. */
+  logoOnly?: boolean
   status?: 'active' | 'maintenance' | 'archived'
   platforms?: string[]
   isNew?: boolean
@@ -33,15 +35,20 @@ const { t } = useI18n()
 
 const statusLabel = computed(() => props.item.status ? t(`projects.status.${props.item.status}`) : '')
 
-/** Shown when the project has no logo. */
-const fallbackClass
+/** Shown behind a logo, and when the project has no image at all. */
+const surfaceClass
   = 'absolute inset-0 bg-gradient-to-br from-surface-container-high to-surface-container-lowest'
+
+/** The area above the caption card, so the logo never sits under it. */
+const logoFrameClass
+  = 'absolute inset-x-0 top-0 bottom-1/2 flex items-center justify-center p-6 '
+    + 'sm:bottom-64 sm:p-10'
 </script>
 
 <template>
   <article class="absolute inset-0 h-full w-full">
     <NuxtPicture
-      v-if="item.image"
+      v-if="item.image && !item.logoOnly"
       :src="item.image"
       :alt="item.alt || item.title"
       sizes="sm:100vw md:100vw lg:1280px"
@@ -56,11 +63,26 @@ const fallbackClass
         fetchpriority: priority ? 'high' : undefined
       }"
     />
-    <div
-      v-else
-      :class="fallbackClass"
-      aria-hidden="true"
-    />
+    <template v-else>
+      <div :class="surfaceClass" data-testid="project-slide-surface" aria-hidden="true" />
+      <div v-if="item.image" :class="logoFrameClass">
+        <NuxtPicture
+          :src="item.image"
+          :alt="item.alt || item.title"
+          sizes="sm:320px md:384px"
+          densities="1x 2x"
+          quality="85"
+          :placeholder="false"
+          format="avif,webp"
+          :loading="priority ? 'eager' : 'lazy'"
+          :preload="priority"
+          :img-attrs="{
+            class: 'h-full w-full object-contain drop-shadow-lg',
+            fetchpriority: priority ? 'high' : undefined
+          }"
+        />
+      </div>
+    </template>
 
     <div :class="CAROUSEL_SCRIM" />
 

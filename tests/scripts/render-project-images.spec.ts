@@ -101,11 +101,16 @@ describe('project images', () => {
     expect(nameOf('Anti-RedstoneClock Remastered: Paper plugin')).toBe('Anti-RedstoneClock Remastered')
   })
 
+  // The project's own icon is the logo where one exists; the rendered icon is the fallback.
+  const OFFICIAL_LOGOS: Record<string, string> = {
+    'anti-redstoneclock-remastered': '/images/projects/arcr.webp'
+  }
+
   it.each(PROJECTS.map(project => [project.slug]))('%s: both locales point at the uploaded images', (slug) => {
     for (const locale of ['de', 'en']) {
       const text = readFileSync(join(repoRoot, `content/projects/${locale}/${slug}.md`), 'utf8')
       const data = frontmatterOf(text)
-      expect(data.logo).toBe(`/${projectImageKey(slug, 'icon')}`)
+      expect(data.logo).toBe(OFFICIAL_LOGOS[slug] ?? `/${projectImageKey(slug, 'icon')}`)
       expect(data.socialImage).toBe(`/${projectImageKey(slug, 'social')}`)
     }
   })
