@@ -70,6 +70,7 @@ const PROJECT_CARD_FIELDS = [
   'title',
   'summary',
   'status',
+  'audience',
   'logo',
   'logoAlt',
   'socialImage',

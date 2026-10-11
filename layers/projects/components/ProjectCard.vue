@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from '#imports'
+import ProjectAudienceBadge from './ProjectAudienceBadge.vue'
 import ProjectStatusBadge from './ProjectStatusBadge.vue'
 import type { ProjectSummary } from '../types'
 
@@ -47,7 +48,10 @@ const placeholderClass
         <div v-else :class="placeholderClass">
           <IconFa :icon="['fas', 'code']" class="size-7" aria-hidden="true" />
         </div>
-        <ProjectStatusBadge :status="project.status" />
+        <div class="flex flex-wrap justify-end gap-2">
+          <ProjectStatusBadge :status="project.status" />
+          <ProjectAudienceBadge :audience="project.audience" />
+        </div>
       </div>
 
       <h3 class="text-title-large text-on-surface">

@@ -103,9 +103,13 @@ const factValueClass = 'text-body-large text-on-surface'
             :img-attrs="{ class: 'size-24 rounded-large object-contain' }"
           />
           <ProjectStatusBadge :status="project.status" />
+          <ProjectAudienceBadge :audience="project.audience" />
         </div>
         <h1 class="text-display-small font-bold text-on-surface">{{ project.title }}</h1>
         <p class="text-body-large text-on-surface-variant">{{ project.summary }}</p>
+        <p v-if="project.audience === 'internal'" class="text-body-medium text-on-surface-variant">
+          {{ t('projects.audience.internal_note') }}
+        </p>
       </header>
 
       <ResourceList

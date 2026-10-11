@@ -4,6 +4,7 @@ translationKey: 'titan'
 title: 'Titan: Minestom lobby server'
 summary: "The OneLiteFeather network lobby with Jump'n'Run, elytra boost, sitting, portals, a navigator and a lobby switcher."
 status: 'active'
+audience: 'internal'
 logo: '/images/projects/titan/icon.png'
 logoAlt: 'Code excerpt from Titan, Difficulty.java: the target cost of the next jump'
 socialImage: '/images/projects/titan/social.png'

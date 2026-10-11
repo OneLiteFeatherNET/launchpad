@@ -12,5 +12,9 @@ export const PROJECT_STATUSES = [
 ] as const
 export type ProjectStatus = (typeof PROJECT_STATUSES)[number]
 
+/** external: usable by anyone. internal: artefacts are not public, the source is. */
+export const PROJECT_AUDIENCES = ['external', 'internal'] as const
+export type ProjectAudience = (typeof PROJECT_AUDIENCES)[number]
+
 export type ProjectLinks = NonNullable<ProjectDocument['links']>
 export type ProjectDownload = NonNullable<ProjectLinks['downloads']>[number]

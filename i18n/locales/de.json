@@ -606,6 +606,23 @@
       "maintenance": "In Wartung",
       "archived": "Archiviert"
     },
+    "audience": {
+      "label": {
+        "external": "Öffentlich nutzbar",
+        "internal": "Intern"
+      },
+      "section": {
+        "external": {
+          "title": "Für alle nutzbar",
+          "intro": "Diese Projekte kannst du selbst einsetzen: öffentlich veröffentlicht und quelloffen."
+        },
+        "internal": {
+          "title": "Intern im Netzwerk",
+          "intro": "Diese Projekte setzen wir in unserem Netzwerk ein. Ihre Maven-Artefakte liegen in unserem internen Repository, der Quellcode ist trotzdem offen."
+        }
+      },
+      "internal_note": "Maven-Artefakte nur intern verfügbar, der Quellcode ist offen."
+    },
     "card": {
       "open_detail": "Projekt {title} ansehen"
     },

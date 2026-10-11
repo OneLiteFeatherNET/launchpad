@@ -15,10 +15,12 @@ interface ProjectDocument { file: string, locale: string, data: Frontmatter }
 const STATUSES = ['active',
 'maintenance',
 'archived']
+const AUDIENCES = ['external', 'internal']
 const LINK_KEYS = ['docs',
 'source',
 'issues']
 const FACT_FIELDS = ['status',
+'audience',
 'releasedAt',
 'publishedAt',
 'license',
@@ -44,6 +46,9 @@ export function projectFrontmatterProblems(data: Frontmatter): string[] {
   }
   if (!STATUSES.includes(data.status as string)) {
     problems.push(`status: must be one of ${STATUSES.join(', ')}`)
+  }
+  if (!AUDIENCES.includes(data.audience as string)) {
+    problems.push(`audience: must be one of ${AUDIENCES.join(', ')}`)
   }
   if (data.logo !== undefined && !isText(data.logoAlt)) {
     problems.push('logo: needs a logoAlt')
@@ -110,6 +115,7 @@ const VALID: Frontmatter = {
   title: 'ARCR',
   summary: 'Detects redstone clocks.',
   status: 'active',
+  audience: 'external',
   releasedAt: '2024-01-30',
   platforms: ['Paper'],
   links: {
@@ -129,12 +135,22 @@ const doc = (locale: string, data: Frontmatter): ProjectDocument => ({ file: `co
 describe('project frontmatter rules', () => {
   it('accepts a complete and a minimal entry', () => {
     expect(projectFrontmatterProblems(VALID)).toEqual([])
-    expect(projectFrontmatterProblems({ slug: 'a', title: 'A', summary: 'S', status: 'archived' })).toEqual([])
+    const minimal = { slug: 'a', title: 'A', summary: 'S', status: 'archived', audience: 'internal' }
+    expect(projectFrontmatterProblems(minimal)).toEqual([])
   })
 
   it('rejects a missing summary and an unknown status', () => {
     expect(projectFrontmatterProblems(withChange((d) => { delete d.summary }))).toEqual(['summary: required text is missing'])
     expect(projectFrontmatterProblems(withChange((d) => { d.status = 'beta' }))[0]).toContain('status')
+  })
+
+  it('requires an audience of external or internal', () => {
+    expect(projectFrontmatterProblems(withChange((d) => { delete d.audience }))).toEqual([
+      'audience: must be one of external, internal',
+    ])
+    expect(projectFrontmatterProblems(withChange((d) => { d.audience = 'public' }))).toEqual([
+      'audience: must be one of external, internal',
+    ])
   })
 
   it('requires an alt text for a logo', () => {
@@ -184,6 +200,14 @@ describe('project translations', () => {
     expect(projectTranslationProblems([doc('de', VALID)])[0]).toContain('no en translation')
   })
 
+  it('names both files when the audience differs', () => {
+    const de = { ...doc('de', VALID), file: 'de.md' }
+    const en = { ...doc('en', withChange((d) => { d.audience = 'internal' })), file: 'en.md' }
+    const [problem] = projectTranslationProblems([de, en])
+    expect(problem).toContain('de.md')
+    expect(problem).toContain('audience differs')
+  })
+
   it('rejects differing publishedAt', () => {
     const en = doc('en', withChange((d) => { d.publishedAt = '2026-10-07' }))
     expect(projectTranslationProblems([doc('de', VALID), en])[0]).toContain('publishedAt differs')
@@ -204,6 +228,11 @@ describe('project documents', () => {
 
   it.each(docs.map((d) => [d.file, d] as const))('%s follows the frontmatter rules', (_, d) => {
     expect(projectFrontmatterProblems(d.data)).toEqual([])
+  })
+
+  it('declares an audience on every project document', () => {
+    const undeclared = docs.filter((d) => !AUDIENCES.includes(d.data.audience as string))
+    expect(undeclared.map((d) => d.file)).toEqual([])
   })
 
   it('uses each slug once per language', () => {

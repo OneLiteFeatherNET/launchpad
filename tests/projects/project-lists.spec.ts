@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { projectsMaintainedBy, sortProjects } from '../../layers/projects/utils/projectLists'
+import { groupProjectsByAudience, projectsMaintainedBy, sortProjects } from '../../layers/projects/utils/projectLists'
 import type { ProjectSummary } from '../../layers/projects/types'
 
 const project = (slug: string, extra: Partial<ProjectSummary> = {}): ProjectSummary => ({
@@ -98,5 +98,42 @@ describe('projectsMaintainedBy', () => {
     const list = [maintained('b', { title: 'B' }), maintained('a', { title: 'A' })]
     projectsMaintainedBy(list, member)
     expect(list.map((p) => p.slug)).toEqual(['b', 'a'])
+  })
+})
+
+describe('groupProjectsByAudience', () => {
+  const audienced = (slug: string, audience: 'external' | 'internal') => {
+    return project(slug, { audience } as Partial<ProjectSummary>)
+  }
+  const audiences = (projects: ProjectSummary[]) => {
+    return groupProjectsByAudience(projects).map((group) => group.audience)
+  }
+  const slugs = (group: { projects: ProjectSummary[] }) => group.projects.map((p) => p.slug)
+
+  it('lists the external group before the internal one', () => {
+    expect(audiences([audienced('a', 'internal'), audienced('b', 'external')]))
+      .toEqual(['external', 'internal'])
+  })
+
+  it('keeps the input order within each group', () => {
+    const groups = groupProjectsByAudience([
+      audienced('ext-1', 'external'),
+      audienced('int-1', 'internal'),
+      audienced('ext-2', 'external'),
+      audienced('int-2', 'internal'),
+    ])
+    expect(groups.map(slugs)).toEqual([['ext-1', 'ext-2'], ['int-1', 'int-2']])
+  })
+
+  it('returns an empty group rather than dropping it', () => {
+    const [external, internal] = groupProjectsByAudience([audienced('only', 'internal')])
+    expect(external).toEqual({ audience: 'external', projects: [] })
+    expect(slugs(internal!)).toEqual(['only'])
+  })
+
+  it('does not change the list it is given', () => {
+    const list = [audienced('int', 'internal'), audienced('ext', 'external')]
+    groupProjectsByAudience(list)
+    expect(list.map((p) => p.slug)).toEqual(['int', 'ext'])
   })
 })

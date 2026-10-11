@@ -288,6 +288,7 @@ describe('project queries', () => {
     await adapter().listProjects('en')
     expect(fake.state.collection).toBe('projects_en')
     expect([...selected()].sort()).toEqual([
+      'audience',
       'license',
       'logo',
       'logoAlt',
