@@ -7,7 +7,8 @@ import {
   highlight,
   nameOf,
   projectImageKey,
-  snippetOf
+  snippetOf,
+  socialNameOf
 } from '../../scripts/render-project-images.mjs'
 import { repoRoot } from '../helpers/sources'
 
@@ -106,12 +107,20 @@ describe('project images', () => {
     'anti-redstoneclock-remastered': '/images/projects/arcr.webp'
   }
 
-  it.each(PROJECTS.map(project => [project.slug]))('%s: both locales point at the uploaded images', (slug) => {
+  it.each(PROJECTS.map(project => [project.slug, project]))('%s: both locales point at the uploaded images', (slug, project) => {
     for (const locale of ['de', 'en']) {
       const text = readFileSync(join(repoRoot, `content/projects/${locale}/${slug}.md`), 'utf8')
       const data = frontmatterOf(text)
       expect(data.logo).toBe(OFFICIAL_LOGOS[slug] ?? `/${projectImageKey(slug, 'icon')}`)
-      expect(data.socialImage).toBe(`/${projectImageKey(slug, 'social')}`)
+      expect(data.socialImage).toBe(`/${projectImageKey(slug, socialNameOf(project))}`)
     }
+  })
+
+  it('keeps the social card of a re-rendered project under a new key', () => {
+    expect(socialNameOf(PROJECTS.find(project => project.slug === 'otis'))).toBe('social-v2')
+  })
+
+  it('names the social card social when a project does not override it', () => {
+    expect(socialNameOf({ slug: 'falco' })).toBe('social')
   })
 })

@@ -6,11 +6,12 @@ summary: 'Ein Micronaut-REST-Dienst, der Mojang-UUIDs, Spielernamen, Sprache und
 status: 'active'
 logo: '/images/projects/otis/icon.png'
 logoAlt: 'Codeausschnitt aus Otis: die Route GET /otis/byId in Java'
-socialImage: '/images/projects/otis/social.png'
+socialImage: '/images/projects/otis/social-v2.png'
 releasedAt: '2025-08-06'
 publishedAt: '2026-10-11'
 updatedAt: '2026-10-11'
 platforms:
+  - 'Micronaut'
   - 'Velocity'
 license: 'Apache-2.0'
 links:
@@ -37,7 +38,7 @@ Otis ist keine universelle Spielerdatenbank. Es speichert nur die Felder, die un
 
 Pro Spieler hält Otis die Mojang-UUID, eine interne UUID für die Verwaltung der Dienste im Ökosystem, den Spielernamen, die Sprache (Standard `en-US`), den Zeitpunkt des ersten und des letzten Beitritts sowie eine Map mit Profil-Texturen.
 
-Das Velocity-Plugin legt beim ersten Beitritt einen Datensatz an und aktualisiert ihn beim Beitritt und Verlassen des Servers.
+Das Velocity-Client-Plugin, das im selben Repository liegt, legt beim ersten Beitritt einen Datensatz an und aktualisiert ihn beim Beitritt und Verlassen des Servers.
 
 ## Schnittstelle
 
