@@ -51,6 +51,8 @@ export default withNuxt(...a11yConfigs, {
   // is true for today. `Footer` was removed from this list and renamed to
   // `SiteFooter` instead: colliding with the `<footer>` element is the exact
   // hazard this rule exists to catch, so it does not get the cosmetic pass.
+  // `Bluemap` is a markdown block: authors write `::bluemap`, so the name is
+  // one word by contract.
   files: ['layers/*/components/**/*.vue'],
   rules: {
     'vue/multi-word-component-names': [
@@ -61,7 +63,9 @@ export default withNuxt(...a11yConfigs, {
           'Carousel',
           'Sponsoring',
           // Authored as `::download`; a rename would change the markdown syntax.
-          'Download'
+          'Download',
+          // Authored as `::bluemap`; same reason.
+          'Bluemap'
         ]
       }
     ]

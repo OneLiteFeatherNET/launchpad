@@ -63,4 +63,11 @@ describe('community poi bluemap, click to load', () => {
     expect(document.activeElement).toBe(wrapper.get('iframe').element)
     wrapper.unmount()
   })
+
+  it('shows the coordinates and a plain link to the map beside the placeholder', async () => {
+    const wrapper = await mountBluemap()
+    expect(wrapper.text()).toContain('10 / 64 / -20')
+    expect(wrapper.find('a[href="https://bluemap.test/#world:10:64:-20:300:0:0:0:0:flat"]').exists()).toBe(true)
+    wrapper.unmount()
+  })
 })

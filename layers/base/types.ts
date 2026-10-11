@@ -4,6 +4,17 @@ import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 // from the components so a domain can type a prop it passes through without
 // importing a .vue file.
 
+/** Minecraft dimensions a BlueMap link can point at. */
+export type BluemapDimension = 'overworld' | 'nether' | 'end'
+
+/** A block position on the BlueMap; `y` defaults to 70 when omitted. */
+export interface BluemapCoordinates {
+  x: number
+  y?: number
+  z: number
+  dimension?: BluemapDimension
+}
+
 /** MD3 common buttons. `filled` is the default and the strongest emphasis. */
 export type ButtonVariant = 'filled' | 'tonal' | 'outlined' | 'text' | 'elevated'
 

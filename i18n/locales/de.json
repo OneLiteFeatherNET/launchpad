@@ -105,7 +105,22 @@
   },
   "bluemap": {
     "title": "BlueMap",
-    "description": "Interaktive BlueMap-Karte des OneLiteFeather Minecraft-Servers."
+    "description": "Interaktive BlueMap-Karte des OneLiteFeather Minecraft-Servers.",
+    "facade": {
+      "aria": "BlueMap mit Koordinaten",
+      "heading": "Auf der BlueMap finden",
+      "open": "Auf BlueMap öffnen",
+      "link_aria": "{title} auf der BlueMap öffnen (neuer Tab)",
+      "iframe_title": "BlueMap-Vorschau für {title}",
+      "load": "Karte laden",
+      "load_hint": "Die interaktive Karte lädt erst, wenn du sie startest.",
+      "embed_note": "Vorschau von {host}. Für volle Funktionen die externe Seite öffnen."
+    },
+    "dimension": {
+      "overworld": "Oberwelt",
+      "nether": "Nether",
+      "end": "End"
+    }
   },
   "team": {
     "title": "Team",
@@ -298,16 +313,6 @@
         "facing": "Ausrichtung",
         "rotation": "Rotation"
       }
-    },
-    "bluemap": {
-      "title": "Auf der BlueMap finden",
-      "aria": "BlueMap-Link mit Koordinaten",
-      "open": "Auf BlueMap öffnen",
-      "link_aria": "{title} auf der BlueMap öffnen (neuer Tab)",
-      "iframe_title": "BlueMap-Vorschau für {title}",
-      "load": "Karte laden",
-      "load_hint": "Die interaktive Karte lädt erst, wenn du sie startest.",
-      "embed_note": "Vorschau von {host}. Für volle Funktionen die externe Seite öffnen."
     },
     "facing": {
       "north": "Norden",

@@ -74,12 +74,16 @@ const ROOT_CONSUMERS = [
  *                              (`::event-guides` / `:::event-guide{role=…}`);
  *                              @nuxt/content resolves them by name, and no
  *                              template ever names them.
+ *   layers/content-core/components/Bluemap
+ *                              authoring block for blog markdown (`::bluemap`),
+ *                              resolved the same way.
  */
 const EXEMPT = [
   /^layers\/content-core\/components\/Prose/,
 /^components\/OgImage\//,
   /^layers\/events\/components\/EventGuides?\.vue$/,
   /^layers\/content-core\/components\/Download\.vue$/,
+  /^layers\/content-core\/components\/Bluemap\.vue$/,
 ]
 
 function kebab(name: string): string {
