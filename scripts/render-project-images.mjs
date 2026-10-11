@@ -2,7 +2,8 @@
 // a square icon (512x512, card and detail header) and a social card (1200x630, carousel
 // and og:image) per project. Prints the rclone commands that upload them.
 //   node scripts/render-project-images.mjs --repos <dir> [--out <dir>] [--fonts <dir>]
-// --repos holds the Falco, Otis and AntiRedstoneClock-Remastered checkouts (read only).
+//     [--only <slug,...>]
+// --repos holds the checkouts named in PROJECTS (read only); --only renders a subset of them.
 // --fonts needs inter-400-latin.ttf, inter-700-latin.ttf and jetbrains-mono-400.ttf.
 
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
@@ -22,6 +23,13 @@ const CODE_LINE_HEIGHT = 1.5
 // Characters per line that fit the editor body at 22px JetBrains Mono (0.6em per glyph).
 const ICON_COLUMNS = 30
 const SOCIAL_COLUMNS = 77
+// Card layout in px: the trees use these numbers and the fit limits below derive from them.
+const CODE_ROW = Math.round(CODE_FONT_SIZE * CODE_LINE_HEIGHT)
+const PANEL_HEADER = 52
+const PANEL_BORDER = 2
+const ICON_LAYOUT = { padding: 32, gap: 24, bar: 10, bodyPadding: 20 }
+// The brand block (title, name, chips) is taller than the 112px logo, so its height is fixed here.
+const SOCIAL_LAYOUT = { padding: 44, top: 166, gap: 28, bodyPadding: 18 }
 
 /** Dark MD3 roles from assets/css/tailwind.css, as literals (satori cannot read CSS variables). */
 const COLORS = {
@@ -78,23 +86,103 @@ export const PROJECTS = [
       lines: [93, 100]
     },
     socialName: 'social-v2'
+  },
+  {
+    slug: 'titan',
+    language: 'java',
+    source: {
+      repo: 'Titan',
+      file: 'features/jumprun/src/main/java/net/onelitefeather/titan/feature/jumprun/course/Difficulty.java',
+      lines: [38, 42]
+    }
+  },
+  {
+    slug: 'cygnus',
+    language: 'java',
+    source: {
+      repo: 'Cygnus',
+      file: 'game/src/main/java/net/onelitefeather/cygnus/team/TeamCreator.java',
+      lines: [29, 35]
+    }
+  },
+  {
+    slug: 'voyager',
+    language: 'java',
+    source: {
+      repo: 'Voyager',
+      file: 'voyager/api/src/main/java/net/elytrarace/voyager/api/race/Ring.java',
+      lines: [18, 24]
+    }
+  },
+  {
+    slug: 'butterfly',
+    language: 'yaml',
+    source: {
+      repo: 'Butterfly',
+      file: 'bukkit/src/main/resources/net/onelitefeather/butterfly/bukkit/default-config.yaml',
+      lines: [1, 8]
+    }
+  },
+  {
+    slug: 'bettergopaint',
+    language: 'java',
+    source: {
+      repo: 'BetterGoPaint',
+      file: 'src/main/java/net/onelitefeather/bettergopaint/objects/brush/DiscBrush.java',
+      lines: [38, 44]
+    }
   }
 ]
 
 /** Bucket name of a project's social card, and the image its frontmatter points at. */
 export const socialNameOf = project => project.socialName ?? 'social'
 
+/** The projects named by `--only`, in PROJECTS order; an unknown slug throws, it is not skipped. */
+export function selectProjects(slugs) {
+  const unknown = slugs.filter(slug => !PROJECTS.some(project => project.slug === slug))
+  if (unknown.length) throw new Error(`unknown project slug: ${unknown.join(', ')}`)
+  return PROJECTS.filter(project => slugs.includes(project.slug))
+}
+
 const LANGUAGE_LABEL = { yaml: 'YAML', java: 'Java' }
 
 /** The lines of a snippet, dedented; ranges outside the 6 to 12 lines a card fits are refused. */
 export function snippetOf(text, [start, end]) {
   const lines = text.split('\n').slice(start - 1, end).map(line => line.replace(/\t/g, '    ').trimEnd())
-  if (lines.length < 6 || lines.length > 12) throw new Error(`snippet has ${lines.length} lines, want 6 to 12`)
+  if (lines.length < 5 || lines.length > 12) throw new Error(`snippet has ${lines.length} lines, want 5 to 12`)
   const indents = lines
     .filter(line => line.trim())
     .map(line => line.length - line.trimStart().length)
   const indent = Math.min(...indents)
   return lines.map(line => line.slice(indent))
+}
+
+/**
+ * Code lines a window shows: a line counts only if it ends above the window's bottom border,
+ * which clips the rest. `top` and `bottom` are the window's edges on the card, in px.
+ */
+export function maxCodeLines({ top, bottom, bodyPadding }) {
+  const firstLine = top + PANEL_BORDER + PANEL_HEADER + bodyPadding
+  return Math.floor((bottom - PANEL_BORDER - firstLine) / CODE_ROW)
+}
+
+export const ICON_MAX_LINES = maxCodeLines({
+  top: ICON_LAYOUT.padding,
+  bottom: SIZE_ICON - ICON_LAYOUT.padding - ICON_LAYOUT.bar - ICON_LAYOUT.gap,
+  bodyPadding: ICON_LAYOUT.bodyPadding
+})
+
+export const SOCIAL_MAX_LINES = maxCodeLines({
+  top: SOCIAL_LAYOUT.padding + SOCIAL_LAYOUT.top + SOCIAL_LAYOUT.gap,
+  bottom: HEIGHT_SOCIAL - SOCIAL_LAYOUT.padding,
+  bodyPadding: SOCIAL_LAYOUT.bodyPadding
+})
+
+/** Refuses a snippet the card cannot show whole, instead of cropping its last line. */
+export function assertFits(snippet, maxLines, label) {
+  if (snippet.length > maxLines) {
+    throw new Error(`${label}: the snippet has ${snippet.length} lines but the card shows ${maxLines}; shorten its line range`)
+  }
 }
 
 const JAVA_KEYWORDS = new Set(`
@@ -225,7 +313,7 @@ function clipTokens(tokens, columns) {
 
 /** One code line: a row of coloured runs, each keeping its own spaces. */
 function codeLine(tokens) {
-  const height = Math.round(CODE_FONT_SIZE * CODE_LINE_HEIGHT)
+  const height = CODE_ROW
   const runs = tokens.map(token => h('div', {
     display: 'flex',
     flexShrink: 0,
@@ -252,7 +340,7 @@ function editor({ lines, fileName, padding, style }) {
     display: 'flex',
     alignItems: 'center',
     gap: 12,
-    height: 52,
+    height: PANEL_HEADER,
     padding: '0 24px',
     background: COLORS.panelHeader
   }, [
@@ -273,7 +361,7 @@ function editor({ lines, fileName, padding, style }) {
     flexDirection: 'column',
     overflow: 'hidden',
     borderRadius: 24,
-    borderWidth: 2,
+    borderWidth: PANEL_BORDER,
     borderStyle: 'solid',
     borderColor: COLORS.outline,
     background: COLORS.panel,
@@ -283,7 +371,7 @@ function editor({ lines, fileName, padding, style }) {
 
 const gradientBar = () => h('div', {
   display: 'flex',
-  height: 10,
+  height: ICON_LAYOUT.bar,
   borderRadius: 5,
   backgroundImage: `linear-gradient(90deg, ${COLORS.primary}, ${COLORS.secondary}, ${COLORS.tertiary})`
 })
@@ -291,14 +379,14 @@ const gradientBar = () => h('div', {
 /** Square card: the editor window with the first lines of the snippet, cut at the panel edge. */
 export function iconTree({ snippet, language, fileName }) {
   const lines = codeLines(snippet, language, ICON_COLUMNS)
-  const editorPanel = editor({ lines, fileName, padding: '20px 24px', style: { flex: 1 } })
+  const editorPanel = editor({ lines, fileName, padding: `${ICON_LAYOUT.bodyPadding}px 24px`, style: { flex: 1 } })
   return h('div', {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
     height: '100%',
-    padding: 32,
-    gap: 24,
+    padding: ICON_LAYOUT.padding,
+    gap: ICON_LAYOUT.gap,
     background: COLORS.surface,
     fontFamily: 'Inter'
   }, [editorPanel, gradientBar()])
@@ -318,16 +406,16 @@ export function socialTree({ name, snippet, language, fileName, platforms, licen
     h('div', { display: 'flex', gap: 12 }, chips)
   ])
   const logo = { type: 'img', props: { src: logoSrc, width: 112, height: 112, style: { width: '112px', height: '112px' } } }
-  const editorPanel = editor({ lines, fileName, padding: '18px 28px', style: { flex: 1 } })
-  const header = { display: 'flex', alignItems: 'center', justifyContent: 'space-between' }
+  const editorPanel = editor({ lines, fileName, padding: `${SOCIAL_LAYOUT.bodyPadding}px 28px`, style: { flex: 1 } })
+  const header = { display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: SOCIAL_LAYOUT.top }
   const top = h('div', header, [brand, logo])
   return h('div', {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
     height: '100%',
-    padding: '44px 56px',
-    gap: 28,
+    padding: `${SOCIAL_LAYOUT.padding}px 56px`,
+    gap: SOCIAL_LAYOUT.gap,
     background: COLORS.surface,
     fontFamily: 'Inter'
   }, [top, editorPanel])
@@ -353,18 +441,20 @@ async function rasterize(tree, width, height, fonts) {
   return new Resvg(svg, { fitTo: { mode: 'width', value: width } }).render().asPng()
 }
 
-export async function renderAll({ repos, outDir, fontDir }) {
+export async function renderAll({ repos, outDir, fontDir, projects = PROJECTS }) {
   await initWasm(WebAssembly.compile(readFileSync(join(ROOT, 'node_modules/@resvg/resvg-wasm/index_bg.wasm'))))
   const fonts = loadFonts(fontDir)
   const logoSvg = readFileSync(join(ROOT, 'public/images/logo.svg'), 'utf8')
   const logoSrc = `data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}`
   const written = []
 
-  for (const project of PROJECTS) {
+  for (const project of projects) {
     const { source, language, slug } = project
     const socialName = socialNameOf(project)
     const snippetText = readFileSync(join(repos, source.repo, source.file), 'utf8')
     const snippet = snippetOf(snippetText, source.lines)
+    assertFits(snippet, ICON_MAX_LINES, `${slug} icon`)
+    assertFits(snippet, SOCIAL_MAX_LINES, `${slug} social card`)
     const fileName = basename(source.file)
     const frontmatter = frontmatterOf(readFileSync(join(ROOT, `content/projects/en/${slug}.md`), 'utf8'))
     const name = nameOf(frontmatter.title)
@@ -397,14 +487,16 @@ async function main() {
     options: {
       repos: { type: 'string' },
       out: { type: 'string', default: join(ROOT, 'node_modules/.cache/project-images') },
-      fonts: { type: 'string', default: join(ROOT, '.output/public/_og-static-fonts') }
+      fonts: { type: 'string', default: join(ROOT, '.output/public/_og-static-fonts') },
+      only: { type: 'string' }
     }
   })
-  if (!values.repos) throw new Error('pass --repos <dir with Falco, Otis and AntiRedstoneClock-Remastered>')
+  if (!values.repos) throw new Error('pass --repos <dir with the checkouts named in PROJECTS>')
   const images = await renderAll({
     repos: resolve(values.repos),
     outDir: resolve(values.out),
-    fontDir: resolve(values.fonts)
+    fontDir: resolve(values.fonts),
+    projects: values.only ? selectProjects(values.only.split(',')) : PROJECTS
   })
   for (const { source } of images.filter(image => image.source)) console.log(`snippet: ${source}`)
   console.log('Upload once every image exists, before any page requests the URLs:')

@@ -2,11 +2,16 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
+  ICON_MAX_LINES,
   PROJECTS,
+  SOCIAL_MAX_LINES,
+  assertFits,
   frontmatterOf,
   highlight,
+  maxCodeLines,
   nameOf,
   projectImageKey,
+  selectProjects,
   snippetOf,
   socialNameOf
 } from '../../scripts/render-project-images.mjs'
@@ -47,7 +52,7 @@ describe('snippetOf', () => {
   })
 
   it('refuses a range too short to read on a card', () => {
-    expect(() => snippetOf(LINES, [1, 5])).toThrow('5 lines')
+    expect(() => snippetOf(LINES, [1, 4])).toThrow('4 lines')
   })
 
   it('refuses a range too long for a card', () => {
@@ -90,6 +95,60 @@ describe('highlight', () => {
   it('keeps a hash inside a YAML string out of the comment colour', () => {
     const [tokens] = highlight(["  color: '#ff00ff'"], 'yaml')
     expect(tokens.some((token: { kind: string }) => token.kind === 'comment')).toBe(false)
+  })
+})
+
+// A code row is 33px (22px font at 1.5 line height); the window's border and header take 54px.
+describe('maxCodeLines', () => {
+  it('counts a line that ends exactly on the bottom border', () => {
+    expect(maxCodeLines({ top: 0, bottom: 54 + 3 * 33 + 2, bodyPadding: 0 })).toBe(3)
+  })
+
+  it('does not count a line that the bottom border cuts', () => {
+    expect(maxCodeLines({ top: 0, bottom: 54 + 3 * 33 + 1, bodyPadding: 0 })).toBe(2)
+  })
+
+  it('leaves the body padding above the first line', () => {
+    expect(maxCodeLines({ top: 0, bottom: 54 + 20 + 3 * 33 + 2, bodyPadding: 20 })).toBe(3)
+  })
+})
+
+describe('the card limits', () => {
+  it('fit ten lines in the icon and eight in the social card, as the rendered layout shows', () => {
+    expect(ICON_MAX_LINES).toBe(10)
+    expect(SOCIAL_MAX_LINES).toBe(8)
+  })
+})
+
+describe('assertFits', () => {
+  const lines = (count: number) => Array.from({ length: count }, (_, index) => `line ${index + 1}`)
+
+  it('accepts a snippet of exactly the lines a card shows', () => {
+    expect(() => assertFits(lines(8), 8, 'falco social card')).not.toThrow()
+  })
+
+  it('refuses a snippet taller than the card, naming the card and both counts', () => {
+    expect(() => assertFits(lines(9), 8, 'falco social card'))
+      .toThrow('falco social card: the snippet has 9 lines but the card shows 8')
+  })
+})
+
+describe('line ranges', () => {
+  it.each(PROJECTS.map(project => [project.slug, project]))('%s: the range fits both cards', (_slug, project) => {
+    const [start, end] = project.source.lines as [number, number]
+    const lineCount = end - start + 1
+    expect(lineCount).toBeLessThanOrEqual(ICON_MAX_LINES)
+    expect(lineCount).toBeLessThanOrEqual(SOCIAL_MAX_LINES)
+  })
+})
+
+describe('selectProjects', () => {
+  it('keeps the requested projects in PROJECTS order', () => {
+    expect(selectProjects(['titan', 'falco']).map(project => project.slug)).toEqual(['falco', 'titan'])
+  })
+
+  it('refuses a slug that is not configured instead of skipping it', () => {
+    expect(() => selectProjects(['falco', 'unknown'])).toThrow('unknown project slug: unknown')
   })
 })
 
