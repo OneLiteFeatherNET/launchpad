@@ -1,7 +1,7 @@
 ---
 title: 'Why our tests were green and the lobby still did not start'
 alternativeTitle: 'Binary compatibility, a NoSuchMethodError and a boot smoke test'
-description: 'A dependency update, a clean build and a lobby that would not start: what happened with Titan 3.0, how the fix looked, and which test now checks the startup.'
+description: 'A dependency update, a clean build and a lobby that would not start: what happened around Titan 3.0, how the fix looked, and which test now checks the startup.'
 pubDate: '2026-10-27'
 releaseDate: '2026-10-27'
 headerImage: 'images/og/blog-en.png'
