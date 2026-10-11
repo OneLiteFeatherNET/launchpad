@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.20.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.19.0...onelitefeather.net-v1.20.0) (2026-10-11)
+
+
+### Features
+
+* **blog:** add svenko1's autumn builds ([#481](https://github.com/OneLiteFeatherNET/launchpad/issues/481)) ([743a57f](https://github.com/OneLiteFeatherNET/launchpad/commit/743a57f7ef493a3511657a97518fafd59173a709))
+* **blog:** add titan 3.0 dev blog series ([#483](https://github.com/OneLiteFeatherNET/launchpad/issues/483)) ([12ceb86](https://github.com/OneLiteFeatherNET/launchpad/commit/12ceb8616a4a464f23dd2183b575b109dfb002c9))
+* **blog:** announce slender halloween 2026 ([#482](https://github.com/OneLiteFeatherNET/launchpad/issues/482)) ([fa8a68c](https://github.com/OneLiteFeatherNET/launchpad/commit/fa8a68cef3e5c255a2fbba916cbec796bd1069fc))
+* **projects:** render code-based project images ([#485](https://github.com/OneLiteFeatherNET/launchpad/issues/485)) ([7c577ac](https://github.com/OneLiteFeatherNET/launchpad/commit/7c577ac02bd9b00bc02f40a37194fad50bbf7a60))
+
 ## [1.19.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.18.0...onelitefeather.net-v1.19.0) (2026-10-10)
 
 
