@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.25.0...onelitefeather.net-v1.26.0) (2026-10-11)
+
+
+### Features
+
+* **projects:** distinguish internal and external projects ([#517](https://github.com/OneLiteFeatherNET/launchpad/issues/517)) ([da07127](https://github.com/OneLiteFeatherNET/launchpad/commit/da071274daaaee18e2282892770be451bfc011fc))
+
 ## [1.25.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.24.0...onelitefeather.net-v1.25.0) (2026-10-11)
 
 
