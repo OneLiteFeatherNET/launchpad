@@ -34,4 +34,4 @@ schema.org ids, `feat(blog)` for everything else. Before the pull request:
 
 - [x] 6.1 `pnpm test`, `pnpm quality` (no rise above `quality-baseline.json`) and `pnpm typecheck` (only pre-existing errors)
 - [x] 6.2 `pnpm build` and a rendered `/de/blog/svenko1s-herbst-bauprojekte` checked for the block output and the JSON-LD `mentions`
-- [ ] 6.3 Open the pull request under the title `feat(blog): add interactive markdown blocks`
+- [x] 6.3 Open the pull request under the title `feat(blog): add interactive markdown blocks`

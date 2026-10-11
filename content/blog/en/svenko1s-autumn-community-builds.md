@@ -67,7 +67,7 @@ The farm is finished. When you visit, please do not rebuild any part of it. The 
 
 The third project is still a plan. Svenko1 wants to build an end portal in the overworld: a portal platform with purple light pillars, set into a large crater. The forecourt is meant to get floor patterns in white and turquoise, plus blue-cushioned benches and steps up to the platform.
 
-Nothing has been built yet, and the location is not fixed. You can already download the schematic without surroundings (173 × 136 × 173 blocks, approx. 590 KB) from the project page. It contains only the structure itself, without the surroundings. Since no origin is set yet, agree on a site with Svenko1 before you paste it in.
+Nothing has been built yet, and the location is not fixed. You can already download the schematic without surroundings (173 × 136 × 173 blocks, approx. 590 KB) right here. It contains only the structure itself, without the surroundings. Since no origin is set yet, agree on a site with Svenko1 before you paste it in.
 
 If you want to help, support with material farming is welcome once the site is fixed. Get in touch with Svenko1.
 
@@ -76,6 +76,8 @@ If you want to help, support with material farming is welcome once the site is f
 
 ::download{name="End Portal without surroundings" url="/community-poi/end-portal/end-portal.litematic" kind="schematic" format="litematic" size-label="approx. 590 KB" description="No location fixed yet, so no origin is set. Agree on a site before pasting."}
 ::
+
+## Impressions
 
 ::gallery
 ---
