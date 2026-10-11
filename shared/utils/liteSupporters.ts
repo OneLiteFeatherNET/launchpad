@@ -42,9 +42,9 @@ const avatarOf = (value: unknown): string | null => {
 }
 
 /** Open Collective's resizer: the S3 original runs to 860 KB; 96px covers the 48px box at 2x. */
-export function smallAvatarUrl(profile: string): string | null {
+export function smallAvatarUrl(profile: string, size = 96): string | null {
   const slug = new URL(profile).pathname.split('/').find(Boolean)
-  return slug ? `https://images.opencollective.com/${slug}/avatar/96.png` : null
+  return slug ? `https://images.opencollective.com/${slug}/avatar/${size}.png` : null
 }
 
 /**
