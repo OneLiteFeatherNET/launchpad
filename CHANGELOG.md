@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.27.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.26.0...onelitefeather.net-v1.27.0) (2026-10-11)
+
+
+### Features
+
+* **projects:** filter the overview by audience and platform ([#519](https://github.com/OneLiteFeatherNET/launchpad/issues/519)) ([50f0c0e](https://github.com/OneLiteFeatherNET/launchpad/commit/50f0c0e84ddb62bf82a8c8b05f976d1e5a6e0c47))
+
 ## [1.26.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.25.0...onelitefeather.net-v1.26.0) (2026-10-11)
 
 
