@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.25.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.24.0...onelitefeather.net-v1.25.0) (2026-10-11)
+
+
+### Features
+
+* **team:** highlight maintained projects on member profiles ([#515](https://github.com/OneLiteFeatherNET/launchpad/issues/515)) ([2e6e652](https://github.com/OneLiteFeatherNET/launchpad/commit/2e6e652a5354cc2c1db414c9573817e88f6e7a94))
+
+
+### Bug Fixes
+
+* **community:** load contributor avatars from open collective's image service ([#516](https://github.com/OneLiteFeatherNET/launchpad/issues/516)) ([386dcab](https://github.com/OneLiteFeatherNET/launchpad/commit/386dcab67324d281d01dd626f3d794349720b3bb))
+* **team:** load supporter avatars from open collective's image service ([#513](https://github.com/OneLiteFeatherNET/launchpad/issues/513)) ([dcde3a1](https://github.com/OneLiteFeatherNET/launchpad/commit/dcde3a158a8bd619865e7c456dee0158b7413aab))
+
 ## [1.24.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.23.0...onelitefeather.net-v1.24.0) (2026-10-11)
 
 
