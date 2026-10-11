@@ -614,14 +614,14 @@
       "section": {
         "external": {
           "title": "For everyone",
-          "intro": "You can use these projects without signing in. Their artefacts are publicly available and the source code is open."
+          "intro": "You can run these yourself: publicly released and open source."
         },
         "internal": {
           "title": "Used in our network",
-          "intro": "We run these projects in our network. Their artefacts are not publicly available, but the source code is open."
+          "intro": "We run these projects in our network. Their Maven artifacts live in our internal repository, but the source code is open."
         }
       },
-      "internal_note": "Artefacts are not publicly available. The source code is open."
+      "internal_note": "Maven artifacts are internal only. The source code is open."
     },
     "card": {
       "open_detail": "View project {title}"
