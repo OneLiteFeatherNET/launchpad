@@ -102,6 +102,18 @@ describe('freshSlides', () => {
     })
   })
 
+  it('shows the social card of a project in the carousel, named by its title', () => {
+    const [slide] = freshSlides(sources({
+      projects: [project('arcr', {
+        publishedAt: '2026-10-07',
+        logo: '/images/arcr/icon.png',
+        logoAlt: 'ARCR logo',
+        socialImage: '/images/arcr/social.png'
+      })]
+    }))
+    expect(slide).toMatchObject({ image: '/images/arcr/social.png', alt: 'Project arcr' })
+  })
+
   it('takes a blog slide from the article and names the author, not the slug', () => {
     const [slide] = freshSlides(sources({ articles: [article('release', { releaseDate: daysAgo(2) })] }))
     expect(slide).toMatchObject({

@@ -126,8 +126,8 @@ function datedSlides(sources: HighlightSources): Dated[] {
         title: project.title,
         href: `/${locale}/projects/${project.slug}`,
         summary: project.summary,
-        image: project.logo,
-        alt: project.logoAlt,
+        image: project.socialImage ?? project.logo,
+        alt: project.socialImage ? project.title : project.logoAlt,
         status: project.status,
         platforms: project.platforms ?? undefined
       }

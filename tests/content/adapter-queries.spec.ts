@@ -259,6 +259,7 @@ describe('project queries', () => {
       'publishedAt',
       'releasedAt',
       'slug',
+      'socialImage',
       'status',
       'summary',
       'title'

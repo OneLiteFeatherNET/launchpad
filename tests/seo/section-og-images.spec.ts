@@ -76,8 +76,8 @@ describe('section pages pass their card', () => {
     expect(SECTION_PAGES).toHaveLength(OG_SECTIONS.length)
   })
 
-  it('falls project detail pages without a logo back to the projects card', () => {
-    expect(read('pages/projects/[...slug].vue')).toContain('image: project.value?.logo || sectionOgImage(\'projects\', locale.value)')
+  it('gives project detail pages their social card, then the logo, then the projects card', () => {
+    expect(read('pages/projects/[...slug].vue')).toContain('image: project.value?.socialImage || project.value?.logo || sectionOgImage(\'projects\', locale.value)')
   })
 
   it('keeps the own images of content pages', () => {

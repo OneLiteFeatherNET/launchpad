@@ -174,6 +174,7 @@ export type ProjectSummary = Pick<
   | 'status'
   | 'logo'
   | 'logoAlt'
+  | 'socialImage'
   | 'releasedAt'
   | 'publishedAt'
   | 'platforms'
