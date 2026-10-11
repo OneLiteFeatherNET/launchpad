@@ -56,6 +56,7 @@ const SYNTAX = {
 /**
  * The snippet of each project: the repository file and the 1-based line range
  * the image shows. The text is read from the checkout at render time.
+ * `socialName` renames the social card (bucket keys are immutable); it defaults to `social`.
  */
 export const PROJECTS = [
   {
@@ -75,9 +76,13 @@ export const PROJECTS = [
       repo: 'Otis',
       file: 'backend/src/main/java/net/onelitefeather/otis/controller/OtisRequestsController.java',
       lines: [93, 100]
-    }
+    },
+    socialName: 'social-v2'
   }
 ]
+
+/** Bucket name of a project's social card, and the image its frontmatter points at. */
+export const socialNameOf = project => project.socialName ?? 'social'
 
 const LANGUAGE_LABEL = { yaml: 'YAML', java: 'Java' }
 
@@ -357,6 +362,7 @@ export async function renderAll({ repos, outDir, fontDir }) {
 
   for (const project of PROJECTS) {
     const { source, language, slug } = project
+    const socialName = socialNameOf(project)
     const snippetText = readFileSync(join(repos, source.repo, source.file), 'utf8')
     const snippet = snippetOf(snippetText, source.lines)
     const fileName = basename(source.file)
@@ -375,11 +381,11 @@ export async function renderAll({ repos, outDir, fontDir }) {
     const license = frontmatter.license
     const socialSource = { name, snippet, language, fileName, platforms, license, logoSrc }
     const social = await rasterize(socialTree(socialSource), WIDTH_SOCIAL, HEIGHT_SOCIAL, fonts)
-    const socialFile = join(projectDir, 'social.png')
+    const socialFile = join(projectDir, `${socialName}.png`)
     writeFileSync(socialFile, social)
     written.push({
       file: socialFile,
-      key: projectImageKey(slug, 'social'),
+      key: projectImageKey(slug, socialName),
       source: `${source.repo}/${source.file}:${source.lines.join('-')}`
     })
   }
