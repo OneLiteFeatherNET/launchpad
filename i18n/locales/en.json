@@ -601,6 +601,16 @@
       "description": "Software by OneLiteFeather: plugins and tools we build ourselves and run on our server — with documentation, source code and downloads.",
       "empty": "No projects published yet."
     },
+    "filter": {
+      "audience_label": "Audience",
+      "audience": {
+        "all": "All"
+      },
+      "platform_label": "Platform",
+      "count": "{shown} of {total} projects",
+      "reset": "Reset filters",
+      "empty": "No project matches this filter."
+    },
     "status": {
       "active": "Active",
       "maintenance": "Maintained",

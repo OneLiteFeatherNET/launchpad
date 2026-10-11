@@ -601,6 +601,16 @@
       "description": "Software von OneLiteFeather: Plugins und Werkzeuge, die wir selbst entwickeln und auf unserem Server einsetzen — mit Dokumentation, Quellcode und Downloads.",
       "empty": "Noch keine Projekte veröffentlicht."
     },
+    "filter": {
+      "audience_label": "Zielgruppe",
+      "audience": {
+        "all": "Alle"
+      },
+      "platform_label": "Plattform",
+      "count": "{shown} von {total} Projekten",
+      "reset": "Filter zurücksetzen",
+      "empty": "Kein Projekt passt zu diesem Filter."
+    },
     "status": {
       "active": "Aktiv",
       "maintenance": "In Wartung",
