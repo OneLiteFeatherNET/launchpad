@@ -23,3 +23,18 @@ export function sortProjects(projects: readonly ProjectSummary[]): ProjectSummar
     return a.title.localeCompare(b.title)
   })
 }
+
+const statusRank = (project: ProjectSummary): number => PROJECT_STATUS_ORDER[project.status] ?? 99
+
+/** The projects `slug` maintains, active first, then by title. */
+export function projectsMaintainedBy(
+  projects: readonly ProjectSummary[],
+  slug: string
+): ProjectSummary[] {
+  return projects
+    .filter((project) => project.maintainers?.includes(slug))
+    .sort((a, b) => {
+      const byStatus = statusRank(a) - statusRank(b)
+      return byStatus !== 0 ? byStatus : a.title.localeCompare(b.title)
+    })
+}

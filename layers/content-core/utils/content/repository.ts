@@ -179,6 +179,7 @@ export type ProjectSummary = Pick<
   | 'publishedAt'
   | 'platforms'
   | 'license'
+  | 'maintainers'
 >
 
 export type EventSummary = Pick<

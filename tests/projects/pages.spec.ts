@@ -40,6 +40,11 @@ describe('project detail page', () => {
   it('describes the project as a SoftwareApplication built by the tested util', () => {
     expect(detail).toContain('softwareApplicationNode(')
   })
+
+  it('names only team maintainers in the SoftwareApplication, by their Person @id', () => {
+    expect(detail).toMatch(/maintainerIds:[\s\S]*?kind === 'team'/)
+    expect(detail).toContain('personId(site.url, person.slug)')
+  })
 })
 
 describe('community POI detail page', () => {

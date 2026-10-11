@@ -6,6 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, h } from 'vue'
 import {
   useProjectDetail,
+  useProjectsByMaintainer,
   useProjectsBySlugs,
   useProjectsOverview,
 } from '../../layers/projects/composables/useProjects'
@@ -73,6 +74,22 @@ describe('useProjectsOverview', () => {
     })
     expect(repo.listProjects).toHaveBeenCalledWith('de')
     expect(slugs).toEqual(['live', 'old'])
+  })
+})
+
+describe('useProjectsByMaintainer', () => {
+  it('asks for the locale of the page and lists only the projects the member maintains', async () => {
+    repo.listProjects.mockResolvedValue([
+      card('other', { maintainers: ['someone'] }),
+      card('archived', { status: 'archived', maintainers: ['tp'] }),
+      card('live', { maintainers: ['tp'] }),
+    ])
+    const slugs = await render('/de/team/tp', async () => {
+      const { projects } = await useProjectsByMaintainer('tp')
+      return projects.value.map((p) => p.slug)
+    })
+    expect(repo.listProjects).toHaveBeenCalledWith('de')
+    expect(slugs).toEqual(['live', 'archived'])
   })
 })
 
