@@ -444,6 +444,27 @@
     "codeblock": "Code block",
     "permalinkToHeading": "Permalink to heading {id}"
   },
+  "mdc": {
+    "coords": {
+      "label": "Coordinates",
+      "copy": "Copy /tp",
+      "copied": "Copied!",
+      "copy_aria": "Copy teleport command {command} to the clipboard"
+    },
+    "dimension": {
+      "overworld": "Overworld",
+      "nether": "Nether",
+      "end": "End"
+    },
+    "poi_embed": {
+      "progress": "Progress",
+      "progress_value": "{value}% complete",
+      "builders": "Built by"
+    },
+    "gallery": {
+      "label": "Image gallery"
+    }
+  },
   "media_gallery": {
     "open_at": "Open image {current} of {total}",
     "prev": "Previous image",

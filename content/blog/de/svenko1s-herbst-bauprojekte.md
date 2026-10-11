@@ -43,21 +43,67 @@ Der Yggdrasil ist Svenko1s Großprojekt. Der Weltenbaum wächst in Kirschblüten
 
 Der Besuch beginnt an einer überdachten Holzbrücke mit Blumenkästen und Laternen. Von dort führen Leitern und Stege hinauf in die Krone, wo zwischen den Blüten ein kleines Dorf aus Hütten und Plattformen liegt. Oben wartet ein weiter Blick über die gesamte Kirschblütenlandschaft.
 
-Den Yggdrasil findest du in der Oberwelt bei X 1161, Y 75, Z 339.
+Den Yggdrasil findest du in der Oberwelt bei :coords{x=1161 y=75 z=339}.
+
+::poi-embed{slug="yggdrasil"}
+::
+
+::bluemap{x=1161 y=75 z=339 title="Wunderbaum Yggdrasil"}
+::
 
 ## Trident-/Kupfer-Farm: fertig und besuchbar
 
 Die Farm ist ein hoher Turm mitten im Wald, dessen Fuß im Wasser steht. Oben trägt er eine weit überstehende Dachplatte, und schon von Weitem ragt er deutlich über die Baumkronen. Im Inneren führt ein Steg aus Glas durch das Wasser zu den Farmkammern. Dort sitzen Mobs, darunter Ertrunkene, hinter Glasscheiben. Die Bilder auf der Projektseite zeigen Steg und Farmkammern aus verschiedenen Blickwinkeln.
 
-Die Farm ist fertig. Wenn du vorbeischaust, baue bitte nichts an ihr um. Die Koordinaten lauten X 5650 / Y 190 / Z 100 in der Oberwelt.
+Die Farm ist fertig. Wenn du vorbeischaust, baue bitte nichts an ihr um. Die Koordinaten lauten :coords{x=5650 y=190 z=100} in der Oberwelt.
+
+::poi-embed{slug="trident-kupfer-farm"}
+::
+
+::bluemap{x=5650 y=190 z=100 title="Trident-/Kupfer-Farm"}
+::
 
 ## End-Portal: geplant, Schematic liegt bei
 
 Das dritte Projekt ist noch ein Plan. Svenko1 möchte ein End-Portal in der Oberwelt bauen: einen Portalsockel mit lila Lichtsäulen, eingebettet in einen großen Krater. Der Vorplatz soll Bodenmuster in Weiß und Türkis erhalten, dazu blau gepolsterte Bänke und Stufen zum Sockel.
 
-Gebaut ist noch nichts, und auch der Standort steht noch nicht fest. Die Schematic ohne Umgebung (173 × 136 × 173 Blöcke, ca. 590 KB) kannst du aber schon auf der Projektseite herunterladen. Sie enthält nur das Bauwerk selbst, ohne die Umgebung. Da noch kein Ursprungspunkt hinterlegt ist, stimme den Standort mit Svenko1 ab, bevor du sie einfügst.
+Gebaut ist noch nichts, und auch der Standort steht noch nicht fest. Die Schematic ohne Umgebung (173 × 136 × 173 Blöcke, ca. 590 KB) kannst du aber schon hier herunterladen: Sie enthält nur das Bauwerk selbst, ohne die Umgebung. Da noch kein Ursprungspunkt hinterlegt ist, stimme den Standort mit Svenko1 ab, bevor du sie einfügst.
 
 Wenn du helfen möchtest, ist Unterstützung beim Materialfarming willkommen, sobald der Standort steht. Melde dich dafür bei Svenko1.
+
+::poi-embed{slug="end-portal"}
+::
+
+::download{name="End-Portal ohne Umgebung" url="/community-poi/end-portal/end-portal.litematic" kind="schematic" format="litematic" size-label="ca. 590 KB" description="Noch kein Standort festgelegt – daher ist kein Origin hinterlegt. Vor dem Einfügen den Standort abstimmen."}
+::
+
+## Eindrücke
+
+::gallery
+---
+images:
+  - src: '/images/community-poi/yggdrasil/krone-uebersicht.webp'
+    alt: 'Blick aus der Kirschblütenkrone über die darunterliegende Landschaft mit Dorf und Fluss'
+    caption: 'Aus der Krone über die Landschaft'
+    width: 1600
+    height: 841
+  - src: '/images/community-poi/yggdrasil/krone-innen.webp'
+    alt: 'Plattformen, Stege und Hütten mit Laternen im Inneren der Kirschblütenkrone'
+    caption: 'Hütten und Stege im Inneren der Krone'
+    width: 1600
+    height: 841
+  - src: '/images/community-poi/trident-kupfer-farm/tower-interior.webp'
+    alt: 'Unter Wasser im Turm: ein Glas-Steg führt auf einen sandsteinfarbenen Raum zu, im Wasser schweben Blasen und einzelne Mobs'
+    caption: 'Steg im Inneren des Turms'
+    width: 1600
+    height: 841
+  - src: '/images/community-poi/trident-kupfer-farm/mob-window.webp'
+    alt: 'Zwei Ertrunkene hinter Glasscheiben in einer Sandsteinwand, darunter ein Trichter und Kisten'
+    caption: 'Mobs hinter Glas'
+    width: 1600
+    height: 841
+---
+::
 
 ## So kommst du hin
 

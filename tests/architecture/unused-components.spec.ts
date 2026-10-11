@@ -80,6 +80,8 @@ const ROOT_CONSUMERS = [
  */
 const EXEMPT = [
   /^layers\/content-core\/components\/Prose/,
+  // Markdown blocks (`::poi-embed`, `::gallery`): named only in content/blog.
+  /^layers\/content-core\/components\/(PoiEmbed|Gallery)\.vue$/,
 /^components\/OgImage\//,
   /^layers\/events\/components\/EventGuides?\.vue$/,
   /^layers\/content-core\/components\/Download\.vue$/,

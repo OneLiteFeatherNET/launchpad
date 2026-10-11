@@ -234,6 +234,24 @@ export type CommunityPoiSummary = Pick<
   schematicCount: number
 }
 
+/**
+ * The fields a `::poi-embed` card in an article shows. Narrower than the
+ * summary: no gallery counts, no body, and the coordinates the card's copy
+ * action needs.
+ */
+export type CommunityPoiEmbed = Pick<
+  CommunityPoiDocument,
+  | 'slug'
+  | 'title'
+  | 'summary'
+  | 'status'
+  | 'progress'
+  | 'thumbnail'
+  | 'thumbnailAlt'
+  | 'builders'
+  | 'coordinates'
+>
+
 export const COMMUNITY_POI_STATUS_ORDER: Record<CommunityPoiDocument['status'], number> = {
   'in-progress': 0,
   planning: 1,
@@ -359,6 +377,8 @@ export interface ContentRepository {
     locale: Locale,
     translationKey: string
   ): Promise<CommunityPoiDocument | null>
+  /** Embed fields of the POIs with the given slugs, one query; unordered, unknown slugs absent. */
+  listCommunityPoiEmbedsBySlugs(locale: Locale, slugs: string[]): Promise<CommunityPoiEmbed[]>
 
   // --- Events ---------------------------------------------------------------
   /** All events for a locale (unfiltered, unsorted — caller decides). */

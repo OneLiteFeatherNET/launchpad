@@ -1,6 +1,6 @@
 import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
-import type { Locale } from '#layers/content-core'
+import type { CommunityPoiEmbed, Locale } from '#layers/content-core'
 import type { BlogArticle, BlogAlternateHeader, Person } from '../types'
 
 const releaseTimestamp = (entry: BlogArticle): number => releaseTimeOf(entry) ?? 0
@@ -166,6 +166,7 @@ export async function useBlogArticle() {
   const { data: payload } = await useAsyncData<{
     article: BlogArticle | null
     authors: Person[]
+    embeddedPois: CommunityPoiEmbed[]
   } | null>(
     () => `${route.path}-${locale.value}`,
     async () => {
@@ -178,16 +179,24 @@ export async function useBlogArticle() {
       // the data resolves, which reliably renders the error page with the
       // correct HTTP status during SSR.
       if (!doc || !isReleased(doc)) {
-        return { article: null, authors: [] }
+        return { article: null, authors: [], embeddedPois: [] }
       }
 
       const slugs = (Array.isArray(doc.author) ? doc.author : [doc.author])
         .filter(Boolean)
         .map((s) => String(s))
 
+      // The POIs the body embeds, for the article's JSON-LD `mentions`. Read
+      // here so the SEO composable needs no second query.
+      const embeddedPois = await repo.listCommunityPoiEmbedsBySlugs(
+        activeLocale.value,
+        poiEmbedSlugs(doc.body)
+      )
+
       return {
         article: doc,
-        authors: await resolvePeople(slugs, activeLocale.value)
+        authors: await resolvePeople(slugs, activeLocale.value),
+        embeddedPois
       }
     },
     { watch: [locale, slug] }
@@ -201,6 +210,7 @@ export async function useBlogArticle() {
 
   const article = computed<BlogArticle | null>(() => payload.value?.article || null)
   const authors = computed<Person[]>(() => payload.value?.authors || [])
+  const embeddedPois = computed<CommunityPoiEmbed[]>(() => payload.value?.embeddedPois || [])
 
   const blog = computed<BlogArticle | null>(() => {
     if (!article.value) return null
@@ -261,6 +271,7 @@ export async function useBlogArticle() {
 
   return {
     blog,
-    authors
+    authors,
+    embeddedPois
   }
 }

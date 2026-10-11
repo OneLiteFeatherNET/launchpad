@@ -102,3 +102,33 @@ export function extractPlainText(node: unknown, maxLength = 180): string {
   const lastSpace = clipped.lastIndexOf(' ')
   return (lastSpace > 0 ? clipped.slice(0, lastSpace) : clipped).trim() + '…'
 }
+
+/**
+ * Attributes of every MDC block named `tag` in a document body, in reading
+ * order, including blocks nested inside lists or quotes. Takes the stored
+ * `body` (`{ type: 'minimark', value }`) or a bare minimark child list.
+ */
+export function mdcBlockProps(body: unknown, tag: string): Record<string, unknown>[] {
+  const found: Record<string, unknown>[] = []
+  const visit = (node: unknown): void => {
+    if (isMinimarkElement(node)) {
+      const [name,
+attrs,
+...children] = node
+      if (name === tag) found.push(attrs)
+      for (const child of children) visit(child)
+    } else if (Array.isArray(node)) {
+      for (const child of node) visit(child)
+    }
+  }
+  visit(isMinimarkRoot(body) ? body.value : body)
+  return found
+}
+
+/** Distinct `slug`s of the `::poi-embed` blocks in a body, in first-use order. */
+export function poiEmbedSlugs(body: unknown): string[] {
+  const slugs = mdcBlockProps(body, 'poi-embed')
+    .map((props) => props.slug)
+    .filter((slug): slug is string => typeof slug === 'string' && slug.trim() !== '')
+  return [...new Set(slugs)]
+}

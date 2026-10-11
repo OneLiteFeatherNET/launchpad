@@ -17,6 +17,7 @@ export type {
   ServerConnectDocument,
   HomeCarouselDocument,
   CommunityPoiDocument,
+  CommunityPoiEmbed,
   CommunityPoiSummary,
   EventDocument,
   EventSummary,
