@@ -60,6 +60,6 @@ Die Runden laufen vom **24. Oktober 2026, 18:00 Uhr**, bis zum **2. November 202
 
 Auch unsere Website zieht in dieser Zeit ein anderes Kleid an. Vom 20. Oktober bis zum 2. November (nach Berliner Kalender) wechseln die Farben auf Violett, Orange und Grün, im hellen wie im dunklen Design, und Logo sowie Favicon werden ausgetauscht. Darüber liegt eine dezente Dekoration: zwei Spinnennetze in den oberen Ecken und ab mittlerer Bildschirmbreite bis zu drei langsam fliegende Fledermäuse. Die Fledermäuse bleiben aus, wenn die Systemeinstellung reduzierte Bewegung verlangt, und die Dekoration lässt sich durchklicken. Außerhalb des Zeitraums bleibt die Seite im Standarddesign. Wer das Design vorab sehen möchte, hängt `?season=halloween` an die Adresse einer Seite an.
 
-Für die Vorbereitung lohnt ein Blick auf die Event-Seite, denn dort stehen die Anleitungen für Survivor und Slender. Fragen zur Runde beantworten wir gern auf unserem [Discord](https://discord.gg/onelitefeather).
+Für die Vorbereitung lohnt ein Blick auf die Event-Seite, denn dort stehen die Anleitungen für Survivor und Slender. Fragen zur Runde beantworten wir gern auf unserem [Discord](https://1lf.link/discord).
 
 Wir freuen uns auf euch. Haltet zusammen und findet die Seiten!

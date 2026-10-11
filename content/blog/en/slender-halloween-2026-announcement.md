@@ -60,6 +60,6 @@ Rounds run from **24 October 2026, 18:00**, to **2 November 2026, 23:59** (Berli
 
 Our website also puts on a different outfit for this period. From 20 October to 2 November (by the Berlin calendar) the colours shift to violet, orange and green, in light and dark mode alike, and the logo and favicon are swapped. A subtle decoration lies over the pages: two spider webs in the upper corners and, from medium screen widths up, up to three slowly flying bats. The bats stay hidden when the system asks for reduced motion, and the decoration can be clicked through. Outside this period the site keeps its standard design. To preview it in advance, add `?season=halloween` to a page address.
 
-For preparation, the event page holds the guides for Survivors and Slender. Questions about the round are welcome on our [Discord](https://discord.gg/onelitefeather).
+For preparation, the event page holds the guides for Survivors and Slender. Questions about the round are welcome on our [Discord](https://1lf.link/discord).
 
 We look forward to seeing you. Stick together and find the pages!
