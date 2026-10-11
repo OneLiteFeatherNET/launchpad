@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from '#imports'
+import { LEGAL_LINK_CLASS, TEXT_LINK_CLASS } from '#layers/base'
 import { useI18n } from 'vue-i18n'
 import { faFacebook, faGithub, faInstagram, faLinkedin, faTiktok, faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons'
 const { t } = useI18n()
@@ -32,9 +33,6 @@ const socialLinks = [
   { href: 'https://github.com/OneLiteFeatherNET', icon: faGithub, labelKey: 'social.github' },
 ]
 
-const linkClass
-  = 'rounded-extra-small text-body-medium text-on-surface-variant transition-colors '
-    + 'hover:text-primary focus-ring'
 const copyrightClass
   = 'flex flex-col items-center gap-1 text-body-medium text-on-surface-variant sm:items-start'
 </script>
@@ -61,7 +59,7 @@ const copyrightClass
           </h4>
           <ul class="space-y-3">
             <li>
-              <NuxtLinkLocale to="/blog" :class="linkClass">
+              <NuxtLinkLocale to="/blog" :class="TEXT_LINK_CLASS">
                 {{ t('footer.services.blogging') }}
               </NuxtLinkLocale>
             </li>
@@ -70,7 +68,7 @@ const copyrightClass
                 href="https://status.onelitefeather.net"
                 target="_blank"
                 rel="noopener noreferrer"
-                :class="linkClass"
+                :class="TEXT_LINK_CLASS"
                 :aria-label="t('footer.services.status')"
                 :title="t('footer.services.status')"
               >
@@ -82,7 +80,7 @@ const copyrightClass
                 href="https://github.com/OneLiteFeatherNET"
                 target="_blank"
                 rel="noopener noreferrer"
-                :class="linkClass"
+                :class="TEXT_LINK_CLASS"
               >
                 {{ t('footer.services.github') }}
               </a>
@@ -97,7 +95,7 @@ const copyrightClass
           </h4>
           <ul class="space-y-3">
             <li>
-              <NuxtLinkLocale to="/about" :class="linkClass">
+              <NuxtLinkLocale to="/about" :class="TEXT_LINK_CLASS">
                 {{ t('footer.organization.about') }}
               </NuxtLinkLocale>
             </li>
@@ -106,7 +104,7 @@ const copyrightClass
                 :href="discordUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                :class="linkClass"
+                :class="TEXT_LINK_CLASS"
               >
                 {{ t('footer.organization.contact') }}
               </a>
@@ -147,11 +145,11 @@ const copyrightClass
             {{ versionLabel }}
           </p>
         </div>
-        <div class="flex gap-6">
-          <NuxtLinkLocale to="/privacy" :class="linkClass">
+        <div class="flex items-center gap-6">
+          <NuxtLinkLocale to="/privacy" :class="LEGAL_LINK_CLASS">
             {{ t('footer.privacy') }}
           </NuxtLinkLocale>
-          <NuxtLinkLocale to="/imprint" :class="linkClass">
+          <NuxtLinkLocale to="/imprint" :class="LEGAL_LINK_CLASS">
             {{ t('footer.terms') }}
           </NuxtLinkLocale>
           <slot name="legal-actions" />

@@ -8,6 +8,7 @@ import en from '../../i18n/locales/en.json'
 import M3Button from '../../layers/base/components/M3Button.vue'
 import CookieConsentBanner from '../../layers/consent/components/CookieConsentBanner.vue'
 import CookieSettingsButton from '../../layers/consent/components/CookieSettingsButton.vue'
+import { LEGAL_LINK_CLASS } from '../../layers/base/utils/textLinkClasses'
 import { resolveCandidates } from '../helpers/theme'
 
 /** Per-test switches, reset before each test; the composable is read at mount. */
@@ -274,14 +275,26 @@ describe('CookieConsentBanner settings back action', () => {
 })
 
 describe('CookieSettingsButton', () => {
+  const mountSettings = () => mount(CookieSettingsButton, {
+    global: {
+      plugins: [createI18n<false>({ legacy: false, locale: 'en', messages: { de, en } })],
+    },
+  })
+
+  it('renders a native button of type button', () => {
+    const wrapper = mountSettings()
+    expect(wrapper.element.tagName).toBe('BUTTON')
+    expect(wrapper.attributes('type')).toBe('button')
+  })
+
+  it('shares the legal link classes of the footer', () => {
+    const wrapper = mountSettings()
+    expect(wrapper.classes()).toEqual(expect.arrayContaining(LEGAL_LINK_CLASS.split(' ')))
+  })
+
   it('reopens the banner when clicked', async () => {
-    const wrapper = mount(CookieSettingsButton, {
-      global: {
-        plugins: [createI18n<false>({ legacy: false, locale: 'en', messages: { de, en } })],
-        components: { M3Button },
-      },
-    })
-    await wrapper.findComponent(M3Button).trigger('click')
+    const wrapper = mountSettings()
+    await wrapper.trigger('click')
     expect(consent.reopen).toHaveBeenCalledTimes(1)
   })
 })
