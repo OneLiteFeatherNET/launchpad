@@ -333,6 +333,9 @@ const projectsSchema = withI18nMeta(z.object({
       'maintenance',
       'archived'
     ]),
+    // external: usable by anyone (public registry or public Maven repository).
+    // internal: artefacts sit behind the network's Maven login; source stays open.
+    audience: z.enum(['external', 'internal']),
     // Square icon for the card and the detail header.
     logo: z.string().optional(),
     logoAlt: z.string().optional(),

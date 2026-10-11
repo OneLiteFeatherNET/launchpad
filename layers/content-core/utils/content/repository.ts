@@ -172,6 +172,7 @@ export type ProjectSummary = Pick<
   | 'title'
   | 'summary'
   | 'status'
+  | 'audience'
   | 'logo'
   | 'logoAlt'
   | 'socialImage'

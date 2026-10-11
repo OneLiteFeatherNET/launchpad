@@ -10,6 +10,7 @@ const project = (slug: string, extra: Record<string, unknown> = {}): ProjectSumm
   title: `Project ${slug}`,
   summary: `Summary ${slug}`,
   status: 'active',
+  audience: 'external',
   ...extra,
 }) as ProjectSummary
 
@@ -29,6 +30,11 @@ describe('ProjectCard', () => {
     const wrapper = await card(project('arcr'))
     expect(wrapper.text()).toContain('Summary arcr')
     expect(wrapper.text()).toContain('Aktiv')
+  })
+
+  it('names the audience in text, not only by colour', async () => {
+    expect((await card(project('a', { audience: 'external' }))).text()).toContain('Öffentlich nutzbar')
+    expect((await card(project('b', { audience: 'internal' }))).text()).toContain('Intern')
   })
 
   it('shows a placeholder without a logo', async () => {

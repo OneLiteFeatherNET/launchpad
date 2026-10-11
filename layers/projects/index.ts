@@ -3,5 +3,6 @@
 // never @nuxt/content directly (see AGENTS.md on index.ts value exports).
 export { useProjectsOverview, useProjectsBySlugs, useProjectsByMaintainer, useProjectDetail } from './composables/useProjects'
 export type { ProjectDetail } from './composables/useProjects'
-export { sortProjects } from './utils/projectLists'
+export { groupProjectsByAudience, sortProjects } from './utils/projectLists'
+export type { ProjectAudienceGroup } from './utils/projectLists'
 export type * from './types'

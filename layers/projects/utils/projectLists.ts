@@ -1,4 +1,4 @@
-import type { ProjectStatus, ProjectSummary } from '../types'
+import type { ProjectAudience, ProjectStatus, ProjectSummary } from '../types'
 
 export const PROJECT_STATUS_ORDER: Record<ProjectStatus, number> = {
   active: 0,
@@ -22,6 +22,19 @@ export function sortProjects(projects: readonly ProjectSummary[]): ProjectSummar
     if (aTime !== bTime) return aTime > bTime ? -1 : 1
     return a.title.localeCompare(b.title)
   })
+}
+
+export interface ProjectAudienceGroup {
+  audience: ProjectAudience
+  projects: ProjectSummary[]
+}
+
+/** External first, then internal. Both groups are always returned; input order is kept. */
+export function groupProjectsByAudience(projects: ProjectSummary[]): ProjectAudienceGroup[] {
+  return (['external', 'internal'] as const).map((audience) => ({
+    audience,
+    projects: projects.filter((project) => project.audience === audience)
+  }))
 }
 
 const statusRank = (project: ProjectSummary): number => PROJECT_STATUS_ORDER[project.status] ?? 99

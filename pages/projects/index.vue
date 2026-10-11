@@ -10,6 +10,10 @@ definePageMeta({
 
 const { projects } = await useProjectsOverview()
 
+const groups = computed(() => groupProjectsByAudience(projects.value))
+// Same order the page shows, so the ItemList positions match what a reader sees.
+const orderedProjects = computed(() => groups.value.flatMap((group) => group.projects))
+
 usePageSeo({
   title: t('projects.overview.title'),
   description: t('projects.overview.description'),
@@ -28,7 +32,7 @@ useBreadcrumbs(() => [
 ])
 
 useSchemaOrg(computed(() => {
-  const list = projects.value
+  const list = orderedProjects.value
   if (!list.length) return []
   return [
     {
@@ -56,6 +60,28 @@ useSchemaOrg(computed(() => {
       </p>
     </header>
 
-    <ProjectGrid :projects="projects" />
+    <div v-if="projects.length" class="space-y-12">
+      <template v-for="group in groups" :key="group.audience">
+        <section
+          v-if="group.projects.length"
+          :aria-labelledby="`projects-${group.audience}`"
+          class="space-y-6"
+        >
+          <header class="max-w-3xl">
+            <h2
+              :id="`projects-${group.audience}`"
+              class="text-headline-medium font-semibold text-on-surface"
+            >
+              {{ t(`projects.audience.section.${group.audience}.title`) }}
+            </h2>
+            <p class="mt-2 text-body-large text-on-surface-variant">
+              {{ t(`projects.audience.section.${group.audience}.intro`) }}
+            </p>
+          </header>
+          <ProjectGrid :projects="group.projects" />
+        </section>
+      </template>
+    </div>
+    <ProjectGrid v-else :projects="projects" />
   </div>
 </template>
