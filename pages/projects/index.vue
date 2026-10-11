@@ -3,6 +3,8 @@ import { definePageMeta } from '#imports'
 
 const { t, locale } = useI18n()
 const site = useSiteConfig()
+const route = useRoute()
+const router = useRouter()
 
 definePageMeta({
   layout: 'default'
@@ -10,9 +12,39 @@ definePageMeta({
 
 const { projects } = await useProjectsOverview()
 
+const facets = computed(() => platformFacets(projects.value))
+
+// Read after mount only: the cached server render must not depend on the request
+// (request-independent-render.spec.ts), so the server renders every project.
+const hydrated = ref(false)
+onMounted(() => {
+  hydrated.value = true
+})
+
+const filter = computed<ProjectFilter>(() => {
+  if (!hydrated.value) return EMPTY_PROJECT_FILTER
+  const query = new URL(route.fullPath, 'http://localhost').searchParams
+  return parseProjectFilter(query, facets.value.map((facet) => facet.platform))
+})
+
+const setFilter = (next: ProjectFilter) => {
+  router.replace({ query: serializeProjectFilter(next) })
+}
+
 const groups = computed(() => groupProjectsByAudience(projects.value))
-// Same order the page shows, so the ItemList positions match what a reader sees.
+const visibleGroups = computed(() => {
+  return groupProjectsByAudience(filterProjects(projects.value, filter.value))
+})
+const visibleCount = computed(() => {
+  return visibleGroups.value.reduce((sum, group) => sum + group.projects.length, 0)
+})
+// Every project, whatever the filter, in the order the unfiltered page shows,
+// so the ItemList positions match what a reader sees.
 const orderedProjects = computed(() => groups.value.flatMap((group) => group.projects))
+
+const emptyClass
+  = 'rounded-large border border-dashed border-outline-variant p-8 text-center '
+    + 'text-body-medium text-on-surface-variant'
 
 usePageSeo({
   title: t('projects.overview.title'),
@@ -61,7 +93,19 @@ useSchemaOrg(computed(() => {
     </header>
 
     <div v-if="projects.length" class="space-y-12">
-      <template v-for="group in groups" :key="group.audience">
+      <ProjectFilters
+        :filter="filter"
+        :facets="facets"
+        :shown="visibleCount"
+        :total="projects.length"
+        @update:filter="setFilter"
+      />
+
+      <p v-if="!visibleCount" :class="emptyClass">
+        {{ t('projects.filter.empty') }}
+      </p>
+
+      <template v-for="group in visibleGroups" :key="group.audience">
         <section
           v-if="group.projects.length"
           :aria-labelledby="`projects-${group.audience}`"

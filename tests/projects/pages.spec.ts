@@ -26,6 +26,22 @@ describe.each([
   })
 })
 
+describe('project overview filter', () => {
+  it('builds the ItemList from every project, not from the filtered list', () => {
+    expect(overview).toMatch(/groups = computed\(\(\) =>\s*groupProjectsByAudience\(projects/)
+    expect(overview).toMatch(/orderedProjects = computed\(\(\) => groups\.value\.flatMap/)
+  })
+
+  it('writes the filter with router.replace, so every change stays out of the history', () => {
+    expect(overview).toContain('router.replace(')
+    expect(overview).not.toContain('router.push(')
+  })
+
+  it('reads the URL only after mount, so the cached server render stays the same for every query', () => {
+    expect(overview).toMatch(/onMounted\(\(\) => \{\s*hydrated\.value = true/)
+  })
+})
+
 describe('project detail page', () => {
   it('lists links through ResourceList and maintainers through PersonLink', () => {
     expect(detail).toContain('<ResourceList')
