@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.23.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.22.1...onelitefeather.net-v1.23.0) (2026-10-11)
+
+
+### Features
+
+* **projects:** add bettergopaint ([#495](https://github.com/OneLiteFeatherNET/launchpad/issues/495)) ([ad982c6](https://github.com/OneLiteFeatherNET/launchpad/commit/ad982c60f87d68da705c913a660efc3070a6e5e3))
+* **projects:** add butterfly ([#500](https://github.com/OneLiteFeatherNET/launchpad/issues/500)) ([7495936](https://github.com/OneLiteFeatherNET/launchpad/commit/749593606bca7f9d7511716069e22731e1cc6d02))
+* **projects:** add cygnus ([#497](https://github.com/OneLiteFeatherNET/launchpad/issues/497)) ([5251b4f](https://github.com/OneLiteFeatherNET/launchpad/commit/5251b4f440db77fb1b5c58930f7b70eb355290f0))
+* **projects:** add titan ([#498](https://github.com/OneLiteFeatherNET/launchpad/issues/498)) ([b259c53](https://github.com/OneLiteFeatherNET/launchpad/commit/b259c538821c1fe971519291908f93d67ac2e151))
+* **projects:** add voyager ([#496](https://github.com/OneLiteFeatherNET/launchpad/issues/496)) ([aed0d1c](https://github.com/OneLiteFeatherNET/launchpad/commit/aed0d1ce2385d02a2d81d333c4b20143a1d2ad46))
+* **projects:** render code cards for titan, cygnus, voyager, butterfly and bettergopaint ([#502](https://github.com/OneLiteFeatherNET/launchpad/issues/502)) ([e95ea85](https://github.com/OneLiteFeatherNET/launchpad/commit/e95ea856b8dad7a2ec1bf8a58cbcabc3402c30e9))
+
 ## [1.22.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.22.0...onelitefeather.net-v1.22.1) (2026-10-11)
 
 
