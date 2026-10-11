@@ -16,7 +16,7 @@ const source = readFileSync(join(repoRoot, PAGE_FILE), 'utf8')
 describe('community POI structured data', () => {
   it('defines the Place node under the id it links to', () => {
     expect(source).toContain("'@type': 'Place'")
-    expect(source).toMatch(/const placeId = `\$\{detailUrl\}#place`/)
+    expect(source).toMatch(/const placeId = communityPoiPlaceId\(detailUrl\)/)
     expect(source).toMatch(/'@type': 'Place',\s*'@id': placeId/)
   })
 

@@ -41,16 +41,13 @@ const toIso = (raw: string | Date | undefined): string | undefined => {
 
 useSchemaOrg(computed(() => {
   if (!poi.value) return []
-  const detailUrl = new URL(
-    `/${locale.value}/community-poi/${poi.value.slug}`,
-    site.url
-  ).toString()
+  const detailUrl = communityPoiDetailUrl(site.url, locale.value, poi.value.slug)
   const coords = poi.value.coordinates
-  const placeId = `${detailUrl}#place`
+  const placeId = communityPoiPlaceId(detailUrl)
   const nodes: Array<Record<string, unknown>> = [
     {
       '@type': 'CreativeWork',
-      '@id': `${detailUrl}#creativework`,
+      '@id': communityPoiCreativeWorkId(detailUrl),
       name: poi.value.title,
       description: poi.value.summary,
       url: detailUrl,
