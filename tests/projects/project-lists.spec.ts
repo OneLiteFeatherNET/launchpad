@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { sortProjects } from '../../layers/projects/utils/projectLists'
+import { projectsMaintainedBy, sortProjects } from '../../layers/projects/utils/projectLists'
 import type { ProjectSummary } from '../../layers/projects/types'
 
 const project = (slug: string, extra: Partial<ProjectSummary> = {}): ProjectSummary => ({
@@ -43,6 +43,60 @@ describe('sortProjects', () => {
   it('does not change the list it is given', () => {
     const list = [project('b', { title: 'B' }), project('a', { title: 'A' })]
     sortProjects(list)
+    expect(list.map((p) => p.slug)).toEqual(['b', 'a'])
+  })
+})
+
+describe('projectsMaintainedBy', () => {
+  const member = 'themeinerlp'
+  const maintained = (slug: string, extra: Partial<ProjectSummary> = {}) => {
+    return project(slug, { maintainers: [member], ...extra } as Partial<ProjectSummary>)
+  }
+  const slugsFor = (list: ProjectSummary[], name = member) => {
+    return projectsMaintainedBy(list, name).map((p) => p.slug)
+  }
+
+  it('keeps only the projects that name the member as a maintainer', () => {
+    const list = [
+      maintained('mine'),
+      project('theirs', { maintainers: ['someone-else'] } as Partial<ProjectSummary>),
+      project('unlisted'),
+    ]
+    expect(slugsFor(list)).toEqual(['mine'])
+  })
+
+  it('lists active projects first, then by title within a status', () => {
+    const list = [
+      maintained('archived-a', { status: 'archived', title: 'A' }),
+      maintained('maintenance', { status: 'maintenance', title: 'M' }),
+      maintained('active-z', { status: 'active', title: 'Zeta' }),
+      maintained('active-b', { status: 'active', title: 'Beta' }),
+    ]
+    expect(slugsFor(list)).toEqual([
+      'active-b',
+      'active-z',
+      'maintenance',
+      'archived-a',
+    ])
+  })
+
+  it('orders by title alone, without the release date', () => {
+    const newer = maintained('new', { title: 'Beta', releasedAt: '2026-01-01' as never })
+    const older = maintained('old', { title: 'Alpha', releasedAt: '2020-01-01' as never })
+    expect(slugsFor([newer, older])).toEqual(['old', 'new'])
+  })
+
+  it('tolerates a project without a maintainer list', () => {
+    expect(slugsFor([project('bare'), maintained('mine')])).toEqual(['mine'])
+  })
+
+  it('returns nothing for a member who maintains no project', () => {
+    expect(slugsFor([maintained('mine')], 'nobody')).toEqual([])
+  })
+
+  it('does not change the list it is given', () => {
+    const list = [maintained('b', { title: 'B' }), maintained('a', { title: 'A' })]
+    projectsMaintainedBy(list, member)
     expect(list.map((p) => p.slug)).toEqual(['b', 'a'])
   })
 })

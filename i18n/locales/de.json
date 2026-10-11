@@ -166,7 +166,9 @@
     },
     "profile": {
       "posts": "Beiträge",
-      "events": "Events"
+      "events": "Events",
+      "projects": "Projekte",
+      "projects_intro": "Open-Source-Projekte, die {name} als Maintainer betreut."
     }
   },
   "sponsor": {

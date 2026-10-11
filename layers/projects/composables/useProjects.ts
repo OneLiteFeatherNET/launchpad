@@ -2,7 +2,7 @@ import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale, Person } from '#layers/content-core'
 import type { ProjectDocument, ProjectSummary } from '../types'
-import { sortProjects } from '../utils/projectLists'
+import { projectsMaintainedBy, sortProjects } from '../utils/projectLists'
 
 const useActiveLocale = () => {
   const { locale } = useI18n()
@@ -39,6 +39,20 @@ export async function useProjectsBySlugs(slugs: MaybeRefOrGetter<string[]>) {
         .filter((project): project is ProjectSummary => project !== undefined)
     },
     { watch: [activeLocale, () => toValue(slugs).join(',')], default: () => [] }
+  )
+
+  return { projects: data }
+}
+
+/** The projects the person `slug` maintains, for the active locale. */
+export async function useProjectsByMaintainer(slug: MaybeRefOrGetter<string>) {
+  const activeLocale = useActiveLocale()
+  const repo = useContentRepository()
+
+  const { data } = await useAsyncData<ProjectSummary[]>(
+    () => `projects-by-maintainer-${activeLocale.value}-${toValue(slug)}`,
+    async () => projectsMaintainedBy(await repo.listProjects(activeLocale.value), toValue(slug)),
+    { watch: [activeLocale, () => toValue(slug)], default: () => [] }
   )
 
   return { projects: data }

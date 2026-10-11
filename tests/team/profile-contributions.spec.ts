@@ -9,7 +9,14 @@ import { collectSourceFiles, repoRoot } from '../helpers/sources'
 
 const page = () => readFileSync(`${repoRoot}/pages/team/[slug].vue`, 'utf8')
 
-const OTHER_DOMAINS = /AuthorPostList|HostedEventList|useBlogPostsByAuthor|useEventsByHost/
+const OTHER_DOMAINS = new RegExp([
+  'AuthorPostList',
+  'HostedEventList',
+  'ProjectGrid',
+  'useBlogPostsByAuthor',
+  'useEventsByHost',
+  'useProjectsByMaintainer',
+].join('|'))
 
 describe('team profile contributions', () => {
   it('composes the post list in the page, only when there are posts', () => {
@@ -25,7 +32,18 @@ describe('team profile contributions', () => {
     expect(page()).toContain("t('team.profile.events')")
   })
 
-  it('keeps blog and events out of the team layer', () => {
+  it('composes the maintained projects in the page, only when there are some', () => {
+    expect(page()).toMatch(/<section v-if="maintainedProjects\.length"/)
+    expect(page()).toContain('<ProjectGrid :projects="maintainedProjects"')
+    expect(page()).toContain('useProjectsByMaintainer(memberSlug)')
+  })
+
+  it('titles the projects section from the team profile messages', () => {
+    expect(page()).toContain("t('team.profile.projects')")
+    expect(page()).toContain("t('team.profile.projects_intro'")
+  })
+
+  it('keeps blog, events and projects out of the team layer', () => {
     const files = collectSourceFiles(['layers/team'], ['.ts', '.vue'])
     const offenders = files.filter((file) => OTHER_DOMAINS.test(readFileSync(file, 'utf8')))
     expect(files.length).toBeGreaterThan(3)

@@ -41,6 +41,10 @@ useSchemaOrg(computed(() => {
       summary: project.value.summary,
       url: new URL(`/${locale.value}/projects/${project.value.slug}`, site.url).toString(),
       publisherId: organizationId(site.url),
+      // Team members only: their Person node is the one the team profile publishes.
+      maintainerIds: maintainers.value
+        .filter((person) => person.kind === 'team')
+        .map((person) => personId(site.url, person.slug)),
       license: project.value.license,
       releasedAt: project.value.releasedAt as string | Date | undefined,
       platforms: project.value.platforms,

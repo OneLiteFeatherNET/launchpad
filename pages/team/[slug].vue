@@ -24,6 +24,7 @@ const { member, avatarSrc } = await useTeamProfile()
 const memberSlug = computed(() => member.value?.slug ?? '')
 const { articles: posts } = await useBlogPostsByAuthor(memberSlug)
 const { events } = useEventsByHost(memberSlug)
+const { projects: maintainedProjects } = await useProjectsByMaintainer(memberSlug)
 
 const memberRoles = computed(() => toRoleList(member.value?.role))
 const memberRoleText = computed(() => toRoleString(member.value?.role))
@@ -223,6 +224,13 @@ const profileClass
         :title="t('team.profile.events')"
         :events="events"
       />
+      <section v-if="maintainedProjects.length" class="mt-8 space-y-3">
+        <h2 class="text-title-large font-bold text-on-surface">{{ t('team.profile.projects') }}</h2>
+        <p class="text-body-medium text-on-surface-variant">
+          {{ t('team.profile.projects_intro', { name: member.name }) }}
+        </p>
+        <ProjectGrid :projects="maintainedProjects" />
+      </section>
     </div>
 
     <div v-else class="mt-10 text-center text-body-large text-on-surface-variant">

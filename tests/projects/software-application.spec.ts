@@ -73,4 +73,14 @@ describe('softwareApplicationNode', () => {
   it('does not invent a programmingLanguage', () => {
     expect(softwareApplicationNode(full)).not.toHaveProperty('programmingLanguage')
   })
+
+  it('refers to the maintainers by their Person @id', () => {
+    const node = softwareApplicationNode({ ...full, maintainerIds: ['https://onelitefeather.net/#/person/themeinerlp'] })
+    expect(node.maintainer).toEqual([{ '@id': 'https://onelitefeather.net/#/person/themeinerlp' }])
+  })
+
+  it('omits maintainer when no maintainer id is given', () => {
+    expect(softwareApplicationNode({ ...full, maintainerIds: [] }).maintainer).toBeUndefined()
+    expect(softwareApplicationNode(full).maintainer).toBeUndefined()
+  })
 })

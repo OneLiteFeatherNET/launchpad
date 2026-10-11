@@ -166,7 +166,9 @@
     },
     "profile": {
       "posts": "Posts",
-      "events": "Events"
+      "events": "Events",
+      "projects": "Projects",
+      "projects_intro": "Open-source projects {name} maintains."
     }
   },
   "sponsor": {

@@ -291,6 +291,7 @@ describe('project queries', () => {
       'license',
       'logo',
       'logoAlt',
+      'maintainers',
       'platforms',
       'publishedAt',
       'releasedAt',

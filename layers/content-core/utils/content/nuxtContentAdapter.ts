@@ -76,7 +76,8 @@ const PROJECT_CARD_FIELDS = [
   'releasedAt',
   'publishedAt',
   'platforms',
-  'license'
+  'license',
+  'maintainers'
 ] as const
 
 const toCommunityPoiSummary = (row: Record<string, unknown>): CommunityPoiSummary => {

@@ -7,6 +7,8 @@ export interface SoftwareApplicationInput {
   url: string
   /** @id of the publishing organization. */
   publisherId: string
+  /** @id of each maintainer's Person entity, as the team profile publishes it. */
+  maintainerIds?: string[]
   license?: string
   releasedAt?: string | Date
   /** Server platforms the project runs on, e.g. Paper, Folia, Minestom. */
@@ -47,6 +49,9 @@ export function softwareApplicationNode(input: SoftwareApplicationInput): Softwa
     downloadUrl: links?.downloads?.[0]?.url,
     codeRepository: links?.source,
     runtimePlatform: platforms?.length ? platforms : undefined,
-    publisher: { '@id': input.publisherId }
+    publisher: { '@id': input.publisherId },
+    maintainer: input.maintainerIds?.length
+      ? input.maintainerIds.map((id) => ({ '@id': id }))
+      : undefined
   }
 }
