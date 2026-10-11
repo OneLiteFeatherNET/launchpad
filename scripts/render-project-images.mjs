@@ -131,6 +131,87 @@ export const PROJECTS = [
       file: 'src/main/java/net/onelitefeather/bettergopaint/objects/brush/DiscBrush.java',
       lines: [38, 44]
     }
+  },
+  {
+    slug: 'aves',
+    language: 'java',
+    source: {
+      repo: 'Aves',
+      file: 'src/main/java/net/theevilreaper/aves/inventory/GlobalInventoryBuilder.java',
+      lines: [52, 59]
+    }
+  },
+  {
+    slug: 'apus',
+    language: 'yaml',
+    source: {
+      repo: 'Apus',
+      file: 'deploy/crds/bluemapmaps.bluemap.onelitefeather.net-v1.yaml',
+      lines: [8, 15]
+    }
+  },
+  {
+    slug: 'xerus',
+    language: 'java',
+    source: {
+      repo: 'Xerus',
+      file: 'src/main/java/net/theevilreaper/xerus/api/kit/Kit.java',
+      lines: [14, 21]
+    }
+  },
+  {
+    slug: 'cyano',
+    language: 'java',
+    source: {
+      repo: 'Cyano',
+      file: 'src/test/java/net/minestom/testing/TestPlayerIntegrationTest.java',
+      lines: [13, 20]
+    }
+  },
+  {
+    slug: 'guira',
+    language: 'java',
+    source: {
+      repo: 'Guira',
+      file: 'src/main/java/net/onelitefeather/guira/SetupDataService.java',
+      lines: [35, 41]
+    }
+  },
+  {
+    slug: 'workflows',
+    language: 'yaml',
+    source: {
+      repo: 'workflows',
+      file: '.github/workflows/gradle-build-pr.yml',
+      lines: [54, 60]
+    }
+  },
+  {
+    slug: 'renovate-presets',
+    language: 'json',
+    source: {
+      repo: 'renovate',
+      file: 'default.json',
+      lines: [4, 11]
+    }
+  },
+  {
+    slug: 'feedback-fusion',
+    language: 'protobuf',
+    source: {
+      repo: 'feedback-fusion',
+      file: 'proto/feedback-fusion-v1/service.proto',
+      lines: [15, 20]
+    }
+  },
+  {
+    slug: 'ingot',
+    language: 'bash',
+    source: {
+      repo: 'ingot',
+      file: '.github/README.md',
+      lines: [112, 116]
+    }
   }
 ]
 
@@ -144,7 +225,7 @@ export function selectProjects(slugs) {
   return PROJECTS.filter(project => slugs.includes(project.slug))
 }
 
-const LANGUAGE_LABEL = { yaml: 'YAML', java: 'Java' }
+const LANGUAGE_LABEL = { yaml: 'YAML', java: 'Java', json: 'JSON', protobuf: 'Protobuf', bash: 'Bash' }
 
 /** The lines of a snippet, dedented; ranges outside the 6 to 12 lines a card fits are refused. */
 export function snippetOf(text, [start, end]) {
@@ -208,6 +289,36 @@ const YAML_VALUE_RULES = [
 
 const YAML_KEY = /^(\s*(?:-\s+)?)([^\s#'"][^:#]*?)(:)(?=\s|$)/
 
+const JSON_VALUE_RULES = [
+  ['string', /"(?:[^"\\]|\\.)*"?/y],
+  ['number', /-?\d+(?:\.\d+)?\b/y],
+  ['word', /[A-Za-z_][\w-]*/y]
+]
+
+const JSON_KEY = /^(\s*)("(?:[^"\\]|\\.)*")(\s*:)/
+
+const PROTO_KEYWORDS = new Set(`
+  bool bytes double float int32 int64 uint32 uint64 string syntax package import service
+  rpc returns message enum option repeated optional oneof map reserved stream
+`.split(/\s+/).filter(Boolean))
+
+const PROTO_RULES = [
+  ['comment', /\/\/.*|\/\*.*?\*\//y],
+  ['string', /"(?:[^"\\]|\\.)*"?/y],
+  ['number', /\d+/y],
+  ['word', /[A-Za-z_]\w*/y]
+]
+
+const BASH_KEYWORDS = new Set(`
+  case cd do done echo elif else esac export fi for function if in local return then while
+`.split(/\s+/).filter(Boolean))
+
+const BASH_RULES = [
+  ['comment', /(?<=^|\s)#.*/y],
+  ['string', /"(?:[^"\\]|\\.)*"?|'[^']*'?/y],
+  ['word', /[A-Za-z_][\w-]*/y]
+]
+
 function push(tokens, kind, text) {
   if (!text) return
   const last = tokens[tokens.length - 1]
@@ -247,27 +358,43 @@ const javaWord = (kind, word) => {
   return /^[A-Z][a-z]/.test(word) ? 'type' : 'plain'
 }
 
-const yamlWord = (kind, word) => {
+const literalWord = (kind, word) => {
   if (kind !== 'word') return kind
   return /^(true|false|null)$/.test(word) ? 'keyword' : 'plain'
+}
+
+const protoWord = (kind, word) => {
+  if (kind !== 'word') return kind
+  if (PROTO_KEYWORDS.has(word)) return 'keyword'
+  return /^[A-Z][a-z]/.test(word) ? 'type' : 'plain'
+}
+
+const bashWord = (kind, word) => {
+  if (kind !== 'word') return kind
+  return BASH_KEYWORDS.has(word) ? 'keyword' : 'plain'
+}
+
+/** A `key:` at the start of a line is coloured as a key, the rest of the line is scanned. */
+function keyed(line, keyPattern, rules, classify) {
+  const key = keyPattern.exec(line)
+  if (!key) return scan(line, rules, 0, classify)
+  const tokens = []
+  push(tokens, 'plain', key[1])
+  push(tokens, 'key', key[2])
+  push(tokens, 'plain', key[3])
+  for (const token of scan(line, rules, key[0].length, classify)) {
+    push(tokens, token.kind, token.text)
+  }
+  return tokens
 }
 
 /** Tokens of each snippet line as `{ kind, text }`, with kind a key of SYNTAX. */
 export function highlight(lines, language) {
   if (language === 'java') return lines.map(line => scan(line, JAVA_RULES, 0, javaWord))
-  if (language === 'yaml') {
-    return lines.map((line) => {
-      const key = YAML_KEY.exec(line)
-      if (!key) return scan(line, YAML_VALUE_RULES, 0, yamlWord)
-      const tokens = []
-      push(tokens, 'plain', key[1])
-      push(tokens, 'key', key[2])
-      push(tokens, 'plain', key[3])
-      const value = scan(line, YAML_VALUE_RULES, key[0].length, yamlWord)
-      for (const token of value) push(tokens, token.kind, token.text)
-      return tokens
-    })
-  }
+  if (language === 'yaml') return lines.map(line => keyed(line, YAML_KEY, YAML_VALUE_RULES, literalWord))
+  if (language === 'json') return lines.map(line => keyed(line, JSON_KEY, JSON_VALUE_RULES, literalWord))
+  if (language === 'protobuf') return lines.map(line => scan(line, PROTO_RULES, 0, protoWord))
+  if (language === 'bash') return lines.map(line => scan(line, BASH_RULES, 0, bashWord))
   throw new Error(`no highlighter for ${language}`)
 }
 
@@ -402,7 +529,12 @@ export function socialTree({ name, snippet, language, fileName, platforms, licen
   ]
   const brand = h('div', { display: 'flex', flexDirection: 'column', gap: 12 }, [
     h('div', { display: 'flex', fontSize: 24, fontWeight: 700, color: COLORS.primary }, 'OneLiteFeather.net'),
-    h('div', { display: 'flex', fontSize: 60, fontWeight: 700, color: COLORS.onSurface }, name),
+    h('div', {
+      display: 'flex',
+      fontSize: name.length > 30 ? 40 : 60,
+      fontWeight: 700,
+      color: COLORS.onSurface
+    }, name),
     h('div', { display: 'flex', gap: 12 }, chips)
   ])
   const logo = { type: 'img', props: { src: logoSrc, width: 112, height: 112, style: { width: '112px', height: '112px' } } }

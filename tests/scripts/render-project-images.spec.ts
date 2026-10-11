@@ -96,6 +96,39 @@ describe('highlight', () => {
     const [tokens] = highlight(["  color: '#ff00ff'"], 'yaml')
     expect(tokens.some((token: { kind: string }) => token.kind === 'comment')).toBe(false)
   })
+
+  it('colours a JSON key and its string value', () => {
+    const [tokens] = highlight(['  "$schema": "https://example.org"'], 'json')
+    expect(tokens).toEqual([
+      { kind: 'plain', text: '  ' },
+      { kind: 'key', text: '"$schema"' },
+      { kind: 'plain', text: ': ' },
+      { kind: 'string', text: '"https://example.org"' }
+    ])
+  })
+
+  it('does not colour a JSON string list item as a key', () => {
+    const [tokens] = highlight(['    ":semanticCommits",'], 'json')
+    expect(tokens.some((token: { kind: string }) => token.kind === 'key')).toBe(false)
+  })
+
+  it('colours Protobuf keywords and message types and leaves field names plain', () => {
+    const [tokens] = highlight(['  rpc GetTarget(GetTargetRequest) returns (ProtoTarget);'], 'protobuf')
+    expect(tokens.filter((token: { kind: string }) => token.kind !== 'plain')).toEqual([
+      { kind: 'keyword', text: 'rpc' },
+      { kind: 'type', text: 'GetTarget' },
+      { kind: 'type', text: 'GetTargetRequest' },
+      { kind: 'keyword', text: 'returns' },
+      { kind: 'type', text: 'ProtoTarget' }
+    ])
+  })
+
+  it('colours a Bash keyword and a trailing comment', () => {
+    const [tokens] = highlight(['cd ingot # open the checkout'], 'bash')
+    expect(tokens[0]).toEqual({ kind: 'keyword', text: 'cd' })
+    expect(tokens.at(-1)).toEqual({ kind: 'comment', text: '# open the checkout' })
+    expect(tokens).toContainEqual({ kind: 'plain', text: ' ingot ' })
+  })
 })
 
 // A code row is 33px (22px font at 1.5 line height); the window's border and header take 54px.
