@@ -13,18 +13,26 @@ const item = (extra: Record<string, unknown> = {}) => ({
 const slide = (extra?: Record<string, unknown>) => mountSuspended(CarouselItemProject, { props: { item: item(extra) }, route: '/en' })
 
 describe('CarouselItemProject', () => {
-  it('contains a logo instead of cropping it to the wide slide', async () => {
-    const wrapper = await slide({ image: '/images/projects/arcr.webp', alt: 'ARCR logo' })
+  it('contains a square logo instead of cropping it to the wide slide', async () => {
+    const wrapper = await slide({ image: '/images/projects/arcr.webp', alt: 'ARCR logo', logoOnly: true })
     const img = wrapper.find('img')
     expect(img.attributes('alt')).toBe('ARCR logo')
     expect(img.classes(), 'logo must not be stretched').toContain('object-contain')
     expect(img.classes()).not.toContain('object-cover')
   })
 
-  it('sits the logo on a tinted surface', async () => {
-    const wrapper = await slide({ image: '/images/projects/arcr.webp' })
+  it('sits a logo on a tinted surface', async () => {
+    const wrapper = await slide({ image: '/images/projects/arcr.webp', logoOnly: true })
     expect(wrapper.find('[data-testid="project-slide-surface"]').classes().join(' '))
       .toContain('from-surface-container-high')
+  })
+
+  it('fills the slide with a social card, cropped to cover', async () => {
+    const wrapper = await slide({ image: '/images/projects/arcr/social.png', alt: 'Project ARCR' })
+    const img = wrapper.find('img')
+    expect(img.classes(), 'social card must fill the slide').toContain('object-cover')
+    expect(img.classes()).not.toContain('object-contain')
+    expect(wrapper.find('[data-testid="project-slide-surface"]').exists()).toBe(false)
   })
 
   it('keeps the surface without an image', async () => {

@@ -72,6 +72,8 @@ export interface ProjectSlide {
   summary?: string
   image?: string
   alt?: string
+  /** `image` is the square logo, not a social card: shown contained, never cropped. */
+  logoOnly?: boolean
   status?: 'active' | 'maintenance' | 'archived'
   platforms?: string[]
   isNew?: boolean

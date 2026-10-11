@@ -96,6 +96,7 @@ describe('freshSlides', () => {
       summary: 'Summary arcr',
       image: '/images/arcr.webp',
       alt: 'ARCR logo',
+      logoOnly: true,
       status: 'active',
       platforms: ['Paper'],
       isNew: true
@@ -111,7 +112,7 @@ describe('freshSlides', () => {
         socialImage: '/images/arcr/social.png'
       })]
     }))
-    expect(slide).toMatchObject({ image: '/images/arcr/social.png', alt: 'Project arcr' })
+    expect(slide).toMatchObject({ image: '/images/arcr/social.png', alt: 'Project arcr', logoOnly: false })
   })
 
   it('takes a blog slide from the article and names the author, not the slug', () => {
