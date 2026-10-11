@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.24.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.23.0...onelitefeather.net-v1.24.0) (2026-10-11)
+
+
+### Features
+
+* **projects:** add apus ([#504](https://github.com/OneLiteFeatherNET/launchpad/issues/504)) ([baed8ba](https://github.com/OneLiteFeatherNET/launchpad/commit/baed8ba2384b96128497ab0b28995df71aecb776))
+* **projects:** add aves ([#499](https://github.com/OneLiteFeatherNET/launchpad/issues/499)) ([ff37c4e](https://github.com/OneLiteFeatherNET/launchpad/commit/ff37c4e31b8fc18306d495dfa667e562f4e3ce35))
+* **projects:** add cyano ([#506](https://github.com/OneLiteFeatherNET/launchpad/issues/506)) ([7d96490](https://github.com/OneLiteFeatherNET/launchpad/commit/7d9649080629f1a711f13af8ab350030b255d0c4))
+* **projects:** add feedback-fusion ([#508](https://github.com/OneLiteFeatherNET/launchpad/issues/508)) ([7e188af](https://github.com/OneLiteFeatherNET/launchpad/commit/7e188afac496e24297aa8c110eb911c9511c95b7))
+* **projects:** add guira ([#505](https://github.com/OneLiteFeatherNET/launchpad/issues/505)) ([cd718b0](https://github.com/OneLiteFeatherNET/launchpad/commit/cd718b07bfe3ca6ef1a47df37241dd6dd1e33344))
+* **projects:** add ingot ([#511](https://github.com/OneLiteFeatherNET/launchpad/issues/511)) ([5c0bc42](https://github.com/OneLiteFeatherNET/launchpad/commit/5c0bc426393bff8a19f4aa2d6a2899bc97100bc7))
+* **projects:** add renovate presets ([#509](https://github.com/OneLiteFeatherNET/launchpad/issues/509)) ([5f86393](https://github.com/OneLiteFeatherNET/launchpad/commit/5f863933dd2f446691581db850a0724add4af7d4))
+* **projects:** add workflows ([#507](https://github.com/OneLiteFeatherNET/launchpad/issues/507)) ([18760c7](https://github.com/OneLiteFeatherNET/launchpad/commit/18760c787e722acb8913dac03eb2d286b9bb9393))
+* **projects:** add xerus ([#510](https://github.com/OneLiteFeatherNET/launchpad/issues/510)) ([8d19ea8](https://github.com/OneLiteFeatherNET/launchpad/commit/8d19ea83636fd7faa8f3dce8370c634b2a480522))
+* **projects:** render code cards for nine more projects ([#512](https://github.com/OneLiteFeatherNET/launchpad/issues/512)) ([2a6cb4d](https://github.com/OneLiteFeatherNET/launchpad/commit/2a6cb4d1ddabf8f5ffb63b5ebaaeebfd1682cc52))
+
 ## [1.23.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.22.1...onelitefeather.net-v1.23.0) (2026-10-11)
 
 
