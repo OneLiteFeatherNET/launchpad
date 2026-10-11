@@ -21,8 +21,8 @@ const { pois } = await useCommunityPoisByProject(computed(() => project.value?.s
 usePageSeo({
   title: title.value,
   description: description.value,
-  image: project.value?.logo || sectionOgImage('projects', locale.value),
-  imageAlt: project.value?.logoAlt,
+  image: project.value?.socialImage || project.value?.logo || sectionOgImage('projects', locale.value),
+  imageAlt: project.value?.socialImage ? title.value : project.value?.logoAlt,
   ogType: 'article',
   schemaType: 'ItemPage'
 })

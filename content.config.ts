@@ -333,8 +333,11 @@ const projectsSchema = withI18nMeta(z.object({
       'maintenance',
       'archived'
     ]),
+    // Square icon for the card and the detail header.
     logo: z.string().optional(),
     logoAlt: z.string().optional(),
+    // 1200×630 card for the carousel and og:image; a square logo would be cropped there.
+    socialImage: z.string().optional(),
     // Date of the first stable release, not of the latest version.
     releasedAt: z.coerce.date().optional(),
     // Day the entry appeared on this site; drives "new" on the home carousel.

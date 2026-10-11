@@ -71,6 +71,7 @@ const PROJECT_CARD_FIELDS = [
   'status',
   'logo',
   'logoAlt',
+  'socialImage',
   'releasedAt',
   'publishedAt',
   'platforms',
