@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.22.0...onelitefeather.net-v1.22.1) (2026-10-11)
+
+
+### Bug Fixes
+
+* **footer:** align the cookie settings button with the legal links ([#493](https://github.com/OneLiteFeatherNET/launchpad/issues/493)) ([1aef712](https://github.com/OneLiteFeatherNET/launchpad/commit/1aef712c33864d26bd9a292aaa03bd3dcf90ed1d))
+
 ## [1.22.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.21.0...onelitefeather.net-v1.22.0) (2026-10-11)
 
 
