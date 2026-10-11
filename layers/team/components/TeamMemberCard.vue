@@ -34,6 +34,11 @@ const avatarSrc = computed(() => teamAvatarUrl({
   avatarUrl: props.avatarUrl
 }, 128))
 
+const avatarFailed = ref(false)
+const fallbackClass
+  = 'flex h-16 w-16 shrink-0 items-center justify-center rounded-medium bg-primary-container '
+    + 'text-title-large font-bold text-on-primary-container'
+
 const roleChips = computed(() => toRoleList(props.role))
 const roleAriaText = computed(() => toRoleString(props.role))
 const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: roleAriaText.value }))
@@ -48,6 +53,7 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: r
     <M3Card variant="outlined" :interactive="Boolean(profileHref)" class="h-full">
       <div class="flex items-center gap-4">
         <NuxtImg
+          v-if="!avatarFailed"
           :src="avatarSrc"
           :alt="t('team.avatar_alt', { name })"
           width="64"
@@ -59,7 +65,11 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: r
           class="h-16 w-16 rounded-medium bg-surface-container-highest object-cover"
           loading="lazy"
           decoding="async"
+          @error="avatarFailed = true"
         />
+        <span v-else :class="fallbackClass" aria-hidden="true">
+          {{ name.charAt(0).toUpperCase() }}
+        </span>
         <div class="min-w-0">
           <h3 class="truncate text-title-large text-on-surface">
             <M3CardLink v-if="profileHref" :to="profileHref" :aria-label="ariaLabel">

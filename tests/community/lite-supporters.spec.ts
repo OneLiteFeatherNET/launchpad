@@ -1,9 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
-import { loadLiteSupporters } from '../../shared/utils/liteSupporters'
+import { loadLiteSupporters, smallAvatarUrl } from '../../shared/utils/liteSupporters'
 
 type Init = { signal?: AbortSignal, headers?: unknown, cf?: Record<string, unknown> }
 
 const S3 = 'https://opencollective-production.s3.us-west-1.amazonaws.com/account-avatar/x/a.png'
+const SMALL_MARC = 'https://images.opencollective.com/marc44/avatar/96.png'
 
 const member = (over: Record<string, unknown> = {}) => ({
   name: 'Marc',
@@ -27,6 +28,20 @@ const respond = (body: unknown, init: ResponseInit = { status: 200 }) => {
 }
 
 const load = (members: unknown[], slug = 'onelitefeather') => loadLiteSupporters(respond(members), { slug })
+
+describe('smallAvatarUrl', () => {
+  it('points at the 96px avatar of the account behind the profile', () => {
+    expect(smallAvatarUrl('https://opencollective.com/themeinerlp')).toBe('https://images.opencollective.com/themeinerlp/avatar/96.png')
+  })
+
+  it('ignores a trailing slash on the profile', () => {
+    expect(smallAvatarUrl('https://opencollective.com/weltspielt/')).toBe('https://images.opencollective.com/weltspielt/avatar/96.png')
+  })
+
+  it('has no account to point at for a bare host', () => {
+    expect(smallAvatarUrl('https://opencollective.com/')).toBeNull()
+  })
+})
 
 describe('loadLiteSupporters', () => {
   it('asks the public members endpoint without a token', async () => {
@@ -109,7 +124,7 @@ describe('loadLiteSupporters', () => {
 
   it('exposes name, image and profile and nothing else', async () => {
     const result = await load([member({ image: S3 })])
-    expect(result).toEqual([{ name: 'Marc', image: S3, profile: 'https://opencollective.com/marc44' }])
+    expect(result).toEqual([{ name: 'Marc', image: SMALL_MARC, profile: 'https://opencollective.com/marc44' }])
     const json = JSON.stringify(result)
     for (const secret of ['4200',
 'marc@example.org',
@@ -128,11 +143,18 @@ describe('loadLiteSupporters', () => {
       member({ name: 'D', profile: 'https://opencollective.com/d', image: null }),
       member({ name: 'E', profile: 'https://opencollective.com/e', image: 'not a url' })
     ])
-    expect(result.map((s) => s.image)).toEqual([S3,
-null,
-null,
-null,
-null])
+    expect(result.map((s) => s.image)).toEqual([
+      'https://images.opencollective.com/a/avatar/96.png',
+      null,
+      null,
+      null,
+      null
+    ])
+  })
+
+  it('replaces the full-size S3 avatar with Open Collective\'s 96px rendition of the same account', async () => {
+    const [supporter] = await load([member({ name: 'Ada', profile: 'https://opencollective.com/ada-lovelace', image: S3 })])
+    expect(supporter!.image).toBe('https://images.opencollective.com/ada-lovelace/avatar/96.png')
   })
 
   it('throws on an error status, so no cache layer stores it', async () => {

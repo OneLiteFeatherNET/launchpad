@@ -41,6 +41,12 @@ const avatarOf = (value: unknown): string | null => {
   return url && url.protocol === 'https:' && AVATAR_HOSTS.has(url.hostname) ? url.href : null
 }
 
+/** Open Collective's resizer: the S3 original runs to 860 KB; 96px covers the 48px box at 2x. */
+export function smallAvatarUrl(profile: string): string | null {
+  const slug = new URL(profile).pathname.split('/').find(Boolean)
+  return slug ? `https://images.opencollective.com/${slug}/avatar/96.png` : null
+}
+
 /**
  * Active backers of the collective from its public member list, cut down to
  * name, avatar and profile: amounts, e-mail addresses and every other field
@@ -78,7 +84,8 @@ export async function loadLiteSupporters(
     const lowered = name.toLowerCase()
     if (lowered === collective || profile === collectiveProfile || ANONYMOUS.has(lowered)) continue
     seen.add(profile)
-    supporters.push({ name, image: avatarOf(entry.image), profile })
+    const image = avatarOf(entry.image) ? smallAvatarUrl(profile) : null
+    supporters.push({ name, image, profile })
   }
 
   return supporters.sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }))
