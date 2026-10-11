@@ -85,7 +85,22 @@
   },
   "bluemap": {
     "title": "BlueMap",
-    "description": "Interactive BlueMap map of the OneLiteFeather Minecraft server."
+    "description": "Interactive BlueMap map of the OneLiteFeather Minecraft server.",
+    "facade": {
+      "aria": "BlueMap with coordinates",
+      "heading": "Find it on BlueMap",
+      "open": "Open on BlueMap",
+      "link_aria": "Open {title} on BlueMap (new tab)",
+      "iframe_title": "BlueMap preview for {title}",
+      "load": "Load map",
+      "load_hint": "The interactive map only loads when you start it.",
+      "embed_note": "Preview from {host}. Open the external site for full functionality."
+    },
+    "dimension": {
+      "overworld": "Overworld",
+      "nether": "Nether",
+      "end": "End"
+    }
   },
   "blog": {
     "overview": {
@@ -298,16 +313,6 @@
         "facing": "Facing",
         "rotation": "Rotation"
       }
-    },
-    "bluemap": {
-      "title": "Find it on BlueMap",
-      "aria": "BlueMap link with coordinates",
-      "open": "Open on BlueMap",
-      "link_aria": "Open {title} on BlueMap (new tab)",
-      "iframe_title": "BlueMap preview for {title}",
-      "load": "Load map",
-      "load_hint": "The interactive map only loads when you start it.",
-      "embed_note": "Preview from {host}. Open the external site for full functionality."
     },
     "facing": {
       "north": "North",
