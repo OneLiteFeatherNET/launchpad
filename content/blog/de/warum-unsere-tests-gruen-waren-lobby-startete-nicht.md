@@ -77,11 +77,11 @@ Die CloudNet-Bridge wird als Minestom-Extension geladen und war vom selben Versi
 
 Die Änderung haben wir upstream als [CloudNet PR #1906](https://github.com/CloudNetService/CloudNet/pull/1906) eingereicht: "update minestom to v2026.10.07-26.2", mit dem Fehler `NoSuchMethodError: ConnectionManager#getOnlinePlayers()` als Begründung. Der PR wurde am 11. Oktober 2026 gemergt. Auch unser Fork der CloudNet-Bridge enthält diesen Versionssprung.
 
-## Der Boot-Test als Konsequenz
+## Der Boot-Test
 
-Der Fehler wurde beim echten Start sichtbar, nicht durch einen Test. Danach kam der Boot-Test: [PR #398](https://github.com/OneLiteFeatherNET/Titan/pull/398) mit dem Titel "boot the shipped jar and parse a real application.yaml" wurde 17 Minuten nach dem LuckPerms-Fix gemergt, um 17:59 UTC. Er startet das ausgelieferte Jar in einem eigenen Prozess und liest die echte `application.yaml` mit dem Produktionsparser. Das ist ein Smoke-Test im engeren Sinn: Er baut nichts neu, sondern prüft das Ergebnis, das ohnehin auf den Server kommt. Zum Zeitpunkt des Vorfalls gab es ihn auf dem Hauptzweig noch nicht, und die PR-Beschreibung des Fixes hält das ausdrücklich fest.
+Der Fehler wurde beim echten Start sichtbar, nicht durch einen Test. Der Boot-Test war bereits in geplanter Arbeit und ist nicht wegen des Vorfalls entstanden: [PR #398](https://github.com/OneLiteFeatherNET/Titan/pull/398) mit dem Titel "boot the shipped jar and parse a real application.yaml" wurde 17 Minuten nach dem LuckPerms-Fix gemergt, um 17:59 UTC. Er startet das ausgelieferte Jar in einem eigenen Prozess und liest die echte `application.yaml` mit dem Produktionsparser. Das ist ein Smoke-Test im engeren Sinn: Er baut nichts neu, sondern prüft das Ergebnis, das ohnehin auf den Server kommt. Zum Zeitpunkt des Vorfalls gab es ihn auf dem Hauptzweig noch nicht, und die PR-Beschreibung des Fixes hält das ausdrücklich fest.
 
-Der Boot-Test prüft genau das, was unsere Unit-Tests nicht prüfen konnten: ob das Artefakt, das wir ausliefern, überhaupt startet. Ein Start des ausgelieferten Jars hätte den Fehler vor dem Release sichtbar gemacht.
+Der Boot-Test prüft genau das, was unsere Unit-Tests nicht prüfen konnten: ob das Artefakt, das wir ausliefern, überhaupt startet. Ein Start des ausgelieferten Jars hätte den Fehler vor dem Release sehr wahrscheinlich sichtbar gemacht.
 
 ## Der Zeitablauf
 
