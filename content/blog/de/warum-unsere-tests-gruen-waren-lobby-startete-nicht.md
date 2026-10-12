@@ -36,7 +36,7 @@ schemaOrg:
 
 ## Vorwort
 
-Am 10. Oktober 2026 haben wir Titan 2.6.0 und 3.0.0 veröffentlicht. An diesem Tag ist außerdem etwas passiert, das wir nicht kommen sahen: Nach einem Dependency-Update startete die Lobby nicht mehr, obwohl Build und Unit-Tests grün waren. Dieser Beitrag erzählt, was passiert ist, warum "grün" nicht "lauffähig" heißt und welche Konsequenzen wir gezogen haben. Er setzt den ersten Teil der Serie fort: [Titan 3.0: ein Lobby-Kern, mehrere Plattformen](/de/blog/titan-3-0-lobby-kern-mehrere-plattformen).
+Am 10. Oktober 2026 haben wir Titan 2.6.0 und 3.0.0 veröffentlicht. An diesem Tag ist außerdem etwas passiert, das wir nicht kommen sahen: Nach einem Dependency-Update startete die Lobby nicht mehr, obwohl Build und Unit-Tests grün waren. Dieser Beitrag erzählt, was passiert ist, warum "grün" nicht "lauffähig" heißt und welche Konsequenzen wir gezogen haben. Er setzt den ersten Teil der Serie fort: [Titan 3.0: ein Lobby-Kern, mehrere Plattformen](/de/blog/titan-3-0-lobby-kern-mehrere-plattformen). Den Überblick über Titan seit Version 1.0 gibt der [Rückblick](/de/blog/titan-von-1-0-bis-3-0).
 <!--more-->
 
 ## Was passiert ist

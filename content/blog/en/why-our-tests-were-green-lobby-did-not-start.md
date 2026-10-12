@@ -36,7 +36,7 @@ schemaOrg:
 
 ## Preface
 
-On 10 October 2026 we released Titan 2.6.0 and 3.0.0. The same day, something happened that we did not see coming: after a dependency update, the lobby no longer started, although the build and the unit tests were green. This post tells what happened, why "green" does not mean "runs", and which consequences we drew. It continues the first part of the series: [Titan 3.0: one lobby core, several platforms](/en/blog/titan-3-0-one-lobby-core-several-platforms).
+On 10 October 2026 we released Titan 2.6.0 and 3.0.0. The same day, something happened that we did not see coming: after a dependency update, the lobby no longer started, although the build and the unit tests were green. This post tells what happened, why "green" does not mean "runs", and which consequences we drew. It continues the first part of the series: [Titan 3.0: one lobby core, several platforms](/en/blog/titan-3-0-one-lobby-core-several-platforms). The overview of Titan since 1.0 is in [the retrospective](/en/blog/titan-from-1-0-to-3-0).
 <!--more-->
 
 ## What happened

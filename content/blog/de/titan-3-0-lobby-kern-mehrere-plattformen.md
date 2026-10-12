@@ -38,7 +38,7 @@ schemaOrg:
 
 Titan ist der Minestom-Server, auf dem unsere Lobby läuft. Dort kommen Spieler an, bevor sie zu einem Minispiel wechseln: Portale, Navigator, Spawn, Sitzen, Jump'n'Run und seit Kurzem eine Lobby-Auswahl. Der Code liegt im [Titan-Repository](https://github.com/OneLiteFeatherNET/Titan) und wird mit Gradle gebaut.
 
-Am 10. Oktober 2026 erschienen die Versionen 2.6.0 und 3.0.0, am selben Tag folgte 3.0.1. Die 3.0.0 ist ein Breaking Change, denn der Start der Lobby hat sich grundlegend geändert. Dieser Beitrag beschreibt den alten Stand, den Weg zum neuen, was schwer war und was wir mitnehmen. Teil zwei der Serie erzählt, was beim Start nach dem Update passiert ist.
+Am 10. Oktober 2026 erschienen die Versionen 2.6.0 und 3.0.0, am selben Tag folgte 3.0.1. Die 3.0.0 ist ein Breaking Change, denn der Start der Lobby hat sich grundlegend geändert. Dieser Beitrag beschreibt den alten Stand, den Weg zum neuen, was schwer war und was wir mitnehmen. Teil zwei der Serie erzählt, was beim Start nach dem Update passiert ist. Den Überblick über Titan seit Version 1.0 gibt der [Rückblick](/de/blog/titan-von-1-0-bis-3-0).
 <!--more-->
 
 ## Vorher: ein Start für beide Varianten
