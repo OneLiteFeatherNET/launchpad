@@ -80,7 +80,7 @@ Behind the scenes, 2.4 added **OpenTelemetry tracing and metrics**, so we can se
 
 ## Already next: Titan 3.1
 
-While this post was being written, [Titan 3.1.0](https://github.com/OneLiteFeatherNET/Titan/releases/tag/v3.1.0) was released. It reaches the lobby with the next rollout:
+While this post was being written, [Titan 3.1.0](https://github.com/OneLiteFeatherNET/Titan/releases/tag/v3.1.0) was released, and it is already running in the lobby:
 
 - In the navigator, left-click connects you and right-click teleports you in front of the matching portal.
 - The navigator shows the player count for every mode.

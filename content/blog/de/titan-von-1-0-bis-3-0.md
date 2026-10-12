@@ -80,7 +80,7 @@ Hinter den Kulissen ergänzte 2.4 **OpenTelemetry-Tracing und Metriken**, damit 
 
 ## Schon als Nächstes: Titan 3.1
 
-Während dieser Beitrag entstand, ist [Titan 3.1.0](https://github.com/OneLiteFeatherNET/Titan/releases/tag/v3.1.0) erschienen. Es kommt mit dem nächsten Rollout in die Lobby:
+Während dieser Beitrag entstand, ist [Titan 3.1.0](https://github.com/OneLiteFeatherNET/Titan/releases/tag/v3.1.0) erschienen und läuft bereits in der Lobby:
 
 - Im Navigator verbindest du dich mit einem Linksklick, ein Rechtsklick teleportiert dich vor das passende Portal.
 - Der Navigator zeigt die Spielerzahl für jeden Modus.
