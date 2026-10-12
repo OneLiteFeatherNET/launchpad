@@ -79,7 +79,7 @@ We submitted the change upstream as [CloudNet PR #1906](https://github.com/Cloud
 
 ## The boot test
 
-The failure became visible when the server was actually started, not through a test. The boot test was already in planned work and was not created because of the incident: [PR #398](https://github.com/OneLiteFeatherNET/Titan/pull/398), titled "boot the shipped jar and parse a real application.yaml", was merged 17 minutes after the LuckPerms fix, at 17:59 UTC. It starts the shipped jar in its own process and reads the real `application.yaml` with the production parser. This is a smoke test in the narrow sense: it builds nothing new and checks the result that would go to the server anyway. At the time of the incident it did not yet exist on the main branch, and the PR description of the fix says so explicitly.
+The failure became visible when the server was actually started, not through a test. The boot test was already planned and was not created because of the incident: [PR #398](https://github.com/OneLiteFeatherNET/Titan/pull/398), titled "boot the shipped jar and parse a real application.yaml", was merged 17 minutes after the LuckPerms fix, at 17:59 UTC. It starts the shipped jar in its own process and reads the real `application.yaml` with the production parser. This is a smoke test in the narrow sense: it builds nothing new and checks the result that would go to the server anyway. At the time of the incident it did not yet exist on the main branch, and the PR description of the fix says so explicitly.
 
 The boot test checks exactly what our unit tests could not: whether the artifact we ship starts at all. Starting the shipped jar would very likely have made this failure visible before the release.
 
