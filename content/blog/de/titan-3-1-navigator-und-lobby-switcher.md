@@ -60,4 +60,4 @@ Außerdem haben wir die Abhängigkeit aonyx-bom auf Version 0.8.9 aktualisiert.
 
 ## Probier es aus
 
-Geh in die Lobby, klick auf die Feder und probier den Rechtsklick auf ein Portal aus. Schreib uns auf [unserem Discord](https://1lf.link/discord), was gut funktioniert und was nicht. Wir freuen uns auf dein Feedback. Bis gleich in der Lobby!
+Geh in die Lobby, öffne die Feder und klick mit rechts auf einen Modus, um direkt vor sein Portal zu springen. Schreib uns auf [unserem Discord](https://1lf.link/discord), was gut funktioniert und was nicht. Wir freuen uns auf dein Feedback. Bis gleich in der Lobby!

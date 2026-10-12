@@ -60,4 +60,4 @@ We also updated the aonyx-bom dependency to 0.8.9.
 
 ## Try it out
 
-Log into the lobby, click the feather, and try a right-click ride to a portal. Tell us what works and what does not on [our Discord](https://1lf.link/discord). We are looking forward to your feedback, and see you in the lobby!
+Log into the lobby, click the feather, and right-click a mode to jump straight to its portal. Tell us what works and what does not on [our Discord](https://1lf.link/discord). We are looking forward to your feedback, and see you in the lobby!
