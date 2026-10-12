@@ -74,7 +74,7 @@ Hinter den Kulissen ergänzte 2.4 **OpenTelemetry-Tracing und Metriken**, damit 
 
 ## Version 3: ein Kern, mehrere Plattformen (10. Oktober 2026)
 
-**3.0.0 ist eine Breaking Change für alle, die Titan selbst betreiben.** Der Start läuft jetzt über einen kleinen Vertrag `ServerBootstrap`, den Java über den `ServiceLoader` auswählt. Minestom-Extensions, CloudNet und LuckPerms liegen jeweils in einem eigenen **Plattform-Modul**. 3.0.1 folgte am selben Abend und übersetzte den Lobby-Switcher ins Deutsche und Englische. Die Details folgen in zwei Deep-Dives: am 20. Oktober zur Plattform-Trennung in 3.0 und am 27. Oktober dazu, warum grüne Tests keine startende Lobby bedeuten.
+**3.0.0 ist ein Breaking Change für alle, die Titan selbst betreiben.** Der Start läuft jetzt über einen kleinen Vertrag `ServerBootstrap`, den Java über den `ServiceLoader` auswählt. Minestom-Extensions, CloudNet und LuckPerms liegen jeweils in einem eigenen **Plattform-Modul**. 3.0.1 folgte am selben Abend und übersetzte den Lobby-Switcher ins Deutsche und Englische. Die Details folgen in zwei Deep-Dives: am 20. Oktober zur Plattform-Trennung in 3.0 und am 27. Oktober dazu, warum grüne Tests keine startende Lobby bedeuten.
 
 ## Was als Nächstes kommt
 
