@@ -1,7 +1,7 @@
 ---
 title: 'Von 1.0 bis 3.0: fünfzehn Monate Titan, unser Lobby-Server'
 alternativeTitle: 'Rückblick auf 67 Releases, 696 Commits und einen Umbau'
-description: 'Ein Rückblick auf Titan, unseren quelloffenen Minestom-Lobbyserver: von Version 1.0 im Juli 2025 über die 2.x-Features bis zur Plattform-Trennung in 3.0 und dem, was als Nächstes kommt.'
+description: 'Ein Rückblick auf Titan, unseren quelloffenen Minestom-Lobbyserver: von Version 1.0 im Juli 2025 über die 2.x-Features bis zur Plattform-Trennung in 3.0 und dem Release von 3.1.'
 pubDate: '2026-10-13'
 releaseDate: '2026-10-13T10:00:00+02:00'
 headerImage: 'images/og/blog-de.png'
@@ -78,13 +78,13 @@ Hinter den Kulissen ergänzte 2.4 **OpenTelemetry-Tracing und Metriken**, damit 
 
 **3.0.0 ist ein Breaking Change für alle, die Titan selbst betreiben.** Der Start läuft jetzt über einen kleinen Vertrag `ServerBootstrap`, den Java über den `ServiceLoader` auswählt. Minestom-Extensions, CloudNet und LuckPerms liegen jeweils in einem eigenen **Plattform-Modul**. 3.0.1 folgte am selben Abend und übersetzte den Lobby-Switcher ins Deutsche und Englische. Die Details folgen in zwei Deep-Dives: am 20. Oktober zur Plattform-Trennung in 3.0 und am 27. Oktober dazu, warum grüne Tests keine startende Lobby bedeuten.
 
-## Was als Nächstes kommt
+## Schon als Nächstes: Titan 3.1
 
-Einige Verbesserungen sind bereits in Review:
+Während dieser Beitrag entstand, ist [Titan 3.1.0](https://github.com/OneLiteFeatherNET/Titan/releases/tag/v3.1.0) erschienen. Es kommt mit dem nächsten Rollout in die Lobby:
 
 - Im Navigator verbindest du dich mit einem Linksklick, ein Rechtsklick teleportiert dich vor das passende Portal.
-- Live-Spielerzahlen für jeden Modus im Navigator.
-- Ein Fix, der jeder Lobby ihr echtes Spielerlimit an CloudNet meldet.
+- Der Navigator zeigt die Spielerzahl für jeden Modus.
+- Jede Lobby meldet CloudNet jetzt ihr echtes Spielerlimit statt 1, sodass der Lobby-Switcher nicht mehr „Voll (2/1)“ anzeigt.
 
 ## Mitmachen
 
