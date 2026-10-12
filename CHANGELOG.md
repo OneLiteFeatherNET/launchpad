@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.28.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.27.0...onelitefeather.net-v1.28.0) (2026-10-12)
+
+
+### Features
+
+* **blog:** add titan 1.0 to 3.0 retrospective ([#525](https://github.com/OneLiteFeatherNET/launchpad/issues/525)) ([2067134](https://github.com/OneLiteFeatherNET/launchpad/commit/2067134e29320f4a8027b02af8eee49080bbacb3))
+
 ## [1.27.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.26.0...onelitefeather.net-v1.27.0) (2026-10-11)
 
 
