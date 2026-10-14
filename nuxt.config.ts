@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import {defineOrganization} from 'nuxt-schema-org/schema'
 import tailwindcss from "@tailwindcss/vite";
-import pkg from './package.json' assert {type: 'json'}
+import pkg from './package.json' with {type: 'json'}
 
 // Image provider, chosen at build time.
 //
