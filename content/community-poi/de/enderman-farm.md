@@ -62,3 +62,7 @@ Die Bilder stammen von Svenko1 und B3nNy.
 
 - Koordinaten: X 260 / Y 57 / Z -50 (End)
 - Die Farm ist fertig – bitte nichts an ihr umbauen
+
+## Auf Discord
+
+Fragen, Feedback oder eigene Screenshots zu diesem Projekt? Schreib uns auf unserem [Discord](https://1lf.link/discord).

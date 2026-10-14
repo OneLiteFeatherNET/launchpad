@@ -73,3 +73,7 @@ Die beiden Referenzbilder in der Galerie stammen **nicht** von unserem Server ‚Ä
 - Feedback zur Platzierung, bevor der erste Block gesetzt wird
 
 Melde dich daf√ºr bei blndr2 auf Discord.
+
+## Auf Discord
+
+Fortschritt, Fragen und Absprachen zu diesem Projekt laufen im [Forum-Thread](https://discord.com/channels/752527676903784518/1192098359452909678) auf unserem [Discord](https://1lf.link/discord).

@@ -62,3 +62,7 @@ The screenshots were taken by Svenko1 and B3nNy.
 
 - Coordinates: X 260 / Y 57 / Z -50 (the End)
 - The farm is finished – please don't rebuild any part of it
+
+## On Discord
+
+Questions, feedback or your own screenshots of this project? Tell us on our [Discord](https://1lf.link/discord).

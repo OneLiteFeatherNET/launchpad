@@ -72,3 +72,7 @@ Das Titelbild zeigt den Krater aus der Höhe, mit dem Sockel im Zentrum. Die Nah
 ## Wie kannst du mithelfen?
 
 Sobald der Standort feststeht, ist Hilfe beim Materialfarming willkommen. Melde dich dafür bei Svenko1.
+
+## Auf Discord
+
+Fragen, Feedback oder eigene Screenshots zu diesem Projekt? Schreib uns auf unserem [Discord](https://1lf.link/discord).

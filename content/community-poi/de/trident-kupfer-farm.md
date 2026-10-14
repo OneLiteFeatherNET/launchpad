@@ -59,3 +59,7 @@ Die Trident-/Kupfer-Farm ist ein fertiger Farmturm von Svenko1. Der hohe Turm st
 - Koordinaten: X 5650 / Y 190 / Z 100 (Oberwelt)
 - Der Turm ist schon von Weitem zu sehen und ragt deutlich über die Baumkronen
 - Die Farm ist fertig – bitte nichts an ihr umbauen
+
+## Auf Discord
+
+Fragen, Feedback oder eigene Screenshots zu diesem Projekt? Schreib uns auf unserem [Discord](https://1lf.link/discord).

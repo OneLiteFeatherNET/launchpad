@@ -72,3 +72,7 @@ The cover image shows the crater from above, with the platform at its centre. Th
 ## How can you help?
 
 Once the location is fixed, help with farming materials is welcome. Get in touch with Svenko1.
+
+## On Discord
+
+Questions, feedback or your own screenshots of this project? Tell us on our [Discord](https://1lf.link/discord).
