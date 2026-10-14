@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.30.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.29.0...onelitefeather.net-v1.30.0) (2026-10-14)
+
+
+### Features
+
+* **blog:** announce titan 3.1 ([#528](https://github.com/OneLiteFeatherNET/launchpad/issues/528)) ([f785da5](https://github.com/OneLiteFeatherNET/launchpad/commit/f785da5fef731134ccc3947257f38e2657967211))
+
+
+### Bug Fixes
+
+* **blog:** correct the titan retrospective for 3.1 and the boot test timeline ([#527](https://github.com/OneLiteFeatherNET/launchpad/issues/527)) ([d5db65e](https://github.com/OneLiteFeatherNET/launchpad/commit/d5db65e1e21a1388e9e654a728cf2aa6d0ace360))
+
 ## [1.29.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.28.0...onelitefeather.net-v1.29.0) (2026-10-14)
 
 
