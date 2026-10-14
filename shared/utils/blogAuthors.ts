@@ -3,6 +3,7 @@
  * page, the team profile and the Nitro sitemap source so they never disagree
  * about which articles exist for a visitor.
  */
+import { localizedAlternates, type SitemapAlternate } from './sitemapAlternates'
 import { articleLastmod, newestDate } from './sitemapDates'
 
 export interface BlogAuthorFields {
@@ -66,20 +67,26 @@ export interface BlogAuthorSitemapSource {
 /**
  * Sitemap entries for exactly the author pages that answer 200 at `now`. The
  * page lists the author's released articles, so its lastmod is the newest of
- * theirs; without a dated article it has none.
+ * theirs; without a dated article it has none. Alternates name only the
+ * languages in which the author has a page.
  */
 export function blogAuthorSitemapEntries(
   byLocale: Record<string, BlogAuthorSitemapSource>,
   now: Date
-): { loc: string, lastmod?: Date }[] {
-  const entries: { loc: string, lastmod?: Date }[] = []
+): { loc: string, lastmod?: Date, alternatives: SitemapAlternate[] }[] {
+  const pages: { locale: string, slug: string, lastmod?: Date }[] = []
   for (const [locale, { articles, resolvable }] of Object.entries(byLocale)) {
     for (const slug of releasedAuthorSlugs(articles, now)) {
       if (!resolvable.includes(slug)) continue
-      const loc = blogAuthorPath(locale, slug)
       const lastmod = newestDate(articlesByAuthor(articles, slug, now).map(articleLastmod))
-      entries.push(lastmod ? { loc, lastmod } : { loc })
+      pages.push(lastmod ? { locale, slug, lastmod } : { locale, slug })
     }
   }
-  return entries
+  return pages.map(({ locale, slug, lastmod }) => {
+    const localesOfSlug = pages.filter((page) => page.slug === slug).map((page) => page.locale)
+    const alternatives = localizedAlternates(localesOfSlug, (l) => blogAuthorPath(l, slug))
+    return lastmod
+      ? { loc: blogAuthorPath(locale, slug), lastmod, alternatives }
+      : { loc: blogAuthorPath(locale, slug), alternatives }
+  })
 }
