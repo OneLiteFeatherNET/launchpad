@@ -1,7 +1,7 @@
 ---
 title: 'Von 1.0 bis 3.0: fünfzehn Monate Titan, unser Lobby-Server'
 alternativeTitle: 'Rückblick auf 67 Releases, 696 Commits und einen Umbau'
-description: 'Ein Rückblick auf Titan, unseren quelloffenen Minestom-Lobbyserver: von Version 1.0 im Juli 2025 über die 2.x-Features bis zur Plattform-Trennung in 3.0 und dem, was als Nächstes kommt.'
+description: 'Ein Rückblick auf Titan, unseren quelloffenen Minestom-Lobbyserver: von Version 1.0 im Juli 2025 über die 2.x-Features bis zur Plattform-Trennung in 3.0 und dem Release von 3.1.'
 pubDate: '2026-10-13'
 releaseDate: '2026-10-13T10:00:00+02:00'
 headerImage: 'images/og/blog-de.png'
@@ -72,19 +72,19 @@ Auf dieser Grundlage kam in 2.x innerhalb von knapp zwei Wochen ein Spielerfeatu
 
 ![Ein Spieler springt im Modus Easy über das Jump'n'Run der Lobby: einzelne Landeblöcke schweben zwischen fliegenden Inseln im offenen Himmel](/images/blog/titan-lobby-jump-and-run.webp){width="1600" height="843"}
 
-Hinter den Kulissen ergänzte 2.4 **OpenTelemetry-Tracing und Metriken**, damit wir sehen, was langsam ist, bevor du es merkst. 2.6 brachte außerdem einen **Boot-Smoke-Test**: CI startet jetzt das ausgelieferte Jar mit der echten Konfiguration. Er ist eine Konsequenz aus einem Vorfall am Release-Tag, an dem ein Bibliotheksupdate Build und Unit-Tests durchlief, die Lobby aber nicht starten ließ.
+Hinter den Kulissen ergänzte 2.4 **OpenTelemetry-Tracing und Metriken**, damit wir sehen, was langsam ist, bevor du es merkst. 2.6 brachte außerdem einen **Boot-Smoke-Test**: CI startet jetzt das ausgelieferte Jar mit der echten Konfiguration. Der Boot-Test war bereits in Arbeit und wurde 17 Minuten nach dem Fix des Vorfalls am Release-Tag gemergt, als ein Bibliotheksupdate Build und Unit-Tests durchlief, die Lobby aber nicht starten ließ. Seitdem sollte so ein Fehler in der CI auffallen.
 
 ## Version 3: ein Kern, mehrere Plattformen (10. Oktober 2026)
 
 **3.0.0 ist ein Breaking Change für alle, die Titan selbst betreiben.** Der Start läuft jetzt über einen kleinen Vertrag `ServerBootstrap`, den Java über den `ServiceLoader` auswählt. Minestom-Extensions, CloudNet und LuckPerms liegen jeweils in einem eigenen **Plattform-Modul**. 3.0.1 folgte am selben Abend und übersetzte den Lobby-Switcher ins Deutsche und Englische. Die Details folgen in zwei Deep-Dives: am 20. Oktober zur Plattform-Trennung in 3.0 und am 27. Oktober dazu, warum grüne Tests keine startende Lobby bedeuten.
 
-## Was als Nächstes kommt
+## Schon als Nächstes: Titan 3.1
 
-Einige Verbesserungen sind bereits in Review:
+Während dieser Beitrag entstand, ist [Titan 3.1.0](https://github.com/OneLiteFeatherNET/Titan/releases/tag/v3.1.0) erschienen und läuft bereits in der Lobby:
 
 - Im Navigator verbindest du dich mit einem Linksklick, ein Rechtsklick teleportiert dich vor das passende Portal.
-- Live-Spielerzahlen für jeden Modus im Navigator.
-- Ein Fix, der jeder Lobby ihr echtes Spielerlimit an CloudNet meldet.
+- Der Navigator zeigt die Spielerzahl für jeden Modus.
+- Jede Lobby meldet CloudNet jetzt ihr echtes Spielerlimit statt 1, sodass der Lobby-Switcher nicht mehr „Voll (2/1)“ anzeigt.
 
 ## Mitmachen
 

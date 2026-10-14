@@ -1,7 +1,7 @@
 ---
 title: 'From 1.0 to 3.0: fifteen months of Titan, our lobby server'
 alternativeTitle: 'A retrospective on 67 releases, 696 commits and one rebuild'
-description: 'A look back at Titan, our open-source Minestom lobby server: from the 1.0 release in July 2025 through the 2.x features to the 3.0 platform split, and what comes next.'
+description: 'A look back at Titan, our open-source Minestom lobby server: from the 1.0 release in July 2025 through the 2.x features to the 3.0 platform split and the 3.1 release.'
 pubDate: '2026-10-13'
 releaseDate: '2026-10-13T10:00:00+02:00'
 headerImage: 'images/og/blog-en.png'
@@ -72,19 +72,19 @@ On top of that foundation, 2.x shipped one player-facing feature after another i
 
 ![A player jumps along the lobby jump'n'run in easy mode: single landing blocks hang in open sky between floating islands](/images/blog/titan-lobby-jump-and-run.webp){width="1600" height="843"}
 
-Behind the scenes, 2.4 added **OpenTelemetry tracing and metrics**, so we can see what is slow before you notice it. 2.6 also brought a **boot smoke test**: CI now starts the shipped jar with the real configuration. It is a direct consequence of an incident on release day, when a library update passed the build and every unit test but kept the lobby from starting.
+Behind the scenes, 2.4 added **OpenTelemetry tracing and metrics**, so we can see what is slow before you notice it. 2.6 also brought a **boot smoke test**: CI now starts the shipped jar with the real configuration. The boot test was already in progress and was merged 17 minutes after the fix for the release-day incident, when a library update passed the build and every unit test but kept the lobby from starting. Since then, a failure like this should surface in CI.
 
 ## Version 3: one core, several platforms (October 10, 2026)
 
 **3.0.0 is a breaking change for anyone running Titan themselves.** Startup now goes through a small `ServerBootstrap` contract, selected via Java's `ServiceLoader`, and Minestom extensions, CloudNet and LuckPerms each live in their own **platform module**. 3.0.1 followed the same evening and translated the lobby switcher into German and English. The details follow in two deep-dive posts: on October 20 about the 3.0 platform split, and on October 27 about why green tests did not mean a lobby that boots.
 
-## What's next
+## Already next: Titan 3.1
 
-Several improvements are already in review:
+While this post was being written, [Titan 3.1.0](https://github.com/OneLiteFeatherNET/Titan/releases/tag/v3.1.0) was released, and it is already running in the lobby:
 
-- In the navigator, left-click to connect and right-click to teleport in front of the matching portal.
-- Live player counts for every mode in the navigator.
-- A fix that reports each lobby's real player limit to CloudNet.
+- In the navigator, left-click connects you and right-click teleports you in front of the matching portal.
+- The navigator shows the player count for every mode.
+- Each lobby now reports its real player limit to CloudNet instead of 1, so the lobby switcher no longer shows "Full (2/1)".
 
 ## Get involved
 
