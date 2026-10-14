@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.31.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.30.0...onelitefeather.net-v1.31.0) (2026-10-14)
+
+
+### Features
+
+* **community-poi:** point every poi to its forum thread and our discord ([#537](https://github.com/OneLiteFeatherNET/launchpad/issues/537)) ([0b3cb09](https://github.com/OneLiteFeatherNET/launchpad/commit/0b3cb092969463fff039b5906893a83ea5693b40))
+
+
+### Bug Fixes
+
+* **build:** pin node 24.21.0 for cloudflare builds ([#538](https://github.com/OneLiteFeatherNET/launchpad/issues/538)) ([2918f27](https://github.com/OneLiteFeatherNET/launchpad/commit/2918f27557543cee81249f83e628e01f0ac9a5f9))
+
 ## [1.30.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.29.0...onelitefeather.net-v1.30.0) (2026-10-14)
 
 
