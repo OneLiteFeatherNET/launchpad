@@ -70,6 +70,8 @@ Auf dieser Grundlage kam in 2.x innerhalb von knapp zwei Wochen ein Spielerfeatu
 - **`/spawn`** und ein Spawn-Eintrag im Navigator (2.3).
 - **Ein Lobby-Switcher** (2.6): Eine Uhr in deiner Hotbar listet jede Lobby mit ihrer Spielerzahl.
 
+![Ein Spieler springt im Modus Easy über das Jump'n'Run der Lobby: einzelne Landeblöcke schweben zwischen fliegenden Inseln im offenen Himmel](/images/blog/titan-lobby-jump-and-run.webp){width="1600" height="843"}
+
 Hinter den Kulissen ergänzte 2.4 **OpenTelemetry-Tracing und Metriken**, damit wir sehen, was langsam ist, bevor du es merkst. 2.6 brachte außerdem einen **Boot-Smoke-Test**: CI startet jetzt das ausgelieferte Jar mit der echten Konfiguration. Er ist eine Konsequenz aus einem Vorfall am Release-Tag, an dem ein Bibliotheksupdate Build und Unit-Tests durchlief, die Lobby aber nicht starten ließ.
 
 ## Version 3: ein Kern, mehrere Plattformen (10. Oktober 2026)

@@ -70,6 +70,8 @@ On top of that foundation, 2.x shipped one player-facing feature after another i
 - **`/spawn`** and a spawn entry in the navigator (2.3).
 - **A lobby switcher** (2.6): a clock in your hotbar lists every lobby with its player count.
 
+![A player jumps along the lobby jump'n'run in easy mode: single landing blocks hang in open sky between floating islands](/images/blog/titan-lobby-jump-and-run.webp){width="1600" height="843"}
+
 Behind the scenes, 2.4 added **OpenTelemetry tracing and metrics**, so we can see what is slow before you notice it. 2.6 also brought a **boot smoke test**: CI now starts the shipped jar with the real configuration. It is a direct consequence of an incident on release day, when a library update passed the build and every unit test but kept the lobby from starting.
 
 ## Version 3: one core, several platforms (October 10, 2026)
