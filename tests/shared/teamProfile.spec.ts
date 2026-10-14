@@ -1,5 +1,36 @@
 import { describe, expect, it } from 'vitest'
-import { isThinTeamProfile } from '../../shared/utils/teamProfile'
+import { isThinTeamProfile, teamSitemapEntries } from '../../shared/utils/teamProfile'
+
+describe('teamSitemapEntries', () => {
+  it('gives a member listed in both languages alternates for both and x-default on en', () => {
+    const alternates = [
+      { hreflang: 'de-DE', href: '/de/team/alice' },
+      { hreflang: 'en-US', href: '/en/team/alice' },
+      { hreflang: 'x-default', href: '/en/team/alice' },
+    ]
+    expect(teamSitemapEntries({ de: ['alice'], en: ['alice'] })).toEqual([
+      { loc: '/de/team/alice', alternatives: alternates }, { loc: '/en/team/alice', alternatives: alternates },
+    ])
+  })
+
+  it('gives a member listed in one language only that language as alternate', () => {
+    expect(teamSitemapEntries({ de: ['bob'], en: [] })).toEqual([
+      { loc: '/de/team/bob', alternatives: [{ hreflang: 'de-DE', href: '/de/team/bob' }] },
+    ])
+  })
+
+  it('leaves a member out of the alternates of a language where its profile is not listed', () => {
+    const entries = teamSitemapEntries({ de: ['carol'], en: ['carol', 'dave'] })
+    const carolDe = entries.find((entry) => entry.loc === '/de/team/carol')
+    expect(carolDe?.alternatives).toEqual([
+      { hreflang: 'de-DE', href: '/de/team/carol' },
+      { hreflang: 'en-US', href: '/en/team/carol' },
+      { hreflang: 'x-default', href: '/en/team/carol' },
+    ])
+    expect(entries.find((entry) => entry.loc === '/en/team/dave')?.alternatives)
+      .toEqual([{ hreflang: 'en-US', href: '/en/team/dave' }, { hreflang: 'x-default', href: '/en/team/dave' }])
+  })
+})
 
 describe('isThinTeamProfile', () => {
   it('is not thin with a bio only', () => {

@@ -174,6 +174,21 @@ describe('blogAuthorSitemapEntries', () => {
     expect(entries.map((entry) => entry.loc)).not.toContain('/en/blog/author/tp')
   })
 
+  it('gives an author alternates only in the languages where the author has a released article', () => {
+    const entries = blogAuthorSitemapEntries({
+      de: { articles: [post('a', { author: 'tp' })], resolvable: ['tp'] },
+      en: { articles: [post('b', { author: 'tp' }), post('c', { author: 'gast' })], resolvable: ['tp', 'gast'] },
+    }, NOW)
+    expect(entries.find((entry) => entry.loc === '/de/blog/author/tp')?.alternatives).toEqual([
+      { hreflang: 'de-DE', href: '/de/blog/author/tp' },
+      { hreflang: 'en-US', href: '/en/blog/author/tp' },
+      { hreflang: 'x-default', href: '/en/blog/author/tp' },
+    ])
+    expect(entries.find((entry) => entry.loc === '/en/blog/author/gast')?.alternatives).toEqual([
+      { hreflang: 'en-US', href: '/en/blog/author/gast' }, { hreflang: 'x-default', href: '/en/blog/author/gast' },
+    ])
+  })
+
   it('uses the path the author page links to', () => {
     const [entry] = blogAuthorSitemapEntries({ en: { articles: [post('a', { author: 'gast' })], resolvable: ['gast'] } }, NOW)
     const person = resolvePersonFrom('gast', 'en', { team: null, authors: [{ slug: 'gast', name: 'Gast' }] })
