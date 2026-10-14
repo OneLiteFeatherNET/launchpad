@@ -4,6 +4,11 @@ import { newestDate } from '../../shared/utils/sitemapDates'
 
 const NOW = new Date('2026-06-01T12:00:00Z')
 const at = (iso: string) => new Date(iso)
+const ALTERNATES = (path: string) => [
+  { hreflang: 'de-DE', href: `/de/${path}` },
+  { hreflang: 'en-US', href: `/en/${path}` },
+  { hreflang: 'x-default', href: `/en/${path}` },
+]
 
 describe('newestDate', () => {
   it('returns the latest of several dates', () => {
@@ -31,8 +36,17 @@ describe('indexPageSitemapEntries', () => {
     const newer = { slug: 'neu', pubDate: '2026-03-01T00:00:00Z' }
     const entries = indexPageSitemapEntries({
       de: { articles: [older, newer], projects: [], pois: [] },
+      en: { articles: [], projects: [], pois: [] },
     }, NOW)
-    expect(entries).toEqual([{ loc: '/de/blog', lastmod: at('2026-03-01T00:00:00Z') }])
+    expect(entries).toEqual([{ loc: '/de/blog', lastmod: at('2026-03-01T00:00:00Z'), alternatives: ALTERNATES('blog') }])
+  })
+
+  it('gives every index page alternates for both locales, even when the other locale has no date', () => {
+    const entries = indexPageSitemapEntries({
+      de: { articles: [{ slug: 'a', pubDate: '2026-01-01T00:00:00Z' }], projects: [], pois: [] },
+      en: { articles: [], projects: [], pois: [] },
+    }, NOW)
+    expect(entries.find((entry) => entry.loc === '/de/blog')?.alternatives).toEqual(ALTERNATES('blog'))
   })
 
   it('ignores an article that is not released yet when dating the blog index', () => {
@@ -50,6 +64,7 @@ describe('indexPageSitemapEntries', () => {
 
   it('gives the projects index the newest updatedAt of its projects', () => {
     const entries = indexPageSitemapEntries({
+      de: { articles: [], projects: [], pois: [] },
       en: {
         articles: [],
         projects: [
@@ -60,7 +75,7 @@ describe('indexPageSitemapEntries', () => {
         pois: [],
       },
     }, NOW)
-    expect(entries).toEqual([{ loc: '/en/projects', lastmod: at('2026-04-02T00:00:00Z') }])
+    expect(entries).toEqual([{ loc: '/en/projects', lastmod: at('2026-04-02T00:00:00Z'), alternatives: ALTERNATES('projects') }])
   })
 
   it('dates a community POI by updatedAt, falling back to startedAt', () => {
@@ -68,8 +83,9 @@ describe('indexPageSitemapEntries', () => {
     const edited = { slug: 'b', updatedAt: '2026-02-01T00:00:00Z', startedAt: '2025-01-01T00:00:00Z' }
     const entries = indexPageSitemapEntries({
       de: { articles: [], projects: [], pois: [startedOnly, edited] },
+      en: { articles: [], projects: [], pois: [] },
     }, NOW)
-    expect(entries).toEqual([{ loc: '/de/community-poi', lastmod: at('2026-05-01T00:00:00Z') }])
+    expect(entries).toEqual([{ loc: '/de/community-poi', lastmod: at('2026-05-01T00:00:00Z'), alternatives: ALTERNATES('community-poi') }])
   })
 
   it('omits an index whose items carry no date', () => {
@@ -84,7 +100,7 @@ describe('indexPageSitemapEntries', () => {
       en: { articles: [{ slug: 'b', pubDate: '2026-02-01T00:00:00Z' }], projects: [], pois: [] },
     }, NOW)
     const [de, en] = entries
-    expect(de).toEqual({ loc: '/de/blog', lastmod: at('2026-01-01T00:00:00Z') })
-    expect(en).toEqual({ loc: '/en/blog', lastmod: at('2026-02-01T00:00:00Z') })
+    expect(de).toEqual({ loc: '/de/blog', lastmod: at('2026-01-01T00:00:00Z'), alternatives: ALTERNATES('blog') })
+    expect(en).toEqual({ loc: '/en/blog', lastmod: at('2026-02-01T00:00:00Z'), alternatives: ALTERNATES('blog') })
   })
 })
