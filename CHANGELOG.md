@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.29.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.28.0...onelitefeather.net-v1.29.0) (2026-10-14)
+
+
+### Features
+
+* **community-poi:** add the enderman farm in the end ([#533](https://github.com/OneLiteFeatherNET/launchpad/issues/533)) ([263635f](https://github.com/OneLiteFeatherNET/launchpad/commit/263635f2b6c017243cb7bd02131405757c5fb2c7))
+
+
+### Documentation
+
+* **blog:** show the lobby jump'n'run in the titan retrospective ([#531](https://github.com/OneLiteFeatherNET/launchpad/issues/531)) ([d0ce5da](https://github.com/OneLiteFeatherNET/launchpad/commit/d0ce5da6102d8873c4d1015d2e541cad270684e3))
+
 ## [1.28.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.27.0...onelitefeather.net-v1.28.0) (2026-10-12)
 
 
