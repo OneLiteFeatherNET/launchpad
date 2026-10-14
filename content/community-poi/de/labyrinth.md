@@ -88,3 +88,7 @@ Das Labyrinth ist blndr2s persönliches Bauprojekt – ein klassisches Maze mit 
 ## Mitlaufen statt nur anschauen
 
 Lade dir die mitgelieferte Schematic-Datei und vergleiche sie im Spiel mit dem aktuellen Zustand – so siehst du sofort, welche Gänge noch fehlen. Litematica nur als Hologramm verwenden, **kein Auto-Place** (siehe Serverregel unten).
+
+## Auf Discord
+
+Fortschritt, Fragen und Absprachen zu diesem Projekt laufen im [Forum-Thread](https://discord.com/channels/752527676903784518/1189280187876134932) auf unserem [Discord](https://1lf.link/discord).

@@ -73,3 +73,7 @@ The two reference images in the gallery are **not** from our server — they are
 - Feedback on the placement before the first block goes down
 
 Get in touch with blndr2 on Discord.
+
+## On Discord
+
+Progress, questions and planning for this project happen in its [forum thread](https://discord.com/channels/752527676903784518/1192098359452909678) on our [Discord](https://1lf.link/discord).

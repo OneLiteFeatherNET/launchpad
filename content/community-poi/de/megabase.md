@@ -68,3 +68,7 @@ Zur Einordnung liegt in der Galerie ein Bild der „Uncensored Library“ – ni
 Bei einem Bau dieser Größe ist Material der Engpass, nicht die Idee. Wer mitmachen will, meldet sich am besten direkt bei blndr2 auf Discord – dort wird auch abgestimmt, welche Abschnitte als Nächstes drankommen.
 
 Zum Mitverfolgen: Lade dir die Schematic und lege sie im Spiel als Hologramm über das Fundament. Litematica bitte ausschließlich zur Ansicht verwenden, **kein Auto-Place** (siehe Serverregel unten).
+
+## Auf Discord
+
+Fragen, Feedback oder eigene Screenshots zu diesem Projekt? Schreib uns auf unserem [Discord](https://1lf.link/discord).

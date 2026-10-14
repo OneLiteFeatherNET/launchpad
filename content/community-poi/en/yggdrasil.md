@@ -63,3 +63,7 @@ Yggdrasil is Svenko1's flagship build: a cherry blossom tree at a scale no world
 ## Pay a visit
 
 Head to X 1161, Y 75, Z 339 in the overworld. Cross the access bridge, then climb via ladders, walkways and bridges into the canopy, where the village and the view are waiting.
+
+## On Discord
+
+Questions, feedback or your own screenshots of this project? Tell us on our [Discord](https://1lf.link/discord).

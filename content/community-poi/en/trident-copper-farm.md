@@ -59,3 +59,7 @@ The Trident / Copper Farm is a finished farm tower by Svenko1. The tall tower st
 - Coordinates: X 5650 / Y 190 / Z 100 (overworld)
 - The tower is visible from afar and rises clearly above the treetops
 - The farm is finished – please don't rebuild any part of it
+
+## On Discord
+
+Questions, feedback or your own screenshots of this project? Tell us on our [Discord](https://1lf.link/discord).

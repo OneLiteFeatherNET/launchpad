@@ -88,3 +88,7 @@ The maze is blndr2's personal build — a classic maze with outer walls, inner p
 ## Walk it as you build
 
 Grab the schematic file and compare it in-game with the current state to see exactly which corridors are still missing. Use Litematica as a hologram only — **no auto-place** (see the server rule below).
+
+## On Discord
+
+Progress, questions and planning for this project happen in its [forum thread](https://discord.com/channels/752527676903784518/1189280187876134932) on our [Discord](https://1lf.link/discord).

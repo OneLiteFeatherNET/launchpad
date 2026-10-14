@@ -63,3 +63,7 @@ Der Wunderbaum Yggdrasil ist Svenko1s Großprojekt: ein Kirschblütenbaum in ein
 ## Besuch ihn
 
 Schau bei X 1161, Y 75, Z 339 in der Oberwelt vorbei. Über die Zugangsbrücke geht es weiter über Leitern, Stege und Laufwege hinauf in die Krone – dort oben warten das Dorf und der Ausblick.
+
+## Auf Discord
+
+Fragen, Feedback oder eigene Screenshots zu diesem Projekt? Schreib uns auf unserem [Discord](https://1lf.link/discord).

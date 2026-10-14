@@ -68,3 +68,7 @@ For a sense of scale the gallery includes a picture of "The Uncensored Library" 
 On a build this size, materials are the bottleneck, not ideas. If you want to pitch in, the best route is a message to blndr2 on Discord — that is also where the next sections get agreed.
 
 To follow along: download the schematic and lay it over the foundation in-game as a hologram. Use Litematica for viewing only, **no auto-place** (see the server rule below).
+
+## On Discord
+
+Questions, feedback or your own screenshots of this project? Tell us on our [Discord](https://1lf.link/discord).
