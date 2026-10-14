@@ -21,6 +21,11 @@
       "allowedVersions": "<7"
     },
     {
+      "description": "nitropack 2.13 still depends on h3 ^1.15; a direct h3 2.x would sit beside the copy Nitro actually runs. Lift once nitropack moves to h3 2",
+      "matchPackageNames": ["h3"],
+      "allowedVersions": "<2"
+    },
+    {
       "description": "0.4.0 ships extensionless ESM imports Node cannot resolve; lift once a fixed release exists",
       "matchPackageNames": ["@material/material-color-utilities"],
       "allowedVersions": "<0.4"
