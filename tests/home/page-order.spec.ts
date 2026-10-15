@@ -32,4 +32,15 @@ describe('home page order', () => {
   it('keeps exactly one h1', () => {
     expect(template.match(/<h1[\s>]/g)).toHaveLength(1)
   })
+
+  it('shows the home h1 to sighted users, above the carousel', () => {
+    const h1 = template.match(/<h1[^>]*>/)?.[0] ?? ''
+    expect(h1, 'the h1 opening tag').not.toBe('')
+    expect(h1, 'the h1 must not be sr-only').not.toContain('sr-only')
+    expect(at('<h1')).toBeLessThan(at('<Carousel'))
+  })
+
+  it('titles the home h1 with the brand-first index.title', () => {
+    expect(template).toMatch(/<h1[^>]*>\{\{ t\('index\.title'\) \}\}<\/h1>/)
+  })
 })

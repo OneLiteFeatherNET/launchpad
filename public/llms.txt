@@ -1,4 +1,4 @@
-# OneLiteFeather Network
+# OneLiteFeather
 
 > OneLiteFeather is a Minecraft Network focusing on the development of tools with the intention to share with other servers.
 

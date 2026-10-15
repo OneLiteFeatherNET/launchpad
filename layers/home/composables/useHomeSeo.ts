@@ -7,6 +7,9 @@ export function useHomeSeo(opts: PageSeoOptions = {}) {
   const rawKeywords = t('seo.default_keywords')
   const defaultKeywords = rawKeywords && rawKeywords !== 'seo.default_keywords' ? rawKeywords : undefined
 
+  // The title already leads with the brand; the global " | OneLiteFeather" suffix would repeat it.
+  useHead({ titleTemplate: '%s' })
+
   return usePageSeo({
     description: opts.description || t('seo.default_description'),
     keywords: opts.keywords || defaultKeywords,
