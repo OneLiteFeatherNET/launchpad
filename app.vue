@@ -19,7 +19,7 @@ const favicon = computed(() => season.value?.favicon ?? BASE_FAVICON)
 
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} | OneLiteFeather.net` : 'OneLiteFeather.net'
+    return titleChunk ? `${titleChunk} | OneLiteFeather` : 'OneLiteFeather'
   },
   htmlAttrs: {
     // Hint browsers/embed previews about colour scheme support.

@@ -33,13 +33,14 @@ const { items: faqItems } = useFaqContent()
 useHomeSeo({ title: t('index.title'), image: sectionOgImage('home', locale.value) })
 
 
-// The h1 in the template is sr-only: the carousel is the visual opening and leaves no room for a heading.
 // Discord ("Mitreden") and the server addresses ("Spielen") lead; reasoning in the change design.
 // Sections below the carousel are lazy + hydrate-on-visible; see tests/architecture/lazy-components.spec.ts.
 </script>
 
 <template>
-  <h1 class="sr-only">{{ t('index.title') }}</h1>
+  <div class="pt-6 md:mx-auto md:max-w-6xl md:px-4 md:pt-10 lg:px-8">
+    <h1 class="text-headline-medium font-bold text-on-surface md:text-display-small">{{ t('index.title') }}</h1>
+  </div>
   <div class="-mx-4 sm:-mx-6 px-0 py-6 md:py-10 md:mx-auto md:max-w-6xl md:px-4 lg:px-8">
     <Carousel :slides="carouselSlides" aspect="16/9" :aria-label="t('index.carousel_aria')" />
   </div>

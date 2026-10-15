@@ -56,8 +56,8 @@ export default defineNuxtConfig({
     },
     schemaOrg: {
         identity: defineOrganization({
-            name: 'OneLiteFeather Network',
-            alternateName: 'OneLiteFeather.net',
+            name: 'OneLiteFeather',
+            alternateName: 'OneLiteFeather Network',
             description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers.',
             url: 'http://localhost:3000',
             logo: '/images/logo.svg',
@@ -96,7 +96,7 @@ export default defineNuxtConfig({
     // Localised description: i18n key `nuxtSiteConfig.description` (WebSite, og defaults).
     site: {
         url: 'http://localhost:3000',
-        name: 'OneLiteFeather Network',
+        name: 'OneLiteFeather',
         description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers.',
         defaultLocale: 'en'
     },
@@ -362,7 +362,7 @@ export default defineNuxtConfig({
             identity: defineOrganization({
                 // `name` only to satisfy defineOrganization's input type; it is
                 // a scalar, so defu replaces rather than appends it.
-                name: 'OneLiteFeather Network',
+                name: 'OneLiteFeather',
                 url: 'https://onelitefeather.net',
                 logo: 'https://onelitefeather.net/images/logo.svg'
             })
