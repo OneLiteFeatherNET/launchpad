@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.31.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.31.0...onelitefeather.net-v1.31.1) (2026-10-15)
+
+
+### Bug Fixes
+
+* **seo:** put the brand name first on the home page ([#543](https://github.com/OneLiteFeatherNET/launchpad/issues/543)) ([24fb9a5](https://github.com/OneLiteFeatherNET/launchpad/commit/24fb9a52f61690df73778f0dd7272f11b8d283a8))
+
 ## [1.31.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.30.0...onelitefeather.net-v1.31.0) (2026-10-14)
 
 
