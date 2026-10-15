@@ -66,7 +66,7 @@
     "nuxt-schema-org": "6.4.3",
     "nuxt-vitalizer": "3.0.0",
     "parse5": "^8.0.0",
-    "playwright": "1.64.0",
+    "playwright": "1.64.1",
     "postcss": "^8.5.6",
     "rehype-raw": "^7.0.0",
     "remark-emoji": "^5.0.2",
