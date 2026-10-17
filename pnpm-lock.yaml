@@ -235,7 +235,7 @@ importers:
         version: 6.2.4(1d03164751ddf4c906ac6255be185daf)
       '@nuxtjs/seo':
         specifier: 5.3.16
-        version: 5.3.16(f3da869980ba9dd784bcfc2d0e7ea426)
+        version: 5.3.16(c0cd18c7723a571cf618bc026ff9a83c)
       '@nuxtjs/sitemap':
         specifier: 8.6.2
         version: 8.6.2(35a4c4e983fc6bca767e263ea9108ada)
@@ -286,7 +286,7 @@ importers:
         version: 4.6.1(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7(supports-color@10.2.2)))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7(supports-color@10.2.2)))(@oxc-project/types@0.153.0)(@types/node@26.6.5)(@vue/compiler-sfc@3.5.44)(acorn@8.19.0)(better-sqlite3@13.0.3)(confbox@0.2.4)(db0@0.3.4(better-sqlite3@13.0.3))(dotenv@17.4.2)(esbuild@0.28.2)(eslint@10.12.0(jiti@2.7.0)(supports-color@10.2.2))(giget@3.3.1)(ioredis@5.11.1(supports-color@10.2.2))(lightningcss@1.33.0)(mlly@1.8.2)(optionator@0.9.4)(oxc-parser@0.151.0)(rolldown@1.2.13)(rollup-plugin-visualizer@7.1.1(rolldown@1.2.13)(rollup@4.64.6))(rollup@4.64.6)(srvx@0.11.22)(supports-color@10.2.2)(terser@5.51.2)(typescript@6.0.3)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(vue-tsc@3.3.13(typescript@6.0.3))(yaml@2.9.1)
       nuxt-og-image:
         specifier: 6.10.4
-        version: 6.10.4(f1d68cbc0552a91423fb0044636f27da)
+        version: 6.10.4(2b498455a93c92194773647b189cbd5c)
       nuxt-posthog:
         specifier: 1.6.3
         version: 1.6.3(magicast@0.5.5)(rxjs@7.8.2)
@@ -321,8 +321,8 @@ importers:
         specifier: ^11.1.2
         version: 11.1.2
       satori:
-        specifier: 0.47.1
-        version: 0.47.1
+        specifier: 0.56.1
+        version: 0.56.1
       tailwindcss:
         specifier: ^4.1.17
         version: 4.3.3
@@ -6308,8 +6308,8 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  satori@0.47.1:
-    resolution: {integrity: sha512-hoRMFMXQ9o4VvcOZ+5pXKRAuWJkjvUzRz3fZJoFrAT3MVfuUvMWROe50lB7AREI1m9a0FAlEMDdQ3WPvHLm7FA==}
+  satori@0.56.1:
+    resolution: {integrity: sha512-1ARgCVs7Tf0uAwuqo8fXfkCv+89CL80ORINjJ0FKf+Y2iwmNPZjTF+NltvbfbGAn6kzP6rOQ+6eosu/lf7rM7A==}
     engines: {node: '>=16'}
 
   scslre@0.3.0:
@@ -9342,14 +9342,14 @@ snapshots:
       - vite
       - vue
 
-  '@nuxtjs/seo@5.3.16(f3da869980ba9dd784bcfc2d0e7ea426)':
+  '@nuxtjs/seo@5.3.16(c0cd18c7723a571cf618bc026ff9a83c)':
     dependencies:
       '@nuxt/kit': 4.6.1(@nuxt/schema@4.6.1)(confbox@0.2.4)(dotenv@17.4.2)(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.151.0)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.6)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))
       '@nuxtjs/robots': 6.2.4(1d03164751ddf4c906ac6255be185daf)
       '@nuxtjs/sitemap': 8.6.2(35a4c4e983fc6bca767e263ea9108ada)
       nuxt: 4.6.1(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.7(supports-color@10.2.2)))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.7(supports-color@10.2.2)))(@oxc-project/types@0.153.0)(@types/node@26.6.5)(@vue/compiler-sfc@3.5.44)(acorn@8.19.0)(better-sqlite3@13.0.3)(confbox@0.2.4)(db0@0.3.4(better-sqlite3@13.0.3))(dotenv@17.4.2)(esbuild@0.28.2)(eslint@10.12.0(jiti@2.7.0)(supports-color@10.2.2))(giget@3.3.1)(ioredis@5.11.1(supports-color@10.2.2))(lightningcss@1.33.0)(mlly@1.8.2)(optionator@0.9.4)(oxc-parser@0.151.0)(rolldown@1.2.13)(rollup-plugin-visualizer@7.1.1(rolldown@1.2.13)(rollup@4.64.6))(rollup@4.64.6)(srvx@0.11.22)(supports-color@10.2.2)(terser@5.51.2)(typescript@6.0.3)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(vue-tsc@3.3.13(typescript@6.0.3))(yaml@2.9.1)
       nuxt-link-checker: 5.3.0(0eca1e62e7f063d8479a215d14e5290c)
-      nuxt-og-image: 6.10.4(f1d68cbc0552a91423fb0044636f27da)
+      nuxt-og-image: 6.10.4(2b498455a93c92194773647b189cbd5c)
       nuxt-schema-org: 6.4.3(e329289faa1c4da85b70d001a22e2bbf)
       nuxt-seo-utils: 8.6.1(1bb3ad07cc95a0980f9fc8cae7e88dad)
       nuxt-site-config: 4.2.3(1d03164751ddf4c906ac6255be185daf)
@@ -13314,7 +13314,7 @@ snapshots:
       - vue
       - zod
 
-  nuxt-og-image@6.10.4(f1d68cbc0552a91423fb0044636f27da):
+  nuxt-og-image@6.10.4(2b498455a93c92194773647b189cbd5c):
     dependencies:
       '@clack/prompts': 1.8.1
       '@nuxt/kit': 4.6.1(@nuxt/schema@4.6.1)(confbox@0.2.4)(dotenv@17.4.2)(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(mlly@1.8.2)(oxc-parser@0.151.0)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.6)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))
@@ -13352,7 +13352,7 @@ snapshots:
       '@resvg/resvg-wasm': 2.6.2
       nitropack: 2.13.4(better-sqlite3@13.0.3)(oxc-parser@0.151.0)(rolldown@1.2.13)(srvx@0.11.22)(supports-color@10.2.2)(vite@8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       playwright-core: 1.64.1
-      satori: 0.47.1
+      satori: 0.56.1
       sharp: 0.35.5(@types/node@26.6.5)
       tailwindcss: 4.3.3
       zod: 4.6.7
@@ -14626,7 +14626,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  satori@0.47.1:
+  satori@0.56.1:
     dependencies:
       '@shuding/opentype.js': 1.4.0-beta.0
       css-background-parser: 0.1.0
