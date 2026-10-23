@@ -11,15 +11,19 @@ export interface ConsentPorts {
   setBannerOpen: (open: boolean) => void
   persist: (state: ConsentState) => void
   applyAnalytics: (allowed: boolean) => void
+  /** False off the production host: a stored opt-in must never switch capture on there. */
+  analyticsHost: boolean
 }
 
 export function createConsentController(ports: ConsentPorts) {
+  const applyAnalytics = (allowed: boolean) => ports.applyAnalytics(allowed && ports.analyticsHost)
+
   // A decision always closes the banner, including one reopened from the footer.
   function decide(analytics: boolean) {
     const state: ConsentState = { analytics, decidedAt: ports.now().toISOString() }
     ports.setState(state)
     ports.persist(state)
-    ports.applyAnalytics(analytics)
+    applyAnalytics(analytics)
     ports.setBannerOpen(false)
   }
 
@@ -32,7 +36,7 @@ export function createConsentController(ports: ConsentPorts) {
     restore(stored: ConsentState | null) {
       if (!stored) return
       ports.setState(stored)
-      ports.applyAnalytics(stored.analytics)
+      applyAnalytics(stored.analytics)
     },
   }
 }

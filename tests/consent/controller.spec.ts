@@ -6,8 +6,11 @@ const NOW = new Date('2026-10-10T12:00:00.000Z')
 const NOW_ISO = NOW.toISOString()
 const STORED_OFF: ConsentState = { analytics: false, decidedAt: '2026-01-01T00:00:00.000Z' }
 
-/** A fresh controller with recording ports; every test builds its own. */
-function fixture(initial: ConsentState | null = null) {
+/**
+ * A fresh controller with recording ports; every test builds its own. The
+ * production host is the default, so off-production tests say so explicitly.
+ */
+function fixture(initial: ConsentState | null = null, { analyticsHost = true } = {}) {
   const persisted: ConsentState[] = []
   const analytics: boolean[] = []
   const world = { state: initial, bannerOpen: false }
@@ -17,6 +20,7 @@ function fixture(initial: ConsentState | null = null) {
     setBannerOpen: (open) => { world.bannerOpen = open },
     persist: (state) => { persisted.push(state) },
     applyAnalytics: (allowed) => { analytics.push(allowed) },
+    analyticsHost,
   })
   const bannerVisible = () => isBannerVisible(world.state !== null, world.bannerOpen)
   return { controller, world, persisted, analytics, bannerVisible }
@@ -110,6 +114,27 @@ describe('consent controller', () => {
     controller.reopen()
     controller.acceptAll()
     expect(world.bannerOpen).toBe(false)
+    expect(bannerVisible()).toBe(false)
+  })
+})
+
+describe('consent off the production host', () => {
+  it('never opts PostHog in when all cookies are accepted', () => {
+    const { controller, analytics } = fixture(null, { analyticsHost: false })
+    controller.acceptAll()
+    expect(analytics).toEqual([false])
+  })
+
+  it('never opts PostHog in from a choice stored by an earlier visit', () => {
+    const { controller, analytics } = fixture(null, { analyticsHost: false })
+    controller.restore({ analytics: true, decidedAt: '2026-01-01T00:00:00.000Z' })
+    expect(analytics).toEqual([false])
+  })
+
+  it('still stores the decision there, so the banner closes', () => {
+    const { controller, persisted, bannerVisible } = fixture(null, { analyticsHost: false })
+    controller.acceptAll()
+    expect(persisted).toEqual([{ analytics: true, decidedAt: NOW_ISO }])
     expect(bannerVisible()).toBe(false)
   })
 })
