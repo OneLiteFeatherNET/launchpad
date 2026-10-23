@@ -4,7 +4,7 @@ translationKey: event-slender-2026
 title: "Slender: Halloween 2026"
 summary: Collect the pages before Slender finds you – the reworked Halloween edition with stamina, its own resource pack and a new atmosphere.
 type: play
-unlisted: true
+unlisted: false
 event:
   announceAt: 2026-10-15T18:00:00+02:00
   startsAt: 2026-10-24T18:00:00+02:00
@@ -20,7 +20,7 @@ subject:
   name: Slender
 play:
   modeSummary: Asymmetric – one Slender against everyone else
-promote: false
+promote: {}
 ---
 
 ## What it is about
