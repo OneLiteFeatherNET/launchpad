@@ -64,6 +64,11 @@ const copyrightClass
               </NuxtLinkLocale>
             </li>
             <li>
+              <NuxtLinkLocale :to="{ name: 'survival-rules' }" :class="TEXT_LINK_CLASS">
+                {{ t('footer.services.rules') }}
+              </NuxtLinkLocale>
+            </li>
+            <li>
               <a
                 href="https://status.onelitefeather.net"
                 target="_blank"

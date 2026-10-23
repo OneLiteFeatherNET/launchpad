@@ -61,4 +61,9 @@ describe('SiteFooter links', () => {
     const hrefs = (await open('/en')).map((a) => a.attributes('href'))
     expect(hrefs).toContain('/en/about')
   })
+
+  it('links the survival rules under their translated slug', async () => {
+    expect((await open('/de')).map((a) => a.attributes('href'))).toContain('/de/survival-regeln')
+    expect((await open('/en')).map((a) => a.attributes('href'))).toContain('/en/survival-rules')
+  })
 })

@@ -3,6 +3,7 @@ import { definePageMeta } from '#imports'
 
 const { t, locale } = useI18n()
 const { discordUrl } = useRuntimeConfig().public
+const localePath = useLocalePath()
 const { connect } = await useServerConnect()
 
 const stepsClass = 'mt-4 max-w-3xl list-decimal space-y-3 pl-6 text-body-large text-on-surface-variant'
@@ -103,6 +104,15 @@ useBreadcrumbs(() => [
             :icon="['fas', 'circle-info']"
           >
             {{ t('join.help.faq') }}
+          </M3Button>
+        </li>
+        <li>
+          <M3Button
+            :to="localePath({ name: 'survival-rules' })"
+            variant="outlined"
+            :icon="['fas', 'shield-halved']"
+          >
+            {{ t('join.help.rules') }}
           </M3Button>
         </li>
       </ul>
