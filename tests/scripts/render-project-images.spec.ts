@@ -203,8 +203,9 @@ describe('project images', () => {
     for (const locale of ['de', 'en']) {
       const text = readFileSync(join(repoRoot, `content/projects/${locale}/${slug}.md`), 'utf8')
       const data = frontmatterOf(text)
-      expect(data.logo).toBe(OFFICIAL_LOGOS[slug] ?? `/${projectImageKey(slug, 'icon')}`)
-      expect(data.socialImage).toBe(`/${projectImageKey(slug, socialNameOf(project))}`)
+      const imageSlug = project.imageSlug ?? slug
+      expect(data.logo).toBe(OFFICIAL_LOGOS[slug] ?? `/${projectImageKey(imageSlug, 'icon')}`)
+      expect(data.socialImage).toBe(`/${projectImageKey(imageSlug, socialNameOf(project))}`)
     }
   })
 

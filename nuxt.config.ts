@@ -210,6 +210,9 @@ export default defineNuxtConfig({
         '/ingest/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/__nuxt_content/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/api/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
+        // Renamed project: Cygnus became Slender.
+        '/de/projects/cygnus': { redirect: { to: '/de/projects/slender', statusCode: 301 } },
+        '/en/projects/cygnus': { redirect: { to: '/en/projects/slender', statusCode: 301 } },
         // Renamed team profiles: permanent redirects keep inbound links.
         '/de/team/selenretterin': { redirect: { to: '/de/team/seelenretterin', statusCode: 301 } },
         '/en/team/selenretterin': { redirect: { to: '/en/team/seelenretterin', statusCode: 301 } },

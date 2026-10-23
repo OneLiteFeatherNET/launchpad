@@ -45,7 +45,7 @@ Aves is a Java library for Minestom that takes over recurring tasks when you bui
 
 ## Who it is for
 
-For developers who run or build a Minestom server and do not want to rewrite inventories, file handling or multi-language support each time. Titan and Cygnus, two other OneLiteFeather projects, use Aves as a dependency.
+For developers who run or build a Minestom server and do not want to rewrite inventories, file handling or multi-language support each time. Titan and Slender, two other OneLiteFeather projects, use Aves as a dependency.
 
 ## What to know before you use it
 

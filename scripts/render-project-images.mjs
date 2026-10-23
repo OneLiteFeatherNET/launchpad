@@ -97,7 +97,9 @@ export const PROJECTS = [
     }
   },
   {
-    slug: 'cygnus',
+    slug: 'slender',
+    // The CDN keeps the images under their original key.
+    imageSlug: 'cygnus',
     language: 'java',
     source: {
       repo: 'Cygnus',
@@ -582,6 +584,7 @@ export async function renderAll({ repos, outDir, fontDir, projects = PROJECTS })
 
   for (const project of projects) {
     const { source, language, slug } = project
+    const imageSlug = project.imageSlug ?? slug
     const socialName = socialNameOf(project)
     const snippetText = readFileSync(join(repos, source.repo, source.file), 'utf8')
     const snippet = snippetOf(snippetText, source.lines)
@@ -591,14 +594,14 @@ export async function renderAll({ repos, outDir, fontDir, projects = PROJECTS })
     const frontmatter = frontmatterOf(readFileSync(join(ROOT, `content/projects/en/${slug}.md`), 'utf8'))
     const name = nameOf(frontmatter.title)
     const platforms = frontmatter.platforms ?? []
-    const projectDir = join(outDir, slug)
+    const projectDir = join(outDir, imageSlug)
     mkdirSync(projectDir, { recursive: true })
 
     const iconSource = { snippet, language, fileName }
     const icon = await rasterize(iconTree(iconSource), SIZE_ICON, SIZE_ICON, fonts)
     const iconFile = join(projectDir, 'icon.png')
     writeFileSync(iconFile, icon)
-    written.push({ file: iconFile, key: projectImageKey(slug, 'icon') })
+    written.push({ file: iconFile, key: projectImageKey(imageSlug, 'icon') })
 
     const license = frontmatter.license
     const socialSource = { name, snippet, language, fileName, platforms, license, logoSrc }
@@ -607,7 +610,7 @@ export async function renderAll({ repos, outDir, fontDir, projects = PROJECTS })
     writeFileSync(socialFile, social)
     written.push({
       file: socialFile,
-      key: projectImageKey(slug, socialName),
+      key: projectImageKey(imageSlug, socialName),
       source: `${source.repo}/${source.file}:${source.lines.join('-')}`
     })
   }
