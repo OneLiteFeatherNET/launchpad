@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.33.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.32.1...onelitefeather.net-v1.33.0) (2026-10-23)
+
+
+### Features
+
+* **events:** add images to the slender event ([#572](https://github.com/OneLiteFeatherNET/launchpad/issues/572)) ([09368a0](https://github.com/OneLiteFeatherNET/launchpad/commit/09368a004985cea1f0206b79c07b2954163a7360))
+
+
+### Bug Fixes
+
+* **seo:** announce x-default in event sitemap alternates ([#570](https://github.com/OneLiteFeatherNET/launchpad/issues/570)) ([76f0b9a](https://github.com/OneLiteFeatherNET/launchpad/commit/76f0b9a1c1bcb923ebc25344a908578059cff048))
+
 ## [1.32.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.32.0...onelitefeather.net-v1.32.1) (2026-10-23)
 
 
