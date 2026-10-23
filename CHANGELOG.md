@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.32.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.32.0...onelitefeather.net-v1.32.1) (2026-10-23)
+
+
+### Bug Fixes
+
+* **deps:** restore @nuxt/image 2.2.0 in package.json ([#568](https://github.com/OneLiteFeatherNET/launchpad/issues/568)) ([d8b4435](https://github.com/OneLiteFeatherNET/launchpad/commit/d8b443508104a0e97266605ca180a41410428f71))
+
 ## [1.32.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.31.1...onelitefeather.net-v1.32.0) (2026-10-23)
 
 
