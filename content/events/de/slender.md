@@ -50,19 +50,49 @@ sammeln. Wie viele, richtet sich nach der Spielerzahl der Runde.
 **Ziel:** Sammelt gemeinsam alle Seiten der Runde, bevor Slender euch
 ausschaltet.
 
-- Die Anzahl der Seiten passt sich an die Spielerzahl an.
-- Sprinten kostet **Stamina**. Ist die Leiste leer, kannst du nicht mehr
-  rennen – teile sie dir ein.
+- Die Zahl der Seiten wächst mit der Spielerzahl.
+- Sprinten kostet **Ausdauer**. Ist sie leer, müsst ihr euch erst erholen –
+  teilt sie euch ein.
+- Jeder hat **ein Heil-Item** pro Runde. Es heilt nach und nach und lässt sich
+  erst nutzen, wenn euch etwas fehlt.
+- Angst wächst beim Finden von Seiten, bei Sichtungen und wenn Mitspieler
+  ausscheiden. Der Creek nimmt sich besonders ängstliche Survivor vor.
+- Mehr dazu im [Spielprinzip-Beitrag](/de/blog/slender-spielprinzip).
 :::
 
 :::event-guide{role="Slender" icon="ghost"}
 **Ziel:** Schalte alle Survivor aus, bevor sie die Seiten beisammen haben.
 
 - Du wirst zu Rundenbeginn zufällig bestimmt.
+- Du bist standardmäßig unsichtbar. Sichtbar zu sein ist mächtig, aber nur
+  eine Weile möglich.
+- Sichtbar bist du gefährlich für alle, die dicht bei dir stehen – dafür bist
+  du langsamer.
+- Der Scan zeigt dir ältere Spuren in deiner Nähe, nie die allerneuesten. Er
+  steht erst später in der Runde zur Verfügung.
+- Später in der Runde kannst du kurz einen Creek übernehmen.
+- Survivor, die dich aus der Nähe ansehen, sehen das Bild verzerrt.
+- Mehr dazu im [Spielprinzip-Beitrag](/de/blog/slender-spielprinzip).
 :::
 ::
+
+## Die Seiten
+
+- Die Zahl der Seiten richtet sich nach der Spielerzahl. Immer einige liegen
+  gleichzeitig auf der Karte.
+- Eine Seite bleibt nur eine Weile liegen und wandert dann an eine andere
+  Stelle.
+- Kurz bevor eine Seite verschwindet, verrät sie sich durch Töne.
 
 ## Häufige Fragen
 
 **Muss ich das Resource Pack wirklich annehmen?**
 Ja. Ohne Pack kannst du nicht mitspielen, der Server wirft dich sonst.
+
+**Was passiert, wenn ich gefangen werde?**
+Ein Fang kann dich mit einem zufälligen Mitspieler die Plätze tauschen lassen
+oder in die Luft schleudern. Tödlich ist das nie.
+
+**Was passiert, wenn ich ausscheide?**
+Du wirst Zuschauer und verfolgst die verbleibenden Survivor. Dein Körper bleibt
+in der Welt liegen.
