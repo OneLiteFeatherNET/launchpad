@@ -35,7 +35,7 @@
     "seo:check": "node scripts/seo-check.mjs",
     "seo:lighthouse": "lhci autorun --config=./.lighthouserc.json"
   },
-  "packageManager": "pnpm@12.11.2",
+  "packageManager": "pnpm@12.14.0",
   "devDependencies": {
     "@material/material-color-utilities": "0.3.0",
     "@nuxt/content": "3.16.2",
