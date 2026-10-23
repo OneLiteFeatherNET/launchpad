@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.32.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.31.1...onelitefeather.net-v1.32.0) (2026-10-23)
+
+
+### Features
+
+* **blog:** explain how slender plays ([#563](https://github.com/OneLiteFeatherNET/launchpad/issues/563)) ([fbb9199](https://github.com/OneLiteFeatherNET/launchpad/commit/fbb9199879adfc5bbb218c4aaecbafce25ad0708))
+* **community-poi:** add cainpain234's gold, guardian and witch farms ([#564](https://github.com/OneLiteFeatherNET/launchpad/issues/564)) ([e80f811](https://github.com/OneLiteFeatherNET/launchpad/commit/e80f8111f32f1d840792ea22be443b95d97b118c))
+
 ## [1.31.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.31.0...onelitefeather.net-v1.31.1) (2026-10-15)
 
 
