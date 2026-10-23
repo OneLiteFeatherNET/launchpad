@@ -19,6 +19,9 @@ export interface EventSitemapSource {
 }
 
 const regionOf: Record<string, string> = { de: 'de-DE', en: 'en-US' }
+// Matches `defaultLocale` in nuxt.config.ts; the detail page announces its
+// x-default there, so the sitemap must name the same URL.
+const defaultLocale = 'en'
 
 /**
  * Sitemap entries for every listed event at `now`, per locale. Hidden events
@@ -46,12 +49,14 @@ export function visibleEventSitemapEntries(
       ? listed.filter((other) => other.entry.translationKey === entry.translationKey)
       : []
     if (translations.length < 2) return { loc: eventDetailPath(locale, entry.slug) }
-    return {
-      loc: eventDetailPath(locale, entry.slug),
-      alternatives: translations.map((other) => ({
-        hreflang: regionOf[other.locale] ?? other.locale,
-        href: eventDetailPath(other.locale, other.entry.slug),
-      })),
+    const alternatives = translations.map((other) => ({
+      hreflang: regionOf[other.locale] ?? other.locale,
+      href: eventDetailPath(other.locale, other.entry.slug),
+    }))
+    const fallback = translations.find((other) => other.locale === defaultLocale)
+    if (fallback) {
+      alternatives.push({ hreflang: 'x-default', href: eventDetailPath(fallback.locale, fallback.entry.slug) })
     }
+    return { loc: eventDetailPath(locale, entry.slug), alternatives }
   })
 }

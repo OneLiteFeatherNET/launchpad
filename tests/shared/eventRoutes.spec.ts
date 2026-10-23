@@ -48,7 +48,20 @@ describe('visibleEventSitemapEntries', () => {
       en: [fixture('autumn-build', running, false, 'bau-2026')],
     }, now)
     const own = { hreflang: 'de-DE', href: '/de/events/herbst-bauevent' }
-    expect(de?.alternatives).toEqual([own, { hreflang: 'en-US', href: '/en/events/autumn-build' }])
+    expect(de?.alternatives).toEqual([
+      own,
+      { hreflang: 'en-US', href: '/en/events/autumn-build' },
+      { hreflang: 'x-default', href: '/en/events/autumn-build' },
+    ])
+  })
+
+  it('points x-default at the default locale, as the page does', () => {
+    const running = { startsAt: '2026-10-01T18:00:00+02:00' }
+    const [de] = visibleEventSitemapEntries({
+      de: [fixture('herbst-bauevent', running, false, 'bau-2026')],
+      en: [fixture('autumn-build', running, false, 'bau-2026')],
+    }, now)
+    expect(de?.alternatives).toContainEqual({ hreflang: 'x-default', href: '/en/events/autumn-build' })
   })
 
   it('leaves a translation out of the alternates when it is not listed', () => {
