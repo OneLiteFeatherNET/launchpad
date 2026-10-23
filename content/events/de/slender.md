@@ -20,6 +20,24 @@ subject:
   name: Slender
 play:
   modeSummary: Asymmetrisch – ein Slender gegen alle anderen
+thumbnail: '/images/events/slender/cover.webp'
+thumbnailAlt: 'Schwebende Inseln in türkisfarbenem Nebel: auf der Mitte ein spitzer Tempel, darüber ein dunkler Ring an Ketten, dazwischen überwucherte Brücken und rechts ein kahler, verdrehter Baum'
+gallery:
+  - src: '/images/events/slender/cover.webp'
+    alt: 'Schwebende Inseln in dichtem Nebel, auf der mittleren Insel ein spitzer Tempel mit einem Ring an Ketten darüber'
+    caption: 'Schwebende Inseln im Nebel'
+    width: 1600
+    height: 843
+  - src: '/images/events/slender/page-tree.webp'
+    alt: 'Ein schwarzer, verzweigter Baum mit einem Blatt Papier am Stamm, von unten gesehen im nächtlichen Nebel, davor verdorrtes Gras'
+    caption: 'Eine Seite am Stamm'
+    width: 1600
+    height: 843
+  - src: '/images/events/slender/forest.webp'
+    alt: 'Dunkler, nebliger Nadelwald bei Nacht, links unten eine schwarze Gestalt mit leuchtenden orangefarbenen Schlitzen'
+    caption: 'Etwas beobachtet dich'
+    width: 1600
+    height: 843
 promote: {}
 ---
 

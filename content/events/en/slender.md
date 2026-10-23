@@ -20,6 +20,24 @@ subject:
   name: Slender
 play:
   modeSummary: Asymmetric – one Slender against everyone else
+thumbnail: '/images/events/slender/cover.webp'
+thumbnailAlt: 'Floating islands in thick teal fog: a pointed temple on the central island, a dark ring hanging from chains above it, overgrown bridges between the islands and a bare, twisted tree on the right'
+gallery:
+  - src: '/images/events/slender/cover.webp'
+    alt: 'Floating islands in dense fog, a pointed temple on the middle island with a ring hanging from chains above it'
+    caption: 'Floating islands in the fog'
+    width: 1600
+    height: 843
+  - src: '/images/events/slender/page-tree.webp'
+    alt: 'A black, branching tree seen from below at night in fog, with a sheet of paper pinned to its trunk and dead grass in the foreground'
+    caption: 'A page on the trunk'
+    width: 1600
+    height: 843
+  - src: '/images/events/slender/forest.webp'
+    alt: 'A dark, foggy spruce forest at night; at the lower left stands a black figure with glowing orange slits for eyes'
+    caption: 'Something is watching you'
+    width: 1600
+    height: 843
 promote: {}
 ---
 
