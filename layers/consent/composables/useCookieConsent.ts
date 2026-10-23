@@ -1,4 +1,4 @@
-import { computed, useNuxtApp, useState } from '#imports'
+import { computed, useNuxtApp, useRuntimeConfig, useState } from '#imports'
 import type { ConsentState } from '../types'
 import { consentCookieString, readConsentCookie } from '../utils/consentCookie'
 import { analyticsAllowed, createConsentController, isBannerVisible } from '../utils/consentController'
@@ -25,6 +25,9 @@ export function useCookieConsent() {
       document.cookie = consentCookieString(next, location.protocol === 'https:')
     },
     applyAnalytics: (allowed) => applyPostHog(nuxtApp.$clientPosthog, allowed),
+    // Client only: the SSR render has no location, and never reaches applyAnalytics.
+    analyticsHost: import.meta.client
+      && isAnalyticsHost(location.hostname, productionHostname(useRuntimeConfig().public.siteUrl)),
   })
 
   return {
