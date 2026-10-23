@@ -201,6 +201,7 @@
     "services": {
       "title": "Dienste",
       "blogging": "Blog",
+      "rules": "Survival-Regeln",
       "status": "Status",
       "github": "GitHub"
     },
@@ -680,8 +681,25 @@
       "heading": "Hilfe und Fragen",
       "text": "Klappt die Verbindung nicht? Unser Discord hilft dir weiter. Antworten auf häufige Fragen findest du auf der Startseite.",
       "discord": "Discord",
-      "faq": "Häufige Fragen"
+      "faq": "Häufige Fragen",
+      "rules": "Survival-Regeln"
     }
+  },
+  "survival": {
+    "title": "Survival-Regeln",
+    "description": "Die Regeln unseres Survival-Servers: fair spielen, Welten schonen und aufeinander achten.",
+    "heading": "Survival-Regeln",
+    "intro": "Damit sich alle auf unserem Survival-Server wohlfühlen, gelten ein paar einfache Regeln.",
+    "rule_1": "Seid vernünftig zueinander und füreinander.",
+    "rule_2": "Spielt ohne Vorteile: keine nicht-optischen Mods und keine Hackclients.",
+    "rule_3": "Stellt niemandem Fallen, aus denen man nicht mehr (lebend) herauskommt.",
+    "rule_4": "Baut Farmen und Redstone-Anlagen serverschonend. Bei Fragen dazu meldet euch gern im Discord.",
+    "rule_5": "Nichts von anderen Spielern ohne Erlaubnis griefen oder klauen. Ausnahme: Pflanzen, wenn ihr hungrig seid und sie wieder setzt.",
+    "rule_6": "Wer erntet, pflanzt nach, damit keine Ödlande entstehen.",
+    "rule_7": "Längeres AFK-Stehen an einer Farm (AFK-Farmen) ist nicht erlaubt. Das Team darf kicken und bei Wiederholung vom Server ausschließen.",
+    "rule_8": "Loot-Kisten (z. B. in Dungeons) nach dem Leeren stehen lassen. Nur dann füllen sie sich in regelmäßigen Abständen wieder auf.",
+    "closing": "Verstöße können mit einem Ausschluss vom Server bestraft werden.",
+    "questions": "Fragen? Schreib uns auf unserem {discord}."
   },
   "about": {
     "title": "Über uns",

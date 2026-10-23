@@ -201,6 +201,7 @@
     "services": {
       "title": "Services",
       "blogging": "Blog",
+      "rules": "Survival rules",
       "status": "Status",
       "github": "GitHub"
     },
@@ -680,8 +681,25 @@
       "heading": "Help and questions",
       "text": "Can't connect? Our Discord can help. Answers to common questions are on the home page.",
       "discord": "Discord",
-      "faq": "Common questions"
+      "faq": "Common questions",
+      "rules": "Survival rules"
     }
+  },
+  "survival": {
+    "title": "Survival rules",
+    "description": "The rules of our Survival server: play fair, protect the world and respect each other.",
+    "heading": "Survival rules",
+    "intro": "To make our Survival server a good place for everyone, a few simple rules apply.",
+    "rule_1": "Be reasonable with and for each other.",
+    "rule_2": "Don't play with advantages: no non-cosmetic mods and no hack clients.",
+    "rule_3": "Don't trap other players so that they can't get out alive.",
+    "rule_4": "Build farms and redstone contraptions so the server can handle them. If you have questions, ask in our Discord.",
+    "rule_5": "Don't grief or steal from other players or their buildings without consent. Exception: plants, if you're hungry and replant them.",
+    "rule_6": "When you harvest, replant so resources aren't gone for new players.",
+    "rule_7": "AFK farming for a longer time is not allowed. Staff may kick you and exclude you from the server if it happens repeatedly.",
+    "rule_8": "Leave loot chests (e.g. in dungeons) in place after emptying them. Only then are they refilled at regular intervals.",
+    "closing": "Breaking the rules can get you excluded from the server.",
+    "questions": "Questions? Write to us on our {discord}."
   },
   "about": {
     "title": "About us",
