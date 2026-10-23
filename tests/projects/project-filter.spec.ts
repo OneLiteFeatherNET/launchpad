@@ -21,7 +21,7 @@ const project = (slug: string, extra: Partial<ProjectSummary> = {}): ProjectSumm
 }) as ProjectSummary
 
 const fixtures = [
-  project('cygnus', { platforms: ['Minestom'] }),
+  project('slender', { platforms: ['Minestom'] }),
   project('butterfly', { platforms: ['Paper', 'Minestom'] }),
   project('apus', { platforms: ['Kubernetes', 'Paper'], audience: 'internal' }),
   project('titan', { platforms: ['Minestom', 'CloudNet'], audience: 'internal' }),

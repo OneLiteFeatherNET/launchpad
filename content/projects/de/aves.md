@@ -45,7 +45,7 @@ Aves ist eine Java-Bibliothek für Minestom, die wiederkehrende Aufgaben beim Ba
 
 ## Für wen ist das gedacht?
 
-Für Entwickler, die einen Minestom-Server betreiben oder bauen und Inventare, Dateiverwaltung oder Mehrsprachigkeit nicht jedes Mal neu schreiben wollen. Titan und Cygnus, zwei weitere OneLiteFeather-Projekte, nutzen Aves als Abhängigkeit.
+Für Entwickler, die einen Minestom-Server betreiben oder bauen und Inventare, Dateiverwaltung oder Mehrsprachigkeit nicht jedes Mal neu schreiben wollen. Titan und Slender, zwei weitere OneLiteFeather-Projekte, nutzen Aves als Abhängigkeit.
 
 ## Was du vor dem Einsatz wissen solltest
 

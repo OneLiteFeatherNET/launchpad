@@ -1,16 +1,16 @@
 ---
-slug: 'cygnus'
-translationKey: 'cygnus'
-title: 'Cygnus: Slender-Remake für Minestom'
+slug: 'slender'
+translationKey: 'slender'
+title: 'Slender: Remake für Minestom'
 summary: 'Ein asymmetrisches Multiplayer-Spiel nach dem Horrorspiel Slender: Ein Spieler jagt die Survivor, die Seiten sammeln müssen.'
 status: 'active'
 audience: 'internal'
 logo: '/images/projects/cygnus/icon.png'
-logoAlt: 'Codeausschnitt aus Cygnus, TeamCreator.java: das Anlegen der Teams einer Runde'
+logoAlt: 'Codeausschnitt aus dem Slender-Quellcode, TeamCreator.java: das Anlegen der Teams einer Runde'
 socialImage: '/images/projects/cygnus/social.png'
 releasedAt: '2025-11-05'
 publishedAt: '2026-10-11'
-updatedAt: '2026-10-11'
+updatedAt: '2026-10-23'
 platforms:
   - 'Minestom'
 license: 'AGPL-3.0'
@@ -22,16 +22,16 @@ maintainers:
   - 'themeinerlp'
 alternates:
   - hreflang: 'de'
-    href: 'https://onelitefeather.net/de/projects/cygnus'
+    href: 'https://onelitefeather.net/de/projects/slender'
   - hreflang: 'en'
-    href: 'https://onelitefeather.net/en/projects/cygnus'
+    href: 'https://onelitefeather.net/en/projects/slender'
   - hreflang: 'x-default'
-    href: 'https://onelitefeather.net/en/projects/cygnus'
+    href: 'https://onelitefeather.net/en/projects/slender'
 ---
 
 ## Was ist das?
 
-Cygnus ist eine Neuinterpretation des Horrorspiels *Slender* aus dem Jahr 2012 als Minecraft-Spiel auf [Minestom](https://github.com/Minestom/Minestom). Es ist ein asymmetrisches Multiplayer-Spiel: Standardmäßig übernimmt ein Spieler die Rolle des Slender, die übrigen sind Survivor. Die Survivor müssen die Karte absuchen und Seiten einsammeln, bevor die Zeit abläuft. Der Slender jagt sie.
+Slender ist eine Neuinterpretation des Horrorspiels *Slender* aus dem Jahr 2012 als Minecraft-Spiel auf [Minestom](https://github.com/Minestom/Minestom). Es ist ein asymmetrisches Multiplayer-Spiel: Standardmäßig übernimmt ein Spieler die Rolle des Slender, die übrigen sind Survivor. Die Survivor müssen die Karte absuchen und Seiten einsammeln, bevor die Zeit abläuft. Der Slender jagt sie.
 
 Das Remake lehnt sich an die Version auf dem inzwischen abgeschalteten Server Dans-Arcade an, geht in einigen Bereichen aber einen eigenen Weg.
 
@@ -46,4 +46,4 @@ Das Remake lehnt sich an die Version auf dem inzwischen abgeschalteten Server Da
 
 ## Für wen ist das?
 
-Cygnus richtet sich an Spieler, die Slender im Team oder als Jäger erleben wollen, und an Server-Betreiber, die ein Horror-Minigame mit Rollen, Ausdauer und eigenem Resource Pack betreiben möchten. Der Quellcode steht unter der AGPL-3.0. Fehler und Ideen nimmt das Team über die [GitHub-Issues](https://github.com/OneLiteFeatherNET/Cygnus/issues) entgegen.
+Slender richtet sich an Spieler, die das Spiel im Team oder als Jäger erleben wollen, und an Server-Betreiber, die ein Horror-Minigame mit Rollen, Ausdauer und eigenem Resource Pack betreiben möchten. Der Quellcode steht unter der AGPL-3.0 und liegt noch im Repository mit dem früheren Projektnamen Cygnus. Fehler und Ideen nimmt das Team über die [GitHub-Issues](https://github.com/OneLiteFeatherNET/Cygnus/issues) entgegen.
