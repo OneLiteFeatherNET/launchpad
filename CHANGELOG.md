@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.34.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.33.0...onelitefeather.net-v1.34.0) (2026-10-23)
+
+
+### Features
+
+* **survival:** add the survival rules page ([#573](https://github.com/OneLiteFeatherNET/launchpad/issues/573)) ([96a5694](https://github.com/OneLiteFeatherNET/launchpad/commit/96a5694c674a7772f21127b8c0c6b6bdc40763e1))
+
+
+### Bug Fixes
+
+* **analytics:** capture posthog events only on the production host ([#576](https://github.com/OneLiteFeatherNET/launchpad/issues/576)) ([dfce43e](https://github.com/OneLiteFeatherNET/launchpad/commit/dfce43e894aec24307a894fd0afd1fb420d98672))
+
 ## [1.33.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.32.1...onelitefeather.net-v1.33.0) (2026-10-23)
 
 
