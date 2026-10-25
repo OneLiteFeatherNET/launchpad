@@ -1,14 +1,19 @@
 ---
 slug: slender
 translationKey: event-slender-2026
-title: "Slender: Halloween 2026"
-summary: Sammle die Seiten, bevor Slender dich findet – die überarbeitete Halloween-Variante mit Stamina, eigenem Resource Pack und neuer Atmosphäre.
+title: "Slender: Zurück in den Nebel"
+summary: Sammle die Seiten, bevor Slender dich findet – die überarbeitete Fassung mit Stamina, eigenem Resource Pack und neuer Atmosphäre.
 type: play
 unlisted: false
 event:
   announceAt: 2026-10-15T18:00:00+02:00
   startsAt: 2026-10-24T18:00:00+02:00
-  endsAt: 2026-11-02T23:59:00+01:00
+  endsAt: 2026-12-31T23:59:00+01:00
+sessions:
+  label: Slender-Nacht
+  first: 2026-10-31T21:00:00+01:00
+  durationMinutes: 180
+  repeat: weekly
 access:
   mode: open
   requirements:

@@ -394,6 +394,16 @@ const eventsSchema = withI18nMeta(z.object({
       startsAt: eventTimestamp,
       endsAt: eventTimestamp.optional()
     }),
+    // One session, optionally repeating weekly in Berlin wall time, until
+    // `event.endsAt`. See layers/events/utils/eventSessions.ts.
+    sessions: z
+      .object({
+        label: z.string(),
+        first: eventTimestamp,
+        durationMinutes: z.number().int().positive(),
+        repeat: z.enum(['weekly']).optional()
+      })
+      .optional(),
     access: z
       .object({
         mode: z.enum([
