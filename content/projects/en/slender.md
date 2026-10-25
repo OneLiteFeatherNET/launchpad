@@ -46,4 +46,6 @@ The remake is inspired by the version on the Dans-Arcade server, which no longer
 
 ## Who is it for?
 
+On onelitefeather.net the game runs on Minecraft Java Edition 26.2 only. Join with vanilla Minecraft, because mods and LabyMod are kicked automatically; Slender is in the lobby navigator.
+
 Slender is for players who want to experience the game as a team of survivors or as the hunter, and for server operators who want to run a horror minigame with roles, stamina and a custom resource pack. The source code is licensed under AGPL-3.0 and still lives in the repository under its former project name, Cygnus. The team takes bug reports and ideas through the [GitHub issues](https://github.com/OneLiteFeatherNET/Cygnus/issues).

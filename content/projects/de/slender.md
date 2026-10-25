@@ -46,4 +46,6 @@ Das Remake lehnt sich an die Version auf dem inzwischen abgeschalteten Server Da
 
 ## Für wen ist das?
 
+Auf onelitefeather.net läuft das Spiel nur auf Minecraft Java Edition 26.2. Join mit Vanilla-Minecraft, denn Mods und LabyMod werden automatisch gekickt; Slender findest du im Navigator der Lobby.
+
 Slender richtet sich an Spieler, die das Spiel im Team oder als Jäger erleben wollen, und an Server-Betreiber, die ein Horror-Minigame mit Rollen, Ausdauer und eigenem Resource Pack betreiben möchten. Der Quellcode steht unter der AGPL-3.0 und liegt noch im Repository mit dem früheren Projektnamen Cygnus. Fehler und Ideen nimmt das Team über die [GitHub-Issues](https://github.com/OneLiteFeatherNET/Cygnus/issues) entgegen.
