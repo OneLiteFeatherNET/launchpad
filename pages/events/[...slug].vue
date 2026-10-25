@@ -10,6 +10,7 @@ definePageMeta({
 })
 
 const { detail } = await useEventDetail()
+const { trackServerAddressCopied } = useEventConversions()
 
 const event = computed(() => detail.value?.event)
 const phase = computed(() => detail.value?.phase)
@@ -164,6 +165,7 @@ const resources = computed(() => event.value?.resources ?? [])
         :access-open="detail.accessOpen"
         :discord-url="discordUrl"
         :server-address="detail.serverAddress"
+        @address-copied="trackServerAddressCopied({ event, phase }, locale)"
       />
     </article>
   </div>
