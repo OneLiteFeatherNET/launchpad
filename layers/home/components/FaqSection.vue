@@ -3,7 +3,7 @@
 import type { FaqEntry } from '#layers/content-core'
 
 // Fetched by the page: a query started in here begins only after the page rendered.
-const props = defineProps<{ items: FaqEntry[] }>()
+defineProps<{ items: FaqEntry[] }>()
 const { t } = useI18n()
 
 const detailsClass
@@ -29,27 +29,6 @@ const answerClass = [
   '[&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',
   '[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2'
 ].join(' ')
-
-// FAQPage schema mirrors the visible content. Google currently restricts FAQ
-// rich results to authoritative health/government sites, but the markup is
-// still picked up by other crawlers (Bing, DuckDuckGo, AI assistants). The
-// schema requires plain-text answers, so we strip the MDC AST down.
-useSchemaOrg(computed(() => {
-  if (!props.items.length) return []
-  return [
-    {
-      '@type': 'FAQPage',
-      mainEntity: props.items.map((entry) => ({
-        '@type': 'Question' as const,
-        name: entry.question,
-        acceptedAnswer: {
-          '@type': 'Answer' as const,
-          text: extractPlainText(entry.body, 500)
-        }
-      }))
-    }
-  ]
-}))
 </script>
 
 <template>

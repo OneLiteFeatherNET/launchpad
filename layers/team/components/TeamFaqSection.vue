@@ -26,27 +26,6 @@ const answerClass = [
   '[&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',
   '[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2'
 ].join(' ')
-
-// Extra FAQPage schema scoped to the team page; Google currently restricts
-// FAQ rich results to authoritative sources, but other crawlers (Bing,
-// DuckDuckGo, AI assistants) still pick it up. Plain-text answers only,
-// so we strip the MDC AST down.
-useSchemaOrg(computed(() => {
-  if (!items.value.length) return []
-  return [
-    {
-      '@type': 'FAQPage',
-      mainEntity: items.value.map((entry) => ({
-        '@type': 'Question' as const,
-        name: entry.question,
-        acceptedAnswer: {
-          '@type': 'Answer' as const,
-          text: extractPlainText(entry.body, 500)
-        }
-      }))
-    }
-  ]
-}))
 </script>
 
 <template>
