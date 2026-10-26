@@ -45,15 +45,18 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   })
 
 
-  const robotsDirective = computed(() => buildRobots(opts))
   const keywordsMeta = computed(() => normaliseKeywords(opts.keywords))
 
+  // useRobotsRule writes the <meta> tag and X-Robots-Tag together; a meta tag
+  // alone left the header saying `index` on pages that said `noindex`.
+  const robotsDirective = buildRobots(opts)
+  if (robotsDirective) useRobotsRule(robotsDirective)
+
   // Canonical + hreflang are emitted once, app-wide, by @nuxtjs/i18n
-  // (see layouts/default.vue). Here we only add page-specific robots /
-  // keywords meta to avoid duplicate or conflicting link tags.
+  // (see layouts/default.vue). Here we only add page-specific keywords meta
+  // to avoid duplicate or conflicting link tags.
   useHead(() => {
     const meta: Array<{ name: string; content: string }> = []
-    if (robotsDirective.value) meta.push({ name: 'robots', content: robotsDirective.value })
     if (keywordsMeta.value) meta.push({ name: 'keywords', content: keywordsMeta.value })
     return { meta }
   })
