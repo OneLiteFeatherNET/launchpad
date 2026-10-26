@@ -1,6 +1,8 @@
 ---
 title: 'DevBlog #1'
 alternativeTitle: 'What we use and why it helps'
+seo:
+  title: 'DevBlog #1: What we use and why it helps'
 description: 'Today I would like to present you the active used technologies from our team and which advantages these offer to us...'
 pubDate: '2023-10-21'
 headerImage: 'images/blog/dev-blog-1.webp'

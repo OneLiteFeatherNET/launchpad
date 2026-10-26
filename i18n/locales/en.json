@@ -106,6 +106,7 @@
   "blog": {
     "overview": {
       "title": "Overview",
+      "page_title": "Blog: news and insights from the network",
       "description": "Find interesting blog posts from OneLiteFeather.net about development, community and more."
     },
     "privacy": {
@@ -118,7 +119,7 @@
     },
     "author": {
       "profile": "View profile",
-      "title": "{name} – Blog",
+      "title": "Articles by {name}",
       "description": "All blog posts by {name} on OneLiteFeather.net.",
       "posts_by": "Posts by {name}"
     }

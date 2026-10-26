@@ -74,6 +74,7 @@
   "blog": {
     "overview": {
       "title": "Übersicht",
+      "page_title": "Blog: Neuigkeiten und Einblicke aus dem Netzwerk",
       "description": "Finde interessante Blogbeiträge von OneLiteFeather.net rund um Entwicklung, Community und mehr."
     },
     "privacy": {
@@ -86,15 +87,15 @@
     },
     "author": {
       "profile": "Zum Profil",
-      "title": "{name} – Blog",
+      "title": "Beiträge von {name}",
       "description": "Alle Blogbeiträge von {name} auf OneLiteFeather.net.",
       "posts_by": "Beiträge von {name}"
     }
   },
   "index": {
     "title": "OneLiteFeather – Deutscher Minecraft-Server & Open Source",
-    "carousel_aria": "Startseiten-Highlight-Karussell"
     "description": "OneLiteFeather (onelitefeather.net) ist ein deutschsprachiges Minecraft-Netzwerk seit 2019 – mit Community-Bauten, Events und Open-Source-Software für Paper und Minestom.",
+    "carousel_aria": "Startseiten-Highlight-Karussell"
   },
   "home": {
     "discord": {
@@ -264,7 +265,7 @@
   },
   "community_poi": {
     "overview": {
-      "title": "Community Points of Interest",
+      "title": "Community-Sehenswürdigkeiten",
       "description": "Community-Bauprojekte: vom Konzept über laufende Baustellen bis zur fertigen Sehenswürdigkeit – mit Fortschritt, Galerie und Litematica-Schematics.",
       "count": "{count} POIs",
       "empty": "Aktuell sind noch keine Community-POIs veröffentlicht. Schau bald wieder rein – oder reiche dein Projekt ein!"
@@ -482,7 +483,7 @@
     "opens_new_tab": "(öffnet in neuem Tab)"
   },
   "events": {
-    "title": "Events",
+    "title": "Veranstaltungen",
     "description": "Bau-Events, Spiel-Events, Adventures und Betas auf OneLiteFeather – was gerade läuft, was ansteht und was schon war.",
     "intro": "Was gerade läuft, was ansteht und was schon war.",
     "sections": {

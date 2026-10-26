@@ -1,6 +1,8 @@
 ---
 title: 'DevBlog #1'
 alternativeTitle: 'Welche Technologien wir nutzen und warum'
+seo:
+  title: 'DevBlog #1: Welche Technologien wir nutzen und warum'
 description: 'Heute möchte ich aus unserem Team die aktiv verwenden Technologien vorstellen und was die für Vorteile uns bringen. '
 pubDate: '2023-10-21'
 headerImage: 'images/blog/dev-blog-1.webp'
