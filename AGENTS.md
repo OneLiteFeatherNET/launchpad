@@ -263,8 +263,7 @@ SEO emitters, so nothing is written twice:
   body (`tests/seo/sitemap-content-hooks.spec.ts` evaluates them that way).
   Translation links live in front-matter `alternates`, held symmetric by
   `tests/content/translation-alternates.spec.ts`.
-- `nuxt-schema-org` 6.3.2 is patched (`patches/`, see `pnpm-workspace.yaml`)
-  until the next release ships the upstream fix.
+- `nuxt-schema-org` runs unpatched (6.4.3).
 
 `seo.yml` runs `seo:check`, `cache-check` and Lighthouse against the
 production build (`pnpm preview:prod`). After enabling Workers Cache, verify
