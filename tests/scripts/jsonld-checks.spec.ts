@@ -26,7 +26,9 @@ const homeGraph = (): Node[] => [
     '@id': websiteId,
     'url': `${origin}/`,
     'name': 'OneLiteFeather',
-    'alternateName': ['OneLiteFeather Network', 'onelitefeather.net', 'OLF']
+    'alternateName': ['OneLiteFeather Network',
+'onelitefeather.net',
+'OLF']
   },
   {
     '@type': 'WebPage',
@@ -51,10 +53,11 @@ const without = (node: Node, key: string): Node => {
   const { [key]: _removed, ...rest } = node
   return rest
 }
-const replace = (graph: Node[], type: string, patch: (node: Node) => Node): Node[] =>
-  graph.map(node => node['@type'] === type ? patch(node) : node)
+const replace = (graph: Node[], type: string, patch: (node: Node) => Node): Node[] => graph.map(node => node['@type'] === type ? patch(node) : node)
 
-const check = (graph: Node[], kind = 'page') => checkGraph(graph, { origin, kind }) as string[]
+function check(graph: Node[], kind: 'page' | 'article' | 'profile' = 'page'): string[] {
+  return checkGraph(graph, { origin, kind })
+}
 
 describe('checkGraph', () => {
   it('reports nothing for a correct home page graph', () => {
@@ -82,8 +85,7 @@ describe('checkGraph', () => {
   })
 
   it('reports an Organization logo that is an SVG', () => {
-    const graph = replace(homeGraph(), 'ImageObject', node =>
-      node['@id'] === `${origin}/#logo` ? { ...node, url: `${origin}/images/logo.svg` } : node)
+    const graph = replace(homeGraph(), 'ImageObject', node => node['@id'] === `${origin}/#logo` ? { ...node, url: `${origin}/images/logo.svg` } : node)
     expect(check(graph).join('\n')).toContain('logo')
   })
 
@@ -126,8 +128,7 @@ describe('checkGraph', () => {
   })
 
   it('reports a primaryImageOfPage that is an SVG', () => {
-    const graph = replace(homeGraph(), 'ImageObject', node =>
-      node['@id'] === `${origin}/en#primaryimage` ? { ...node, url: `${origin}/images/logo.svg` } : node)
+    const graph = replace(homeGraph(), 'ImageObject', node => node['@id'] === `${origin}/en#primaryimage` ? { ...node, url: `${origin}/images/logo.svg` } : node)
     expect(check(graph).join('\n')).toContain('primaryImageOfPage')
   })
 })

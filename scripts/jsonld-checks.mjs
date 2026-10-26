@@ -6,7 +6,10 @@
  * of findings (strings), empty when the graph is fine.
  */
 
-const asArray = (value) => (value === undefined || value === null ? [] : Array.isArray(value) ? value : [value])
+const asArray = (value) => {
+  if (value === undefined || value === null) return []
+  return Array.isArray(value) ? value : [value]
+}
 const typesOf = (node) => asArray(node?.['@type'])
 const hasType = (node, type) => typesOf(node).includes(type)
 const isReference = (value) => value && typeof value === 'object' && Object.keys(value).length === 1 && '@id' in value
@@ -27,7 +30,9 @@ const checkWebSite = (nodes, origin) => {
   if (site.url !== `${origin}/`) findings.push(`WebSite url is "${site.url}", expected "${origin}/"`)
   if (site.name !== 'OneLiteFeather') findings.push(`WebSite name is "${site.name}", expected "OneLiteFeather"`)
   const alternates = asArray(site.alternateName)
-  for (const expected of ['OneLiteFeather Network', 'onelitefeather.net', 'OLF']) {
+  for (const expected of ['OneLiteFeather Network',
+'onelitefeather.net',
+'OLF']) {
     if (!alternates.includes(expected)) findings.push(`WebSite alternateName lacks "${expected}"`)
   }
   for (const key of ['translationOfWork', 'workTranslation']) {
@@ -54,7 +59,10 @@ const checkArticle = (nodes, index) => {
   if (!articles.length) return ['page has no Article node']
   const findings = []
   for (const article of articles) {
-    for (const key of ['headline', 'datePublished', 'dateModified', 'publisher']) {
+    for (const key of ['headline',
+'datePublished',
+'dateModified',
+'publisher']) {
       if (!article[key]) findings.push(`Article is missing ${key}`)
     }
     if (!asArray(article.image).length) findings.push('Article is missing image')
@@ -86,7 +94,11 @@ const checkProfilePage = (nodes, index) => {
   return findings
 }
 
-const REFERENCE_KEYS = ['isPartOf', 'publisher', 'about', 'primaryImageOfPage', 'mainEntity']
+const REFERENCE_KEYS = ['isPartOf',
+'publisher',
+'about',
+'primaryImageOfPage',
+'mainEntity']
 
 const checkReferences = (nodes, index) => {
   const findings = []
