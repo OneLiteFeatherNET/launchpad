@@ -13,6 +13,9 @@ access:
   mode: open
   requirements:
     - Das Server-Resource-Pack muss angenommen werden.
+    - Nur Java Edition 26.2. Bedrock wird nicht unterstützt.
+    - Vanilla-Client nötig. Mods und LabyMod werden gekickt.
+    - Slender findest du in der Lobby im Navigator.
 join:
   server: true
 subject:
@@ -60,6 +63,9 @@ sammeln. Wie viele, richtet sich nach der Spielerzahl der Runde.
   die Stimmung nicht bricht.
 - Neue Effekte laufen über die Shader des Spiels und werden vom Server
   gesteuert.
+- Spiel auf **Java Edition 26.2** mit Vanilla-Minecraft. Bedrock wird nicht
+  unterstützt, Mods und LabyMod werden automatisch gekickt.
+- In der Lobby öffnest du den Navigator und wählst Slender.
 
 ## Anleitung
 

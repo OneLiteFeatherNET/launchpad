@@ -13,6 +13,9 @@ access:
   mode: open
   requirements:
     - You have to accept the server resource pack.
+    - Java Edition 26.2 only. Bedrock is not supported.
+    - Vanilla client required. Mods and LabyMod get kicked.
+    - Slender is in the lobby navigator.
 join:
   server: true
 subject:
@@ -60,6 +63,9 @@ on the number of players in the round.
   not break the mood.
 - New effects run through the game's shaders and are controlled by the
   server.
+- Play on **Java Edition 26.2** with vanilla Minecraft. Bedrock is not
+  supported, and mods or LabyMod are kicked automatically.
+- In the lobby, open the navigator and pick Slender.
 
 ## Guide
 
