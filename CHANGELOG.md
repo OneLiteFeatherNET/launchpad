@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.35.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.34.0...onelitefeather.net-v1.35.0) (2026-10-26)
+
+
+### Features
+
+* **events:** add java version and join hints for slender ([#579](https://github.com/OneLiteFeatherNET/launchpad/issues/579)) ([77cbebd](https://github.com/OneLiteFeatherNET/launchpad/commit/77cbebd13d00945ff7a5abfbaf5389c1d43550e3))
+* **events:** announce the weekly slender night with a countdown ([#582](https://github.com/OneLiteFeatherNET/launchpad/issues/582)) ([4999cd0](https://github.com/OneLiteFeatherNET/launchpad/commit/4999cd0788d42827938c6223d1f60226f1479129))
+* **events:** track server address copies as a posthog conversion ([#581](https://github.com/OneLiteFeatherNET/launchpad/issues/581)) ([6f2608b](https://github.com/OneLiteFeatherNET/launchpad/commit/6f2608b223dc0891f15b4072b8a65f1eeebb6b46))
+
+
+### Bug Fixes
+
+* **blog:** note the slender extension to year end ([#580](https://github.com/OneLiteFeatherNET/launchpad/issues/580)) ([0fa6138](https://github.com/OneLiteFeatherNET/launchpad/commit/0fa613810fdb55cf543bee974998ea65173c0b3b))
+* **seo:** give google one root website identity and consistent page signals ([#585](https://github.com/OneLiteFeatherNET/launchpad/issues/585)) ([abc6389](https://github.com/OneLiteFeatherNET/launchpad/commit/abc6389639270df3f794b3305760ef2af72da500))
+
+
+### Documentation
+
+* **seo:** correct stale schema-org notes ([#583](https://github.com/OneLiteFeatherNET/launchpad/issues/583)) ([a3f9a8f](https://github.com/OneLiteFeatherNET/launchpad/commit/a3f9a8fa497e844c5e6622abe68bf54df5b39bf9))
+
 ## [1.34.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.33.0...onelitefeather.net-v1.34.0) (2026-10-23)
 
 
