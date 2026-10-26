@@ -156,6 +156,13 @@ Change das am gebauten Ergebnis (`seo-check` gegen `pnpm preview:prod`, siehe
 wartet, der im Client gar nicht registriert ist, spielt wegen `.server.ts`
 keine Rolle.
 
+**Geprüft (Produktions-Build, `pnpm preview:prod`):** `replace` verhält sich
+wie gelesen. `/en`, `/de`, ein Artikel, ein Teamprofil und eine Projektseite
+liefern genau einen `WebSite`-Knoten mit Root-`@id`/`url` und den drei
+Alternativnamen, ohne `translationOfWork`/`workTranslation`; kein Knoten
+verweist mehr auf `/en#website` oder `/de#website`; `WebPage.isPartOf` zeigt
+auf den Root-Knoten. Der Rückfall `schemaOrg.defaults: false` war nicht nötig.
+
 **Erwogene Alternative zur Umsetzung:** `schemaOrg.defaults: false` und ein
 eigener Defaults-Plugin, der WebSite, WebPage und die Identity selbst
 registriert. Abgelehnt als erste Wahl: Er müsste `about` auf der Startseite

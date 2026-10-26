@@ -54,3 +54,16 @@ URL fragment. Adding a new entity type that needs a stable identity (a
 sponsor page, say) should add a builder here, not hand-write the fragment
 format at the call site — the format only needs to change in one place if
 `site.url` or the fragment scheme ever changes.
+
+## One WebSite for the domain, replaced in a plugin
+
+`nuxt-schema-org`'s i18n defaults plugin emits one WebSite per locale
+(`/en#website`, url `/en`, plus `translationOfWork` links), and Google supports
+site names for the domain root only. `layers/content-core/plugins/site-identity.server.ts`
+(`dependsOn: ['nuxt-schema-org:defaults']`) registers `https://<site>/#website`
+with `tagDuplicateStrategy: 'replace'`. Nodes are keyed by their `#fragment`, so
+a plain merge would keep the module's `translationOfWork`; only `replace` drops
+it. The same plugin merges the page language's `description` into the
+organization, the one field `schemaOrg.identity` does not own. After a
+`nuxt-schema-org` update, `pnpm seo:check` against `pnpm preview:prod` is what
+tells you the mechanism still works (`scripts/jsonld-checks.mjs`).
