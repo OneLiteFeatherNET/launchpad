@@ -11,7 +11,7 @@ export function useHomeSeo(opts: PageSeoOptions = {}) {
   useHead({ titleTemplate: '%s' })
 
   return usePageSeo({
-    description: opts.description || t('seo.default_description'),
+    description: opts.description || t('index.description'),
     keywords: opts.keywords || defaultKeywords,
     ...opts
   })

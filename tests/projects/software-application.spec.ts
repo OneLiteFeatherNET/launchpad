@@ -28,14 +28,18 @@ describe('softwareApplicationNode', () => {
     expect(node.applicationCategory).toBe('DeveloperApplication')
   })
 
-  it('links the source repository as codeRepository', () => {
-    expect(softwareApplicationNode(full).codeRepository)
-      .toBe('https://github.com/OneLiteFeatherNET/AntiRedstoneClock-Remastered')
+  it('does not use codeRepository, which SoftwareApplication does not define', () => {
+    expect(softwareApplicationNode(full)).not.toHaveProperty('codeRepository')
   })
 
-  it('omits codeRepository when the project has no source link', () => {
+  it('links the source repository as sameAs', () => {
+    expect(softwareApplicationNode(full).sameAs)
+      .toEqual(['https://github.com/OneLiteFeatherNET/AntiRedstoneClock-Remastered'])
+  })
+
+  it('omits sameAs when the project has no source link', () => {
     const node = softwareApplicationNode({ ...full, links: { docs: full.links.docs } })
-    expect(node.codeRepository).toBeUndefined()
+    expect(node.sameAs).toBeUndefined()
   })
 
   it('states the platforms as runtimePlatform, not as an operating system', () => {

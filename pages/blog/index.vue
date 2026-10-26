@@ -5,14 +5,14 @@ const { t, locale } = useI18n()
 const site = useSiteConfig()
 
 definePageMeta({
-  title: 'blog.overview.title',
+  title: 'blog.overview.page_title',
   layout: 'default',
 });
 
 const { top1Article, allPosts, authorsOf } = useBlogOverview()
 
 usePageSeo({
-  title: t('blog.overview.title'),
+  title: t('blog.overview.page_title'),
   description: t('blog.overview.description'),
   image: sectionOgImage('blog', locale.value),
   schemaType: 'CollectionPage',

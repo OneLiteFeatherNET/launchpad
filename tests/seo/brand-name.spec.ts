@@ -55,3 +55,46 @@ describe('site name', () => {
     expect((JSON.parse(read('public/site.webmanifest')) as { name: string }).name).toBe('OneLiteFeather')
   })
 })
+
+type Messages = { nuxtSiteConfig: { description: string }, index: { description: string } }
+const messages = (locale: string) => JSON.parse(read(`i18n/locales/${locale}.json`)) as Messages
+
+describe('organization', () => {
+  it('describes the organization with the English site description in nuxt.config', () => {
+    const descriptions = [...read('nuxt.config.ts').matchAll(/^\s*description: '([^']+)'/gm)].map(match => match[1])
+    expect(descriptions.length, 'identity and site description').toBeGreaterThanOrEqual(2)
+    for (const description of descriptions) expect(description).toBe(messages('en').nuxtSiteConfig.description)
+  })
+
+  it('points the logo at a PNG in both environments', () => {
+    const logos = [...read('nuxt.config.ts').matchAll(/\blogo: '([^']+)'/g)].map(match => match[1])
+    expect(logos).toEqual(['/images/logo.png', 'https://onelitefeather.net/images/logo.png'])
+  })
+
+  it('ships a logo.png of at least 112 x 112 pixels', () => {
+    const png = readFileSync(`${repoRoot}/public/images/logo.png`)
+    expect(png.subarray(1, 4).toString('latin1'), 'PNG signature').toBe('PNG')
+    expect(png.readUInt32BE(16), 'width').toBeGreaterThanOrEqual(112)
+    expect(png.readUInt32BE(20), 'height').toBeGreaterThanOrEqual(112)
+  })
+})
+
+describe('home description', () => {
+  it.each(['de', 'en'])('begins with the brand in %s', (locale) => {
+    expect(messages(locale).index.description).toMatch(/^OneLiteFeather\b/)
+  })
+
+  it.each(['de', 'en'])('names the domain in %s', (locale) => {
+    expect(messages(locale).index.description).toContain('onelitefeather.net')
+  })
+
+  it.each(['de', 'en'])('has a snippet length in %s', (locale) => {
+    const { length } = messages(locale).index.description
+    expect(length).toBeGreaterThanOrEqual(50)
+    expect(length).toBeLessThanOrEqual(200)
+  })
+
+  it('is what the home page sets', () => {
+    expect(read('layers/home/composables/useHomeSeo.ts')).toContain("t('index.description')")
+  })
+})

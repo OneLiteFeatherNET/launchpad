@@ -23,6 +23,7 @@
 import { load } from 'cheerio'
 import { existsSync } from 'node:fs'
 import process from 'node:process'
+import { checkGraph, checkRobotsAgreement } from './jsonld-checks.mjs'
 
 const args = process.argv.slice(2)
 const baseFlagIdx = args.indexOf('--base')
@@ -101,6 +102,7 @@ const fetchRaw = async (path) => {
     status: res.status,
     body: await res.text(),
     location: res.headers.get('location'),
+    xRobotsTag: res.headers.get('x-robots-tag'),
     contentType: res.headers.get('content-type') || ''
   }
 }
@@ -135,7 +137,7 @@ const flagSuspiciousI18n = (route, label, value) => {
   }
 }
 
-const checkPage = async ({ route, mustIndex }) => {
+const checkPage = async ({ route, mustIndex, kind = 'page' }) => {
   const res = await fetchFollow(route)
   if (res.status !== 200) {
     err(route, `HTTP ${res.status} (expected 200)`)
@@ -212,6 +214,9 @@ const checkPage = async ({ route, mustIndex }) => {
   if (!mustIndex && !isNoindex) {
     err(route, `Page must be noindex but robots is "${robotsContent || '<missing>'}"`)
   }
+  // The dev server rewrites both signals, so only a production build says anything here.
+  const robotsFinding = USE_MOCK ? null : checkRobotsAgreement(robotsContent, res.xRobotsTag)
+  if (robotsFinding) err(route, robotsFinding)
 
   // JSON-LD presence + parseability
   const jsonLdBlocks = $('script[type="application/ld+json"]')
@@ -240,16 +245,15 @@ const checkPage = async ({ route, mustIndex }) => {
   })
   if (!flatTypes.length) err(route, 'No usable @type entries inside JSON-LD')
 
-  // One WebSite, every node typed, every @id once. nuxt-schema-org and page
-  // code both add nodes; a raw object next to a define*() helper used to
-  // yield a second WebSite and an untyped WebPage on every page.
+  // Every node typed, every @id once. nuxt-schema-org and page code both add
+  // nodes; a raw object next to a define*() helper used to yield a second
+  // WebSite and an untyped WebPage on every page.
   const nodes = parsed.flatMap((node) => {
     /** @type {any} */
     const obj = node
     return Array.isArray(obj?.['@graph']) ? obj['@graph'] : [obj]
   }).filter((n) => n && typeof n === 'object')
-  const webSites = nodes.filter((n) => [n['@type']].flat().includes('WebSite')).length
-  if (webSites > 1) err(route, `JSON-LD has ${webSites} WebSite nodes, expected one`)
+  for (const finding of checkGraph(nodes, { origin: SITE_ORIGIN, kind })) err(route, `JSON-LD: ${finding}`)
   for (const n of nodes.filter((n) => !n['@type'])) err(route, `JSON-LD node without @type: ${n['@id'] || JSON.stringify(n).slice(0, 80)}`)
   const ids = nodes.map((n) => n['@id']).filter(Boolean)
   for (const id of new Set(ids.filter((id, i) => ids.indexOf(id) !== i))) err(route, `JSON-LD @id appears twice: ${id}`)
@@ -315,12 +319,31 @@ const checkArticle = async () => {
     err('/en/blog', 'No article link found to check')
     return
   }
-  await checkPage({ route: path, mustIndex: true })
+  await checkPage({ route: path, mustIndex: true, kind: 'article' })
   const $ = load((await fetchFollow(path)).body)
   const type = headContent($, 'meta[property="og:type"]')
   if (type !== 'article') err(path, `og:type is "${type}", expected "article"`)
   for (const tag of ['article:published_time', 'article:modified_time']) {
     if (!headContent($, `meta[property="${tag}"]`)) err(path, `Missing meta property="${tag}"`)
+  }
+}
+
+/** One indexable and one thin team profile, found through the team overview. */
+const checkTeamProfiles = async () => {
+  const overview = load((await fetchFollow('/en/team')).body)
+  const links = [...new Set(overview('a[href^="/en/team/"]').map((_, el) => overview(el).attr('href')).get())]
+  /** @type {{ indexable?: string, thin?: string }} */
+  const found = {}
+  for (const href of links) {
+    if (found.indexable && found.thin) break
+    const page = load((await fetchFollow(href)).body)
+    const noindex = /noindex/i.test(page('meta[name="robots"]').attr('content') || '')
+    found[noindex ? 'thin' : 'indexable'] ??= href
+  }
+  if (!found.indexable) err('/en/team', 'No indexable team profile found to check')
+  if (!found.thin) err('/en/team', 'No thin (noindex) team profile found to check')
+  for (const [key, route] of Object.entries(found)) {
+    await checkPage({ route, mustIndex: key === 'indexable', kind: 'profile' })
   }
 }
 
@@ -541,6 +564,7 @@ const main = async () => {
     checkRobotsSitemaps(),
     checkSitemapEntries(),
     checkArticle(),
+    checkTeamProfiles(),
     checkErrorPage(),
     checkQueryVariant(),
     ...targets.map((t) => checkPage(t))

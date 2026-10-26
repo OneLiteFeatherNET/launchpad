@@ -73,6 +73,7 @@
   },
   "index": {
     "title": "OneLiteFeather – German Minecraft server & open source",
+    "description": "OneLiteFeather (onelitefeather.net) is a German-speaking Minecraft network founded in 2019, with community builds, events and open-source software for Paper and Minestom.",
     "carousel_aria": "Homepage highlight carousel"
   },
   "home": {
@@ -105,6 +106,7 @@
   "blog": {
     "overview": {
       "title": "Overview",
+      "page_title": "Blog: news and insights from the network",
       "description": "Find interesting blog posts from OneLiteFeather.net about development, community and more."
     },
     "privacy": {
@@ -117,7 +119,7 @@
     },
     "author": {
       "profile": "View profile",
-      "title": "{name} – Blog",
+      "title": "Articles by {name}",
       "description": "All blog posts by {name} on OneLiteFeather.net.",
       "posts_by": "Posts by {name}"
     }

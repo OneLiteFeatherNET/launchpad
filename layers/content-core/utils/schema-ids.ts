@@ -18,6 +18,12 @@ const sluggify = (input: string) =>
 export const organizationId = (siteUrl: string): string =>
   `${trimTrailingSlash(siteUrl)}/#identity`
 
+/** The domain root, with the trailing slash Google expects as a site name's `url`. */
+export const siteRootUrl = (siteUrl: string): string => `${trimTrailingSlash(siteUrl)}/`
+
+/** @id of the one WebSite of the domain. Sits on the root, not under a locale prefix. */
+export const websiteId = (siteUrl: string): string => `${trimTrailingSlash(siteUrl)}/#website`
+
 /** @id of a Person entity by team-member slug. Locale-independent. */
 export const personId = (siteUrl: string, slug: string): string =>
   `${trimTrailingSlash(siteUrl)}/#/person/${slug}`

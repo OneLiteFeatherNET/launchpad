@@ -15,4 +15,9 @@ describe('thin team profiles stay out of the index', () => {
   it('the sitemap source skips thin profiles via the shared predicate', () => {
     expect(read('server/api/__sitemap__/team.ts')).toMatch(/isThinTeamProfile\(m\)/)
   })
+
+  it('the detail page names the person as the main entity of its ProfilePage', () => {
+    expect(read('pages/team/[slug].vue'))
+      .toMatch(/defineWebPage\(\{\s*mainEntity:\s*\{\s*'@id':\s*personId\(site\.url,/)
+  })
 })
