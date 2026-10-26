@@ -50,7 +50,7 @@ export type PageSeoOptions = {
    * carries. What the page is *about* — the site, an article, a build — is a
    * separate node the page defines itself.
    */
-  schemaType?: 'WebPage' | 'AboutPage' | 'CollectionPage' | 'ContactPage' | 'FAQPage' | 'ItemPage' | 'ProfilePage' | 'SearchResultsPage'
+  schemaType?: 'WebPage' | 'AboutPage' | 'CollectionPage' | 'ContactPage' | 'ItemPage' | 'ProfilePage' | 'SearchResultsPage'
   /**
    * Optional robots directive to override defaults. Wins over noindex/nofollow flags.
    */
