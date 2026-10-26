@@ -3,6 +3,7 @@
 // never @nuxt/content directly (see AGENTS.md on index.ts value exports).
 export { useEventsOverview, useEventPromotions, useEventsByHost, useEventDetail } from './composables/useEvents'
 export type { EventDetail } from './composables/useEvents'
+export { useEventConversions } from './composables/useEventConversions'
 export { MAX_PROMOTED_EVENTS } from './utils/eventLists'
 export type { EventCardData, GroupedEvents } from './utils/eventLists'
 export type * from './types'

@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
-import { mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
+import { flushPromises, mount } from '@vue/test-utils'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, h } from 'vue'
 import { createI18n } from 'vue-i18n'
 import de from '../../i18n/locales/de.json'
@@ -168,6 +168,53 @@ describe('EventJoinBlock', () => {
     })
     expect(wrapper.findAll('li').map((node) => node.text())).toEqual(['Lite-Rang'])
     expect(wrapper.text()).toContain('20 Plätze, Auslosung')
+  })
+})
+
+describe('EventJoinBlock server address copy', () => {
+  const props = {
+    event: event({ join: { server: true } } as Partial<EventDocument>),
+    accessOpen: true,
+    discordUrl: 'https://1lf.link/discord',
+    serverAddress: 'play.onelitefeather.net',
+  }
+  const originalClipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard')
+
+  // Each test installs its own clipboard; the real one is put back afterwards.
+  const stubClipboard = (clipboard: unknown) => {
+    Object.defineProperty(navigator, 'clipboard', { value: clipboard, configurable: true })
+  }
+
+  afterEach(() => {
+    if (originalClipboard) Object.defineProperty(navigator, 'clipboard', originalClipboard)
+    else delete (navigator as { clipboard?: unknown }).clipboard
+  })
+
+  it('emits address-copied once when the clipboard accepts the address', async () => {
+    const writeText = vi.fn(async () => {})
+    stubClipboard({ writeText })
+    const wrapper = mount(EventJoinBlock, { props, global })
+    await wrapper.get('button').trigger('click')
+    await flushPromises()
+    expect(writeText).toHaveBeenCalledWith('play.onelitefeather.net')
+    expect(wrapper.emitted('address-copied')).toHaveLength(1)
+  })
+
+  it('emits nothing and does not show "Kopiert" when the clipboard rejects the write', async () => {
+    stubClipboard({ writeText: vi.fn(async () => { throw new DOMException('denied', 'NotAllowedError') }) })
+    const wrapper = mount(EventJoinBlock, { props, global })
+    await wrapper.get('button').trigger('click')
+    await flushPromises()
+    expect(wrapper.emitted('address-copied')).toBeUndefined()
+    expect(wrapper.text()).not.toContain('Kopiert')
+  })
+
+  it('emits nothing without a clipboard API', async () => {
+    stubClipboard(undefined)
+    const wrapper = mount(EventJoinBlock, { props, global })
+    await wrapper.get('button').trigger('click')
+    await flushPromises()
+    expect(wrapper.emitted('address-copied')).toBeUndefined()
   })
 })
 

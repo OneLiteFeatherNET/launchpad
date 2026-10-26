@@ -30,11 +30,19 @@ const actionKey = computed(() => (mode.value === 'signup' ? 'events.join.signup'
 const addressClass
   = 'ms-1 rounded-extra-small bg-surface-container-highest px-2 py-0.5 font-mono text-on-surface'
 
+const emit = defineEmits<{ 'address-copied': [] }>()
+
 const copied = ref(false)
 const copyAddress = async () => {
   if (!props.serverAddress || !navigator.clipboard) return
-  await navigator.clipboard.writeText(props.serverAddress)
+  try {
+    await navigator.clipboard.writeText(props.serverAddress)
+  } catch {
+    // A refused write is no copy: no feedback and no conversion.
+    return
+  }
   copied.value = true
+  emit('address-copied')
   setTimeout(() => { copied.value = false }, 2000)
 }
 </script>
