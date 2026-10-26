@@ -16,7 +16,7 @@ tags:
 author: themeinerlp
 canonical: 'https://onelitefeather.net/de/blog/slender-halloween-2026-ankuendigung'
 sitemap:
-  lastmod: '2026-10-15'
+  lastmod: '2026-10-25'
   changefreq: monthly
   priority: 0.8
 alternates:
@@ -55,6 +55,8 @@ Zu Rundenbeginn wird eine Person zufällig als **Slender** ausgewählt und jagt 
 - Neue Effekte laufen über die Shader des Spiels und werden vom Server gesteuert.
 
 Die Runden laufen vom **24. Oktober 2026, 18:00 Uhr**, bis zum **2. November 2026, 23:59 Uhr** (Berliner Zeit). Alle Rollen, Regeln und Details findest du auf der [Event-Seite zu Slender](/de/events/slender). Wie du dich mit dem Server verbindest, zeigt die Seite [Server beitreten](/de/join).
+
+**Update:** Slender läuft bis zum **31. Dezember 2026** weiter. Ab dem 31. Oktober ist jeden Samstag um 21 Uhr (Berliner Zeit) Slender-Nacht.
 
 ## Die Website im Halloween-Kostüm
 
