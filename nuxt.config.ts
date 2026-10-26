@@ -58,9 +58,9 @@ export default defineNuxtConfig({
         identity: defineOrganization({
             name: 'OneLiteFeather',
             alternateName: 'OneLiteFeather Network',
-            description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers.',
+            description: 'OneLiteFeather is a German-speaking Minecraft network founded in 2019, with community builds, events and open-source software for Paper and Minestom.',
             url: 'http://localhost:3000',
-            logo: '/images/logo.svg',
+            logo: '/images/logo.png',
             email: 'contact@onelitefeather.net',
             foundingDate: '2019-09-01',
             numberOfEmployees: {
@@ -97,7 +97,7 @@ export default defineNuxtConfig({
     site: {
         url: 'http://localhost:3000',
         name: 'OneLiteFeather',
-        description: 'OneLiteFeather is a Minecraft Network focusing on the development tools with intention to share with other servers.',
+        description: 'OneLiteFeather is a German-speaking Minecraft network founded in 2019, with community builds, events and open-source software for Paper and Minestom.',
         defaultLocale: 'en'
     },
     modules: [
@@ -367,7 +367,7 @@ export default defineNuxtConfig({
                 // a scalar, so defu replaces rather than appends it.
                 name: 'OneLiteFeather',
                 url: 'https://onelitefeather.net',
-                logo: 'https://onelitefeather.net/images/logo.svg'
+                logo: 'https://onelitefeather.net/images/logo.png'
             })
         },
         site: {
