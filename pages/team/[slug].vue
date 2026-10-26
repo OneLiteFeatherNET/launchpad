@@ -107,7 +107,12 @@ useSchemaOrg(computed(() => {
   const avatar = avatarSrc.value?.startsWith('http')
     ? avatarSrc.value
     : new URL(avatarSrc.value || '/favicon.svg', site.url).toString()
+  // Names the person as what this ProfilePage is about.
+  const profileEntity = member.value.slug
+    ? [defineWebPage({ mainEntity: { '@id': personId(site.url, member.value.slug) } })]
+    : []
   return [
+    ...profileEntity,
     {
       '@type': 'Person',
       '@id': member.value.slug ? personId(site.url, member.value.slug) : undefined,

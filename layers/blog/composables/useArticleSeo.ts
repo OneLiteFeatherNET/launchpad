@@ -180,6 +180,9 @@ export function useArticleSeo(
     }
   }))
 
+  // The page's main image is the og:image, not the SVG logo the module falls back to.
+  useSchemaOrg(computed(() => [defineWebPage({ primaryImageOfPage: previewSocial.value.url })]))
+
   useBreadcrumbs(() => [
     { name: t('navigation.home'), url: `/${locale.value}` },
     { name: t('blog.overview.title'), url: `/${locale.value}/blog` },

@@ -47,7 +47,8 @@ export function softwareApplicationNode(input: SoftwareApplicationInput): Softwa
     datePublished: toIso(input.releasedAt),
     softwareHelp: links?.docs,
     downloadUrl: links?.downloads?.[0]?.url,
-    codeRepository: links?.source,
+    // codeRepository belongs to SoftwareSourceCode; the validator rejects it here.
+    sameAs: links?.source ? [links.source] : undefined,
     runtimePlatform: platforms?.length ? platforms : undefined,
     publisher: { '@id': input.publisherId },
     maintainer: input.maintainerIds?.length

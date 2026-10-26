@@ -120,7 +120,8 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
       name: pageTitle.value,
       description: pageDescription.value,
       url: canonicalUrl.value,
-      inLanguage: locale?.value || DEFAULT_LOCALE
+      inLanguage: locale?.value || DEFAULT_LOCALE,
+      primaryImageOfPage: socialImage.value.url
     })
   ]))
 
