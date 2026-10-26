@@ -509,6 +509,16 @@
       "running": "Läuft gerade",
       "past": "Dieses Event ist beendet."
     },
+    "sessions": {
+      "weekly": "Jede Woche zur selben Zeit",
+      "starts_in": "beginnt in {time}",
+      "live": "Läuft gerade",
+      "unit": {
+        "days": "{n} Tag | {n} Tagen",
+        "hours": "{n} Stunde | {n} Stunden",
+        "minutes": "{n} Minute | {n} Minuten"
+      }
+    },
     "access": {
       "signup": "Anmeldung",
       "application": "Bewerbung",

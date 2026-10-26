@@ -29,7 +29,13 @@ function event(slug: string, overrides: Partial<EventDocument> = {}): EventDocum
   } as EventDocument
 }
 
+const RUNNING_SCHEDULE = { startsAt: '2020-01-01T00:00:00Z' }
+const FAR_SESSION = { label: 'Nacht', first: '2099-01-01T21:00:00+01:00', durationMinutes: 180 }
+
 const events: EventDocument[] = [
+  event('with-session', { event: RUNNING_SCHEDULE, sessions: FAR_SESSION } as Partial<EventDocument>),
+  event('without-session', { event: RUNNING_SCHEDULE }),
+  event('hidden-session', { unlisted: true, sessions: FAR_SESSION } as Partial<EventDocument>),
   event('preview-only', { unlisted: true }),
 event('public-hidden'),
   event('hosted', {
@@ -79,6 +85,31 @@ const HostsHarness = defineComponent({
     return { outcome: hosts.map((host) => `${host.name}>${host.profilePath}`).join(',') }
   },
   template: '<div>{{ outcome }}</div>',
+})
+
+const SessionHarness = defineComponent({
+  async setup() {
+    const { detail } = await useEventDetail()
+    return { outcome: `next:${detail.value?.nextSession?.startsAt ?? 'none'}` }
+  },
+  template: '<div>{{ outcome }}</div>',
+})
+
+describe('useEventDetail nextSession', () => {
+  it('decides the next session on the server for a running event', async () => {
+    const wrapper = await mountSuspended(SessionHarness, { route: '/de/events/with-session' })
+    expect(wrapper.text()).toBe('next:2099-01-01T20:00:00.000Z')
+  })
+
+  it('has no next session for an event without sessions', async () => {
+    const wrapper = await mountSuspended(SessionHarness, { route: '/de/events/without-session' })
+    expect(wrapper.text()).toBe('next:none')
+  })
+
+  it('has no next session while the event is hidden', async () => {
+    const wrapper = await mountSuspended(SessionHarness, { route: '/de/events/hidden-session' })
+    expect(wrapper.text()).toBe('next:none')
+  })
 })
 
 describe('useEventDetail hosts', () => {

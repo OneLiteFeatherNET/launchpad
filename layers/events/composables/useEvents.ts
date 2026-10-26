@@ -2,7 +2,7 @@ import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale, Person } from '#layers/content-core'
 import { isAccessOpenAt, eventPhaseAt, isEventReachableAt } from '#shared/utils/eventPhase'
-import type { EventDocument, EventPhase } from '../types'
+import type { EventDocument, EventPhase, EventSessionSlot } from '../types'
 import {
   eventsByHostAt,
   groupEventsAt,
@@ -10,6 +10,7 @@ import {
   type EventCardData,
   type GroupedEvents
 } from '../utils/eventLists'
+import { nextSessionAt } from '../utils/eventSessions'
 
 // Every phase below is decided inside a `useAsyncData` handler and travels to
 // the browser in the payload. The browser never asks the clock again during
@@ -89,6 +90,8 @@ export interface EventDetail {
   serverAddress?: string
   /** The people named in `hosts`, in frontmatter order; unresolvable slugs are dropped. */
   hosts: Person[]
+  /** The session running now or next, decided with the phase; `null` without one. */
+  nextSession: EventSessionSlot | null
   /** The moment the phase was decided, as an ISO string. */
   now: string
   /**
@@ -137,6 +140,9 @@ export async function useEventDetail() {
       const now = new Date()
       if (!isEventReachableAt(event.event, event.unlisted, now)) return null
       const phase = eventPhaseAt(event.event, now)
+      const nextSession = event.sessions && (phase === 'announced' || phase === 'running')
+        ? nextSessionAt(event.sessions, event.event.endsAt, now)
+        : null
       const connect = event.join?.server ? await repo.getServerConnect(activeLocale.value) : null
       const localeSlugs: Record<string, string | null> = { [activeLocale.value]: event.slug }
       for (const other of normalizeLocales((locales.value || []) as unknown[])) {
@@ -152,6 +158,7 @@ export async function useEventDetail() {
         accessOpen: isAccessOpenAt(event.access, now),
         serverAddress: connect?.javaAddress,
         hosts: await resolvePeople(event.hosts ?? [], activeLocale.value),
+        nextSession,
         now: now.toISOString(),
         localeSlugs,
       }

@@ -41,6 +41,12 @@ export const EVENT_PHASES = [
 export type EventPhase = (typeof EVENT_PHASES)[number]
 
 export type EventSchedule = EventDocument['event']
+export type EventSessions = NonNullable<EventDocument['sessions']>
+/** One concrete session as ISO instants. */
+export interface EventSessionSlot {
+  startsAt: string
+  endsAt: string
+}
 export type EventAccess = NonNullable<EventDocument['access']>
 export type EventJoin = NonNullable<EventDocument['join']>
 export type EventSubject = NonNullable<EventDocument['subject']>

@@ -159,6 +159,13 @@ const resources = computed(() => event.value?.resources ?? [])
         <LazyResourceList :resources="resources" :label="t('events.resources_aria')" />
       </section>
 
+      <EventNextSession
+        v-if="event.sessions && detail.nextSession && phase !== 'past'"
+        :sessions="event.sessions"
+        :until="event.event.endsAt"
+        :initial="detail.nextSession"
+      />
+
       <EventJoinBlock
         v-if="phase !== 'past'"
         :event="event"

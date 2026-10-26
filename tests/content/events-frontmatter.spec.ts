@@ -95,6 +95,28 @@ export function eventFrontmatterProblems(data: Frontmatter): string[] {
   before('event.announceAt', 'event.startsAt')
   before('event.startsAt', 'event.endsAt')
 
+  if (data.sessions !== undefined) {
+    const sessions = asRecord(data.sessions)
+    if (!sessions) {
+      problems.push('sessions: must be an object with label, first and durationMinutes')
+    } else {
+      if (typeof sessions.label !== 'string' || sessions.label === '') problems.push('sessions.label: required string')
+      timestamp('sessions.first', sessions.first)
+      if (sessions.first === undefined) problems.push('sessions.first: required')
+      if (sessions.repeat !== undefined) oneOf('sessions.repeat', sessions.repeat, ['weekly'])
+      const minutes = sessions.durationMinutes
+      if (typeof minutes !== 'number' || !Number.isInteger(minutes) || minutes < 1) {
+        problems.push(`sessions.durationMinutes: must be a positive whole number (got ${JSON.stringify(minutes)})`)
+      }
+      before('event.startsAt', 'sessions.first')
+      const first = times.get('sessions.first')
+      const endsAt = times.get('event.endsAt')
+      if (first !== undefined && endsAt !== undefined && first >= endsAt) {
+        problems.push('sessions.first is not before event.endsAt')
+      }
+    }
+  }
+
   const access = asRecord(data.access)
   if (data.access !== undefined && !access) problems.push('access: must be an object')
   if (access) {
@@ -247,6 +269,13 @@ const VALID: Frontmatter = {
   },
 }
 
+const VALID_SESSIONS: Frontmatter = {
+  label: 'Bau-Abend',
+  first: '2026-10-05T21:00:00+02:00',
+  durationMinutes: 180,
+  repeat: 'weekly',
+}
+
 function withChange(change: (data: Frontmatter) => void): Frontmatter {
   const copy = structuredClone(VALID)
   change(copy)
@@ -319,9 +348,39 @@ describe('events frontmatter', () => {
     ['promote window without offset',
 (d: Frontmatter) => { d.promote = { from: '2026-09-25' } },
 'promote.from: not an ISO timestamp'],
+    ['session start without offset',
+(d: Frontmatter) => { d.sessions = { ...VALID_SESSIONS, first: '2026-10-05T21:00' } },
+'sessions.first: timestamp without timezone offset'],
+    ['session start before the event starts',
+(d: Frontmatter) => { d.sessions = { ...VALID_SESSIONS, first: '2026-09-30T21:00:00+02:00' } },
+'event.startsAt is after sessions.first'],
+    ['session start at the event end',
+(d: Frontmatter) => { d.sessions = { ...VALID_SESSIONS, first: '2026-10-14T23:59:00+02:00' } },
+'sessions.first is not before event.endsAt'],
+    ['session without label',
+(d: Frontmatter) => { d.sessions = { ...VALID_SESSIONS, label: '' } },
+'sessions.label: required string'],
+    ['unknown session repeat',
+(d: Frontmatter) => { d.sessions = { ...VALID_SESSIONS, repeat: 'daily' } },
+'sessions.repeat: must be one of weekly'],
+    ['zero session duration',
+(d: Frontmatter) => { d.sessions = { ...VALID_SESSIONS, durationMinutes: 0 } },
+'sessions.durationMinutes: must be a positive whole number'],
+    ['fractional session duration',
+(d: Frontmatter) => { d.sessions = { ...VALID_SESSIONS, durationMinutes: 1.5 } },
+'sessions.durationMinutes: must be a positive whole number'],
+    ['sessions that is not an object',
+(d: Frontmatter) => { d.sessions = 'weekly' },
+'sessions: must be an object'],
   ])('rejects %s', (_name, change, expected) => {
     const problems = eventFrontmatterProblems(withChange(change))
     expect(problems.some((problem) => problem.startsWith(expected))).toBe(true)
+  })
+
+  it('accepts sessions, with and without repeat', () => {
+    expect(eventFrontmatterProblems(withChange((d) => { d.sessions = VALID_SESSIONS }))).toEqual([])
+    const { repeat: _repeat, ...single } = VALID_SESSIONS
+    expect(eventFrontmatterProblems(withChange((d) => { d.sessions = single }))).toEqual([])
   })
 
   it('accepts promote: false', () => {
@@ -357,6 +416,23 @@ describe('events frontmatter', () => {
       .flatMap((doc) => eventFrontmatterProblems(doc.data).map((problem) => `${doc.file}: ${problem}`))
       .concat(eventTranslationProblems(docs))
     expect(failures.sort()).toEqual([])
+  })
+})
+
+describe('the slender night', () => {
+  const slender = eventDocuments().filter((doc) => doc.data.slug === 'slender')
+
+  it('exists in both languages', () => {
+    expect(slender.map((doc) => doc.file).sort()).toEqual(['content/events/de/slender.md', 'content/events/en/slender.md'])
+  })
+
+  it.each(slender.map((doc) => [doc.file, doc.data] as const))('%s repeats weekly at 21:00 until the end of the year', (_file, data) => {
+    expect(data.sessions).toMatchObject({ first: '2026-10-31T21:00:00+01:00', durationMinutes: 180, repeat: 'weekly' })
+    expect(asRecord(data.event)?.endsAt).toBe('2026-12-31T23:59:00+01:00')
+  })
+
+  it.each(slender.map((doc) => [doc.file, doc.data] as const))('%s no longer presents itself as a Halloween event', (_file, data) => {
+    expect(`${data.title} ${data.summary}`).not.toMatch(/halloween/i)
   })
 })
 

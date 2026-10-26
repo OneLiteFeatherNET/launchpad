@@ -509,6 +509,16 @@
       "running": "Running now",
       "past": "This event has ended."
     },
+    "sessions": {
+      "weekly": "Every week at the same time",
+      "starts_in": "starts in {time}",
+      "live": "Happening now",
+      "unit": {
+        "days": "{n} day | {n} days",
+        "hours": "{n} hour | {n} hours",
+        "minutes": "{n} minute | {n} minutes"
+      }
+    },
     "access": {
       "signup": "Sign-up",
       "application": "Application",
