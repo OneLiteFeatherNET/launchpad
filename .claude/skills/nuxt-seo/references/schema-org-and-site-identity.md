@@ -26,8 +26,8 @@ Add those keys under each locale file
 (`i18n/locales/de.json`/`en.json`) to get a translated site name/description
 without touching `nuxt.config.ts`'s `site` block — the i18n-sourced value
 takes priority (`SiteConfigPriority.i18n`) over the static config-level one.
-Neither key exists in this repo's locale files today, so `site.name`'s single
-English string is what every locale currently sees.
+`nuxtSiteConfig.description` exists in both locale files today; `nuxtSiteConfig.name`
+does not, so `site.name`'s single English string is what every locale currently sees.
 
 ## `schemaOrg.reactive` and this repo's SSR mode
 
