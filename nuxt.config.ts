@@ -100,6 +100,10 @@ export default defineNuxtConfig({
         description: 'OneLiteFeather is a German-speaking Minecraft network founded in 2019, with community builds, events and open-source software for Paper and Minestom.',
         defaultLocale: 'en'
     },
+    // @nuxtjs/seo 6 bundles both; they add llms.txt, Accept-based markdown
+    // responses and polling for old assets, none of which this site serves.
+    aiReady: false,
+    skewProtection: false,
     modules: [
       '@vueuse/nuxt',
       'nuxt-link-checker',
