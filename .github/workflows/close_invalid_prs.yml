@@ -1,0 +1,13 @@
+name: Close invalid PRs
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  close:
+    uses: OneLiteFeatherNET/workflows/.github/workflows/close-invalid-prs.yml@v2.9.1
+    secrets: inherit
