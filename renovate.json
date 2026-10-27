@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>onelitefeathernet/renovate:default(onelitefeathernet/maintainers-launchpad)"
+    "github>OneLiteFeatherNET/renovate:default(OneLiteFeatherNET/maintainers-launchpad)"
   ],
   "vulnerabilityAlerts": {
     "automerge": true,
