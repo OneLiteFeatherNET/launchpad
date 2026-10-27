@@ -425,6 +425,7 @@ export default defineNuxtConfig({
                     // cached HTML could point at another build's chunks. What is
                     // cached, and for how long, is decided by the routeRules
                     // headers alone (see AGENTS.md, "Caching and SEO signals").
+                    // @ts-expect-error Nitro's bundled wrangler types predate `cache`.
                     cache: {
                         enabled: true
                     },
@@ -438,7 +439,6 @@ export default defineNuxtConfig({
                     observability: {
                         enabled: true,
                         // Traces (fetch, D1 spans) for every request; low traffic.
-                        // @ts-expect-error Nitro's bundled wrangler types predate `traces`.
                         traces: { enabled: true, head_sampling_rate: 1 }
                     },
                     // The workers.dev route serves a duplicate of
