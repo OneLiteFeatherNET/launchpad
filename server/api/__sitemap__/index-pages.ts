@@ -6,8 +6,9 @@ import { locales } from '~/layers/content-core/utils/content/locales'
 
 /**
  * Sitemap source for the list pages that have a derivable lastmod: blog,
- * projects and community POI. The app already lists them; this only adds
- * their date. `indexPageSitemapEntries` from shared/utils holds the rule.
+ * projects and community POI. The app already lists them; this adds their
+ * date and the alternates, which the merge must not drop.
+ * `indexPageSitemapEntries` from shared/utils holds the rule.
  */
 export default defineEventHandler(async (event) => {
   const byLocale: Record<string, {

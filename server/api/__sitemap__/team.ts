@@ -13,26 +13,21 @@ import type { TeamDocument, TeamMember } from '#layers/team/types'
 import { locales } from '~/layers/content-core/utils/content/locales'
 
 /**
- * Sitemap source for individual team profile pages.
- *
- * The team JSON is a `data`-type Nuxt Content collection (a single
- * document per locale), so the per-member URLs don't fall out of
- * `asSitemapCollection` the way blog posts do. We materialise them
- * here, one entry per locale × member, so both /de/team/<slug> and
- * /en/team/<slug> end up in the per-locale sitemaps.
+ * Sitemap source for individual team profile pages: one entry per locale ×
+ * listed member, with alternates for the languages that list the member.
+ * `teamSitemapEntries` from shared/utils holds the rule.
  */
 
 export default defineEventHandler(async (event) => {
-  const out: { loc: string }[] = []
+  const slugsByLocale: Record<string, string[]> = {}
   for (const locale of locales) {
     const key = `team_${locale}` as 'team_de' | 'team_en'
     const docs = (await queryCollection(event, key).all()) as TeamDocument[]
     const doc = docs[0]
     const members = (doc?.members || []) as TeamMember[]
-    for (const m of members) {
-      if (!m.slug || m.openPosition || isThinTeamProfile(m)) continue
-      out.push({ loc: `/${locale}/team/${m.slug}` })
-    }
+    slugsByLocale[locale] = members
+      .filter((m) => m.slug && !m.openPosition && !isThinTeamProfile(m))
+      .map((m) => m.slug as string)
   }
-  return out
+  return teamSitemapEntries(slugsByLocale)
 })
