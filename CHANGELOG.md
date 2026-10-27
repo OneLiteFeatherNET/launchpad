@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.35.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.35.0...onelitefeather.net-v1.35.1) (2026-10-27)
+
+
+### Bug Fixes
+
+* **deps:** pull patched undici, fflate and serialize-javascript ([#589](https://github.com/OneLiteFeatherNET/launchpad/issues/589)) ([c5227ae](https://github.com/OneLiteFeatherNET/launchpad/commit/c5227aee00b0bba7b25f17a341fabc3159a34db2))
+
+
+### Refactors
+
+* **seo:** declare sitemap hreflang alternates in each source ([#540](https://github.com/OneLiteFeatherNET/launchpad/issues/540)) ([83e06d2](https://github.com/OneLiteFeatherNET/launchpad/commit/83e06d2cb1fbe266328b85d10a11d590cb609c66))
+
+
+### Documentation
+
+* **agents:** conventional commits and subagent workflow for agents ([#385](https://github.com/OneLiteFeatherNET/launchpad/issues/385)) ([5ef733b](https://github.com/OneLiteFeatherNET/launchpad/commit/5ef733b3efbbeb4b13106bf046d97c58ac1f210e))
+
+
+### Continuous Integration
+
+* adopt shared workflows, pr linting and security scans ([#299](https://github.com/OneLiteFeatherNET/launchpad/issues/299)) ([d254fb4](https://github.com/OneLiteFeatherNET/launchpad/commit/d254fb4f95241b2f34df041ef012fd5464b83885))
+
 ## [1.35.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.34.0...onelitefeather.net-v1.35.0) (2026-10-26)
 
 
