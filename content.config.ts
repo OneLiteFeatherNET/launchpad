@@ -1,6 +1,6 @@
 import { defineContentConfig, defineCollection } from '@nuxt/content'
 import { z } from 'zod'
-import { asSchemaOrgCollection } from 'nuxt-schema-org/content'
+import { defineSchemaOrgSchema } from 'nuxt-schema-org/content'
 import {
   defineLocalizedCollections,
   withI18nMeta
@@ -524,10 +524,11 @@ const eventsSchema = withI18nMeta(z.object({
 
 export default defineContentConfig({
   collections: {
-    ...defineLocalizedCollections('blog', (locale) => asSchemaOrgCollection({
+    ...defineLocalizedCollections('blog', (locale) => ({
       type: 'page',
       source: `blog/${locale}/**/*.md`,
       schema: blogSchema.extend({
+        schemaOrg: defineSchemaOrgSchema(),
         // Without an `onUrl`, @nuxtjs/sitemap defaults every entry's `loc` to
         // the content `path`, which is derived from the file location:
         // `content/blog/en/dev-blog-1.md` becomes `/blog/en/dev-blog-1`. The
@@ -615,12 +616,13 @@ export default defineContentConfig({
       source: `team-faq/${locale}/*.md`,
       schema: faqSchema
     })),
-    ...defineLocalizedCollections('community_poi', (locale) => asSchemaOrgCollection({
+    ...defineLocalizedCollections('community_poi', (locale) => ({
       type: 'page',
       source: `community-poi/${locale}/**/*.md`,
       // Same derived-path problem as the blog collection above; see the
       // comment there. The serialised body must not close over `locale`.
       schema: communityPoiSchema.extend({
+        schemaOrg: defineSchemaOrgSchema(),
         sitemap: defineSitemapSchema({
           name: `community_poi_${locale}`,
           onUrl: (url, entry, collection) => {
@@ -644,12 +646,13 @@ export default defineContentConfig({
         })
       })
     })),
-    ...defineLocalizedCollections('projects', (locale) => asSchemaOrgCollection({
+    ...defineLocalizedCollections('projects', (locale) => ({
       type: 'page',
       source: `projects/${locale}/**/*.md`,
       // Same derived-path problem as the blog collection above; see the
       // comment there. The serialised body must not close over `locale`.
       schema: projectsSchema.extend({
+        schemaOrg: defineSchemaOrgSchema(),
         sitemap: defineSitemapSchema({
           name: `projects_${locale}`,
           onUrl: (url, entry, collection) => {
