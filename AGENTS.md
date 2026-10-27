@@ -263,7 +263,9 @@ SEO emitters, so nothing is written twice:
   body (`tests/seo/sitemap-content-hooks.spec.ts` evaluates them that way).
   Translation links live in front-matter `alternates`, held symmetric by
   `tests/content/translation-alternates.spec.ts`.
-- `nuxt-schema-org` runs unpatched (6.4.3).
+- `nuxt-schema-org` runs unpatched (7.0.1).
+- `@nuxtjs/seo` 6 bundles `nuxt-ai-ready` and `nuxt-skew-protection`; both are
+  disabled in `nuxt.config.ts` (`aiReady: false`, `skewProtection: false`).
 
 `seo.yml` runs `seo:check`, `cache-check` and Lighthouse against the
 production build (`pnpm preview:prod`). After enabling Workers Cache, verify

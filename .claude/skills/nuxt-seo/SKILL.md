@@ -12,7 +12,7 @@ description: >-
   missing, duplicated or wrong.
 ---
 
-Nuxt 4.5 · @nuxtjs/seo 5.3 · @nuxtjs/i18n 10.6 · @nuxt/content 3.16 · Tailwind 4.3 · Cloudflare Workers + D1
+Nuxt 4.6 · @nuxtjs/seo 6.0 · @nuxtjs/i18n 10.6 · @nuxt/content 3.16 · Tailwind 4.3 · Cloudflare Workers + D1
 
 ## Emitter ownership map
 
@@ -49,43 +49,45 @@ locale (or a `sameAs` link) to the base config only — never to both.
 ## `@nuxtjs/seo` is a meta-module — read `node_modules/`, not the lockfile
 
 It ships no features of its own. It declares a floor per sub-module in
-`moduleDependencies` (`@nuxtjs/seo@5.3.16`'s `dist/module.mjs`); Nuxt resolves
+`moduleDependencies` (`@nuxtjs/seo@6.0.1`'s `dist/module.mjs`); Nuxt resolves
 each name from the **project's** `node_modules` and semver-checks it there.
 Those floors, not the `dependencies` ranges, are what fails a build:
 
 | module | floor | module | floor | module | floor |
 |---|---|---|---|---|---|
-| `@nuxtjs/robots` | ≥5.5 | `@nuxtjs/sitemap` | ≥7.4 | `nuxt-schema-org` | ≥5.0 |
-| `nuxt-og-image` | ≥6.4.4 | `nuxt-seo-utils` | ≥7.0 | `nuxt-site-config` | ≥3.2 |
-| `nuxt-link-checker` | ≥4.3 | — | — | — | — |
+| `@nuxtjs/robots` | ≥7.0 | `@nuxtjs/sitemap` | ≥9.0.1 | `nuxt-schema-org` | ≥7.0 |
+| `nuxt-og-image` | ≥7.0.1 | `nuxt-seo-utils` | ≥9.0 | `nuxt-site-config` | ≥5.0.1 |
+| `nuxt-link-checker` | ≥6.0 | `nuxt-skew-protection` | ≥2.0.1 | `nuxt-ai-ready` | ≥3.0.1 |
 
 Diagnostic: what loads is whatever `node_modules/<pkg>/package.json` says. A
 lockfile can list more than one copy of a module, so read `node_modules`, not
-the lockfile. Current resolved versions: `@nuxtjs/robots` 6.2.4,
-`@nuxtjs/sitemap` 8.5.1, `nuxt-schema-org` 6.4.3, `nuxt-og-image` 6.10.3 (direct
-pins in `package.json`), `nuxt-seo-utils` 8.6.1, `nuxt-site-config` 4.2.3 and
-`nuxt-link-checker` 5.3.0 (not direct dependencies; resolved through
+the lockfile. Current resolved versions: `@nuxtjs/robots` 7.0.2,
+`@nuxtjs/sitemap` 9.1.0, `nuxt-schema-org` 7.0.1, `nuxt-og-image` 7.0.7 (direct
+pins in `package.json`), `nuxt-seo-utils` 9.0.1, `nuxt-site-config` 5.0.3 and
+`nuxt-link-checker` 6.0.1 (not direct dependencies; resolved through
 `@nuxtjs/seo` under `node_modules/.pnpm/`). All clear the floors above.
-`@nuxtjs/seo`'s own `dependencies` ranges (`^6.1.5`, `^8.3.4`, `^6.2.9`) are
-satisfied by the pins, so there is one copy of each.
 
-The sitemap major version is not told by export names: `dist/content.mjs` of
-8.5.1 exports both `asSitemapCollection` and `defineSitemapSchema`. This repo's
-`content.config.ts` uses `defineSitemapSchema` (imported from
-`@nuxtjs/sitemap/content`) and never `asSitemapCollection`. Read the version
-from `node_modules/@nuxtjs/sitemap/package.json`.
+`@nuxtjs/seo` 6 also installs `nuxt-ai-ready` (llms.txt, markdown responses
+negotiated from `Accept`) and `nuxt-skew-protection`. `nuxt.config.ts` sets
+`aiReady: false` and `skewProtection: false`: the first would add routes and a
+request middleware to cached pages, the second polls for new builds. Do not
+remove those lines without checking the edge-cache rules first.
 
-## One site URL — but `i18n.baseUrl` outranks it
+The sitemap and schema-org content helpers are `defineSitemapSchema` (from
+`@nuxtjs/sitemap/content`) and `defineSchemaOrgSchema` (from
+`nuxt-schema-org/content`), both used inside a collection's `schema`.
+`asSitemapCollection` and `asSchemaOrgCollection` still exist but are
+deprecated and warn on every build.
 
-`site.url` in `nuxt.config.ts` is a fallback, not the production source.
-`nuxt-site-config` reads `NUXT_SITE_URL` / `NUXT_PUBLIC_SITE_*` into a stack
-entry at `_priority: -1`, above `nuxt.config.ts`'s `site` block (`-3`). But the
-entry it pushes from `i18n.baseUrl` carries **no** `_priority` (so, 0) and is
-pushed last, and the stack sorts ascending with later entries overwriting — so
-`i18n.baseUrl` beats `NUXT_SITE_URL`, at build and at request time. This repo
-sets `i18n.baseUrl` (`nuxt.config.ts:142`), so setting `NUXT_SITE_URL` alone
-would silently do nothing. Change `i18n.baseUrl` too, or drop it so the env var
-can win; either way don't hand-edit `site.url` per environment block.
+## One site URL — `i18n.baseUrl` outranks the config block
+
+`site.url` in `nuxt.config.ts` is a fallback, not the production source. In
+`nuxt-site-config` 5 the stack priorities are `config` (-3, the `site` block),
+`i18n` (-2, from `i18n.baseUrl`) and `runtime` (0). So `i18n.baseUrl` beats
+`site.url`, and at request time `NUXT_SITE_URL` / `NUXT_PUBLIC_SITE_*` (pushed at
+`runtime`) beats both. This repo sets `i18n.baseUrl` to the production domain, so
+the env var is only needed to point a preview at another origin; don't
+hand-edit `site.url` per environment block.
 
 ## Robots via `routeRules`, once
 
@@ -125,6 +127,13 @@ generated. Pages fall back to `/images/og-default.png`
 `components/OgImage/NuxtSeo.satori.vue` still renders the Nuxt SEO logo and
 wordmark, so it has to be replaced with brand artwork before a prerender pass
 ships its output.
+
+nuxt-og-image 7 signs runtime image URLs with a key derived from
+`runtimeConfig.appSecret` (`NUXT_APP_SECRET`, 32+ characters); without it
+runtime OG image requests answer 500. With `zeroRuntime: true` and no
+generated images nothing is signed, so the build needs no secret today. The
+moment a prerender pass or a runtime image route is added, set the secret as a
+Worker secret as well.
 
 ## References
 
