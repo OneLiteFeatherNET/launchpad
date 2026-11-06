@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.35.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.35.1...onelitefeather.net-v1.35.2) (2026-11-06)
+
+
+### Continuous Integration
+
+* **release:** open release prs with the release bot app ([#600](https://github.com/OneLiteFeatherNET/launchpad/issues/600)) ([e28e0b0](https://github.com/OneLiteFeatherNET/launchpad/commit/e28e0b095be4b606e928a69f35996832f20c2bb6))
+
 ## [1.35.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.35.0...onelitefeather.net-v1.35.1) (2026-10-27)
 
 
