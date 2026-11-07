@@ -204,6 +204,9 @@ export default defineNuxtConfig({
         '/de/imprint': { robots: 'noindex, follow', headers: cachedPageHeaders(86400) },
         '/en/privacy': { robots: 'noindex, follow', headers: cachedPageHeaders(86400) },
         '/de/privacy': { robots: 'noindex, follow', headers: cachedPageHeaders(86400) },
+        // Sitemaps are read by crawlers, never indexed as pages.
+        '/sitemap_index.xml': { robots: 'noindex, follow' },
+        '/__sitemap__/**': { robots: 'noindex, follow' },
         '/robots.txt': { headers: { 'cloudflare-cdn-cache-control': 'max-age=3600, stale-while-revalidate=86400' } },
         // Request-dependent or internal: `/` redirects by cookie and
         // Accept-Language, the rest are the analytics proxy, Nuxt Content's
