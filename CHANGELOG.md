@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.35.3](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.35.2...onelitefeather.net-v1.35.3) (2026-11-07)
+
+
+### Bug Fixes
+
+* **seo:** keep schematic downloads out of the search index ([#610](https://github.com/OneLiteFeatherNET/launchpad/issues/610)) ([f5be15c](https://github.com/OneLiteFeatherNET/launchpad/commit/f5be15c018131c1e78649d5df50bddb0c9865500))
+
 ## [1.35.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.35.1...onelitefeather.net-v1.35.2) (2026-11-07)
 
 
