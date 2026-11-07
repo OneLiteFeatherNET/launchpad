@@ -1,0 +1,17 @@
+# Schematic downloads are files, not pages: keep them out of the index.
+/community-poi/end-portal/end-portal.litematic
+  X-Robots-Tag: noindex
+  Content-Type: application/octet-stream
+  Content-Disposition: attachment
+/community-poi/hafengebaeude/dockhafen.litematic
+  X-Robots-Tag: noindex
+  Content-Type: application/octet-stream
+  Content-Disposition: attachment
+/community-poi/labyrinth/labyrinth.schem
+  X-Robots-Tag: noindex
+  Content-Type: application/octet-stream
+  Content-Disposition: attachment
+/community-poi/megabase/megabase.litematic
+  X-Robots-Tag: noindex
+  Content-Type: application/octet-stream
+  Content-Disposition: attachment
