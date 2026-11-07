@@ -57,6 +57,10 @@ describe('edge cache route rules', () => {
     expect(rule).toContain("robots: 'noindex, follow'")
   })
 
+  it.each(['/sitemap_index.xml', '/__sitemap__/**'])('keeps sitemap %s out of the index', (route) => {
+    expect(ruleFor(route)).toContain("robots: 'noindex, follow'")
+  })
+
   it.each(NEVER_CACHED)('never caches %s', (route) => {
     expect(ruleFor(route)).toContain("'cloudflare-cdn-cache-control': 'no-store'")
   })
