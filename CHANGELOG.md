@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.37.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.36.0...onelitefeather.net-v1.37.0) (2026-11-18)
+
+
+### Features
+
+* **blog:** add a part for players to the java security update post ([#627](https://github.com/OneLiteFeatherNET/launchpad/issues/627)) ([009cbb2](https://github.com/OneLiteFeatherNET/launchpad/commit/009cbb2c24567ed6f29bf6faac07a26e4ee63adb))
+
 ## [1.36.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.35.3...onelitefeather.net-v1.36.0) (2026-11-18)
 
 
