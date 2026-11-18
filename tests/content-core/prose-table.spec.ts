@@ -33,7 +33,10 @@ describe('prose table', () => {
   it('pads body cells and aligns them top-left', () => {
     const td = mount(ProseTd, { slots: { default: 'x' } }).find('td')
 
-    expect(td.classes()).toEqual(expect.arrayContaining(['px-4', 'py-3', 'text-left', 'align-top']))
+    expect(td.classes()).toEqual(expect.arrayContaining(['px-4',
+'py-3',
+'text-left',
+'align-top']))
   })
 
   it('keeps the first column on one line so ids like CVE numbers do not wrap', () => {
@@ -47,6 +50,8 @@ describe('prose blockquote', () => {
   it('sets a callout apart with a primary accent bar on a surface container', () => {
     const quote = mount(ProseBlockquote, { slots: { default: '<p>x</p>' } }).find('blockquote')
 
-    expect(quote.classes()).toEqual(expect.arrayContaining(['border-l-4', 'border-primary', 'bg-surface-container']))
+    expect(quote.classes()).toEqual(expect.arrayContaining(['border-l-4',
+'border-primary',
+'bg-surface-container']))
   })
 })
