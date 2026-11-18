@@ -4,6 +4,8 @@ alternativeTitle: 'For customers of a host and for admins of a root server or VM
 description: 'The OpenJDK advisory of 17 November 2026 fixes ten vulnerabilities, one of them rated CVSS 8.1. How to update Java for your Minecraft server, including a ticket template for your host.'
 pubDate: '2026-11-18'
 releaseDate: '2026-11-18T12:00:00+01:00'
+headerImage: 'images/blog/java-security-update-november-2026.webp'
+headerImageAlt: 'Terminal on a Linux server: java -version reports Temurin 21.0.13, and the SDKMAN list shows no newer build yet'
 slug: 'java-security-update-november-2026'
 translationKey: 'java-security-update-november-2026'
 tags:
