@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.36.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.35.3...onelitefeather.net-v1.36.0) (2026-11-18)
+
+
+### Features
+
+* **blog:** explain the november 2026 java security update ([#624](https://github.com/OneLiteFeatherNET/launchpad/issues/624)) ([7c2713f](https://github.com/OneLiteFeatherNET/launchpad/commit/7c2713f32357a3a8e2ca3685a0821ded1624bc47))
+* **content:** style markdown tables and blockquotes in articles ([#625](https://github.com/OneLiteFeatherNET/launchpad/issues/625)) ([e00976f](https://github.com/OneLiteFeatherNET/launchpad/commit/e00976f3fb2c3170d12e875d3dc9ed12bd1bb29f))
+
 ## [1.35.3](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.35.2...onelitefeather.net-v1.35.3) (2026-11-07)
 
 
