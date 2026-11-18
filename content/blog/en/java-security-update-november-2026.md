@@ -1,7 +1,7 @@
 ---
-title: 'Java security update, November 2026: what Minecraft servers need to do now'
-alternativeTitle: 'For customers of a host and for admins of a root server or VM, with and without SDKMAN'
-description: 'The OpenJDK advisory of 17 November 2026 fixes ten vulnerabilities, one of them rated CVSS 8.1. How to update Java for your Minecraft server, including a ticket template for your host.'
+title: 'Java security update, November 2026: what players and server admins need to do now'
+alternativeTitle: 'For the community on their own PC, for customers of a host and for admins of a root server or VM'
+description: 'The OpenJDK advisory of 17 November 2026 fixes ten vulnerabilities, one of them rated CVSS 8.1. How to protect your Minecraft client and update Java on your server, including a ticket template for your host.'
 pubDate: '2026-11-18'
 releaseDate: '2026-11-18T12:00:00+01:00'
 headerImage: 'images/blog/java-security-update-november-2026.webp'
@@ -24,17 +24,17 @@ alternates:
     href: 'https://onelitefeather.net/en/blog/java-security-update-november-2026'
 schemaOrg:
   - type: 'BlogPosting'
-    headline: 'Java security update, November 2026: what Minecraft servers need to do now'
-    alternativeHeadline: 'For customers of a host and for admins of a root server or VM, with and without SDKMAN'
-    description: 'The OpenJDK advisory of 17 November 2026 fixes ten vulnerabilities, one of them rated CVSS 8.1. How to update Java for your Minecraft server, including a ticket template for your host.'
+    headline: 'Java security update, November 2026: what players and server admins need to do now'
+    alternativeHeadline: 'For the community on their own PC, for customers of a host and for admins of a root server or VM'
+    description: 'The OpenJDK advisory of 17 November 2026 fixes ten vulnerabilities, one of them rated CVSS 8.1. How to protect your Minecraft client and update Java on your server, including a ticket template for your host.'
     author:
       type: 'Person'
       name: 'Phillipp Glanz'
     datePublished: '2026-11-18T12:00:00+01:00'
 ---
-On **17 November 2026**, OpenJDK published a [security advisory](https://openjdk.org/groups/vulnerability/advisories/2026-11-17). Every Minecraft Java server runs on Java, so this affects your server too. Here is what to do, whether you rent from a host or run your own root server or VM.
+On **17 November 2026**, OpenJDK published a [security advisory](https://openjdk.org/groups/vulnerability/advisories/2026-11-17). Minecraft Java Edition runs on Java, on your PC just as on every server. So this post has two parts: **For players**, who play Minecraft on their own computer, and **For server admins**, who rent a server or run their own.
 
-> **As of 18 November 2026, not every vendor has patches yet.** Oracle, Amazon Corretto and Azul Zulu have published patched builds. Eclipse Temurin has not, and most Minecraft hosts and Docker images build on it. Red Hat, Microsoft and the Linux distributions also ship on their own schedules. So if you can't find an update yet, it's probably not your fault. Check again over the next few days and use the interim measure further down until then.
+> **As of 18 November 2026, not every vendor has patches yet.** Oracle, Amazon Corretto and Azul Zulu have published patched builds. Eclipse Temurin has not, and most Minecraft hosts and Docker images build on it. Red Hat, Microsoft and the Linux distributions also ship on their own schedules. The official Minecraft launcher also still ships an old Java version. So if you can't find an update yet, it's probably not your fault. Check again over the next few days and use the interim measures further down until then.
 
 ## What happened
 
@@ -66,13 +66,62 @@ JavaFX plays no part in Minecraft servers.
 
 ## Who doesn't need to do anything
 
-- **Minecraft Realms**: Mojang runs these servers and updates them.
 - **Bedrock Edition** (consoles, phones, the Windows app, Bedrock Dedicated Server): it isn't written in Java.
-- **The official launcher** ships its own Java runtime for the game, and Mojang updates it. If you use Prism, MultiMC or another launcher with your own Java installation, update that one too.
+- **Minecraft Realms** as a server: Mojang runs it. The Minecraft on your PC that connects to it still runs on Java, though. The part for players covers that.
 
-Everyone else who runs or rents a Java server needs to act.
+Everyone who plays Minecraft Java Edition or runs a Java server needs to act.
 
-## Which Java version does my server need?
+## For players
+
+The Minecraft on your PC runs on Java too, and it handles data from the servers you play on. Nobody knows whether any of these bugs can be exploited through Minecraft. According to heise, though, Java4Shell also hits Java programs on your own computer if they run on one of the affected processors.
+
+### The official launcher has no update yet
+
+The Minecraft launcher installs its own Java and does not use whatever else you have installed on your PC. As of 18 November it ships these versions:
+
+| Minecraft version | Java in the launcher | Released |
+|---|---|---|
+| 26.1 and newer | 25.0.1 | December 2025 |
+| 1.20.5 to 1.21.11 | 21.0.7 | May 2025 |
+| 1.18 to 1.20.4 | 17.0.15 | May 2025 |
+| up to 1.16.5 | Java 8 | badly outdated |
+
+All of them are older than the patched builds. You can't trigger an update in the launcher yourself; Mojang has to ship it. Until then, you can protect yourself against the most severe bug.
+
+### Is your processor affected?
+
+Java4Shell only hits processors with certain AVX-512 instructions. In gaming PCs and laptops these are mainly:
+
+- **AMD Ryzen from Zen 4 on**: desktop Ryzen of the 7000, 8000 and 9000 series, and many laptop Ryzen from 2023 on, such as Ryzen 7040, 8040 and Ryzen AI.
+- **Older Intel processors**: 10th-generation laptop CPUs ending in "G" (for example i7-1065G7) and the 11th generation. From the 12th generation on, Intel switched AVX-512 off on Core processors.
+- **Not affected**: Macs with Apple silicon (M series).
+
+On Windows, Task Manager shows your processor under "Performance" → "CPU", top right. If you're unsure, set the option below anyway. It only turns off a Base64 optimisation and does no harm.
+
+### Protection in the official launcher
+
+1. Open the launcher and go to "Installations" at the top.
+2. Hover over your installation, click the three dots, then "Edit".
+3. Expand "More options".
+4. At the end of the JVM arguments field, separated by a space, add:
+   `-XX:-UseBASE64Intrinsics`
+5. Save and restart Minecraft.
+
+Repeat this for every installation, including Fabric, Forge or NeoForge profiles. Remove the argument again once Mojang ships new Java.
+
+If you know your way around, you can instead point "Java executable" in the same window at a patched Java you installed yourself, such as Azul Zulu or Amazon Corretto. The Java line has to match the Minecraft version (see the table "Which Java version does my server need?" in the part for server admins; the client needs the same).
+
+### Other launchers
+
+Prism Launcher, MultiMC, ATLauncher, the Modrinth App and CurseForge use either their own Java or the one you installed, depending on their settings. Check their Java settings: switch to a patched Java there, or add the JVM argument from above.
+
+Until the updates arrive, also stick mainly to servers you know.
+
+## For server admins
+
+This part is for everyone who runs a Minecraft server or proxy, whether rented from a host or on their own root server or VM.
+
+### Which Java version does my server need?
 
 | Minecraft version | Java version | Is there a fix? |
 |---|---|---|
@@ -84,7 +133,7 @@ Everyone else who runs or rents a Java server needs to act.
 
 Proxies such as Velocity or BungeeCord run on Java as well and need the update just the same.
 
-## Which version is safe?
+### Which version is safe?
 
 You want a build released **after 17 November 2026** that is **newer** than the versions listed above. The numbers differ by vendor. As of 18 November:
 
@@ -106,7 +155,7 @@ java -version
 
 Important: a running server keeps using the Java it was started with. **The update does nothing until you restart.**
 
-## You rent from a host
+### You rent from a host
 
 With most Minecraft hosts you only pick a "Java image" or "Java version" in the panel. The host maintains the Java installation behind it. That leaves three things for you to do:
 
@@ -116,7 +165,7 @@ With most Minecraft hosts you only pick a "Java image" or "Java version" in the 
 
 If your server still runs on Java 16 (Minecraft 1.17), switch to Java 17 in the panel.
 
-### Ticket or email template
+#### Ticket or email template
 
 Fill in the parts in square brackets and send the text to your host's support:
 
@@ -145,11 +194,11 @@ Thank you and best regards
 [Name]
 ```
 
-## You run a root server or VM
+### You run a root server or VM
 
 Here it's on you. The steps are always the same: find out which Java is running, update it, restart, check.
 
-### 1. Find every Java installation
+#### 1. Find every Java installation
 
 Many servers have more than one Java: a system package, an unpacked archive under `/opt`, and one from SDKMAN. These commands show which Java your running processes really use and what is installed overall:
 
@@ -165,7 +214,7 @@ sudo find / -xdev -type f -path '*/bin/java' 2>/dev/null
 
 Run each binary you find with `-version`, for example `/opt/java/bin/java -version`.
 
-### 2a. With SDKMAN
+#### 2a. With SDKMAN
 
 [SDKMAN](https://sdkman.io/) installs Java per user under `~/.sdkman`. Log in as the user your Minecraft server runs as.
 
@@ -193,7 +242,7 @@ If your server starts from a systemd unit or a script, check which path it uses:
 
 Remove the old build only once the server runs cleanly on the new one: `sdk uninstall java <old-identifier>`.
 
-### 2b. Without SDKMAN
+#### 2b. Without SDKMAN
 
 **Debian and Ubuntu** (`openjdk-*` packages, or Temurin from the Adoptium repository):
 
@@ -235,11 +284,11 @@ docker compose pull
 docker compose up -d
 ```
 
-### 3. Restart and check
+#### 3. Restart and check
 
 Restart every Minecraft server and every proxy. Then run the loop from step 1 again and check the version for each process. You're done only when every one of them shows the new build.
 
-### Interim measure while no build is available
+#### Interim measure while no build is available
 
 If there is no patch for your Java yet, you can at least defuse Java4Shell. First check whether your CPU has the affected instruction set:
 
@@ -265,7 +314,8 @@ Neither is an **official recommendation** from OpenJDK; both are stopgaps from s
 
 ## In short
 
-- Realms and Bedrock: nothing to do.
+- Bedrock: nothing to do. Mojang looks after Realms servers.
+- Players: check your processor, add `-XX:-UseBASE64Intrinsics` in the launcher, and remove it again once Mojang ships new Java.
 - Rented server: check the Java version in the startup log, ask your host, restart after the update.
 - Your own server: find every Java installation, update through SDKMAN, the package manager or a new archive, restart, check the version.
 - Move Java 16 to Java 17, and likewise any other line without support.
