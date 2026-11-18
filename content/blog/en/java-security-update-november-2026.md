@@ -54,13 +54,11 @@ Everyone else who runs or rents a Java server needs to act.
 
 ## Which Java version does my server need?
 
-| Minecraft version | Java version | Is there a fix? |
-|---|---|---|
-| 26.1 and newer | Java 25 | Yes |
-| 1.20.5 to 1.21.11 | Java 21 | Yes |
-| 1.18 to 1.20.4 | Java 17 | Yes |
-| 1.17.x | Java 16 | No, Java 16 no longer gets updates. Switch to Java 17; 1.17 runs on it. |
-| up to 1.16.5 | Java 8 (often 11 works too) | Yes |
+- **Minecraft 26.1 and newer:** Java 25. A fix is available or announced.
+- **Minecraft 1.20.5 to 1.21.11:** Java 21. A fix is available or announced.
+- **Minecraft 1.18 to 1.20.4:** Java 17. A fix is available or announced.
+- **Minecraft 1.17.x:** Java 16. **No fix**, Java 16 no longer gets updates. Switch to Java 17; 1.17 runs on it.
+- **Minecraft up to 1.16.5:** Java 8 (often 11 works too). A fix is available or announced.
 
 Proxies such as Velocity or BungeeCord run on Java as well and need the update just the same.
 
