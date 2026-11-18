@@ -32,17 +32,37 @@ schemaOrg:
       name: 'Phillipp Glanz'
     datePublished: '2026-11-18T12:00:00+01:00'
 ---
-Am **17. November 2026** hat OpenJDK außerhalb des üblichen Quartalsrhythmus ein [Sicherheits-Advisory](https://openjdk.org/groups/vulnerability/advisories/2026-11-17) veröffentlicht. Jeder Minecraft-Java-Server läuft auf Java, also betrifft es auch eure Server. Hier steht, was ihr tun müsst: als Kunde eines Hosters und als Admin eines eigenen Root-Servers oder einer VM.
+Am **17. November 2026** hat OpenJDK ein [Sicherheits-Advisory](https://openjdk.org/groups/vulnerability/advisories/2026-11-17) veröffentlicht. Jeder Minecraft-Java-Server läuft auf Java, also betrifft es auch eure Server. Hier steht, was ihr tun müsst: als Kunde eines Hosters und als Admin eines eigenen Root-Servers oder einer VM.
 
-> **Stand 18. November 2026: Noch nicht jeder Hersteller hat Patches.** Oracle hat gepatchte Builds veröffentlicht, Eclipse Temurin zum Beispiel noch nicht. Auf Temurin bauen die meisten Minecraft-Hoster und Docker-Images auf. Auch Corretto, Zulu, Microsoft, Red Hat und die Linux-Distributionen liefern nach eigenem Zeitplan. Findet ihr also noch kein Update, liegt das wahrscheinlich nicht an euch. Prüft in den nächsten Tagen erneut und nutzt bis dahin die Übergangslösung weiter unten.
+> **Stand 18. November 2026: Noch nicht jeder Hersteller hat Patches.** Oracle, Amazon Corretto und Azul Zulu haben gepatchte Builds veröffentlicht. Eclipse Temurin noch nicht, und darauf bauen die meisten Minecraft-Hoster und Docker-Images auf. Auch Red Hat, Microsoft und die Linux-Distributionen liefern nach eigenem Zeitplan. Findet ihr also noch kein Update, liegt das wahrscheinlich nicht an euch. Prüft in den nächsten Tagen erneut und nutzt bis dahin die Übergangslösung weiter unten.
 
 ## Was passiert ist
 
-Das Advisory schließt zehn Lücken im OpenJDK und eine in OpenJFX. Alle sind übers Netzwerk erreichbar, ohne Login und ohne dass jemand etwas anklicken muss. Die schwerste ist **CVE-2026-114938** im HotSpot-Compiler mit einem CVSS-Wert von **8.1**. Sie betrifft Java 17, 21, 25 und 27. Sicherheitsforscher nennen sie „Java4Shell“ und beschreiben einen Speicherfehler beim Dekodieren von Base64, der bis zur Ausführung von fremdem Code führen soll. Die technischen Details sind noch nicht veröffentlicht, und bisher ist kein Angriff bekannt.
+Das Advisory schließt zehn Lücken im OpenJDK und eine in OpenJFX. Alle sind übers Netzwerk erreichbar, ohne Login und ohne dass jemand etwas anklicken muss. Die schwerste ist **[CVE-2026-114938](https://www.cve.org/CVERecord?id=CVE-2026-114938)** im HotSpot-Compiler mit einem CVSS-Wert von **8.1**. Sie betrifft Java 17, 21, 25 und 27. Die Entdecker von Calif nennen sie „Java4Shell“: Ein präparierter Base64-Text lässt den Base64-Decoder von Java Speicher an der falschen Stelle beschreiben. Nach eigenen Angaben konnte Calif so bei Keycloak, Jira und Jenkins fremden Code ausführen, ohne sich anzumelden. Bisher ist kein Angriff in freier Wildbahn bekannt.
+
+Diese eine Lücke steckt in einem Codepfad für die AVX-512-Befehle neuerer Prozessoren. Laut Calif betrifft sie Intel Xeon ab Ice Lake (Sapphire, Emerald und Granite Rapids) sowie AMD EPYC und Ryzen ab Zen 4. Das sind genau die CPUs, die in vielen aktuellen Root-Servern stecken. ARM-Server sind von ihr nicht betroffen. Die übrigen neun Lücken hängen nicht von der CPU ab. Aktualisieren müssen deshalb alle.
 
 Betroffen sind laut Advisory **Java 25.0.5, 21.0.13, 17.0.21, 11.0.33, 8u512 und alle älteren Versionen**. Java 8 und 11 sind von der schwersten Lücke nicht betroffen, von mehreren anderen aber schon.
 
-Ob sich eine Lücke konkret über das Minecraft-Protokoll ausnutzen lässt, weiß im Moment niemand. Ein Minecraft-Server verarbeitet aber den ganzen Tag Daten von außen: Pakete von Spielern, Skins, Plugin-Nachrichten, Webpanels, Datenbankverbindungen. Darum gilt: **aktualisieren, nicht abwarten.**
+Ob sich eine der Lücken konkret über das Minecraft-Protokoll ausnutzen lässt, weiß im Moment niemand. Ein Minecraft-Server verarbeitet aber den ganzen Tag Daten von außen: Pakete von Spielern, Skins, Plugin-Nachrichten, Webpanels, Datenbankverbindungen. Darum gilt: **aktualisieren, nicht abwarten.**
+
+### Alle Lücken im Überblick
+
+| CVE | Bereich | CVSS | Betroffene Java-Linien |
+|---|---|---|---|
+| [CVE-2026-114938](https://www.cve.org/CVERecord?id=CVE-2026-114938) | HotSpot-Compiler („Java4Shell“) | 8.1 | 17, 21, 25, 27 |
+| [CVE-2026-114939](https://www.cve.org/CVERecord?id=CVE-2026-114939) | Kerberos (`org.ietf.jgss`) | 7.4 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114940](https://www.cve.org/CVERecord?id=CVE-2026-114940) | TLS (`javax.net.ssl`) | 7.4 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114941](https://www.cve.org/CVERecord?id=CVE-2026-114941) | HotSpot-Compiler | 7.0 | 21, 25, 27 |
+| [CVE-2026-114942](https://www.cve.org/CVERecord?id=CVE-2026-114942) | Core-Bibliotheken | 7.0 | 17, 21, 25, 27 |
+| [CVE-2026-114943](https://www.cve.org/CVERecord?id=CVE-2026-114943) | HotSpot-Laufzeit | 6.5 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114944](https://www.cve.org/CVERecord?id=CVE-2026-114944) | Management (`java.lang.management`) | 5.9 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114945](https://www.cve.org/CVERecord?id=CVE-2026-114945) | Core-Bibliotheken (`java.lang`) | 5.3 | 17, 21, 25, 27 |
+| [CVE-2026-114946](https://www.cve.org/CVERecord?id=CVE-2026-114946) | HotSpot-Compiler | 4.8 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114947](https://www.cve.org/CVERecord?id=CVE-2026-114947) | TLS (`javax.net.ssl`) | 3.7 | 25, 27 |
+| [CVE-2026-86144](https://www.cve.org/CVERecord?id=CVE-2026-86144) | JavaFX WebView | 7.5 | JavaFX 21, 25, 27 |
+
+JavaFX spielt für Minecraft-Server keine Rolle.
 
 ## Wer nichts tun muss
 
@@ -54,19 +74,29 @@ Alle anderen, die einen Java-Server betreiben oder mieten, sind gefragt.
 
 ## Welche Java-Version braucht mein Server?
 
-- **Minecraft 26.1 und neuer:** Java 25. Ein Fix ist verfügbar oder angekündigt.
-- **Minecraft 1.20.5 bis 1.21.11:** Java 21. Ein Fix ist verfügbar oder angekündigt.
-- **Minecraft 1.18 bis 1.20.4:** Java 17. Ein Fix ist verfügbar oder angekündigt.
-- **Minecraft 1.17.x:** Java 16. **Kein Fix**, Java 16 bekommt keine Updates mehr. Stellt auf Java 17 um, 1.17 läuft damit.
-- **Minecraft bis 1.16.5:** Java 8 (oft auch 11). Ein Fix ist verfügbar oder angekündigt.
+| Minecraft-Version | Java-Version | Gibt es einen Fix? |
+|---|---|---|
+| 26.1 und neuer | Java 25 | Ja |
+| 1.20.5 bis 1.21.11 | Java 21 | Ja |
+| 1.18 bis 1.20.4 | Java 17 | Ja |
+| 1.17.x | Java 16 | **Nein**, Java 16 bekommt keine Updates mehr. Stellt auf Java 17 um, 1.17 läuft damit. |
+| bis 1.16.5 | Java 8 (oft auch 11) | Ja |
 
 Proxys wie Velocity oder BungeeCord laufen auch auf Java und brauchen genauso das Update.
 
 ## Welche Version ist sicher?
 
-Gesucht ist ein Build, der **nach dem 17. November 2026** erschienen ist und **neuer** ist als die oben genannten Versionen. Oracle nummeriert seine Fixes zum Beispiel als 21.0.13.1 und 25.0.5.1. Distributionen wie Eclipse Temurin, Amazon Corretto, Azul Zulu, Microsoft oder Red Hat veröffentlichen eigene Builds mit eigenen Nummern und eigenem Zeitplan.
+Gesucht ist ein Build, der **nach dem 17. November 2026** erschienen ist und **neuer** ist als die oben genannten Versionen. Die Nummern unterscheiden sich je nach Hersteller. Stand 18. November:
 
-Am 18. November gab es von Temurin, auf dem die meisten Minecraft-Hoster und Docker-Images aufbauen, noch keinen neuen Build. Adoptium arbeitet daran und peilt „so schnell wie möglich“ an. Prüft also beim Aktualisieren, ob der Build wirklich neu ist, und nicht nur, ob der Paketmanager „fertig“ meldet.
+| Hersteller | Gepatchte Builds |
+|---|---|
+| Oracle | 17.0.21.1, 21.0.13.1, 25.0.5.1 |
+| Amazon Corretto | 17.0.21.1.2, 21.0.13.1.2, 25.0.5.1.2 |
+| Azul Zulu | 17.0.21.1, 21.0.13.1, 25.0.5.1 |
+| Eclipse Temurin | noch keiner |
+| Red Hat, Microsoft, Linux-Distributionen | noch offen, eigener Zeitplan |
+
+Von Temurin, auf dem die meisten Minecraft-Hoster und Docker-Images aufbauen, gab es noch keinen neuen Build. Adoptium arbeitet daran und peilt „so schnell wie möglich“ an. Prüft also beim Aktualisieren, ob der Build wirklich neu ist, und nicht nur, ob der Paketmanager „fertig“ meldet.
 
 Eure aktuelle Version zeigt:
 
@@ -211,13 +241,27 @@ Startet jeden Minecraft-Server und jeden Proxy neu. Danach führt ihr die Schlei
 
 ### Übergangslösung, solange kein Build da ist
 
-In der Community wird für die schwerste Lücke ein JVM-Flag genannt, das die betroffene Base64-Optimierung abschaltet:
+Gibt es für euer Java noch keinen Patch, könnt ihr zumindest Java4Shell entschärfen. Prüft zuerst, ob eure CPU den betroffenen Befehlssatz hat:
 
 ```bash
-java -XX:-UseBASE64Intrinsics -jar server.jar
+grep -om1 -E 'avx512_?vbmi' /proc/cpuinfo
 ```
 
-Das ist **keine offizielle Empfehlung** von OpenJDK. Das Flag betrifft nur CVE-2026-114938, nicht die übrigen neun Lücken, und kann Base64-Verarbeitung etwas langsamer machen. Testet vorher mit `java -XX:-UseBASE64Intrinsics -version`, ob eure Java-Version das Flag kennt. Sobald ein gepatchter Build läuft, entfernt ihr es wieder.
+Gibt der Befehl nichts aus, ist euer Server für Java4Shell nicht anfällig. Für die übrigen Lücken braucht ihr das Update trotzdem.
+
+Erscheint `avx512vbmi` oder `avx512_vbmi`, schaltet eines dieser beiden JVM-Flags den betroffenen Codepfad ab:
+
+```bash
+# Schaltet nur die Base64-Optimierung ab (engere Variante)
+java -XX:-UseBASE64Intrinsics -jar server.jar
+
+# Begrenzt Java auf AVX2; wirkt breiter und kann mehr Leistung kosten
+java -XX:UseAVX=2 -jar server.jar
+```
+
+Ob das Flag im laufenden Server greift, zeigt `jcmd <PID> VM.flags -all | grep -E 'UseBASE64Intrinsics|UseAVX'`. Setzt `UseAVX` nur auf x86-Servern: Eine ARM-JVM kennt das Flag nicht und startet dann gar nicht.
+
+Beides sind **keine offiziellen Empfehlungen** von OpenJDK, sondern Übergangslösungen aus den Analysen von Sicherheitsforschern. Sie helfen nur gegen CVE-2026-114938, nicht gegen die übrigen neun Lücken. Sobald ein gepatchter Build läuft, entfernt ihr das Flag wieder.
 
 ## Kurz zusammengefasst
 
@@ -226,4 +270,22 @@ Das ist **keine offizielle Empfehlung** von OpenJDK. Das Flag betrifft nur CVE-2
 - Eigener Server: alle Java-Installationen finden, über SDKMAN, Paketmanager oder neues Archiv aktualisieren, neu starten, Version prüfen.
 - Java 16 auf Java 17 umstellen, ältere Linien ohne Support ebenso.
 
-Die Original-Quelle mit allen CVE-Nummern ist das [OpenJDK-Advisory vom 17. November 2026](https://openjdk.org/groups/vulnerability/advisories/2026-11-17). Habt ihr Fragen oder hängt ihr irgendwo fest, meldet euch bei uns auf [Discord](https://1lf.link/discord).
+Habt ihr Fragen oder hängt ihr irgendwo fest, meldet euch bei uns auf [Discord](https://1lf.link/discord).
+
+## Quellen und weiterlesen
+
+Offiziell:
+
+- [OpenJDK Vulnerability Advisory vom 17. November 2026](https://openjdk.org/groups/vulnerability/advisories/2026-11-17) mit allen CVE-Nummern
+- [CISA: Critical Java Vulnerability Requires Immediate Patching](https://www.cisa.gov/news-events/alerts/2026/11/17/critical-java-vulnerability-requires-immediate-patching) (englisch)
+
+Auf Deutsch:
+
+- [heise online: Java: RCE mit AAAA…=](https://www.heise.de/news/Java-RCE-mit-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-11528561.html)
+- [Borns IT- und Windows-Blog: Kritische Schwachstelle Java4Shell (CVE-2026-114938)](https://borncity.com/blog/2026/11/17/kritische-schwachstelle-java4shell-cve-2026-114938/)
+
+Auf Englisch:
+
+- [heise online: Java4Shell: Dangerous Java vulnerability](https://www.heise.de/en/news/Java4Shell-Dangerous-Java-vulnerability-11528504.html)
+- [The Hacker News: Java4Shell Flaw Enables Pre-Auth RCE in Jira, Jenkins, Keycloak and More](https://thehackernews.com/2026/11/java4shell-cve-2026-114938-enables-pre.html)
+- [Datadog Security Labs: Java4Shell, Remote Code Execution in OpenJDK](https://securitylabs.datadoghq.com/articles/java4shell-remote-code-execution-in-openjdk-cve-2026-114938/) mit Details zu CPUs und Übergangslösungen

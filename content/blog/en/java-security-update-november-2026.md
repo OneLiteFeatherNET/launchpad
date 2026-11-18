@@ -32,17 +32,37 @@ schemaOrg:
       name: 'Phillipp Glanz'
     datePublished: '2026-11-18T12:00:00+01:00'
 ---
-On **17 November 2026**, OpenJDK published a [security advisory](https://openjdk.org/groups/vulnerability/advisories/2026-11-17) outside its usual quarterly schedule. Every Minecraft Java server runs on Java, so this affects your server too. Here is what to do, whether you rent from a host or run your own root server or VM.
+On **17 November 2026**, OpenJDK published a [security advisory](https://openjdk.org/groups/vulnerability/advisories/2026-11-17). Every Minecraft Java server runs on Java, so this affects your server too. Here is what to do, whether you rent from a host or run your own root server or VM.
 
-> **As of 18 November 2026, not every vendor has patches yet.** Oracle has published patched builds, Eclipse Temurin for example has not. Most Minecraft hosts and Docker images build on Temurin. Corretto, Zulu, Microsoft, Red Hat and the Linux distributions also ship on their own schedules. So if you can't find an update yet, it's probably not your fault. Check again over the next few days and use the interim measure further down until then.
+> **As of 18 November 2026, not every vendor has patches yet.** Oracle, Amazon Corretto and Azul Zulu have published patched builds. Eclipse Temurin has not, and most Minecraft hosts and Docker images build on it. Red Hat, Microsoft and the Linux distributions also ship on their own schedules. So if you can't find an update yet, it's probably not your fault. Check again over the next few days and use the interim measure further down until then.
 
 ## What happened
 
-The advisory fixes ten vulnerabilities in OpenJDK and one in OpenJFX. All of them are reachable over the network, without a login and without anyone having to click anything. The most severe is **CVE-2026-114938** in the HotSpot compiler, rated **8.1** on CVSS. It affects Java 17, 21, 25 and 27. Security researchers call it "Java4Shell" and describe a memory bug in Base64 decoding that is said to allow running foreign code. The technical details have not been published yet, and no attacks are known so far.
+The advisory fixes ten vulnerabilities in OpenJDK and one in OpenJFX. All of them are reachable over the network, without a login and without anyone having to click anything. The most severe is **[CVE-2026-114938](https://www.cve.org/CVERecord?id=CVE-2026-114938)** in the HotSpot compiler, rated **8.1** on CVSS. It affects Java 17, 21, 25 and 27. Its discoverers at Calif call it "Java4Shell": a crafted Base64 string makes Java's Base64 decoder write memory in the wrong place. According to Calif, this let them run their own code on Keycloak, Jira and Jenkins without logging in. No attacks in the wild are known so far.
+
+This one bug sits in a code path for the AVX-512 instructions of newer processors. According to Calif it affects Intel Xeon from Ice Lake on (Sapphire, Emerald and Granite Rapids) and AMD EPYC and Ryzen from Zen 4 on. Those are exactly the CPUs in many current root servers. ARM servers are not affected by it. The other nine bugs don't depend on the CPU, so everyone needs to update.
 
 According to the advisory, **Java 25.0.5, 21.0.13, 17.0.21, 11.0.33, 8u512 and every older version** are affected. Java 8 and 11 are not affected by the most severe bug, but by several of the others.
 
 Nobody knows yet whether any of these bugs can be exploited through the Minecraft protocol. A Minecraft server does handle outside data all day, though: player packets, skins, plugin messages, web panels, database connections. So: **update, don't wait.**
+
+### All vulnerabilities at a glance
+
+| CVE | Area | CVSS | Affected Java lines |
+|---|---|---|---|
+| [CVE-2026-114938](https://www.cve.org/CVERecord?id=CVE-2026-114938) | HotSpot compiler ("Java4Shell") | 8.1 | 17, 21, 25, 27 |
+| [CVE-2026-114939](https://www.cve.org/CVERecord?id=CVE-2026-114939) | Kerberos (`org.ietf.jgss`) | 7.4 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114940](https://www.cve.org/CVERecord?id=CVE-2026-114940) | TLS (`javax.net.ssl`) | 7.4 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114941](https://www.cve.org/CVERecord?id=CVE-2026-114941) | HotSpot compiler | 7.0 | 21, 25, 27 |
+| [CVE-2026-114942](https://www.cve.org/CVERecord?id=CVE-2026-114942) | Core libraries | 7.0 | 17, 21, 25, 27 |
+| [CVE-2026-114943](https://www.cve.org/CVERecord?id=CVE-2026-114943) | HotSpot runtime | 6.5 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114944](https://www.cve.org/CVERecord?id=CVE-2026-114944) | Management (`java.lang.management`) | 5.9 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114945](https://www.cve.org/CVERecord?id=CVE-2026-114945) | Core libraries (`java.lang`) | 5.3 | 17, 21, 25, 27 |
+| [CVE-2026-114946](https://www.cve.org/CVERecord?id=CVE-2026-114946) | HotSpot compiler | 4.8 | 8, 11, 17, 21, 25, 27 |
+| [CVE-2026-114947](https://www.cve.org/CVERecord?id=CVE-2026-114947) | TLS (`javax.net.ssl`) | 3.7 | 25, 27 |
+| [CVE-2026-86144](https://www.cve.org/CVERecord?id=CVE-2026-86144) | JavaFX WebView | 7.5 | JavaFX 21, 25, 27 |
+
+JavaFX plays no part in Minecraft servers.
 
 ## Who doesn't need to do anything
 
@@ -54,19 +74,29 @@ Everyone else who runs or rents a Java server needs to act.
 
 ## Which Java version does my server need?
 
-- **Minecraft 26.1 and newer:** Java 25. A fix is available or announced.
-- **Minecraft 1.20.5 to 1.21.11:** Java 21. A fix is available or announced.
-- **Minecraft 1.18 to 1.20.4:** Java 17. A fix is available or announced.
-- **Minecraft 1.17.x:** Java 16. **No fix**, Java 16 no longer gets updates. Switch to Java 17; 1.17 runs on it.
-- **Minecraft up to 1.16.5:** Java 8 (often 11 works too). A fix is available or announced.
+| Minecraft version | Java version | Is there a fix? |
+|---|---|---|
+| 26.1 and newer | Java 25 | Yes |
+| 1.20.5 to 1.21.11 | Java 21 | Yes |
+| 1.18 to 1.20.4 | Java 17 | Yes |
+| 1.17.x | Java 16 | **No**, Java 16 no longer gets updates. Switch to Java 17; 1.17 runs on it. |
+| up to 1.16.5 | Java 8 (often 11 works too) | Yes |
 
 Proxies such as Velocity or BungeeCord run on Java as well and need the update just the same.
 
 ## Which version is safe?
 
-You want a build released **after 17 November 2026** that is **newer** than the versions listed above. Oracle, for example, numbers its fixes 21.0.13.1 and 25.0.5.1. Distributions such as Eclipse Temurin, Amazon Corretto, Azul Zulu, Microsoft or Red Hat publish their own builds, with their own numbers and on their own schedule.
+You want a build released **after 17 November 2026** that is **newer** than the versions listed above. The numbers differ by vendor. As of 18 November:
 
-On 18 November, Temurin, which most Minecraft hosts and Docker images build on, had not released a new build yet. Adoptium is working on it and aims for "as soon as possible". So when you update, check that the build really is new, not just that the package manager says "done".
+| Vendor | Patched builds |
+|---|---|
+| Oracle | 17.0.21.1, 21.0.13.1, 25.0.5.1 |
+| Amazon Corretto | 17.0.21.1.2, 21.0.13.1.2, 25.0.5.1.2 |
+| Azul Zulu | 17.0.21.1, 21.0.13.1, 25.0.5.1 |
+| Eclipse Temurin | none yet |
+| Red Hat, Microsoft, Linux distributions | pending, own schedule |
+
+Temurin, which most Minecraft hosts and Docker images build on, had no new build yet. Adoptium is working on it and aims for "as soon as possible". So when you update, check that the build really is new, not just that the package manager says "done".
 
 To see your current version:
 
@@ -211,13 +241,27 @@ Restart every Minecraft server and every proxy. Then run the loop from step 1 ag
 
 ### Interim measure while no build is available
 
-The community points to a JVM flag for the most severe bug that turns off the affected Base64 optimisation:
+If there is no patch for your Java yet, you can at least defuse Java4Shell. First check whether your CPU has the affected instruction set:
 
 ```bash
-java -XX:-UseBASE64Intrinsics -jar server.jar
+grep -om1 -E 'avx512_?vbmi' /proc/cpuinfo
 ```
 
-This is **not an official recommendation** from OpenJDK. The flag only covers CVE-2026-114938, not the other nine bugs, and it can make Base64 handling a little slower. Check first with `java -XX:-UseBASE64Intrinsics -version` that your Java version knows the flag. Remove it again once a patched build is running.
+If the command prints nothing, your server is not vulnerable to Java4Shell. You still need the update for the other bugs.
+
+If it prints `avx512vbmi` or `avx512_vbmi`, either of these JVM flags switches off the affected code path:
+
+```bash
+# Turns off only the Base64 optimisation (the narrower option)
+java -XX:-UseBASE64Intrinsics -jar server.jar
+
+# Limits Java to AVX2; broader, and may cost more performance
+java -XX:UseAVX=2 -jar server.jar
+```
+
+`jcmd <PID> VM.flags -all | grep -E 'UseBASE64Intrinsics|UseAVX'` shows whether the flag is active in the running server. Only set `UseAVX` on x86 servers: an ARM JVM doesn't know the flag and won't start at all.
+
+Neither is an **official recommendation** from OpenJDK; both are stopgaps from security researchers' analyses. They only help against CVE-2026-114938, not the other nine bugs. Remove the flag again once a patched build is running.
 
 ## In short
 
@@ -226,4 +270,22 @@ This is **not an official recommendation** from OpenJDK. The flag only covers CV
 - Your own server: find every Java installation, update through SDKMAN, the package manager or a new archive, restart, check the version.
 - Move Java 16 to Java 17, and likewise any other line without support.
 
-The original source with every CVE number is the [OpenJDK advisory of 17 November 2026](https://openjdk.org/groups/vulnerability/advisories/2026-11-17). If you have questions or get stuck, find us on [Discord](https://1lf.link/discord).
+If you have questions or get stuck, find us on [Discord](https://1lf.link/discord).
+
+## Sources and further reading
+
+Official:
+
+- [OpenJDK Vulnerability Advisory of 17 November 2026](https://openjdk.org/groups/vulnerability/advisories/2026-11-17) with every CVE number
+- [CISA: Critical Java Vulnerability Requires Immediate Patching](https://www.cisa.gov/news-events/alerts/2026/11/17/critical-java-vulnerability-requires-immediate-patching)
+
+In English:
+
+- [heise online: Java4Shell: Dangerous Java vulnerability](https://www.heise.de/en/news/Java4Shell-Dangerous-Java-vulnerability-11528504.html)
+- [The Hacker News: Java4Shell Flaw Enables Pre-Auth RCE in Jira, Jenkins, Keycloak and More](https://thehackernews.com/2026/11/java4shell-cve-2026-114938-enables-pre.html)
+- [Datadog Security Labs: Java4Shell, Remote Code Execution in OpenJDK](https://securitylabs.datadoghq.com/articles/java4shell-remote-code-execution-in-openjdk-cve-2026-114938/), with details on CPUs and stopgaps
+
+In German:
+
+- [heise online: Java: RCE mit AAAA…=](https://www.heise.de/news/Java-RCE-mit-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-11528561.html)
+- [Borns IT- und Windows-Blog: Kritische Schwachstelle Java4Shell (CVE-2026-114938)](https://borncity.com/blog/2026/11/17/kritische-schwachstelle-java4shell-cve-2026-114938/)
