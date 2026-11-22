@@ -2,7 +2,7 @@
 slug: 'end-portal'
 translationKey: 'end-portal'
 title: 'End portal in the overworld'
-summary: 'A planned end portal in the overworld by Svenko1: a portal platform with light pillars in the middle of a crater. Schematic attached – nothing has been built yet.'
+summary: 'A planned end portal in the overworld by Svenko1: a portal platform with light pillars in a crater. Schematic attached, nothing built yet.'
 status: 'planning'
 progress: 0
 category: 'community'

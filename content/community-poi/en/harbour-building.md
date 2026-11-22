@@ -2,7 +2,7 @@
 slug: 'harbour-building'
 translationKey: 'harbour-building'
 title: 'Harbour building (Dockhafen)'
-summary: 'A harbour project from blndr2 that has not started yet. The schematic for the planned harbour ships with the page — the site is waiting for its first block.'
+summary: 'A harbour project from blndr2 that has not started yet. The schematic for the planned harbour ships with the page; the site awaits its first block.'
 status: 'planning'
 progress: 0
 category: 'community'

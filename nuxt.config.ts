@@ -60,7 +60,12 @@ export default defineNuxtConfig({
             alternateName: 'OneLiteFeather Network',
             description: 'OneLiteFeather is a German-speaking Minecraft network founded in 2019, with community builds, events and open-source software for Paper and Minestom.',
             url: 'http://localhost:3000',
-            logo: '/images/logo.png',
+            logo: {
+                '@type': 'ImageObject',
+                'url': '/images/logo.png',
+                'width': 512,
+                'height': 512
+            },
             email: 'contact@onelitefeather.net',
             foundingDate: '2019-09-01',
             numberOfEmployees: {
@@ -217,6 +222,7 @@ export default defineNuxtConfig({
         '/ingest/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/__nuxt_content/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/api/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
+        // /blog redirects live in server/middleware; a rule here drops /en/blog from the sitemap.
         // Renamed project: Cygnus became Slender.
         '/de/projects/cygnus': { redirect: { to: '/de/projects/slender', statusCode: 301 } },
         '/en/projects/cygnus': { redirect: { to: '/en/projects/slender', statusCode: 301 } },
@@ -375,7 +381,12 @@ export default defineNuxtConfig({
                 // a scalar, so defu replaces rather than appends it.
                 name: 'OneLiteFeather',
                 url: 'https://onelitefeather.net',
-                logo: 'https://onelitefeather.net/images/logo.png'
+                logo: {
+                    '@type': 'ImageObject',
+                    'url': 'https://onelitefeather.net/images/logo.png',
+                    'width': 512,
+                    'height': 512
+                }
             })
         },
         site: {

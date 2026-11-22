@@ -67,7 +67,7 @@ describe('organization', () => {
   })
 
   it('points the logo at a PNG in both environments', () => {
-    const logos = [...read('nuxt.config.ts').matchAll(/\blogo: '([^']+)'/g)].map(match => match[1])
+    const logos = [...read('nuxt.config.ts').matchAll(/\blogo: \{[^}]*'url': '([^']+)'/g)].map(match => match[1])
     expect(logos).toEqual(['/images/logo.png', 'https://onelitefeather.net/images/logo.png'])
   })
 
@@ -91,7 +91,7 @@ describe('home description', () => {
   it.each(['de', 'en'])('has a snippet length in %s', (locale) => {
     const { length } = messages(locale).index.description
     expect(length).toBeGreaterThanOrEqual(50)
-    expect(length).toBeLessThanOrEqual(200)
+    expect(length).toBeLessThanOrEqual(155)
   })
 
   it('is what the home page sets', () => {

@@ -1,7 +1,7 @@
 ---
 title: 'Warum unsere Tests grün waren und die Lobby trotzdem nicht startete'
 alternativeTitle: 'Binärkompatibilität, ein NoSuchMethodError und ein Boot-Test'
-description: 'Ein Dependency-Update, ein Build ohne Fehler und eine Lobby, die nicht startet: was rund um Titan 3.0 passiert ist, wie der Fix aussah und welcher Test seitdem den Start prüft.'
+description: 'Ein Dependency-Update, ein fehlerfreier Build und eine Lobby, die nicht startet: was rund um Titan 3.0 passiert ist und welcher Test jetzt den Start prüft.'
 pubDate: '2026-10-27'
 releaseDate: '2026-10-27'
 headerImage: 'images/og/blog-de.png'

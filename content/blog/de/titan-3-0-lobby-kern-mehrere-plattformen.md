@@ -1,7 +1,7 @@
 ---
 title: 'Titan 3.0: ein Lobby-Kern, mehrere Plattformen'
 alternativeTitle: 'Warum der Serverstart zur austauschbaren Plattform wurde'
-description: 'Titan 3.0 trennt den Lobby-Kern vom Serverstart: Minestom-Extensions sind nur noch eine Plattform unter mehreren. Was sich geändert hat, warum und was dabei schwer war.'
+description: 'Titan 3.0 trennt den Lobby-Kern vom Serverstart: Minestom-Extensions sind nur noch eine Plattform unter mehreren. Was sich geändert hat und warum.'
 pubDate: '2026-10-20'
 releaseDate: '2026-10-20'
 headerImage: 'images/og/blog-de.png'

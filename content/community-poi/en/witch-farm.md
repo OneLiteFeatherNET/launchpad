@@ -2,7 +2,7 @@
 slug: 'witch-farm'
 translationKey: 'witch-farm'
 title: 'Witch Farm'
-summary: 'A tall witch farm by Cainpain234 in a wooded landscape by a river: a shaft with a wood-and-glass chamber at the top. Finished, located at X 1032 / Y 174 / Z 4742.'
+summary: 'A tall witch farm by Cainpain234 by a river: a shaft with a wood-and-glass chamber at the top. Finished, located at X 1032 / Y 174 / Z 4742.'
 status: 'completed'
 progress: 100
 category: 'farm'
