@@ -9,8 +9,8 @@ Test zuerst, dann Code. Tests nach F.I.R.S.T. Branch von aktuellem `origin/main`
 
 ## 2. Karussell
 
-- [ ] 2.1 [Haiku] `tests/a11y/carousel-semantics.spec.ts`: `role="region"`, `aria-roledescription="carousel"`, Name aus `carousel.label`; Slides `role="group"`, `aria-roledescription="slide"`, Label aus `carousel.slide_position`; kein `tabindex="0"` ohne Namen; die i18n-Schlüssel existieren in en und de. Rot sehen
-- [ ] 2.2 [Haiku] `role="region"` ergänzen, `tabindex="0"` am Rahmen entfernen; grün
+- [ ] 2.1 [Haiku] `tests/a11y/carousel-semantics.spec.ts`: `<section>` mit Name, `aria-roledescription="carousel"`, Name aus `carousel.label`; Slides `role="group"`, `aria-roledescription="slide"`, Label aus `carousel.slide_position`; kein `tabindex="0"` ohne Namen; die i18n-Schlüssel existieren in en und de. Rot sehen
+- [ ] 2.2 [Haiku] `tabindex="0"` am Rahmen entfernen; grün
 
 ## 3. Abschluss
 

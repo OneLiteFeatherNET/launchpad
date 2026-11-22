@@ -3,7 +3,7 @@
 ## ADDED Requirements
 
 ### Requirement: Das Karussell folgt dem APG-Muster
-Das Karussell MUST eine benannte Region (`role="region"`,
+Das Karussell MUST eine benannte Region (`<section>` mit Namen,
 `aria-roledescription="carousel"`, Name aus i18n) sein. Jede Slide MUST
 `role="group"` und `aria-roledescription="slide"` tragen und ein Label
 „n von m“ aus i18n. Kein fokussierbares Element ohne Rolle und Namen.

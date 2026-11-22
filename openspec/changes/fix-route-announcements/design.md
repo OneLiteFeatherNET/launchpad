@@ -20,6 +20,7 @@ Motivation: siehe `proposal.md`.
 2. **Tab-Stopp entfernen statt benennen.** Ein Name auf einem Element ohne
    eigene Funktion würde nur einen weiteren, redundanten Stopp ankündigen.
    Tastaturparität bleibt über Buttons und Pfeiltasten im `<section>` erhalten.
-3. **`role="region"` explizit**, obwohl `<section>` mit Namen implizit eine
-   Region ist: macht die APG-Struktur im Quelltext und im Test sichtbar.
+3. **Kein explizites `role="region"`**: `<section>` mit Namen ist implizit
+   eine Region, und `vuejs-accessibility/no-redundant-roles` verbietet die
+   Doppelung. Der Test prüft `<section>` plus Namen.
 4. Typ `fix(a11y)`: beides korrigiert fehlende Zugänglichkeit, kein Feature.

@@ -23,7 +23,8 @@ Ausgeliefert als `fix(a11y)`. Pull-Request-Titel:
   also den Seitentitel an. Der Announcer ist eine unsichtbare Live-Region und
   verschiebt weder Fokus noch berührt er den Skip-Link.
 - Karussell: den namenlosen Tab-Stopp (`tabindex="0"`) am Rahmen entfernen;
-  `<section>` bekommt explizit `role="region"` (Name und
+  `<section>` ist mit Namen bereits implizit eine Region (ein explizites
+  `role="region"` meldet die a11y-Lint-Regel als redundant; Name und
   `aria-roledescription="carousel"` sind vorhanden, Slides sind bereits
   `role="group"` mit „Slide n of m“-Label aus i18n). Keine neuen Strings:
   `carousel.label` und `carousel.slide_position` existieren in en und de.
