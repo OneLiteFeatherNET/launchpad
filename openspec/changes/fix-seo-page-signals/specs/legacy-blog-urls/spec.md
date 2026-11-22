@@ -12,6 +12,9 @@ Blog-Links ohne Sprachpräfix führen auf die englische Seite, statt zu 404.
 und trägt keine Edge-Cache-Direktive. Fehlerantworten (Status ≥ 400) bleiben
 `no-store`.
 
+Bekannte Einschränkung: Ein deutscher Slug führt auf `/en/blog/<slug>` und
+dort zu 404; eine Abbildung auf `/de` ist kein Ziel dieser Änderung.
+
 #### Scenario: Artikel
 - **WHEN** `/blog/example-post` abgerufen wird
 - **THEN** ist die Antwort 301 mit `Location` `/en/blog/example-post`

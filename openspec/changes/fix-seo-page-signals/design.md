@@ -1,4 +1,4 @@
-# Design: Überschriften, Titel- und Beschreibungslängen, Blog-Links ohne Sprache
+# Design: Überschriften, Beschreibungslängen, Blog-Links ohne Sprache
 
 ## Context
 
@@ -8,8 +8,8 @@ Motivation: siehe `proposal.md`. Gelesen an `origin/main` `83fc3fe`.
   `<h1 class="text-headline-small text-on-surface">` mit `M3CardLink`.
 - Titel: `app.vue:21` hängt `| OneLiteFeather` (17 Zeichen) an; die Startseite
   schaltet das über `useHomeSeo` mit `titleTemplate: '%s'` ab. Die Startseite
-  zählt also nur `index.title`. Gemessen: `de` **57** Zeichen (der Auftrag
-  nannte 62; siehe offene Frage 1), `en` 54.
+  zählt also nur `index.title`. Gemessen: `de` **57** Zeichen (die 62 aus
+  dem Audit zählten Bytes), `en` 54. Beide bleiben unverändert.
 - `usePageSeo.ts:126`: `inLanguage: locale?.value || DEFAULT_LOCALE`;
   `useArticleSeo.ts:178`: `inLanguage: locale.value`. `nuxt.config.ts:137`
   setzt `language: 'de-DE'`/`'en-US'`; `rootWebSiteNode` liefert diese Werte.
@@ -23,7 +23,8 @@ Motivation: siehe `proposal.md`. Gelesen an `origin/main` `83fc3fe`.
 der Anzeigegrenzen; `/blog/…` ohne Sprache landet auf einer echten Seite;
 Schema.org sagt überall dieselbe Sprache.
 
-**Non-Goals:** Inhalte der Artikel ändern, nur ihre Meta-Beschreibung; die
+**Non-Goals:** den deutschen Startseitentitel ändern; `/blog/<deutscher-slug>`
+auf `/de` abbilden; Inhalte der Artikel ändern, nur ihre Meta-Beschreibung; die
 `schemaOrg`-Blöcke in den Artikel-Frontmatter (`description:` ab Zeile ~27
 mit bis zu 365 Zeichen) anfassen — sie sind JSON-LD, kein Meta-Tag;
 Weiterleitung anderer Pfade (`/team/**` …); Browser-Spracherkennung für die
@@ -36,15 +37,11 @@ Weiterleitung.
    bleibt; Überschriftenebene und Optik sind getrennt. Das `sr-only`-`<h1>`
    bleibt, sein Kommentar stimmt weiter. Die Artikelkarten (`ArticleCard`)
    prüft ein Test auf ihre Ebene (kein `<h1>`).
-2. **Titel `de`: `OneLiteFeather – Minecraft-Server & Open Source` (47).**
-   Marke vorn (#543), „Deutscher" entfällt, weil „Minecraft-Server" der
-   Suchbegriff ist und die Description „deutschsprachig" ohnehin sagt.
-   Alternative: `OneLiteFeather – Deutscher Minecraft-Server` (43), behält
-   die Sprache, verliert „Open Source". Grenze im Test: gerenderter Titel
-   (Key plus 17 Zeichen Suffix, außer Startseite) höchstens 60 Zeichen je
-   Sprache. Der Test zeigt, ob weitere Keys (die Liste aus
-   `localized-titles.spec.ts`) darüber liegen; solche werden mitgekürzt. Die
-   Unterscheidung zwischen `de` und `en` aus `localized-titles` bleibt.
+2. **Titel bleiben, ein Test hält die Grenze.** Der deutsche Startseitentitel
+   (57 Zeichen, Marke vorn, #543) ändert sich nicht. Der Test fordert nur:
+   gerenderter Titel (Key plus 17 Zeichen Suffix, außer Startseite) höchstens
+   60 Zeichen je Sprache, für die Keys aus `localized-titles.spec.ts`. Meldet
+   er einen weiteren Key, kürzt der Code-PR genau diesen.
 3. **Descriptions ≤ 155 Zeichen, überall, wo ein Meta-Tag daraus wird.**
    Quellen, die den Meta-Wert liefern: i18n-Keys, die Seiten per
    `usePageSeo` übergeben; Blog-`seo.description` bzw. `description`
@@ -104,7 +101,8 @@ Weiterleitung.
      Quell-URLs standen nie darin.
    - *Deutsche Slugs:* `/blog/<deutscher-slug>` führt auf
      `/en/blog/<deutscher-slug>` und damit zu 404. Das ist besser als vorher
-     (ein dauerhaftes Ziel), aber nicht korrekt; siehe offene Frage 2.
+     (ein dauerhaftes Ziel), aber nicht korrekt. Bekannte, akzeptierte Einschränkung und
+     Non-Goal: keine Slug-Tabelle, kein Weiterleiten nach `/de`.
 5. **Organization-Logo als `ImageObject`.** `public/images/logo.png` ist
    512×512. In `nuxt.config.ts:377` wird
    `logo: { '@type': 'ImageObject', url: 'https://onelitefeather.net/images/logo.png', width: 512, height: 512 }`
@@ -133,12 +131,8 @@ Weiterleitung.
 - Eine Kappe von 60 gerenderten Titelzeichen ist ein Näherungswert für
   Pixelbreite; sie ist bewusst konservativ.
 
-## Open Questions
+## Entschieden
 
-1. Der Auftrag nannte 62 Zeichen für den `de`-Titel; im Quelltext sind es 57.
-   Bei der Prod-Messung prüfen, ob dort ein anderer Text steht.
-2. Soll `/blog/<slug>` für bekannte deutsche Slugs nach `/de/blog/<slug>`
-   führen? Das bräuchte eine Slug-Tabelle oder einen Nitro-Handler; bis es
-   Belege für solche Links gibt, reicht `/en`.
-3. 301 ohne Cache-Direktive oder mit `max-age=86400` am Edge? Konsistenz mit
-   den bestehenden Regeln spricht für „ohne".
+- Deutscher Startseitentitel bleibt.
+- `/blog/<deutscher-slug>` → `/en/blog/<deutscher-slug>` (404 dort) ist akzeptiert.
+- 301 ohne Edge-Cache-Direktive, wie die bestehenden Redirects.

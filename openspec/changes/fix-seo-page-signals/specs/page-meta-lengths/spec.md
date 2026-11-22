@@ -24,11 +24,11 @@ Jede Meta-Description einer Seite, in beiden Sprachen, MUST zwischen 50 und
 ### Requirement: Titel passen in die Ergebnisliste
 Der gerenderte `<title>` jeder Seite MUST höchstens 60 Zeichen lang sein, in
 beiden Sprachen; bei Seiten mit dem Suffix ` | OneLiteFeather` zählt der
-Suffix mit. Die deutsche Startseite beginnt mit der Marke.
+Suffix mit. Der deutsche Startseitentitel bleibt unverändert.
 
 #### Scenario: Deutsche Startseite
 - **WHEN** `index.title` in `de.json` gelesen wird
-- **THEN** beginnt er mit `OneLiteFeather` und ist höchstens 60 Zeichen lang
+- **THEN** beginnt er mit `OneLiteFeather` und ist höchstens 60 Zeichen lang (heute 57)
 
 ### Requirement: Eine Hauptüberschrift pro Seite
 Eine Seite MUST genau ein `<h1>` tragen. Auf der Blog-Übersicht ist das das
