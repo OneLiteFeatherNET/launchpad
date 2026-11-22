@@ -25,7 +25,7 @@ export function useArticleSeo(
   authors: Ref<Person[]>,
   embeddedPois: Ref<CommunityPoiEmbed[]>
 ) {
-  const { locale, t } = useI18n()
+  const { locale, localeProperties, t } = useI18n()
   const config = useRuntimeConfig()
   const site = useSiteConfig()
   const img = useImage()
@@ -175,7 +175,7 @@ export function useArticleSeo(
       wordCount: articleWordCount.value,
       articleSection: article.tags?.[0] || undefined,
       keywords: article.tags?.join(', ') || undefined,
-      inLanguage: locale.value,
+      inLanguage: localeProperties.value?.language || locale.value,
       publisher: { '@id': organizationId(site.url) }
     }
   }))

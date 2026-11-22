@@ -19,7 +19,7 @@ const buildRobots = (opts: PageSeoOptions): string | undefined => {
 }
 
 export function usePageSeo(opts: PageSeoOptions = {}) {
-  const { locale, t } = useI18n()
+  const { locale, localeProperties, t } = useI18n()
   const route = useRoute()
   const site = useSiteConfig()
   const switchLocalePath = useSwitchLocalePath()
@@ -123,7 +123,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
       name: pageTitle.value,
       description: pageDescription.value,
       url: canonicalUrl.value,
-      inLanguage: locale?.value || DEFAULT_LOCALE,
+      inLanguage: localeProperties?.value?.language || locale?.value || DEFAULT_LOCALE,
       primaryImageOfPage: socialImage.value.url
     })
   ]))

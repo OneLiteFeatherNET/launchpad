@@ -1,4 +1,6 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
+import { repoRoot } from '../helpers/sources'
 import { organizationDescriptionNode, rootWebSiteNode } from '../../layers/content-core/utils/siteIdentity'
 import { organizationId, websiteId } from '../../layers/content-core/utils/schema-ids'
 
@@ -64,5 +66,35 @@ describe('organizationDescriptionNode', () => {
   it('carries only the localised description', () => {
     const { '@id': _id, ...rest } = organizationDescriptionNode('https://onelitefeather.net', 'Beschreibung')
     expect(rest).toEqual({ description: 'Beschreibung' })
+  })
+})
+
+describe('organization logo', () => {
+  const config = readFileSync(`${repoRoot}/nuxt.config.ts`, 'utf8')
+  const png = readFileSync(`${repoRoot}/public/images/logo.png`)
+  const logos = [...config.matchAll(/logo: \{[^}]*\}/g)].map(match => match[0])
+
+  it('is an ImageObject in the base and the production identity', () => {
+    expect(logos, 'base and $production identity').toHaveLength(2)
+    for (const logo of logos) expect(logo).toContain('\'@type\': \'ImageObject\'')
+  })
+
+  it('states the pixel size of public/images/logo.png', () => {
+    const width = png.readUInt32BE(16)
+    const height = png.readUInt32BE(20)
+    for (const logo of logos) {
+      expect(logo).toMatch(new RegExp(`'width': ${width}\\b`))
+      expect(logo).toMatch(new RegExp(`'height': ${height}\\b`))
+    }
+  })
+})
+
+describe('inLanguage', () => {
+  it.each([
+    'layers/content-core/composables/usePageSeo.ts', 'layers/blog/composables/useArticleSeo.ts'
+  ])('is read from localeProperties in %s', (file) => {
+    const source = readFileSync(`${repoRoot}/${file}`, 'utf8')
+    expect(source).toMatch(/inLanguage: localeProperties\??\.value\?\.language/)
+    expect(source).not.toMatch(/inLanguage: locale\??\.value/)
   })
 })
