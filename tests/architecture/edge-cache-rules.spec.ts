@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { describe, expect, it } from 'vitest'
 import { repoRoot } from '../helpers/sources'
 
@@ -8,7 +9,8 @@ import { repoRoot } from '../helpers/sources'
  * D2). Each rule below is a promise the cache keeps on the site's behalf, so
  * the table is checked row by row rather than trusted:
  *
- * - content pages 1 h fresh, legal pages 24 h, both stale-while-revalidate;
+ * - time-dependent pages 1 h fresh, static pages and legal pages 24 h, both
+ *   stale-while-revalidate (design: perf-longer-edge-cache);
  * - `/` never cached — it redirects by cookie and Accept-Language, and a
  *   cached redirect would send every visitor to the first visitor's language;
  * - internal endpoints never cached.
@@ -31,6 +33,36 @@ const NEVER_CACHED = [
   '/api/**'
 ]
 
+const LOCALES = ['en', 'de']
+
+/** Static pages: same HTML until the next deploy. */
+const DAY_PATHS = [
+  'blog/some-article',
+  'team',
+  'team/some-member',
+  'about',
+  'projects',
+  'projects/some-project',
+  'community-poi',
+  'community-poi/some-poi',
+  'join',
+  'survival-rules',
+  'bluemap',
+  'imprint',
+  'privacy'
+]
+
+/** Pages that read the clock on the server (events, releases, seasons). */
+const HOUR_PATHS = [
+  '',
+  'events',
+  'events/some-event',
+  'community',
+  'blog',
+  'blog/author/some-author',
+  'some-unlisted-page'
+]
+
 const source = readFileSync(`${repoRoot}/nuxt.config.ts`, 'utf8')
 
 function routeRulesBlock(): string {
@@ -46,7 +78,50 @@ function ruleFor(route: string): string {
   return line!
 }
 
+const nodeRequire = createRequire(import.meta.url)
+// radix3 and defu are not direct dependencies; resolve them the way Nitro
+// does, through nuxt -> nitropack.
+const nitroRequire = createRequire(createRequire(nodeRequire.resolve('nuxt/package.json')).resolve('nitropack/package.json'))
+type Rules = { headers?: Record<string, string> }
+const { createRouter, toRouteMatcher } = nitroRequire('radix3') as {
+  createRouter: (opts: { routes: Record<string, Rules> }) => unknown
+  toRouteMatcher: (router: unknown) => { matchAll: (path: string) => Rules[] }
+}
+const defu = nitroRequire('defu') as (...sources: Rules[]) => Rules
+
+/** Edge directive a path ends up with after Nitro merges the matching rules. */
+function edgeDirective(path: string): string | undefined {
+  const routes: Record<string, Rules> = {}
+  for (const line of routeRulesBlock().split('\n')) {
+    const route = line.trimStart().match(/^'([^']+)':/)?.[1]
+    if (!route) continue
+    const days = line.match(/cachedPageHeaders\((\d+)\)/)?.[1]
+    const literal = line.match(/'cloudflare-cdn-cache-control': '([^']+)'/)?.[1]
+    if (days) routes[route] = { headers: { 'cloudflare-cdn-cache-control': `max-age=${days}` } }
+    else if (literal) routes[route] = { headers: { 'cloudflare-cdn-cache-control': literal } }
+    else routes[route] = {}
+  }
+  const matcher = toRouteMatcher(createRouter({ routes }))
+  // Same merge as nitropack's getRouteRulesForPath.
+  const rules = defu({}, ...matcher.matchAll(path).reverse())
+  return rules.headers?.['cloudflare-cdn-cache-control']
+}
+
+const pathFor = (locale: string, rest: string) => rest ? `/${locale}/${rest}` : `/${locale}`
+
 describe('edge cache route rules', () => {
+  it.each(LOCALES.flatMap(l => DAY_PATHS.map(p => pathFor(l, p))))('resolves %s to a day', (path) => {
+    expect(edgeDirective(path)).toBe('max-age=86400')
+  })
+
+  it.each(LOCALES.flatMap(l => HOUR_PATHS.map(p => pathFor(l, p))))('resolves %s to an hour, never a day', (path) => {
+    expect(edgeDirective(path)).toBe('max-age=3600')
+  })
+
+  it.each(NEVER_CACHED)('resolves %s to no-store', (path) => {
+    expect(edgeDirective(path.replace('**', 'x'))).toBe('no-store')
+  })
+
   it.each(['/en/**', '/de/**'])('caches %s for an hour', (route) => {
     expect(ruleFor(route)).toContain('cachedPageHeaders(3600)')
   })

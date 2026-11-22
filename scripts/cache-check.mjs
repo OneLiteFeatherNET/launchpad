@@ -28,10 +28,11 @@ const EXPECT_HITS = args.includes('--expect-hits')
 const EDGE = 'cloudflare-cdn-cache-control'
 const CONTENT_PAGES = [
   '/en',
-  '/de/team',
+  '/en/events',
   '/en/blog'
 ]
 const LEGAL_PAGES = ['/en/imprint', '/de/privacy']
+const STATIC_PAGES = ['/de/team']
 const MISSING = '/en/blog/does-not-exist-cache-check'
 
 /** @type {string[]} */
@@ -63,7 +64,7 @@ async function checkDirectives() {
     check(!res.headers.has('set-cookie'), `${path}: sets a cookie on a cacheable response`)
   }
 
-  for (const path of LEGAL_PAGES) {
+  for (const path of [...STATIC_PAGES, ...LEGAL_PAGES]) {
     const edge = header(await get(path), EDGE)
     check(edge === DAY, `${path}: ${EDGE} is "${edge}", expected "${DAY}"`)
   }

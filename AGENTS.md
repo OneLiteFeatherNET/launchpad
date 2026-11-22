@@ -234,7 +234,11 @@ separately, see the `edge-caching-and-seo` OpenSpec change). Caching is
 steered by response headers alone:
 
 - **`routeRules` in `nuxt.config.ts` hold the table.** `/en/**` and `/de/**`
-  are cacheable for an hour (legal pages a day) via `cloudflare-cdn-cache-control`,
+  are cacheable for an hour by default; static pages (blog articles, team,
+  about, projects, community-poi, join, survival-rules, bluemap, legal pages)
+  for a day, and the blog list and author pages stay at an hour because
+  scheduled posts appear there. Opt-in per route, so a new page starts short.
+  Headers come via `cloudflare-cdn-cache-control`,
   which Cloudflare strips before the browser; browsers get
   `max-age=0, must-revalidate`. `/`, `/ingest/**`, `/__nuxt_content/**` and
   `/api/**` are `no-store`. Never put `s-maxage` or `must-revalidate` into the
