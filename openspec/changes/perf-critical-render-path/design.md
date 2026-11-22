@@ -41,8 +41,9 @@ spürbar weniger Entry-JS und weniger modulepreload-Links; messbar bessere
 Mobile-Werte (FCP, LCP, TBT) ohne Desktop-Regression.
 
 **Non-Goals:** Bilder (LCP-Bild, Formate, `fetchpriority`) und Schriften,
-Serverlaufzeit/TTFB, Caching-Regeln, Redesign. Das LCP-Bild gehört in einen
-eigenen Change, falls die Messung danach noch Bedarf zeigt.
+Serverlaufzeit/TTFB, Caching-Regeln, Redesign. Die LCP-Bild-Arbeit deckt
+der eigene Change `perf-home-lcp-image` (#631) ab. Mobile Lighthouse in
+`seo.yml` ist kein Teil dieses Changes (möglicher Folge-Change).
 
 ## Decisions
 
@@ -53,20 +54,29 @@ eigenen Change, falls die Messung danach noch Bedarf zeigt.
    zeigt nur ein Build. Der Spike baut mit jeder Variante und zählt im HTML
    von `/en` die `<link rel="stylesheet">` und die Größe des `<style>`.
    Varianten:
-   - **A) `features.inlineStyles` anpassen** (Funktion, die auch das
-     Entry-CSS erfasst), `nuxt-vitalizer` mit `disableStylesheets: 'entry'`,
-     damit der verbleibende Entry-Link entfällt. Geringster Eigenbau;
-     Risiko: gesamte 114 KB landen in jedem HTML.
+   - **A) Nuxts eingebautes `features.inlineStyles` anpassen** (Funktion,
+     die auch das Entry-CSS erfasst), gegebenenfalls ergänzt durch eigene
+     Build-Hooks (`build:manifest`, `vite:extendConfig`), die den
+     Entry-Stylesheet-Link aus dem Render nehmen. Das ist der erste Versuch.
+     Geringster Eigenbau; Risiko: gesamte 114 KB landen in jedem HTML.
+   - **A′) `nuxt-vitalizer` (`disableStylesheets: 'entry'`) nur als
+     Rückfall.** Das Modul ist geladen, aber unkonfiguriert. Es wird erst
+     konfiguriert, wenn die Messung zeigt, dass der eingebaute Weg (A) das
+     Entry-CSS nicht vom blockierenden Pfad nehmen kann; diese Messung steht
+     dann in der PR-Beschreibung als Begründung (AGENTS.md: keine neuen
+     Abhängigkeiten oder Presets ohne klare Begründung). Wird eine neue
+     Abhängigkeit nötig, gilt dieselbe Regel.
    - **B) Kritisches CSS getrennt halten**: Tokens/Reset/Layout der ersten
      Ansicht inline (kleiner Eigen-Eintrag), Rest per `preload as=style`
      bzw. `media`-Trick nachladen. Kleinstes HTML, aber Pflegeaufwand und
      FOUC-Risiko, weil Tailwind-Utilities keine Grenze „kritisch“ kennen.
    - **C) Ungenutztes CSS zuerst kleiner machen** (siehe 2.) und dann A.
 
-   Empfehlung: **C dann A**, B nur wenn A das HTML unvertretbar aufbläst
-   (Budget: HTML-Zuwachs komprimiert höchstens ~25 KB; der Spike legt den
-   Wert fest). Die Vitalizer-Optionen sind aus dem Gedächtnis benannt und
-   werden im Spike gegen die installierte Version geprüft.
+   Empfehlung: **C dann A**, B nur wenn A das HTML über das Budget
+   aufbläst. **Budget (vom Maintainer festgelegt): HTML-Zuwachs bis etwa
+   25 KB komprimiert pro Seite.** A′ nur nach Messung, siehe oben; die
+   Vitalizer-Optionen sind aus dem Gedächtnis benannt und werden dann gegen
+   die installierte Version geprüft.
 2. **CSS verkleinern.** (a) `seasons.css` nur laden, wenn eine Saison aktiv
    ist: heute immer im Entry; die Saison wird auf dem Server entschieden
    (`layers/season`). Cache-Regel beachten: kein Lesen von `route.query`
@@ -116,9 +126,14 @@ eigenen Change, falls die Messung danach noch Bedarf zeigt.
 - **SEO**: Crawler müssen weiterhin vollständig gerenderte Seiten sehen;
   `/_nuxt/` bleibt in `robots.txt` erlaubt.
 
-## Open Questions
+## Budget-Tests
 
-- Soll ein Budget-Test im Repo bleiben (höchstens N `modulepreload`-Links,
-  kein blockierendes Entry-Stylesheet)? Vorschlag: ja, mit großzügiger Grenze.
-- Soll der Mobile-Lauf später ins CI (`seo.yml`, bisher nur Desktop)? Nicht
-  Teil dieses Changes.
+Fest eingeplant (Maintainer-Entscheidung): ein Test für die
+`modulepreload`-Obergrenze und einer für „kein blockierendes
+Entry-Stylesheet“. Nach F.I.R.S.T. sind sie schnell und wiederholbar, weil
+sie keinen Server brauchen: Die Hook-Logik (welche Chunks Preload behalten,
+welche CSS-Einträge inlined werden) liegt in einer reinen, importierbaren
+Funktion und wird mit einem handgebauten Manifest geprüft. Ein zusätzlicher
+Test darf die Build-Ausgabe (`.output`) lesen, aber nur, wenn der Build ein
+eigener, ausdrücklicher Schritt ist (CI `pnpm build` läuft ohnehin davor);
+ohne Build-Ausgabe wird er übersprungen und nie implizit gebaut.

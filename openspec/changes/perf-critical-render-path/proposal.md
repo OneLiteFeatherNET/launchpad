@@ -27,9 +27,11 @@ schon.
 ## What Changes
 
 - **Kritisches CSS inlinen**: Der Weg wird zuerst in einem kurzen Spike
-  festgelegt (siehe `design.md`, Entscheidung 1): `features.inlineStyles`
-  und/oder die Optionen von `nuxt-vitalizer`, dazu Prüfung, was Nuxt 4 von
-  den globalen `css:`-Einträgen tatsächlich inlined. Ziel: Die erste
+  festgelegt (siehe `design.md`, Entscheidung 1): zuerst Nuxts eingebautes
+  `features.inlineStyles` und eigene Build-Hooks, dazu Prüfung, was Nuxt 4
+  von den globalen `css:`-Einträgen tatsächlich inlined. `nuxt-vitalizer`
+  nur als Rückfall, wenn die Messung den eingebauten Weg widerlegt. HTML-
+  Zuwachs bis ca. 25 KB komprimiert pro Seite ist akzeptiert. Ziel: Die erste
   Bildschirmseite rendert ohne blockierenden Stylesheet-Request; das
   restliche CSS lädt nicht blockierend nach.
 - **Ungenutztes CSS reduzieren**: den Tailwind-Quellscan und die in den
