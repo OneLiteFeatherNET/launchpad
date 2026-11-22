@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { CAROUSEL_IMAGE_SIZES } from '../utils/carouselImage'
 import { CAROUSEL_SCRIM } from '../utils/carouselClasses'
 // Image slide: full-bleed image with optional overlay text (note)
 
@@ -33,13 +34,13 @@ const notePositionClass
     <NuxtPicture
       :src="props.item.src"
       :alt="props.item.alt"
-      sizes="sm:100vw md:100vw lg:1280px"
+      :sizes="CAROUSEL_IMAGE_SIZES"
       densities="1x 2x"
       quality="75"
       :placeholder="false"
       format="avif,webp"
       :loading="props.priority ? 'eager' : 'lazy'"
-      :preload="props.priority"
+      :preload="props.priority ? { fetchPriority: 'high' } : false"
       :img-attrs="{
         class: 'absolute inset-0 h-full w-full object-cover object-center',
         fetchpriority: props.priority ? 'high' : undefined
