@@ -217,7 +217,7 @@ export default defineNuxtConfig({
         '/de/projects/**': { headers: cachedPageHeaders(86400) },
         '/de/community-poi/**': { headers: cachedPageHeaders(86400) },
         '/de/join': { headers: cachedPageHeaders(86400) },
-        '/de/survival-rules': { headers: cachedPageHeaders(86400) },
+        '/de/survival-regeln': { headers: cachedPageHeaders(86400) },
         '/de/bluemap': { headers: cachedPageHeaders(86400) },
         '/de/blog': { headers: cachedPageHeaders(3600) },
         '/de/blog/author/**': { headers: cachedPageHeaders(3600) },

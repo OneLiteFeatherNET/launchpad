@@ -107,11 +107,23 @@ function edgeDirective(path: string): string | undefined {
   return rules.headers?.['cloudflare-cdn-cache-control']
 }
 
-const pathFor = (locale: string, rest: string) => rest ? `/${locale}/${rest}` : `/${locale}`
+// Pages with a translated slug (defineI18nRoute); a rule on the untranslated path
+// would also put a 404 URL into the sitemap.
+const LOCALIZED_SLUGS: Record<string, Record<string, string>> = {
+  de: { 'survival-rules': 'survival-regeln' }
+}
+const pathFor = (locale: string, rest: string) => {
+  const slug = LOCALIZED_SLUGS[locale]?.[rest] ?? rest
+  return slug ? `/${locale}/${slug}` : `/${locale}`
+}
 
 describe('edge cache route rules', () => {
   it.each(LOCALES.flatMap(l => DAY_PATHS.map(p => pathFor(l, p))))('resolves %s to a day', (path) => {
     expect(edgeDirective(path)).toBe('max-age=86400')
+  })
+
+  it('has no rule for the untranslated German survival rules path', () => {
+    expect(routeRulesBlock()).not.toContain("'/de/survival-rules'")
   })
 
   it.each(LOCALES.flatMap(l => HOUR_PATHS.map(p => pathFor(l, p))))('resolves %s to an hour, never a day', (path) => {
