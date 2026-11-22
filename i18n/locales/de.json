@@ -42,6 +42,8 @@
     "to_news": "Zur Meldung: {title}",
     "by_author": "von {author}",
     "read": "Lesen",
+    "more": "Mehr",
+    "details": "Details",
     "new": "Neu",
     "new_label": "Neu: {title}",
     "project_tag": "Projekt",

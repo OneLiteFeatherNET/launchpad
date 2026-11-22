@@ -42,6 +42,8 @@
     "to_news": "Go to news item: {title}",
     "by_author": "by {author}",
     "read": "Read",
+    "more": "More",
+    "details": "Details",
     "new": "New",
     "new_label": "New: {title}",
     "project_tag": "Project",

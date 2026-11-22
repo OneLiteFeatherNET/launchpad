@@ -123,7 +123,7 @@ const dateBadgeClass
           :to="item.href"
           :aria-label="t('carousel.to_event', { title: item.title })"
         >
-          Details
+          {{ t('carousel.details') }}
           <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
         </M3Button>
       </div>
