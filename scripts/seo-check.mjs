@@ -58,7 +58,7 @@ const SITE_ORIGIN = 'https://onelitefeather.net'
 const TITLE_MIN = 10
 const TITLE_MAX = 70
 const DESCRIPTION_MIN = 50
-const DESCRIPTION_MAX = 200
+const DESCRIPTION_MAX = 155
 
 // Patterns that look like raw i18n keys: lowercase dotted identifier with no
 // whitespace (e.g. "seo.default_description"). Surfaces SSR translation gaps.

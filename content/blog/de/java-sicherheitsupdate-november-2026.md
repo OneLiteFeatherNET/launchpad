@@ -1,7 +1,7 @@
 ---
 title: 'Java-Sicherheitsupdate November 2026: Was Spieler und Server-Admins jetzt tun müssen'
 alternativeTitle: 'Für die Community am eigenen PC, für Kunden von Hostern und für Admins mit Root-Server oder VM'
-description: 'Das OpenJDK-Advisory vom 17. November 2026 schließt zehn Lücken, eine davon mit CVSS 8.1. So schützt ihr euren Minecraft-Client und aktualisiert Java auf eurem Server, inklusive Vorlage für ein Ticket an euren Hoster.'
+description: 'Das OpenJDK-Advisory vom 17. November 2026 schließt zehn Lücken. So schützt ihr euren Minecraft-Client und aktualisiert Java auf eurem Server.'
 pubDate: '2026-11-18'
 releaseDate: '2026-11-18T12:00:00+01:00'
 headerImage: 'images/blog/java-security-update-november-2026.webp'

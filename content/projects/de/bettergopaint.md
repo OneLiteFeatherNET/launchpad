@@ -2,7 +2,7 @@
 slug: 'bettergopaint'
 translationKey: 'bettergopaint'
 title: 'BetterGoPaint: Pinsel-Plugin für Paper'
-summary: 'Ein Paper-Plugin, mit dem Bauende Terrain mit Pinseln und Blockpaletten malen. Jeder Strich ist eine FastAsyncWorldEdit-Bearbeitung und lässt sich mit //undo zurücknehmen.'
+summary: 'Ein Paper-Plugin, mit dem Bauende Terrain mit Pinseln und Blockpaletten malen. Jeder Strich ist eine FastAsyncWorldEdit-Bearbeitung, per //undo umkehrbar.'
 status: 'active'
 audience: 'external'
 logo: '/images/projects/bettergopaint/icon.png'

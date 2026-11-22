@@ -1,7 +1,7 @@
 ---
 title: 'Titan 3.1: Live-Zahlen im Navigator und ein korrigierter Lobby-Switcher'
 alternativeTitle: 'Linksklick verbindet, Rechtsklick bringt dich zum Portal'
-description: 'Titan 3.1 ist live in der Lobby: Linksklick verbindet, Rechtsklick führt zum Portal, der Navigator zeigt Live-Spielerzahlen pro Modus und der Lobby-Switcher zeigt die echten Limits.'
+description: 'Titan 3.1 ist live in der Lobby: Linksklick verbindet, Rechtsklick führt zum Portal, der Navigator zeigt Live-Spielerzahlen pro Modus.'
 pubDate: '2026-10-14'
 releaseDate: '2026-10-14T18:00:00+02:00'
 headerImage: 'images/og/blog-de.png'

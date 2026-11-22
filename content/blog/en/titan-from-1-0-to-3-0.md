@@ -1,7 +1,7 @@
 ---
 title: 'From 1.0 to 3.0: fifteen months of Titan, our lobby server'
 alternativeTitle: 'A retrospective on 67 releases, 696 commits and one rebuild'
-description: 'A look back at Titan, our open-source Minestom lobby server: from the 1.0 release in July 2025 through the 2.x features to the 3.0 platform split and the 3.1 release.'
+description: 'A look back at Titan, our open-source Minestom lobby server: from the 1.0 release in July 2025 to the 3.0 platform split and the 3.1 release.'
 pubDate: '2026-10-13'
 releaseDate: '2026-10-13T10:00:00+02:00'
 headerImage: 'images/og/blog-en.png'

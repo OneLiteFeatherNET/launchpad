@@ -1,7 +1,7 @@
 ---
 title: 'Titan 3.1: live counts in the navigator and a fixed lobby switcher'
 alternativeTitle: 'Click to connect, right-click to walk up to the portal'
-description: 'Titan 3.1 is live in the lobby: left-click to connect and right-click to reach the portal in the navigator, live player counts per mode and a lobby switcher that shows real limits.'
+description: 'Titan 3.1 is live in the lobby: left-click to connect, right-click to reach the portal, and the navigator shows live player counts per mode.'
 pubDate: '2026-10-14'
 releaseDate: '2026-10-14T18:00:00+02:00'
 headerImage: 'images/og/blog-en.png'

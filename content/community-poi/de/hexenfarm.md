@@ -2,7 +2,7 @@
 slug: 'hexenfarm'
 translationKey: 'witch-farm'
 title: 'Hexenfarm'
-summary: 'Eine hohe Hexenfarm von Cainpain234 in einer bewaldeten Landschaft am Fluss: ein Schacht mit einer Kammer aus Holz und Glas an der Spitze. Fertiggestellt, zu finden bei X 1032 / Y 174 / Z 4742.'
+summary: 'Eine hohe Hexenfarm von Cainpain234 am Fluss: ein Schacht mit Kammer aus Holz und Glas an der Spitze. Fertiggestellt, bei X 1032 / Y 174 / Z 4742.'
 status: 'completed'
 progress: 100
 category: 'farm'

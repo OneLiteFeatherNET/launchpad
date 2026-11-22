@@ -74,7 +74,7 @@
   "blog": {
     "overview": {
       "title": "Übersicht",
-      "page_title": "Blog: Neuigkeiten und Einblicke aus dem Netzwerk",
+      "page_title": "Blog: Neuigkeiten aus dem Netzwerk",
       "description": "Finde interessante Blogbeiträge von OneLiteFeather.net rund um Entwicklung, Community und mehr."
     },
     "privacy": {
@@ -94,7 +94,7 @@
   },
   "index": {
     "title": "OneLiteFeather – Deutscher Minecraft-Server & Open Source",
-    "description": "OneLiteFeather (onelitefeather.net) ist ein deutschsprachiges Minecraft-Netzwerk seit 2019 – mit Community-Bauten, Events und Open-Source-Software für Paper und Minestom.",
+    "description": "OneLiteFeather (onelitefeather.net) ist ein deutschsprachiges Minecraft-Netzwerk seit 2019 – mit Community-Bauten, Events und Open-Source-Software.",
     "carousel_aria": "Startseiten-Highlight-Karussell"
   },
   "home": {
@@ -611,7 +611,7 @@
   "projects": {
     "overview": {
       "title": "Open-Source-Projekte: Paper & Minestom",
-      "description": "Software von OneLiteFeather: Plugins und Werkzeuge, die wir selbst entwickeln und auf unserem Server einsetzen — mit Dokumentation, Quellcode und Downloads.",
+      "description": "Software von OneLiteFeather: Plugins und Werkzeuge, die wir entwickeln und auf unserem Server einsetzen — mit Dokumentation, Quellcode und Downloads.",
       "empty": "Noch keine Projekte veröffentlicht."
     },
     "filter": {
@@ -715,7 +715,7 @@
   },
   "about": {
     "title": "Über uns",
-    "description": "OneLiteFeather ist ein Minecraft-Netzwerk, das von seiner Community lebt: Gemeinschaftsbauten, offene Software, eigene Events und transparente Finanzierung.",
+    "description": "OneLiteFeather ist ein Minecraft-Netzwerk, das von seiner Community lebt: Gemeinschaftsbauten, offene Software, Events und transparente Finanzierung.",
     "sections": {
       "who": "Wer wir sind",
       "pillars": "Was uns ausmacht",

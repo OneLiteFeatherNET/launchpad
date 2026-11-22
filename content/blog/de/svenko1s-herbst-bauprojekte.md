@@ -1,7 +1,7 @@
 ---
 title: 'Svenko1s Herbst: drei Bauprojekte auf unserem Server'
 alternativeTitle: 'Ein Weltenbaum, ein Farmturm und ein End-Portal, das noch auf seinen Standort wartet'
-description: 'Svenko1 hat auf unserem Minecraft-Server einen Kirschblüten-Weltenbaum und einen Farmturm fertiggestellt. Das End-Portal ist geplant, die Schematic liegt schon bereit.'
+description: 'Svenko1 hat auf unserem Minecraft-Server einen Kirschblüten-Weltenbaum und einen Farmturm fertiggestellt. Das End-Portal ist geplant.'
 pubDate: '2026-10-11'
 headerImage: '/images/community-poi/yggdrasil/cover.webp'
 headerImageAlt: 'Überdachte Holzbrücke über einen Fluss, dahinter die gewaltige Kirschblütenkrone des Yggdrasil'

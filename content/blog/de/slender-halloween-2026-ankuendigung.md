@@ -1,7 +1,7 @@
 ---
 title: 'Slender: Halloween 2026 kommt'
 alternativeTitle: 'Sammelt die Seiten, bevor Slender euch findet'
-description: 'Ab dem 24. Oktober 2026 kehrt Slender zurück: die überarbeitete Halloween-Runde mit Stamina, Pflicht-Resource-Pack und einem Halloween-Design für die ganze Website.'
+description: 'Ab dem 24. Oktober 2026 kehrt Slender zurück: die überarbeitete Halloween-Runde mit Stamina, Pflicht-Resource-Pack und Halloween-Design für die Website.'
 pubDate: '2026-10-15'
 releaseDate: '2026-10-15T18:00:00+02:00'
 headerImage: 'images/og/events-de.png'
