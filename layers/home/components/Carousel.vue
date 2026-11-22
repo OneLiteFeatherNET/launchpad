@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch, computed } from 'vue'
-import { useHead, useImage } from '#imports'
 import CarouselItemImage from './CarouselItemImage.vue'
 import CarouselItemBlog from './CarouselItemBlog.vue'
 import CarouselItemNews from './CarouselItemNews.vue'
@@ -63,53 +62,6 @@ const normalizedSlides = computed<NormalizedSlide[]>(() => normalizeSlides(props
 
 const slidesCount = computed(() => normalizedSlides.value.length)
 const lastIndex = computed(() => Math.max(0, slidesCount.value - 1))
-const img = useImage()
-
-// Preload the very first slide for faster LCP discovery
-const preloadLink = computed(() => {
-  const slide = normalizedSlides.value[0]
-  if (!slide) return null
-
-  const src
-    = slide.type === 'image'
-      ? slide.src
-      : slide.type === 'blog'
-        || slide.type === 'news'
-        || slide.type === 'event'
-        || slide.type === 'poi'
-        || slide.type === 'project'
-        ? slide.image
-        : undefined
-
-  if (!src) return null
-
-  const widths = [640, 1280]
-  const srcset = widths
-    .map((w) => `${img(src, { width: w, format: 'avif', quality: 75 })} ${w}w`)
-    .join(', ')
-
-  return {
-    href: img(src, { width: 1280, format: 'avif', quality: 75 }),
-    imagesrcset: srcset,
-    imagesizes: '(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 1280px'
-  }
-})
-
-useHead(() => {
-  if (!preloadLink.value) return {}
-  return {
-    link: [
-      {
-        rel: 'preload',
-        as: 'image',
-        fetchpriority: 'high',
-        href: preloadLink.value.href,
-        imagesrcset: preloadLink.value.imagesrcset,
-        imagesizes: preloadLink.value.imagesizes
-      }
-    ]
-  }
-})
 
 // Whether the slide showing now is the one the user asked for. The live
 // region reads it: the WAI-ARIA APG wants a carousel to announce changes the

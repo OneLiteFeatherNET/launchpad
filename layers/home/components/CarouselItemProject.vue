@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { CAROUSEL_IMAGE_SIZES } from '../utils/carouselImage'
 import {
   CAROUSEL_CAPTION,
   CAROUSEL_CAPTION_POSITION,
@@ -51,13 +52,13 @@ const logoFrameClass
       v-if="item.image && !item.logoOnly"
       :src="item.image"
       :alt="item.alt || item.title"
-      sizes="sm:100vw md:100vw lg:1280px"
+      :sizes="CAROUSEL_IMAGE_SIZES"
       densities="1x 2x"
       quality="75"
       :placeholder="false"
       format="avif,webp"
       :loading="priority ? 'eager' : 'lazy'"
-      :preload="priority"
+      :preload="priority ? { fetchPriority: 'high' } : false"
       :img-attrs="{
         class: 'absolute inset-0 h-full w-full object-cover',
         fetchpriority: priority ? 'high' : undefined
@@ -75,7 +76,6 @@ const logoFrameClass
           :placeholder="false"
           format="avif,webp"
           :loading="priority ? 'eager' : 'lazy'"
-          :preload="priority"
           :img-attrs="{
             class: 'h-full w-full object-contain drop-shadow-lg',
             fetchpriority: priority ? 'high' : undefined
