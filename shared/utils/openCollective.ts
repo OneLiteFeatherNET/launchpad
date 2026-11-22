@@ -33,7 +33,9 @@ export async function loadCollectiveStats(
   if (!res.ok) throw new Error(`OpenCollective responded ${res.status}`)
   const body = (await res.json()) as CollectiveResponse
 
-  const raisedCents = typeof body.balance === 'number' ? body.balance : 0
+  // A body without a balance is not "0 raised"; treat it as an outage.
+  if (typeof body?.balance !== 'number') throw new Error('OpenCollective response has no balance')
+  const raisedCents = body.balance
   const apiGoal = typeof body.yearlyIncome === 'number' ? Math.round(body.yearlyIncome / 100) : null
 
   return {

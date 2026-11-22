@@ -37,4 +37,9 @@ describe('loadCollectiveStats', () => {
     const fetcher = async () => jsonResponse({}, 503)
     await expect(loadCollectiveStats(fetcher, defaults)).rejects.toThrow()
   })
+
+  it('throws without a balance instead of reporting zero', async () => {
+    const fetcher = async () => jsonResponse({ backersCount: 3 })
+    await expect(loadCollectiveStats(fetcher, defaults)).rejects.toThrow(/balance/)
+  })
 })
