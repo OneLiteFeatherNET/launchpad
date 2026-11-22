@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BlogArticle, CardAuthor } from '../types'
-const {locale, d} = useI18n();
+const { locale } = useI18n();
 const {blogArticle, authors = []} = defineProps<{
   blogArticle: BlogArticle;
   authors?: CardAuthor[];
@@ -30,7 +30,7 @@ const {blogArticle, authors = []} = defineProps<{
       </M3CardLink>
     </h1>
     <time class="mt-0.5 block text-body-small text-on-surface-variant">
-      {{ d(new Date(blogArticle.pubDate as any)) }}
+      {{ formatCalendarDate(blogArticle.pubDate, locale) }}
     </time>
     <div v-if="authors?.length" class="mt-1 flex flex-wrap gap-x-4">
       <PersonLink

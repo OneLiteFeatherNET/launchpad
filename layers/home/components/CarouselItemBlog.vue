@@ -32,15 +32,8 @@ const props = withDefaults(defineProps<{ item: BlogItem; priority?: boolean }>()
   priority: false
 })
 
-const dateLabel = computed(() => {
-  const d = props.item.date ? new Date(props.item.date) : null
-  if (!d || Number.isNaN(d.getTime())) return undefined
-  try {
-    return d.toLocaleDateString(locale.value, { year: 'numeric', month: 'short', day: '2-digit' })
-  } catch {
-    return d.toISOString().slice(0, 10)
-  }
-})
+const FMT = { year: 'numeric', month: 'short', day: '2-digit' } as const
+const dateLabel = computed(() => formatCalendarDate(props.item.date, locale.value, FMT))
 </script>
 
 <template>

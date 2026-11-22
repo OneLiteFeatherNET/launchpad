@@ -4,7 +4,7 @@ defineProps<{
   posts: { slug: string, title: string, pubDate: Date | string }[]
 }>()
 
-const { locale, d } = useI18n()
+const { locale } = useI18n()
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const { locale, d } = useI18n()
           class="text-body-small text-on-surface-variant"
           :datetime="new Date(post.pubDate).toISOString()"
         >
-          {{ d(new Date(post.pubDate)) }}
+          {{ formatCalendarDate(post.pubDate, locale) }}
         </time>
       </li>
     </ul>
