@@ -288,7 +288,8 @@ export default defineNuxtConfig({
             // Unused in the app; otherwise posthog loads surveys.js and dead-clicks-autocapture.js.
             disable_surveys: true,
             capture_dead_clicks: false,
-            // Started after idle time by layers/base/plugins/posthog-recording.client.ts.
+            // Started on first interaction or idle time after load
+            // (layers/base/plugins/posthog-recording.client.ts).
             disable_session_recording: true
         }
     },
