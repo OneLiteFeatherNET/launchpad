@@ -68,7 +68,7 @@ beforeEach(() => {
   registerEndpoint('/api/community/discord', () => ({ members: 99 }))
   registerEndpoint('/api/community/supporters', () => ({ supporters: [] }))
   registerEndpoint('/api/opencollective', () => ({
-    slug: 'x', currency: 'EUR', totalRaised: 0, goal: 0, contributors: 4, updatedAt: '', link: ''
+    available: true, slug: 'x', currency: 'EUR', totalRaised: 0, goal: 0, contributors: 4, updatedAt: '', link: ''
   }))
 })
 

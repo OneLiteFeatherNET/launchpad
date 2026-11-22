@@ -51,7 +51,8 @@ export function useCommunityOverview() {
     teamSize: overview.value.teamSize,
     buildCount: overview.value.buildCount,
     contributorCount: overview.value.contributors.length,
-    supporters: supporters.value.length || (collective.value?.contributors ?? null)
+    supporters: supporters.value.length
+      || (collective.value.available ? collective.value.contributors : null)
   }))
 
   return { overview, numbers }

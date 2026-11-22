@@ -62,7 +62,7 @@ useHomeSeo({ title: t('index.title'), image: sectionOgImage('home', locale.value
   />
   <LazySponsoring v-if="sponsors?.length" hydrate-on-visible :sponsors="sponsors" />
   <LazyOpenCollectiveStats
-    v-if="collective"
+    v-if="collective.available"
     hydrate-on-visible
     :total-raised="collective.totalRaised"
     :goal="collective.goal"
