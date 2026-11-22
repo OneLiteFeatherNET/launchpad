@@ -24,11 +24,11 @@ const {blogArticle, authors = []} = defineProps<{
         :img-attrs="{ class: 'w-full h-96 object-cover' }"
       />
     </template>
-    <h1 class="text-headline-small text-on-surface">
+    <h2 class="text-headline-small text-on-surface">
       <M3CardLink :to="`/${locale}/blog/${blogArticle.slug}`">
         {{ blogArticle.title }}
       </M3CardLink>
-    </h1>
+    </h2>
     <time class="mt-0.5 block text-body-small text-on-surface-variant">
       {{ d(new Date(blogArticle.pubDate as any)) }}
     </time>
