@@ -222,9 +222,7 @@ export default defineNuxtConfig({
         '/ingest/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/__nuxt_content/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/api/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
-        // Blog links without a locale prefix go to the English blog; German slugs 404 there.
-        '/blog': { redirect: { to: '/en/blog', statusCode: 301 } },
-        '/blog/**': { redirect: { to: '/en/blog/**', statusCode: 301 } },
+        // /blog redirects live in server/middleware; a rule here drops /en/blog from the sitemap.
         // Renamed project: Cygnus became Slender.
         '/de/projects/cygnus': { redirect: { to: '/de/projects/slender', statusCode: 301 } },
         '/en/projects/cygnus': { redirect: { to: '/en/projects/slender', statusCode: 301 } },
