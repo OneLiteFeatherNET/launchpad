@@ -38,6 +38,9 @@ const cachedPageHeaders = (seconds: number) => ({
 
 export default defineNuxtConfig({
     compatibilityDate: '2026-09-01',
+    // Nuxt's default inlines only component styles; `true` also takes the
+    // global css entries, so no stylesheet blocks the first paint.
+    features: { inlineStyles: true },
     app: {
         head: {
             // Declared here, not only in app.vue: nuxt-seo-utils adds its own
