@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.38.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.38.1...onelitefeather.net-v1.38.2) (2026-11-23)
+
+
+### Performance
+
+* **build:** inline critical css and trim the entry bundle ([#656](https://github.com/OneLiteFeatherNET/launchpad/issues/656)) ([f1b2d53](https://github.com/OneLiteFeatherNET/launchpad/commit/f1b2d53b364e62e2adc1720363122911adf1dff2))
+
 ## [1.38.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.38.0...onelitefeather.net-v1.38.1) (2026-11-23)
 
 
