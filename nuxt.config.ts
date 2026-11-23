@@ -203,6 +203,29 @@ export default defineNuxtConfig({
         // overrides these headers with `no-store` on any status >= 400.
         '/en/**': { headers: cachedPageHeaders(3600) },
         '/de/**': { headers: cachedPageHeaders(3600) },
+        // Static between deploys: a day. Pages that read the clock on the server
+        // (home, events, community, blog list, authors) keep the hour from `/<l>/**`;
+        // the two blog rules below stop `/blog/**` from lengthening them.
+        '/en/blog/**': { headers: cachedPageHeaders(86400) },
+        '/en/team/**': { headers: cachedPageHeaders(86400) },
+        '/en/about': { headers: cachedPageHeaders(86400) },
+        '/en/projects/**': { headers: cachedPageHeaders(86400) },
+        '/en/community-poi/**': { headers: cachedPageHeaders(86400) },
+        '/en/join': { headers: cachedPageHeaders(86400) },
+        '/en/survival-rules': { headers: cachedPageHeaders(86400) },
+        '/en/bluemap': { headers: cachedPageHeaders(86400) },
+        '/en/blog': { headers: cachedPageHeaders(3600) },
+        '/en/blog/author/**': { headers: cachedPageHeaders(3600) },
+        '/de/blog/**': { headers: cachedPageHeaders(86400) },
+        '/de/team/**': { headers: cachedPageHeaders(86400) },
+        '/de/about': { headers: cachedPageHeaders(86400) },
+        '/de/projects/**': { headers: cachedPageHeaders(86400) },
+        '/de/community-poi/**': { headers: cachedPageHeaders(86400) },
+        '/de/join': { headers: cachedPageHeaders(86400) },
+        '/de/survival-regeln': { headers: cachedPageHeaders(86400) },
+        '/de/bluemap': { headers: cachedPageHeaders(86400) },
+        '/de/blog': { headers: cachedPageHeaders(3600) },
+        '/de/blog/author/**': { headers: cachedPageHeaders(3600) },
         // Legal pages are intentionally excluded from search indexing, and
         // change even less often than content.
         '/en/imprint': { robots: 'noindex, follow', headers: cachedPageHeaders(86400) },
