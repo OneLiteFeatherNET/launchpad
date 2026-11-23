@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.38.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.37.0...onelitefeather.net-v1.38.0) (2026-11-23)
+
+
+### Features
+
+* **security:** send baseline security headers and a report-only csp ([#650](https://github.com/OneLiteFeatherNET/launchpad/issues/650)) ([06095e5](https://github.com/OneLiteFeatherNET/launchpad/commit/06095e51eedbd6a481275a9f1b93cbb274a949ab))
+
+
+### Bug Fixes
+
+* **a11y:** announce page changes and label the carousel ([#647](https://github.com/OneLiteFeatherNET/launchpad/issues/647)) ([98cff4d](https://github.com/OneLiteFeatherNET/launchpad/commit/98cff4d689ccfd3310f1dc00680fc410a8bcd536))
+* **base:** show dates in one fixed time zone on server and client ([#646](https://github.com/OneLiteFeatherNET/launchpad/issues/646)) ([7244b6c](https://github.com/OneLiteFeatherNET/launchpad/commit/7244b6cd59480c43bc4551a338ab6ef2f08a8474))
+* **i18n:** translate hard-coded ui labels ([#649](https://github.com/OneLiteFeatherNET/launchpad/issues/649)) ([42a46df](https://github.com/OneLiteFeatherNET/launchpad/commit/42a46dfbdeceb6ece6fa41c9fe78b105369c3735))
+* **opencollective:** hide the funding goal when the stats are unavailable ([#648](https://github.com/OneLiteFeatherNET/launchpad/issues/648)) ([ff62f8b](https://github.com/OneLiteFeatherNET/launchpad/commit/ff62f8b0e9b88efc00806f04d39c46c79c09593b))
+* **seo:** tidy headings, description lengths and locale-less blog links ([#638](https://github.com/OneLiteFeatherNET/launchpad/issues/638)) ([672aba5](https://github.com/OneLiteFeatherNET/launchpad/commit/672aba5773e43f385953f950d20889554f822175))
+
+
+### Performance
+
+* **analytics:** load the session recorder only after interaction or idle ([#644](https://github.com/OneLiteFeatherNET/launchpad/issues/644)) ([f155b2a](https://github.com/OneLiteFeatherNET/launchpad/commit/f155b2a0712f58d8821e8039264904dfd10b289a))
+* **cache:** keep static pages edge-fresh for a day ([#636](https://github.com/OneLiteFeatherNET/launchpad/issues/636)) ([29eed32](https://github.com/OneLiteFeatherNET/launchpad/commit/29eed32224f96a505cd832fe4341d2508fbccd27))
+* **home:** preload exactly the carousel image the browser renders ([#643](https://github.com/OneLiteFeatherNET/launchpad/issues/643)) ([43b0578](https://github.com/OneLiteFeatherNET/launchpad/commit/43b0578f6ba307a13128bd7c61d1286c28eaeaf5))
+
+
+### Documentation
+
+* **openspec:** propose add-security-headers ([#645](https://github.com/OneLiteFeatherNET/launchpad/issues/645)) ([5e5711b](https://github.com/OneLiteFeatherNET/launchpad/commit/5e5711be65d15793c2b0b717777dc181d3cc5fab))
+* **openspec:** propose fix-opencollective-outage-display ([#639](https://github.com/OneLiteFeatherNET/launchpad/issues/639)) ([da17a7b](https://github.com/OneLiteFeatherNET/launchpad/commit/da17a7bd611b5a8ba7912e2134c7190517321e0b))
+* **openspec:** propose fix-route-announcements ([#637](https://github.com/OneLiteFeatherNET/launchpad/issues/637)) ([e7da1e0](https://github.com/OneLiteFeatherNET/launchpad/commit/e7da1e069ee6f77a051cb059813be28d7cef9512))
+* **openspec:** propose fix-seo-page-signals ([#635](https://github.com/OneLiteFeatherNET/launchpad/issues/635)) ([2e707f0](https://github.com/OneLiteFeatherNET/launchpad/commit/2e707f01a22a96a0d87de9039674bc0bf0201066))
+* **openspec:** propose fix-timezone-safe-dates ([#641](https://github.com/OneLiteFeatherNET/launchpad/issues/641)) ([75ed76f](https://github.com/OneLiteFeatherNET/launchpad/commit/75ed76f655934c717583cb7f0828928f92bc1c5d))
+* **openspec:** propose fix-untranslated-ui-strings ([#642](https://github.com/OneLiteFeatherNET/launchpad/issues/642)) ([766f215](https://github.com/OneLiteFeatherNET/launchpad/commit/766f2159567921bf2773665516b7c336a0d0aefa))
+* **openspec:** propose perf-critical-render-path ([#634](https://github.com/OneLiteFeatherNET/launchpad/issues/634)) ([1246ee2](https://github.com/OneLiteFeatherNET/launchpad/commit/1246ee2f0af8a1b05e4dace2f1a65b17c0f32c4a))
+* **openspec:** propose perf-defer-session-recording ([#632](https://github.com/OneLiteFeatherNET/launchpad/issues/632)) ([c3b127d](https://github.com/OneLiteFeatherNET/launchpad/commit/c3b127d3d133ccc1869d8dc29e43d11149ebc1d1))
+* **openspec:** propose perf-home-lcp-image ([#631](https://github.com/OneLiteFeatherNET/launchpad/issues/631)) ([061b620](https://github.com/OneLiteFeatherNET/launchpad/commit/061b620aaf7cdf27b56306806736bf801657ba31))
+* **openspec:** propose perf-longer-edge-cache ([#633](https://github.com/OneLiteFeatherNET/launchpad/issues/633)) ([8707852](https://github.com/OneLiteFeatherNET/launchpad/commit/87078529e1e87c7d9d04f6b995d2ba204a60339e))
+
 ## [1.37.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.36.0...onelitefeather.net-v1.37.0) (2026-11-18)
 
 
