@@ -71,7 +71,11 @@ describe('content security policy source list', () => {
   it('allows exactly these sources', () => {
     expect(CSP_SOURCES).toEqual({
       'default-src': ["'self'"],
-      'script-src': ["'self'", "'unsafe-inline'"],
+      'script-src': [
+        "'self'",
+        "'unsafe-inline'",
+        'https://static.cloudflareinsights.com'
+      ],
       'style-src': ["'self'", "'unsafe-inline'"],
       'img-src': [
         "'self'",

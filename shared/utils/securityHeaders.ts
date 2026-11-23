@@ -14,7 +14,12 @@ export const CSP_SOURCES = {
   // 'unsafe-inline': Nuxt inlines `window.__NUXT__` and the payload bootstrap.
   // A nonce would differ per request, and pages are cached and shared at the
   // edge; a hash would change with every page. Revisit with a build-time hash step.
-  'script-src': ["'self'", "'unsafe-inline'"],
+  // static.cloudflareinsights.com: Web Analytics beacon, injected by Cloudflare at the edge.
+  'script-src': [
+    "'self'",
+    "'unsafe-inline'",
+    'https://static.cloudflareinsights.com'
+  ],
   // Vue's `style` bindings and Nuxt's inlined critical CSS are inline styles.
   'style-src': ["'self'", "'unsafe-inline'"],
   // img.onelitefeather.net: @nuxt/image's Cloudflare provider. The other two
