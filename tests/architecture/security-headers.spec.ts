@@ -85,7 +85,7 @@ describe('content security policy source list', () => {
         'https://images.opencollective.com'
       ],
       'font-src': ["'self'", 'data:'],
-      'connect-src': ["'self'", 'https://cloudflareinsights.com'],
+      'connect-src': ["'self'"],
       'frame-src': ['https://bluemap.onelitefeather.dev'],
       'worker-src': ["'self'", 'blob:'],
       'manifest-src': ["'self'"],

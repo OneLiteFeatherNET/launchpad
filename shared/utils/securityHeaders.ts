@@ -32,7 +32,7 @@ export const CSP_SOURCES = {
 'https://images.opencollective.com'],
   'font-src': ["'self'", 'data:'],
   // PostHog reaches the browser through the same-origin /ingest proxy.
-  'connect-src': ["'self'", 'https://cloudflareinsights.com'],
+  'connect-src': ["'self'"],
   // The BlueMap embed (runtimeConfig.public.bluemapUrl).
   'frame-src': ['https://bluemap.onelitefeather.dev'],
   'worker-src': ["'self'", 'blob:'],
