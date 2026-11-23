@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.38.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.38.0...onelitefeather.net-v1.38.1) (2026-11-23)
+
+
+### Bug Fixes
+
+* **security:** allow the cloudflare analytics beacon in the csp ([#651](https://github.com/OneLiteFeatherNET/launchpad/issues/651)) ([58d0f77](https://github.com/OneLiteFeatherNET/launchpad/commit/58d0f77c38c9a28b59523eac0fec4dbd1610c36e))
+
 ## [1.38.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.37.0...onelitefeather.net-v1.38.0) (2026-11-23)
 
 
