@@ -38,6 +38,16 @@ const cachedPageHeaders = (seconds: number) => ({
 
 export default defineNuxtConfig({
     compatibilityDate: '2026-09-01',
+    // Nuxt's default inlines only component styles; `true` also takes the
+    // global css entries, so no stylesheet blocks the first paint.
+    features: { inlineStyles: true },
+    hooks: {
+        // layers/base/plugins/posthog.client.ts takes its place and loads posthog-js lazily.
+        'app:resolve': (app) => {
+            const stock = /nuxt-posthog.*plugins[\\/]posthog\.client/
+            app.plugins = app.plugins.filter(plugin => !stock.test(plugin.src))
+        }
+    },
     app: {
         head: {
             // Declared here, not only in app.vue: nuxt-seo-utils adds its own
