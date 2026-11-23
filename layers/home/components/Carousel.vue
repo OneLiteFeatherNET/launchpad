@@ -228,12 +228,11 @@ const componentFor = (slide: NormalizedSlide) => {
     <div class="relative">
 
       <!-- Ratio wrapper -->
-      <!-- focusable swipe surface; pointer/touch gestures have keyboard parity via the section keydown handler -->
+      <!-- swipe surface; pointer/touch gestures have keyboard parity via the section keydown handler -->
       <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
       <div
         :class="frameClass"
         :style="{ paddingTop: aspectPercent }"
-        tabindex="0"
         @mouseenter="isHovering = true"
         @mouseleave="isHovering = false"
         @focusin="isHovering = true"
