@@ -71,7 +71,11 @@ describe('content security policy source list', () => {
   it('allows exactly these sources', () => {
     expect(CSP_SOURCES).toEqual({
       'default-src': ["'self'"],
-      'script-src': ["'self'", "'unsafe-inline'"],
+      'script-src': [
+        "'self'",
+        "'unsafe-inline'",
+        'https://static.cloudflareinsights.com'
+      ],
       'style-src': ["'self'", "'unsafe-inline'"],
       'img-src': [
         "'self'",
@@ -81,7 +85,7 @@ describe('content security policy source list', () => {
         'https://images.opencollective.com'
       ],
       'font-src': ["'self'", 'data:'],
-      'connect-src': ["'self'"],
+      'connect-src': ["'self'", 'https://cloudflareinsights.com'],
       'frame-src': ['https://bluemap.onelitefeather.dev'],
       'worker-src': ["'self'", 'blob:'],
       'manifest-src': ["'self'"],
