@@ -2,7 +2,7 @@
 import {definePageMeta} from "#imports";
 import type { BlogArticle } from "#layers/blog";
 
-const { locale, t, d } = useI18n()
+const { locale, t } = useI18n()
 const config = useRuntimeConfig()
 
 definePageMeta({
@@ -87,7 +87,7 @@ const articleClass
           class="mt-1 block text-body-medium text-on-surface-variant"
           :datetime="new Date(blog?.pubDate).toISOString()"
         >
-          {{ d(new Date(blog?.pubDate as any)) }}
+          {{ formatCalendarDate(blog?.pubDate, locale) }}
         </time>
         <div
           v-if="blog?.tags?.length"

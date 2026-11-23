@@ -72,7 +72,7 @@ const updatedLabel = computed(() => {
   if (!props.updatedAt) return ''
   const date = typeof props.updatedAt === 'string' ? new Date(props.updatedAt) : props.updatedAt
   if (Number.isNaN(date.getTime())) return ''
-  return t('collective.updated', { date: date.toLocaleDateString(locale.value) })
+  return t('collective.updated', { date: formatInstant(date, locale.value) })
 })
 
 const statCardClass = 'rounded-extra-large border border-outline-variant bg-surface-container-low p-5 sm:p-6'

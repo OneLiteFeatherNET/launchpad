@@ -2,7 +2,7 @@
 import type { BlogArticle, CardAuthor } from "../types";
 
 const {getFeatureFlag } = usePostHogFeatureFlag();
-const {locale, d} = useI18n();
+const { locale } = useI18n();
 
 const { blogArticle, authors = [] } = defineProps<{
   blogArticle: BlogArticle;
@@ -57,7 +57,7 @@ const title = computed(() => {
       </M3CardLink>
     </h2>
     <time class="mt-0.5 block text-body-small text-on-surface-variant">
-      {{ d(new Date(blogArticle.pubDate as any)) }}
+      {{ formatCalendarDate(blogArticle.pubDate, locale) }}
     </time>
     <div v-if="authors?.length" class="mt-1 flex flex-wrap gap-x-4">
       <PersonLink

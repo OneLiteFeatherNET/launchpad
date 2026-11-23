@@ -43,6 +43,40 @@ function hardcodedFormatters(): string[] {
   return found
 }
 
+/**
+ * Date calls that inherit the machine's zone render differently on the Worker
+ * (UTC) and in a browser. Every `toLocale*String(` must name a `timeZone`
+ * within its call; vue-i18n's `d()` cannot, so it is not taken from `useI18n`.
+ */
+const ZONELESS_CALL = /toLocale(?:Date|Time|)String\(((?:[^(){}]|\{[^}]*\})*)\)/g
+const I18N_DATE_CALL = /const\s*\{[^}]*\bd\b[^}]*\}\s*=\s*useI18n/g
+
+function zonelessCalls(text: string): string[] {
+  return [...text.matchAll(ZONELESS_CALL)].filter(([, args]) => !args?.includes('timeZone')).map(([call]) => call)
+}
+
+function zonelessFindings(): string[] {
+  const found: string[] = []
+  for (const file of collectSourceFiles(['pages', 'layers'], ['.vue', '.ts'])) {
+    const text = readFileSync(file, 'utf8')
+    for (const call of zonelessCalls(text)) found.push(`${relativeToRepo(file)} — ${call}`)
+    for (const [call] of text.matchAll(I18N_DATE_CALL)) found.push(`${relativeToRepo(file)} — ${call}`)
+  }
+  return found
+}
+
+describe('time zone of date formatting', () => {
+  it('recognises a call without a zone', () => {
+    expect(zonelessCalls("x.toLocaleDateString(locale.value, { day: '2-digit' })")).toHaveLength(1)
+    expect(zonelessCalls('x.toLocaleString()')).toHaveLength(1)
+    expect(zonelessCalls("x.toLocaleTimeString(l, { hour: '2-digit', timeZone })")).toEqual([])
+  })
+
+  it('names a time zone in every date call', () => {
+    expect(zonelessFindings()).toEqual([])
+  })
+})
+
 describe('date formatting', () => {
   it('recognises a pinned locale tag', () => {
     // Without this the check could pass by matching nothing at all.

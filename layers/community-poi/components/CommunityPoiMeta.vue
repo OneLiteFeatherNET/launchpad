@@ -7,7 +7,7 @@ const props = defineProps<{
   poi: CommunityPoi
 }>()
 
-const { t, d } = useI18n()
+const { t, locale } = useI18n()
 
 const builders = computed(() => props.poi.builders ?? [])
 
@@ -26,11 +26,7 @@ const dimensionLabel = computed(() => {
   return t(`community_poi.dimension.${dim}`)
 })
 
-const formatDate = (raw: string | Date | undefined): string => {
-  if (!raw) return ''
-  const date = raw instanceof Date ? raw : new Date(raw)
-  return Number.isNaN(date.getTime()) ? '' : d(date)
-}
+const formatDate = (raw: string | Date | undefined): string => formatCalendarDate(raw, locale.value)
 
 const startedDate = computed(() => formatDate(props.poi.startedAt))
 const updatedDate = computed(() => formatDate(props.poi.updatedAt))
