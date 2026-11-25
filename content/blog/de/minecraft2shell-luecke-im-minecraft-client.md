@@ -112,6 +112,22 @@ Bittet eure Community, auf 26.3 zu aktualisieren. Läuft euer Server auf einer �
 
 Admins sind auch Spieler. Auf einem Admin-PC liegen SSH-Schlüssel, Panel-Zugänge und Tokens. Aktualisiert deshalb zuerst den eigenen Client. Testet außerdem unbekannte Server nicht mit dem Rechner, von dem aus ihr administriert.
 
+## Wem ihr vertraut, wenn etwas „gefixt“ ist
+
+Kaum jemand von euch kann selbst nachprüfen, ob die Lücke geschlossen ist. Dafür müsstet ihr den Quelltext der Schriftbibliothek lesen und die ausgelieferte Datei untersuchen können. Ihr verlasst euch also darauf, dass andere das richtig gemacht haben. In der Informatik heißt das Vertrauen, und damit ist etwas sehr Konkretes gemeint: **Wem ihr vertraut, dem gebt ihr Kontrolle ab.**
+
+Ein Vergleich aus dem Alltag: Ihr bringt das Auto wegen der Bremsen in die Werkstatt. Danach steht auf der Rechnung „Bremsen erneuert“. Nachsehen könnt ihr das nicht. Ihr fahrt trotzdem los, weil ihr der Werkstatt vertraut. Die Rechnung zeigt, wer gearbeitet hat. Sie beweist nicht, dass die Arbeit fehlerfrei ist.
+
+Bei dieser Lücke gebt ihr an mehreren Stellen Kontrolle ab:
+
+- **An Mojang:** Ihr vertraut darauf, dass die neue Bibliothek den Fehler behebt. Die Signatur an der Datei entspricht der Rechnung der Werkstatt. Sie belegt, dass die Datei von Mojang stammt, und sagt nichts darüber, ob sie fehlerfrei ist.
+- **An euren Launcher:** Er entscheidet, welche Dateien er herunterlädt und startet.
+- **An jeden Server, dessen Ressourcenpaket ihr annehmt:** Mit „Aktiviert“ gebt ihr die Entscheidung dauerhaft ab. Mit „Abfrage“ behaltet ihr sie.
+- **An die Autoren von Mods:** Ihr Code läuft mit euren Rechten. Das gilt auch für Mods, die gegen genau diese Lücke helfen sollen.
+- **An uns:** Wir haben Dateien und Quelltext verglichen, den PoC aber nicht ausgeführt. Ihr könnt unsere Angaben nachprüfen, die Quellen stehen unten. Tut ihr das nicht, vertraut ihr auch uns.
+
+Ohne Vertrauen könnte niemand einen Computer benutzen. Wichtig ist, dass ihr die Entscheidung bewusst trefft: Wem gebe ich Kontrolle, wie viel, und was passiert schlimmstenfalls, wenn ich mich irre? Mojang müsst ihr vertrauen, wenn ihr Minecraft spielen wollt. Einem Server, den ihr seit fünf Minuten kennt, müsst ihr nicht vertrauen.
+
 ## Kurz zusammengefasst
 
 - Die Lücke betrifft die Java Edition. Der PoC zeigt sie für 26.3 unter Windows.
@@ -119,6 +135,7 @@ Admins sind auch Spieler. Auf einem Admin-PC liegen SSH-Schlüssel, Panel-Zugän
 - Aktualisiert Minecraft 26.3 und prüft, ob der Ordner `3.4.3-mojang-2.15.0` existiert.
 - Behandelt die Versionen 1.20.5 bis 26.2 als betroffen, bis das Gegenteil feststeht.
 - Ressourcenpakete nur von Servern, denen ihr vertraut. Setzt andere auf „Abfrage“ oder „Deaktiviert“.
+- Vertrauen heißt Kontrolle abgeben. Entscheidet bewusst, wem ihr sie gebt.
 - Als Betreiber: Tragt für euer Paket einen SHA-1-Hash ein und sorgt dafür, dass nur ihr es ändern könnt.
 
 ## Quellen und weiterlesen
