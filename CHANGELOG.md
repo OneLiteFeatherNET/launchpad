@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.40.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.39.0...onelitefeather.net-v1.40.0) (2026-11-25)
+
+
+### Features
+
+* **blog:** add a header image to the minecraft2shell post ([#661](https://github.com/OneLiteFeatherNET/launchpad/issues/661)) ([7f15ba3](https://github.com/OneLiteFeatherNET/launchpad/commit/7f15ba348a39715332fe882c1ee19f7847c285c1))
+
 ## [1.39.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.38.2...onelitefeather.net-v1.39.0) (2026-11-25)
 
 
