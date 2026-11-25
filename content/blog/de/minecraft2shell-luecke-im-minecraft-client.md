@@ -43,6 +43,12 @@ Der PoC selbst öffnet nur den Windows-Taschenrechner und beendet das Spiel. Der
 
 Der PoC umgeht die Abfrage für Ressourcenpakete nicht. Bei einem Server, dem ihr nicht vertraut, müsst ihr das Paket zuerst annehmen. Ist der Server-Eintrag so eingestellt, dass Pakete ohne Nachfrage geladen werden, entfällt die Abfrage.
 
+### Einfach erklärt
+
+Stellt euch ein Regal mit zehn nummerierten Fächern vor, das euch gehört. Daneben stehen die Regale anderer Leute. Jemand gibt euch einen Zettel: „Schiebe den Inhalt aller Fächer bis Nummer 14 ein Stück weiter.“ Ihr zählt nicht nach, wie viele Fächer euer Regal hat, und glaubt dem Zettel. Bei Fach 11 bis 14 greift ihr deshalb in das Regal nebenan und bringt dort alles durcheinander.
+
+Genau das passiert hier. Das Regal ist der Speicher für ein Schriftzeichen, und der Zettel steckt in der Schriftdatei. Im Regal nebenan liegen Daten, mit denen das Programm steuert, was es als Nächstes tut. Wer bestimmen kann, was dort landet, kann bestimmen, was das Programm tut.
+
 ## Welche Versionen betroffen sind
 
 [Mojangs Versionsdaten](https://piston-meta.mojang.com/mc/game/version_manifest_v2.json) nennen für jede Version die verwendete Schriftbibliothek. Die Tabelle fasst sie zusammen:
@@ -113,6 +119,59 @@ Bittet eure Community, auf 26.3 zu aktualisieren. Läuft euer Server auf einer �
 ### Euer eigener PC
 
 Admins sind auch Spieler. Auf einem Admin-PC liegen SSH-Schlüssel, Panel-Zugänge und Tokens. Aktualisiert deshalb zuerst den eigenen Client. Testet außerdem unbekannte Server nicht mit dem Rechner, von dem aus ihr administriert.
+
+## Technische Analyse
+
+> **Hinweis:** Dieser Teil erklärt das Prinzip für alle, die es genauer wissen wollen. Adressen, Abstände und alles, was man zum Nachbauen bräuchte, lassen wir bewusst weg. Die Schritte weiter oben gelten unabhängig davon, ob ihr diesen Teil lest.
+
+### Warum eine Schriftdatei ein Programm enthält
+
+TrueType-Schriften enthalten neben den Umrissen der Zeichen auch kleine Programme, das sogenannte Hinting. Diese Programme rücken die Punkte eines Zeichens zurecht, damit es auch in kleiner Größe scharf aussieht. FreeType bringt dafür einen eigenen Interpreter mit, der die Anweisungen der Schrift Schritt für Schritt ausführt. Eine Schriftdatei ist für FreeType also eine Eingabe, die Befehle enthält. Hier kommt sie von einem fremden Server.
+
+### Warum das im Client passiert
+
+Der Server braucht dafür nichts Besonderes. Er bietet ein Ressourcenpaket über die normale Einstellung in der `server.properties` an und schickt danach gewöhnlichen Text in die Aktionsleiste. Alles Weitere geschieht auf eurem Rechner: Der Client lädt die Schrift aus dem Paket und lässt FreeType die Zeichen berechnen.
+
+Minecraft ist in Java geschrieben, und Java verhindert solche Speicherfehler eigentlich. FreeType ist aber eine in C geschriebene Bibliothek, die Minecraft über LWJGL einbindet. In diesem Teil gilt der Schutz von Java nicht. Der Code läuft im selben Prozess wie das Spiel und mit denselben Rechten wie ihr.
+
+### Der Fehler: eine Grenze aus der falschen Quelle
+
+Die Anweisung `SHZ` („shift zone“) verschiebt alle Punkte einer Zone um denselben Betrag. Dafür muss FreeType wissen, wie viele Punkte es sind. In FreeType 2.14.3 stand an dieser Stelle:
+
+```c
+else if ( exc->GS.gep2 == 1 && exc->zp2.n_contours > 0 )
+  limit = exc->zp2.contours[exc->zp2.n_contours - 1] + 1;
+```
+
+Die Obergrenze kommt hier aus den Konturdaten, also aus Angaben, die zur Schrift gehören. Ob der reservierte Speicher für so viele Punkte reicht, prüft der Code nicht. Der PoC nutzt ein zusammengesetztes Zeichen, dessen Bestandteil mehr Punkte angibt, als im Rest des Puffers Platz haben. `SHZ` verschiebt daraufhin auch Werte, die hinter dem Puffer liegen.
+
+### Vom Speicherfehler zur Codeausführung
+
+Ein Schreibzugriff an der falschen Stelle startet noch kein Programm. Der PoC braucht dafür vier Schritte:
+
+1. **Speicher vorbereiten.** Das Paket enthält viele Varianten derselben Schrift. Das erhöht die Chance, dass direkt hinter dem Punktpuffer die Arbeitsdaten des Interpreters liegen.
+2. **Den Interpreter umlenken.** Die Verschiebung verändert dort Felder des Interpreters, darunter den Verweis auf die Punktdaten. Danach lesen und schreiben die Anweisungen der Schrift im Speicher des Interpreters und nicht mehr in den Punkten.
+3. **Adressen herausfinden.** Windows lädt Bibliotheken bei jedem Start an eine andere Adresse (ASLR). Das Schriftprogramm liest deshalb einen Zeiger aus, der gerade im Speicher steht, und rechnet von dort aus weiter.
+4. **Vorhandenen Code neu zusammensetzen.** Der PoC schleust keinen eigenen Maschinencode ein. Er reiht kurze Stücke aneinander, die in der Bibliothek schon vorhanden sind, und ruft damit Windows-Funktionen auf. Im PoC starten sie den Taschenrechner und beenden das Spiel.
+
+All das passiert innerhalb der Schriftdatei. Der Server muss nichts über euren Rechner wissen und nichts zurücklesen.
+
+Die Zahlenwerte im PoC passen nur zu genau einer FreeType-Datei. Für eine andere Version müsste ein Angreifer sie neu bestimmen. Der Fehler selbst steckt aber in jeder Version ohne die Korrektur.
+
+### So wurde der Fehler behoben
+
+FreeType 2.15.0 nimmt die Obergrenze nicht mehr aus den Konturdaten:
+
+```c
+case 1:
+  cur   = exc->pts.cur;
+  limit = exc->pts.n_points > 4U ? exc->pts.n_points - 4U : 0;
+  break;
+```
+
+Die Grenze ergibt sich jetzt aus der Zahl der Punkte, die die Zone tatsächlich hat, abzüglich der vier Hilfspunkte am Ende. Hat die Zone zu wenige Punkte, ist die Grenze null, und es wird nichts verschoben. Die Schrift kann den Wert damit nicht mehr vorgeben.
+
+Mojang hat für 26.3 die Bibliothek gegen einen Build mit FreeType 2.15.0 getauscht. Die Versionsnummer des Spiels ist dabei gleich geblieben. Ihr erkennt das Update deshalb nur an der Bibliothek, wie im Teil für Spielerinnen und Spieler beschrieben.
 
 ## Wem ihr vertraut, wenn etwas „gefixt“ ist
 
