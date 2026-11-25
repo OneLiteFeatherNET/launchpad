@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.39.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.38.2...onelitefeather.net-v1.39.0) (2026-11-25)
+
+
+### Features
+
+* **blog:** explain the minecraft2shell client vulnerability ([#658](https://github.com/OneLiteFeatherNET/launchpad/issues/658)) ([1ecbfaf](https://github.com/OneLiteFeatherNET/launchpad/commit/1ecbfaf5a95b3274dc5d48034cf2bdbf786c4d3c))
+
 ## [1.38.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.38.1...onelitefeather.net-v1.38.2) (2026-11-23)
 
 
