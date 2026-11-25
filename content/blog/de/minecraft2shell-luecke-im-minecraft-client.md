@@ -4,6 +4,8 @@ alternativeTitle: 'Was Spielerinnen, Spieler und Server-Betreiber jetzt tun soll
 description: 'Eine Lücke im Minecraft-Client (Java Edition 26.3, Windows) lässt sich über Server-Ressourcenpakete auslösen. Was ihr jetzt tun solltet.'
 pubDate: '2026-11-25'
 releaseDate: '2026-11-25T12:00:00+01:00'
+headerImage: 'images/blog/minecraft2shell-vulnerability-in-the-minecraft-client.webp'
+headerImageAlt: 'Schaubild: Ein Ressourcenpaket mit einer Schrift, ein Schriftzeichen, das über die Grenze seines Speicherbereichs hinausgeschoben wird, und der Windows-Taschenrechner'
 slug: 'minecraft2shell-luecke-im-minecraft-client'
 translationKey: 'minecraft2shell-vulnerability-in-the-minecraft-client'
 tags:
