@@ -47,12 +47,14 @@ Der PoC umgeht die Abfrage für Ressourcenpakete nicht. Bei einem Server, dem ih
 
 | Version | Schriftbibliothek laut Mojang-Metadaten | Status |
 |---|---|---|
-| 26.3 | `lwjgl-freetype 3.4.3-mojang-2.15.0` (FreeType 2.15.0) | Am 24. November 2026 ersetzt, vorher FreeType 2.14.3. Ob der Austausch die Lücke schließt, ist nicht bestätigt. |
-| 26.1 und 26.2 | `lwjgl-freetype 3.4.1` | Unverändert. Als betroffen behandeln, bis das Gegenteil feststeht. |
-| 1.20.5 bis 1.21.11 | `lwjgl-freetype 3.3.3` | Unverändert. Als betroffen behandeln, bis das Gegenteil feststeht. |
+| 26.3 | `lwjgl-freetype 3.4.3-mojang-2.15.0` (FreeType 2.15.0) | Am 24. November 2026 ersetzt, vorher FreeType 2.14.3. FreeType 2.15.0 enthält die Korrektur. |
+| 26.1 und 26.2 | `lwjgl-freetype 3.4.1` (FreeType 2.14.1) | Unverändert, ohne die Korrektur. Als betroffen behandeln. |
+| 1.20.5 bis 1.21.11 | `lwjgl-freetype 3.3.3` (FreeType 2.13.2) | Unverändert, ohne die Korrektur. Als betroffen behandeln. |
 | 1.20.4 und älter | keine FreeType-Bibliothek | Diese Angriffsroute gibt es dort nicht. |
 
-Ob die älteren Versionen mit FreeType tatsächlich angreifbar sind, ist weder von Mojang noch vom PoC bestätigt. Ein [Artikel von minecraft.pl](https://minecraft.pl/en/news/minecraft2shell-unpatched-rce-vulnerability-in-minecraft-java) führt sie als betroffen auf. Wir empfehlen, sie so lange als betroffen zu behandeln, bis das Gegenteil feststeht.
+Wir haben die Bibliotheken von Mojangs Download-Server miteinander verglichen. Die neue Datei für 26.3 meldet FreeType 2.15.0, wurde am 24. November 2026 gebaut und trägt eine Signatur von Mojang. Die alte meldet FreeType 2.14.3. Das FreeType-Projekt hat die fehlerhafte Grenzprüfung schon am [22.](https://github.com/freetype/freetype/commit/1803559c4ee407d0bcbf2a67dbe96690cee869d2) und [23. April 2026](https://github.com/freetype/freetype/commit/7d600a022e1d813e85a8c94ffd395f6135872267) korrigiert. Diese Korrektur steckt in 2.15.0, aber in keiner der Versionen 2.13.2, 2.14.1 und 2.14.3.
+
+Den PoC haben wir nicht ausgeführt, weder gegen die alte noch gegen die neue Bibliothek. Dass die älteren Minecraft-Versionen praktisch angreifbar sind, ist damit nicht bewiesen, und Mojang hat es nicht bestätigt. Ihnen fehlt aber dieselbe Korrektur, und ein [Artikel von minecraft.pl](https://minecraft.pl/en/news/minecraft2shell-unpatched-rce-vulnerability-in-minecraft-java) führt sie als betroffen auf. Behandelt sie deshalb als betroffen.
 
 Mojang liefert dieselbe Bibliothek auch für Linux und macOS aus, wie die Metadaten zeigen. Der PoC funktioniert nur unter Windows. Keine Quelle bestätigt oder widerlegt eine Lücke auf den anderen Plattformen. Aktualisiert deshalb auch dort und verlasst euch nicht auf „Ich nutze Linux“.
 
@@ -124,5 +126,6 @@ Admins sind auch Spieler. Auf einem Admin-PC liegen SSH-Schlüssel, Panel-Zugän
 - [bikini/minecraft2shell](https://github.com/bikini/minecraft2shell): das PoC-Repository und die Primärquelle. Es enthält einen funktionierenden Proof of Concept. Wir empfehlen, den Code nicht auszuführen.
 - [Mojang-Versionsmanifest](https://piston-meta.mojang.com/mc/game/version_manifest_v2.json): Mojangs Versionsdaten, in denen die Schriftbibliothek je Version steht.
 - [oss-security-Ankündigung zu FreeType 2.15.0](https://openwall.com/lists/oss-security/2026/10/13/1): die Ankündigung der FreeType-Version vom 12. Oktober 2026.
+- [Korrektur in FreeType vom 22. April 2026](https://github.com/freetype/freetype/commit/1803559c4ee407d0bcbf2a67dbe96690cee869d2): die Änderung im FreeType-Quelltext, die in 2.15.0 enthalten ist.
 - [minecraft.pl-Nachricht](https://minecraft.pl/en/news/minecraft2shell-unpatched-rce-vulnerability-in-minecraft-java): ein Nachrichtenartikel vom 24. November 2026, der ältere Versionen als betroffen nennt.
 - [freetype.org](https://freetype.org/): die Projektseite der Schriftbibliothek FreeType.
