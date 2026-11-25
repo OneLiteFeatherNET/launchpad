@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.41.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.40.0...onelitefeather.net-v1.41.0) (2026-11-25)
+
+
+### Features
+
+* **blog:** add a technical analysis to the minecraft2shell post ([#663](https://github.com/OneLiteFeatherNET/launchpad/issues/663)) ([73b8e62](https://github.com/OneLiteFeatherNET/launchpad/commit/73b8e62f07679c1e442eff58bbdb4bfcd442aae0))
+
 ## [1.40.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.39.0...onelitefeather.net-v1.40.0) (2026-11-25)
 
 
