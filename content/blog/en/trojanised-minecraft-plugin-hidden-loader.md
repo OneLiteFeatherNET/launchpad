@@ -4,6 +4,8 @@ alternativeTitle: 'What the trojanised JAR does, how you check your server and h
 description: 'A trojanised plugin JAR quietly loads a second plugin on every server start. Here is how to check whether your server is affected, and how to protect it.'
 pubDate: '2026-11-25'
 releaseDate: '2026-11-25T12:00:00+01:00'
+headerImage: 'images/blog/trojanised-minecraft-plugin-hidden-loader.webp'
+headerImageAlt: 'Diagram: a plugin JAR with a highlighted bStats class and a hidden method, the attacker server answering disguised as a 404 page, and a logs folder with a file whose name contains an invisible character'
 slug: 'trojanised-minecraft-plugin-hidden-loader'
 translationKey: 'trojanised-minecraft-plugin-hidden-loader'
 tags:

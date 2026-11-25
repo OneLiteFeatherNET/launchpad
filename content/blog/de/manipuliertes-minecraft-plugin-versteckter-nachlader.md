@@ -4,6 +4,8 @@ alternativeTitle: 'Was die manipulierte JAR tut, wie ihr euren Server prüft und
 description: 'Eine manipulierte Plugin-JAR lädt bei jedem Serverstart heimlich ein zweites Plugin nach. So prüft ihr, ob ihr betroffen seid, und so schützt ihr euch.'
 pubDate: '2026-11-25'
 releaseDate: '2026-11-25T12:00:00+01:00'
+headerImage: 'images/blog/trojanised-minecraft-plugin-hidden-loader.webp'
+headerImageAlt: 'Schaubild: Eine Plugin-JAR mit einer hervorgehobenen bStats-Klasse und einer versteckten Methode, der Server des Angreifers, der als 404-Seite getarnt antwortet, und ein Log-Ordner mit einer Datei, deren Name ein unsichtbares Zeichen enthält'
 slug: 'manipuliertes-minecraft-plugin-versteckter-nachlader'
 translationKey: 'trojanised-minecraft-plugin-hidden-loader'
 tags:
