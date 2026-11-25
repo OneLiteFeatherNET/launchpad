@@ -1,7 +1,7 @@
 ---
 title: 'Manipuliertes Minecraft-Plugin: Wie ein versteckter Nachlader in einer bStats-Klasse steckt'
 alternativeTitle: 'Was die manipulierte JAR tut, wie ihr euren Server prüft und wie ihr euch schützt'
-description: 'Eine manipulierte Plugin-JAR lädt bei jedem Serverstart heimlich ein zweites Plugin nach. So prüft ihr, ob euer Server betroffen ist, und so schützt ihr euch.'
+description: 'Eine manipulierte Plugin-JAR lädt bei jedem Serverstart heimlich ein zweites Plugin nach. So prüft ihr, ob ihr betroffen seid, und so schützt ihr euch.'
 pubDate: '2026-11-25'
 releaseDate: '2026-11-25T12:00:00+01:00'
 slug: 'manipuliertes-minecraft-plugin-versteckter-nachlader'
