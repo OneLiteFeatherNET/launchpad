@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.42.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.41.0...onelitefeather.net-v1.42.0) (2026-11-25)
+
+
+### Features
+
+* **blog:** add a header image to the trojanised plugin post ([#666](https://github.com/OneLiteFeatherNET/launchpad/issues/666)) ([710edc9](https://github.com/OneLiteFeatherNET/launchpad/commit/710edc9bc1ad6120a41f19faf705b36340b79998))
+* **blog:** add post on a trojanised minecraft plugin loader ([#665](https://github.com/OneLiteFeatherNET/launchpad/issues/665)) ([2b4378d](https://github.com/OneLiteFeatherNET/launchpad/commit/2b4378d0602f3ee1ee8d26958f0a5441c409c09c))
+
 ## [1.41.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.40.0...onelitefeather.net-v1.41.0) (2026-11-25)
 
 
