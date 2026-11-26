@@ -16,9 +16,11 @@ export async function useBlogPostsByAuthor(slug: MaybeRefOrGetter<string>) {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data } = await useAsyncData<AuthorPosts>(
+  const { data, status } = await useAsyncData<AuthorPosts>(
     () => `blog-author-${activeLocale.value}-${toValue(slug)}`,
     async () => {
+      // No author yet while the profile it belongs to is still loading.
+      if (!toValue(slug)) return { articles: [], people: [] }
       const articles = articlesByAuthor(
         await repo.listBlogArticles(activeLocale.value),
         toValue(slug),
@@ -27,7 +29,11 @@ export async function useBlogPostsByAuthor(slug: MaybeRefOrGetter<string>) {
       const slugs = [...new Set([toValue(slug), ...articles.flatMap(authorSlugsOf)])]
       return { articles, people: await resolvePeople(slugs, activeLocale.value) }
     },
-    { watch: [activeLocale, () => toValue(slug)], default: () => ({ articles: [], people: [] }) }
+    {
+      watch: [activeLocale, () => toValue(slug)],
+      default: () => ({ articles: [], people: [] }),
+      ...PAGE_DATA_OPTIONS
+    }
   )
 
   const articles = computed(() => data.value.articles)
@@ -40,5 +46,7 @@ export async function useBlogPostsByAuthor(slug: MaybeRefOrGetter<string>) {
       .filter((p): p is Person => Boolean(p))
   }
 
-  return { articles, person, authorsOf }
+  const loading = useIsLoading(status)
+
+  return { articles, person, authorsOf, loading, data, status }
 }

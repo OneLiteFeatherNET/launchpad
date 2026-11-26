@@ -17,7 +17,7 @@ import { faGlobe, faLink, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 const { t, locale } = useI18n()
 const site = useSiteConfig()
 
-const { member, avatarSrc } = await useTeamProfile()
+const { member, avatarSrc, loading } = await useTeamProfile()
 
 // Contributions come from other domains; only this page may combine them
 // with the team layer's profile.
@@ -77,7 +77,7 @@ const memberDescription = computed(() => member.value
 
 // `image` uses the Cloudflare-rendered avatar so social previews show the
 // player's head instead of the synthetic OG fallback.
-usePageSeo({
+usePageSeo(() => ({
   title: member.value ? teamProfileTitle(member.value) : t('team.profile_title_fallback'),
   description: member.value ? memberDescription.value : t('team.profile_description_fallback'),
   image: avatarSrc.value && avatarSrc.value !== '/favicon.svg' ? avatarSrc.value : undefined,
@@ -88,7 +88,7 @@ usePageSeo({
   schemaType: 'ProfilePage',
   // Thin profiles are soft 404s for Google; links stay followable.
   noindex: member.value ? isThinTeamProfile(member.value) : false,
-})
+}))
 
 useBreadcrumbs(() => [
   { name: t('navigation.home'), url: `/${locale.value}` },
@@ -164,7 +164,8 @@ const profileClass
     >
       ← {{ $t('navigation.team') }}
     </NuxtLink>
-    <div v-if="member" :class="profileClass">
+    <TeamProfileSkeleton v-if="loading" :class="profileClass" />
+    <div v-else-if="member" :class="profileClass">
       <div class="flex items-start gap-5">
         <NuxtImg
           :src="avatarSrc"

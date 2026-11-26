@@ -8,7 +8,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { pois, total } = useCommunityPoiOverview()
+const { pois, total, loading } = useCommunityPoiOverview()
 
 usePageSeo({
   title: t('community_poi.overview.title'),
@@ -62,7 +62,8 @@ useSchemaOrg(computed(() => {
       </p>
     </header>
 
-    <CommunityPoiGrid :pois="pois" />
+    <CommunityPoiGridSkeleton v-if="loading" />
+    <CommunityPoiGrid v-else :pois="pois" />
 
     <div class="mt-10">
       <LazyCommunityPoiContributeInfo />

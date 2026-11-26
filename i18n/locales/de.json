@@ -259,6 +259,9 @@
     "copy_link": "Link kopieren",
     "copied": "Link kopiert"
   },
+  "loading": {
+    "label": "Lädt …"
+  },
   "error": {
     "title_404": "Seite nicht gefunden",
     "message_404": "Die gesuchte Seite existiert nicht oder wurde möglicherweise an eine neue Adresse verschoben.",

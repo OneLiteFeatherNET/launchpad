@@ -2,7 +2,7 @@
 import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { clearNuxtData } from '#imports'
 import { useBlogPostsByAuthor } from '../../layers/blog/composables/useBlogPostsByAuthor'
 
@@ -26,7 +26,8 @@ mockNuxtImport('useContentRepository', () => () => repo)
 const Harness = defineComponent({
   async setup() {
     const { articles } = await useBlogPostsByAuthor('tp')
-    return { text: articles.value.map((article) => article.slug).join(',') }
+    const text = computed(() => articles.value.map((article) => article.slug).join(','))
+    return { text }
   },
   template: '<div>{{ text }}</div>',
 })

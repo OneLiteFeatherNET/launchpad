@@ -2,8 +2,8 @@
 import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { defineComponent } from 'vue'
-import { clearNuxtData } from '#imports'
+import { computed, defineComponent } from 'vue'
+import { clearError, clearNuxtData, useError } from '#imports'
 import { useBlogAuthorPage } from '../../layers/blog/composables/useBlogAuthorPage'
 
 /**
@@ -41,13 +41,16 @@ mockNuxtImport('useSetI18nParams', () => () => setI18nParams)
 
 const Harness = defineComponent({
   async setup() {
-    try {
-      const { person, articles } = await useBlogAuthorPage()
+    const { person, articles } = await useBlogAuthorPage()
+    const error = useError()
+    // The page loads lazily: the outcome follows once the lookups settle, and a
+    // missing author arrives as the error page rather than as a throw.
+    const outcome = computed(() => {
+      if (error.value) return `error:${error.value.statusCode}`
       const slugs = articles.value.map((article) => article.slug).join(',')
-      return { outcome: `${person.value?.kind}:${person.value?.profilePath}:${slugs}` }
-    } catch (error) {
-      return { outcome: `error:${(error as { statusCode?: number }).statusCode}` }
-    }
+      return `${person.value?.kind}:${person.value?.profilePath}:${slugs}`
+    })
+    return { outcome }
   },
   template: '<div>{{ outcome }}</div>',
 })
@@ -61,6 +64,7 @@ const open = async (path: string) => {
 beforeEach(() => {
   vi.clearAllMocks()
   clearNuxtData()
+  clearError()
   state.articles = {}
   state.rosters = {
     de: [{ slug: 'tp', name: 'Team Person' }],

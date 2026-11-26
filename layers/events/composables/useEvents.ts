@@ -1,4 +1,3 @@
-import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale, Person } from '#layers/content-core'
 import { isAccessOpenAt, eventPhaseAt, isEventReachableAt } from '#shared/utils/eventPhase'
@@ -35,16 +34,16 @@ export function useEventsOverview() {
   const activeLocale = useActiveLocale()
   const repo = useContentRepository()
 
-  const { data } = useAsyncData<GroupedEvents>(
+  const { data, status } = useAsyncData<GroupedEvents>(
     () => `events-overview-${activeLocale.value}`,
     async () => {
       const docs = await repo.listEvents(activeLocale.value)
       return groupEventsAt(docs, activeLocale.value, new Date())
     },
-    { watch: [activeLocale], default: emptyGroups }
+    { watch: [activeLocale], default: emptyGroups, ...PAGE_DATA_OPTIONS }
   )
 
-  return { events: data }
+  return { events: data, loading: useIsLoading(status) }
 }
 
 /** The events the home carousel promotes right now, soonest first, at most two. */
@@ -72,10 +71,12 @@ export function useEventsByHost(slug: MaybeRefOrGetter<string>) {
   const { data } = useAsyncData<EventCardData[]>(
     () => `events-by-host-${activeLocale.value}-${toValue(slug)}`,
     async () => {
+      // No host yet while the profile it belongs to is still loading.
+      if (!toValue(slug)) return []
       const docs = await repo.listEvents(activeLocale.value)
       return eventsByHostAt(docs, toValue(slug), activeLocale.value, new Date())
     },
-    { watch: [activeLocale, () => toValue(slug)], default: () => [] }
+    { watch: [activeLocale, () => toValue(slug)], default: () => [], ...PAGE_DATA_OPTIONS }
   )
 
   return { events: data }
@@ -131,7 +132,7 @@ export async function useEventDetail() {
     return catchAllSegments(param).at(-1)
   })
 
-  const { data: detail } = await useAsyncData<EventDetail | null>(
+  const { data: detail, status } = await useAsyncData<EventDetail | null>(
     () => `event-${activeLocale.value}-${slug.value}`,
     async () => {
       if (!slug.value) return null
@@ -163,12 +164,10 @@ export async function useEventDetail() {
         localeSlugs,
       }
     },
-    { watch: [activeLocale, slug] }
+    { watch: [activeLocale, slug], ...PAGE_DATA_OPTIONS }
   )
 
-  if (!detail.value) {
-    throw createError({ statusCode: 404, statusMessage: 'Event not found', fatal: true })
-  }
+  failWhenMissing({ data: detail, status }, (data) => !data, 'Event not found')
 
   watch(detail, (current) => {
     if (!current) return
@@ -179,5 +178,5 @@ export async function useEventDetail() {
     setI18nParams(params)
   }, { immediate: true })
 
-  return { detail }
+  return { detail, loading: useIsLoading(status) }
 }

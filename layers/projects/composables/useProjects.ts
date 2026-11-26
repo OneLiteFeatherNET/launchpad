@@ -1,4 +1,3 @@
-import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale, Person } from '#layers/content-core'
 import type { ProjectDocument, ProjectSummary } from '../types'
@@ -14,13 +13,13 @@ export async function useProjectsOverview() {
   const activeLocale = useActiveLocale()
   const repo = useContentRepository()
 
-  const { data } = await useAsyncData<ProjectSummary[]>(
+  const { data, status } = await useAsyncData<ProjectSummary[]>(
     () => `projects-list-${activeLocale.value}`,
     async () => sortProjects(await repo.listProjects(activeLocale.value)),
-    { watch: [activeLocale], default: () => [] }
+    { watch: [activeLocale], default: () => [], ...PAGE_DATA_OPTIONS }
   )
 
-  return { projects: data }
+  return { projects: data, loading: useIsLoading(status) }
 }
 
 /** The projects named by `slugs`, in that order; unknown slugs are dropped. */
@@ -38,7 +37,7 @@ export async function useProjectsBySlugs(slugs: MaybeRefOrGetter<string[]>) {
         .map((slug) => found.find((project) => project.slug === slug))
         .filter((project): project is ProjectSummary => project !== undefined)
     },
-    { watch: [activeLocale, () => toValue(slugs).join(',')], default: () => [] }
+    { watch: [activeLocale, () => toValue(slugs).join(',')], default: () => [], ...PAGE_DATA_OPTIONS }
   )
 
   return { projects: data }
@@ -51,8 +50,12 @@ export async function useProjectsByMaintainer(slug: MaybeRefOrGetter<string>) {
 
   const { data } = await useAsyncData<ProjectSummary[]>(
     () => `projects-by-maintainer-${activeLocale.value}-${toValue(slug)}`,
-    async () => projectsMaintainedBy(await repo.listProjects(activeLocale.value), toValue(slug)),
-    { watch: [activeLocale, () => toValue(slug)], default: () => [] }
+    async () => {
+      // No maintainer yet while the profile it belongs to is still loading.
+      if (!toValue(slug)) return []
+      return projectsMaintainedBy(await repo.listProjects(activeLocale.value), toValue(slug))
+    },
+    { watch: [activeLocale, () => toValue(slug)], default: () => [], ...PAGE_DATA_OPTIONS }
   )
 
   return { projects: data }
@@ -91,7 +94,7 @@ export async function useProjectDetail() {
     return catchAllSegments(param).at(-1)
   })
 
-  const { data: detail } = await useAsyncData<ProjectDetail | null>(
+  const { data: detail, status } = await useAsyncData<ProjectDetail | null>(
     () => `project-${activeLocale.value}-${slug.value}`,
     async () => {
       if (!slug.value) return null
@@ -111,12 +114,10 @@ export async function useProjectDetail() {
         localeSlugs
       }
     },
-    { watch: [activeLocale, slug] }
+    { watch: [activeLocale, slug], ...PAGE_DATA_OPTIONS }
   )
 
-  if (!detail.value) {
-    throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true })
-  }
+  failWhenMissing({ data: detail, status }, (data) => !data, 'Project not found')
 
   watch(detail, (current) => {
     if (!current) return
@@ -127,5 +128,5 @@ export async function useProjectDetail() {
     setI18nParams(params)
   }, { immediate: true })
 
-  return { detail }
+  return { detail, loading: useIsLoading(status) }
 }

@@ -1,7 +1,9 @@
 // @vitest-environment nuxt
 import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
-import { describe, expect, it, vi } from 'vitest'
-import { defineComponent } from 'vue'
+import { flushPromises } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { computed, defineComponent } from 'vue'
+import { clearError, clearNuxtData, useError } from '#imports'
 import { useEventDetail } from '../../layers/events/composables/useEvents'
 import type { EventDocument } from '../../layers/events/types'
 
@@ -60,20 +62,17 @@ const fakeRepo = {
 // so wrapping `original` is unnecessary here — a full replacement is safe.
 mockNuxtImport('useContentRepository', () => () => fakeRepo)
 
-// `useEventDetail` throws a fatal NuxtError for the 404 case (a plain JS
-// throw inside setup); Suspense inside `mountSuspended` swallows that rather
-// than rejecting the mount, so the harness catches it itself and renders the
-// status code instead — observable through the same `wrapper.text()` check
-// as the success case.
+// The page loads lazily: every harness derives its text from the data, which
+// follows once the lookup settles. A missing event arrives as the error page
+// (`useError`) rather than as a throw, so the harness renders its status code.
 const Harness = defineComponent({
   async setup() {
-    try {
-      const { detail } = await useEventDetail()
-      return { outcome: `phase:${detail.value?.phase}` }
-    } catch (error) {
-      const statusCode = (error as { statusCode?: number }).statusCode
-      return { outcome: `error:${statusCode}` }
-    }
+    const { detail } = await useEventDetail()
+    const error = useError()
+    const outcome = computed(() => error.value
+      ? `error:${error.value.statusCode}`
+      : `phase:${detail.value?.phase}`)
+    return { outcome }
   },
   template: '<div>{{ outcome }}</div>',
 })
@@ -81,8 +80,9 @@ const Harness = defineComponent({
 const HostsHarness = defineComponent({
   async setup() {
     const { detail } = await useEventDetail()
-    const hosts = detail.value?.hosts ?? []
-    return { outcome: hosts.map((host) => `${host.name}>${host.profilePath}`).join(',') }
+    const outcome = computed(() => (detail.value?.hosts ?? [])
+      .map((host) => `${host.name}>${host.profilePath}`).join(','))
+    return { outcome }
   },
   template: '<div>{{ outcome }}</div>',
 })
@@ -90,58 +90,70 @@ const HostsHarness = defineComponent({
 const SessionHarness = defineComponent({
   async setup() {
     const { detail } = await useEventDetail()
-    return { outcome: `next:${detail.value?.nextSession?.startsAt ?? 'none'}` }
+    const outcome = computed(() => `next:${detail.value?.nextSession?.startsAt ?? 'none'}`)
+    return { outcome }
   },
   template: '<div>{{ outcome }}</div>',
 })
 
+const open = async (component: object, route: string) => {
+  const wrapper = await mountSuspended(component, { route })
+  await flushPromises()
+  return wrapper
+}
+
+beforeEach(() => {
+  clearNuxtData()
+  clearError()
+})
+
 describe('useEventDetail nextSession', () => {
   it('decides the next session on the server for a running event', async () => {
-    const wrapper = await mountSuspended(SessionHarness, { route: '/de/events/with-session' })
+    const wrapper = await open(SessionHarness, '/de/events/with-session')
     expect(wrapper.text()).toBe('next:2099-01-01T20:00:00.000Z')
   })
 
   it('has no next session for an event without sessions', async () => {
-    const wrapper = await mountSuspended(SessionHarness, { route: '/de/events/without-session' })
+    const wrapper = await open(SessionHarness, '/de/events/without-session')
     expect(wrapper.text()).toBe('next:none')
   })
 
   it('has no next session while the event is hidden', async () => {
-    const wrapper = await mountSuspended(SessionHarness, { route: '/de/events/hidden-session' })
+    const wrapper = await open(SessionHarness, '/de/events/hidden-session')
     expect(wrapper.text()).toBe('next:none')
   })
 })
 
 describe('useEventDetail hosts', () => {
   it('resolves hosts in frontmatter order with their profile paths', async () => {
-    const wrapper = await mountSuspended(HostsHarness, { route: '/de/events/hosted' })
+    const wrapper = await open(HostsHarness, '/de/events/hosted')
     expect(wrapper.text()).toBe('Gast>/de/blog/author/gast,Team Person>/de/team/tp')
   })
 
   it('skips a host that resolves to nobody', async () => {
-    const wrapper = await mountSuspended(HostsHarness, { route: '/de/events/hosted' })
+    const wrapper = await open(HostsHarness, '/de/events/hosted')
     expect(wrapper.text()).not.toContain('ghost')
   })
 
   it('has no hosts for an event without any', async () => {
-    const wrapper = await mountSuspended(HostsHarness, { route: '/de/events/preview-only' })
+    const wrapper = await open(HostsHarness, '/de/events/preview-only')
     expect(wrapper.text()).toBe('')
   })
 })
 
 describe('useEventDetail', () => {
   it('reaches an unlisted event even hidden, with phase hidden', async () => {
-    const wrapper = await mountSuspended(Harness, { route: '/de/events/preview-only' })
+    const wrapper = await open(Harness, '/de/events/preview-only')
     expect(wrapper.text()).toBe('phase:hidden')
   })
 
   it('404s a public event that is still hidden', async () => {
-    const wrapper = await mountSuspended(Harness, { route: '/de/events/public-hidden' })
+    const wrapper = await open(Harness, '/de/events/public-hidden')
     expect(wrapper.text()).toBe('error:404')
   })
 
   it('404s an unknown slug', async () => {
-    const wrapper = await mountSuspended(Harness, { route: '/de/events/does-not-exist' })
+    const wrapper = await open(Harness, '/de/events/does-not-exist')
     expect(wrapper.text()).toBe('error:404')
   })
 })

@@ -1,4 +1,3 @@
-import { createError } from '#imports'
 import { locales, type Locale } from '#layers/content-core'
 
 /**
@@ -31,19 +30,22 @@ export async function useBlogAuthorPage() {
       }
       return found
     },
-    { watch: [slug], default: () => [] }
+    { watch: [slug], default: () => [], ...PAGE_DATA_OPTIONS }
   )
 
   const posts = await pendingPosts
   const { data: available } = await pendingLocales
 
-  if (!posts.person.value || !posts.articles.value.length) {
-    throw createError({ statusCode: 404, statusMessage: 'Author not found', fatal: true })
-  }
+  failWhenMissing(
+    { data: posts.data, status: posts.status },
+    () => !posts.person.value || !posts.articles.value.length,
+    'Author not found'
+  )
 
   watch(available, (codes) => {
     setI18nParams(Object.fromEntries(codes.map((code) => [code, { slug: slug.value }])))
   }, { immediate: true })
 
-  return { slug, ...posts }
+  const { articles, person, authorsOf, loading } = posts
+  return { slug, articles, person, authorsOf, loading }
 }

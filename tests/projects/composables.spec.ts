@@ -1,7 +1,7 @@
 // @vitest-environment nuxt
 import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
 import { flushPromises } from '@vue/test-utils'
-import { clearNuxtData } from '#imports'
+import { clearError, clearNuxtData, useError } from '#imports'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { defineComponent, h } from 'vue'
 import {
@@ -28,6 +28,7 @@ mockNuxtImport('useContentRepository', () => () => repo)
 
 beforeEach(() => {
   clearNuxtData()
+  clearError()
   vi.clearAllMocks()
   repo.listProjects.mockResolvedValue([
     card('old', { status: 'archived' }), card('live'),
@@ -49,17 +50,20 @@ beforeEach(() => {
   repo.listAuthorsBySlugs.mockResolvedValue([{ slug: 'gast', name: 'Gast' }])
 })
 
-const render = async <T>(route: string, read: () => Promise<T> | T) => {
+// The pages load lazily: `read` returns a getter, which the harness renders
+// again whenever the data settles. A missing project arrives as the error page
+// (`useError`), not as a throw.
+const render = async <T>(route: string, read: () => Promise<() => T> | (() => T)) => {
   const wrapper = await mountSuspended(defineComponent({
     async setup() {
-      try {
-        return { json: JSON.stringify(await read()) }
-      } catch (error) {
-        return { json: JSON.stringify({ error: (error as { statusCode?: number }).statusCode }) }
-      }
+      const get = await read()
+      const error = useError()
+      return { get, error }
     },
     render() {
-      return h('pre', (this as unknown as { json: string }).json)
+      type Self = { get: () => unknown, error: { statusCode?: number } | undefined }
+      const self = this as unknown as Self
+      return h('pre', JSON.stringify(self.error ? { error: self.error.statusCode } : self.get()))
     },
   }), { route })
   await flushPromises()
@@ -70,7 +74,7 @@ describe('useProjectsOverview', () => {
   it('asks for the locale of the page and sorts active projects first', async () => {
     const slugs = await render('/de/projects', async () => {
       const { projects } = await useProjectsOverview()
-      return projects.value.map((p) => p.slug)
+      return () => projects.value.map((p) => p.slug)
     })
     expect(repo.listProjects).toHaveBeenCalledWith('de')
     expect(slugs).toEqual(['live', 'old'])
@@ -86,7 +90,7 @@ describe('useProjectsByMaintainer', () => {
     ])
     const slugs = await render('/de/team/tp', async () => {
       const { projects } = await useProjectsByMaintainer('tp')
-      return projects.value.map((p) => p.slug)
+      return () => projects.value.map((p) => p.slug)
     })
     expect(repo.listProjects).toHaveBeenCalledWith('de')
     expect(slugs).toEqual(['live', 'archived'])
@@ -97,7 +101,7 @@ describe('useProjectsBySlugs', () => {
   it('returns the projects in the order of the slugs', async () => {
     const slugs = await render('/de/community-poi/x', async () => {
       const { projects } = await useProjectsBySlugs(['a', 'b'])
-      return projects.value.map((p) => p.slug)
+      return () => projects.value.map((p) => p.slug)
     })
     expect(repo.listProjectsBySlugs).toHaveBeenCalledWith('de', ['a', 'b'])
     expect(slugs).toEqual(['a', 'b'])
@@ -106,7 +110,7 @@ describe('useProjectsBySlugs', () => {
   it('does not ask the repository without slugs', async () => {
     const slugs = await render('/de/community-poi/x', async () => {
       const { projects } = await useProjectsBySlugs([])
-      return projects.value.map((p) => p.slug)
+      return () => projects.value.map((p) => p.slug)
     })
     expect(repo.listProjectsBySlugs).not.toHaveBeenCalled()
     expect(slugs).toEqual([])
@@ -116,7 +120,7 @@ describe('useProjectsBySlugs', () => {
     repo.listProjectsBySlugs.mockResolvedValue([card('a')])
     const slugs = await render('/de/community-poi/x', async () => {
       const { projects } = await useProjectsBySlugs(['gone', 'a'])
-      return projects.value.map((p) => p.slug)
+      return () => projects.value.map((p) => p.slug)
     })
     expect(slugs).toEqual(['a'])
   })
@@ -126,7 +130,7 @@ describe('useProjectDetail', () => {
   it('resolves the maintainers in order and skips unknown ones', async () => {
     const result = await render('/de/projects/arcr', async () => {
       const { detail } = await useProjectDetail()
-      return detail.value?.maintainers.map((m) => `${m.name}>${m.profilePath}`)
+      return () => detail.value?.maintainers.map((m) => `${m.name}>${m.profilePath}`)
     })
     expect(result).toEqual(['Gast>/de/blog/author/gast', 'Team Person>/de/team/tp'])
   })
@@ -134,7 +138,7 @@ describe('useProjectDetail', () => {
   it('answers 404 for an unknown slug', async () => {
     const result = await render('/de/projects/nope', async () => {
       const { detail } = await useProjectDetail()
-      return detail.value
+      return () => detail.value
     })
     expect(result).toEqual({ error: 404 })
   })
@@ -142,14 +146,14 @@ describe('useProjectDetail', () => {
   it('names the slug of the translation per locale, null without one', async () => {
     const result = await render('/de/projects/arcr', async () => {
       const { detail } = await useProjectDetail()
-      return detail.value?.localeSlugs
+      return () => detail.value?.localeSlugs
     })
     expect(result).toEqual({ de: 'arcr', en: 'arcr-en' })
     repo.getProjectByTranslationKey.mockResolvedValue(null)
     clearNuxtData()
     const alone = await render('/de/projects/arcr', async () => {
       const { detail } = await useProjectDetail()
-      return detail.value?.localeSlugs
+      return () => detail.value?.localeSlugs
     })
     expect(alone).toEqual({ de: 'arcr', en: null })
   })

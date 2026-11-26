@@ -1,4 +1,3 @@
-import { createError } from '#imports'
 import type { Locale } from '#layers/content-core'
 import type { TeamDocument, TeamMember } from '../types'
 
@@ -17,10 +16,10 @@ export async function useTeamProfile(slugOverride?: string) {
 
   const slug = computed(() => slugOverride ?? (route.params.slug as string))
 
-  const { data: teamDoc } = await useAsyncData<TeamDocument | null>(
+  const { data: teamDoc, status } = await useAsyncData<TeamDocument | null>(
     () => `team-profile-${activeLocale.value}`,
     () => repo.getTeamDocument(activeLocale.value),
-    { watch: [activeLocale] }
+    { watch: [activeLocale], ...PAGE_DATA_OPTIONS }
   )
 
   const member = computed<TeamMember | null>(() => {
@@ -37,9 +36,11 @@ export async function useTeamProfile(slugOverride?: string) {
   // useBlogContent uses. `fatal: true` is what makes Nuxt replace the route
   // with the error page; without it the response stays 200 and the soft 404
   // survives.
-  if (slug.value && !member.value) {
-    throw createError({ statusCode: 404, statusMessage: 'Team member not found', fatal: true })
-  }
+  failWhenMissing(
+    { data: teamDoc, status },
+    () => Boolean(slug.value) && !member.value,
+    'Team member not found'
+  )
 
   // Profile hero renders the head at 96px in a 2x density box. Requesting
   // a 256px upstream render leaves headroom for retina and lets the
@@ -52,6 +53,7 @@ export async function useTeamProfile(slugOverride?: string) {
 
   return {
     member,
-    avatarSrc
+    avatarSrc,
+    loading: useIsLoading(status)
   }
 }
