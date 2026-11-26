@@ -52,7 +52,6 @@ Ingot ist ein Fork von [Reposilite](https://github.com/dzikoysk/reposilite) von 
 
 - **Java 17 oder neuer** wird für das JAR vorausgesetzt. Das Docker-Image enthält Java 21.
 - **Hosted und Proxy:** Hosted-Repositories für `releases`, `snapshots` und `private` sind eingebaut. Remote-Repositories lassen sich spiegeln, und abgerufene Artefakte lassen sich optional lokal speichern.
-- **Dokumentation:** Die Anleitungen liegen als Markdown im Repository unter `reposilite-site/data/guides`. Eine veröffentlichte Dokumentationsseite gibt es noch nicht.
 - **Einrichtung:** Der [Schnellstart](https://github.com/OneLiteFeatherNET/ingot#quickstart) beschreibt den Start aus dem Quellcode und mit Docker Compose.
 
 ## Dokumentation
