@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.44.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.44.0...onelitefeather.net-v1.44.1) (2026-11-26)
+
+
+### Documentation
+
+* **projects:** link the Ingot wiki from the project page ([#692](https://github.com/OneLiteFeatherNET/launchpad/issues/692)) ([623eb80](https://github.com/OneLiteFeatherNET/launchpad/commit/623eb8029dcb76f57f17e8821f4242c4b93d4553))
+
 ## [1.44.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.43.0...onelitefeather.net-v1.44.0) (2026-11-26)
 
 
