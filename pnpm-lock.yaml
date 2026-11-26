@@ -220,7 +220,7 @@ importers:
         version: 1.15.11
       posthog-js:
         specifier: ^1.298.1
-        version: 1.453.2
+        version: 1.453.3
       ufo:
         specifier: ^1.6.4
         version: 1.6.4
@@ -5959,8 +5959,8 @@ packages:
     resolution: {integrity: sha512-RVHEU9/Pp1Fnjr/MpAJsZoADukCKhfIi15OunEYiGktIkYLkPVvC1sioWolGDS7XByMTx9m/IGbro0Js13zhnQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  posthog-js@1.453.2:
-    resolution: {integrity: sha512-dwWSNoTwGPm/dUCcjT69Bnoq7hCx+qPbnX9kax9HR8yjTd7EbIiza1VPW7LZxu7l1JnaZGXFygw4IWQIiqXGeQ==}
+  posthog-js@1.453.3:
+    resolution: {integrity: sha512-WSG9TPjfpX0o25mMUkhGSk6xs5rDgfZZ077CjDbdC4T8p+eCpd1ceS/3L3LPeOTouVmbSxZjOnAr/22fTXZlOw==}
     peerDependencies:
       '@types/react': '>=16.8.0'
       react: '>=16.8.0'
@@ -13398,7 +13398,7 @@ snapshots:
     dependencies:
       '@nuxt/kit': 3.21.11(magicast@0.5.5)
       defu: 6.1.7
-      posthog-js: 1.453.2
+      posthog-js: 1.453.3
       posthog-node: 5.57.2(rxjs@7.8.2)
     transitivePeerDependencies:
       - '@opentelemetry/api'
@@ -14226,7 +14226,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.2
 
-  posthog-js@1.453.2:
+  posthog-js@1.453.3:
     dependencies:
       '@posthog/browser-common': 0.12.2
       '@posthog/core': 1.69.2
