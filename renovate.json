@@ -10,6 +10,7 @@
     "schedule": ["at any time"],
     "addLabels": ["security"]
   },
+  "platformAutomerge": false,
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
@@ -42,6 +43,12 @@
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor"],
       "groupName": "GitHub Actions"
+    },
+    {
+      "description": "npm minor updates: automerge after the cooldown period, only once every check on the PR has passed",
+      "matchDatasources": ["npm"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true
     },
     {
       "description": "Restore preset rule: major updates, longer cooldown period",
