@@ -255,6 +255,11 @@ export default defineNuxtConfig({
         '/ingest/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/__nuxt_content/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
         '/api/**': { headers: { 'cloudflare-cdn-cache-control': 'no-store' } },
+        // The browser's content queries (layers/content-core fetch adapter). The
+        // answer is the same for every visitor, like the pages that ask for it, so
+        // it takes the pages' edge lifetime; the more specific rule wins over
+        // `/api/**` above.
+        '/api/content/**': { headers: cachedPageHeaders(3600) },
         // /blog redirects live in server/middleware; a rule here drops /en/blog from the sitemap.
         // Renamed project: Cygnus became Slender.
         '/de/projects/cygnus': { redirect: { to: '/de/projects/slender', statusCode: 301 } },

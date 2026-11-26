@@ -39,6 +39,10 @@ const ALLOWED_CROSS_LAYER: Record<string, string> = {}
  * not resolve in this runtime, verified by building" is.
  */
 const ALLOWED_DEEP_IMPORTS: Record<string, string> = {
+  'server/api/content/[method].get.ts': 'The route needs the adapter and the argument schemas as '
+    + 'runtime values; Nitro cannot take them through #layers/content-core, whose index imports '
+    + 'useContentRepository and with it @nuxt/content, which impound refuses outside the app bundle '
+    + '(same limitation as the sitemap routes below). Both files import no @nuxt/content value.',
   'server/api/__sitemap__/team.ts': 'Nitro does not participate in layer aliasing: '
     + 'the route needs `locales` at runtime, and #layers/content-core pulls in '
     + 'useContentRepository, which imports @nuxt/content directly, and Nitro\'s '
