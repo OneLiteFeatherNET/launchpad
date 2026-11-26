@@ -28,7 +28,8 @@ import { collectSourceFiles, relativeToRepo } from '../helpers/sources'
  */
 
 const SLUG_LOOKUP = /route\.params\.slug/
-const NOT_FOUND_THROW = /createError\(\{[^}]*statusCode:\s*404/s
+// Either spelled out, or through failWhenMissing, which owns the fatal 404.
+const NOT_FOUND_THROW = /createError\(\{[^}]*statusCode:\s*404|failWhenMissing\(/s
 
 describe('slug-resolving composables', () => {
   const composables = collectSourceFiles(['composables', 'layers'], ['.ts'])
@@ -70,6 +71,9 @@ describe('the pattern this copies', () => {
     expect(blog).toBeDefined()
     const text = readFileSync(blog as string, 'utf8')
     expect(NOT_FOUND_THROW.test(text)).toBe(true)
-    expect(/fatal:\s*true/.test(text)).toBe(true)
+    const helper = collectSourceFiles(['composables', 'layers'], ['.ts'])
+      .find((file) => basename(file) === 'usePageLoad.ts')
+    expect(helper).toBeDefined()
+    expect(/createError\(\{[^}]*statusCode:\s*404[^}]*fatal:\s*true/s.test(readFileSync(helper as string, 'utf8'))).toBe(true)
   })
 })

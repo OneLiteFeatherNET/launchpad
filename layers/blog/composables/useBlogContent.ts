@@ -1,4 +1,3 @@
-import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { CommunityPoiEmbed, Locale } from '#layers/content-core'
 import type { BlogArticle, BlogAlternateHeader, Person } from '../types'
@@ -62,7 +61,7 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
 
   // The overview's authors are resolved in the same payload as the articles,
   // so the whole page costs one people lookup rather than one per card.
-  const { data: overview } = useAsyncData<{ articles: BlogArticle[], people: Person[] }>(
+  const { data: overview, status } = useAsyncData<{ articles: BlogArticle[], people: Person[] }>(
     () => `all-posts-${activeLocale.value}`,
     async () => {
       // Gated here, not in the computed below: this result is serialised into the SSR payload.
@@ -72,8 +71,9 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
       const slugs = [...new Set(articles.flatMap(authorSlugsOf))]
       return { articles, people: await resolvePeople(slugs, activeLocale.value) }
     },
-    { watch: [activeLocale] }
+    { watch: [activeLocale], ...PAGE_DATA_OPTIONS }
   )
+  const loading = useIsLoading(status)
 
   const allPostsData = computed(() => overview.value?.articles)
 
@@ -115,6 +115,7 @@ export function useBlogOverview(options: BlogOverviewOptions = {}) {
 
   return {
     top1Article,
+    loading,
     allPosts,
     allPostsData,
     authorsOf,
@@ -163,7 +164,7 @@ export async function useBlogArticle() {
   // slugs — that key was empty during setup, so SSR captured an empty
   // authors list and the rendered author cards and Article JSON-LD shipped
   // without any author data.
-  const { data: payload } = await useAsyncData<{
+  const { data: payload, status } = await useAsyncData<{
     article: BlogArticle | null
     authors: Person[]
     embeddedPois: CommunityPoiEmbed[]
@@ -199,14 +200,18 @@ export async function useBlogArticle() {
         embeddedPois
       }
     },
-    { watch: [locale, slug] }
+    { watch: [locale, slug], ...PAGE_DATA_OPTIONS }
   )
 
   // A requested slug that resolves to no (released) article must surface a
-  // real 404 page instead of silently rendering an empty article.
-  if (slug.value && !payload.value?.article) {
-    throw createError({ statusCode: 404, statusMessage: 'Article not found', fatal: true })
-  }
+  // real 404 page instead of silently rendering an empty article: thrown on
+  // the server, shown once the lookup settles on a client navigation.
+  failWhenMissing(
+    { data: payload, status },
+    (data) => Boolean(slug.value) && !data?.article,
+    'Article not found'
+  )
+  const loading = useIsLoading(status)
 
   const article = computed<BlogArticle | null>(() => payload.value?.article || null)
   const authors = computed<Person[]>(() => payload.value?.authors || [])
@@ -272,6 +277,7 @@ export async function useBlogArticle() {
   return {
     blog,
     authors,
-    embeddedPois
+    embeddedPois,
+    loading
   }
 }

@@ -1,7 +1,8 @@
 // @vitest-environment nuxt
 import { mockNuxtImport, mountSuspended } from '@nuxt/test-utils/runtime'
+import { flushPromises } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useBlogArticle } from '../../layers/blog/composables/useBlogContent'
 
 const article = (author?: string | string[]) => ({
@@ -13,9 +14,11 @@ const article = (author?: string | string[]) => ({
 
 let currentSlug = ''
 let counter = 0
-const open = (locale = 'en') => {
+const open = async (locale = 'en') => {
   currentSlug = `post-${++counter}`
-  return mountSuspended(Harness, { route: `/${locale}/blog/${currentSlug}` })
+  const wrapper = await mountSuspended(Harness, { route: `/${locale}/blog/${currentSlug}` })
+  await flushPromises()
+  return wrapper
 }
 
 const profile = (slug: string) => ({ slug, name: slug.toUpperCase() })
@@ -33,7 +36,9 @@ mockNuxtImport('useContentRepository', () => () => repo)
 const Harness = defineComponent({
   async setup() {
     const { authors } = await useBlogArticle()
-    return { text: authors.value.map((author) => `${author.name}>${author.profilePath}`).join(',') }
+    // The article loads lazily: the text follows once the lookup settles.
+    const text = computed(() => authors.value.map((author) => `${author.name}>${author.profilePath}`).join(','))
+    return { text }
   },
   template: '<div>{{ text }}</div>'
 })

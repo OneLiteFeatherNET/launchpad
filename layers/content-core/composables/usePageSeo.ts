@@ -18,7 +18,14 @@ const buildRobots = (opts: PageSeoOptions): string | undefined => {
   return [opts.noindex ? 'noindex' : 'index', opts.nofollow ? 'nofollow' : 'follow'].join(', ')
 }
 
-export function usePageSeo(opts: PageSeoOptions = {}) {
+/**
+ * Page-level SEO. Pass a getter when the options depend on data that may still
+ * be loading on a client navigation; the title, description and image then
+ * follow once it arrives. `robots` and the social handles are read once, at
+ * setup — the server render, which is what crawlers see, always has the data.
+ */
+export function usePageSeo(input: MaybeRefOrGetter<PageSeoOptions> = {}) {
+  const options = computed(() => toValue(input))
   const { locale, localeProperties, t } = useI18n()
   const route = useRoute()
   const site = useSiteConfig()
@@ -40,16 +47,16 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   // Canonical must be byte-identical to this locale's self-referencing
   // hreflang entry below, otherwise the two become conflicting signals.
   const canonicalUrl = computed(() => {
-    if (opts.canonical) return cleanUrl(new URL(opts.canonical, site.url).toString())
+    if (options.value.canonical) return cleanUrl(new URL(options.value.canonical, site.url).toString())
     return cleanUrl(switchLocalePath(locale.value) || route.path || '/')
   })
 
 
-  const keywordsMeta = computed(() => normaliseKeywords(opts.keywords))
+  const keywordsMeta = computed(() => normaliseKeywords(options.value.keywords))
 
   // useRobotsRule writes the <meta> tag and X-Robots-Tag together; a meta tag
   // alone left the header saying `index` on pages that said `noindex`.
-  const robotsDirective = buildRobots(opts)
+  const robotsDirective = buildRobots(options.value)
   if (robotsDirective) useRobotsRule(robotsDirective)
 
   // Canonical + hreflang are emitted once, app-wide, by @nuxtjs/i18n
@@ -64,40 +71,40 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   // Social preview image for OG/Twitter: the page's own image, or the site
   // default — every indexable page carries one.
   const socialImage = computed(() => resolveSocialImage(
-    opts.image,
+    options.value.image,
     site.url,
     (src) => img(src, { width: 1200, height: 630, fit: 'cover', format: 'webp', quality: 80 })
   ))
 
-  const pageTitle = computed(() => opts.title || site.name)
+  const pageTitle = computed(() => options.value.title || site.name)
   const pageDescription = computed(() => {
-    return opts.description || t('seo.default_description') || site.description
+    return options.value.description || t('seo.default_description') || site.description
   })
 
   // Resolve og:locale from the current locale code
   type SocialHandles = { twitterSite?: string; twitterCreator?: string }
   const socialHandles = (runtime.public as { social?: SocialHandles }).social
-  const twitterSite = opts.twitterSite || socialHandles?.twitterSite || undefined
-  const twitterCreator = opts.twitterCreator || socialHandles?.twitterCreator || twitterSite
+  const twitterSite = options.value.twitterSite || socialHandles?.twitterSite || undefined
+  const twitterCreator = options.value.twitterCreator || socialHandles?.twitterCreator || twitterSite
 
   useSeoMeta({
     title: pageTitle,
     description: pageDescription,
     ogTitle: pageTitle,
     ogDescription: pageDescription,
-    ogType: opts.ogType || 'website',
+    ogType: options.value.ogType || 'website',
     ogUrl: canonicalUrl,
     ogImage: () => socialImage.value.url,
-    ogImageAlt: opts.imageAlt || pageTitle,
-    ogImageWidth: opts.imageWidth || socialImage.value.width,
-    ogImageHeight: opts.imageHeight || socialImage.value.height,
+    ogImageAlt: () => options.value.imageAlt || pageTitle.value,
+    ogImageWidth: () => options.value.imageWidth || socialImage.value.width,
+    ogImageHeight: () => options.value.imageHeight || socialImage.value.height,
     ogSiteName: site.name,
     // og:locale + og:locale:alternate are emitted by @nuxtjs/i18n.
-    twitterCard: opts.twitterCard || 'summary_large_image',
+    twitterCard: options.value.twitterCard || 'summary_large_image',
     twitterTitle: pageTitle,
     twitterDescription: pageDescription,
     twitterImage: () => socialImage.value.url,
-    twitterImageAlt: opts.imageAlt || pageTitle,
+    twitterImageAlt: () => options.value.imageAlt || pageTitle.value,
     twitterSite,
     twitterCreator
   })
@@ -109,7 +116,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   // out because the bare name is ambiguous in the module's generated types
   // (a takumi variant exists too), and satori is the renderer installed here.
   defineOgImage('NuxtSeo.satori', {
-    title: opts.title || site.name || 'OneLiteFeather',
+    title: options.value.title || site.name || 'OneLiteFeather',
     description: pageDescription.value
   })
 
@@ -119,7 +126,7 @@ export function usePageSeo(opts: PageSeoOptions = {}) {
   // was left without a type — two page nodes per URL, one of them untyped.
   useSchemaOrg(computed(() => [
     defineWebPage({
-      '@type': opts.schemaType || 'WebPage',
+      '@type': options.value.schemaType || 'WebPage',
       name: pageTitle.value,
       description: pageDescription.value,
       url: canonicalUrl.value,

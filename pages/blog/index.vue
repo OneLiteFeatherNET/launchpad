@@ -9,7 +9,7 @@ definePageMeta({
   layout: 'default',
 });
 
-const { top1Article, allPosts, authorsOf } = useBlogOverview()
+const { top1Article, allPosts, authorsOf, loading } = useBlogOverview()
 
 usePageSeo({
   title: t('blog.overview.page_title'),
@@ -57,20 +57,28 @@ useSchemaOrg(computed(() => {
       Screen readers still get one naming the page.
     -->
     <h1 class="sr-only">{{ t('blog.overview.title') }}</h1>
-    <Top1
-        v-if="top1Article"
-        :blog-article="top1Article"
-        :authors="authorsOf(top1Article)"
-    />
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
-      <ArticleCard
-        v-for="(article, index) in allPosts"
-        :key="article.slug"
-        :priority="!top1Article && index === 0"
-        :blog-article="article"
-        :authors="authorsOf(article)"
+    <SkeletonRegion v-if="loading">
+      <Top1Skeleton />
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
+        <ArticleCardSkeleton v-for="n in 6" :key="n" />
+      </div>
+    </SkeletonRegion>
+    <template v-else>
+      <Top1
+          v-if="top1Article"
+          :blog-article="top1Article"
+          :authors="authorsOf(top1Article)"
       />
-    </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
+        <ArticleCard
+          v-for="(article, index) in allPosts"
+          :key="article.slug"
+          :priority="!top1Article && index === 0"
+          :blog-article="article"
+          :authors="authorsOf(article)"
+        />
+      </div>
+    </template>
   </div>
 </template>
 

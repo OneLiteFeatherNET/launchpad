@@ -9,7 +9,7 @@ definePageMeta({
   layout: 'default',
 });
 
-const { blog, authors, embeddedPois } = await useBlogArticle()
+const { blog, authors, embeddedPois, loading } = await useBlogArticle()
 
 // All Article-level SEO (meta tags, Article JSON-LD, breadcrumbs, OG
 // image) lives in useArticleSeo — keeps this page focused on view code.
@@ -57,14 +57,15 @@ useHead(() => {
 // themselves; the `prose` classes this wrapper used compiled to nothing,
 // because the typography plugin is not installed.
 const articleClass
-  = 'overflow-hidden rounded-large bg-surface-container-low shadow-elevation-1 '
+  = `${ARTICLE_CARD_CLASS} `
     + 'focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-secondary'
 </script>
 
 <template>
   <div class="container mx-auto max-w-screen-lg px-4 md:px-6 py-6 md:py-8">
+    <ArticleSkeleton v-if="loading" />
     <article
-      v-if="blog"
+      v-else-if="blog"
       :class="articleClass"
       aria-labelledby="article-title"
     >
