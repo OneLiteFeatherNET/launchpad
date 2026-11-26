@@ -16,7 +16,7 @@ platforms:
   - 'Docker'
 license: 'Apache-2.0'
 links:
-  docs: 'https://github.com/OneLiteFeatherNET/ingot#readme'
+  docs: 'https://docs.onelitefeather.net/ingot'
   source: 'https://github.com/OneLiteFeatherNET/ingot'
   issues: 'https://github.com/OneLiteFeatherNET/ingot/issues'
   downloads:
@@ -54,3 +54,13 @@ Ingot ist ein Fork von [Reposilite](https://github.com/dzikoysk/reposilite) von 
 - **Hosted und Proxy:** Hosted-Repositories für `releases`, `snapshots` und `private` sind eingebaut. Remote-Repositories lassen sich spiegeln, und abgerufene Artefakte lassen sich optional lokal speichern.
 - **Dokumentation:** Die Anleitungen liegen als Markdown im Repository unter `reposilite-site/data/guides`. Eine veröffentlichte Dokumentationsseite gibt es noch nicht.
 - **Einrichtung:** Der [Schnellstart](https://github.com/OneLiteFeatherNET/ingot#quickstart) beschreibt den Start aus dem Quellcode und mit Docker Compose.
+
+## Dokumentation
+
+Die [Dokumentation](https://docs.onelitefeather.net/ingot) ist in diese Bereiche gegliedert:
+
+- [Erste Schritte](https://docs.onelitefeather.net/ingot/get-started/get-started): der Einstieg mit einem laufenden Server.
+- [Einrichten](https://docs.onelitefeather.net/ingot/set-up/set-up): Betriebsarten, Docker, Kubernetes und Netzwerk.
+- [Konfigurieren](https://docs.onelitefeather.net/ingot/configure/configure): Anmeldung, Repositories, Suche und Dashboard.
+- [Veröffentlichen und nutzen](https://docs.onelitefeather.net/ingot/publish-and-consume/publish-and-consume): Maven und Gradle einrichten, Zugriffstoken.
+- [Referenz](https://docs.onelitefeather.net/ingot/references/references): Einstellungen, Umgebungsvariablen, HTTP-API und CLI.
