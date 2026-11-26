@@ -90,7 +90,7 @@ const dateLabel = computed(() => formatCalendarDate(props.item.date, locale.valu
           :aria-label="t('carousel.read_article', { title: item.title })"
         >
           {{ t('carousel.read') }}
-          <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
+          <IconFa :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
         </M3Button>
       </div>
     </div>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, nextTick, onMounted, onBeforeUnmount, onKeyStroke } from '#imports';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faLanguage, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import {
   NAV_ITEM_DESKTOP,
@@ -168,9 +167,9 @@ const onSelect = (localeCode: LocaleCode) => {
       @click="toggleDropdown"
       @keydown="onButtonKeydown"
     >
-      <FontAwesomeIcon :icon="faLanguage" class="text-lg" />
+      <IconFa :icon="faLanguage" class="text-lg" />
       <span class="uppercase">{{ currentLocale?.code }}</span>
-      <FontAwesomeIcon :icon="faChevronDown" class="text-sm transition-transform" :class="{ 'rotate-180': isOpen }" />
+      <IconFa :icon="faChevronDown" class="text-sm transition-transform" :class="{ 'rotate-180': isOpen }" />
     </button>
 
     <Transition
@@ -211,7 +210,7 @@ const onSelect = (localeCode: LocaleCode) => {
     <div
       class="flex items-center gap-3 px-4 py-3 text-body-large font-medium text-on-surface-variant"
     >
-      <FontAwesomeIcon :icon="faLanguage" class="text-xl" />
+      <IconFa :icon="faLanguage" class="text-xl" />
       {{ t('navigation.change_language') }}
     </div>
     <SwitchLocalePathLink

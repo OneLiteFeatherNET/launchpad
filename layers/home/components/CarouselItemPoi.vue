@@ -99,7 +99,7 @@ const fallbackClass
 
         <M3Button variant="tonal" :to="item.href" :aria-label="ctaAria">
           {{ ctaLabel }}
-          <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
+          <IconFa :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
         </M3Button>
       </div>
     </div>

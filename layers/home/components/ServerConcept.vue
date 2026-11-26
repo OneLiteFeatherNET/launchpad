@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { ServerConceptPoint } from '../types'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import type { IconDefinition } from '#layers/base/types'
 import { faUsers, faGamepad, faHandshake, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
@@ -50,7 +49,7 @@ const iconFor = (name?: string): IconDefinition => iconMap[name ?? ''] ?? faCirc
           class="h-full"
         >
           <header class="mb-3 flex items-center gap-3">
-            <FontAwesomeIcon
+            <IconFa
               :icon="iconFor(p.icon)"
               class="h-5 w-5 text-primary"
               aria-hidden="true"

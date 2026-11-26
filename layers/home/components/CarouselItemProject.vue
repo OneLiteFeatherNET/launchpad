@@ -120,7 +120,7 @@ const logoFrameClass
           :aria-label="t('carousel.project_cta_aria', { title: item.title })"
         >
           {{ t('carousel.project_cta') }}
-          <font-awesome-icon :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
+          <IconFa :icon="['fas','arrow-right']" class="h-3.5 w-3.5" aria-hidden="true" />
         </M3Button>
       </div>
     </div>
