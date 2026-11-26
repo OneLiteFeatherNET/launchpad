@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.42.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.42.0...onelitefeather.net-v1.42.1) (2026-11-26)
+
+
+### Performance
+
+* **content:** query content through the server on client navigation ([#675](https://github.com/OneLiteFeatherNET/launchpad/issues/675)) ([b9af39f](https://github.com/OneLiteFeatherNET/launchpad/commit/b9af39f64dfb506e285b0e6e412277bc0e4b6579))
+* **deps:** slim the client bundle and inline css ([#671](https://github.com/OneLiteFeatherNET/launchpad/issues/671)) ([3587b02](https://github.com/OneLiteFeatherNET/launchpad/commit/3587b023854b08cff7f04506cd242b230c91c3d1))
+* **web:** improve lcp, fcp and inp on home and blog pages ([#674](https://github.com/OneLiteFeatherNET/launchpad/issues/674)) ([4a74bda](https://github.com/OneLiteFeatherNET/launchpad/commit/4a74bda2d7ff429fc71442fe7cfbdc324eae1dec))
+
+
+### Documentation
+
+* **blog:** add the 26.1 and 26.2 fix to the minecraft2shell post ([#676](https://github.com/OneLiteFeatherNET/launchpad/issues/676)) ([70d212c](https://github.com/OneLiteFeatherNET/launchpad/commit/70d212c41dbcd720d7cc1de368f4727bafa72d3b))
+* **openspec:** propose improve-web-vitals and slim-client-bundle ([#668](https://github.com/OneLiteFeatherNET/launchpad/issues/668)) ([204acd1](https://github.com/OneLiteFeatherNET/launchpad/commit/204acd156e235940e767e6b2110d7815088da597))
+* **openspec:** propose query-content-on-server ([#673](https://github.com/OneLiteFeatherNET/launchpad/issues/673)) ([690cde1](https://github.com/OneLiteFeatherNET/launchpad/commit/690cde194b54b8e3415cdfc6edca8cbc24bd0ccb))
+
 ## [1.42.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.41.0...onelitefeather.net-v1.42.0) (2026-11-25)
 
 
