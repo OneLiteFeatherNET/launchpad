@@ -9,7 +9,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { events } = useEventsOverview()
+const { events, loading } = useEventsOverview()
 
 const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined)
   || 'https://1lf.link/discord'
@@ -52,19 +52,27 @@ useSchemaOrg(computed(() => {
       <p class="mt-3 text-body-large text-on-surface-variant">{{ t('events.intro') }}</p>
     </header>
 
-    <EventSection
-      id="events-current"
-      :title="t('events.sections.current')"
-      :events="events.current"
-      :empty-text="t('events.empty_current')"
-      :empty-action-label="t('events.empty_action')"
-      :empty-action-href="discordUrl"
-    />
-    <EventSection
-      id="events-upcoming"
-      :title="t('events.sections.upcoming')"
-      :events="events.upcoming"
-    />
-    <EventSection id="events-past" :title="t('events.sections.past')" :events="events.past" />
+    <SkeletonRegion v-if="loading" class="space-y-4">
+      <SkeletonBlock class="h-8 w-48" shape="small" />
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <EventCardSkeleton v-for="n in 3" :key="n" />
+      </ul>
+    </SkeletonRegion>
+    <template v-else>
+      <EventSection
+        id="events-current"
+        :title="t('events.sections.current')"
+        :events="events.current"
+        :empty-text="t('events.empty_current')"
+        :empty-action-label="t('events.empty_action')"
+        :empty-action-href="discordUrl"
+      />
+      <EventSection
+        id="events-upcoming"
+        :title="t('events.sections.upcoming')"
+        :events="events.upcoming"
+      />
+      <EventSection id="events-past" :title="t('events.sections.past')" :events="events.past" />
+    </template>
   </div>
 </template>

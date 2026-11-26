@@ -9,7 +9,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { detail } = await useEventDetail()
+const { detail, loading } = await useEventDetail()
 const { trackServerAddressCopied } = useEventConversions()
 
 const event = computed(() => detail.value?.event)
@@ -20,7 +20,7 @@ const description = computed(() => event.value?.summary || t('events.description
 const discordUrl = (runtimeConfig.public?.discordUrl as string | undefined)
   || 'https://1lf.link/discord'
 
-const { socialImage } = usePageSeo({
+const { socialImage } = usePageSeo(() => ({
   title: title.value,
   description: description.value,
   image: event.value?.thumbnail,
@@ -30,7 +30,7 @@ const { socialImage } = usePageSeo({
   // (design.md D4) — canonical, hreflang and Schema.org stay as for a public
   // event, noindex alone keeps it out of search results.
   noindex: event.value?.unlisted === true
-})
+}))
 
 useBreadcrumbs(() => [
   { name: t('navigation.home'), url: `/${locale.value}` },
@@ -73,7 +73,8 @@ const resources = computed(() => event.value?.resources ?? [])
 
 <template>
   <div class="container mx-auto max-w-screen-lg px-4 py-6 md:px-6 md:py-10">
-    <article v-if="event && detail && phase" class="space-y-8">
+    <EventDetailSkeleton v-if="loading" />
+    <article v-else-if="event && detail && phase" class="space-y-8">
       <header class="space-y-4">
         <p>
           <M3Button variant="text" :icon="['fas', 'chevron-left']" :to="`/${locale}/events`">

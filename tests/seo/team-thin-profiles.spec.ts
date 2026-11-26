@@ -7,7 +7,7 @@ const read = (file: string) => readFileSync(join(repoRoot, file), 'utf8')
 
 describe('thin team profiles stay out of the index', () => {
   it('the detail page sets noindex from isThinTeamProfile', () => {
-    const call = /usePageSeo\(\{([\s\S]*?)\n\}\)/.exec(read('pages/team/[slug].vue'))?.[1]
+    const call = /usePageSeo\(\(\) => \(\{([\s\S]*?)\n\}\)\)/.exec(read('pages/team/[slug].vue'))?.[1]
     expect(call, 'usePageSeo({...}) call not found').toBeDefined()
     expect(call).toMatch(/noindex:\s*member\.value\s*\?\s*isThinTeamProfile\(member\.value\)/)
   })

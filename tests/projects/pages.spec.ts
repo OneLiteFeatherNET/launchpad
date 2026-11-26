@@ -17,7 +17,7 @@ describe.each([
   })
 
   it('sets a title through usePageSeo and writes breadcrumbs', () => {
-    expect(source).toMatch(/usePageSeo\(\{[\s\S]*?\btitle:/)
+    expect(source).toMatch(/usePageSeo\((?:\(\) => \()?\{[\s\S]*?\btitle:/)
     expect(source).toContain('useBreadcrumbs(')
   })
 

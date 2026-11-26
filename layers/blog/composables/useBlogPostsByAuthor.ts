@@ -19,6 +19,8 @@ export async function useBlogPostsByAuthor(slug: MaybeRefOrGetter<string>) {
   const { data, status } = await useAsyncData<AuthorPosts>(
     () => `blog-author-${activeLocale.value}-${toValue(slug)}`,
     async () => {
+      // No author yet while the profile it belongs to is still loading.
+      if (!toValue(slug)) return { articles: [], people: [] }
       const articles = articlesByAuthor(
         await repo.listBlogArticles(activeLocale.value),
         toValue(slug),

@@ -18,7 +18,7 @@ describe('event detail JSON-LD image', () => {
   })
 
   it('takes that image from usePageSeo, the one og:image uses', () => {
-    expect(source).toMatch(/const \{ socialImage \} = usePageSeo\(\{/)
+    expect(source).toMatch(/const \{ socialImage \} = usePageSeo\(\(\) => \(\{/)
   })
 
   it('no longer resolves the raw thumbnail path against the site origin', () => {

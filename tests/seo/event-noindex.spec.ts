@@ -24,11 +24,11 @@ function pageSource(): string {
 describe('event detail page noindex wiring', () => {
   it('finds the usePageSeo call it is checking', () => {
     // Without this the pattern below could pass by matching nothing.
-    expect(pageSource()).toMatch(/usePageSeo\(\{/)
+    expect(pageSource()).toMatch(/usePageSeo\(\(\) => \(\{/)
   })
 
   it('ties noindex to event.unlisted, not to the phase', () => {
-    const call = /usePageSeo\(\{([\s\S]*?)\n\}\)/.exec(pageSource())?.[1]
+    const call = /usePageSeo\(\(\) => \(\{([\s\S]*?)\n\}\)\)/.exec(pageSource())?.[1]
     expect(call, 'usePageSeo({...}) call not found').toBeDefined()
     expect(call).toMatch(/noindex:\s*event\.value\?\.unlisted === true/)
   })

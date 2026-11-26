@@ -39,7 +39,8 @@ describe('SkeletonText', () => {
   })
 
   it('shortens the last line', () => {
-    const blocks = mount(SkeletonText, { props: { lines: 2 }, global }).findAllComponents(SkeletonBlock)
+    const wrapper = mount(SkeletonText, { props: { lines: 2 }, global })
+    const blocks = wrapper.findAllComponents(SkeletonBlock)
     expect(blocks[0]!.classes()).not.toContain('w-2/3')
     expect(blocks[1]!.classes()).toContain('w-2/3')
   })

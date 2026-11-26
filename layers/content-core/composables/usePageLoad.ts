@@ -12,13 +12,13 @@ type LoadStatus = 'idle' | 'pending' | 'success' | 'error'
  * keeps the entry for the session. Only the initial fetch of a key reads the
  * cache; a refresh (a watched source changed) always asks again.
  */
-export function cachedPageData(
+export function cachedPageData<T>(
   key: string,
   nuxtApp: NuxtApp,
   context: { cause: string }
-): unknown {
+): T | undefined {
   if (context.cause !== 'initial') return undefined
-  return nuxtApp.payload.data[key] ?? nuxtApp.static.data[key]
+  return (nuxtApp.payload.data[key] ?? nuxtApp.static.data[key]) as T | undefined
 }
 
 /**

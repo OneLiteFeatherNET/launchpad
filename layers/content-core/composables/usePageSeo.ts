@@ -47,7 +47,8 @@ export function usePageSeo(input: MaybeRefOrGetter<PageSeoOptions> = {}) {
   // Canonical must be byte-identical to this locale's self-referencing
   // hreflang entry below, otherwise the two become conflicting signals.
   const canonicalUrl = computed(() => {
-    if (options.value.canonical) return cleanUrl(new URL(options.value.canonical, site.url).toString())
+    const { canonical } = options.value
+    if (canonical) return cleanUrl(new URL(canonical, site.url).toString())
     return cleanUrl(switchLocalePath(locale.value) || route.path || '/')
   })
 
@@ -85,7 +86,8 @@ export function usePageSeo(input: MaybeRefOrGetter<PageSeoOptions> = {}) {
   type SocialHandles = { twitterSite?: string; twitterCreator?: string }
   const socialHandles = (runtime.public as { social?: SocialHandles }).social
   const twitterSite = options.value.twitterSite || socialHandles?.twitterSite || undefined
-  const twitterCreator = options.value.twitterCreator || socialHandles?.twitterCreator || twitterSite
+  const twitterCreator = options.value.twitterCreator
+    || socialHandles?.twitterCreator || twitterSite
 
   useSeoMeta({
     title: pageTitle,

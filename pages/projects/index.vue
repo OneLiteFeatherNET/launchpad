@@ -10,7 +10,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { projects } = await useProjectsOverview()
+const { projects, loading } = await useProjectsOverview()
 
 const facets = computed(() => platformFacets(projects.value))
 
@@ -92,7 +92,8 @@ useSchemaOrg(computed(() => {
       </p>
     </header>
 
-    <div v-if="projects.length" class="space-y-12">
+    <ProjectsOverviewSkeleton v-if="loading" />
+    <div v-else-if="projects.length" class="space-y-12">
       <ProjectFilters
         :filter="filter"
         :facets="facets"

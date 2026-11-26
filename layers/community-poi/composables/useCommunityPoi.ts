@@ -1,4 +1,3 @@
-import { createError } from '#imports'
 import type { LocaleObject } from 'vue-i18n-routing'
 import type { Locale } from '#layers/content-core'
 // The ordering lives in content-core beside `CommunityPoiDocument.status`,
@@ -60,17 +59,17 @@ export function useCommunityPoiOverview() {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data: pois } = useAsyncData<CommunityPoiSummary[]>(
+  const { data: pois, status } = useAsyncData<CommunityPoiSummary[]>(
     () => `community-poi-list-${activeLocale.value}`,
     () => repo.listCommunityPois(activeLocale.value),
-    { watch: [activeLocale] }
+    { watch: [activeLocale], ...PAGE_DATA_OPTIONS }
   )
 
   const sorted = computed<CommunityPoiSummary[]>(() => sortPoiSummaries(pois.value || []))
 
   const total = computed(() => sorted.value.length)
 
-  return { pois: sorted, total }
+  return { pois: sorted, total, loading: useIsLoading(status) }
 }
 
 /** The POIs whose `projects` names `projectSlug`, as cards, in overview order. */
@@ -86,7 +85,7 @@ export async function useCommunityPoisByProject(projectSlug: MaybeRefOrGetter<st
       if (!slug) return []
       return sortPoiSummaries(await repo.listCommunityPoisByProject(activeLocale.value, slug))
     },
-    { watch: [activeLocale, () => toValue(projectSlug)], default: () => [] }
+    { watch: [activeLocale, () => toValue(projectSlug)], default: () => [], ...PAGE_DATA_OPTIONS }
   )
 
   return { pois: data }
@@ -121,22 +120,16 @@ export async function useCommunityPoiDetail() {
 
   const slug = computed<string | undefined>(() => slugSegments.value.at(-1))
 
-  const { data: poi } = await useAsyncData<CommunityPoi | null>(
+  const { data: poi, status } = await useAsyncData<CommunityPoi | null>(
     () => `community-poi-${route.path}-${activeLocale.value}`,
     async () => {
       if (!slug.value) return null
       return repo.getCommunityPoiBySlug(activeLocale.value, slug.value)
     },
-    { watch: [activeLocale, slug] }
+    { watch: [activeLocale, slug], ...PAGE_DATA_OPTIONS }
   )
 
-  if (slug.value && !poi.value) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'Community POI not found',
-      fatal: true
-    })
-  }
+  failWhenMissing({ data: poi, status }, (data) => Boolean(slug.value) && !data, 'Community POI not found')
 
   const publishLocaleParams = (localeSlugs: Record<string, string>) => {
     const params: Record<string, { slug: string[] }> = {}
@@ -181,5 +174,5 @@ locales], async () => {
     publishLocaleParams(localeSlugs)
   }, { immediate: true })
 
-  return { poi }
+  return { poi, loading: useIsLoading(status) }
 }

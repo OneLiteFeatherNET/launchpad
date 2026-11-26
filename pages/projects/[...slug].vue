@@ -8,7 +8,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { detail } = await useProjectDetail()
+const { detail, loading } = await useProjectDetail()
 
 const project = computed(() => detail.value?.project)
 const maintainers = computed(() => detail.value?.maintainers ?? [])
@@ -18,14 +18,14 @@ const description = computed(() => project.value?.summary || t('projects.overvie
 // The join with community POIs happens here: neither layer knows the other.
 const { pois } = await useCommunityPoisByProject(computed(() => project.value?.slug ?? ''))
 
-usePageSeo({
+usePageSeo(() => ({
   title: title.value,
   description: description.value,
   image: project.value?.socialImage || project.value?.logo || sectionOgImage('projects', locale.value),
   imageAlt: project.value?.socialImage ? title.value : project.value?.logoAlt,
   ogType: 'article',
   schemaType: 'ItemPage'
-})
+}))
 
 useBreadcrumbs(() => [
   { name: t('navigation.home'), url: `/${locale.value}` },
@@ -84,7 +84,8 @@ const factValueClass = 'text-body-large text-on-surface'
 
 <template>
   <div class="container mx-auto max-w-screen-lg px-4 py-6 md:px-6 md:py-10">
-    <article v-if="project" class="space-y-8">
+    <ProjectDetailSkeleton v-if="loading" />
+    <article v-else-if="project" class="space-y-8">
       <header class="space-y-4">
         <p class="text-sm">
           <NuxtLink :to="`/${locale}/projects`" :class="backLinkClass">

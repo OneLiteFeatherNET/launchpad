@@ -8,7 +8,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { poi } = await useCommunityPoiDetail()
+const { poi, loading } = await useCommunityPoiDetail()
 
 // The join with projects happens here: neither layer knows the other.
 const { projects: linkedProjects } = await useProjectsBySlugs(() => poi.value?.projects ?? [])
@@ -16,7 +16,7 @@ const { projects: linkedProjects } = await useProjectsBySlugs(() => poi.value?.p
 const title = computed(() => poi.value?.title || t('community_poi.overview.title'))
 const description = computed(() => poi.value?.summary || t('community_poi.overview.description'))
 
-const { socialImage } = usePageSeo({
+const { socialImage } = usePageSeo(() => ({
   title: title.value,
   description: description.value,
   image: poi.value?.thumbnail,
@@ -25,7 +25,7 @@ const { socialImage } = usePageSeo({
   // The build itself is the CreativeWork node defined below; the page is the
   // page about it.
   schemaType: 'ItemPage'
-})
+}))
 
 useBreadcrumbs(() => [
   { name: t('navigation.home'), url: `/${locale.value}` },
@@ -95,7 +95,8 @@ const progressSectionClass = 'rounded-large bg-surface-container-low p-5'
 
 <template>
   <div class="container mx-auto max-w-screen-lg px-4 py-6 md:px-6 md:py-10">
-    <article v-if="poi" class="space-y-8">
+    <CommunityPoiDetailSkeleton v-if="loading" />
+    <article v-else-if="poi" class="space-y-8">
       <header class="space-y-4">
         <p class="text-sm">
           <NuxtLink :to="`/${locale}/community-poi`" :class="backLinkClass">
