@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.43.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.42.1...onelitefeather.net-v1.43.0) (2026-11-26)
+
+
+### Features
+
+* **ui:** show skeletons while a page loads on client navigation ([#680](https://github.com/OneLiteFeatherNET/launchpad/issues/680)) ([4fee7e4](https://github.com/OneLiteFeatherNET/launchpad/commit/4fee7e4eb8a5cd545e2780ec3f7b390e946df4e4))
+
+
+### Documentation
+
+* **openspec:** propose add-skeleton-loading ([#677](https://github.com/OneLiteFeatherNET/launchpad/issues/677)) ([2eb1240](https://github.com/OneLiteFeatherNET/launchpad/commit/2eb12402d199987b039bb8711a809306c5e10c9c))
+
 ## [1.42.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.42.0...onelitefeather.net-v1.42.1) (2026-11-26)
 
 
