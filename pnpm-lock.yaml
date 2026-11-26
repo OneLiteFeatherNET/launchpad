@@ -220,7 +220,7 @@ importers:
         version: 1.15.11
       posthog-js:
         specifier: ^1.298.1
-        version: 1.453.3
+        version: 1.454.0
       ufo:
         specifier: ^1.6.4
         version: 1.6.4
@@ -2487,8 +2487,8 @@ packages:
   '@poppinss/exception@1.2.3':
     resolution: {integrity: sha512-dCED+QRChTVatE9ibtoaxc+WkdzOSjYTKi/+uacHWIsfodVfpsueo3+DKpgU5Px8qXjgmXkSvhXvSCz3fnP9lw==}
 
-  '@posthog/browser-common@0.12.2':
-    resolution: {integrity: sha512-ZfqE1ntvsFPaD5I1IRh/wRL6JPW6Zlo8NDTOc0s5OtK7JeER9jE/byLjSHQ1/cKZk3MD8JG7F1hANUhnos6dOg==}
+  '@posthog/browser-common@0.13.1':
+    resolution: {integrity: sha512-2e7AVKc8F1mDGnqvEE6Mu/5wcojDXeK4ddeq0B2o1X5iwDVJ7XSH+7Rf3qNHkqwUZLCT9aoUe2mkgfM9vIo5kA==}
 
   '@posthog/core@1.60.1':
     resolution: {integrity: sha512-UpswaG2957O6Ywfx1aCeI8BbXcfoKduKwq1ytBml80AQuAmgK672OmhDcldA7wg4vGP49LpDTgxcNbLvZwQOqw==}
@@ -4128,6 +4128,9 @@ packages:
 
   dompurify@3.4.17:
     resolution: {integrity: sha512-B/pSlYVHQ58kqISD/yDjuJ1yfzI34m1gF4lAod2bwSRhiN4K5Cl3H8Af7hqB2PmTL911tdEudnnXn5FnhRoz0w==}
+
+  dompurify@3.5.0:
+    resolution: {integrity: sha512-LYC0ZkE8P1V42JsRYTwMdme/2ET8SpOc5AA2eOFjP/IadvRd2fwiT4TVz5vkfy0XUx12aS2UaRkTnfVPNOv9vw==}
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
@@ -6120,8 +6123,8 @@ packages:
     resolution: {integrity: sha512-RVHEU9/Pp1Fnjr/MpAJsZoADukCKhfIi15OunEYiGktIkYLkPVvC1sioWolGDS7XByMTx9m/IGbro0Js13zhnQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  posthog-js@1.453.3:
-    resolution: {integrity: sha512-WSG9TPjfpX0o25mMUkhGSk6xs5rDgfZZ077CjDbdC4T8p+eCpd1ceS/3L3LPeOTouVmbSxZjOnAr/22fTXZlOw==}
+  posthog-js@1.454.0:
+    resolution: {integrity: sha512-QvONcXcNAbmoAxJml9/asWUDkNJJC7BAp9dtq/zT7hsIlFBTVzwt7XIGBlIdMY5e9WH359xOchqOGPnk0wDYcA==}
     peerDependencies:
       '@types/react': '>=16.8.0'
       react: '>=16.8.0'
@@ -10013,11 +10016,11 @@ snapshots:
 
   '@poppinss/exception@1.2.3': {}
 
-  '@posthog/browser-common@0.12.2':
+  '@posthog/browser-common@0.13.1':
     dependencies:
       '@posthog/core': 1.69.2
       '@posthog/types': 1.427.1
-      dompurify: 3.4.17
+      dompurify: 3.5.0
       preact: 10.29.8
     transitivePeerDependencies:
       - preact-render-to-string
@@ -11520,6 +11523,10 @@ snapshots:
       domelementtype: 2.3.0
 
   dompurify@3.4.17:
+    optionalDependencies:
+      '@types/trusted-types': 2.0.7
+
+  dompurify@3.5.0:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
@@ -13659,7 +13666,7 @@ snapshots:
     dependencies:
       '@nuxt/kit': 3.21.11(magicast@0.5.5)
       defu: 6.1.7
-      posthog-js: 1.453.3
+      posthog-js: 1.454.0
       posthog-node: 5.57.2(rxjs@7.8.2)
     transitivePeerDependencies:
       - '@opentelemetry/api'
@@ -14655,9 +14662,9 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.2
 
-  posthog-js@1.453.3:
+  posthog-js@1.454.0:
     dependencies:
-      '@posthog/browser-common': 0.12.2
+      '@posthog/browser-common': 0.13.1
       '@posthog/core': 1.69.2
       '@posthog/types': 1.427.1
       core-js: 3.51.0
