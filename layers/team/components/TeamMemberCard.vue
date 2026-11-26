@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
@@ -96,7 +95,7 @@ const ariaLabel = computed(() => t('team.card_aria', { name: props.name, role: r
         aria-hidden="true"
       >
         {{ t('team.view_profile') }}
-        <FontAwesomeIcon :icon="faArrowUpRightFromSquare" class="h-3.5 w-3.5" />
+        <IconFa :icon="faArrowUpRightFromSquare" class="h-3.5 w-3.5" />
       </p>
     </M3Card>
   </li>

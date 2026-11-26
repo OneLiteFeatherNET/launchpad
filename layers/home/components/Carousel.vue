@@ -7,7 +7,6 @@ import CarouselItemEvent from './CarouselItemEvent.vue'
 import CarouselItemPoi from './CarouselItemPoi.vue'
 import CarouselItemProject from './CarouselItemProject.vue'
 import type { AnySlide, NormalizedSlide } from '../types'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 import {
   CAROUSEL_DOT,
@@ -308,7 +307,7 @@ const componentFor = (slide: NormalizedSlide) => {
             :aria-pressed="userPaused ? 'true' : 'false'"
             @click.stop="userPaused = !userPaused"
           >
-            <FontAwesomeIcon
+            <IconFa
               :icon="userPaused ? faPlay : faPause"
               class="h-3 w-3"
               aria-hidden="true"

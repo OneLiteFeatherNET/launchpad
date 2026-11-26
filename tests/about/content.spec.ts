@@ -11,7 +11,7 @@ const PILLAR_TARGETS = ['/community-poi',
 '/projects',
 '/events',
 '/blog']
-const registeredIcons = read('plugins/fontawesome.ts')
+const registeredIcons = read('layers/base/utils/iconRegistry.ts')
 const camel = (icon: string) => `fa${icon.replace(/(^|-)(\w)/g, (_, __, c: string) => c.toUpperCase())}`
 
 describe.each(['de', 'en'])('about content (%s)', (locale) => {

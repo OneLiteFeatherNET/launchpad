@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from '#imports'
 import { useI18n } from 'vue-i18n'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import type { IconDefinition } from '#layers/base/types'
 import { faDesktop, faGamepad, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import type { ButtonVariant } from '#layers/base'
 
@@ -41,7 +40,7 @@ const mainIcon = computed<IconDefinition>(() => iconMap[props.icon] ?? faCircleI
   <M3Card as="article" variant="outlined" class="h-full">
     <header class="mb-3 flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <FontAwesomeIcon :icon="mainIcon" class="h-5 w-5 text-primary" aria-hidden="true" />
+        <IconFa :icon="mainIcon" class="h-5 w-5 text-primary" aria-hidden="true" />
         <h3 class="text-title-large text-on-surface">{{ title }}</h3>
       </div>
     </header>

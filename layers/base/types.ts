@@ -1,5 +1,3 @@
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-
 // Types of the base layer's Material Design 3 primitives (M3*). Kept apart
 // from the components so a domain can type a prop it passes through without
 // importing a .vue file.
@@ -43,8 +41,18 @@ export type M3Color = 'primary' | 'secondary' | 'tertiary' | 'error' | 'brand-or
 export type ChipLabelColor = M3Color | 'neutral'
 
 /**
+ * A Font Awesome icon definition, the shape the `@fortawesome/free-*-svg-icons`
+ * packages export: `icon` is `[width, height, aliases, unicode, path]`.
+ */
+export interface IconDefinition {
+  prefix: string
+  iconName: string
+  icon: [number, number, (string | number)[], string, string | string[]]
+}
+
+/**
  * A Font Awesome icon as `IconFa` takes it: `'home'` or `['fas', 'home']`
- * for an icon registered in plugins/fontawesome.ts, or an imported icon
+ * for an icon registered in utils/iconRegistry.ts, or an imported icon
  * definition such as `faGithub` for one used in a single place.
  */
 export type IconName = string | [string, string] | IconDefinition

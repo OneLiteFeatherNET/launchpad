@@ -281,10 +281,7 @@ export default defineNuxtConfig({
     vite: {
         plugins: [tailwindcss()],
     },
-    // Include FontAwesome core styles (we set autoAddCss = false in the plugin)
-    css: [
-        '@fortawesome/fontawesome-svg-core/styles.css', '~/assets/css/tailwind.css'
-    ],
+    css: ['~/assets/css/tailwind.css'],
     appConfig: {
         appId: 'OneLiteFeather',
         version: pkg.version
