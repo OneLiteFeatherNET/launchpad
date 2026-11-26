@@ -85,7 +85,8 @@ const factValueClass = 'text-body-large text-on-surface'
 <template>
   <div class="container mx-auto max-w-screen-lg px-4 py-6 md:px-6 md:py-10">
     <ProjectDetailSkeleton v-if="loading" />
-    <article v-else-if="project" class="space-y-8">
+    <Suspense v-else-if="project">
+    <article class="space-y-8">
       <header class="space-y-4">
         <p class="text-sm">
           <NuxtLink :to="`/${locale}/projects`" :class="backLinkClass">
@@ -175,5 +176,9 @@ const factValueClass = 'text-body-large text-on-surface'
         <CommunityPoiGrid :pois="pois" />
       </section>
     </article>
+    <template #fallback>
+      <ProjectDetailSkeleton />
+    </template>
+    </Suspense>
   </div>
 </template>

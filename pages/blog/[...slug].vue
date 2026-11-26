@@ -64,8 +64,8 @@ const articleClass
 <template>
   <div class="container mx-auto max-w-screen-lg px-4 md:px-6 py-6 md:py-8">
     <ArticleSkeleton v-if="loading" />
+    <Suspense v-else-if="blog">
     <article
-      v-else-if="blog"
       :class="articleClass"
       aria-labelledby="article-title"
     >
@@ -129,6 +129,10 @@ const articleClass
         </section>
       </div>
     </article>
+    <template #fallback>
+      <ArticleSkeleton />
+    </template>
+    </Suspense>
   </div>
 </template>
 

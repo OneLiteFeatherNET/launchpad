@@ -55,7 +55,7 @@ useSchemaOrg(computed(() => {
     <SkeletonRegion v-if="loading" class="space-y-4">
       <SkeletonBlock class="h-8 w-48" shape="small" />
       <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <EventCardSkeleton v-for="n in 3" :key="n" />
+        <EventCardSkeleton v-for="n in 1" :key="n" />
       </ul>
     </SkeletonRegion>
     <template v-else>

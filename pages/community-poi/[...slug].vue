@@ -96,7 +96,8 @@ const progressSectionClass = 'rounded-large bg-surface-container-low p-5'
 <template>
   <div class="container mx-auto max-w-screen-lg px-4 py-6 md:px-6 md:py-10">
     <CommunityPoiDetailSkeleton v-if="loading" />
-    <article v-else-if="poi" class="space-y-8">
+    <Suspense v-else-if="poi">
+    <article class="space-y-8">
       <header class="space-y-4">
         <p class="text-sm">
           <NuxtLink :to="`/${locale}/community-poi`" :class="backLinkClass">
@@ -181,5 +182,9 @@ const progressSectionClass = 'rounded-large bg-surface-container-low p-5'
 
       <LazyCommunityPoiCollaboration :poi="poi" />
     </article>
+    <template #fallback>
+      <CommunityPoiDetailSkeleton />
+    </template>
+    </Suspense>
   </div>
 </template>
