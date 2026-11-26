@@ -152,6 +152,10 @@ describe('edge cache route rules', () => {
     expect(ruleFor(route)).toContain("'cloudflare-cdn-cache-control': 'no-store'")
   })
 
+  it('lets the content API take the pages\' edge lifetime instead of no-store', () => {
+    expect(ruleFor('/api/content/**')).toContain('cachedPageHeaders(3600)')
+  })
+
   it('caches robots.txt for at most an hour', () => {
     expect(ruleFor('/robots.txt')).toContain("'cloudflare-cdn-cache-control': 'max-age=3600")
   })

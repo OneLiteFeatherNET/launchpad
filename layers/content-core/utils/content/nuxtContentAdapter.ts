@@ -1,4 +1,4 @@
-import { queryCollection } from '#imports'
+import type { CollectionQueryBuilder, Collections } from '@nuxt/content'
 import type { Locale } from './collections'
 import type {
   ContentRepository,
@@ -39,7 +39,7 @@ const communityPoiKey = (locale: Locale) => `community_poi_${locale}` as 'commun
 const eventsKey = (locale: Locale) => `events_${locale}` as 'events_de' | 'events_en'
 const projectsKey = (locale: Locale) => `projects_${locale}` as 'projects_de' | 'projects_en'
 
-type CommunityPoiQuery = ReturnType<typeof queryCollection<'community_poi_de' | 'community_poi_en'>>
+type CommunityPoiQuery = CollectionQueryBuilder<Collections['community_poi_de' | 'community_poi_en']>
 
 function communityPoiSummaries(query: CommunityPoiQuery, ...extra: ('projects')[]) {
   return query.select(
@@ -106,11 +106,15 @@ function withoutRoutes<T>(value: T): T {
  * The @nuxt/content-backed {@link ContentRepository} implementation. Every
  * `queryCollection` call in the app is funnelled through here. All methods
  * must run inside a Nuxt context (e.g. an `useAsyncData` fetcher), which is
- * how `queryCollection` resolves the active Nuxt app.
+ * how `queryCollection` resolves the active Nuxt app. The query function is
+ * passed in, not imported: the browser build injects nothing (it uses the fetch
+ * adapter), and the Nitro route binds the server `queryCollection` to its event.
  */
-type Query = typeof queryCollection
+// The browser-side signature of @nuxt/content's `queryCollection`, spelled out
+// because `#imports` means a different function in the app and in Nitro.
+type Query = <T extends keyof Collections>(collection: T) => CollectionQueryBuilder<Collections[T]>
 
-export function createNuxtContentAdapter(query: Query = queryCollection): ContentRepository {
+export function createNuxtContentAdapter(query: Query): ContentRepository {
   return {
     // Projected, not `SELECT *`. This feeds one screen — the overview's
     // headline card and teaser grid — and without a projection every row
