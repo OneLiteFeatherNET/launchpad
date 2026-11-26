@@ -4,9 +4,11 @@ import type { BlogArticle, CardAuthor } from "../types";
 const {getFeatureFlag } = usePostHogFeatureFlag();
 const { locale } = useI18n();
 
-const { blogArticle, authors = [] } = defineProps<{
+const { blogArticle, authors = [], priority = false } = defineProps<{
   blogArticle: BlogArticle;
   authors?: CardAuthor[];
+  /** The card holds the page's LCP image: load it eagerly, at high priority. */
+  priority?: boolean;
 }>();
 const title = computed(() => {
   if (getFeatureFlag('blog-ethanol-conversion').value === 'test') {
@@ -32,7 +34,8 @@ const title = computed(() => {
         width cannot track a fluid column, and the previous `xl:1920px` had
         @nuxt/image offer a 3840px source for a card about 373px wide.
 
-        Lazy because the overview's LCP is Top1's header above these cards.
+        Lazy unless `priority` is set: the overview's LCP is Top1's header
+        above these cards, so only a grid without a Top1 sets it.
       -->
       <NuxtPicture
         v-if="blogArticle?.headerImage"
@@ -44,8 +47,12 @@ const title = computed(() => {
         fit="cover"
         quality="80"
         format="avif,webp"
-        loading="lazy"
-        :img-attrs="{ class: 'w-full h-48 object-cover' }"
+        :loading="priority ? 'eager' : 'lazy'"
+        :preload="priority ? { fetchPriority: 'high' } : false"
+        :img-attrs="{
+          class: 'w-full h-48 object-cover',
+          fetchpriority: priority ? 'high' : undefined
+        }"
       />
     </template>
     <h2 class="text-title-large text-on-surface">

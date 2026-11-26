@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, nextTick, onMounted, onBeforeUnmount, onKeyStroke } from '#imports';
+import { ref, computed, nextTick, watch } from '#imports';
 import { faLanguage, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import {
   NAV_ITEM_DESKTOP,
@@ -69,10 +69,6 @@ const toggleDropdown = async () => {
   else await openDropdown('first');
 };
 
-onKeyStroke('Escape', () => {
-  if (isOpen.value) closeDropdown(true);
-});
-
 const onButtonKeydown = async (e: KeyboardEvent) => {
   if (e.key === 'ArrowDown') { e.preventDefault(); await openDropdown('first'); }
   else if (e.key === 'ArrowUp') { e.preventDefault(); await openDropdown('last'); }
@@ -127,18 +123,23 @@ const onDocumentClick = (e: Event) => {
   closeDropdown(false);
 };
 
-onMounted(() => {
-  if (props.variant === 'desktop') {
-    document.addEventListener('click', onDocumentClick);
-    document.addEventListener('touchstart', onDocumentClick, { passive: true });
-  }
-});
+const onDocumentKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') closeDropdown(true);
+};
 
-onBeforeUnmount(() => {
-  if (props.variant === 'desktop') {
+// The document listeners exist only while the menu is open: a closed selector
+// costs the page no handler on every click, touch and key press. The watcher's
+// cleanup runs on close and on unmount alike.
+watch(isOpen, (open, _previous, onCleanup) => {
+  if (!open || props.variant !== 'desktop') return;
+  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('touchstart', onDocumentClick, { passive: true });
+  document.addEventListener('keydown', onDocumentKeydown);
+  onCleanup(() => {
     document.removeEventListener('click', onDocumentClick);
     document.removeEventListener('touchstart', onDocumentClick);
-  }
+    document.removeEventListener('keydown', onDocumentKeydown);
+  });
 });
 
 // Inform parent (e.g., mobile overlay) when a language was selected

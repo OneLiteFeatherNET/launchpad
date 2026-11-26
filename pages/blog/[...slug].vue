@@ -68,17 +68,10 @@ const articleClass
       :class="articleClass"
       aria-labelledby="article-title"
     >
-      <NuxtPicture
+      <ArticleHeaderImage
         v-if="blog?.headerImage"
-        :src="blog?.headerImage"
+        :src="blog.headerImage"
         :alt="blog?.headerImageAlt || blog?.title || ''"
-        sizes="xs:300px sm:500px md:700px lg:1200px xl:1920px"
-        width="1920"
-        height="1080"
-        fit="cover"
-        quality="80"
-        :img-attrs="{ class: 'aspect-video object-cover w-full' }"
-        format="avif,webp"
       />
       <div class="p-6 md:p-8">
         <h1 id="article-title" class="text-display-small font-bold text-on-surface">{{ title }}</h1>

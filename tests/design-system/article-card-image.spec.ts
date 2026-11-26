@@ -85,7 +85,7 @@ describe('article card image', () => {
 
   it('leaves the hero to load first', () => {
     // The overview's LCP is Top1's header image. The cards below it are the
-    // eight that can wait — none of them was deferred.
-    expect(read(CARD)).toMatch(/loading="lazy"/)
+    // eight that can wait. They stay lazy unless a grid without Top1 sets `priority`.
+    expect(read(CARD)).toMatch(/:loading="priority \? 'eager' : 'lazy'"/)
   })
 })
