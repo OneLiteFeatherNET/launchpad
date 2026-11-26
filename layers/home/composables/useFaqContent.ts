@@ -11,13 +11,13 @@ export function useFaqContent() {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'en') as Locale)
 
-  const { data: entries } = useAsyncData<FaqEntry[]>(
+  const { data: entries, status } = useAsyncData<FaqEntry[]>(
     () => `faq-${activeLocale.value}`,
     () => repo.listFaqEntries(activeLocale.value),
-    { watch: [activeLocale] }
+    { watch: [activeLocale], ...PAGE_DATA_OPTIONS }
   )
 
   const items = computed<FaqEntry[]>(() => entries.value || [])
 
-  return { items }
+  return { items, loading: useIsLoading(status) }
 }

@@ -34,10 +34,10 @@ export function useTeamRoster(options: UseTeamRosterOptions = {}) {
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
   const enabled = computed(() => toValue(options.enabled ?? true))
 
-  const { data: teamDoc } = useAsyncData<TeamDocument | null>(
+  const { data: teamDoc, status } = useAsyncData<TeamDocument | null>(
     () => `team-roster-${activeLocale.value}`,
     () => (enabled.value ? repo.getTeamDocument(activeLocale.value) : Promise.resolve(null)),
-    { watch: [activeLocale, enabled] }
+    { watch: [activeLocale, enabled], ...PAGE_DATA_OPTIONS }
   )
 
   const groups = computed<TeamRankGroup[]>(() => {
@@ -66,5 +66,5 @@ export function useTeamRoster(options: UseTeamRosterOptions = {}) {
     return map
   })
 
-  return { groups, memberCount, bySlug }
+  return { groups, memberCount, bySlug, loading: useIsLoading(status) }
 }

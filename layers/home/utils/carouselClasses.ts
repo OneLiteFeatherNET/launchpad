@@ -20,6 +20,16 @@ export const CAROUSEL_SCRIM
  */
 export const CAROUSEL_DOTS_SPACE = '[--carousel-dots-space:4.5rem] sm:[--carousel-dots-space:5rem]'
 
+/**
+ * The carousel's frame: the box every slide sits in, and the box its
+ * placeholder takes while the slides load, so the two have the same size.
+ * `group` reveals the prev/next buttons on hover and focus.
+ */
+export const CAROUSEL_FRAME
+  = 'group relative z-10 w-full overflow-hidden rounded-large border border-outline-variant '
+    + 'bg-surface-container touch-pan-y select-none min-h-[58svh] md:min-h-0 '
+    + CAROUSEL_DOTS_SPACE
+
 /** Positions the caption above the dots. */
 export const CAROUSEL_CAPTION_POSITION
   = 'absolute inset-x-0 bottom-0 p-5 pb-(--carousel-dots-space) sm:p-6 sm:pb-(--carousel-dots-space)'
