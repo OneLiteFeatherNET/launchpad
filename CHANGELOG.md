@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.44.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.43.0...onelitefeather.net-v1.44.0) (2026-11-26)
+
+
+### Features
+
+* **ui:** show skeletons on the home, team, community and about pages ([#691](https://github.com/OneLiteFeatherNET/launchpad/issues/691)) ([9178d95](https://github.com/OneLiteFeatherNET/launchpad/commit/9178d952140f6393f49eb0a061d8bf9e6a5954ba))
+
+
+### Bug Fixes
+
+* **ui:** keep the footer in place when a skeleton is replaced ([#690](https://github.com/OneLiteFeatherNET/launchpad/issues/690)) ([dc9e4dc](https://github.com/OneLiteFeatherNET/launchpad/commit/dc9e4dcdaa1cf685e6f77abbb1dc86bec1257189))
+
+
+### Documentation
+
+* **openspec:** propose extend-skeleton-loading and fix-skeleton-layout-shift ([#688](https://github.com/OneLiteFeatherNET/launchpad/issues/688)) ([504b190](https://github.com/OneLiteFeatherNET/launchpad/commit/504b19001212dd965305f8fbb159a70cd1f1121c))
+
 ## [1.43.0](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.42.1...onelitefeather.net-v1.43.0) (2026-11-26)
 
 
