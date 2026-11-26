@@ -6,7 +6,7 @@
 </script>
 
 <template>
-  <SkeletonRegion class="min-h-screen space-y-8">
+  <SkeletonRegion class="space-y-8">
     <div class="space-y-4">
       <SkeletonBlock class="h-5 w-32" shape="small" />
       <div class="flex items-center gap-4">
@@ -17,6 +17,6 @@
       <SkeletonBlock class="h-11 w-2/3" shape="small" />
       <SkeletonText :lines="2" line-class="h-6" />
     </div>
-    <SkeletonText :lines="5" line-class="h-6" />
+    <SkeletonText :lines="3" line-class="h-6" />
   </SkeletonRegion>
 </template>

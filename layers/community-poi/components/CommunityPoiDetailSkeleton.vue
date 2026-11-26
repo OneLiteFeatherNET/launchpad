@@ -6,7 +6,7 @@
 </script>
 
 <template>
-  <SkeletonRegion class="min-h-screen space-y-8">
+  <SkeletonRegion class="space-y-8">
     <div class="space-y-4">
       <SkeletonBlock class="h-5 w-32" shape="small" />
       <div class="flex flex-wrap items-center gap-3">
@@ -17,6 +17,5 @@
       <SkeletonText :lines="2" line-class="h-6" />
     </div>
     <SkeletonImage aspect="aspect-[16/9]" shape="large" />
-    <SkeletonBlock class="h-16 w-full" shape="large" />
   </SkeletonRegion>
 </template>

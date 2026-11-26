@@ -28,8 +28,13 @@ const season = useSeason()
     <Title v-if="routeTitle">{{ routeTitle }}</Title>
   </Head>
     <Body class="overflow-x-hidden bg-surface text-on-surface">
+      <!-- The footer stays invisible while a skeleton is on screen: a skeleton
+           is never as tall as its page, so a visible footer would jump when
+           the content replaces it. -->
       <!-- Local wrapper ensures flex layout even if <Body> classes are not applied by the renderer -->
-      <div class="min-h-screen flex flex-col">
+      <div
+        class="min-h-screen flex flex-col [&:has([aria-busy=true])>footer]:invisible"
+      >
         <a href="#main-content" class="skip-link">{{ t('accessibility.skip_to_content') }}</a>
         <NavigationBar :events-top-level="eventsTopLevel" :logo-src="season?.logo" />
         <main id="main-content" tabindex="-1" class="px-4 mx-auto sm:px-6 lg:px-8 w-full flex-1 focus:outline-none">

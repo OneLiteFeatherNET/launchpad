@@ -74,7 +74,8 @@ const resources = computed(() => event.value?.resources ?? [])
 <template>
   <div class="container mx-auto max-w-screen-lg px-4 py-6 md:px-6 md:py-10">
     <EventDetailSkeleton v-if="loading" />
-    <article v-else-if="event && detail && phase" class="space-y-8">
+    <Suspense v-else-if="event && detail && phase">
+    <article class="space-y-8">
       <header class="space-y-4">
         <p>
           <M3Button variant="text" :icon="['fas', 'chevron-left']" :to="`/${locale}/events`">
@@ -176,5 +177,9 @@ const resources = computed(() => event.value?.resources ?? [])
         @address-copied="trackServerAddressCopied({ event, phase }, locale)"
       />
     </article>
+    <template #fallback>
+      <EventDetailSkeleton />
+    </template>
+    </Suspense>
   </div>
 </template>
