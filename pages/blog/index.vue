@@ -64,8 +64,9 @@ useSchemaOrg(computed(() => {
     />
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 lg:mx-16">
       <ArticleCard
-        v-for="article in allPosts"
+        v-for="(article, index) in allPosts"
         :key="article.slug"
+        :priority="!top1Article && index === 0"
         :blog-article="article"
         :authors="authorsOf(article)"
       />

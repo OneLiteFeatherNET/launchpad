@@ -21,7 +21,9 @@ const {blogArticle, authors = []} = defineProps<{
         fit="cover"
         quality="80"
         format="avif,webp"
-        :img-attrs="{ class: 'w-full h-96 object-cover' }"
+        loading="eager"
+        :preload="{ fetchPriority: 'high' }"
+        :img-attrs="{ class: 'w-full h-96 object-cover', fetchpriority: 'high' }"
       />
     </template>
     <h2 class="text-headline-small text-on-surface">
