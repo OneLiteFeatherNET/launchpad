@@ -7,7 +7,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { overview, numbers } = useCommunityOverview()
+const { overview, numbers, loading } = useCommunityOverview()
 
 usePageSeo({
   title: t('community.title'),
@@ -38,10 +38,13 @@ useBreadcrumbs(() => [
       </p>
     </header>
 
-    <section :aria-label="t('community.stats.aria')">
-      <CommunityStats :numbers="numbers" />
-    </section>
+    <CommunityOverviewSkeleton v-if="loading" />
+    <template v-else>
+      <section :aria-label="t('community.stats.aria')">
+        <CommunityStats :numbers="numbers" />
+      </section>
 
-    <CommunityWall class="mt-12" :contributors="overview.contributors" />
+      <CommunityWall class="mt-12" :contributors="overview.contributors" />
+    </template>
   </div>
 </template>

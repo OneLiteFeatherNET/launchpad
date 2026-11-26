@@ -9,7 +9,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { about } = await useAbout()
+const { about, loading } = await useAbout()
 const { numbers } = useCommunityOverview()
 
 usePageSeo({
@@ -47,7 +47,8 @@ useSchemaOrg([
       </h1>
     </header>
 
-    <section v-if="about" aria-labelledby="about-who">
+    <AboutSkeleton v-if="loading" part="intro" />
+    <section v-else-if="about" aria-labelledby="about-who">
       <h2 id="about-who" class="text-headline-medium font-bold text-on-surface">
         {{ t('about.sections.who') }}
       </h2>
@@ -56,7 +57,7 @@ useSchemaOrg([
       </p>
     </section>
 
-    <section v-if="about?.pillars.length" class="mt-12" aria-labelledby="about-pillars">
+    <section v-if="!loading && about?.pillars.length" class="mt-12" aria-labelledby="about-pillars">
       <h2 id="about-pillars" class="mb-5 text-headline-medium font-bold text-on-surface">
         {{ t('about.sections.pillars') }}
       </h2>
@@ -65,7 +66,8 @@ useSchemaOrg([
 
     <CommunityStrip class="!px-0" :numbers="numbers" :to="`/${locale}/community`" />
 
-    <section v-if="about" class="mt-4" aria-labelledby="about-work">
+    <AboutSkeleton v-if="loading" part="outro" />
+    <section v-if="!loading && about" class="mt-4" aria-labelledby="about-work">
       <h2 id="about-work" class="text-headline-medium font-bold text-on-surface">
         {{ t('about.sections.work') }}
       </h2>
@@ -74,7 +76,7 @@ useSchemaOrg([
       </p>
     </section>
 
-    <section v-if="about" class="mt-12" aria-labelledby="about-join">
+    <section v-if="!loading && about" class="mt-12" aria-labelledby="about-join">
       <h2 id="about-join" class="text-headline-medium font-bold text-on-surface">
         {{ t('about.sections.join') }}
       </h2>

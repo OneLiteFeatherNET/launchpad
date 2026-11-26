@@ -32,31 +32,31 @@ export function useHomeContent() {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data: concept } = useAsyncData<ServerConceptDocument | null>(
+  const { data: concept, status: conceptStatus } = useAsyncData<ServerConceptDocument | null>(
     () => `server-concept-home-${activeLocale.value}`,
     () => repo.getServerConcept(activeLocale.value),
-    { watch: [activeLocale] }
+    { watch: [activeLocale], ...PAGE_DATA_OPTIONS }
   )
 
-  const { data: connect } = useAsyncData<ServerConnectDocument | null>(
+  const { data: connect, status: connectStatus } = useAsyncData<ServerConnectDocument | null>(
     () => `server-connect-${activeLocale.value}`,
     () => repo.getServerConnect(activeLocale.value),
-    { watch: [activeLocale] }
+    { watch: [activeLocale], ...PAGE_DATA_OPTIONS }
   )
 
-  const { data: homeCarousel } = useAsyncData<HomeCarouselDocument | null>(
+  const { data: homeCarousel, status: carouselStatus } = useAsyncData<HomeCarouselDocument | null>(
     () => `home-carousel-${activeLocale.value}`,
     () => repo.getHomeCarousel(activeLocale.value),
-    { watch: [activeLocale] }
+    { watch: [activeLocale], ...PAGE_DATA_OPTIONS }
   )
 
   // Featured POIs surface on the home carousel without anyone touching the
   // carousel JSON: maintainers just flip `featured: true` in the POI's
   // frontmatter and the next build picks it up.
-  const { data: featuredPois } = useAsyncData<CommunityPoiSummary[]>(
+  const { data: featuredPois, status: featuredStatus } = useAsyncData<CommunityPoiSummary[]>(
     () => `featured-community-pois-${activeLocale.value}`,
     () => repo.listFeaturedCommunityPois(activeLocale.value),
-    { watch: [activeLocale] }
+    { watch: [activeLocale], ...PAGE_DATA_OPTIONS }
   )
 
   const slides = computed<HomeCarouselSlide[]>(() => {
@@ -73,9 +73,17 @@ export function useHomeContent() {
     return [...base, ...poiSlides]
   })
 
+  const documentLoading = useIsLoading(carouselStatus)
+  const featuredLoading = useIsLoading(featuredStatus)
+  const carouselLoading = computed(() => documentLoading.value || featuredLoading.value)
+
   return {
     concept,
     connect,
-    slides
+    slides,
+    /** The carousel's own documents; the page adds the highlights and promotions. */
+    carouselLoading,
+    conceptLoading: useIsLoading(conceptStatus),
+    connectLoading: useIsLoading(connectStatus)
   }
 }

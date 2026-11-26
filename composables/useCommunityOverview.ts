@@ -16,7 +16,7 @@ export function useCommunityOverview() {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data: base } = useAsyncData<CommunityOverview>(
+  const { data: base, status } = useAsyncData<CommunityOverview>(
     () => `community-overview-${activeLocale.value}`,
     async () => {
       const [
@@ -36,7 +36,7 @@ export function useCommunityOverview() {
         now: new Date()
       })
     },
-    { watch: [activeLocale], default: emptyOverview }
+    { watch: [activeLocale], default: emptyOverview, ...PAGE_DATA_OPTIONS }
   )
 
   // Applied outside the data handler so the list can arrive after the content queries.
@@ -55,5 +55,5 @@ export function useCommunityOverview() {
       || (collective.value.available ? collective.value.contributors : null)
   }))
 
-  return { overview, numbers }
+  return { overview, numbers, loading: useIsLoading(status) }
 }

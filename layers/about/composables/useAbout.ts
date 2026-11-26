@@ -7,11 +7,11 @@ export async function useAbout() {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data: about } = await useAsyncData<AboutDocument | null>(
+  const { data: about, status } = await useAsyncData<AboutDocument | null>(
     () => `about-${activeLocale.value}`,
     () => repo.getAboutDocument(activeLocale.value),
-    { watch: [activeLocale] }
+    { watch: [activeLocale], ...PAGE_DATA_OPTIONS }
   )
 
-  return { about }
+  return { about, loading: useIsLoading(status) }
 }

@@ -10,10 +10,22 @@ definePageMeta({
 const { t, locale } = useI18n()
 const { numbers } = useCommunityOverview()
 const discordUrl = String(useRuntimeConfig().public.discordUrl)
-const { concept, connect, slides } = useHomeContent()
-const { promoted } = useEventPromotions()
+const {
+  concept,
+  connect,
+  slides,
+  carouselLoading,
+  conceptLoading,
+  connectLoading
+} = useHomeContent()
+const { promoted, loading: promotionsLoading } = useEventPromotions()
 
-const { highlights } = useHomeHighlights()
+const { highlights, loading: highlightsLoading } = useHomeHighlights()
+
+// The carousel puts its slides in a fixed order, so it waits for all four sources.
+const slidesLoading = computed(() => {
+  return carouselLoading.value || promotionsLoading.value || highlightsLoading.value
+})
 
 // New slides lead, promoted events first among them, curated ones fill up.
 // Composed here because this page is the one place allowed to know the
@@ -27,9 +39,9 @@ const carouselSlides = computed(() => {
     curated: slides.value ?? []
   })
 })
-const { sponsors } = useSponsoring()
-const { data: collective } = useOpenCollective()
-const { items: faqItems } = useFaqContent()
+const { sponsors, loading: sponsorsLoading } = useSponsoring()
+const { data: collective, loading: collectiveLoading } = useOpenCollective()
+const { items: faqItems, loading: faqLoading } = useFaqContent()
 useHomeSeo({ title: t('index.title'), image: sectionOgImage('home', locale.value) })
 
 
@@ -42,27 +54,37 @@ useHomeSeo({ title: t('index.title'), image: sectionOgImage('home', locale.value
     <h1 class="text-headline-medium font-bold text-on-surface md:text-display-small">{{ t('index.title') }}</h1>
   </div>
   <div class="-mx-4 sm:-mx-6 px-0 py-6 md:py-10 md:mx-auto md:max-w-6xl md:px-4 lg:px-8">
-    <Carousel :slides="carouselSlides" aspect="16/9" :aria-label="t('index.carousel_aria')" />
+    <CarouselSkeleton v-if="slidesLoading" />
+    <Carousel
+      v-else
+      :slides="carouselSlides"
+      aspect="16/9"
+      :aria-label="t('index.carousel_aria')"
+    />
   </div>
   <LazyDiscordCta hydrate-on-visible :href="discordUrl" :members="numbers.discordMembers" />
+  <ServerAddressesSkeleton v-if="connectLoading" />
   <LazyServerAddresses
-    v-if="connect"
+    v-else-if="connect"
     hydrate-on-visible
     :java-address="connect.javaAddress"
     :bedrock-host="connect.bedrockHost"
     :bedrock-port="connect.bedrockPort"
   />
   <LazyCommunityStrip hydrate-on-visible :numbers="numbers" :to="`/${locale}/community`" />
+  <ServerConceptSkeleton v-if="conceptLoading" />
   <LazyServerConcept
-    v-if="concept"
+    v-else-if="concept"
     hydrate-on-visible
     :title="concept.title"
     :subtitle="concept.subtitle"
     :points="concept.points || []"
   />
-  <LazySponsoring v-if="sponsors?.length" hydrate-on-visible :sponsors="sponsors" />
+  <SponsoringSkeleton v-if="sponsorsLoading" />
+  <LazySponsoring v-else-if="sponsors?.length" hydrate-on-visible :sponsors="sponsors" />
+  <OpenCollectiveSkeleton v-if="collectiveLoading" />
   <LazyOpenCollectiveStats
-    v-if="collective.available"
+    v-else-if="collective.available"
     hydrate-on-visible
     :total-raised="collective.totalRaised"
     :goal="collective.goal"
@@ -71,5 +93,6 @@ useHomeSeo({ title: t('index.title'), image: sectionOgImage('home', locale.value
     :link="collective.link"
     :updated-at="collective.updatedAt"
   />
-  <LazyFaqSection hydrate-on-visible :items="faqItems" />
+  <FaqSectionSkeleton v-if="faqLoading" />
+  <LazyFaqSection v-else hydrate-on-visible :items="faqItems" />
 </template>

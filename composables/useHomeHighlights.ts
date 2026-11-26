@@ -29,7 +29,7 @@ export function useHomeHighlights() {
   const repo = useContentRepository()
   const activeLocale = computed<Locale>(() => (locale?.value || 'de') as Locale)
 
-  const { data: highlights } = useAsyncData<HomeHighlights>(
+  const { data: highlights, status } = useAsyncData<HomeHighlights>(
     () => `home-highlights-${activeLocale.value}`,
     async () => {
       const now = new Date()
@@ -56,8 +56,8 @@ export function useHomeHighlights() {
         recent: recentSlides(sources)
       }
     },
-    { watch: [activeLocale], default: emptyHighlights }
+    { watch: [activeLocale], default: emptyHighlights, ...PAGE_DATA_OPTIONS }
   )
 
-  return { highlights }
+  return { highlights, loading: useIsLoading(status) }
 }

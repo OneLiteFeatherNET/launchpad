@@ -51,16 +51,16 @@ export function useEventPromotions() {
   const activeLocale = useActiveLocale()
   const repo = useContentRepository()
 
-  const { data } = useAsyncData<EventCardData[]>(
+  const { data, status } = useAsyncData<EventCardData[]>(
     () => `events-promoted-${activeLocale.value}`,
     async () => {
       const docs = await repo.listEvents(activeLocale.value)
       return promotedEventsAt(docs, activeLocale.value, new Date())
     },
-    { watch: [activeLocale], default: () => [] }
+    { watch: [activeLocale], default: () => [], ...PAGE_DATA_OPTIONS }
   )
 
-  return { promoted: data }
+  return { promoted: data, loading: useIsLoading(status) }
 }
 
 /** The listed events `slug` hosts, phase decided on the server like the overview's. */

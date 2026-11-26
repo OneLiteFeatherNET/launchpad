@@ -13,7 +13,7 @@ export const useOpenCollective = () => {
 
   const unavailable = (): CollectiveResult => ({ available: false, slug, link })
 
-  const { data, error, refresh, pending } = useAsyncData<CollectiveResult>(
+  const { data, error, refresh, pending, status } = useAsyncData<CollectiveResult>(
     'opencollective-stats',
     async (): Promise<CollectiveResult> => {
       try {
@@ -25,8 +25,8 @@ export const useOpenCollective = () => {
     },
     {
       server: true,
-      lazy: false,
-      default: unavailable
+      default: unavailable,
+      ...PAGE_DATA_OPTIONS
     }
   )
 
@@ -40,6 +40,7 @@ export const useOpenCollective = () => {
     data,
     error,
     refresh,
-    pending
+    pending,
+    loading: useIsLoading(status)
   }
 }

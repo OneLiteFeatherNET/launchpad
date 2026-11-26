@@ -8,7 +8,7 @@ definePageMeta({
   layout: 'default'
 })
 
-const { groups, memberCount } = useTeamRoster()
+const { groups, memberCount, loading } = useTeamRoster()
 const supporterLinks = useLiteSupporterLinks()
 
 usePageSeo({
@@ -62,20 +62,23 @@ useSchemaOrg(computed(() => {
       </p>
     </header>
 
-    <TeamRankSection
-      v-for="group in groups"
-      :key="group.rank"
-      :group="group"
-    >
-      <TeamSupporterList v-if="group.rank === 'lite'" :supporters="supporterLinks" />
-    </TeamRankSection>
+    <TeamRosterSkeleton v-if="loading" />
+    <template v-else>
+      <TeamRankSection
+        v-for="group in groups"
+        :key="group.rank"
+        :group="group"
+      >
+        <TeamSupporterList v-if="group.rank === 'lite'" :supporters="supporterLinks" />
+      </TeamRankSection>
 
-    <p
-      v-if="memberCount === 0"
-      class="mt-10 text-center text-body-large text-on-surface-variant"
-    >
-      {{ t('team.no_results') }}
-    </p>
+      <p
+        v-if="memberCount === 0"
+        class="mt-10 text-center text-body-large text-on-surface-variant"
+      >
+        {{ t('team.no_results') }}
+      </p>
+    </template>
 
     <TeamFaqSection />
   </div>
