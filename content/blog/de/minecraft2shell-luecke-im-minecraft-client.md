@@ -3,6 +3,7 @@ title: 'minecraft2shell: Lücke im Minecraft-Client über Server-Ressourcenpaket
 alternativeTitle: 'Was Spielerinnen, Spieler und Server-Betreiber jetzt tun sollten'
 description: 'Eine Lücke im Minecraft-Client (Java Edition 26.3, Windows) lässt sich über Server-Ressourcenpakete auslösen. Was ihr jetzt tun solltet.'
 pubDate: '2026-11-25'
+updatedDate: '2026-11-26'
 releaseDate: '2026-11-25T12:00:00+01:00'
 headerImage: 'images/blog/minecraft2shell-vulnerability-in-the-minecraft-client.webp'
 headerImageAlt: 'Schaubild: Ein Ressourcenpaket mit einer Schrift, ein Schriftzeichen, das über die Grenze seines Speicherbereichs hinausgeschoben wird, und der Windows-Taschenrechner'
@@ -33,7 +34,19 @@ schemaOrg:
 ---
 Am **22. November 2026** wurde das GitHub-Repository [bikini/minecraft2shell](https://github.com/bikini/minecraft2shell) veröffentlicht. Es zeigt einen Proof of Concept (PoC) für Codeausführung im offiziellen, von Mojang signierten Minecraft-Java-Edition-Client 26.3 unter Windows. Dieser Beitrag hat zwei Teile: **Für Spielerinnen und Spieler**, die Minecraft auf dem eigenen Rechner spielen, und **Für Server-Betreiber**, die Server anbieten.
 
-> **Stand 25. November 2026: Mojang hat die Schriftbibliothek in 26.3 am 24. November ausgetauscht, eine öffentliche Aussage gibt es bisher nicht.** Ältere Versionen sind laut Mojangs Versionsdaten unverändert. Uns sind keine Angriffe in freier Wildbahn bekannt.
+> **Update 26. November 2026: Mojang hat auch 26.1 und 26.2 nachgebessert.** Die Versionen 26.1 bis 26.3 laden jetzt eine Schriftbibliothek mit der Korrektur. 1.20.5 bis 1.21.11 sind weiterhin unverändert. Eine öffentliche Aussage von Mojang gibt es bisher nicht. Uns sind keine Angriffe in freier Wildbahn bekannt. Details im [Update](#update-26-november-2026).
+
+## Update: 26. November 2026
+
+Am 25. November 2026 gegen 16:30 Uhr hat Mojang die Versionsdaten von 26.1, 26.1.1, 26.1.2 und 26.2 geändert. Dasselbe gilt für ihre Vorabversionen, etwa 26.1-rc-1. Sie laden seitdem `lwjgl-freetype 3.4.1-mojang-2.15.0.3` statt `3.4.1`.
+
+Wir haben die neue Bibliothek für Windows wie schon die für 26.3 von Mojangs Download-Server geladen und untersucht, ohne sie auszuführen. Sie meldet FreeType 2.15.0, wurde am 25. November 2026 gebaut und trägt eine Signatur von Mojang. Damit enthält sie dieselbe Korrektur wie die Bibliothek für 26.3.
+
+Was das für euch heißt:
+
+- **26.1 bis 26.3:** Startet Spiel und Launcher neu, dann bekommt ihr die korrigierte Bibliothek. Wie ihr das prüft, steht unter [Minecraft aktualisieren](#minecraft-aktualisieren).
+- **1.20.5 bis 1.21.11:** Diese Versionen laden weiterhin `lwjgl-freetype 3.3.3`. Die Datei ist identisch mit der aus dem öffentlichen Maven-Repository und enthält die Korrektur nicht. Behandelt diese Versionen weiter als betroffen.
+- Den PoC haben wir weiterhin nicht ausgeführt. Belegt ist die Korrektur über die Versionsangabe der Bibliothek und den Quelltext von FreeType 2.15.0.
 
 ## Was passiert ist
 
@@ -56,13 +69,13 @@ Genau das passiert hier. Das Regal ist der Speicher für ein Schriftzeichen, und
 | Version | Schriftbibliothek laut Mojang-Metadaten | Status |
 |---|---|---|
 | 26.3 | `lwjgl-freetype 3.4.3-mojang-2.15.0` (FreeType 2.15.0) | Am 24. November 2026 ersetzt, vorher FreeType 2.14.3. FreeType 2.15.0 enthält die Korrektur. |
-| 26.1 und 26.2 | `lwjgl-freetype 3.4.1` (FreeType 2.14.1) | Unverändert, ohne die Korrektur. Als betroffen behandeln. |
+| 26.1 und 26.2 | `lwjgl-freetype 3.4.1-mojang-2.15.0.3` (FreeType 2.15.0) | Am 25. November 2026 ersetzt, vorher FreeType 2.14.1. Enthält die Korrektur. |
 | 1.20.5 bis 1.21.11 | `lwjgl-freetype 3.3.3` (FreeType 2.13.2) | Unverändert, ohne die Korrektur. Als betroffen behandeln. |
 | 1.20.4 und älter | keine FreeType-Bibliothek | Diese Angriffsroute gibt es dort nicht. |
 
 Wir haben die Bibliotheken von Mojangs Download-Server miteinander verglichen. Die neue Datei für 26.3 meldet FreeType 2.15.0, wurde am 24. November 2026 gebaut und trägt eine Signatur von Mojang. Die alte meldet FreeType 2.14.3. Das FreeType-Projekt hat die fehlerhafte Grenzprüfung schon am [22.](https://github.com/freetype/freetype/commit/1803559c4ee407d0bcbf2a67dbe96690cee869d2) und [23. April 2026](https://github.com/freetype/freetype/commit/7d600a022e1d813e85a8c94ffd395f6135872267) korrigiert. Diese Korrektur steckt in 2.15.0, aber in keiner der Versionen 2.13.2, 2.14.1 und 2.14.3.
 
-Den PoC haben wir nicht ausgeführt, weder gegen die alte noch gegen die neue Bibliothek. Dass die älteren Minecraft-Versionen praktisch angreifbar sind, ist damit nicht bewiesen, und Mojang hat es nicht bestätigt. Ihnen fehlt aber dieselbe Korrektur, und ein [Artikel von minecraft.pl](https://minecraft.pl/en/news/minecraft2shell-unpatched-rce-vulnerability-in-minecraft-java) führt sie als betroffen auf. Behandelt sie deshalb als betroffen.
+Den PoC haben wir nicht ausgeführt, weder gegen die alte noch gegen die neue Bibliothek. Dass die Versionen 1.20.5 bis 1.21.11 praktisch angreifbar sind, ist damit nicht bewiesen, und Mojang hat es nicht bestätigt. Ihnen fehlt aber dieselbe Korrektur, und ein [Artikel von minecraft.pl](https://minecraft.pl/en/news/minecraft2shell-unpatched-rce-vulnerability-in-minecraft-java) führt sie als betroffen auf. Behandelt sie deshalb als betroffen.
 
 Mojang liefert dieselbe Bibliothek auch für Linux und macOS aus, wie die Metadaten zeigen. Der PoC funktioniert nur unter Windows. Keine Quelle bestätigt oder widerlegt eine Lücke auf den anderen Plattformen. Aktualisiert deshalb auch dort und verlasst euch nicht auf „Ich nutze Linux“.
 
@@ -70,11 +83,11 @@ Für diese Lücke kennen wir keine CVE-Nummer. Wir kennen auch keine Berichte ü
 
 ## Für Spielerinnen und Spieler
 
-### Minecraft 26.3 aktualisieren
+### Minecraft aktualisieren
 
 Schließt das Spiel und den offiziellen Launcher vollständig und startet beides neu. Der Launcher lädt beim Start die geänderten Versionsdaten nach.
 
-Zur Kontrolle: Im Spielordner sollte unter `libraries/org/lwjgl/lwjgl-freetype/` ein Ordner `3.4.3-mojang-2.15.0` liegen. Der Spielordner liegt unter Windows in `%APPDATA%\.minecraft`.
+Zur Kontrolle: Im Spielordner sollte unter `libraries/org/lwjgl/lwjgl-freetype/` für 26.3 ein Ordner `3.4.3-mojang-2.15.0` liegen, für 26.1 und 26.2 ein Ordner `3.4.1-mojang-2.15.0.3`. Der Spielordner liegt unter Windows in `%APPDATA%\.minecraft`.
 
 ### Andere Launcher und Modpacks
 
@@ -114,7 +127,7 @@ Beschränkt außerdem den Zugriff auf Konsole, RCON, `server.properties` und auf
 
 ### Spieler informieren
 
-Bittet eure Community, auf 26.3 zu aktualisieren. Läuft euer Server auf einer älteren Version (1.20.5 bis 26.2) und spielen eure Spielerinnen und Spieler mit dem passenden älteren Client, dann bekommen sie die neue Bibliothek nicht. Überlegt deshalb, ob ihr ein Ressourcenpaket wirklich verlangen müsst.
+Bittet eure Community, das Spiel neu zu starten oder auf eine Version ab 26.1 zu aktualisieren. Läuft euer Server auf einer älteren Version (1.20.5 bis 1.21.11) und spielen eure Spielerinnen und Spieler mit dem passenden älteren Client, dann bekommen sie die neue Bibliothek nicht. Überlegt deshalb, ob ihr ein Ressourcenpaket wirklich verlangen müsst.
 
 ### Euer eigener PC
 
@@ -171,7 +184,7 @@ case 1:
 
 Die Grenze ergibt sich jetzt aus der Zahl der Punkte, die die Zone tatsächlich hat, abzüglich der vier Hilfspunkte am Ende. Hat die Zone zu wenige Punkte, ist die Grenze null, und es wird nichts verschoben. Die Schrift kann den Wert damit nicht mehr vorgeben.
 
-Mojang hat für 26.3 die Bibliothek gegen einen Build mit FreeType 2.15.0 getauscht. Die Versionsnummer des Spiels ist dabei gleich geblieben. Ihr erkennt das Update deshalb nur an der Bibliothek, wie im Teil für Spielerinnen und Spieler beschrieben.
+Mojang hat für 26.3 und am 25. November auch für 26.1 und 26.2 die Bibliothek gegen einen Build mit FreeType 2.15.0 getauscht. Die Versionsnummer des Spiels ist dabei jeweils gleich geblieben. Ihr erkennt das Update deshalb nur an der Bibliothek, wie im Teil für Spielerinnen und Spieler beschrieben.
 
 ## Wem ihr vertraut, wenn etwas „gefixt“ ist
 
@@ -192,9 +205,9 @@ Ohne Vertrauen könnte niemand einen Computer benutzen. Wichtig ist, dass ihr di
 ## Kurz zusammengefasst
 
 - Die Lücke betrifft die Java Edition. Der PoC zeigt sie für 26.3 unter Windows.
-- Mojang hat die Schriftbibliothek in 26.3 am 24. November ersetzt. Eine öffentliche Aussage fehlt.
-- Aktualisiert Minecraft 26.3 und prüft, ob der Ordner `3.4.3-mojang-2.15.0` existiert.
-- Behandelt die Versionen 1.20.5 bis 26.2 als betroffen, bis das Gegenteil feststeht.
+- Mojang hat die Schriftbibliothek in 26.3 am 24. November ersetzt, in 26.1 und 26.2 am 25. November. Eine öffentliche Aussage fehlt.
+- Startet Spiel und Launcher neu und prüft den Ordner der Bibliothek (`3.4.3-mojang-2.15.0` bzw. `3.4.1-mojang-2.15.0.3`).
+- Behandelt die Versionen 1.20.5 bis 1.21.11 als betroffen, bis das Gegenteil feststeht.
 - Ressourcenpakete nur von Servern, denen ihr vertraut. Setzt andere auf „Abfrage“ oder „Deaktiviert“.
 - Vertrauen heißt Kontrolle abgeben. Entscheidet bewusst, wem ihr sie gebt.
 - Als Betreiber: Tragt für euer Paket einen SHA-1-Hash ein und sorgt dafür, dass nur ihr es ändern könnt.
