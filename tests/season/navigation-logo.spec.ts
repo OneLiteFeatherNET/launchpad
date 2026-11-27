@@ -22,6 +22,20 @@ describe('NavigationBar logo', () => {
     expect(img.attributes('alt')).toBeTruthy()
   })
 
+  it('serves the default mark from the site origin with fixed dimensions', async () => {
+    const img = await logo()
+    expect(img.attributes('src')).toBe('/images/logo.svg')
+    expect(img.attributes('width')).toBe('40')
+    expect(img.attributes('height')).toBe('40')
+  })
+
+  it('serves a seasonal mark from the site origin, unchanged by the resizer', async () => {
+    const img = await logo({ logoSrc: 'images/seasons/winter/logo.svg' })
+    expect(img.attributes('src')).toBe('/images/seasons/winter/logo.svg')
+    expect(img.attributes('width')).toBe('40')
+    expect(img.attributes('height')).toBe('40')
+  })
+
   it.each(SEASONS.map((season) => [season.id, season.logo] as const))(
     '%s shows its own mark, under the same name',
     async (_id, logoSrc) => {
