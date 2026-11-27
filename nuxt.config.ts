@@ -281,6 +281,21 @@ export default defineNuxtConfig({
         '/en/team/bavariankingdom': { redirect: { to: '/en/team/morelia0815', statusCode: 301 } },
         '/de/team/b3nny': { redirect: { to: '/de/team/blndr2', statusCode: 301 } },
         '/en/team/b3nny': { redirect: { to: '/en/team/blndr2', statusCode: 301 } },
+        // Retired and mistyped URLs still listed by search engines.
+        '/de/blog/about': { redirect: { to: '/de/about', statusCode: 301 } },
+        '/en/blog/about': { redirect: { to: '/en/about', statusCode: 301 } },
+        '/de/blog/community-poi': { redirect: { to: '/de/community-poi', statusCode: 301 } },
+        '/en/blog/community-poi': { redirect: { to: '/en/community-poi', statusCode: 301 } },
+        '/de/blog/author/phillipp-glanz': { redirect: { to: '/de/team/themeinerlp', statusCode: 301 } },
+        '/en/blog/author/phillipp-glanz': { redirect: { to: '/en/team/themeinerlp', statusCode: 301 } },
+        '/de/community-poi/uncensored-library': { redirect: { to: '/de/community-poi', statusCode: 301 } },
+        '/en/community-poi/uncensored-library': { redirect: { to: '/en/community-poi', statusCode: 301 } },
+        '/de/data-privacy': { redirect: { to: '/de/privacy', statusCode: 301 } },
+        '/en/data-privacy': { redirect: { to: '/en/privacy', statusCode: 301 } },
+        '/data-privacy': { redirect: { to: '/en/privacy', statusCode: 301 } },
+        // Old filename-based URLs whose slug was later changed.
+        '/en/blog/dev-blog-1': { redirect: { to: '/en/blog/dev-blog-1-what-we-using', statusCode: 301 } },
+        '/en/blog/otis-regular-data-minecraft': { redirect: { to: '/en/blog/otis-central-player-data-minecraft', statusCode: 301 } },
     },
 
     vite: {
