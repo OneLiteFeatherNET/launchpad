@@ -27,8 +27,11 @@ interface PoiItem {
 const props = withDefaults(defineProps<{
   item: PoiItem
   priority?: boolean
+  /** Render the image; false keeps the slide box and text only */
+  armed?: boolean
 }>(), {
-  priority: false
+  priority: false,
+  armed: true
 })
 
 const { t } = useI18n()
@@ -52,7 +55,7 @@ const fallbackClass
 <template>
   <article class="absolute inset-0 h-full w-full">
     <NuxtPicture
-      v-if="item.image"
+      v-if="item.image && armed"
       :src="item.image"
       :alt="item.alt || item.title"
       :sizes="CAROUSEL_IMAGE_SIZES"

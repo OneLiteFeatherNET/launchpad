@@ -12,9 +12,12 @@ interface Props {
   }
   /** Mark the slide as priority (used for the first/LCP image) */
   priority?: boolean
+  /** Render the image; false keeps the slide box and text only */
+  armed?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
-  priority: false
+  priority: false,
+  armed: true
 })
 
 
@@ -32,6 +35,7 @@ const notePositionClass
   <div class="absolute inset-0 h-full w-full">
     <!-- Raster images via NuxtPicture without blur placeholder and with 2x density -->
     <NuxtPicture
+      v-if="props.armed"
       :src="props.item.src"
       :alt="props.item.alt"
       :sizes="CAROUSEL_IMAGE_SIZES"

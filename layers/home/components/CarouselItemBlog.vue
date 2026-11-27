@@ -29,8 +29,9 @@ interface BlogItem {
   isNew?: boolean
 }
 
-const props = withDefaults(defineProps<{ item: BlogItem; priority?: boolean }>(), {
-  priority: false
+const props = withDefaults(defineProps<{ item: BlogItem; priority?: boolean; armed?: boolean }>(), {
+  priority: false,
+  armed: true
 })
 
 const FMT = { year: 'numeric', month: 'short', day: '2-digit' } as const
@@ -40,6 +41,7 @@ const dateLabel = computed(() => formatCalendarDate(props.item.date, locale.valu
 <template>
   <article class="absolute inset-0 h-full w-full">
     <NuxtPicture
+      v-if="props.armed"
       :src="item.image"
       :alt="item.alt || item.title"
       :sizes="CAROUSEL_IMAGE_SIZES"

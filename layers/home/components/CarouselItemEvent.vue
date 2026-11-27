@@ -29,8 +29,9 @@ interface EventItem {
   isNew?: boolean
 }
 
-const props = withDefaults(defineProps<{ item: EventItem; priority?: boolean }>(), {
-  priority: false
+const props = withDefaults(defineProps<{ item: EventItem; priority?: boolean; armed?: boolean }>(), {
+  priority: false,
+  armed: true
 })
 
 // Pinned to the server's zone: without it the Worker (UTC) and a visitor's
@@ -60,6 +61,7 @@ const dateBadgeClass
 <template>
   <section class="absolute inset-0 h-full w-full">
     <NuxtPicture
+      v-if="props.armed"
       :src="item.image"
       :alt="item.alt || item.title"
       :sizes="CAROUSEL_IMAGE_SIZES"

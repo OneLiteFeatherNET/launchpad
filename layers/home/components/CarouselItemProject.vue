@@ -28,8 +28,11 @@ interface ProjectItem {
 const props = withDefaults(defineProps<{
   item: ProjectItem
   priority?: boolean
+  /** Render the image; false keeps the slide box and text only */
+  armed?: boolean
 }>(), {
-  priority: false
+  priority: false,
+  armed: true
 })
 
 const { t } = useI18n()
@@ -49,7 +52,7 @@ const logoFrameClass
 <template>
   <article class="absolute inset-0 h-full w-full">
     <NuxtPicture
-      v-if="item.image && !item.logoOnly"
+      v-if="item.image && !item.logoOnly && armed"
       :src="item.image"
       :alt="item.alt || item.title"
       :sizes="CAROUSEL_IMAGE_SIZES"
@@ -66,7 +69,7 @@ const logoFrameClass
     />
     <template v-else>
       <div :class="surfaceClass" data-testid="project-slide-surface" aria-hidden="true" />
-      <div v-if="item.image" :class="logoFrameClass">
+      <div v-if="item.image && armed" :class="logoFrameClass">
         <NuxtPicture
           :src="item.image"
           :alt="item.alt || item.title"

@@ -17,6 +17,7 @@ import {
   CAROUSEL_INDICATOR_BUTTON,
 } from '../utils/carouselClasses'
 import { normalizeSlides, getSlideAriaText } from '../composables/useCarousel'
+import { useArmedSlides } from '../composables/useArmedSlides'
 
 const props = withDefaults(defineProps<{
   /**
@@ -73,14 +74,21 @@ const userInitiated = ref(false)
 // inside the component already.
 const userPaused = ref(false)
 
+// Only the current slide ships an image in the server HTML; the rest arm on
+// idle or on navigation so they do not compete with the LCP image.
+const slideArming = useArmedSlides()
+
+const targetIndex = (index: number) => props.loop
+  ? (index + slidesCount.value) % slidesCount.value
+  : Math.min(Math.max(index, 0), lastIndex.value)
+const nextIndex = computed(() => targetIndex(current.value + 1))
+
 const goTo = (index: number, byUser = true) => {
   if (slidesCount.value === 0) return
   userInitiated.value = byUser
-  if (props.loop) {
-    current.value = (index + slidesCount.value) % slidesCount.value
-  } else {
-    current.value = Math.min(Math.max(index, 0), lastIndex.value)
-  }
+  current.value = targetIndex(index)
+  slideArming.arm(current.value)
+  if (import.meta.client) slideArming.armOnIdle(targetIndex(current.value + 1))
 }
 
 const next = (byUser = true) => {
@@ -103,7 +111,11 @@ const start = () => {
   // no-op every interval. The watch below re-runs start() when this flips.
   if (userPaused.value) return
   timer.value = setInterval(() => {
-    if (!isHovering.value && !userPaused.value) next(false)
+    if (!isHovering.value && !userPaused.value) {
+      if (slideArming.isArmed(nextIndex.value)) next(false)
+      // Never advance to a slide without its image; arm it and wait a tick.
+      else slideArming.arm(nextIndex.value)
+    }
   }, props.interval)
 }
 
@@ -127,8 +139,14 @@ userPaused.value],
   )
 }
 
-onMounted(() => start())
-onUnmounted(() => stop())
+onMounted(() => {
+  start()
+  if (slidesCount.value > 1) slideArming.armOnIdle(targetIndex(current.value + 1))
+})
+onUnmounted(() => {
+  stop()
+  slideArming.dispose()
+})
 
 // Keyboard navigation
 const onKeydown = (e: KeyboardEvent) => {
@@ -254,12 +272,13 @@ const componentFor = (slide: NormalizedSlide) => {
           :aria-hidden="i !== current"
           :inert="i !== current ? true : undefined"
         >
-          <slot name="slide" :item="s" :index="i">
+          <slot name="slide" :item="s" :index="i" :armed="slideArming.isArmed(i)">
             <component
               :is="componentFor(s)"
               :item="s as any"
               class="absolute inset-0 h-full w-full"
               :priority="i === 0"
+              :armed="slideArming.isArmed(i)"
             />
           </slot>
         </div>
