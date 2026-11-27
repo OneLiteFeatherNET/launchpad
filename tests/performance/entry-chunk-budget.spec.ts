@@ -12,13 +12,15 @@ import { repoRoot } from '../helpers/sources'
  * - Entry chunk: 477 KB with posthog-js inside it, 136 KB without, 104 KB once
  *   the Font Awesome runtime went (icons are plain `<svg>` now).
  * - Preloaded scripts: the entry chunk plus every chunk it `modulepreload`s on
- *   each page, 493 KB before and 394 KB after dropping Font Awesome.
+ *   each page, 493 KB before and 394 KB after dropping Font Awesome. Route
+ *   and layout chunks are not hinted at all (`trimModulePreload`): /en went
+ *   from 50 links and 507 KB to 15 and 396 KB.
  * - Inline CSS: the global stylesheet that `features.inlineStyles` writes into
  *   every HTML response; 114 KB before and 84 KB after dropping the Font
  *   Awesome stylesheet and keeping tests and docs out of Tailwind's scan.
  */
 const ENTRY_CHUNK_BUDGET_BYTES = 115_000
-const PRELOADED_SCRIPTS_BUDGET_BYTES = 434_000
+const PRELOADED_SCRIPTS_BUDGET_BYTES = 400_000
 const INLINE_CSS_BUDGET_BYTES = 92_000
 
 // Reads the production build when one exists. Never builds: CI runs
@@ -49,6 +51,16 @@ describe.skipIf(!existsSync(precomputed))('production build', () => {
     const files = Object.values(preload).map((entry) => entry.file)
     const total = files.reduce((sum, file) => sum + publicSize(file), 0)
     expect(total, `${files.length} preloaded scripts`).toBeLessThanOrEqual(PRELOADED_SCRIPTS_BUDGET_BYTES)
+  })
+
+  it('hints only the entry graph: route and layout chunks are not preloaded', async () => {
+    const built = await loadBuild()
+    const entry = built.dependencies[built.entrypoints[0]!]!.preload
+    const allowed = new Set(Object.values(entry).map((chunk) => chunk.file))
+    for (const route of ['pages/index.vue', 'layouts/default.vue']) {
+      const files = Object.values(built.dependencies[route]!.preload).map((chunk) => chunk.file)
+      expect(files.filter((file) => !allowed.has(file)), `extra preloads for ${route}`).toEqual([])
+    }
   })
 
   it(`keeps the inline css under ${INLINE_CSS_BUDGET_BYTES} bytes`, async () => {
