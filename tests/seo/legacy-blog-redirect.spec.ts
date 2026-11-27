@@ -10,7 +10,12 @@ describe('legacy blog redirect target', () => {
     ['/blog/', '/en/blog/'],
     ['/blog/some-post', '/en/blog/some-post'],
     ['/blog/some-post?utm=1', '/en/blog/some-post?utm=1'],
-    ['/blog?page=2', '/en/blog?page=2']
+    ['/blog?page=2', '/en/blog?page=2'],
+    ['/blog/en/dev-blog-1', '/en/blog/dev-blog-1'],
+    ['/blog/de/foo', '/de/blog/foo'],
+    ['/blog/en/dev-blog-1?utm=1', '/en/blog/dev-blog-1?utm=1'],
+    ['/blog/en', '/en/blog'],
+    ['/blog/english-post', '/en/blog/english-post']
   ])('moves %s to %s', (path, target) => {
     expect(legacyBlogRedirectTarget(path)).toBe(target)
   })
@@ -40,7 +45,11 @@ describe('redirect route rules and the sitemap', () => {
     expect(sources.length).toBeGreaterThan(0)
   })
 
+  // No locale page lives at /data-privacy, so the sitemap cannot lose one to it.
+  const UNPREFIXED_REDIRECTS = ['/data-privacy']
+
   it.each(sources)('keeps %s inside a locale prefix', (source) => {
+    if (UNPREFIXED_REDIRECTS.includes(source)) return
     expect(source, 'an un-prefixed redirect rule also matches /en and /de pages').toMatch(/^\/(en|de)\//)
   })
 })
