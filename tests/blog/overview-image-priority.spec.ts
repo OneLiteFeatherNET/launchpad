@@ -27,6 +27,12 @@ describe('blog overview image priority', () => {
     expect(wrapper.findComponent({ name: 'NuxtPicture' }).props('preload')).toEqual({ fetchPriority: 'high' })
   })
 
+  it('sizes the featured image box to 16:9 instead of a fixed height', async () => {
+    const img = (await open(Top1)).find('img')
+    expect(img.classes()).toContain('aspect-video')
+    expect(img.classes()).not.toContain('h-96')
+  })
+
   it('keeps a grid card lazy by default', async () => {
     const wrapper = await open(ArticleCard)
     const img = wrapper.find('img')
