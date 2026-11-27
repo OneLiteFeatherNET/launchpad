@@ -23,7 +23,7 @@ const {blogArticle, authors = []} = defineProps<{
         format="avif,webp"
         loading="eager"
         :preload="{ fetchPriority: 'high' }"
-        :img-attrs="{ class: 'w-full h-96 object-cover', fetchpriority: 'high' }"
+        :img-attrs="{ class: 'w-full aspect-video object-cover', fetchpriority: 'high' }"
       />
     </template>
     <h2 class="text-headline-small text-on-surface">
