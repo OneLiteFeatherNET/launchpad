@@ -29,6 +29,9 @@ const props = withDefaults(defineProps<{
   logoSrc: 'images/logo.svg'
 });
 
+// Same-origin path: the logo is a plain file in public/, not an image-resizer job.
+const logoPath = computed(() => `/${props.logoSrc.replace(/^\/+/, '')}`);
+
 const mobileMenuOpen = ref(false);
 const openGroup = ref<string | null>(null);
 const mobileMenuId = 'mobile-menu-panel';
@@ -155,7 +158,14 @@ onKeyStroke('Escape', () => closeMenus())
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
           <NuxtLinkLocale to="/" :aria-label="t('navigation.home_link')" :class="logoLinkClass">
-            <NuxtImg :src="logoSrc" :alt="t('accessibility.logo_alt')" width="40" height="40" class="h-10 w-10" />
+            <img
+              :src="logoPath"
+              :alt="t('accessibility.logo_alt')"
+              width="40"
+              height="40"
+              decoding="async"
+              class="h-10 w-10"
+            >
             <GradientText variant="accent" tone="light" class="text-lg font-semibold">OneLiteFeather</GradientText>
           </NuxtLinkLocale>
         </div>

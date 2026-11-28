@@ -20,6 +20,7 @@ const pictures = (wrapper: Awaited<ReturnType<typeof mountSuspended>>) => wrappe
 describe('Carousel image preload', () => {
   it('asks for a high-priority preload on the first slide only', async () => {
     const wrapper = await mountSuspended(Carousel, { props: { slides: [blog('one'), blog('two')], autoPlay: false }, route: '/en' })
+    await wrapper.find('button[aria-label*="2"]').trigger('click')
     const [first, second] = pictures(wrapper)
     expect(first.props('preload')).toEqual({ fetchPriority: 'high' })
     expect(second.props('preload')).toBeFalsy()

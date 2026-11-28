@@ -31,7 +31,7 @@ export interface Season {
    * in assets/css/seasons.css; a test holds the two together.
    */
   themeColor: { light: string, dark: string }
-  /** Header logo, relative to `public/` as NuxtImg expects it. */
+  /** Header logo, relative to `public/`; served as a same-origin file. */
   logo: string
   /** Favicon, as an absolute path. */
   favicon: string

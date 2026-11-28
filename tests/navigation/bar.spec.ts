@@ -13,6 +13,11 @@ describe('navigation bar', () => {
     expect(NAV_ITEM_DESKTOP).toContain('whitespace-nowrap')
   })
 
+  it('serves the logo as a same-origin img, not through the image resizer', () => {
+    expect(bar).not.toMatch(/<NuxtImg[^>]*logoSrc/)
+    expect(bar).toMatch(/<img[^>]*:src="logoPath"/)
+  })
+
   it('wires the group button to its menu', () => {
     expect(bar).toMatch(/:aria-controls="groupMenuId\(item\)"/)
     expect(bar).toMatch(/:id="groupMenuId\(item\)"/)

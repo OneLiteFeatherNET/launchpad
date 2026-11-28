@@ -2,6 +2,7 @@
 import {defineOrganization} from 'nuxt-schema-org/schema'
 import tailwindcss from "@tailwindcss/vite";
 import pkg from './package.json' with {type: 'json'}
+import {trimModulePreload} from './scripts/trimModulePreload'
 
 // Image provider, chosen at build time.
 //
@@ -42,6 +43,9 @@ export default defineNuxtConfig({
     // global css entries, so no stylesheet blocks the first paint.
     features: { inlineStyles: true },
     hooks: {
+        'build:manifest': (manifest) => {
+            Object.assign(manifest, trimModulePreload(manifest))
+        },
         // layers/base/plugins/posthog.client.ts takes its place and loads posthog-js lazily.
         'app:resolve': (app) => {
             const stock = /nuxt-posthog.*plugins[\\/]posthog\.client/
