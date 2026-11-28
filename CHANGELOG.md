@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.44.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.44.1...onelitefeather.net-v1.44.2) (2026-11-28)
+
+
+### Bug Fixes
+
+* **blog:** keep the featured article image sharp on mobile ([#700](https://github.com/OneLiteFeatherNET/launchpad/issues/700)) ([7384f86](https://github.com/OneLiteFeatherNET/launchpad/commit/7384f8614956b361e947aabfefb81a0d57017d1b))
+* **seo:** redirect retired and mistyped urls ([#699](https://github.com/OneLiteFeatherNET/launchpad/issues/699)) ([adc71e4](https://github.com/OneLiteFeatherNET/launchpad/commit/adc71e4054a9e54dbd2669764459b1cda1d50768))
+
+
+### Performance
+
+* **lcp:** cut bandwidth contention for the hero image on mobile ([#704](https://github.com/OneLiteFeatherNET/launchpad/issues/704)) ([ecec871](https://github.com/OneLiteFeatherNET/launchpad/commit/ecec871df440ab20f51b674de31a4592a7bc69d2))
+
+
+### Documentation
+
+* **openspec:** propose improve-mobile-lcp ([#701](https://github.com/OneLiteFeatherNET/launchpad/issues/701)) ([ea1141a](https://github.com/OneLiteFeatherNET/launchpad/commit/ea1141a6296dc0e2bda7189993fa49c6a0d4a7b5))
+
 ## [1.44.1](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.44.0...onelitefeather.net-v1.44.1) (2026-11-26)
 
 
