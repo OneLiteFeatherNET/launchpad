@@ -462,8 +462,8 @@ export default defineNuxtConfig({
         nitro: {
             preset: "cloudflare_module",
             prerender: {
-                // Nitro 3 serves no public assets to the prerenderer, so the
-                // dump handler 404s; the Worker serves them from ASSETS.
+                // The Nitro 3 prerenderer serves no public assets, so the dump
+                // handler 404s; the Worker answers from its ASSETS binding.
                 ignore: [/^\/__nuxt_content\//]
             },
             cloudflare: {
