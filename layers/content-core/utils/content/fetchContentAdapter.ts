@@ -13,7 +13,7 @@ type Fetcher = <T>(url: string, options: { query: { args: string } }) => Promise
  * are equal URLs and the edge can cache them. The route answers `{ result }`
  * because a bare `null` would not survive as a body.
  */
-export function createFetchContentAdapter(fetcher: Fetcher = $fetch as Fetcher): ContentRepository {
+export function createFetchContentAdapter(fetcher: Fetcher = $fetch as never): ContentRepository {
   const repository: Record<string, (...args: unknown[]) => Promise<unknown>> = {}
   for (const method of CONTENT_METHODS satisfies readonly ContentMethod[]) {
     repository[method] = async (...args) => {

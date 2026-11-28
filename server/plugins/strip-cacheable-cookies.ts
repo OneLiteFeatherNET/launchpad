@@ -21,9 +21,9 @@
 const CACHEABLE = /^\/(?:(?:en|de)(?:\/|$)|robots\.txt$)/
 
 export default defineNitroPlugin((nitroApp) => {
-  nitroApp.hooks.hook('beforeResponse', (event) => {
-    if (getResponseStatus(event) !== 200) return
-    if (!CACHEABLE.test(event.path.split('?')[0]!)) return
-    removeResponseHeader(event, 'set-cookie')
+  nitroApp.hooks.hook('response', (res, event) => {
+    if (res.status !== 200) return
+    if (!CACHEABLE.test(new URL(event.req.url).pathname)) return
+    res.headers.delete('set-cookie')
   })
 })

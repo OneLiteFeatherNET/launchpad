@@ -123,6 +123,11 @@ export default defineNuxtConfig({
     // responses and polling for old assets, none of which this site serves.
     aiReady: false,
     skewProtection: false,
+    typescript: {
+      // @nuxt/content hands its collection types to `nitro.typescript`, which
+      // the Nitro v3 server project no longer reads.
+      serverTsConfig: { include: ['./content/types.d.ts'] }
+    },
     modules: [
       '@vueuse/nuxt',
       'nuxt-link-checker',
@@ -456,8 +461,10 @@ export default defineNuxtConfig({
         },
         nitro: {
             preset: "cloudflare_module",
-            externals: {
-                inline: ["@nuxt/content"]
+            prerender: {
+                // Nitro 3 serves no public assets to the prerenderer, so the
+                // dump handler 404s; the Worker serves them from ASSETS.
+                ignore: [/^\/__nuxt_content\//]
             },
             cloudflare: {
                 deployConfig: true,
@@ -494,7 +501,6 @@ export default defineNuxtConfig({
                     // cached HTML could point at another build's chunks. What is
                     // cached, and for how long, is decided by the routeRules
                     // headers alone (see AGENTS.md, "Caching and SEO signals").
-                    // @ts-expect-error Nitro's bundled wrangler types predate `cache`.
                     cache: {
                         enabled: true
                     },
