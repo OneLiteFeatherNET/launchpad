@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.44.3](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.44.2...onelitefeather.net-v1.44.3) (2026-11-28)
+
+
+### Bug Fixes
+
+* **deps:** upgrade nuxt to 4.7 with matching nitro and unhead ([#705](https://github.com/OneLiteFeatherNET/launchpad/issues/705)) ([359a14c](https://github.com/OneLiteFeatherNET/launchpad/commit/359a14cc0fa564aa11fb4b1e574bfc99fcf8da8e))
+
 ## [1.44.2](https://github.com/OneLiteFeatherNET/launchpad/compare/onelitefeather.net-v1.44.1...onelitefeather.net-v1.44.2) (2026-11-28)
 
 
