@@ -1,5 +1,3 @@
-import type { H3Event } from 'h3'
-
 /**
  * Error responses are neither indexed nor cached.
  *
@@ -16,28 +14,20 @@ import type { H3Event } from 'h3'
  * `releaseDate`, so errors get an explicit `no-store` for the edge and for
  * browsers.
  *
- * Two hooks, because an error reaches the client by two routes: a thrown
- * error runs through Nitro's `error` hook and the error handler, and never
- * through `beforeResponse`; a handler that sets an error status and returns
- * normally runs through `beforeResponse` only. The `error` hook fires before
- * the error handler writes its response, so headers set there are still sent.
+ * One hook, Nitro's `response`: it sees the final response whether a handler
+ * returned an error status or threw and the error handler built it.
  *
  * Cloudflare's own error pages (1101, 1102) are produced outside the Worker
  * and can carry no header from here.
  */
-const markError = (event: H3Event) => {
-  setResponseHeader(event, 'X-Robots-Tag', 'noindex')
-  setResponseHeader(event, 'cloudflare-cdn-cache-control', 'no-store')
-  setResponseHeader(event, 'Cache-Control', 'no-store')
+const markError = (headers: Headers) => {
+  headers.set('X-Robots-Tag', 'noindex')
+  headers.set('cloudflare-cdn-cache-control', 'no-store')
+  headers.set('Cache-Control', 'no-store')
 }
 
 export default defineNitroPlugin((nitroApp) => {
-  nitroApp.hooks.hook('error', (error, { event }) => {
-    const status = (error as { statusCode?: number }).statusCode ?? 500
-    if (event && status >= 400) markError(event)
-  })
-
-  nitroApp.hooks.hook('beforeResponse', (event) => {
-    if (getResponseStatus(event) >= 400) markError(event)
+  nitroApp.hooks.hook('response', (res) => {
+    if (res.status >= 400) markError(res.headers)
   })
 })

@@ -12,17 +12,20 @@ type Hook = (...args: unknown[]) => void
 /** Loads the plugin against stubbed Nitro globals; returns the hooks it registers. */
 async function loadPlugin() {
   const hooks = new Map<string, Hook>()
-  const sent: Record<string, string> = {}
   vi.resetModules()
   vi.stubGlobal('SECURITY_HEADERS', SECURITY_HEADERS)
-  vi.stubGlobal('setResponseHeader', (_event: unknown, name: string, value: string) => {
-    sent[name] = value
-  })
   vi.stubGlobal('defineNitroPlugin', (plugin: (app: unknown) => void) => plugin)
   const { default: plugin } = await import('../../server/plugins/security-headers')
   const hook = (name: string, fn: Hook) => hooks.set(name, fn)
   ;(plugin as (app: unknown) => void)({ hooks: { hook } })
-  return { hooks, sent }
+  return { hooks }
+}
+
+const respond = async (status: number) => {
+  const { hooks } = await loadPlugin()
+  const res = new Response(null, { status })
+  hooks.get('response')!(res, {})
+  return Object.fromEntries(res.headers)
 }
 
 afterEach(() => {
@@ -105,22 +108,15 @@ describe('content security policy source list', () => {
 })
 
 describe('security-headers plugin', () => {
-  it('applies every header before a normal response', async () => {
-    const { hooks, sent } = await loadPlugin()
-    hooks.get('beforeResponse')!({})
-    expect(sent).toEqual(SECURITY_HEADERS)
+  const lower = ([name, value]: [string, string]) => [name.toLowerCase(), value]
+  const expected = Object.fromEntries(Object.entries(SECURITY_HEADERS).map(lower))
+
+  it('applies every header to a normal response', async () => {
+    expect(await respond(200)).toEqual(expected)
   })
 
-  it('applies every header to a thrown error', async () => {
-    const { hooks, sent } = await loadPlugin()
-    hooks.get('error')!(new Error('boom'), { event: {} })
-    expect(sent).toEqual(SECURITY_HEADERS)
-  })
-
-  it('does nothing for an error outside a request', async () => {
-    const { hooks, sent } = await loadPlugin()
-    hooks.get('error')!(new Error('boom'), {})
-    expect(sent).toEqual({})
+  it('applies every header to an error response', async () => {
+    expect(await respond(500)).toEqual(expected)
   })
 
   it('never sets a cookie or cache directive, so edge caching stays as it is', () => {
